@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="generator" content="pandoc">
+    <meta name="description" content="">
+    <meta name="author" content="Marc de Falco">
+
+    <title>Informatique - Introduction</title>
+
+    <link rel="stylesheet" type="text/css" href="semantic-ui-css/semantic.min.css">
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="semantic-ui-css/semantic.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" type="text/javascript"></script>
+
+<script>
+$(document).ready(function() {
+   $('.chapter').hide();
+
+   $('.ui.marginnote').each(function() {
+       const id = $(this).attr('id');
+       $(this).detach().appendTo('#noterail')
+           .replaceWith(function() { return '<div class=".ui.marginnote" id="'
+                   + id + '">'+this.innerHTML + "</div>" })
+
+       setTimeout(function() {
+           $('#'+id).each(function() {
+               console.log(this)
+                   $(this).css({
+                        position: 'absolute',
+                        top: $('#' + $(this).attr('id') + 'context').position().top,
+                    })
+           })
+        }, 500)
+    })
+})
+</script>
+
+  <style type="text/css">
+  body {
+    background-color: #FFFFFF;
+  }
+  html {
+    font-size: 20px;
+  }
+  .ui.menu .item img.logo {
+    margin-right: 1.5em;
+  }
+  .main.container {
+    margin-top: 7em;
+  }
+  .wireframe {
+    margin-top: 2em;
+  }
+  .ui.toc {
+    margin: 10em 0em 0em;
+    padding: 10em 0em;
+  }
+  .ui.footer.segment {
+    margin: 5em 0em 0em;
+    padding: 5em 0em;
+  }
+  </style>
+
+  </head>
+  <body>
+\(
+\def\N{{\mathbb{N}}}
+\def\R{{\mathbb{R}}}
+\def\D{{\mathbb{D}}}
+\def\C{{\mathbb{C}}}
+\def\Z{{\mathbb{Z}}}
+\def\Q{{\mathbb{Q}}}
+\def\K{{\mathbb{K}}}
+\def\KX{{\mathbb{K}}[X]}
+\def\U{{\mathbb{U}}}
+\def\B{{\mathcal{B}}}
+
+\newcommand\ensfonctions[2]{\mathcal{F}(#1,#2)}
+\newcommand\ensfonctionszero[3]{\mathcal{F}_{#3,0}(#1,#2)}
+\newcommand\continues[2]{\mathcal{C}(#1,#2)}
+\newcommand\lineaires[2]{\mathcal{L}(#1,#2)}
+\newcommand\nlineaires[3]{\mathcal{L}_{#1}(#2,#3)}
+\newcommand\ensendo[1]{\mathcal{L}(#1)}
+\newcommand\derivables[2]{\mathcal{D}(#1,#2)}
+\newcommand\segment[2]{[#1,#2]}
+\newcommand\intouvert[2]{]#1,#2[}
+\newcommand\intouvertgauche[2]{]#1,#2]}
+\newcommand\intouvertdroite[2]{[#1,#2[}
+\newcommand\classeck[3]{\mathcal{C}^{#1}(#2,#3)}
+\newcommand\range[2]{[| #1,#2 |]}
+\newcommand\voisinages[2]{\mathcal{V}_{#1}(#2)}
+\newcommand\matrices[3]{\mathcal{M}_{#1,#2}(#3)}
+\newcommand\matricescarres[2]{\mathcal{M}_{#1}(#2)}
+\newcommand\gln[2]{\mbox{GL}_{#1}(#2)}
+\newcommand\Vect[1]{\mbox{Vect}(#1)}
+\newcommand\Support[1]{\mbox{Supp}(#1)}
+\newcommand\rang[1]{\mbox{rg}(#1)}
+\newcommand\trace[1]{\mbox{tr}(#1)}
+\newcommand\gl[1]{\mbox{GL}(#1)}
+\newcommand\dom[0]{\mbox{dom}}
+\newcommand\codim[0]{\mbox{codim}}
+\newcommand\tr{\mbox{tr}}
+\newcommand\uniondisjointe{\sqcup}
+\def\Rbar{\overline\R}
+\def\lt{<}
+\def\rR{\mathcal{R}}
+\newcommand\parties[1]{\mathcal{P}(#1)}
+\newcommand\entiere[1]{\left\lfloor #1 \right\rfloor}
+\newcommand\congru[3]{#1 = #2\ [#3]}
+\newcommand\enscomp[2]{\left\{\left.\ #1\ \right|\ #2\ \right\}}
+\newcommand\classe[1]{\overline{#1}}
+\newcommand\classemod[2]{\overline{#1}^{[#2]}}
+\newcommand\quotient[2]{#1 / #2}
+\newcommand\ZnZ[1]{\quotient{\Z}{#1 \Z}}
+\newcommand\card[1]{\text{Card}\ #1}
+\newcommand\Det{\mbox{Det}}
+\newcommand\indic{\mathbbm{1}}
+\newcommand\groupeengendre[1]{\langle #1 \rangle}
+\renewcommand\Im{\mathfrak{I}}
+\newcommand\id{\mbox{id}}
+\newcommand\Bary[1]{\mbox{Bary}\{#1\}}
+\newcommand\Ker{\mbox{Ker}~}
+\newcommand\Ima{\mbox{Im}~}
+\newcommand\Perm[1]{\mathfrak{S}_#1}
+\newcommand\comb[2]{\binom{#1}{#2}}
+\newcommand\tend[2]{\xrightarrow[#1 \rightarrow #2]{}}
+\newcommand\limite[2]{\lim_{#1 \rightarrow #2}}
+\newcommand\sh{\mbox{sh}}
+\newcommand\ch{\mbox{ch}}
+\renewcommand\tanh{\mbox{th}}
+\newcommand\Arcsin{\mbox{Arcsin}~}
+\newcommand\Arccos{\mbox{Arccos}~}
+\newcommand\Arctan{\mbox{Arctan}~}
+\newcommand\Argsh{\mbox{Argsh}}
+\newcommand\Argch{\mbox{Argch}}
+\newcommand\Argth{\mbox{Argth}}
+\newcommand\argu{\mbox{arg}}
+\newcommand\dron[2]{\frac{\partial #1}{\partial #2}}
+\newcommand\conj[1]{\overline{#1}}
+\newcommand\ei[1]{e^{i #1}}
+\newcommand\eii[2]{e^{#1 i #2}}
+\newcommand\crochet[1]{\left[ #1 \right]}
+
+\newcommand\application[5]{\begin{array}{rcccc}
+#1 & : & #2 & \mapsto & #3 \\ 
+& & #4 & \mapsto & #5
+\end{array}}
+
+\newcommand{\diff}{\mathop{}\mathopen{}\mathrm{d}}
+\newcommand{\cc}{{\cal C}}
+
+\)
+
+
+<div class="ui fixed inverted menu">
+    <div class="ui container">
+      <a href="#" class="header item">
+        <img class="logo" src="assets/img/logo.png">
+        Informatique en CPGE
+      </a>
+      <a href="index.html" class="item">Accueil</a>
+    </div>
+  </div>
+
+
+<div class="ui main container segment">
+
+<div class="toc left dividing ui small rail">
+<ul>
+<li><a href="#introduction"><span class="toc-section-number">0.1</span> Introduction</a></li>
+<li><a href="#plan-du-cours"><span class="toc-section-number">0.2</span> Plan du cours</a></li>
+</ul>
+</div>
+
+<div class="right dividing ui rail" id="noterail">
+</div>
+
+<h2 data-number="0.1" id="introduction"><span class="header-section-number">0.1</span> Introduction</h2>
+<p>Ce document présente un cours d’informatique en MPI 1ere et 2eme année.</p>
+<p>Il s’agit pour le moment d’un premier jet, et il est amené à beaucoup évoluer. Il correspond à mon interprétation personnelle et ne saurait représenter une correspondance parfaite avec le programme.</p>
+<p>Pour le moment, il ne s’agit que de développements indépendants. Dans un second temps, ils seront éventuellement articulés autour d’une progression semestrialisée.</p>
+<h2 data-number="0.2" id="plan-du-cours"><span class="header-section-number">0.2</span> Plan du cours</h2>
+<ul>
+<li><p><a href="part_systemes.html">Systèmes</a></p>
+<ul>
+<li><a href="part_systemes.html#gestion-de-la-mémoire-d&#39;un-programme">Gestion de la mémoire d’un programme</a></li>
+</ul></li>
+</ul>
+</div>
+
+<div class="ui inverted vertical footer segment">
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+Marc de Falco
+</div>
+
+  </body>
+</html>
