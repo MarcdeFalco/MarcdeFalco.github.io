@@ -91,18 +91,17 @@ $(document).ready(function() {
    $('.ui.marginnote').each(function() {
        const id = $(this).attr('id');
        $(this).detach().appendTo('#noterail')
-           .replaceWith(function() { return '<div class=".ui.marginnote" id="'
+           .replaceWith(function() { return '<div class=".ui.marginnote" style="position: absolute;" id="'
                    + id + '">'+this.innerHTML + "</div>" })
 
        setTimeout(function() {
            $('#'+id).each(function() {
                console.log(this)
-                   $(this).css({
-                        position: 'absolute',
-                        top: $('#' + $(this).attr('id') + 'context').position().top,
-                    })
+               $(this).offset({
+                   top: $('#' + $(this).attr('id') + 'context').offset().top,
+               })
            })
-        }, 500)
+        }, 1000)
     })
 })
 </script>
@@ -227,7 +226,7 @@ $(document).ready(function() {
 <div class="ui fixed inverted menu">
     <div class="ui container">
       <a href="#" class="header item">
-        <img class="logo" src="assets/img/logo.png">
+        <img class="logo" src="assets/pics/logo.png">
         Informatique en CPGE
       </a>
       <a href="index.html" class="item">Accueil</a>
@@ -266,7 +265,8 @@ $(document).ready(function() {
 <li>statiquement : c’est le cas des variables locales ou globales définies dans le programme. Au moment de la compilation, le compilateur dispose de l’information suffisante pour prévoir de la place en mémoire pour stocker ces données.</li>
 <li>dynamiquement : c’est le cas des objets dont la taille n’est connue qu’à l’exécution et peut varier selon l’état du programme. C’est alors au moment de l’exécution que le programme va faire une demande d’allocation pour obtenir une place mémoire.</li>
 </ul>
-<p>En terme d’allocation statique, on peut distinguer plusieurs types de mémoire : <span id="marginnote1context"><span class="ui marginnote" id="marginnote1"><img src="assets/pics/memorymap.png" /> <br/>Structure de la mémoire associée à un programme</span></span></p>
+<p>En terme d’allocation statique, on peut distinguer plusieurs types de mémoire : <span id="marginnote1context" style="font-size: 0.4em">⮞<span class="ui marginnote" id="marginnote1"><img src="assets/pics/memorymap.png" /></p>
+<p><br/>Structure de la mémoire associée à un programme</span></span></p>
 <ul>
 <li>les variables globales initialisées qui seront stockées dans le binaire et placées en mémoire dans une zone spécifique chargée avec le binaire</li>
 <li>les variables globales non initialisées dont seule la déclaration sera dans le binaire et qui seront allouées, placées en mémoire et initialisées à 0 au moment du chargement du binaire</li>
@@ -294,7 +294,8 @@ $(document).ready(function() {
 <span id="memoirecodeex1-17"><a href="#memoirecodeex1-17" aria-hidden="true"></a>    </span>
 <span id="memoirecodeex1-18"><a href="#memoirecodeex1-18" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
 <span id="memoirecodeex1-19"><a href="#memoirecodeex1-19" aria-hidden="true"></a>}</span></code></pre></div>
-<p></div> Il est possible d’observer la manière dont sa mémoire sera répartie en utilisant la commande <code>objdump</code> :</p>
+<p></div></p>
+<p>Il est possible d’observer la manière dont sa mémoire sera répartie en utilisant la commande <code>objdump</code> :</p>
 <p><div class="ui segment compact" style="font-size:0.8em" ></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode zsh"><code class="sourceCode zsh"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>$ <span class="kw">gcc</span> -c memoire.c</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>$ objdump -x memoire.o</span>
@@ -347,7 +348,8 @@ $(document).ready(function() {
 <span id="cb1-49"><a href="#cb1-49" aria-hidden="true"></a>OFFSET           TYPE              VALUE </span>
 <span id="cb1-50"><a href="#cb1-50" aria-hidden="true"></a>0000000000000020 R_X86_64_PC32     .text</span>
 <span id="cb1-51"><a href="#cb1-51" aria-hidden="true"></a>0000000000000040 R_X86_64_PC32     .text+0x000000000000001f</span></code></pre></div>
-<p></div> On retrouve dans les sections mémoire : <span id="marginnote2context"><span class="ui marginnote" id="marginnote2">Ici, le schéma mémoire est un peu plus compliqué car une zone mémoire distincte est prévue pour les variables constantes initialisées pour des raisons de sécurité.</span></span></p>
+<p></div></p>
+<p>On retrouve dans les sections mémoire : <span id="marginnote2context" style="font-size: 0.4em">⮞<span class="ui marginnote" id="marginnote2">Ici, le schéma mémoire est un peu plus compliqué car une zone mémoire distincte est prévue pour les variables constantes initialisées pour des raisons de sécurité.</span></span></p>
 <ul>
 <li><code>.text</code> contenant le programme binaire</li>
 <li><code>.data</code> contenant les variables globales initialisées et non constantes</li>
@@ -405,7 +407,7 @@ $(document).ready(function() {
 <span id="cb2-12"><a href="#cb2-12"></a>    <span class="cf">return</span> z + f(z);</span>
 <span id="cb2-13"><a href="#cb2-13"></a>}</span></code></pre></div>
 <p></div></p>
-<p>La portée des identificateurs est :<span id="marginnote3context"><span class="ui marginnote" id="marginnote3">Pour une fonction, afin de pouvoir écrire des fonctions récursives, l’identificateur est utilisable dans le corps de la fonction</span></span></p>
+<p>La portée des identificateurs est :<span id="marginnote3context" style="font-size: 0.4em">⮞<span class="ui marginnote" id="marginnote3">Pour une fonction, afin de pouvoir écrire des fonctions récursives, l’identificateur est utilisable dans le corps de la fonction</span></span></p>
 <table>
 <thead>
 <tr class="header">
@@ -490,11 +492,38 @@ $(document).ready(function() {
 <p>Il est possible de définir en C des variables locales dont la durée de vie dépasse sa portée. On parle alors de variables <em>statiques</em>. Ce point étant assez technique, il sera ignoré ici.</p>
 <h3 data-number="1.1.4" id="sec:piles-dexécution-variables-locales-et-paramètres"><span class="header-section-number">1.1.4</span> Piles d’exécution, variables locales et paramètres</h3>
 <p>On a vu qu’en raison de leur durée de vie, les variables globales étaient allouées dès le chargement du programme. Pour les variables locales ainsi que la mécanique des appels, on utilise une <strong>pile</strong>.</p>
-<p>Cette pile d’exécution est représentée en mémoire par un tableau et un indicateur de fond de pile. <span id="marginnote4context"><span class="ui marginnote" id="marginnote4">En fait, il existe des architectures où les adresses sont croissantes. Ce qui importe est que le tas et la pile aient des comportements opposées pour qu’ils puissent grandir dans la même zone mémoire.</span></span></p>
+<p>Cette pile d’exécution est représentée en mémoire par un tableau et un indicateur de fond de pile. <span id="marginnote4context" style="font-size: 0.4em">⮞<span class="ui marginnote" id="marginnote4">En fait, il existe des architectures où les adresses sont croissantes. Ce qui importe est que le tas et la pile aient des comportements opposées pour qu’ils puissent grandir dans la même zone mémoire.</span></span></p>
 <p>Le remplissage de ce tableau s’effectue souvent des adresses hautes vers les adresses faibles : on empile en faisant diminuer les adresses.</p>
 <p>Un compilateur peut faire le choix d’utiliser directement des registres processeurs pour les variables locales ou pour passer des paramètres à une fonction. Ici, pour simplifier, on va supposer que ce n’est pas le cas et que tout passe par la pile d’exécution.</p>
-<p>Lors d’un appel une fonction, on commence par empiler les paramètres, puis réserver une place pour la valeur de retour et enfin l’adresse à laquelle doit revenir l’exécution une fois que la fonction aura terminé son exécution.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Afin de pouvoir appeler une fonction dans une bibliothèque potentiellement compilée avec un autre compilateur, il est nécessaire d’avoir une convention d’appels de fonctions. Une telle convention est appelée une <em>interface applicative binaire</em> (Application Binary Interface).</p>
+<p>La convention <code>System V AMD64 ABI</code> qui est celle de Linux et macOS sur des architectures 64bits consiste à utiliser des registres entiers pour les six premiers arguments entiers ou pointeurs et des registres flottants pour les huit premiers arguments flottants. Les arguments suivants sont alors passés sur la pile (donc dès le septième entier/pointeur ou neuvième flottant.</p>
+<p>La convention <code>cdecl</code> qui est assez répandue sur les architectures 32bits consiste à utiliser la pile. Par contre la valeur de retour est présente dans des registres comme pour la convention <code>System V AMD64 ABI</code>.</div></p>
+<p><span id="marginnote5context" style="font-size: 0.4em">⮞<span class="ui marginnote" id="marginnote5"><img src="assets/pics/stackframe.png" /></p>
+<p><br/>Structure pile associée à un appel de fonction</span></span></p>
+<p>Lors d’un appel une fonction passant par la pile, on commence par empiler les paramètres (souvent de la droite vers la gaucher) puis on empile l’adresse à laquelle doit revenir l’exécution une fois que la fonction aura terminé son exécution.</p>
 <p>Au début de l’exécution de cette fonction, on place sur la pile l’adresse du fond de pile et on déplace celui-ci pour réserver de la place pour les variables locales.</p>
+<p>L’empreinte sur la pile d’un appel de fonction est appelée une structure pile (<strong>stack frame</strong> en anglais). La pile est alors organisée, depuis l’appel au point d’entrée du programme, par empilement et dépilement de structures piles.</p>
+<p>Voici un exemple possible de l’état de la pile d’exécution lors de l’exécution d’un programme compilé avec la norme <code>cdecl</code> <a href="#marginnote6" id="marginnote6context">6<span class="ui marginnote" id="marginnote6"><span style="text-decoration: underline">6</span> Il suffit d’ajouter l’argument <code>-m32</code> pour compiler en 32bits</span></a> .</p>
+<p><div class="ui grid"><div class="eight wide column"> <div class="ui segment compact" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="dt">int</span> f(<span class="dt">int</span> a, <span class="dt">int</span> b)</span>
+<span id="cb6-3"><a href="#cb6-3"></a>{</span>
+<span id="cb6-4"><a href="#cb6-4"></a>    <span class="dt">int</span> c = <span class="dv">3</span>;</span>
+<span id="cb6-5"><a href="#cb6-5"></a>    <span class="co">/* pile ici après l&#39;appel en l13 */</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>    c = c + b;</span>
+<span id="cb6-7"><a href="#cb6-7"></a>    c = c * a;</span>
+<span id="cb6-8"><a href="#cb6-8"></a>    <span class="cf">return</span> c;</span>
+<span id="cb6-9"><a href="#cb6-9"></a>}</span>
+<span id="cb6-10"><a href="#cb6-10"></a></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="dt">int</span> main()</span>
+<span id="cb6-12"><a href="#cb6-12"></a>{</span>
+<span id="cb6-13"><a href="#cb6-13"></a>    <span class="dt">int</span> x = f(<span class="dv">10</span>,<span class="dv">12</span>);</span>
+<span id="cb6-14"><a href="#cb6-14"></a>}</span></code></pre></div>
+<p></div> </div><div class="eight wide column"> <img src="assets/pics/stackframe1.png" /></p>
+<p></div></div></p>
+<p>A chaque appel de fonction, on va donc empiler une structure de pile complète, puis la dépiler à la sortie. Ce mécanisme est essentiel pour permettre la récurrence car il permet d’effectuer plusieurs appels d’une même fonction sans risquer que la mémoire utilisée lors d’un des appels interfère avec un autre. On comprend également les limites de la récursivité ici car cet empilement successif de structures de piles peut dépasser la taille maximale de la pile d’exécution : on parle alors de <em>dépassement de pile</em> ou <strong>stack overflow</strong> en anglais.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Il est possible de définir des variables locales qui soient situées au même emplacement mémoire pour tous les appels d’une fonction, c’est ce qu’on appelé des variables <em>statiques</em> dans le paragraphe précédent.</p>
+<p>Ce mécanisme est essentiellement géré comme les variables globales et il ne sera pas développé dans la suite.</div></p>
 </div>
 
 <div class="ui inverted vertical footer segment">

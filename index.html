@@ -27,18 +27,17 @@ $(document).ready(function() {
    $('.ui.marginnote').each(function() {
        const id = $(this).attr('id');
        $(this).detach().appendTo('#noterail')
-           .replaceWith(function() { return '<div class=".ui.marginnote" id="'
+           .replaceWith(function() { return '<div class=".ui.marginnote" style="position: absolute;" id="'
                    + id + '">'+this.innerHTML + "</div>" })
 
        setTimeout(function() {
            $('#'+id).each(function() {
                console.log(this)
-                   $(this).css({
-                        position: 'absolute',
-                        top: $('#' + $(this).attr('id') + 'context').position().top,
-                    })
+               $(this).offset({
+                   top: $('#' + $(this).attr('id') + 'context').offset().top,
+               })
            })
-        }, 500)
+        }, 1000)
     })
 })
 </script>
@@ -163,7 +162,7 @@ $(document).ready(function() {
 <div class="ui fixed inverted menu">
     <div class="ui container">
       <a href="#" class="header item">
-        <img class="logo" src="assets/img/logo.png">
+        <img class="logo" src="assets/pics/logo.png">
         Informatique en CPGE
       </a>
       <a href="index.html" class="item">Accueil</a>
