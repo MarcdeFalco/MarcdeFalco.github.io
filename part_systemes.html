@@ -246,6 +246,7 @@ $(document).ready(function() {
 <li><a href="#sec:portée-dun-identificateur"><span class="toc-section-number">1.1.2</span> Portée d’un identificateur</a></li>
 <li><a href="#sec:durée-de-vie-dune-variable"><span class="toc-section-number">1.1.3</span> Durée de vie d’une variable</a></li>
 <li><a href="#sec:piles-dexécution-variables-locales-et-paramètres"><span class="toc-section-number">1.1.4</span> Piles d’exécution, variables locales et paramètres</a></li>
+<li><a href="#sec:allocation-dynamique"><span class="toc-section-number">1.1.5</span> Allocation dynamique</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -524,6 +525,100 @@ $(document).ready(function() {
 <p>A chaque appel de fonction, on va donc empiler une structure de pile complète, puis la dépiler à la sortie. Ce mécanisme est essentiel pour permettre la récurrence car il permet d’effectuer plusieurs appels d’une même fonction sans risquer que la mémoire utilisée lors d’un des appels interfère avec un autre. On comprend également les limites de la récursivité ici car cet empilement successif de structures de piles peut dépasser la taille maximale de la pile d’exécution : on parle alors de <em>dépassement de pile</em> ou <strong>stack overflow</strong> en anglais.</p>
 <p><div class="ui message orange"><div class="header">Remarque</div>Il est possible de définir des variables locales qui soient situées au même emplacement mémoire pour tous les appels d’une fonction, c’est ce qu’on appelé des variables <em>statiques</em> dans le paragraphe précédent.</p>
 <p>Ce mécanisme est essentiellement géré comme les variables globales et il ne sera pas développé dans la suite.</div></p>
+<p><div class="ui message blue"><div class="header">Note</div>Je me demande s’il faudrait parler plus précisement de la manière dont la pile est gérée avec les registres ebp/esp. Mais ça ne me semble pas apporter grand chose ici.</div></p>
+<h3 data-number="1.1.5" id="sec:allocation-dynamique"><span class="header-section-number">1.1.5</span> Allocation dynamique</h3>
+<p>Comme cela a été vu dans la section sec. 1.1.1, il est possible d’allouer dynamiquement de la mémoire. Pour gérer cette allocation dynamique, on passe par une zone mémoire appelé le <em>tas</em> ainsi que par un mécanisme d’allocation et de libération de mémoire au niveau du système.</p>
+<p>Pour l’utilisateur, cette gestion interne est transparente et on peut se contenter de considérer qu’il y a deux mécanismes :</p>
+<ul>
+<li>l’<strong>allocation</strong> mémoire où on demande à ce qu’une zone mémoire d’une certaine taille soit allouée</li>
+<li>la <strong>libération</strong> mémoire où on signale que la zone mémoire peut être récupérée par le système.</li>
+</ul>
+<p>Naturellement, la mémoire d’un ordinateur étant finie, il est très important de libérer au plus tôt la mémoire non utilisée pour éviter d’épuiser la mémoire. Quand un programme ne libère pas toute la mémoire qu’il alloue, on parle de <strong>fuite mémoire</strong>. L’empreinte mémoire d’un tel programme peut alors croître jusqu’à rendre le programme ou le système inutilisable.</p>
+<h4 data-number="1.1.5.1" id="sec:allocation"><span class="header-section-number">1.1.5.1</span> Allocation</h4>
+<p>Pour allouer une zone mémoire, on utilise la fonction <code>malloc</code> dans <code>stdlib.h</code> de signature :</p>
+<p><div class="ui segment compact" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="dt">void</span> *malloc(<span class="dt">size_t</span> size)</span></code></pre></div>
+<p></div></p>
+<p>Ici <code>size</code> indique le nombre d’<strong>octets</strong> à allouer et la fonction renvoie un pointeur vers le premier octet alloué. Comme la fonction ne connait pas le type d’objets alloués, on utilise ainsi le type <code>void *</code>.</p>
+<p>Ce type joue un rôle spécial et on peut changer directement le type de la valeur de retour sans rien avoir à écrire d’autre l’appel à malloc :</p>
+<p><div class="ui segment compact" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="dt">char</span> *t = malloc(n);</span></code></pre></div>
+<p></div></p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Dans le langage C++ qui peut être vu comme un successeur de C, il est obligatoire de préciser ici le nouveau type à l’aide d’un un <strong>transtypage</strong>. Pour convertir la valeur <code>x</code> vers le type <code>char *</code> on écrit alors <code>(char *)x</code>. Ainsi, pour allouer un tableau de <code>n</code> caractères, on utilisera :</p>
+<p><div class="ui segment compact" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="dt">char</span> *t = (<span class="dt">char</span> *) malloc(n);</span></code></pre></div>
+<p></div></p>
+<p>Bien que ce ne soit pas nécessaire en C, il est fréquent de rencontrer des programmes présentant de tels transtypages qui sont superflus mais corrects syntaxiquement en C.</div></p>
+<p>Pour obtenir la taille à allouer, il peut être utile d’utiliser l’opérateur <code>sizeof</code> qui prend en entrée un type ou une valeur et renvoie sa taille. Ainsi si on peut allouer un tableau de <span class="math inline">\(n\)</span> entiers non signés ainsi :</p>
+<p><div class="ui segment compact" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="dt">unsigned</span> <span class="dt">int</span> *t = malloc( <span class="kw">sizeof</span>(<span class="dt">unsigned</span> <span class="dt">int</span>) * n );</span></code></pre></div>
+<p></div></p>
+<p>et cet appel ne dépend de la taille prise par un <code>unsigned int</code> sur l’architecture.</p>
+<p>Une autre raison de l’utilisation de <code>sizeof</code> est l’extensibilité. Par exemple, si on a un <code>struct point</code> représentant des points en 2D :</p>
+<p><div class="ui segment compact" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="kw">struct</span> {</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a>    <span class="dt">float</span> x;</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a>    <span class="dt">float</span> y;</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>} point;</span></code></pre></div>
+<p></div></p>
+<p>on peut allouer un tableau de <span class="math inline">\(n\)</span> points ainsi :</p>
+<p><div class="ui segment compact" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="kw">struct</span> point *t = malloc( <span class="kw">sizeof</span>(point) * n );</span></code></pre></div>
+<p></div></p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Il ne faut pas écrire <code>sizeof(struct point)</code> mais <code>sizeof(point)</code>.</div></p>
+<p>Si jamais on change la structure pour représenter des points en 3D ainsi :</p>
+<p><div class="ui segment compact" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="kw">struct</span> {</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a>    <span class="dt">float</span> x;</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a>    <span class="dt">float</span> y;</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a>} point;</span></code></pre></div>
+<p></div></p>
+<p>il sera inutile de changer le code d’allocation du tableau car <code>sizeof(point)</code> tiendra compte automatiquement du changement.</p>
+<p>Si jamais une erreur empêche d’allouer la mémoire - ce qui peut être le cas s’il n’y a plus de mémoire disponible - le pointeur renvoyé par <code>malloc</code> a la valeur spéciale <code>NULL</code>.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div>La zone mémoire renvoyée par <code>malloc</code> n’est pas initialisée. On ne peut pas supposer qu’elle soit remplie de la valeur 0. Il faut donc manuellement initialiser la mémoire après le retour de <code>malloc</code>.</div></p>
+<h4 data-number="1.1.5.2" id="sec:libération"><span class="header-section-number">1.1.5.2</span> Libération</h4>
+<p>Pour libérer la mémoire, on utilise la fonction <code>free</code> également présente dans <code>stdlib.h</code> et dont la signature est :</p>
+<p><div class="ui segment compact" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="dt">void</span> free(<span class="dt">void</span> *ptr);</span></code></pre></div>
+<p></div></p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Il est très important d’utiliser uniquement un pointeur obtenu précédemment par un appel à <code>malloc</code> et de ne pas l’utiliser plus d’une fois.</p>
+<p>Le programme suivant provoque une erreur <code>free(): invalid pointer</code> à l’exécution mais est détécté par un avertissement du compilateur : <code>warning: attempt to free a non-heap object ‘a’</code>.</p>
+<p><div class="ui segment compact" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a><span class="dt">int</span> main()</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a>{</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true"></a>    <span class="dt">int</span> a;</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true"></a>    free(&amp;a);</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true"></a>}</span></code></pre></div>
+<p></div></p>
+<p>Le programme suivant alloue un tableau de deux <code>char</code> et appelle <code>free</code> sur l’adresse de la seconde case. En faisant cela, il n’y a pas d’avertissement car on appelle <code>free</code> sur un objet qui est effectivement sur le tas. On obtient alors à nouveau une erreur à l’exécution <code>free(): invalid pointer</code>.</p>
+<p><div class="ui segment compact" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a><span class="dt">int</span> main()</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a>{</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a>    <span class="dt">char</span> *a = malloc(<span class="dv">2</span>);</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true"></a>    free(&amp;(a[<span class="dv">1</span>]));</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true"></a>}</span></code></pre></div>
+<p></div></p>
+<p>Le programme suivant libère deux fois la mémoire et provoque l’erreur <code>free(): double free detected in tcache 2</code> à l’exécution.</p>
+<p><div class="ui segment compact" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true"></a><span class="dt">int</span> main()</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true"></a>{</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true"></a>    <span class="dt">char</span> *a = malloc(<span class="dv">2</span>);</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true"></a>    free(a);</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true"></a>    free(a);</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true"></a>}</span></code></pre></div>
+<p></div> </div></p>
+<h4 data-number="1.1.5.3" id="sec:protection-mémoire"><span class="header-section-number">1.1.5.3</span> Protection mémoire</h4>
+<p>Comme on l’a vu dans la première partie, quand un programme s’exécute il a un environnement mémoire constitué de plusieurs zones appelées <strong>segments</strong> avec le droit d’écriture dans certaines d’entre elles.</p>
+<p>Le système d’exploitation protège ainsi la mémoire et, au niveau matériel, l’unité de gestion de la mémoire connait les adresses accessibles à un programme. En cas d’accès anormal, le matériel provoque une erreur qui remonte au système d’exploitation qui termine l’exécution du programme avec une erreur souvent intitulée <code>Segmentation fault</code>.</p>
 </div>
 
 <div class="ui inverted vertical footer segment">
