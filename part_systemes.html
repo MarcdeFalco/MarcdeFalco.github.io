@@ -542,10 +542,10 @@ $(document).ready(function() {
 <p>et cet appel ne dépend de la taille prise par un <code>unsigned int</code> sur l’architecture.</p>
 <p>Une autre raison de l’utilisation de <code>sizeof</code> est l’extensibilité. Par exemple, si on a un <code>struct point</code> représentant des points en 2D :</p>
 <p><div class="ui segment compact" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="kw">struct</span> {</span>
+<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="kw">struct</span> point {</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a>    <span class="dt">float</span> x;</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a>    <span class="dt">float</span> y;</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>} point;</span></code></pre></div>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>};</span></code></pre></div>
 <p></div></p>
 <p>on peut allouer un tableau de <span class="math inline">\(n\)</span> points ainsi :</p>
 <p><div class="ui segment compact" style="font-size:0.8em" ></p>
@@ -554,11 +554,11 @@ $(document).ready(function() {
 <p><div class="ui message orange"><div class="header">Remarque</div>Il ne faut pas écrire <code>sizeof(struct point)</code> mais <code>sizeof(point)</code>.</div></p>
 <p>Si jamais on change la structure pour représenter des points en 3D ainsi :</p>
 <p><div class="ui segment compact" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="kw">struct</span> {</span>
+<div class="sourceCode" id="cb13"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="kw">struct</span> point {</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a>    <span class="dt">float</span> x;</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a>    <span class="dt">float</span> y;</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a>    <span class="dt">float</span> z;</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true"></a>} point;</span></code></pre></div>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true"></a>};</span></code></pre></div>
 <p></div></p>
 <p>il sera inutile de changer le code d’allocation du tableau car <code>sizeof(point)</code> tiendra compte automatiquement du changement.</p>
 <p>Si jamais une erreur empêche d’allouer la mémoire - ce qui peut être le cas s’il n’y a plus de mémoire disponible - le pointeur renvoyé par <code>malloc</code> a la valeur spéciale <code>NULL</code>.</p>
