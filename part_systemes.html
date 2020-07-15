@@ -557,7 +557,8 @@ $(document).ready(function() {
 <div class="sourceCode" id="cb13"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="kw">struct</span> {</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a>    <span class="dt">float</span> x;</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a>    <span class="dt">float</span> y;</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a>} point;</span></code></pre></div>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a>    <span class="dt">float</span> z;</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true"></a>} point;</span></code></pre></div>
 <p></div></p>
 <p>il sera inutile de changer le code d’allocation du tableau car <code>sizeof(point)</code> tiendra compte automatiquement du changement.</p>
 <p>Si jamais une erreur empêche d’allouer la mémoire - ce qui peut être le cas s’il n’y a plus de mémoire disponible - le pointeur renvoyé par <code>malloc</code> a la valeur spéciale <code>NULL</code>.</p>
@@ -628,7 +629,7 @@ $(document).ready(function() {
 <p></div> </div></div></div></p>
 <h4 data-number="1.1.5.4" id="sec:custommalloc"><span class="header-section-number">1.1.5.4</span> Réalisation d’un système d’allocation de mémoire</h4>
 <p><div class="ui message blue"><div class="header">Note</div>Prérequis : listes chaînées</div></p>
-<p>Afin de comprendre comment fonctionne le tas, et en particulier malloc et free, on va simuler ici ce comportement en allouant une grande plage de mémoire avec malloc et en gérant le découpage et l’allocation de celles-ci.</p>
+<p>Afin de comprendre comment fonctionne le tas, et en particulier malloc et free, on va simuler ici ce comportement en allouant une grande plage de mémoire avec malloc et en gérant le découpage et l’allocation de celle-ci.</p>
 <p>Pour gérer les blocs mémoires libres, on utilise une liste circulaire. Une liste circulaire est une liste chaînée avec un lien supplémentaire entre le premier et le dernier maillon, ce qui fait qu’on peut considérer n’importe quel maillon comme étant la <em>tête</em> de la liste.</p>
 <p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"> Une liste chaînée :</p>
 <p><img src="assets/pics/listechainee.png" /></p>
