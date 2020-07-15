@@ -549,9 +549,8 @@ $(document).ready(function() {
 <p></div></p>
 <p>on peut allouer un tableau de <span class="math inline">\(n\)</span> points ainsi :</p>
 <p><div class="ui segment compact" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="kw">struct</span> point *t = malloc( <span class="kw">sizeof</span>(point) * n );</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="kw">struct</span> point *t = malloc( <span class="kw">sizeof</span>(<span class="kw">struct</span> point) * n );</span></code></pre></div>
 <p></div></p>
-<p><div class="ui message orange"><div class="header">Remarque</div>Il ne faut pas écrire <code>sizeof(struct point)</code> mais <code>sizeof(point)</code>.</div></p>
 <p>Si jamais on change la structure pour représenter des points en 3D ainsi :</p>
 <p><div class="ui segment compact" style="font-size:0.8em" ></p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="kw">struct</span> point {</span>
