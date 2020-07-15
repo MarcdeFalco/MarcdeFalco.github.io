@@ -431,14 +431,14 @@ $(document).ready(function() {
 <p>Pour une fonction, afin de pouvoir écrire des fonctions récursives, l’identificateur est utilisable dans le corps de la fonction.</p>
 <p>Comme la portée est une notion associée aux identificateurs, elle est indépendante de la notion de variables. Si on considère le programme suivant :</p>
 <p><div class="ui segment compact" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1"></a><span class="dt">void</span> f() </span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1"></a><span class="dt">int</span> f() </span>
 <span id="cb3-2"><a href="#cb3-2"></a>{</span>
 <span id="cb3-3"><a href="#cb3-3"></a>    <span class="dt">int</span> i = <span class="dv">3</span>;</span>
 <span id="cb3-4"><a href="#cb3-4"></a></span>
 <span id="cb3-5"><a href="#cb3-5"></a>    <span class="cf">return</span> i;</span>
 <span id="cb3-6"><a href="#cb3-6"></a>}</span>
 <span id="cb3-7"><a href="#cb3-7"></a></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="dt">void</span> g() </span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="dt">int</span> g() </span>
 <span id="cb3-9"><a href="#cb3-9"></a>{</span>
 <span id="cb3-10"><a href="#cb3-10"></a>    <span class="dt">int</span> i = <span class="dv">5</span>;</span>
 <span id="cb3-11"><a href="#cb3-11"></a></span>
@@ -449,7 +449,7 @@ $(document).ready(function() {
 <p>Un autre phénomène plus complexe peut se produire quand on redéfinit un identificateur dans sa portée.</p>
 <p>Considérons le programme suivant</p>
 <p><div class="ui segment compact" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1"></a><span class="dt">void</span> f() </span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1"></a><span class="dt">int</span> f() </span>
 <span id="cb4-2"><a href="#cb4-2"></a>{</span>
 <span id="cb4-3"><a href="#cb4-3"></a>    <span class="dt">int</span> i = <span class="dv">3</span>;</span>
 <span id="cb4-4"><a href="#cb4-4"></a></span>
