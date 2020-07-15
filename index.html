@@ -23,22 +23,6 @@
 <script>
 $(document).ready(function() {
    $('.chapter').hide();
-
-   $('.ui.marginnote').each(function() {
-       const id = $(this).attr('id');
-       $(this).detach().appendTo('#noterail')
-           .replaceWith(function() { return '<div class=".ui.marginnote" style="position: absolute;" id="'
-                   + id + '">'+this.innerHTML + "</div>" })
-
-       setTimeout(function() {
-           $('#'+id).each(function() {
-               console.log(this)
-               $(this).offset({
-                   top: $('#' + $(this).attr('id') + 'context').offset().top,
-               })
-           })
-        }, 1000)
-    })
 })
 </script>
 
@@ -172,18 +156,13 @@ $(document).ready(function() {
 
 <div class="ui main container segment">
 
-<div class="toc left dividing ui small rail">
 <ul>
 <li><a href="#introduction"><span class="toc-section-number">0.1</span> Introduction</a></li>
 <li><a href="#plan-du-cours"><span class="toc-section-number">0.2</span> Plan du cours</a></li>
 </ul>
-</div>
-
-<div class="right dividing ui rail" id="noterail">
-</div>
 
 <h2 data-number="0.1" id="introduction"><span class="header-section-number">0.1</span> Introduction</h2>
-<p>Ce document présente des documents personnels autour de l’informatique.</p>
+<p>Ce site présente des documents personnels autour de l’informatique.</p>
 <p>Il s’agit pour le moment d’un premier jet, et il est amené à beaucoup évoluer. Il correspond à mon interprétation personnelle de certaines notions.</p>
 <p>Pour le moment, il ne s’agit que de développements indépendants. Dans un second temps, ils seront éventuellement articulés autour d’une progression.</p>
 <p>Des problèmes sont présentés au cours des documents, ils peuvent donner lieu à des développements en classe, des séances de travaux pratiques ou des problèmes. Plutôt que de donner un découpage figé en questions, ils sont présentés tels quels.</p>

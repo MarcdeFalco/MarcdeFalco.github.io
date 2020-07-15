@@ -87,22 +87,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script>
 $(document).ready(function() {
    $('.chapter').hide();
-
-   $('.ui.marginnote').each(function() {
-       const id = $(this).attr('id');
-       $(this).detach().appendTo('#noterail')
-           .replaceWith(function() { return '<div class=".ui.marginnote" style="position: absolute;" id="'
-                   + id + '">'+this.innerHTML + "</div>" })
-
-       setTimeout(function() {
-           $('#'+id).each(function() {
-               console.log(this)
-               $(this).offset({
-                   top: $('#' + $(this).attr('id') + 'context').offset().top,
-               })
-           })
-        }, 1000)
-    })
 })
 </script>
 
@@ -236,7 +220,6 @@ $(document).ready(function() {
 
 <div class="ui main container segment">
 
-<div class="toc left dividing ui small rail">
 <ul>
 <li><a href="#sec:systèmes"><span class="toc-section-number">1</span> Systèmes</a>
 <ul>
@@ -250,10 +233,6 @@ $(document).ready(function() {
 </ul></li>
 </ul></li>
 </ul>
-</div>
-
-<div class="right dividing ui rail" id="noterail">
-</div>
 
 <h1 data-number="1" id="sec:systèmes"><span class="header-section-number">1</span> Systèmes</h1>
 <h2 data-number="1.1" id="sec:gestion-de-la-mémoire-dans-un-programme-compilé"><span class="header-section-number">1.1</span> Gestion de la mémoire dans un programme compilé</h2>
@@ -266,14 +245,18 @@ $(document).ready(function() {
 <li>statiquement : c’est le cas des variables locales ou globales définies dans le programme. Au moment de la compilation, le compilateur dispose de l’information suffisante pour prévoir de la place en mémoire pour stocker ces données.</li>
 <li>dynamiquement : c’est le cas des objets dont la taille n’est connue qu’à l’exécution et peut varier selon l’état du programme. C’est alors au moment de l’exécution que le programme va faire une demande d’allocation pour obtenir une place mémoire.</li>
 </ul>
-<p>En terme d’allocation statique, on peut distinguer plusieurs types de mémoire : <span id="marginnote1context" style="font-size: 0.4em">⮞<span class="ui marginnote" id="marginnote1"><img src="assets/pics/memorymap.png" /></p>
-<p><br/>Structure de la mémoire associée à un programme</span></span></p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eleven wide column"></p>
+<p>En terme d’allocation statique, on peut distinguer plusieurs types de mémoire :</p>
 <ul>
 <li>les variables globales initialisées qui seront stockées dans le binaire et placées en mémoire dans une zone spécifique chargée avec le binaire</li>
 <li>les variables globales non initialisées dont seule la déclaration sera dans le binaire et qui seront allouées, placées en mémoire et initialisées à 0 au moment du chargement du binaire</li>
 <li>les variables locales et les paramètres qui sont placés dans une pile afin de les allouer uniquement au moment de l’exécution du bloc ou de la fonction</li>
 </ul>
-<p>L’allocation dynamique utilise une zone mémoire appelée tas dont une possible organisation est développée dans le problème FIXME.</p>
+<p>L’allocation dynamique utilise une zone mémoire appelée tas dont une possible organisation est développée dans la partie sec. 1.1.5.4.</p>
+<p></div><div class="four wide column"></p>
+<p><img src="assets/pics/memorymap.png" /></p>
+<p><br/>Structure de la mémoire associée à un programme</p>
+<p></div></div></div></p>
 <p>Considérons le programme c suivant.</p>
 <p><div class="ui segment compact" style="font-size:0.8em" ></p>
 <div class="sourceCode" id="memoirecodeex1"><pre class="sourceCode c"><code class="sourceCode c"><span id="memoirecodeex1-1"><a href="#memoirecodeex1-1" aria-hidden="true"></a><span class="dt">const</span> <span class="dt">int</span> a  = <span class="dv">42</span>;</span>
@@ -350,13 +333,15 @@ $(document).ready(function() {
 <span id="cb1-50"><a href="#cb1-50" aria-hidden="true"></a>0000000000000020 R_X86_64_PC32     .text</span>
 <span id="cb1-51"><a href="#cb1-51" aria-hidden="true"></a>0000000000000040 R_X86_64_PC32     .text+0x000000000000001f</span></code></pre></div>
 <p></div></p>
-<p>On retrouve dans les sections mémoire : <span id="marginnote2context" style="font-size: 0.4em">⮞<span class="ui marginnote" id="marginnote2">Ici, le schéma mémoire est un peu plus compliqué car une zone mémoire distincte est prévue pour les variables constantes initialisées pour des raisons de sécurité.</span></span></p>
+<p>On retrouve dans les sections mémoire :</p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eleven wide column"></p>
 <ul>
 <li><code>.text</code> contenant le programme binaire</li>
 <li><code>.data</code> contenant les variables globales initialisées et non constantes</li>
 <li><code>.bss</code> contenant les variables non initialisées</li>
 <li><code>.rodata</code> contenant les variables globales initialisées mais constantes.</li>
 </ul>
+<p></div><div class="four wide column"> Ici, le schéma mémoire est un peu plus compliqué car une zone mémoire distincte est prévue pour les variables constantes initialisées pour des raisons de sécurité. </div></div></div></p>
 <p>La pile et le tas sont automatiques et n’ont pas besoin de figurer dans le binaire, c’est pour cela qu’on ne les trouve pas dans la liste.</p>
 <p>Dans cette description mémoire, on trouve la table des symboles qui décrit où vont se trouver en mémoire certaines variables.</p>
 <table>
@@ -408,7 +393,7 @@ $(document).ready(function() {
 <span id="cb2-12"><a href="#cb2-12"></a>    <span class="cf">return</span> z + f(z);</span>
 <span id="cb2-13"><a href="#cb2-13"></a>}</span></code></pre></div>
 <p></div></p>
-<p>La portée des identificateurs est :<span id="marginnote3context" style="font-size: 0.4em">⮞<span class="ui marginnote" id="marginnote3">Pour une fonction, afin de pouvoir écrire des fonctions récursives, l’identificateur est utilisable dans le corps de la fonction</span></span></p>
+<p>La portée des identificateurs est :</p>
 <table>
 <thead>
 <tr class="header">
@@ -443,6 +428,7 @@ $(document).ready(function() {
 </tr>
 </tbody>
 </table>
+<p>Pour une fonction, afin de pouvoir écrire des fonctions récursives, l’identificateur est utilisable dans le corps de la fonction.</p>
 <p>Comme la portée est une notion associée aux identificateurs, elle est indépendante de la notion de variables. Si on considère le programme suivant :</p>
 <p><div class="ui segment compact" style="font-size:0.8em" ></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1"></a><span class="dt">void</span> f() </span>
@@ -493,19 +479,19 @@ $(document).ready(function() {
 <p>Il est possible de définir en C des variables locales dont la durée de vie dépasse sa portée. On parle alors de variables <em>statiques</em>. Ce point étant assez technique, il sera ignoré ici.</p>
 <h3 data-number="1.1.4" id="sec:piles-dexécution-variables-locales-et-paramètres"><span class="header-section-number">1.1.4</span> Piles d’exécution, variables locales et paramètres</h3>
 <p>On a vu qu’en raison de leur durée de vie, les variables globales étaient allouées dès le chargement du programme. Pour les variables locales ainsi que la mécanique des appels, on utilise une <strong>pile</strong>.</p>
-<p>Cette pile d’exécution est représentée en mémoire par un tableau et un indicateur de fond de pile. <span id="marginnote4context" style="font-size: 0.4em">⮞<span class="ui marginnote" id="marginnote4">En fait, il existe des architectures où les adresses sont croissantes. Ce qui importe est que le tas et la pile aient des comportements opposées pour qu’ils puissent grandir dans la même zone mémoire.</span></span></p>
+<p>Cette pile d’exécution est représentée en mémoire par un tableau et un indicateur de fond de pile.</p>
 <p>Le remplissage de ce tableau s’effectue souvent des adresses hautes vers les adresses faibles : on empile en faisant diminuer les adresses.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div>En fait, il existe des architectures où les adresses sont croissantes. Ce qui importe est que le tas et la pile aient des comportements opposées pour qu’ils puissent grandir dans la même zone mémoire.</div></p>
 <p>Un compilateur peut faire le choix d’utiliser directement des registres processeurs pour les variables locales ou pour passer des paramètres à une fonction. Ici, pour simplifier, on va supposer que ce n’est pas le cas et que tout passe par la pile d’exécution.</p>
 <p><div class="ui message orange"><div class="header">Remarque</div>Afin de pouvoir appeler une fonction dans une bibliothèque potentiellement compilée avec un autre compilateur, il est nécessaire d’avoir une convention d’appels de fonctions. Une telle convention est appelée une <em>interface applicative binaire</em> (Application Binary Interface).</p>
 <p>La convention <code>System V AMD64 ABI</code> qui est celle de Linux et macOS sur des architectures 64bits consiste à utiliser des registres entiers pour les six premiers arguments entiers ou pointeurs et des registres flottants pour les huit premiers arguments flottants. Les arguments suivants sont alors passés sur la pile (donc dès le septième entier/pointeur ou neuvième flottant.</p>
 <p>La convention <code>cdecl</code> qui est assez répandue sur les architectures 32bits consiste à utiliser la pile. Par contre la valeur de retour est présente dans des registres comme pour la convention <code>System V AMD64 ABI</code>.</div></p>
-<p><span id="marginnote5context" style="font-size: 0.4em">⮞<span class="ui marginnote" id="marginnote5"><img src="assets/pics/stackframe.png" /></p>
-<p><br/>Structure pile associée à un appel de fonction</span></span></p>
-<p>Lors d’un appel une fonction passant par la pile, on commence par empiler les paramètres (souvent de la droite vers la gaucher) puis on empile l’adresse à laquelle doit revenir l’exécution une fois que la fonction aura terminé son exécution.</p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eleven wide column"> Lors d’un appel une fonction passant par la pile, on commence par empiler les paramètres (souvent de la droite vers la gaucher) puis on empile l’adresse à laquelle doit revenir l’exécution une fois que la fonction aura terminé son exécution.</p>
 <p>Au début de l’exécution de cette fonction, on place sur la pile l’adresse du fond de pile et on déplace celui-ci pour réserver de la place pour les variables locales.</p>
-<p>L’empreinte sur la pile d’un appel de fonction est appelée une structure pile (<strong>stack frame</strong> en anglais). La pile est alors organisée, depuis l’appel au point d’entrée du programme, par empilement et dépilement de structures piles.</p>
-<p>Voici un exemple possible de l’état de la pile d’exécution lors de l’exécution d’un programme compilé avec la norme <code>cdecl</code> <a href="#marginnote6" id="marginnote6context">6<span class="ui marginnote" id="marginnote6"><span style="text-decoration: underline">6</span> Il suffit d’ajouter l’argument <code>-m32</code> pour compiler en 32bits</span></a> .</p>
-<p><div class="ui grid"><div class="eight wide column"> <div class="ui segment compact" style="font-size:0.8em" ></p>
+<p>L’empreinte sur la pile d’un appel de fonction est appelée une structure pile (<strong>stack frame</strong> en anglais). La pile est alors organisée, depuis l’appel au point d’entrée du programme, par empilement et dépilement de structures piles. </div><div class="four wide column"> <img src="assets/pics/stackframe.png" /></p>
+<p><br/>Structure pile associée à un appel de fonction </div></div></div></p>
+<p>Voici un exemple possible de l’état de la pile d’exécution lors de l’exécution d’un programme compilé avec la norme <code>cdecl</code> (Il suffit d’ajouter l’argument <code>-m32</code> pour compiler en 32bits).</p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"> <div class="ui segment compact" style="font-size:0.8em" ></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1"></a></span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="dt">int</span> f(<span class="dt">int</span> a, <span class="dt">int</span> b)</span>
 <span id="cb6-3"><a href="#cb6-3"></a>{</span>
@@ -521,7 +507,7 @@ $(document).ready(function() {
 <span id="cb6-13"><a href="#cb6-13"></a>    <span class="dt">int</span> x = f(<span class="dv">10</span>,<span class="dv">12</span>);</span>
 <span id="cb6-14"><a href="#cb6-14"></a>}</span></code></pre></div>
 <p></div> </div><div class="eight wide column"> <img src="assets/pics/stackframe1.png" /></p>
-<p></div></div></p>
+<p></div></div></div></p>
 <p>A chaque appel de fonction, on va donc empiler une structure de pile complète, puis la dépiler à la sortie. Ce mécanisme est essentiel pour permettre la récurrence car il permet d’effectuer plusieurs appels d’une même fonction sans risquer que la mémoire utilisée lors d’un des appels interfère avec un autre. On comprend également les limites de la récursivité ici car cet empilement successif de structures de piles peut dépasser la taille maximale de la pile d’exécution : on parle alors de <em>dépassement de pile</em> ou <strong>stack overflow</strong> en anglais.</p>
 <p><div class="ui message orange"><div class="header">Remarque</div>Il est possible de définir des variables locales qui soient situées au même emplacement mémoire pour tous les appels d’une fonction, c’est ce qu’on appelé des variables <em>statiques</em> dans le paragraphe précédent.</p>
 <p>Ce mécanisme est essentiellement géré comme les variables globales et il ne sera pas développé dans la suite.</div></p>
@@ -617,8 +603,222 @@ $(document).ready(function() {
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true"></a>}</span></code></pre></div>
 <p></div> </div></p>
 <h4 data-number="1.1.5.3" id="sec:protection-mémoire"><span class="header-section-number">1.1.5.3</span> Protection mémoire</h4>
-<p>Comme on l’a vu dans la première partie, quand un programme s’exécute il a un environnement mémoire constitué de plusieurs zones appelées <strong>segments</strong> avec le droit d’écriture dans certaines d’entre elles.</p>
+<p>Comme on l’a vu dans la première partie, quand un programme s’exécute il a un environnement mémoire constitué de plusieurs zones, parfois appelées <strong>segments</strong>, avec le droit d’écriture dans certaines d’entre elles.</p>
 <p>Le système d’exploitation protège ainsi la mémoire et, au niveau matériel, l’unité de gestion de la mémoire connait les adresses accessibles à un programme. En cas d’accès anormal, le matériel provoque une erreur qui remonte au système d’exploitation qui termine l’exécution du programme avec une erreur souvent intitulée <code>Segmentation fault</code>.</p>
+<p>Voici quelques exemples commentés produisant des erreurs de type <code>segmentation fault</code> à l’exécution.</p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"> Lecture à l’adresse 0, ce qui provoque toujours une erreur.</p>
+<p>Même problème avec une adresse inaccessible ou invalide. </div><div class="eight wide column"> <div class="ui segment compact" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a><span class="dt">int</span> main()</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a>{</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true"></a>    <span class="dt">int</span> *a = <span class="dv">0</span>;</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true"></a>    <span class="cf">return</span> a[<span class="dv">0</span>];</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true"></a>}</span></code></pre></div>
+<p></div> </div></div></div></p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"> Écriture dans une zone en lecture seule comme le segment du code. </div><div class="eight wide column"> <div class="ui segment compact" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a><span class="dt">int</span> main()</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true"></a>{</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true"></a>    <span class="dt">int</span> *a = (<span class="dt">int</span>*) (&amp;main);</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true"></a>    <span class="co">// a pointe sur le corps de la fonction main</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true"></a>    *a = <span class="dv">0</span>;</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true"></a>}</span></code></pre></div>
+<p></div> </div></div></div></p>
+<h4 data-number="1.1.5.4" id="sec:custommalloc"><span class="header-section-number">1.1.5.4</span> Réalisation d’un système d’allocation de mémoire</h4>
+<p><div class="ui message blue"><div class="header">Note</div>Prérequis : listes chaînées</div></p>
+<p>Afin de comprendre comment fonctionne le tas, et en particulier malloc et free, on va simuler ici ce comportement en allouant une grande plage de mémoire avec malloc et en gérant le découpage et l’allocation de celles-ci.</p>
+<p>Pour gérer les blocs mémoires libres, on utilise une liste circulaire. Une liste circulaire est une liste chaînée avec un lien supplémentaire entre le premier et le dernier maillon, ce qui fait qu’on peut considérer n’importe quel maillon comme étant la <em>tête</em> de la liste.</p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"> Une liste chaînée :</p>
+<p><img src="assets/pics/listechainee.png" /></p>
+<p>Ici le dernier maillon comprend un pointeur qui ne pointe sur rien indiqué par <span class="math inline">\(\times\)</span>, en pratique il a la valeur <code>NULL</code></p>
+<p></div><div class="eight wide column"> Une liste circulaire :</p>
+<p><img src="assets/pics/listecirculaire.png" /></p>
+<p>Le seul changement est donc de faire pointer le dernier maillon sur le premier. Le fait d’avoir preserver les valeurs dans les maillons permet ici de voir ce qu’est devenu le premier maillon, mais on peut accéder à cette liste par n’importe lequel de ces maillons.</p>
+<p></div></div></div></p>
+<p>Les noeuds de la liste circulaire de blocs libres auront pour valeur un triplet <code>(adresse,taille,libre)</code> qui indique qu’à l’adresse <code>adresse</code> il y a un bloc de <code>taille</code> octets et le booléen <code>libre</code> indique si ce bloc a été alloué ou non.</p>
+<p>Pour cela on commence par définir une structure <code>bloc</code> et une fonctiond de création d’un bloc :</p>
+<p><div class="ui segment compact" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a><span class="kw">struct</span> bloc {</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true"></a>    <span class="dt">void</span> *adresse;</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true"></a>    <span class="dt">uint32_t</span> taille;</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true"></a>    <span class="dt">bool</span> libre;</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true"></a>    <span class="kw">struct</span> bloc *suivant;</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true"></a>};</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true"></a></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true"></a><span class="kw">struct</span> bloc *cree_bloc(<span class="dt">void</span> *adresse, <span class="dt">uint32_t</span> taille, <span class="dt">bool</span> libre)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true"></a>{</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true"></a>    <span class="kw">struct</span> bloc *b = malloc(<span class="kw">sizeof</span>(<span class="kw">struct</span> bloc));</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true"></a>    b-&gt;adresse = adresse;</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true"></a>    b-&gt;taille = taille;</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true"></a>    b-&gt;libre = libre;</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true"></a>    <span class="cf">return</span> b;</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true"></a>}</span></code></pre></div>
+<p></div></p>
+<p>On définit ensuite deux variables globales :</p>
+<ul>
+<li><code>bloc_libres</code> qui va pointer sur un maillon de la liste circulaire des blocs</li>
+<li><code>plage_memoire</code> qui pointe sur l’adresse de la plage mémoire que l’on va gérer et servira à la libérer en sortie de programme.</li>
+</ul>
+<p><div class="ui segment compact" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a><span class="kw">struct</span> bloc *blocs_libres;</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true"></a><span class="dt">void</span> *plage_memoire;</span></code></pre></div>
+<p></div></p>
+<p>La fonction <code>creation_blocs_libres</code> permet de créer la liste circulaire avec un premier bloc qui pointe sur lui-même et qui correspond à l’adresse que l’on va placer dans <code>plage_memoire</code>.</p>
+<p><div class="ui segment compact" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a><span class="dt">void</span> creation_blocs_libres(<span class="dt">uint32_t</span> taille_bloc_initial)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true"></a>{</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true"></a>    plage_memoire = malloc(taille_bloc_initial);</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true"></a>    blocs_libres = cree_bloc(plage_memoire, taille_bloc_initial, true);</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true"></a>    blocs_libres-&gt;suivant = blocs_libres; <span class="co">// boucle initiale</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true"></a>}</span></code></pre></div>
+<p></div></p>
+<p>Pour libérer la liste à la sortie du programme, on définit la fonction <code>destruction_blocs_libres</code> qui présente ainsi le parcours usuel d’une liste circulaire : on procède comme pour une liste chaînée classique mais, au lieu d’utiliser un test <code>bloc_courant-&gt;suivant == NULL</code> pour l’arrêt, il faut se souvenir du premier bloc et tester pour voir si on est revenu au point de départ. On n’oublie pas de libérer l’espace <code>plage_memoire</code> à la fin.</p>
+<p><div class="ui segment compact" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true"></a><span class="dt">void</span> destruction_blocs_libres()</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true"></a>{</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true"></a>    <span class="kw">struct</span> bloc *premier_bloc = blocs_libres;</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true"></a>    <span class="kw">struct</span> bloc *bloc_courant = premier_bloc;</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true"></a>    <span class="co">// on boucle pour libérer chaque maillon</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true"></a>    <span class="cf">while</span> (true) {</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true"></a>        <span class="kw">struct</span> bloc *bloc_suivant = bloc_courant-&gt;suivant;</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true"></a>        free(bloc_courant);</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true"></a>        <span class="cf">if</span> (bloc_suivant == premier_bloc) <span class="cf">return</span>;</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true"></a>        bloc_courant = bloc_suivant;</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true"></a>    }</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true"></a></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true"></a>    <span class="co">// on libère la plage mémoire initiale</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true"></a>    free(plage_memoire);</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true"></a>}</span></code></pre></div>
+<p></div></p>
+<p>Pour allouer <span class="math inline">\(t\)</span> octets, on parcourt la liste des blocs jusqu’à trouver un bloc <span class="math inline">\(b\)</span> libre de taille <span class="math inline">\(b.t\)</span> telle que <span class="math inline">\(b.t \ge t\)</span>. Si un tel bloc n’existe pas, on renvoie le pointeur <code>NULL</code> signe d’un échec d’allocation. Sinon, on indique que le bloc est occupé, on va renvoyer l’adresse du bloc obtenu mais, si <span class="math inline">\(b.t &gt; t\)</span> on insère après <span class="math inline">\(b\)</span> un nouveau bloc libre de taille <span class="math inline">\(b.t - t\)</span>. Dans tous les cas, on fait pointer la liste des blocs libres vers le bloc qui suit <span class="math inline">\(b\)</span>, qui est peut-être le bloc nouvellement créé et a de grandes chances d’être libre.</p>
+<p>Ce mécanisme est implementé dans la fonction <code>allocation</code> :</p>
+<p><div class="ui segment compact" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true"></a><span class="dt">void</span> *allocation(<span class="dt">uint32_t</span> taille)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true"></a>{</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true"></a>    <span class="kw">struct</span> bloc *premier_bloc = blocs_libres;</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true"></a>    <span class="kw">struct</span> bloc *bloc_courant = premier_bloc;</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true"></a>    <span class="cf">while</span> (!bloc_courant-&gt;libre || bloc_courant-&gt;taille &lt; taille)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true"></a>    {</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true"></a>        bloc_courant = bloc_courant-&gt;suivant;</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true"></a>        <span class="cf">if</span> (bloc_courant == premier_bloc)</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true"></a>        {</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true"></a>            <span class="co">// Retour au point de départ : échec d&#39;allocation</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true"></a>            <span class="cf">return</span> NULL;</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true"></a>        }</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true"></a>    }</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true"></a>    </span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true"></a>    <span class="co">// bloc_courant pointe sur un bloc libre de bonne taille</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true"></a></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true"></a>    <span class="dt">void</span> *adresse = bloc_courant-&gt;adresse;</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true"></a>    bloc_courant-&gt;libre = false;</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true"></a>    <span class="cf">if</span> (bloc_courant-&gt;taille &gt; taille) {</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true"></a>        <span class="co">// on le sépare en deux pour récupérer la place</span></span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true"></a>        <span class="kw">struct</span> bloc *bloc_libre = cree_bloc(adresse+taille,</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true"></a>                bloc_courant-&gt;taille-taille, true);</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true"></a>        bloc_libre-&gt;suivant = bloc_courant-&gt;suivant;</span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true"></a>        bloc_courant-&gt;suivant = bloc_libre;</span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true"></a>    }</span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true"></a></span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true"></a>    <span class="co">// On pointe sur le bloc suivant qui est sûrement libre</span></span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true"></a>    blocs_libres = bloc_courant-&gt;suivant;</span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true"></a></span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true"></a>    <span class="cf">return</span> adresse;</span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true"></a>}</span></code></pre></div>
+<p></div></p>
+<p>Pour libérer un bloc, on parcourt la liste jusqu’à trouver le bloc correspondant à l’adresse à libérer et on indique que le bloc est libre. Ici, il y a deux <code>assert</code> permettant de s’assurer que l’adresse est bien celle d’un bloc et que le bloc n’a pas déjà été libéré.</p>
+<p><div class="ui segment compact" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true"></a><span class="dt">void</span> liberation(<span class="dt">void</span> *adresse)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true"></a>{</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true"></a>    <span class="kw">struct</span> bloc *premier_bloc = blocs_libres;</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true"></a>    <span class="kw">struct</span> bloc *bloc_courant = premier_bloc;</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true"></a>    <span class="cf">while</span> (bloc_courant-&gt;adresse != adresse)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true"></a>    {</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true"></a>        bloc_courant = bloc_courant-&gt;suivant;</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true"></a>        <span class="co">// adresse invalide</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true"></a>        assert(bloc_courant != premier_bloc);</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true"></a>    }</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true"></a></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true"></a>    <span class="co">// pas de double libération</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true"></a>    assert(!bloc_courant-&gt;libre);</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true"></a></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true"></a>    <span class="co">// on libère l&#39;adresse</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true"></a>    bloc_courant-&gt;libre = true;</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true"></a>}</span></code></pre></div>
+<p></div></p>
+<p>Voici un premier programme de test de ces fonctions qui alloue 10 octets puis effectue plusieurs allocation. L’allocation de <code>c</code> échoue car il n’y a plus de place libre.</p>
+<p><div class="ui segment compact" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true"></a><span class="dt">int</span> main()</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true"></a>{</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true"></a>    creation_blocs_libres(<span class="dv">10</span>);</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true"></a>    <span class="dt">uint8_t</span> *a = allocation(<span class="dv">5</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true"></a>    <span class="dt">uint8_t</span> *b = allocation(<span class="dv">3</span>);</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true"></a>    <span class="dt">uint8_t</span> *c = allocation(<span class="dv">3</span>);</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true"></a>    liberation(b);</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true"></a>    <span class="dt">uint8_t</span> *d = allocation(<span class="dv">4</span>);</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true"></a>    printf(<span class="st">&quot;Allocation a:0x%lx b:0x%lx c:0x%lx d:0x%lx</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true"></a>            (<span class="dt">uint64_t</span>)a, (<span class="dt">uint64_t</span>)b, (<span class="dt">uint64_t</span>)c, (<span class="dt">uint64_t</span>)d);</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true"></a></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true"></a>    destruction_blocs_libres();</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true"></a></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true"></a>}</span></code></pre></div>
+<p></div></p>
+<p>Ce programme affiche alors</p>
+<p><div class="ui segment compact" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true"></a>Allocation a:<span class="bn">0x55d92b84f2a0</span> b:<span class="bn">0x55d92b84f2f0</span> c:<span class="bn">0x0</span> d:<span class="bn">0x55d92b84f2f0</span></span></code></pre></div>
+<p></div></p>
+<p><div class="ui message blue"><div class="header">Note</div>Ajouter des diagrammes d’évolution de la liste circulaire.</div></p>
+<p>Cette méthode d’allocation a un défaut majeur : elle fragmente l’espace libre. Dans le programme suivant, il sera impossible d’allouer <code>b</code> car la liste circulaire contient deux blocs libres de 5 octets et non une bloc libre de 10 octets.</p>
+<p><div class="ui segment compact" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true"></a>creation_blocs_libres(<span class="dv">10</span>);</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true"></a><span class="dt">uint8_t</span> *a = allocation(<span class="dv">5</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true"></a>liberation(a);</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true"></a><span class="dt">uint8_t</span> *b = allocation(<span class="dv">10</span>);</span></code></pre></div>
+<p></div></p>
+<p><div class="ui message blue"><div class="header">Note</div>Ajouter un diagramme.</div></p>
+<p>On peut éviter cela en effectuant une phase de coalescence des blocs libres à la libération. En vertu de la nature de la liste circulaire, il est nécessaire de fusionner un bloc libre avec les blocs suivants. En utilisant une liste circulaire doublement chaînée, on pourrait également fusionner avec les blocs précédents.</p>
+<p>Pour cela on change la fonction <code>liberation</code> ainsi :</p>
+<p><div class="ui segment compact" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true"></a><span class="dt">void</span> liberation(<span class="dt">void</span> *adresse)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true"></a>{</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true"></a>    <span class="kw">struct</span> bloc *premier_bloc = blocs_libres;</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true"></a>    <span class="kw">struct</span> bloc *bloc_courant = premier_bloc;</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true"></a>    <span class="cf">while</span> (bloc_courant-&gt;adresse != adresse)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true"></a>    {</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true"></a>        bloc_courant = bloc_courant-&gt;suivant;</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true"></a>        <span class="co">// adresse invalide</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true"></a>        assert(bloc_courant != premier_bloc);</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true"></a>    }</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true"></a></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true"></a>    <span class="co">// pas de double libération</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true"></a>    assert(!bloc_courant-&gt;libre);</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true"></a></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true"></a>    <span class="co">// on libère l&#39;adresse</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true"></a>    bloc_courant-&gt;libre = true;</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true"></a></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true"></a>    premier_bloc = bloc_courant;</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true"></a>    bloc_courant = bloc_courant-&gt;suivant;</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true"></a></span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true"></a>    <span class="cf">while</span> (bloc_courant != premier_bloc &amp;&amp; bloc_courant-&gt;libre)</span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true"></a>    {</span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true"></a>        <span class="kw">struct</span> bloc* actuel = bloc_courant;</span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true"></a>        premier_bloc-&gt;taille += bloc_courant-&gt;taille;</span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true"></a>        bloc_courant = bloc_courant-&gt;suivant;</span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true"></a>        free(actuel); <span class="co">// on libere le bloc inutile</span></span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true"></a>    }</span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true"></a></span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true"></a>    premier_bloc-&gt;suivant = bloc_courant;</span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true"></a>}</span></code></pre></div>
+<p></div></p>
 </div>
 
 <div class="ui inverted vertical footer segment">
