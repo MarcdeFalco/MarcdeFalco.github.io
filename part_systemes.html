@@ -718,15 +718,16 @@ $(document).ready(function() {
 <span id="cb24-21"><a href="#cb24-21" aria-hidden="true"></a>        <span class="co">// on le sépare en deux pour récupérer la place</span></span>
 <span id="cb24-22"><a href="#cb24-22" aria-hidden="true"></a>        <span class="kw">struct</span> bloc *bloc_libre = cree_bloc(adresse+taille,</span>
 <span id="cb24-23"><a href="#cb24-23" aria-hidden="true"></a>                bloc_courant-&gt;taille-taille, true);</span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true"></a>        bloc_libre-&gt;suivant = bloc_courant-&gt;suivant;</span>
-<span id="cb24-25"><a href="#cb24-25" aria-hidden="true"></a>        bloc_courant-&gt;suivant = bloc_libre;</span>
-<span id="cb24-26"><a href="#cb24-26" aria-hidden="true"></a>    }</span>
-<span id="cb24-27"><a href="#cb24-27" aria-hidden="true"></a></span>
-<span id="cb24-28"><a href="#cb24-28" aria-hidden="true"></a>    <span class="co">// On pointe sur le bloc suivant qui est sûrement libre</span></span>
-<span id="cb24-29"><a href="#cb24-29" aria-hidden="true"></a>    blocs_libres = bloc_courant-&gt;suivant;</span>
-<span id="cb24-30"><a href="#cb24-30" aria-hidden="true"></a></span>
-<span id="cb24-31"><a href="#cb24-31" aria-hidden="true"></a>    <span class="cf">return</span> adresse;</span>
-<span id="cb24-32"><a href="#cb24-32" aria-hidden="true"></a>}</span></code></pre></div>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true"></a>        bloc_courant-&gt;taille = taille;</span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true"></a>        bloc_libre-&gt;suivant = bloc_courant-&gt;suivant;</span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true"></a>        bloc_courant-&gt;suivant = bloc_libre;</span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true"></a>    }</span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true"></a></span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true"></a>    <span class="co">// On pointe sur le bloc suivant qui est sûrement libre</span></span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true"></a>    blocs_libres = bloc_courant-&gt;suivant;</span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true"></a></span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true"></a>    <span class="cf">return</span> adresse;</span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true"></a>}</span></code></pre></div>
 <p></div></p>
 <p>Pour libérer un bloc, on parcourt la liste jusqu’à trouver le bloc correspondant à l’adresse à libérer et on indique que le bloc est libre. Ici, il y a deux <code>assert</code> permettant de s’assurer que l’adresse est bien celle d’un bloc et que le bloc n’a pas déjà été libéré.</p>
 <p><div class="ui segment compact" style="font-size:0.8em" ></p>
@@ -749,31 +750,53 @@ $(document).ready(function() {
 <span id="cb25-17"><a href="#cb25-17" aria-hidden="true"></a>    bloc_courant-&gt;libre = true;</span>
 <span id="cb25-18"><a href="#cb25-18" aria-hidden="true"></a>}</span></code></pre></div>
 <p></div></p>
-<p>Voici un premier programme de test de ces fonctions qui alloue 10 octets puis effectue plusieurs allocation. L’allocation de <code>c</code> échoue car il n’y a plus de place libre.</p>
+<p>Voici un premier programme de test de ces fonctions qui alloue 10 octets puis effectue plusieurs allocations. L’allocation de <code>c</code> échoue car il n’y a plus de place libre.</p>
 <p><div class="ui segment compact" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true"></a><span class="dt">int</span> main()</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true"></a>{</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true"></a>    creation_blocs_libres(<span class="dv">10</span>);</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true"></a></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true"></a>    <span class="dt">uint8_t</span> *a = allocation(<span class="dv">5</span>)</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true"></a>    <span class="dt">uint8_t</span> *b = allocation(<span class="dv">3</span>);</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true"></a>    <span class="dt">uint8_t</span> *c = allocation(<span class="dv">3</span>);</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true"></a>    liberation(b);</span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true"></a>    <span class="dt">uint8_t</span> *d = allocation(<span class="dv">4</span>);</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true"></a></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true"></a>    printf(<span class="st">&quot;Allocation a:0x%lx b:0x%lx c:0x%lx d:0x%lx</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true"></a>            (<span class="dt">uint64_t</span>)a, (<span class="dt">uint64_t</span>)b, (<span class="dt">uint64_t</span>)c, (<span class="dt">uint64_t</span>)d);</span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true"></a></span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true"></a>    destruction_blocs_libres();</span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true"></a></span>
-<span id="cb26-16"><a href="#cb26-16" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb26-17"><a href="#cb26-17" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb26-1"><a href="#cb26-1"></a><span class="dt">int</span> main()</span>
+<span id="cb26-2"><a href="#cb26-2"></a>{</span>
+<span id="cb26-3"><a href="#cb26-3"></a>    creation_blocs_libres(<span class="dv">10</span>);</span>
+<span id="cb26-4"><a href="#cb26-4"></a></span>
+<span id="cb26-5"><a href="#cb26-5"></a>    <span class="dt">uint8_t</span> *a = allocation(<span class="dv">5</span>);</span>
+<span id="cb26-6"><a href="#cb26-6"></a>    <span class="dt">uint8_t</span> *b = allocation(<span class="dv">3</span>);</span>
+<span id="cb26-7"><a href="#cb26-7"></a>    <span class="dt">uint8_t</span> *c = allocation(<span class="dv">3</span>);</span>
+<span id="cb26-8"><a href="#cb26-8"></a>    liberation(b);</span>
+<span id="cb26-9"><a href="#cb26-9"></a>    <span class="dt">uint8_t</span> *d = allocation(<span class="dv">2</span>);</span>
+<span id="cb26-10"><a href="#cb26-10"></a></span>
+<span id="cb26-11"><a href="#cb26-11"></a>    printf(<span class="st">&quot;Allocation a:%p b:%p c:%p d:%p</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
+<span id="cb26-12"><a href="#cb26-12"></a>            (<span class="dt">void</span> *)a, (<span class="dt">void</span> *)b, (<span class="dt">void</span> *)c, (<span class="dt">void</span> *)d);</span>
+<span id="cb26-13"><a href="#cb26-13"></a></span>
+<span id="cb26-14"><a href="#cb26-14"></a>    destruction_blocs_libres();</span>
+<span id="cb26-15"><a href="#cb26-15"></a></span>
+<span id="cb26-16"><a href="#cb26-16"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb26-17"><a href="#cb26-17"></a>}</span></code></pre></div>
 <p></div></p>
 <p>Ce programme affiche alors</p>
 <p><div class="ui segment compact" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true"></a>Allocation a:<span class="bn">0x55d92b84f2a0</span> b:<span class="bn">0x55d92b84f2f0</span> c:<span class="bn">0x0</span> d:<span class="bn">0x55d92b84f2f0</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true"></a>Allocation a:<span class="bn">0x55c6c0c922a0</span> b:<span class="bn">0x55c6c0c922a5</span> c:(nil) d:<span class="bn">0x55c6c0c922a5</span></span></code></pre></div>
 <p></div></p>
-<p><div class="ui message blue"><div class="header">Note</div>Ajouter des diagrammes d’évolution de la liste circulaire.</div></p>
+<p>Voici l’évolution de la liste circulaire en présentant les maillons sous la forme :</p>
+<p><img src="assets/pics/maillon.png" /></p>
+<p>L’évolution de la liste des blocs entre les lignes 3 et 9 est alors :</p>
+<ul>
+<li>Ligne 3</li>
+</ul>
+<p><img src="assets/pics/custom_malloc_evolution1.png" /></p>
+<ul>
+<li>Ligne 5</li>
+</ul>
+<p><img src="assets/pics/custom_malloc_evolution2.png" /></p>
+<ul>
+<li>Ligne 6</li>
+</ul>
+<p><img src="assets/pics/custom_malloc_evolution3.png" /></p>
+<ul>
+<li>Ligne 8</li>
+</ul>
+<p><img src="assets/pics/custom_malloc_evolution4.png" /></p>
+<ul>
+<li>Ligne 9</li>
+</ul>
+<p><img src="assets/pics/custom_malloc_evolution5.png" /></p>
 <p>Cette méthode d’allocation a un défaut majeur : elle fragmente l’espace libre. Dans le programme suivant, il sera impossible d’allouer <code>b</code> car la liste circulaire contient deux blocs libres de 5 octets et non une bloc libre de 10 octets.</p>
 <p><div class="ui segment compact" style="font-size:0.8em" ></p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true"></a>creation_blocs_libres(<span class="dv">10</span>);</span>
@@ -782,7 +805,7 @@ $(document).ready(function() {
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true"></a>liberation(a);</span>
 <span id="cb28-5"><a href="#cb28-5" aria-hidden="true"></a><span class="dt">uint8_t</span> *b = allocation(<span class="dv">10</span>);</span></code></pre></div>
 <p></div></p>
-<p><div class="ui message blue"><div class="header">Note</div>Ajouter un diagramme.</div></p>
+<p><div class="ui message orange"><div class="header">Remarque</div>On peut observer ce phénomène sur le diagramme précédent à la ligne 8 où deux blocs contigus sont libres et pourraient être fusionnés en un unique bloc de 5 octets.</div></p>
 <p>On peut éviter cela en effectuant une phase de coalescence des blocs libres à la libération. En vertu de la nature de la liste circulaire, il est nécessaire de fusionner un bloc libre avec les blocs suivants. En utilisant une liste circulaire doublement chaînée, on pourrait également fusionner avec les blocs précédents.</p>
 <p>Pour cela on change la fonction <code>liberation</code> ainsi :</p>
 <p><div class="ui segment compact" style="font-size:0.8em" ></p>
