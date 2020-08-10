@@ -87,6 +87,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script>
 $(document).ready(function() {
    $('.chapter').hide();
+   //$('.ui.sidebar').sidebar('toggle');
 })
 </script>
 
@@ -218,8 +219,7 @@ $(document).ready(function() {
   </div>
 
 
-<div class="ui main container segment">
-
+<div class="ui sidebar visible inverted vertical menu">
 <ul>
 <li><a href="#sec:systèmes"><span class="toc-section-number">1</span> Systèmes</a>
 <ul>
@@ -233,7 +233,9 @@ $(document).ready(function() {
 </ul></li>
 </ul></li>
 </ul>
+</div>
 
+<div class="ui main text container">
 <h1 data-number="1" id="sec:systèmes"><span class="header-section-number">1</span> Systèmes</h1>
 <h2 data-number="1.1" id="sec:gestion-de-la-mémoire-dans-un-programme-compilé"><span class="header-section-number">1.1</span> Gestion de la mémoire dans un programme compilé</h2>
 <p><img class="ui image fluid" src="assets/pics/chap_memoire.jpg"/></p>

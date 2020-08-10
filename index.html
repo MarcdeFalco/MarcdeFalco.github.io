@@ -12,6 +12,8 @@
     <title>Informatique - Introduction</title>
 
     <link rel="stylesheet" type="text/css" href="assets/semantic.min.css">
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+
     <script
       src="https://code.jquery.com/jquery-3.1.1.min.js"
       integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
@@ -22,38 +24,105 @@
 
 <script>
 $(document).ready(function() {
-   $('.chapter').hide();
+    
+    $("#toc").sidebar("setting", "dimPage", false);
+    if (matchMedia) {
+        var mq = window.matchMedia("(max-width: 700px)");
+        mq.addListener(big_or_small);
+        big_or_small(mq);
+    }
+
+    function big_or_small(mq) {
+        // The sidebar *pushes* the pusher, the main content, so we
+        // add a class that reduces the pusher's width so the edge
+        // content isn't cut off.
+        if (mq.matches) {
+	    $("#toc").sidebar("hide");
+            $("#main").removeClass("shrink")
+        } else {
+            $("#toc").sidebar("show");
+            $("#main").addClass("shrink");
+        }
+    }
+
+    $("#sidebar-menu-button").click(function() {
+        $("#toc").sidebar("show");
+    }).end();
+
+   //$('.sidebar').children().addClass('vertical inverted menu');
+   //$('.sidebar').find('ul').addClass('ui');
+   //$('.sidebar').find('li').addClass('ui');
+   var links = $('.ui.sidebar').find('a').addClass('item');
+    $('.ui.sidebar').append(links);
+    $('.ui.sidebar').find('ul').detach();
+    $('.ui.sidebar').find('li').detach();
 })
 </script>
 
   <style type="text/css">
+
+  .ui.sidebar {
+    font-size: 18px;
+  }
+
   body {
     background-color: #FFFFFF;
-  }
-  html {
     font-size: 20px;
   }
-  .ui.menu .item img.logo {
-    margin-right: 1.5em;
-  }
-  .main.container {
-    margin-top: 7em;
+  .ui.segment {
+    font-size: 20px;
   }
   .wireframe {
-    margin-top: 2em;
-  }
-  .ui.toc {
-    margin: 10em 0em 0em;
-    padding: 10em 0em;
+    //margin-top: 2em;
   }
   .ui.footer.segment {
-    margin: 5em 0em 0em;
-    padding: 5em 0em;
+    //margin: 5em 0em 0em;
+    //padding: 5em 0em;
   }
+  #top-menu {
+    display: none;
+}
+
+    .message {
+        color: #000 !important;
+    }
+
+.shrink {
+    width: 60%;
+}
+
+@media only screen and (max-width: 700px) {
+    #top-menu {
+        display: block !important;
+    }
+}
   </style>
 
   </head>
-  <body>
+  <body class="pushable class="pushable"">
+
+
+<div class="ui vertical inverted visible fixed sidebar menu" id="toc">
+<a href="index.html" class="item">
+    Informatique en CPGE
+</a>
+<ul>
+<li><a href="#plan-du-cours"><span class="toc-section-number">1</span> Plan du cours</a></li>
+</ul>
+</div>
+
+<div class="pusher" id="main-content">
+    <div class="ui inverted top menu" id="top-menu">
+        <div class="ui container">
+	  <a class="launch icon item" id="sidebar-menu-button">
+	    <i class="content icon"></i>
+	  </a>
+	  <div class="item">
+          Informatique - Introduction
+	  </div>
+        </div>
+      </div>
+      <div class="ui padded basic segment" id="main">
 \(
 \def\N{{\mathbb{N}}}
 \def\R{{\mathbb{R}}}
@@ -142,39 +211,34 @@ $(document).ready(function() {
 
 \)
 
-
-<div class="ui fixed inverted menu">
-    <div class="ui container">
-      <a href="#" class="header item">
-        <img class="logo" src="assets/pics/logo.png">
-        Informatique en CPGE
-      </a>
-      <a href="index.html" class="item">Accueil</a>
-    </div>
-  </div>
-
-
-<div class="ui main container segment">
-
-<ul>
-<li><a href="#introduction"><span class="toc-section-number">0.1</span> Introduction</a></li>
-<li><a href="#plan-du-cours"><span class="toc-section-number">0.2</span> Plan du cours</a></li>
-</ul>
-
+<div class="masthead">
+<div class="segment">
+<center>
+    <h1>Informatique - Introduction</h1>
+</center>
+</div>
+</div>
+<div class="ui container text">
 <p><div class="ui message blue"><div class="header">Note</div><a href="pdf/complet.pdf">Version PDF</a></div></p>
-<h2 data-number="0.1" id="introduction"><span class="header-section-number">0.1</span> Introduction</h2>
+<p>Introduction</p>
 <p>Ce site présente des documents personnels autour de l’informatique.</p>
 <p>Il s’agit pour le moment d’un premier jet, et il est amené à beaucoup évoluer. Il correspond à mon interprétation personnelle de certaines notions.</p>
 <p>Pour le moment, ce sont des développements indépendants. Dans un second temps, ils seront éventuellement articulés autour d’une progression.</p>
 <p>Des problèmes sont présentés au cours des documents, ils peuvent donner lieu à des développements en classe, des séances de travaux pratiques ou des problèmes. Plutôt que de donner un découpage figé en questions, ils sont présentés tels quels.</p>
 <p>Mon idée principale avec ces ressources est de proposer un contenu assez riche, plutôt à destination des enseignants. Certains points un peu pointus ne sont pas forcément essentiels pour tous les étudiants.</p>
-<h2 data-number="0.2" id="plan-du-cours"><span class="header-section-number">0.2</span> Plan du cours</h2>
+<h1 data-number="1" id="plan-du-cours"><span class="header-section-number">1</span> Plan du cours</h1>
 <ul>
-<li><p><a href="part_systemes.html">Systèmes</a></p>
+<li><p>Algorithmique</p>
 <ul>
-<li><a href="part_systemes.html#gestion-de-la-mémoire-d&#39;un-programme">Gestion de la mémoire d’un programme</a></li>
+<li><a href="chap_algorithmique_exacte.html">Algorithmique exacte</a></li>
+</ul></li>
+<li><p>Systèmes</p>
+<ul>
+<li><a href="chap_systeme_memoire.html">Gestion de la mémoire d’un programme</a></li>
 </ul></li>
 </ul>
+</div>
+</div>
 </div>
 
 <div class="ui inverted vertical footer segment">
