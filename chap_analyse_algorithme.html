@@ -326,6 +326,7 @@ $(document).ready(function() {
 </div>
 <div class="ui container text">
 <p><img class="ui image fluid" src="assets/pics/chap_algo_exacte.png"/></p>
+<p>*Soruce de l’image d’en-tête <a href="https://xkcd.com/1667/">XKCD #1667</a></p>
 <p><div class="ui message orange"><div class="header">Remarque</div>Ce chapitre présente les trois grands principes qui nous serviront de guide pour analyser les algorithmes et les programmes :</p>
 <ul>
 <li>La <strong>terminaison</strong> : l’algorithme termine-t-il au bout d’un nombre fini d’étapes quelle que soit l’entrée ?</li>
@@ -357,7 +358,7 @@ $(document).ready(function() {
 <h2 data-number="1.1" id="sec:variant-de-boucle"><span class="header-section-number">1.1</span> Variant de boucle</h2>
 <p>Pour prouver la terminaison d’une boucle conditionnelle, on utilise un <strong>variant</strong> de boucle.</p>
 <p><div class="ui message"><div class="header">Définition</div> Un <strong>variant de boucle</strong> est une quantité entière <strong>positive</strong> à l’entrée de chaque itération de la boucle et qui diminue <strong>strictement</strong> à chaque itération. </div></p>
-<p>Ainsi, si on a un variant de boucle qui vaut initialement <span class="math inline">\(n\)</span> avant d’entrer dans la boucle, celle-ci effectue au plus <span class="math inline">\(n\)</span> itérations car le variant diminue au mieux de 1 à chaque étape.</p>
+<p>Ainsi, si on a un variant de boucle qui vaut initialement <span class="math inline">\(n\)</span> avant d’entrer dans la boucle, celle-ci effectue au plus <span class="math inline">\(n\)</span> itérations car le variant diminue au moins de 1 à chaque étape.</p>
 <p>Ainsi, si une boucle admet un variant de boucle, elle termine.</p>
 <p>Dans l’exemple précédent, la quantité <span class="math inline">\(n-p\)</span> est un variant de boucle :</p>
 <ul>
@@ -373,7 +374,7 @@ $(document).ready(function() {
 <li>Sinon, soit <span class="math inline">\(m\)</span> l’élément d’indice <span class="math inline">\(p = \left\lfloor \frac{i+j}{2} \right\rfloor\)</span>.
 <ul>
 <li>Si <span class="math inline">\(x = m\)</span>, on renvoie <code>true</code></li>
-<li>Si <span class="math inline">\(x &gt; m\)</span>, on continue la recherche dans le sous-tableau des indices <span class="math inline">\(i\)</span> à <span class="math inline">\(p-1\)</span>.</li>
+<li>Si <span class="math inline">\(x &lt; m\)</span>, on continue la recherche dans le sous-tableau des indices <span class="math inline">\(i\)</span> à <span class="math inline">\(p-1\)</span>.</li>
 <li>Si <span class="math inline">\(x &gt; m\)</span>, on continue la recherche dans le sous-tableau des indices <span class="math inline">\(p+1\)</span> à <span class="math inline">\(j\)</span>.</li>
 </ul></li>
 </ul>
@@ -735,7 +736,6 @@ n^\alpha = O(\beta^n)
 <li>Si on effectue deux passes successives chacune en <span class="math inline">\(O(u_n)\)</span> alors la complexité globale est en <span class="math inline">\(O(u_n)\)</span>. Il ne s’agit que de reformuler l’addition des grand O. Quand on a deux passes de complexité différente, il suffit d’utiliser la plus grande complexité. Par exemple, un algorithme qui commence par un tri en <span class="math inline">\(O(n \log_2 n)\)</span> et qui effectue ensuite un traitement en <span class="math inline">\(O(n)\)</span> sera de complexité globale <span class="math inline">\(O(n \log_2 n)\)</span> car le traitement est également en <span class="math inline">\(O(n \log_2 n)\)</span>.</li>
 <li>Si on effectue <span class="math inline">\(u_n\)</span> itérations et que chaque itération est en <span class="math inline">\(O(v_n)\)</span> alors l’algorithme a une complexité de <span class="math inline">\(O(u_n v_n)\)</span>. Cela permet de compter le nombre de boucles imbriquées et de se contenter de regarder ce qui se passe dans le corps des boucles.</li>
 </ul>
-<p>!</p>
 <h2 data-number="3.5" id="sec:complexité-à-plusieurs-paramètres"><span class="header-section-number">3.5</span> Complexité à plusieurs paramètres</h2>
 <p>Jusqu’ici on a considéré des entrées dépendant d’un unique paramètre <span class="math inline">\(n\)</span>, mais il est possible d’avoir des données dépendant de plusieurs paramètres.</p>
 <p>On adapte directement la notation des grands O : si <span class="math inline">\((u_{n,p})\)</span> et <span class="math inline">\((v_{n,p})\)</span> sont deux suites de réels non nuls dépendant de deux paramètres, on note toujours <span class="math inline">\(u_{n,p} = O(v_{n,p})\)</span> quand le quotient est borné.</p>
