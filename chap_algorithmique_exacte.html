@@ -182,16 +182,11 @@ $(document).ready(function() {
 <ul>
 <li><a href="#sec:problème-résolution-de-sudoku"><span class="toc-section-number">1.3.1</span> Problème : résolution de Sudoku</a></li>
 </ul></li>
-<li><a href="#sec:stratégies-dénumération"><span class="toc-section-number">1.4</span> Stratégies d’énumération</a>
-<ul>
-<li><a href="#sec:combinatoire-élémentaire"><span class="toc-section-number">1.4.1</span> Combinatoire élémentaire</a></li>
-<li><a href="#sec:enumération-darbres"><span class="toc-section-number">1.4.2</span> Enumération d’arbres</a></li>
-</ul></li>
 </ul></li>
 <li><a href="#sec:algorithmes-gloutons"><span class="toc-section-number">2</span> Algorithmes gloutons</a>
 <ul>
 <li><a href="#sec:principe-1"><span class="toc-section-number">2.1</span> Principe</a></li>
-<li><a href="#sec:huffman"><span class="toc-section-number">2.2</span> Huffman</a></li>
+<li><a href="#sec:algorithme-dhuffman---compression"><span class="toc-section-number">2.2</span> Algorithme d’Huffman - Compression</a></li>
 <li><a href="#sec:sélection-dactivités"><span class="toc-section-number">2.3</span> Sélection d’activités</a></li>
 <li><a href="#sec:ordonnancement-de-tâches"><span class="toc-section-number">2.4</span> Ordonnancement de tâches</a></li>
 </ul></li>
@@ -329,7 +324,7 @@ $(document).ready(function() {
 <p><div class="ui message orange"><div class="header">Remarque</div>Dans ce chapitre, on étudie des problèmes pour lesquels on va exprimer des algorithmes permettant d’obtenir des solutions exactes. C’est à contraster avec le chapitre sur l’algorithmique approchée.</div></p>
 <h1 data-number="1" id="sec:recherche-par-force-brute"><span class="header-section-number">1</span> Recherche par force brute</h1>
 <h2 data-number="1.1" id="sec:principe"><span class="header-section-number">1.1</span> Principe</h2>
-<p>Considérons un problème du type trouver un <span class="math inline">\(x \in V\)</span> vérifiant une propriété <span class="math inline">\(P(x)\)</span>. Par exemple, <span class="math inline">\(V\)</span> est l’ensemble des chaînes de caractère et <span class="math inline">\(P\)</span> vérifie si une chaîne est un mot de passe qu’on cherche.</p>
+<p>Considérons un problème du type trouver un <span class="math inline">\(x \in V\)</span> vérifiant une propriété <span class="math inline">\(P(x)\)</span>. Par exemple, <span class="math inline">\(V\)</span> est l’ensemble des chaînes de caractère et <span class="math inline">\(P\)</span> vérifie si une chaîne est un mot de passe qu’on cherche. Dans certains problèmes, un tel <span class="math inline">\(x\)</span> n’est pas unique et on cherche à tous les énumérer.</p>
 <p>Une recherche par force brute, ou recherche exhaustive, consiste à parcourir l’ensemble <span class="math inline">\(V\)</span> jusqu’à obtenir une solution. Pour la recherche du mot de passe, on pourrait commencer par énumérer les chaînes de longueur 1, puis de longueur 2, et ainsi de suite.</p>
 <p>Le plus souvent, l’ensemble <span class="math inline">\(V\)</span> est fini (pour les mots de passe, cela peut consister à limiter la longueur maximale du mot de passe). Ainsi, une recherche par force brute effectue <span class="math inline">\(O(|V|)\)</span> itérations.</p>
 <p>Considérons le problème <em>PlusProchePaire</em> qui, étant donné un ensemble de <span class="math inline">\(n\)</span> points (<span class="math inline">\(n \ge 2\)</span>), détermine la paire constituée des deux points les plus proches.</p>
@@ -410,7 +405,8 @@ $(document).ready(function() {
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a>        <span class="kw">in</span> aux seq</span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a>    <span class="kw">with</span> <span class="dt">Not_found</span> -&gt; ()</span></code></pre></div>
 <p></div></p>
-<p>On implémente alors assez directement l’algorithme décrit précédemment : <div class="ui segment" style="font-size:0.8em" ></p>
+<p>On implémente alors assez directement l’algorithme décrit précédemment :</p>
+<p><div class="ui segment" style="font-size:0.8em" ></p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">let</span> plus_proche_paire_balayage points =</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>    <span class="kw">let</span> <span class="dt">compare</span> (x1,y1) (x2,y2) =</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>        <span class="kw">if</span> x1 = x2</span>
@@ -484,8 +480,7 @@ u = - \frac{\overrightarrow{A_2 A_1} \times \overrightarrow{A_1 B_1}}{\Delta}
 <li>Si <span class="math inline">\(\overrightarrow{A_1 A_2} \times \overrightarrow{A_1 B_1} \neq 0\)</span> alors <span class="math inline">\(\overrightarrow{A_1 A_2}\)</span> et <span class="math inline">\(\overrightarrow{A_1 B_1}\)</span> sont non colinéaires donc les deux segments sont sur des droites parallèles distinctes et ne peuvent s’intersecter.</li>
 <li>Sinon, les segments reposent sur une même droite et il s’agit de vérifier leurs positions sur la droite. Pour cela, on exprime <span class="math inline">\(A_2 = A_1 + t_A \overrightarrow{A_1B_1}\)</span> de même pour <span class="math inline">\(B_2 = A_1 + t_B \overrightarrow{A_1 B_1}\)</span>. Plus précisement, on calcule <span class="math inline">\(\overrightarrow{A_1 A_2} \cdot \overrightarrow{A_1 B_1} = t_A ||\overrightarrow{A_1 B_1}||^2\)</span> à l’aide du produit scalaire et on a <span class="math inline">\(t_A = \frac{\overrightarrow{A_1 A_2} \cdot \overrightarrow{A_1 B_1}}{||\overrightarrow{A_1 B_1}||^2}\)</span>. De même, <span class="math inline">\(t_B = \frac{\overrightarrow{A_1 B_2} \cdot \overrightarrow{A_1 B_1}}{||\overrightarrow{A_1 B_1}||^2}\)</span>. On doit alors vérifier si l’intervalle <span class="math inline">\([t_A,t_B]\)</span> (ou <span class="math inline">\([t_B,t_A]\)</span> selon leur position) intersecte <span class="math inline">\([0,1]\)</span>.</li>
 </ul>
-<p>Voici une fonction <em>OCaml</em> qui correspond à ce raisonnement</p>
-<p><div class="ui segment" style="font-size:0.8em" ></p>
+<p>Voici une fonction <em>OCaml</em> qui correspond à ce raisonnement <div class="ui segment" style="font-size:0.8em" ></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">let</span> intersecte (a1,b1) (a2,b2) =</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>    <span class="kw">let</span> vec (x1,y1) (x2,y2) = (x2-.x1,y2-.y1) <span class="kw">in</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>    <span class="kw">let</span> cross (x1,y1) (x2,y2) = x1 *. y2 -. y1 *. x2 <span class="kw">in</span></span>
@@ -533,6 +528,7 @@ u = - \frac{\overrightarrow{A_2 A_1} \times \overrightarrow{A_1 B_1}}{\Delta}
 <h2 data-number="1.3" id="sec:recherche-par-retour-sur-trace-backtracking"><span class="header-section-number">1.3</span> Recherche par retour sur trace (<strong>backtracking</strong>)</h2>
 <p>Dans des problèmes admettant des solutions partielles, on peut construire une solution par essai de toutes les possibilités en complétant tant qu’on a bien une solution partielle. La recherche par retour sur trace repose sur ce constat pour énumérer l’ensemble des solutions en utilisant la récursivité (d’où la notion de <em>retour sur trace</em>) pour les essais.</p>
 <p>L’exemble classique de ce problème est celui des huit reines : étant donné un échiquier, peut-on placer huit reines de sorte qu’aucune reine ne puisse prendre une autre reine ? Plus précisément : sur un plateau de 8x8 cases, peut-on placer huit pions tels que deux pions quelconques ne soient jamais sur la même ligne ou la même diagonale ?</p>
+<p>Exemple de solution :</p>
 <p>Ce problème admet effectivement des solutions partielles en ne considérant que <span class="math inline">\(k\)</span> reines à placer. Pour énumérer les solutions, on peut même se contenter de solutions partielles où les <span class="math inline">\(k\)</span> reines sont placées sur les <span class="math inline">\(k\)</span> premières rangées.</p>
 <p>Voici ainsi un algorithme pour énumérer les solutions :</p>
 <ul>
@@ -590,6 +586,11 @@ u = - \frac{\overrightarrow{A_2 A_1} \times \overrightarrow{A_1 B_1}}{\Delta}
 <span id="cb10-14"><a href="#cb10-14" aria-hidden="true"></a>        <span class="kw">in</span></span>
 <span id="cb10-15"><a href="#cb10-15" aria-hidden="true"></a>        aux <span class="dv">7</span> [] </span></code></pre></div>
 <p></div></p>
+<p>Une partie de l’arbre de recherche est présenté sur l’image suivante :</p>
+<figure>
+<img src="../html/assets/pics/reines_arbre.png" width="1000" alt="Arbre de recherche pour les huit reines" /><figcaption aria-hidden="true">Arbre de recherche pour les huit reines</figcaption>
+</figure>
+<p>L’arbre complet comporte 2057 noeuds dont 92 feuilles correspondant aux solutions du problème. A titre de comparaison, l’arbre exhaustif correspondant à faire tous les choix de placement à raison d’une reine par ligne compterait <span class="math inline">\(8^8 = 16777216\)</span> noeuds. On voit bien que le backtracking est plus économe en exploration.</p>
 <h3 data-number="1.3.1" id="sec:problème-résolution-de-sudoku"><span class="header-section-number">1.3.1</span> Problème : résolution de Sudoku</h3>
 <p>La recherche par retour sur trace se prête très bien à la résolution de problèmes comme le Sudoku. On va ici tout simplement tenter de remplir chaque case du haut vers le bas tant qu’on satisfait les contraintes du Sudoku. Le programme sera ainsi très proche de la résolution des huit reines.</p>
 <p>Commençons par rappeler le principe du Sudoku :</p>
@@ -696,14 +697,156 @@ u = - \frac{\overrightarrow{A_2 A_1} \times \overrightarrow{A_1 B_1}}{\Delta}
 <p></div></p>
 <p>La résolution du Sudoku donnée précédemment par ce programme est présenté dans la vidéo suivante :</p>
 <p><center><video width="400" height="380" controls="controls"><source src="assets/pics/sudoku.mp4" type="video/mp4" /></video></center></p>
-<h2 data-number="1.4" id="sec:stratégies-dénumération"><span class="header-section-number">1.4</span> Stratégies d’énumération</h2>
-<h3 data-number="1.4.1" id="sec:combinatoire-élémentaire"><span class="header-section-number">1.4.1</span> Combinatoire élémentaire</h3>
-<p>produits, combinaisons, permutations</p>
-<h3 data-number="1.4.2" id="sec:enumération-darbres"><span class="header-section-number">1.4.2</span> Enumération d’arbres</h3>
-<p>normale, par passage de continuation</p>
 <h1 data-number="2" id="sec:algorithmes-gloutons"><span class="header-section-number">2</span> Algorithmes gloutons</h1>
 <h2 data-number="2.1" id="sec:principe-1"><span class="header-section-number">2.1</span> Principe</h2>
-<h2 data-number="2.2" id="sec:huffman"><span class="header-section-number">2.2</span> Huffman</h2>
+<p>On considère ici un problème d’énumération comme dans la section précédente muni d’une fonction d’objectifs qui attribue une valeur numérique aux solutions et aux solutions partielles.</p>
+<p>Soit <span class="math inline">\(f : P \rightarrow \R\)</span> une telle fonction, où <span class="math inline">\(S \cup P\)</span> est l’ensemble des solutions du problème d’énumération et <span class="math inline">\(P\)</span> l’ensemble des solutions partielles, on se pose maintenant le problème de l’optimalité vis-à-vis de <span class="math inline">\(f\)</span> : déterminer <span class="math inline">\(x \in S\)</span> tel que <span class="math inline">\(f(x) = \max_{y \in S} f(y)\)</span> on note souvent <span class="math inline">\(x = argmax_{y\in S} f(y)\)</span>. On parle alors de problème d’optimisation combinatoire.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div>En considérant <span class="math inline">\(g : y \mapsto -f(y)\)</span>, on transforme un problème de maximisation en un problème de minimisation.</div></p>
+<p>Une première stratégie très élémentaire consiste alors à énumérer <span class="math inline">\(S\)</span>, de manière exhaustive ou avec une stratégie plus fine comme le retour sur trace, puis à déterminer l’élément maximal de manière directe.</p>
+<p>Cela revient donc à déterminer l’arbre des solutions puis à trouver une feuille maximisant l’objectif :</p>
+<p><img src="assets/pics/glouton_exhaustif.png" /></p>
+<p>Un algorithme glouton va suivre une approche beaucoup plus efficace : à chaque étape de construction de la solution, on choisit la branche qui maximise la fonction d’objectif. C’est-à-dire que si en partant d’une solution partielle <span class="math inline">\(x \in P\)</span> il est possible de l’étendre en d’autres solutions partielles <span class="math inline">\(p_x = \{ y_1, ..., y_n \}\)</span>, on va choisir <span class="math inline">\(y = argmax_{t \in p_x} f(t)\)</span> la solution qui maximise localement <span class="math inline">\(f\)</span>.</p>
+<p>Sur l’arbre précédent, cela reviendrait à n’emprunter qu’une seule branche :</p>
+<p><img src="assets/pics/glouton_glouton.png" /></p>
+<p>Cela a l’air très efficace mais il y a un problème majeur : il n’y a aucune garantie qu’on aboutisse ainsi à une solution, encore moins à une solution optimale. En effet, on aurait très bien pu faire les choix suivants :</p>
+<p><img src="assets/pics/glouton_glouton.png" /></p>
+<p>et ne pas aboutir à une solution.</p>
+<p>Considérons par exemple le problème du <strong>rendu de monnaie</strong> : étant donné, une liste de valeurs faciales de pièces <span class="math inline">\(P = (v_1,\dots,v_p) \in (\N^*)^p\)</span> avec <span class="math inline">\(1 = v_1 &lt; \dots &lt; v_p\)</span> et une somme <span class="math inline">\(n \in \N^*\)</span>, on cherche la manière d’exprimer cette somme avec le plus petit nombre de pièces possible.</p>
+<p>Plus précisément, l’ensemble des solutions <span class="math inline">\(S = \{ (k_1,\dots,k_p) \in N^p ~|~ k_1 v_1 + \dots + k_p v_p = n \}\)</span> et la fonction d’objectif est <span class="math inline">\(f : (k_1,\dots,k_p) \mapsto k_1 + \dots + k_p\)</span>. Les solutions partielles ici sont les réalisations de valeur <span class="math inline">\(&lt; n\)</span>. On cherche alors <span class="math inline">\(x = argmin_{y \in S} f(y)\)</span>.</p>
+<p>Comme <span class="math inline">\(1 = v_1\)</span>, <span class="math inline">\(S \neq \emptyset\)</span> car <span class="math inline">\((n,0,\dots,0) \in S\)</span> et ainsi <span class="math inline">\(f(x) \le n\)</span>.</p>
+<p>L’algorithme glouton va utiliser la plus grande pièce possible à chaque étape puis on applique l’algorithme glouton sur la somme restante sauf si elle est nulle, ce qui constitue la condition d’arrêt.</p>
+<p><strong>Exemple 1</strong></p>
+<ul>
+<li><span class="math inline">\(P = (1, 2, 5, 10)\)</span></li>
+<li><span class="math inline">\(n = 14\)</span></li>
+<li>On utilise la plus grande pièce possible <span class="math inline">\(10 \le 14\)</span> puis on exprime <span class="math inline">\(4 = 14 - 10\)</span></li>
+<li>Ici, la plus grande pièce est <span class="math inline">\(2\)</span> et on continue avec <span class="math inline">\(2 = 4 - 2\)</span></li>
+<li>La plus grande pièce est encore <span class="math inline">\(2\)</span> et on s’arrête car <span class="math inline">\(0 = 2 - 2\)</span>.</li>
+<li>En conclusion, on a obtenu <span class="math inline">\(x = (0,2,0,1)\)</span>.</li>
+<li>Une exploration exhuastive permet de s’assurer qu’on a effectivement obtenu une décomposition minimale. En effet, ici l’ensemble des décompositions est : { (14,0,0,0), (12,1,0,0), (8,3,0,0), (6,4,0,0), (4,5,0,0), (2,6,0,0), (0,7,0,0), (9,0,1,0), (7,1,1,0), (5,2,1,0), (3,3,1,0), (1,4,1,0), (4,0,2,0), (2,1,2,0), (0,2,2,0), (4,0,0,1), (2,1,0,1), (0,2,0,1) }.</li>
+</ul>
+<p><strong>Exemple 2</strong></p>
+<ul>
+<li><span class="math inline">\(P = (1, 2, 7, 10)\)</span></li>
+<li><span class="math inline">\(n = 14\)</span></li>
+<li>L’algorithme glouton va ici procéder comme dans l’exemple 1 et on va obtenir <span class="math inline">\(x = (0,2,0,1)\)</span>.</li>
+<li>Mais on remarque que ce n’est pas un minimum car <span class="math inline">\(x&#39; = (0,0,2,0)\)</span> convient avec <span class="math inline">\(f(x&#39;) = 2 &lt; 3 = f(x)\)</span>.</li>
+</ul>
+<p><em>Conclusion</em> l’algorithme glouton n’a effectivement pas de raisons d’être optimal.</p>
+<p>On peut se poser la question des algorithmes pour lesquels l’algorithme glouton aboutit nécessairement à une solution optimale.</p>
+<p><div class="ui message blue"><div class="header">Note</div>TODO - Ajouter un paragraphe simple sur les matroïdes qui puisse se décliner sous la forme d’un problème.</div></p>
+<h2 data-number="2.2" id="sec:algorithme-dhuffman---compression"><span class="header-section-number">2.2</span> Algorithme d’Huffman - Compression</h2>
+<p>On va étudier ici un principe de compression parfaite (sans perte d’information à la décompression) de données appelé l’algorithme de Huffman et qui repose sur ce principe simple : coder sur moins de bits les caractères les plus fréquents.</p>
+<p>Par exemple si on considère le mot <code>abaabc</code>, en le codant avec un nombre de bits fixes, par exemple 2 avec le code <code>a=00,b=01,c=10</code>, on aurait besoin de 12 bits pour représenter le mot. Mais si on choisit le code suivant : <code>a=0,b=10,c=11</code>, il suffit de 9 bits. On a donc gagné 3 bits soit un facteur de compression de 75%.</p>
+<p>On remarque que pour pouvoir décompreser, il n’aurait pas été possible de faire commencer le code de <code>b</code> ou <code>c</code> par un <code>0</code>, sinon on aurait eu une ambiguité avec la lecture d’un <code>a</code>. On parle alors de code préfixe :</p>
+<p><div class="ui message"><div class="header">Définition</div> Soit <span class="math inline">\(X \subset \{0,1\}^*\)</span>, on dit que <span class="math inline">\(X\)</span> est un code préfixe lorsque pour tous <span class="math inline">\(x, y \in X\)</span>, <span class="math inline">\(x\)</span> n’est pas un préfixe de <span class="math inline">\(y\)</span> et <span class="math inline">\(y\)</span> n’est pas un préfixe de <span class="math inline">\(x\)</span>. </div></p>
+<p>On se pose alors la question du code préfixe optimal pour un texte donné.</p>
+<p>Plus précisément, étant donné un alphabet fini <span class="math inline">\(\Sigma\)</span> et une application <span class="math inline">\(f : \Sigma \rightarrow [0,1]\)</span> associant à chaque lettre sa fréquence dans le texte considéré, c’est-à-dire <span class="math inline">\(f(x) = \frac{\text{occurences}(x)}{\text{longueur}}\)</span> et donc <span class="math inline">\(\sum_{x \in \Sigma} f(x) = 1\)</span>, on cherche un code préfixe <span class="math inline">\(X\)</span> et une application <span class="math inline">\(c : \Sigma \rightarrow X\)</span> telle que <span class="math inline">\(\sum_{x \in \Sigma} f(x) |c(x)|\)</span> soit minimale.</p>
+<p>En effet, si le texte considéré est de longueur <span class="math inline">\(n\)</span>, il y a exactement <span class="math inline">\(f(x) n\)</span> occurences de <span class="math inline">\(x\)</span> dans le texte et <span class="math inline">\(f(x) n |c(x)|\)</span> bits après codage. La longueur du texte codé est donc <span class="math inline">\(n \sum_{x \in \Sigma} f(x) |c(x)|\)</span>.</p>
+<p>L’application de codage <span class="math inline">\(c\)</span> peut être représenté par un arbre binaire où les arêtes gauches correspondent à 0, les arêtes droites à 1 et les feuilles aux éléments de <span class="math inline">\(\Sigma\)</span> dont les étiquettes des chemins y menant depuis la racine de l’arbre correspondent à leur image par <span class="math inline">\(c\)</span>.</p>
+<p>Par exemple, pour le code <span class="math inline">\(a=0,b=10,c=11\)</span> on aurait l’arbre :</p>
+<p><img src="assets/pics/arbre_huffman_ex1.png" /></p>
+<p>Avec un tel arbre, il est très simple de décoder le texte codé car il suffit de suivre un chemin dans l’arbre jusqu’à tomber sur une feuille, produire la lettre correspondante, puis repartir de la racine de l’arbre. La longueur du code associé à une lettre est alors égale à la profondeur de la feuille correspondante. L’optimalité du codage préfixe est ainsi équivalente à la minimalité de l’arbre vis-à-vis de la fonction d’objectif <span class="math inline">\(\varphi(t) = \sum_{x \in \Sigma} f(x) p(t,x)\)</span> où <span class="math inline">\(p(t,x)\)</span> est la profondeur de la feuille d’étiquette <span class="math inline">\(x\)</span> dans l’arbre <span class="math inline">\(t\)</span> ou <span class="math inline">\(0\)</span> si <span class="math inline">\(x\)</span> n’est pas une des étiquettes, cet extension permettant d’étendre la fonction d’objectif aux solutions partielles.</p>
+<p>L’algorithme d’Huffman va construire un arbre correspondant à un codage optimal à l’aide d’une file de priorité d’arbres. On étend pour cela l’application <span class="math inline">\(f\)</span> à de tels arbres en définissant que si <span class="math inline">\(t\)</span> est un arbre de feuilles <span class="math inline">\(x_1,\dots,x_n\)</span> alors <span class="math inline">\(f(t) = f(x_1) + \dots + f(x_n)\)</span>.</p>
+<ul>
+<li><p>Au départ, on place dans la file des arbres réduits à une feuille pour chaque élément <span class="math inline">\(x \in \Sigma\)</span> et dont la priorité est <span class="math inline">\(f(x)\)</span>.</p></li>
+<li><p>Tant que la file contient au moins deux éléments</p>
+<ul>
+<li>on retire les deux plus petits éléments <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> de la file de priorité <span class="math inline">\(f(x)\)</span> et <span class="math inline">\(f(y)\)</span></li>
+<li>on ajoute un arbre <span class="math inline">\(z = Noeud(x,y)\)</span> de priorité <span class="math inline">\(f(z) = f(x) + f(y)\)</span>.</li>
+</ul></li>
+<li><p>On renvoie l’unique élément restant dans la file.</p></li>
+</ul>
+<p>L’implémentation de cet algorithme est alors assez directe avec une file de priorité.</p>
+<p><div class="ui message blue"><div class="header">Note</div>FIXME: utiliser un module file de priorité fait dans un chapitre précédent plutôt</div></p>
+<p><div class="ui segment" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a><span class="kw">module</span> Heap = Core_kernel.Heap</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true"></a><span class="kw">let</span> compare_pair f a b = Stdlib.<span class="dt">compare</span> (f a) (f b)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true"></a><span class="kw">type</span> arbre = Feuille <span class="kw">of</span> <span class="dt">char</span> | Noeud <span class="kw">of</span> arbre * arbre</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true"></a><span class="kw">let</span> huffman freq =</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true"></a>    <span class="kw">let</span> arbres = Heap.create ~cmp:(compare_pair <span class="dt">fst</span>) () <span class="kw">in</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true"></a>    <span class="kw">let</span> compte = <span class="dt">ref</span> (<span class="dt">Array</span>.length freq) <span class="kw">in</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> <span class="dt">Array</span>.length freq - <span class="dv">1</span> <span class="kw">do</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true"></a>        <span class="kw">let</span> c, f = freq.(i) <span class="kw">in</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true"></a>        Heap.add arbres (f, Feuille c)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true"></a>    <span class="kw">done</span>;</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true"></a>    <span class="kw">while</span> !compte &gt; <span class="dv">1</span> <span class="kw">do</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true"></a>        <span class="kw">let</span> fx, x = Heap.pop_exn arbres <span class="kw">in</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true"></a>        <span class="kw">let</span> fy, y = Heap.pop_exn arbres <span class="kw">in</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true"></a>        Heap.add arbres (fx+.fy, Noeud(x,y));</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true"></a>        compte := !compte - <span class="dv">1</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true"></a>    <span class="kw">done</span>;</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true"></a>    <span class="dt">snd</span> (Heap.pop_exn arbres)</span></code></pre></div>
+<p></div></p>
+<p><div class="ui message orange"><div class="header">Remarque</div>FIXME: Rajouter la compression/décompression</div></p>
+<p>L’algorithme de Huffman est un algorithme glouton car si on considère pour solution partielle la fôret présente dans la file et pour objectif la fonction <span class="math inline">\(\varphi\)</span> étendue aux fôrets en sommant la valeur de <span class="math inline">\(\varphi\)</span> sur chaque arbre, alors fusionner dans la fôret <span class="math inline">\(F\)</span> deux arbres <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> en la transformant en une fôret <span class="math inline">\(F&#39;\)</span> va avoir l’impact suivant sur la fonction d’objectif :</p>
+<p><span class="math display">\[
+\varphi(F&#39;) = \varphi(F) + f(x) + f(y)
+\]</span></p>
+<p>car, en effet, on va rajouter 1 à la profondeur de chaque feuille et donc on passe pour la contribution de <span class="math inline">\(x\)</span> de <span class="math inline">\(\varphi(x) = \sum_{c \in \Sigma} f(c) p(x,c)\)</span> à <span class="math inline">\(\sum_{c \in \Sigma} f(c) (p(x,c)+1) = \varphi(x) + \sum_{c \in \Sigma} f(c) = \varphi(x) + f(x)\)</span>.</p>
+<p>On remarque ainsi que la fusion qui minimise localement <span class="math inline">\(\varphi\)</span> est celle qui fusionne les deux arbres de plus petite valeur pour <span class="math inline">\(f\)</span>.</p>
+<p>Pour montrer que l’algorithme glouton produit ici un codage minimal, on va utiliser une technique classique qui consiste à montrer qu’étant donné une solution optimale, on peut toujours la transformer sans augmenter sa valeur pour obtenir, de proche en proche, la solution renvoyée par le glouton.</p>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p>Supposons que les lettres les moins fréquentes soient <span class="math inline">\(a\)</span> et <span class="math inline">\(b\)</span>, il existe un arbre optimal dont les deux feuilles étiquettées par <span class="math inline">\(a\)</span> et <span class="math inline">\(b\)</span> descendent du même noeud et sont de profondeur maximale.</p>
+</div>
+<div class="ui message">
+<div class="header">
+Preuve
+</div>
+<p>Considérons un arbre optimal <span class="math inline">\(t\)</span> et soient <span class="math inline">\(c\)</span> l’étiquette d’une feuille de profondeur maximale. On remarque qu’elle a forcément une feuille sœur car sinon, on pourrait omettre le noeud et l’arbre obtenu serait de plus petite valeur par <span class="math inline">\(\varphi\)</span>.</p>
+<p>FIXME: dessin</p>
+<p>Soit <span class="math inline">\(d\)</span> l’étiquette de cette feuille sœur. Sans perte de généralités, on suppose que <span class="math inline">\(f(c) \le f(d)\)</span> et <span class="math inline">\(f(a) \le f(b)\)</span>. Comme <span class="math inline">\(a\)</span> a la plus petite fréquence, on a <span class="math inline">\(f(a) \le f(c)\)</span> et comme <span class="math inline">\(b\)</span> est la deuxième, on a <span class="math inline">\(f(b) \le f(d)\)</span>. De plus, <span class="math inline">\(p(t,a) \ge p(t,c)\)</span> et <span class="math inline">\(p(t,b) \ge p(t,d)\)</span>.</p>
+<p>Si on échange les étiquettes <span class="math inline">\(a\)</span> et <span class="math inline">\(c\)</span>, seule les termes associées à ces lettres changent dans l’évaluation de <span class="math inline">\(\varphi\)</span>. Si on note <span class="math inline">\(t&#39;\)</span> le nouvel arbre obtenu après cet échange, on a <span class="math display">\[
+\varphi(t&#39;) = \varphi(t) - f(a) p(t,a) - f(c) p(t,c) + f(a) p(t,c) + f(c)
+p(t,a)
+\]</span> Or, <span class="math inline">\(f(c) \ge f(a)\)</span> et <span class="math inline">\(p(t,a) \ge p(t,c)\)</span> donc <span class="math display">\[\varphi(t&#39;) = \varphi(t) + (f(c) - f(a))(p(t,a)-p(t,c))
+\le \varphi(t)\]</span> L’échange préserve le caractère optimal. En fait, ici, on a nécessairement une égalité pour ne pas aboutir à une contradiction, donc soit les feuilles étaient à même profondeur, soit les lettres avaient la même fréquence.</p>
+<p>Comme on a les mêmes relations entre <span class="math inline">\(b\)</span> et <span class="math inline">\(d\)</span>, on peut effectuer le même argument et échanger les étiquettes en préservant le caractère optimal.</p>
+</div>
+<p>Le théorème suivant permet de raisonner par récurrence en diminuant le nombre de lettres.</p>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p>Soit <span class="math inline">\(t\)</span> un arbre ayant <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> comme feuilles soeurs et <span class="math inline">\(t&#39;\)</span> l’arbre obtenu en remplaçant le noeud liant <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> par une feuille étiquettée par <span class="math inline">\(z\)</span> où <span class="math inline">\(z\)</span> est une nouvelle lettre telle que <span class="math inline">\(f(z) = f(x) + f(y)\)</span>.</p>
+<p>FIXME: dessin</p>
+<p>On a alors <span class="math inline">\(\varphi(t) = \varphi(t&#39;) + f(z)\)</span>.</p>
+</div>
+<div class="ui message">
+<div class="header">
+Preuve
+</div>
+<p>Seule les termes portant sur <span class="math inline">\(x, y\)</span> et <span class="math inline">\(z\)</span> sont influencés par le changement et on a : <span class="math display">\[
+\begin{array}{rl}
+\varphi(t) &amp; = \varphi(t&#39;) + f(x) p(t,x) + f(y) p(t,y) - f(z) p(t&#39;,z) \\
+&amp; = \varphi(t&#39;) + f(z) (p(t&#39;,z) + 1) - f(z) p(t&#39;,z) \\
+&amp; = \varphi(t&#39;) + f(z)
+\end{array}
+\]</span></p>
+</div>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p>L’algorithme de Huffman renvoie un arbre optimal.</p>
+</div>
+<div class="ui message">
+<div class="header">
+Preuve
+</div>
+<p>Par récurrence sur <span class="math inline">\(|\Sigma|\)</span>.</p>
+<p><em>Initialisation</em> : si <span class="math inline">\(\Sigma\)</span> ne contient qu’une lettre, il n’y a qu’un arbre qui est nécessairement optimal.</p>
+<p><em>Hérédité</em> : si la propriété est vraie pour un alphabet de <span class="math inline">\(n-1 \ge 1\)</span> lettres, alors soit <span class="math inline">\(\Sigma\)</span> contenant <span class="math inline">\(n\)</span> lettres et <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> les deux lettres les moins fréquentes.</p>
+<p>On pose <span class="math inline">\(\Sigma&#39;\)</span> obtenue en remplaçant <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> par une nouvelle lettre <span class="math inline">\(z\)</span> et on suppose que <span class="math inline">\(f(z) = f(x) + f(y)\)</span>. L’hypothèse de récurrence assure qu’on obtient un arbre optimal <span class="math inline">\(t&#39;\)</span> en appliquant l’algorithme d’Huffman sur <span class="math inline">\(\Sigma&#39;\)</span>. Comme la première étape d’Huffman va fusionner les feuilles <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span>, on sait que l’arbre <span class="math inline">\(t\)</span> obtenu en partant de <span class="math inline">\(\Sigma\)</span> se déduit de <span class="math inline">\(t&#39;\)</span> en remplaçant <span class="math inline">\(z\)</span> par <span class="math inline">\(Noeud(x,y)\)</span>. Le théorème précédent assure alors que <span class="math inline">\(\varphi(t) = \varphi(t&#39;) + f(z)\)</span>.</p>
+<p>Soit <span class="math inline">\(t_o\)</span> un arbre optimal pour <span class="math inline">\(\Sigma\)</span> dans lequel <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> sont soeurs, possible en vertu du premier théorème, et soit <span class="math inline">\(t_o&#39;\)</span> l’arbre obtenue en remplaçant dans <span class="math inline">\(t_o\)</span> le noeud liant <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> par une feuille étiquettée par <span class="math inline">\(z\)</span>. On a ici encore <span class="math inline">\(\varphi(t_o) = \varphi(t_o&#39;) + f(z) \ge \varphi(t&#39;) + f(z) \ge \varphi(t)\)</span> car <span class="math inline">\(t&#39;\)</span> est optimal.</p>
+<p>Ainsi, on a bien l’égalité <span class="math inline">\(\varphi(t_o) = \varphi(t)\)</span> et <span class="math inline">\(t\)</span> est optimal.</p>
+</div>
 <h2 data-number="2.3" id="sec:sélection-dactivités"><span class="header-section-number">2.3</span> Sélection d’activités</h2>
 <h2 data-number="2.4" id="sec:ordonnancement-de-tâches"><span class="header-section-number">2.4</span> Ordonnancement de tâches</h2>
 <h1 data-number="3" id="sec:diviser-pour-régner"><span class="header-section-number">3</span> Diviser pour régner</h1>
