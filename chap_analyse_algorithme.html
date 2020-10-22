@@ -326,7 +326,7 @@ $(document).ready(function() {
 </div>
 <div class="ui container text">
 <p><img class="ui image fluid" src="assets/pics/chap_algo_exacte.png"/></p>
-<p>*Soruce de l’image d’en-tête <a href="https://xkcd.com/1667/">XKCD #1667</a></p>
+<p><em>Source de l’image d’en-tête <a href="https://xkcd.com/1667/">XKCD #1667</a></em></p>
 <p><div class="ui message orange"><div class="header">Remarque</div>Ce chapitre présente les trois grands principes qui nous serviront de guide pour analyser les algorithmes et les programmes :</p>
 <ul>
 <li>La <strong>terminaison</strong> : l’algorithme termine-t-il au bout d’un nombre fini d’étapes quelle que soit l’entrée ?</li>
@@ -359,12 +359,12 @@ $(document).ready(function() {
 <p>Pour prouver la terminaison d’une boucle conditionnelle, on utilise un <strong>variant</strong> de boucle.</p>
 <p><div class="ui message"><div class="header">Définition</div> Un <strong>variant de boucle</strong> est une quantité entière <strong>positive</strong> à l’entrée de chaque itération de la boucle et qui diminue <strong>strictement</strong> à chaque itération. </div></p>
 <p>Ainsi, si on a un variant de boucle qui vaut initialement <span class="math inline">\(n\)</span> avant d’entrer dans la boucle, celle-ci effectue au plus <span class="math inline">\(n\)</span> itérations car le variant diminue au moins de 1 à chaque étape.</p>
-<p>Ainsi, si une boucle admet un variant de boucle, elle termine.</p>
+<p>Si une boucle admet un variant de boucle, elle termine.</p>
 <p>Dans l’exemple précédent, la quantité <span class="math inline">\(n-p\)</span> est un variant de boucle :</p>
 <ul>
 <li>Au départ, <span class="math inline">\(n &gt; 0\)</span> et <span class="math inline">\(p=1\)</span> donc <span class="math inline">\(n-p \ge 0\)</span></li>
 <li>Comme il s’agit d’une différence de deux entiers, c’est un entier. Et tant que la condition de boucle est vérifiée <span class="math inline">\(p &lt; n\)</span> donc <span class="math inline">\(n-p &gt; 0\)</span>.</li>
-<li>Lorsqu’on passe d’une itération à la suivante, la quantité passe de <span class="math inline">\(n-p\)</span> à <span class="math inline">\(n-2p\)</span> or <span class="math inline">\(2p-p &gt; 0\)</span> car <span class="math inline">\(p \ge 1\)</span>. Il y a bien une stricte dimininution.</li>
+<li>Lorsqu’on passe d’une itération à la suivante, la quantité passe de <span class="math inline">\(n-p\)</span> à <span class="math inline">\(n-2p\)</span> or <span class="math inline">\(2p-p &gt; 0\)</span> car <span class="math inline">\(p \ge 1\)</span>. Il y a bien une stricte diminution.</li>
 </ul>
 <p><div class="ui message orange"><div class="header">Remarque</div>Ici, en sortie de boucle, <span class="math inline">\(n-p \le 0\)</span>. On fait donc bien attention de préciser que la quantité est positive tant que la condition de boucle est vérifiée.</div></p>
 <h2 data-number="1.2" id="sec:exemple-de-la-recherche-dichotomique"><span class="header-section-number">1.2</span> Exemple de la recherche dichotomique</h2>
@@ -382,14 +382,14 @@ $(document).ready(function() {
 <p><div class="ui segment" style="font-size:0.8em" ></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="dt">int</span> rech_dicho(<span class="dt">int</span> *t, <span class="dt">size_t</span> n, <span class="dt">int</span> x)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>{</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>    <span class="co">/* renvoie le plus petit indice de x si x est dans le tableau</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="co">       et -1 sinon */</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>    <span class="co">/* renvoie un indice de x </span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="co">      si x est dans le tableau et -1 sinon */</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>    <span class="dt">size_t</span> i = <span class="dv">0</span>;</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>    <span class="dt">size_t</span> j = n-<span class="dv">1</span>;</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>    </span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>    <span class="cf">while</span> (i &lt;= j) </span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>    {</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a>        <span class="dt">size_t</span> p = (i+j)/<span class="dv">2</span>;</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a>        <span class="dt">size_t</span> p = i + (j-i)/<span class="dv">2</span>;</span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a>        <span class="dt">int</span> m = t[p];</span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a></span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a>        <span class="cf">if</span> (x == m)</span>
@@ -403,6 +403,7 @@ $(document).ready(function() {
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true"></a>    <span class="cf">return</span> -<span class="dv">1</span>;</span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true"></a>}</span></code></pre></div>
 <p></div></p>
+<p><div class="ui message orange"><div class="header">Remarque</div>On a écrit <code>i+(j-i)/2</code> et non <code>(i+j)/2</code> afin d’éviter des erreurs de dépassement dans le calcul de <code>i+j</code>.</div></p>
 <p>Ici, la terminaison n’est pas immédiate, on va la prouver à l’aide d’un variant de boucle. On considère ainsi la quantité <span class="math inline">\(d(i,j) = j-i\)</span>.</p>
 <ul>
 <li>Comme le tableau est non vide, <span class="math inline">\(d(0,n-1) \ge 0\)</span>. Ensuite, la condition de boucle est équivalente à <span class="math inline">\(d(i,j) \ge 0\)</span>, donc cette quantité est bien entière et positive à l’entrée de chaque itération.</li>
@@ -413,17 +414,18 @@ $(document).ready(function() {
 </ul></li>
 </ul>
 <p>Ainsi, il s’agit d’un variant de boucle et l’algorithme termine.</p>
-<p><div class="ui message orange"><div class="header">Remarque</div>On remarque que le programme récursif suivant réalise également cet algorihtme. <div class="ui segment" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">let</span> <span class="kw">rec</span> rech_dicho t i j x =</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>    <span class="kw">if</span> i &lt;= j</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>    <span class="kw">then</span> <span class="kw">let</span> p = (i+j)/<span class="dv">2</span> <span class="kw">in</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>         <span class="kw">let</span> m = t.(p) <span class="kw">in</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>         <span class="kw">if</span> x = m</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>         <span class="kw">then</span> <span class="kw">true</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>         <span class="kw">else</span> <span class="kw">if</span> x &lt; m</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>         <span class="kw">then</span> rech_dicho t i (p<span class="dv">-1</span>) x</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>         <span class="kw">else</span> rech_dicho t (p+<span class="dv">1</span>) j x</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>    <span class="kw">else</span> <span class="kw">false</span></span></code></pre></div>
+<p><div class="ui message orange"><div class="header">Remarque</div>On remarque que le programme récursif suivant réalise également cet algorithme. <div class="ui segment" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="co">(* rech_dicho : int array -&gt; int -&gt; int -&gt; int -&gt; int option *)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="kw">let</span> <span class="kw">rec</span> rech_dicho t i j x =</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>    <span class="kw">if</span> i &lt;= j</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>    <span class="kw">then</span> <span class="kw">let</span> p = (i+j)/<span class="dv">2</span> <span class="kw">in</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>         <span class="kw">let</span> m = t.(p) <span class="kw">in</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>         <span class="kw">if</span> x = m</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>         <span class="kw">then</span> <span class="dt">Some</span> p</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>         <span class="kw">else</span> <span class="kw">if</span> x &lt; m</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>         <span class="kw">then</span> rech_dicho t i (p<span class="dv">-1</span>) x</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>         <span class="kw">else</span> rech_dicho t (p+<span class="dv">1</span>) j x</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>    <span class="kw">else</span> <span class="dt">None</span></span></code></pre></div>
 <p></div></p>
 <p>Il suffit alors d’appeler <code>rech_dicho t 0 (Array.length t - 1) x</code> pour faire une recherche sur tout le tableau.</p>
 <p>Ici, il n’y a pas explicitement de boucle mais le même principe peut être mis en place pour prouver que le nombre d’appel récursifs est majoré, et donc que toute exécution termine. En effet, la quantité <span class="math inline">\(d(i,j) = j-i\)</span> diminue pour les mêmes raisons à chaque appel récursif et reste entière positive.</div></p>
@@ -459,7 +461,7 @@ $(document).ready(function() {
 <p>Ainsi, ce prédicat est bien un invariant et en sortie de boucle (ce qui arrive nécessairement car l’algorithme termine), le prédicat <span class="math inline">\(I(k,p)\)</span> signifie que <span class="math inline">\(2^{k-1} &lt; n\)</span> <strong>et la condition de sortie de boucle</strong> qu’on a <span class="math inline">\(n \le 2^k\)</span>.</p>
 <p>La valeur renvoyée est bien <span class="math inline">\(k\)</span> tel que <span class="math inline">\(2^{k-1} &lt; n \le 2^k\)</span> ce qui était la spécification annoncée du programme.</p>
 <h2 data-number="2.2" id="sec:exemple-du-tri-par-sélection"><span class="header-section-number">2.2</span> Exemple du tri par sélection</h2>
-<p>Le programme suivant présente un algorithme de tri, appelé le <em>tri par selection</em> dont on va analyser la complexité. Il s’agit d’un tri qui repose sur un principe simple, on va chercher le plus petit élément du tableau à trier et le placer à la position courante. On définit ainsi trois fonctions :</p>
+<p>Le programme suivant présente un algorithme de tri, appelé le <em>tri par sélection</em> dont on va analyser la complexité. Il s’agit d’un tri qui repose sur un principe simple, on va chercher le plus petit élément du tableau à trier et le placer à la position courante. On définit ainsi trois fonctions :</p>
 <ul>
 <li><code>echange</code> réalise l’échange de valeurs entre deux cases du tableau</li>
 <li><code>indice_minimum</code> renvoie l’indice de la plus petite valeur entre deux indices donnés</li>
@@ -776,7 +778,7 @@ n^\alpha = O(\beta^n)
 <p>La complexité temporelle en moyenne est alors <span class="math inline">\(C^{t,m}_n = \sum_{i=1}^{n} \frac{1}{n} i C = \frac{(n+1)C}{2} = O(n)\)</span>. On retrouve ici la même complexité que la complexité dans le pire des cas. La sortie prématurée de la boucle n’a donc aucune influence sur la complexité.</p>
 <h2 data-number="3.7" id="sec:complexité-amortie"><span class="header-section-number">3.7</span> Complexité amortie</h2>
 <p>Dans le cadre de l’étude des structures de données, il est fréquent de considérer non pas la complexité dans le pire des cas d’une opération mais celle d’une succession d’opérations divisée par le nombre d’opérations effectuées. Ainsi, on peut très bien avoir une opération ponctuellement plus coûteuse que les autres, mais en procédant ainsi on lisse le surcoût sur l’ensemble des opérations. On parle alors de <strong>complexité amortie</strong>.</p>
-<p><div class="ui message orange"><div class="header">Remarque</div>Cette notion ne masque pas le fait qu’une opération puisse prendre ponctuellement plus de temps. Dans des contextes temps réel où il est importat de maitriser pleinement les complexités, il est peu judicieux d’utiliser de telles complexité. Par exemple, dans une visualisation en 3D, pour maintenir un débit constant d’images par secondes, chaque image doit prendre un temps similaire. Se reposer sur une structure de donnée ayant une faible complexité amortie mais une complexité dans le pire des cas importante, c’est risquer d’avoir des sacades avec une image qui prendrait plus de temps pour être calculée.</div></p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Cette notion ne masque pas le fait qu’une opération puisse prendre ponctuellement plus de temps. Dans des contextes temps réel où il est importat de maitriser pleinement les complexités, il est peu judicieux d’utiliser de telles complexités. Par exemple, dans une visualisation en 3D, pour maintenir un débit constant d’images par secondes, chaque image doit prendre un temps similaire. Se reposer sur une structure de donnée ayant une faible complexité amortie mais une complexité dans le pire des cas importante, c’est risquer d’avoir des sacades avec une image qui prendrait plus de temps pour être calculée.</div></p>
 <p>Un exemple simple est donnée par la structure de données des tableaux dynamiques. C’est la structure de données utilisées dans de nombreux langages de haut niveau pour implémenter le type abstrait des listes. La différence principale entre cette structure de données et celle des tableaux de C est qu’on peut ajouter et supprimer des éléments.</p>
 <p>Un tableau dynamique d’entiers est un triplet <code>(t,c,n)</code> où <code>t</code> est un tableau de taille <code>c</code>, appelée la capacité du tableau dynamique, et <code>n</code> est un autre entier représentant la taille logique du tableau. A tout moment <span class="math inline">\(c \ge n\)</span>. Dans <code>t</code> il y a ainsi <span class="math inline">\(c-n\)</span> cases déjà allouées qui permettent de rajouter un élément en temps constant. Quand <span class="math inline">\(c=n\)</span>, on alloue une nouvelle zone mémoire, souvent de taille <span class="math inline">\(2c\)</span>, on déplace le tableau <code>t</code> dans cette zone et on a donc pour cet ajout prévu un certain nombre de cases d’avance.</p>
 <p>La figure suivante présente une succession d’ajouts : <img src="assets/pics/tableau_dyn.png" /></p>
@@ -844,6 +846,7 @@ n^\alpha = O(\beta^n)
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a>c=<span class="dv">8</span> n=<span class="dv">5</span> |<span class="dv">1</span>|<span class="dv">2</span>|<span class="dv">3</span>|<span class="dv">4</span>|<span class="dv">5</span>| | | |</span></code></pre></div>
 <p></div></p>
 <p>Calculons la complexité amortie de l’ajout d’un élément. Si on considère un ajout d’élément qui provoque une réallocation du tableau, celle-ci sera en <span class="math inline">\(O(c)\)</span> et les <span class="math inline">\(c-1\)</span> opérations suivantes d’ajout seront en <span class="math inline">\(O(1)\)</span>. La complexité globale de ces <span class="math inline">\(c\)</span> opérations d’ajout est alors en <span class="math inline">\(O(c)\)</span>, ce qui donne une complexité amortie en <span class="math inline">\(O(1)\)</span>. On peut ainsi considérer que l’ajout d’un élément dans un tableau dynamique est en complexité temporelle amortie constante.</p>
+<p><div class="ui message blue"><div class="header">Note</div>Il faut faire un choix entre reprendre ici une preuve plus précise ou la garder pour un chapitre ultérieur avec au moins un exemple de méthode du potentiel (Skew Heaps?)</div></p>
 <h2 data-number="3.8" id="sec:pertinence-de-la-complexité-spatiale"><span class="header-section-number">3.8</span> Pertinence de la complexité spatiale</h2>
 <p>Même si la complexité temporelle est le plus souvent celle qui est importante à calculer, certains algorithmes ont une complexité temporelle faible mais en contrepartie une complexité spatiale élevée. On parle alors de compromis temps-mémoire.</p>
 <p>Un exemple classique d’un tel compromis est celui de la programmation dynamique où on passe d’une complexité temporelle exponentielle à une complexité temporelle polynomiale en stockant des valeurs intermédiaires pour ne pas les recalculer. En procédant ainsi, on passe d’une complexité spatiale constante à polynomiale.</p>
