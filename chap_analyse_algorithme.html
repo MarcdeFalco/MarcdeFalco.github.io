@@ -155,6 +155,36 @@ $(document).ready(function() {
     width: 60%;
 }
 
+table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 24px;
+    border-spacing: 0;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+}
+
+table tr {
+    display: table-row !important;
+}
+
+table th {
+    padding: 3px 10px;
+    background-color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid black;
+}
+table td {
+    padding: 3px 10px;
+    border-top: none;
+    border-left: none;
+    border-bottom: none;
+    border-right: none;
+}
+
+
 @media only screen and (max-width: 700px) {
     #top-menu {
         display: block !important;
@@ -325,7 +355,7 @@ $(document).ready(function() {
 </div>
 </div>
 <div class="ui container text">
-<p><img class="ui image fluid" src="assets/pics/chap_algo_exacte.png"/></p>
+<p><img class="ui image fluid" src="assets/pics/chap_analyse_algo.png"/></p>
 <p><em>Source de l’image d’en-tête <a href="https://xkcd.com/1667/">XKCD #1667</a></em></p>
 <p><div class="ui message orange"><div class="header">Remarque</div>Ce chapitre présente les trois grands principes qui nous serviront de guide pour analyser les algorithmes et les programmes :</p>
 <ul>
@@ -609,13 +639,16 @@ Ce prédicat est bien un invariant. Ainsi, en sortie de boucle, <span class="mat
 <p>On rappelle les limites obtenues en mathématiques que l’on nomme <strong>croissances comparées</strong> :</p>
 <p><span class="math display">\[
 \forall \alpha,\beta &gt; 0, \lim_{n \rightarrow +\infty} \frac{(\ln n)^\alpha}{n^\beta} = 0 
-\qquad
+\]</span> <span class="math display">\[
+\forall \alpha \in \R, \forall \beta &gt; 1,
 \lim_{n \rightarrow +\infty} \frac{n^\alpha}{\beta^n} = 0 
 \]</span></p>
 <p>Or, si <span class="math inline">\(\frac{u_n}{v_n} \tend{n}{+\infty} 0\)</span> <em>a fortiori</em> le quotient est borné et <span class="math inline">\(u_n = O(v_n)\)</span>. Ainsi, on a les relations suivantes :</p>
 <p><span class="math display">\[
 \forall \alpha,\beta &gt; 0, 
-(\log_2 n)^\alpha = O(n^\beta) \qquad
+(\log_2 n)^\alpha = O(n^\beta)
+\]</span> <span class="math display">\[
+\forall \alpha \in \R, \forall \beta &gt; 1,
 n^\alpha = O(\beta^n)
 \]</span> De plus, si <span class="math inline">\(\alpha \ge \beta &gt; 0\)</span>, <span class="math inline">\(n^\beta = O(n^\alpha)\)</span>, <span class="math inline">\((\log_2 n)^\beta = O((\log_2 n)^\alpha)\)</span> et <span class="math inline">\(\beta^n = O(\alpha^n)\)</span>.</p>
 <p>On se ramène souvent à des complexités qui sont des grand O de produits de ces suites.</p>

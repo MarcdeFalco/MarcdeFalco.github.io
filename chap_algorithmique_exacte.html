@@ -155,6 +155,36 @@ $(document).ready(function() {
     width: 60%;
 }
 
+table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 24px;
+    border-spacing: 0;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+}
+
+table tr {
+    display: table-row !important;
+}
+
+table th {
+    padding: 3px 10px;
+    background-color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid black;
+}
+table td {
+    padding: 3px 10px;
+    border-top: none;
+    border-left: none;
+    border-bottom: none;
+    border-right: none;
+}
+
+
 @media only screen and (max-width: 700px) {
     #top-menu {
         display: block !important;
@@ -188,28 +218,26 @@ $(document).ready(function() {
 <li><a href="#sec:principe-1"><span class="toc-section-number">2.1</span> Principe</a></li>
 <li><a href="#sec:algorithme-dhuffman---compression"><span class="toc-section-number">2.2</span> Algorithme d’Huffman - Compression</a></li>
 <li><a href="#sec:preuve-doptimalité"><span class="toc-section-number">2.3</span> Preuve d’optimalité</a></li>
-<li><a href="#sec:sélection-dactivités"><span class="toc-section-number">2.4</span> Sélection d’activités</a></li>
-<li><a href="#sec:ordonnancement-de-tâches"><span class="toc-section-number">2.5</span> Ordonnancement de tâches</a></li>
+<li><a href="#sec:sélection-dactivités"><span class="toc-section-number">2.4</span> Sélection d’activités</a>
+<ul>
+<li><a href="#sec:description"><span class="toc-section-number">2.4.1</span> Description</a></li>
+<li><a href="#sec:algorithme-glouton-et-implémentation"><span class="toc-section-number">2.4.2</span> Algorithme glouton et implémentation</a></li>
+<li><a href="#sec:preuve-doptimalité-1"><span class="toc-section-number">2.4.3</span> Preuve d’optimalité</a></li>
 </ul></li>
-<li><a href="#sec:diviser-pour-régner"><span class="toc-section-number">3</span> Diviser pour régner</a>
+<li><a href="#sec:points-les-plus-proches"><span class="toc-section-number">2.5</span> Points les plus proches</a></li>
+<li><a href="#sec:sous-ensemble-de-somme-donnée"><span class="toc-section-number">2.6</span> Sous-ensemble de somme donnée</a></li>
+<li><a href="#sec:recherche-dichotomique"><span class="toc-section-number">2.7</span> Recherche dichotomique</a></li>
+<li><a href="#sec:couverture-par-des-segments-égaux"><span class="toc-section-number">2.8</span> Couverture par des segments égaux</a></li>
+</ul></li>
+<li><a href="#sec:programmation-dynamique"><span class="toc-section-number">3</span> Programmation dynamique</a>
 <ul>
 <li><a href="#sec:principe-2"><span class="toc-section-number">3.1</span> Principe</a></li>
-<li><a href="#sec:tri-fusion"><span class="toc-section-number">3.2</span> Tri fusion</a></li>
-<li><a href="#sec:nombre-dinversions"><span class="toc-section-number">3.3</span> Nombre d’inversions</a></li>
-<li><a href="#sec:points-les-plus-proches"><span class="toc-section-number">3.4</span> Points les plus proches</a></li>
-<li><a href="#sec:sous-ensemble-de-somme-donnée"><span class="toc-section-number">3.5</span> Sous-ensemble de somme donnée</a></li>
-<li><a href="#sec:recherche-dichotomique"><span class="toc-section-number">3.6</span> Recherche dichotomique</a></li>
-<li><a href="#sec:couverture-par-des-segments-égaux"><span class="toc-section-number">3.7</span> Couverture par des segments égaux</a></li>
+<li><a href="#sec:somme-de-sous-ensembles"><span class="toc-section-number">3.2</span> Somme de sous-ensembles</a></li>
+<li><a href="#sec:ordonnancement-de-tâches"><span class="toc-section-number">3.3</span> Ordonnancement de tâches</a></li>
+<li><a href="#sec:plus-longue-sous-suite-commune"><span class="toc-section-number">3.4</span> Plus longue sous-suite commune</a></li>
+<li><a href="#sec:distance-dédition"><span class="toc-section-number">3.5</span> Distance d’édition</a></li>
 </ul></li>
-<li><a href="#sec:programmation-dynamique"><span class="toc-section-number">4</span> Programmation dynamique</a>
-<ul>
-<li><a href="#sec:principe-3"><span class="toc-section-number">4.1</span> Principe</a></li>
-<li><a href="#sec:somme-de-sous-ensembles"><span class="toc-section-number">4.2</span> Somme de sous-ensembles</a></li>
-<li><a href="#sec:ordonnancement-de-tâches-1"><span class="toc-section-number">4.3</span> Ordonnancement de tâches</a></li>
-<li><a href="#sec:plus-longue-sous-suite-commune"><span class="toc-section-number">4.4</span> Plus longue sous-suite commune</a></li>
-<li><a href="#sec:distance-dédition"><span class="toc-section-number">4.5</span> Distance d’édition</a></li>
-</ul></li>
-<li><a href="#sec:algorihtmique-du-texte"><span class="toc-section-number">5</span> Algorihtmique du texte</a></li>
+<li><a href="#sec:algorihtmique-du-texte"><span class="toc-section-number">4</span> Algorihtmique du texte</a></li>
 </ul>
 </div>
 
@@ -322,7 +350,12 @@ $(document).ready(function() {
 </div>
 <div class="ui container text">
 <p><img class="ui image fluid" src="assets/pics/chap_algo_exacte.png"/></p>
+<p><em>Source image : https://www.flickr.com/photos/x6e38/3440634940/</em></p>
 <p><div class="ui message orange"><div class="header">Remarque</div>Dans ce chapitre, on étudie des problèmes pour lesquels on va exprimer des algorithmes permettant d’obtenir des solutions exactes. C’est à contraster avec le chapitre sur l’algorithmique approchée.</div></p>
+<p>Une grande partie des stratégies de résolution est basée sur la résolution de sous-problèmes. On verra ainsi trois types de stratégies résumées dans le schéma suivant :</p>
+<p><center></p>
+<p><img src="assets/pics/strategies_sousproblemes.png" /></p>
+<p></center></p>
 <h1 data-number="1" id="sec:recherche-par-force-brute"><span class="header-section-number">1</span> Recherche par force brute</h1>
 <h2 data-number="1.1" id="sec:principe"><span class="header-section-number">1.1</span> Principe</h2>
 <p>Considérons un problème du type trouver un <span class="math inline">\(x \in V\)</span> vérifiant une propriété <span class="math inline">\(P(x)\)</span>. Par exemple, <span class="math inline">\(V\)</span> est l’ensemble des chaînes de caractère et <span class="math inline">\(P\)</span> vérifie si une chaîne est un mot de passe qu’on cherche. Dans certains problèmes, un tel <span class="math inline">\(x\)</span> n’est pas unique et on cherche à tous les énumérer.</p>
@@ -862,11 +895,13 @@ Preuve
 <li>Montrer qu’une solution optimale se comportant comme le résultat de l’algorithme glouton à une étape ne peut être meilleure que le résultat de l’algorithme glouton.</li>
 </ul>
 <h2 data-number="2.4" id="sec:sélection-dactivités"><span class="header-section-number">2.4</span> Sélection d’activités</h2>
+<h3 data-number="2.4.1" id="sec:description"><span class="header-section-number">2.4.1</span> Description</h3>
 <p>Étant donné un ensemble d’activités données par leur temps de début et leur temps de fin (on considère les temps comme des entiers pour simplifier), on se pose la question du nombre maximal d’activité que l’on puisse sélectionner sans que deux activités soient en conflits. Cela correspond par exemple à l’organisation du planning d’un employé.</p>
 <p>On dit que deux activités <span class="math inline">\((d_1,f_1)\)</span> et <span class="math inline">\((d_2,f_2)\)</span> sont en conflits quand <span class="math inline">\([d_1,f_1[ \cap [d_2,f_2[ \neq \emptyset\)</span>.</p>
 <p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"> <img src="assets/pics/activites_conflits.png" /></p>
 <p></div><div class="eight wide column"> Ici, <span class="math inline">\(t_1\)</span> et <span class="math inline">\(t_2\)</span> sont en conflits avec <span class="math inline">\(t_3\)</span>. Mais <span class="math inline">\(t_1\)</span> et <span class="math inline">\(t_2\)</span> ne sont pas en conflit. On considère que deux activités peuvent se succéder directement : <span class="math inline">\(f_1 = d_2\)</span>. </div></div></div></p>
 <p>On considère donc en entrée de ce problème une suite finie <span class="math inline">\(( (d_1,f_1), \dots, (d_n,f_n) )\)</span> et on cherche un sous-ensemble <span class="math inline">\(I \subset \range{1}{n}\)</span> de plus grand cardinal tel que pour tous <span class="math inline">\(i, j \in I\)</span>, si <span class="math inline">\(i \neq j\)</span> alors <span class="math inline">\((d_i,f_i)\)</span> et <span class="math inline">\((d_j,f_j)\)</span> ne sont pas en conflits. On dit que <span class="math inline">\(I\)</span> est un <strong>ensemble indépendant</strong>.</p>
+<h3 data-number="2.4.2" id="sec:algorithme-glouton-et-implémentation"><span class="header-section-number">2.4.2</span> Algorithme glouton et implémentation</h3>
 <p>Pour résoudre ce problème, on considère l’algorithme glouton associé à la fonction d’objectif cardinal et <strong>en triant les activités</strong> ordre croissant de temps de fin.</p>
 <p>Cet algorithme est implémenté dans le programme suivant :</p>
 <p><div class="ui segment" style="font-size:0.8em" ></p>
@@ -936,8 +971,8 @@ Preuve
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true"></a>Activité <span class="dv">4</span> (<span class="dv">11</span>,<span class="dv">12</span>) : <span class="dv">1</span></span></code></pre></div>
 <p></div></p>
 <p><div class="ui message orange"><div class="header">Remarque</div>Comme l’algorithme commence par effectuer un tri, on a rajouté dans la structure <code>activite</code> un champ permettant d’identifier une activité autrement que par son indice.</div></p>
+<h3 data-number="2.4.3" id="sec:preuve-doptimalité-1"><span class="header-section-number">2.4.3</span> Preuve d’optimalité</h3>
 <p>On va prouver que l’algorithme glouton renvoie un ensemble indépendant optimal. Le fait que l’ensemble soit indépendant étant direct, on se concentre sur la preuve d’optimalité en présentant un schéma de preuve qui correspond à celui identifié dans le paragraphe précédent.</p>
-<p>% Preuve adaptée de https://web.cs.ucdavis.edu/~bai/ECS122A/Notes/ActivitySelect.pdf</p>
 <div class="ui message olive">
 <div class="header">
 Théorème
@@ -981,22 +1016,17 @@ Preuve
 <p>Par hypothèse de récurrence, l’algorithme glouton sur <span class="math inline">\(A&#39;\)</span> produit un ensemble indépendant optimal <span class="math inline">\(G&#39;\)</span>, donc tel que <span class="math inline">\(|G&#39;| = |I&#39;|\)</span>. Par construction l’algorithme glouton sur <span class="math inline">\(A\)</span> renvoie <span class="math inline">\(G = G&#39; \cup \{ a_1\}\)</span> de même cardinal que <span class="math inline">\(I\)</span>, donc optimal.</p></li>
 </ul>
 </div>
-<h2 data-number="2.5" id="sec:ordonnancement-de-tâches"><span class="header-section-number">2.5</span> Ordonnancement de tâches</h2>
-<h1 data-number="3" id="sec:diviser-pour-régner"><span class="header-section-number">3</span> Diviser pour régner</h1>
+<h2 data-number="2.5" id="sec:points-les-plus-proches"><span class="header-section-number">2.5</span> Points les plus proches</h2>
+<h2 data-number="2.6" id="sec:sous-ensemble-de-somme-donnée"><span class="header-section-number">2.6</span> Sous-ensemble de somme donnée</h2>
+<h2 data-number="2.7" id="sec:recherche-dichotomique"><span class="header-section-number">2.7</span> Recherche dichotomique</h2>
+<h2 data-number="2.8" id="sec:couverture-par-des-segments-égaux"><span class="header-section-number">2.8</span> Couverture par des segments égaux</h2>
+<h1 data-number="3" id="sec:programmation-dynamique"><span class="header-section-number">3</span> Programmation dynamique</h1>
 <h2 data-number="3.1" id="sec:principe-2"><span class="header-section-number">3.1</span> Principe</h2>
-<h2 data-number="3.2" id="sec:tri-fusion"><span class="header-section-number">3.2</span> Tri fusion</h2>
-<h2 data-number="3.3" id="sec:nombre-dinversions"><span class="header-section-number">3.3</span> Nombre d’inversions</h2>
-<h2 data-number="3.4" id="sec:points-les-plus-proches"><span class="header-section-number">3.4</span> Points les plus proches</h2>
-<h2 data-number="3.5" id="sec:sous-ensemble-de-somme-donnée"><span class="header-section-number">3.5</span> Sous-ensemble de somme donnée</h2>
-<h2 data-number="3.6" id="sec:recherche-dichotomique"><span class="header-section-number">3.6</span> Recherche dichotomique</h2>
-<h2 data-number="3.7" id="sec:couverture-par-des-segments-égaux"><span class="header-section-number">3.7</span> Couverture par des segments égaux</h2>
-<h1 data-number="4" id="sec:programmation-dynamique"><span class="header-section-number">4</span> Programmation dynamique</h1>
-<h2 data-number="4.1" id="sec:principe-3"><span class="header-section-number">4.1</span> Principe</h2>
-<h2 data-number="4.2" id="sec:somme-de-sous-ensembles"><span class="header-section-number">4.2</span> Somme de sous-ensembles</h2>
-<h2 data-number="4.3" id="sec:ordonnancement-de-tâches-1"><span class="header-section-number">4.3</span> Ordonnancement de tâches</h2>
-<h2 data-number="4.4" id="sec:plus-longue-sous-suite-commune"><span class="header-section-number">4.4</span> Plus longue sous-suite commune</h2>
-<h2 data-number="4.5" id="sec:distance-dédition"><span class="header-section-number">4.5</span> Distance d’édition</h2>
-<h1 data-number="5" id="sec:algorihtmique-du-texte"><span class="header-section-number">5</span> Algorihtmique du texte</h1>
+<h2 data-number="3.2" id="sec:somme-de-sous-ensembles"><span class="header-section-number">3.2</span> Somme de sous-ensembles</h2>
+<h2 data-number="3.3" id="sec:ordonnancement-de-tâches"><span class="header-section-number">3.3</span> Ordonnancement de tâches</h2>
+<h2 data-number="3.4" id="sec:plus-longue-sous-suite-commune"><span class="header-section-number">3.4</span> Plus longue sous-suite commune</h2>
+<h2 data-number="3.5" id="sec:distance-dédition"><span class="header-section-number">3.5</span> Distance d’édition</h2>
+<h1 data-number="4" id="sec:algorihtmique-du-texte"><span class="header-section-number">4</span> Algorihtmique du texte</h1>
 </div>
 </div>
 </div>
