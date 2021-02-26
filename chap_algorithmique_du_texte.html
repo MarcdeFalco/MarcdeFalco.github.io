@@ -334,7 +334,7 @@ table td {
 <p><center></p>
 <p><img src="assets/pics/calcul_hachage_incremental.png" /></p>
 <p></center></p>
-<p>Ici, on considère donc, pour <span class="math inline">\(a, b \in \Sigma\)</span>, une fonction de mise à jour <span class="math inline">\(\delta_{a,b} : X \rightarrow X\)</span> telle que pour tout <span class="math inline">\(c_2,\dots,c_p \in \Sigma\)</span> on ait <span class="math inline">\(\delta_{a,b}(ac_2 \dots c_p) = \delta_{a,b}(c_2\dots c_p b)\)</span>.</p>
+<p>Ici, on considère donc, pour <span class="math inline">\(a, b \in \Sigma\)</span>, une fonction de mise à jour <span class="math inline">\(\delta_{a,b} : X \rightarrow X\)</span> telle que pour tout <span class="math inline">\(c_2,\dots,c_p \in \Sigma\)</span> on ait <span class="math inline">\(\delta_{a,b}(h(ac_2 \dots c_p)) = \delta_{a,b}(h(c_2\dots c_p b))\)</span>.</p>
 <p>L’algorithme de Rabin-Karp procède alors ainsi pour chercher <span class="math inline">\(m\)</span> de longueur <span class="math inline">\(p\)</span> dans la chaîne <span class="math inline">\(s = c_0 \dots c_{n-1}\)</span> où <span class="math inline">\(n \ge p\)</span> :</p>
 <ul>
 <li><p>calcul de <span class="math inline">\(e_m = h(m)\)</span> et <span class="math inline">\(e = h(c_0..c_{p-1})\)</span>.</p></li>
