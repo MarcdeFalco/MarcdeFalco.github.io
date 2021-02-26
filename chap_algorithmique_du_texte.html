@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="generator" content="pandoc">
+    <meta name="description" content="">
+    <meta name="author" content="Marc de Falco">
+
+    <title>Algorithmique du texte</title>
+
+    <link rel="stylesheet" type="text/css" href="assets/semantic.min.css">
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="assets/semantic.min.js"></script>
+
+    <style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    </style>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script>
+$(document).ready(function() {
+    
+    $("#toc").sidebar("setting", "dimPage", false);
+    if (matchMedia) {
+        var mq = window.matchMedia("(max-width: 700px)");
+        mq.addListener(big_or_small);
+        big_or_small(mq);
+    }
+
+    function big_or_small(mq) {
+        // The sidebar *pushes* the pusher, the main content, so we
+        // add a class that reduces the pusher's width so the edge
+        // content isn't cut off.
+        if (mq.matches) {
+	    $("#toc").sidebar("hide");
+            $("#main").removeClass("shrink")
+        } else {
+            $("#toc").sidebar("show");
+            $("#main").addClass("shrink");
+        }
+    }
+
+    $("#sidebar-menu-button").click(function() {
+        $("#toc").sidebar("show");
+    }).end();
+
+   //$('.sidebar').children().addClass('vertical inverted menu');
+   //$('.sidebar').find('ul').addClass('ui');
+   //$('.sidebar').find('li').addClass('ui');
+   var links = $('.ui.sidebar').find('a').addClass('item');
+    $('.ui.sidebar').append(links);
+    $('.ui.sidebar').find('ul').detach();
+    $('.ui.sidebar').find('li').detach();
+})
+</script>
+
+  <style type="text/css">
+
+  .ui.sidebar {
+    font-size: 18px;
+  }
+
+  body {
+    background-color: #FFFFFF;
+    font-size: 20px;
+  }
+  .ui.segment {
+    font-size: 20px;
+  }
+  .wireframe {
+    //margin-top: 2em;
+  }
+  .ui.footer.segment {
+    //margin: 5em 0em 0em;
+    //padding: 5em 0em;
+  }
+  #top-menu {
+    display: none;
+}
+
+    .message {
+        color: #000 !important;
+    }
+
+.shrink {
+    width: 60%;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 24px;
+    border-spacing: 0;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+}
+
+table tr {
+    display: table-row !important;
+}
+
+table th {
+    padding: 3px 10px;
+    background-color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid black;
+}
+table td {
+    padding: 3px 10px;
+    border-top: none;
+    border-left: none;
+    border-bottom: none;
+    border-right: none;
+}
+
+
+@media only screen and (max-width: 700px) {
+    #top-menu {
+        display: block !important;
+    }
+}
+  </style>
+
+  </head>
+  <body class="pushable class="pushable"">
+
+
+<div class="ui vertical inverted visible fixed sidebar menu" id="toc">
+<a href="index.html" class="item">
+    Informatique en CPGE
+</a>
+<ul>
+<li><a href="#sec:algorithme-de-rabin-karp"><span class="toc-section-number">1</span> Algorithme de Rabin-Karp</a>
+<ul>
+<li><a href="#sec:principe"><span class="toc-section-number">1.1</span> Principe</a></li>
+<li><a href="#sec:choix-dune-fonction-de-hachage"><span class="toc-section-number">1.2</span> Choix d’une fonction de hachage</a></li>
+<li><a href="#sec:implémentation"><span class="toc-section-number">1.3</span> Implémentation</a></li>
+<li><a href="#sec:lalgorithme-originel-de-rabin-et-karp"><span class="toc-section-number">1.4</span> L’algorithme originel de Rabin et Karp</a></li>
+</ul></li>
+</ul>
+</div>
+
+<div class="pusher" id="main-content">
+    <div class="ui inverted top menu" id="top-menu">
+        <div class="ui container">
+	  <a class="launch icon item" id="sidebar-menu-button">
+	    <i class="content icon"></i>
+	  </a>
+	  <div class="item">
+          Algorithmique du texte
+	  </div>
+        </div>
+      </div>
+      <div class="ui padded basic segment" id="main">
+\(
+\def\N{{\mathbb{N}}}
+\def\R{{\mathbb{R}}}
+\def\D{{\mathbb{D}}}
+\def\C{{\mathbb{C}}}
+\def\Z{{\mathbb{Z}}}
+\def\Q{{\mathbb{Q}}}
+\def\K{{\mathbb{K}}}
+\def\KX{{\mathbb{K}}[X]}
+\def\U{{\mathbb{U}}}
+\def\B{{\mathcal{B}}}
+
+\newcommand\ensfonctions[2]{\mathcal{F}(#1,#2)}
+\newcommand\ensfonctionszero[3]{\mathcal{F}_{#3,0}(#1,#2)}
+\newcommand\continues[2]{\mathcal{C}(#1,#2)}
+\newcommand\lineaires[2]{\mathcal{L}(#1,#2)}
+\newcommand\nlineaires[3]{\mathcal{L}_{#1}(#2,#3)}
+\newcommand\ensendo[1]{\mathcal{L}(#1)}
+\newcommand\derivables[2]{\mathcal{D}(#1,#2)}
+\newcommand\segment[2]{[#1,#2]}
+\newcommand\intouvert[2]{]#1,#2[}
+\newcommand\intouvertgauche[2]{]#1,#2]}
+\newcommand\intouvertdroite[2]{[#1,#2[}
+\newcommand\classeck[3]{\mathcal{C}^{#1}(#2,#3)}
+\newcommand\range[2]{[| #1,#2 |]}
+\newcommand\mod[0]{\mathop{mod}}
+\newcommand\land[0]{\mathop{land}}
+\newcommand\voisinages[2]{\mathcal{V}_{#1}(#2)}
+\newcommand\matrices[3]{\mathcal{M}_{#1,#2}(#3)}
+\newcommand\matricescarres[2]{\mathcal{M}_{#1}(#2)}
+\newcommand\gln[2]{\mbox{GL}_{#1}(#2)}
+\newcommand\Vect[1]{\mbox{Vect}(#1)}
+\newcommand\Support[1]{\mbox{Supp}(#1)}
+\newcommand\rang[1]{\mbox{rg}(#1)}
+\newcommand\trace[1]{\mbox{tr}(#1)}
+\newcommand\gl[1]{\mbox{GL}(#1)}
+\newcommand\dom[0]{\mbox{dom}}
+\newcommand\codim[0]{\mbox{codim}}
+\newcommand\tr{\mbox{tr}}
+\newcommand\uniondisjointe{\sqcup}
+\def\Rbar{\overline\R}
+\def\lt{<}
+\def\rR{\mathcal{R}}
+\newcommand\parties[1]{\mathcal{P}(#1)}
+\newcommand\entiere[1]{\left\lfloor #1 \right\rfloor}
+\newcommand\congru[3]{#1 = #2\ [#3]}
+\newcommand\enscomp[2]{\left\{\left.\ #1\ \right|\ #2\ \right\}}
+\newcommand\classe[1]{\overline{#1}}
+\newcommand\classemod[2]{\overline{#1}^{[#2]}}
+\newcommand\quotient[2]{#1 / #2}
+\newcommand\ZnZ[1]{\quotient{\Z}{#1 \Z}}
+\newcommand\card[1]{\text{Card}\ #1}
+\newcommand\Det{\mbox{Det}}
+\newcommand\indic{\mathbbm{1}}
+\newcommand\groupeengendre[1]{\langle #1 \rangle}
+\renewcommand\Im{\mathfrak{I}}
+\newcommand\id{\mbox{id}}
+\newcommand\Bary[1]{\mbox{Bary}\{#1\}}
+\newcommand\Ker{\mbox{Ker}~}
+\newcommand\Ima{\mbox{Im}~}
+\newcommand\Perm[1]{\mathfrak{S}_#1}
+\newcommand\comb[2]{\binom{#1}{#2}}
+\newcommand\tend[2]{\xrightarrow[#1 \rightarrow #2]{}}
+\newcommand\limite[2]{\lim_{#1 \rightarrow #2}}
+\newcommand\sh{\mbox{sh}}
+\newcommand\ch{\mbox{ch}}
+\renewcommand\tanh{\mbox{th}}
+\newcommand\Arcsin{\mbox{Arcsin}~}
+\newcommand\Arccos{\mbox{Arccos}~}
+\newcommand\Arctan{\mbox{Arctan}~}
+\newcommand\Argsh{\mbox{Argsh}}
+\newcommand\Argch{\mbox{Argch}}
+\newcommand\Argth{\mbox{Argth}}
+\newcommand\argu{\mbox{arg}}
+\newcommand\dron[2]{\frac{\partial #1}{\partial #2}}
+\newcommand\conj[1]{\overline{#1}}
+\newcommand\ei[1]{e^{i #1}}
+\newcommand\eii[2]{e^{#1 i #2}}
+\newcommand\crochet[1]{\left[ #1 \right]}
+
+\newcommand\application[5]{\begin{array}{rcccc}
+#1 & : & #2 & \mapsto & #3 \\ 
+& & #4 & \mapsto & #5
+\end{array}}
+
+\newcommand{\diff}{\mathop{}\mathopen{}\mathrm{d}}
+\newcommand{\cc}{{\cal C}}
+
+\)
+
+<div class="masthead">
+<div class="segment">
+<center>
+    <h1>Algorithmique du texte</h1>
+</center>
+</div>
+</div>
+<div class="ui container text">
+<p><img class="ui image fluid" src="assets/pics/chap_algo_texte.png"/></p>
+<p><em>Source image : https://xkcd.com/1288/ </em></p>
+<p><div class="ui message blue"><div class="header">Note</div>version très partielle uniquement pour présenter Rabin-Karp</div></p>
+<h1 data-number="1" id="sec:algorithme-de-rabin-karp"><span class="header-section-number">1</span> Algorithme de Rabin-Karp</h1>
+<h2 data-number="1.1" id="sec:principe"><span class="header-section-number">1.1</span> Principe</h2>
+<p>L’algorithme de Rabin-Karp est un algorithme de recherche d’un motif dans un texte qui utilise une notion d’empreinte pour déterminer, en temps constant, si il est probable que la position actuelle corresponde à une occurrence du motif.</p>
+<p>Pour cela, si on cherche un motif de longueur <span class="math inline">\(p\)</span> sur l’alphabet <span class="math inline">\(\Sigma\)</span>, on considère une <strong>fonction de hachage</strong> <span class="math inline">\(h : \Sigma^p \rightarrow X\)</span>. Les éléments de l’ensemble <span class="math inline">\(X\)</span> sont appelés des empreintes et on suppose que l’égalité entre deux empreintes se vérifie en temps constant contrairement à l’égalité dans <span class="math inline">\(\Sigma^p\)</span> qui se vérifie en <span class="math inline">\(O(p)\)</span> dans le pire des cas. Le plus souvent, on choisit pour <span class="math inline">\(X\)</span> un type entier machine.</p>
+<p><div class="ui message blue"><div class="header">Note</div>Sûrement mettre ici des renvois vers la partie portant le plus sur la notion de fonction de hachage pour la définition la plus complète.</div></p>
+<p>Bien qu’il soit normalement aussi coûteux de calculer l’image par <span class="math inline">\(h\)</span> d’une sous-chaîne de longueur <span class="math inline">\(p\)</span> que de tester l’égalité entre cette sous-chaîne et le motif, le point essentiel de l’algorithme de Rabin-Karp est d’utiliser une fonction de hachage permettant un calcul incrémental en temps constant :</p>
+<p><center></p>
+<p><img src="assets/pics/calcul_hachage_incremental.png" /></p>
+<p></center></p>
+<p>Ici, on considère donc, pour <span class="math inline">\(a, b \in \Sigma\)</span>, une fonction de mise à jour <span class="math inline">\(\delta_{a,b} : X \rightarrow X\)</span> telle que pour tout <span class="math inline">\(c_2,\dots,c_p \in \Sigma\)</span> on ait <span class="math inline">\(\delta_{a,b}(ac_2 \dots c_p) = \delta_{a,b}(c_2\dots c_p b)\)</span>.</p>
+<p>L’algorithme de Rabin-Karp procède alors ainsi pour chercher <span class="math inline">\(m\)</span> de longueur <span class="math inline">\(p\)</span> dans la chaîne <span class="math inline">\(s = c_0 \dots c_{n-1}\)</span> où <span class="math inline">\(n \ge p\)</span> :</p>
+<ul>
+<li><p>calcul de <span class="math inline">\(e_m = h(m)\)</span> et <span class="math inline">\(e = h(c_0..c_{p-1})\)</span>.</p></li>
+<li><p>Pour <span class="math inline">\(i\)</span> allant de <span class="math inline">\(0\)</span> à <span class="math inline">\(n-p\)</span> :</p>
+<ul>
+<li>Si <span class="math inline">\(e_m = e\)</span>, on renvoie un succès pour la recherche à la position <span class="math inline">\(i\)</span> si <span class="math inline">\(m = c_i \dots c_{i+p-1}\)</span></li>
+<li>si <span class="math inline">\(i&lt;n-p\)</span> on met à jour l’empreinte <span class="math inline">\(e = \delta_{c_i,c_{i+p}}(e)\)</span>.</li>
+</ul></li>
+</ul>
+<p>La complexité temporelle liée à la gestion des empreintes est donc en <span class="math inline">\(O(n+p) = O(n)\)</span> car <span class="math inline">\(n \ge p\)</span>. Par contre, pour calculer la complexité liée à la recherche <span class="math inline">\(m = c_i \dots c_{i+p-1}\)</span>, il est nécessaire d’estimer la proportion de faux positifs, c’est-à-dire de positions <span class="math inline">\(i\)</span> telles que <span class="math inline">\(e_m = e\)</span> mais <span class="math inline">\(m \neq c_i \dots c_{i+p-1}\)</span>. On va voir dans la partie suivante qu’on peut supposer qu’elle est négligeable, ce qui permet de considérer que l’algorithme de Rabin-Karp est linéaire.</p>
+<h2 data-number="1.2" id="sec:choix-dune-fonction-de-hachage"><span class="header-section-number">1.2</span> Choix d’une fonction de hachage</h2>
+<p>Réaliser une bonne fonction de hachage est une question très complexe qui dépasse le cadre du cours d’informatique de MPI. Cependant, il est possible de réaliser ici une fonction de hachage répondant aux contraintes de Rabin-Karp assez facilement.</p>
+<p>Pour cela, on considère que les caractères sont des entiers compris entre 0 et 255, ce qui correspond au type des caractères non signés sur un octet. On peut alors identifier une chaîne de longueur <span class="math inline">\(p\)</span> avec un nombre entre <span class="math inline">\(0\)</span> et <span class="math inline">\(r^{p} - 1\)</span> où <span class="math inline">\(r =2^8\)</span>, on note ainsi <span class="math display">\[
+P(c_0\dots c_{p-1}) = \sum_{i=0}^{p-1}
+c_i r^{p-1-i} = c_0 r^{p-1} + c_1 r^{p-2} + \dots + c_{p-1}
+\]</span></p>
+<p>On considère de plus un entier premier <span class="math inline">\(q\)</span> et on pose <span class="math inline">\(h(s) = P(s) \mod q\)</span> c’est-à-dire le reste de <span class="math inline">\(P(s)\)</span> dans la division euclidienne par <span class="math inline">\(q\)</span>. On peut ainsi définir <span class="math inline">\(\delta_{a,b}(e) = (r (e - a r^{p-1}) + b) \mod q\)</span>.</p>
+<p>Si on précalcule <span class="math inline">\(r^{p-1} \mod q\)</span> il suffit d’un nombre d’opération constant, et indépendant de <span class="math inline">\(p\)</span>, pour calculer la nouvelle empreinte à l’aide de <span class="math inline">\(\delta_{a,b}\)</span>.</p>
+<p>Le point essentiel est alors de déterminer un nombre premier <span class="math inline">\(q\)</span> tel qu’il soit peu probable d’obtenir des faux positifs. Une analyse mathématique permet d’affirmer que chaque élément de <span class="math inline">\([|0;q-1|]\)</span> a de l’ordre de <span class="math inline">\(\frac{r^p}{q}\)</span> antécédents par <span class="math inline">\(h\)</span>. Ainsi, si on choisit deux chaînes aléatoirement dans <span class="math inline">\(\Sigma^p\)</span>, il y aura collision avec probabilité proche de <span class="math inline">\(\frac{1}{q}\)</span>. En considérant <span class="math inline">\(q\)</span> proche de la taille maximale pour le type entier considéré, on minimise donc cette probabilité.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div>On peut également s’intéresser à des nombres <span class="math inline">\(q\)</span> pour lesquels le modulo soit rapide à calculer. Un exemple classique est <span class="math inline">\(q = 2^{31} - 1\)</span> car on peut déduire la division euclidienne de <span class="math inline">\(a\)</span> par <span class="math inline">\(q\)</span> de l’écriture de <span class="math inline">\(a\)</span> en base <span class="math inline">\(2^{31}\)</span>. En effet, si <span class="math inline">\(a = \sum_{k=0}^n a_k 2^{31k}\)</span> comme <span class="math inline">\(2^{31}-1 | 2^{31k} - 1\)</span> pour <span class="math inline">\(k \ge 1\)</span>, on a <span class="math inline">\(2^{31k} \equiv 1 ~[q]\)</span> et ainsi <span class="math inline">\(a \equiv \sum_{k=0}^n a_k [q]\)</span>. On remarque que <span class="math inline">\(a_k = (a &gt;&gt; 31k) \&amp; 2^{31}\)</span>, on a alors soit <span class="math inline">\(a_k &lt; q\)</span> et alors <span class="math inline">\(a_k \mod q = a_k\)</span>, soit <span class="math inline">\(a_k = q\)</span> et <span class="math inline">\(a_k \mod q = 0\)</span>. Il suffit donc de faire un masquage pour obtenir directement <span class="math inline">\(a_k \mod q = (a &gt;&gt; 31k) \&amp; q\)</span>.</p>
+<p>On obtient alors le programme suivant : <div class="ui segment" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> fastmod a =</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> s = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> x = <span class="dt">ref</span> a <span class="kw">in</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> q = <span class="bn">0x7fffffff</span> <span class="kw">in</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">while</span> !x &gt; <span class="dv">0</span> <span class="kw">do</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        s := !s + (!x <span class="kw">land</span> q);</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        x := !x <span class="kw">lsr</span> <span class="dv">31</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> !s &gt; q</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> fastmod !s</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> <span class="kw">if</span> !s = q</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> <span class="dv">0</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> !s</span></code></pre></div>
+<p></div></p>
+<p></div></p>
+<p>Le programme suivant présente deux manières de calculer naïvement <span class="math inline">\(h\)</span> et <span class="math inline">\(\delta_{a,b}\)</span> : <div class="ui segment" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> hash r q s =</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> p = <span class="dt">ref</span> <span class="dv">1</span> <span class="kw">in</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> e = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> i = <span class="dt">String</span>.length s - <span class="dv">1</span> <span class="kw">downto</span> <span class="dv">0</span> <span class="kw">do</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        e := (!p * (<span class="dt">Char</span>.code s.[i]) + !e) <span class="kw">mod</span> q;</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        p := (r * !p) <span class="kw">mod</span> q</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    !e</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> delta r q rp a b e = <span class="co">(* rp est r^(p-1) mod q *)</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    (r * (e - rp * (<span class="dt">Char</span>.code a)) + <span class="dt">Char</span>.code b) <span class="kw">mod</span> q</span></code></pre></div>
+<p></div></p>
+<h2 data-number="1.3" id="sec:implémentation"><span class="header-section-number">1.3</span> Implémentation</h2>
+<p>Une implémentation directe de l’algorithme de Rabin-Karp est donnée dans le programme qui suit. On se sert ici du caractère paresseux du <code>&amp;&amp;</code> pour n’effecuter le test coûteux d’égalité des chaînes qu’en cas d’égalité des empreintes.</p>
+<p><div class="ui segment" style="font-size:0.8em" ></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">exception</span> Trouve <span class="kw">of</span> <span class="dt">int</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> rabin_karp m s =</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n = <span class="dt">String</span>.length s <span class="kw">in</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> p = <span class="dt">String</span>.length m <span class="kw">in</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> r = <span class="dv">256</span> <span class="kw">in</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> q = <span class="bn">0x7fffffff</span> <span class="kw">in</span> <span class="co">(* 2^(31)-1 *)</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> rp = pow r (p<span class="dv">-1</span>) q <span class="kw">in</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> me = hash r q m <span class="kw">in</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> e = <span class="dt">ref</span> (hash r q (<span class="dt">String</span>.sub s <span class="dv">0</span> p)) <span class="kw">in</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">try</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n-p+<span class="dv">1</span> <span class="kw">do</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span> me = !e &amp;&amp; m = <span class="dt">String</span>.sub s i p</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>            <span class="kw">then</span> <span class="dt">raise</span> (Trouve i);</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span> i+p &lt; n <span class="kw">then</span> e := delta r q rp s.[i] s.[i+p] !e</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>; <span class="dt">None</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">with</span> Trouve k -&gt; <span class="dt">Some</span> k</span></code></pre></div>
+<p></div></p>
+<p>Si on suppose qu’il est improbable d’obtenir un faux positif, il est possible de renvoyer un succès dès que les empreintes sont égales. L’avantage d’une telle version est alors d’être un algorithme sans retour sur les données. C’est-à-dire qu’il n’est pas nécessaire de garder en mémoire ou de réaccéder à un caractère.</p>
+<h2 data-number="1.4" id="sec:lalgorithme-originel-de-rabin-et-karp"><span class="header-section-number">1.4</span> L’algorithme originel de Rabin et Karp</h2>
+<p>Si on regarde l’article originel de Rabin et Karp décrivant cette méthode, on peut être étonné du fait que la méthode précédemment décrite était considérée comme déjà connue dans la littérature par les auteurs. En fait, ce qu’ils décrivent et annoncent comme étant novateur est l’utilisation d’un algorithme probabiliste en choisissant aléatoirement une fonction de hachage à chaque lancement de l’algorithme. En pratique, il s’agit de choisir aléatoirement un nombre premier <span class="math inline">\(q\)</span> parmi un ensemble précalculé de nombres premiers.</p>
+<p>L’algorithme que l’on vient de décrire a un pire cas qui est très improbable car on considère que la probabilité d’un faux positif est à peu près de <span class="math inline">\(1/q\)</span>, donc moins de <span class="math inline">\(5.10^{-10}\)</span> pour <span class="math inline">\(q = 2^{31}-1\)</span>. Le problème ici est la notion de probabilité sur les entrées : est-on certain que l’algorithme recevra une entrée choisie uniformément ? Rabin et Karp parlent d’un <em>adversaire intelligent</em> qui aurait connaissance de la fonction de hachage choisie pour produire des entrées en pire cas. On pourrait ainsi imaginer une <em>attaque</em> sur serveur effectuant une recherche avec Rabin-Karp suite à l’entrée d’un utilisateur. Un adversaire pourrait construire une entrée en pire cas et tenter de surcharger le serveur en l’effectuant de manière répétée.</p>
+<p>Pour bien mettre en lumière ce phénomène, nous allons ici construire, dans un cas très simple de fonction de hachage, une telle chaîne problématique. Pour cela, considérons la fonction de hachage précédemment décrite dans le cas de motif de taille 2, avec <span class="math inline">\(\Sigma\)</span> contenant les lettres de <code>a</code> à <code>z</code>, <span class="math inline">\(r = 26\)</span> et <span class="math inline">\(q = 17\)</span>. On considère une recherche du motif <code>aa</code> dont l’empreinte est <code>0</code>, la même que celle des chaînes <code>ar</code> et <code>ra</code>. On peut donc considérer la chaîne <code>arar...ar</code> qui produira un faux positif à chaque étape.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Détail des calculs. Ici on associe à <code>a</code> la valeur <span class="math inline">\(0\)</span>, …, à <code>z</code> la valeur <span class="math inline">\(25\)</span>. On a donc <span class="math display">\[h(aa) = (0 \times 26 + 0) \mod 17 = 0\]</span> <span class="math display">\[h(ar) = (0 \times 26 + 17) \mod 17 = 0\]</span> <span class="math display">\[h(ra) = (17 \times 26 + 0) \mod 17 = 0\]</span> L’empreinte reste ainsi nulle tout au long de l’algorithme de Rabin-Karp et on a un faux positif à chaque itération.</div></p>
+</div>
+</div>
+</div>
+
+<div class="ui inverted vertical footer segment">
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+Marc de Falco
+</div>
+
+  </body>
+</html>

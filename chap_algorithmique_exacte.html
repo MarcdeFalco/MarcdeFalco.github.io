@@ -24,6 +24,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -84,7 +85,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script>
 $(document).ready(function() {
@@ -237,7 +238,6 @@ table td {
 <li><a href="#sec:plus-longue-sous-suite-commune"><span class="toc-section-number">3.4</span> Plus longue sous-suite commune</a></li>
 <li><a href="#sec:distance-dédition"><span class="toc-section-number">3.5</span> Distance d’édition</a></li>
 </ul></li>
-<li><a href="#sec:algorihtmique-du-texte"><span class="toc-section-number">4</span> Algorihtmique du texte</a></li>
 </ul>
 </div>
 
@@ -278,6 +278,8 @@ table td {
 \newcommand\intouvertdroite[2]{[#1,#2[}
 \newcommand\classeck[3]{\mathcal{C}^{#1}(#2,#3)}
 \newcommand\range[2]{[| #1,#2 |]}
+\newcommand\mod[0]{\mathop{mod}}
+\newcommand\land[0]{\mathop{land}}
 \newcommand\voisinages[2]{\mathcal{V}_{#1}(#2)}
 \newcommand\matrices[3]{\mathcal{M}_{#1,#2}(#3)}
 \newcommand\matricescarres[2]{\mathcal{M}_{#1}(#2)}
@@ -367,17 +369,17 @@ table td {
 <p></center></p>
 <p>Une implémentation naïve de la recherche par force brute consiste à énumérer les <span class="math inline">\(\frac{n(n-1)}{2}\)</span> paires et donc à effectuer <span class="math inline">\(O(n^2)\)</span> itérations.</p>
 <p><div class="ui segment" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">let</span> plus_proche_paire points =</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length points <span class="kw">in</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    <span class="kw">let</span> min_paire = <span class="dt">ref</span> (distance points.(<span class="dv">0</span>) points.(<span class="dv">1</span>), (<span class="dv">0</span>, <span class="dv">1</span>)) <span class="kw">in</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n - <span class="dv">1</span> <span class="kw">do</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>        <span class="kw">for</span> j = i+<span class="dv">1</span> <span class="kw">to</span> n - <span class="dv">1</span> <span class="kw">do</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>            <span class="kw">let</span> d = distance points.(i) points.(j) <span class="kw">in</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>            <span class="kw">if</span> d &lt; <span class="dt">fst</span> !min_paire</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>            <span class="kw">then</span> min_paire := (d, (i, j))</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>        <span class="kw">done</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>    <span class="kw">done</span>;</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>    <span class="dt">snd</span> !min_paire</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> plus_proche_paire points =</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length points <span class="kw">in</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> min_paire = <span class="dt">ref</span> (distance points.(<span class="dv">0</span>) points.(<span class="dv">1</span>), (<span class="dv">0</span>, <span class="dv">1</span>)) <span class="kw">in</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n - <span class="dv">1</span> <span class="kw">do</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">for</span> j = i+<span class="dv">1</span> <span class="kw">to</span> n - <span class="dv">1</span> <span class="kw">do</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>            <span class="kw">let</span> d = distance points.(i) points.(j) <span class="kw">in</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span> d &lt; <span class="dt">fst</span> !min_paire</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>            <span class="kw">then</span> min_paire := (d, (i, j))</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">snd</span> !min_paire</span></code></pre></div>
 <p></div></p>
 <h2 data-number="1.2" id="sec:raffinement-droite-de-balayage"><span class="header-section-number">1.2</span> Raffinement : droite de balayage</h2>
 <p>Il est parfois possible d’accélérer la recherche par force brute en ordonnant le parcours des candidats pour pouvoir éviter de tester certains d’entres eux.</p>
@@ -414,74 +416,74 @@ table td {
 <p>On remarque ainsi que la complexité en temps et en pire cas de cet algorithme est de <span class="math inline">\(O(n \log n)\)</span>. Ici, le fait d’avoir la structure <code>actifs</code> ordonnée par les ordonnées est crucial pour garantir la complexité. Pour la réalisation d’une structure d’ensemble ordonnée ayant ces complexité, voir le chapitre FIXME.</p>
 <p>Ici, on utilise le module <code>Set</code> d’OCaml pour réaliser la structure d’ensemble, pour cela on commence par créer le module <code>PointSet</code> pour les ensembles de points :</p>
 <p><div class="ui segment" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">module</span> Point = <span class="kw">struct</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>    <span class="kw">type</span> t = <span class="dt">float</span> * <span class="dt">float</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>    <span class="kw">let</span> <span class="dt">compare</span> (x1,y1) (x2,y2) = Stdlib.<span class="dt">compare</span> y1 y2</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="kw">end</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a><span class="kw">module</span> PointSet = <span class="dt">Set</span>.Make(Point)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> Point = <span class="kw">struct</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">type</span> t = <span class="dt">float</span> * <span class="dt">float</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="dt">compare</span> (x1,y1) (x2,y2) = Stdlib.<span class="dt">compare</span> y1 y2</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> PointSet = <span class="dt">Set</span>.Make(Point)</span></code></pre></div>
 <p></div></p>
 <p>Puis on définit une fonction permettant de parcourir les points entre deux ordonnées :</p>
 <p><div class="ui segment" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">let</span> set_iter_entre f set bas haut =</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>    <span class="kw">try</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>        <span class="kw">let</span> e = PointSet.find_first (<span class="kw">fun</span> p -&gt; <span class="dt">snd</span> p &gt;= bas) set <span class="kw">in</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>        <span class="kw">let</span> seq = PointSet.to_seq_from e set <span class="kw">in</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>        <span class="kw">let</span> <span class="kw">rec</span> aux seq =</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>            <span class="kw">match</span> seq () <span class="kw">with</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>            | Seq.Nil -&gt; ()</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>            | Seq.Cons (p, seq_suite) -&gt; </span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>                    <span class="kw">if</span> <span class="dt">snd</span> p &lt;= haut</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>                    <span class="kw">then</span> <span class="kw">begin</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>                        f p;</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a>                        aux seq_suite</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>                    <span class="kw">end</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a>        <span class="kw">in</span> aux seq</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a>    <span class="kw">with</span> <span class="dt">Not_found</span> -&gt; ()</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> set_iter_entre f set bas haut =</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">try</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> e = PointSet.find_first (<span class="kw">fun</span> p -&gt; <span class="dt">snd</span> p &gt;= bas) set <span class="kw">in</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> seq = PointSet.to_seq_from e set <span class="kw">in</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> <span class="kw">rec</span> aux seq =</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>            <span class="kw">match</span> seq () <span class="kw">with</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>            | Seq.Nil -&gt; ()</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>            | Seq.Cons (p, seq_suite) -&gt; </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">if</span> <span class="dt">snd</span> p &lt;= haut</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">then</span> <span class="kw">begin</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                        f p;</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                        aux seq_suite</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">end</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">in</span> aux seq</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">with</span> <span class="dt">Not_found</span> -&gt; ()</span></code></pre></div>
 <p></div></p>
 <p>On implémente alors assez directement l’algorithme décrit précédemment :</p>
 <p><div class="ui segment" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">let</span> plus_proche_paire_balayage points =</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>    <span class="kw">let</span> <span class="dt">compare</span> (x1,y1) (x2,y2) =</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>        <span class="kw">if</span> x1 = x2</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>        <span class="kw">then</span> <span class="kw">if</span> y1 &lt; y2 <span class="kw">then</span> <span class="dv">-1</span> <span class="kw">else</span> <span class="dv">1</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>        <span class="kw">else</span> <span class="kw">if</span> x1 &lt; x2 <span class="kw">then</span> <span class="dv">-1</span> <span class="kw">else</span> <span class="dv">1</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a>    <span class="kw">in</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a>    <span class="dt">Array</span>.sort <span class="dt">compare</span> points;</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length points <span class="kw">in</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a>    <span class="kw">let</span> d = <span class="dt">ref</span> (distance points.(<span class="dv">0</span>) points.(<span class="dv">1</span>)) <span class="kw">in</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a>    <span class="kw">let</span> couple = <span class="dt">ref</span> (points.(<span class="dv">0</span>), points.(<span class="dv">1</span>)) <span class="kw">in</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true"></a>    <span class="kw">let</span> actifs = <span class="dt">ref</span> (PointSet.empty </span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true"></a>            |&gt; PointSet.add points.(<span class="dv">0</span>) |&gt; PointSet.add points.(<span class="dv">1</span>)) <span class="kw">in</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true"></a></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true"></a>    <span class="kw">let</span> gauche = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true"></a></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true"></a>    <span class="kw">for</span> i = <span class="dv">2</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true"></a>        <span class="kw">let</span> xi, yi = points.(i) <span class="kw">in</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true"></a>        </span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true"></a>        <span class="kw">while</span> <span class="dt">fst</span> points.(!gauche) &lt; xi -. !d <span class="kw">do</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true"></a>            actifs := PointSet.remove points.(!gauche) !actifs;</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true"></a>            <span class="dt">incr</span> gauche</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true"></a>        <span class="kw">done</span>;</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true"></a></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true"></a>        set_iter_entre (<span class="kw">fun</span> pj -&gt; </span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true"></a>            <span class="kw">let</span> dip = distance points.(i) pj <span class="kw">in</span></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true"></a>            <span class="kw">if</span> dip &lt; !d</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true"></a>            <span class="kw">then</span> <span class="kw">begin</span></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true"></a>                couple := (points.(i), pj);</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true"></a>                d := dip</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true"></a>            <span class="kw">end</span>) !actifs (yi -. !d) (yi +. !d);</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true"></a></span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true"></a>        actifs := PointSet.add points.(i) !actifs</span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true"></a>    <span class="kw">done</span>;</span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true"></a>    !d</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> plus_proche_paire_balayage points =</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="dt">compare</span> (x1,y1) (x2,y2) =</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> x1 = x2</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">then</span> <span class="kw">if</span> y1 &lt; y2 <span class="kw">then</span> <span class="dv">-1</span> <span class="kw">else</span> <span class="dv">1</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">else</span> <span class="kw">if</span> x1 &lt; x2 <span class="kw">then</span> <span class="dv">-1</span> <span class="kw">else</span> <span class="dv">1</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">in</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Array</span>.sort <span class="dt">compare</span> points;</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length points <span class="kw">in</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> d = <span class="dt">ref</span> (distance points.(<span class="dv">0</span>) points.(<span class="dv">1</span>)) <span class="kw">in</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> couple = <span class="dt">ref</span> (points.(<span class="dv">0</span>), points.(<span class="dv">1</span>)) <span class="kw">in</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> actifs = <span class="dt">ref</span> (PointSet.empty </span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>            |&gt; PointSet.add points.(<span class="dv">0</span>) |&gt; PointSet.add points.(<span class="dv">1</span>)) <span class="kw">in</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> gauche = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> i = <span class="dv">2</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> xi, yi = points.(i) <span class="kw">in</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        <span class="kw">while</span> <span class="dt">fst</span> points.(!gauche) &lt; xi -. !d <span class="kw">do</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>            actifs := PointSet.remove points.(!gauche) !actifs;</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>            <span class="dt">incr</span> gauche</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>;</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        set_iter_entre (<span class="kw">fun</span> pj -&gt; </span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>            <span class="kw">let</span> dip = distance points.(i) pj <span class="kw">in</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span> dip &lt; !d</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>            <span class="kw">then</span> <span class="kw">begin</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>                couple := (points.(i), pj);</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>                d := dip</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>            <span class="kw">end</span>) !actifs (yi -. !d) (yi +. !d);</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>        actifs := PointSet.add points.(i) !actifs</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    !d</span></code></pre></div>
 <p></div></p>
 <h3 data-number="1.2.1" id="sec:problème-test-dintersection-pour-un-ensemble-de-segments"><span class="header-section-number">1.2.1</span> Problème : test d’intersection pour un ensemble de segments</h3>
 <p>Considérons le problème suivant <em>IntersectionEnsemble</em> : étant donné <span class="math inline">\(n\)</span> segments dans le plan, il s’agit de déterminer si au moins deux des segments s’intersectent.</p>
 <p><div class="ui message orange"><div class="header">Remarque</div>On peut considérer ici que l’on dispose d’une fonction</p>
 <p><div class="ui segment" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>intersecte : (<span class="dt">float</span> * <span class="dt">float</span>) * (<span class="dt">float</span> * <span class="dt">float</span>) </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>    -&gt; (<span class="dt">float</span> * <span class="dt">float</span>) * (<span class="dt">float</span> * <span class="dt">float</span>) -&gt; <span class="dt">bool</span> </span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>intersecte : (<span class="dt">float</span> * <span class="dt">float</span>) * (<span class="dt">float</span> * <span class="dt">float</span>) </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    -&gt; (<span class="dt">float</span> * <span class="dt">float</span>) * (<span class="dt">float</span> * <span class="dt">float</span>) -&gt; <span class="dt">bool</span> </span></code></pre></div>
 <p></div></p>
 <p>qui teste l’intersection entre deux segments.</p>
 <p>Cependant, il est possible d’écrire une telle fonction avec un peu de géométrie élémentaire.</p>
@@ -515,48 +517,48 @@ u = - \frac{\overrightarrow{A_2 A_1} \times \overrightarrow{A_1 B_1}}{\Delta}
 <li>Sinon, les segments reposent sur une même droite et il s’agit de vérifier leurs positions sur la droite. Pour cela, on exprime <span class="math inline">\(A_2 = A_1 + t_A \overrightarrow{A_1B_1}\)</span> de même pour <span class="math inline">\(B_2 = A_1 + t_B \overrightarrow{A_1 B_1}\)</span>. Plus précisement, on calcule <span class="math inline">\(\overrightarrow{A_1 A_2} \cdot \overrightarrow{A_1 B_1} = t_A ||\overrightarrow{A_1 B_1}||^2\)</span> à l’aide du produit scalaire et on a <span class="math inline">\(t_A = \frac{\overrightarrow{A_1 A_2} \cdot \overrightarrow{A_1 B_1}}{||\overrightarrow{A_1 B_1}||^2}\)</span>. De même, <span class="math inline">\(t_B = \frac{\overrightarrow{A_1 B_2} \cdot \overrightarrow{A_1 B_1}}{||\overrightarrow{A_1 B_1}||^2}\)</span>. On doit alors vérifier si l’intervalle <span class="math inline">\([t_A,t_B]\)</span> (ou <span class="math inline">\([t_B,t_A]\)</span> selon leur position) intersecte <span class="math inline">\([0,1]\)</span>.</li>
 </ul>
 <p>Voici une fonction <em>OCaml</em> qui correspond à ce raisonnement <div class="ui segment" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">let</span> intersecte (a1,b1) (a2,b2) =</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>    <span class="kw">let</span> vec (x1,y1) (x2,y2) = (x2-.x1,y2-.y1) <span class="kw">in</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>    <span class="kw">let</span> cross (x1,y1) (x2,y2) = x1 *. y2 -. y1 *. x2 <span class="kw">in</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>    <span class="kw">let</span> dot (x1,y1) (x2,y2) = x1 *. x2 +. y1 *. y2 <span class="kw">in</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>    <span class="kw">let</span> proche0 x = <span class="kw">let</span> eps = <span class="fl">1e-20</span> <span class="kw">in</span> </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>        <span class="kw">if</span> x &lt; <span class="dv">0</span>. <span class="kw">then</span> -.x &lt; eps <span class="kw">else</span> x &lt; eps <span class="kw">in</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a>    <span class="kw">let</span> a1b1 = vec a1 b1 <span class="kw">in</span> <span class="kw">let</span> a2b2 = vec a2 b2 <span class="kw">in</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>    <span class="kw">let</span> a1a2 = vec a1 a2 <span class="kw">in</span> <span class="kw">let</span> a1b2 = vec a1 b2 <span class="kw">in</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true"></a>    <span class="kw">let</span> delta = cross a1b1 a2b2 <span class="kw">in</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true"></a></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true"></a>    <span class="kw">if</span> proche0 delta</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true"></a>    <span class="kw">then</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true"></a>         <span class="kw">if</span> proche0 (cross a1a2 a1b1)</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true"></a>         <span class="kw">then</span> <span class="kw">let</span> na1b1 = dot a1b1 a1b1 <span class="kw">in</span> <span class="co">(* colinéaires *)</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true"></a>              <span class="kw">let</span> tA = (dot a1a2 a1b1) /. na1b1 <span class="kw">in</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true"></a>              <span class="kw">let</span> tB = (dot a1b2 a1b1) /. na1b1 <span class="kw">in</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true"></a>              <span class="kw">if</span> tA &lt; tB</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true"></a>              <span class="kw">then</span> <span class="dt">not</span> (tB &lt; <span class="dv">0</span>. || tA &gt; <span class="dv">1</span>.)</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true"></a>              <span class="kw">else</span> <span class="dt">not</span> (tA &lt; <span class="dv">0</span>. || tB &gt; <span class="dv">1</span>.)</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true"></a>         <span class="kw">else</span> <span class="kw">false</span> <span class="co">(* parallèles *)</span></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true"></a>    <span class="kw">else</span> <span class="kw">let</span> t = (cross a1a2 a2b2) /. delta <span class="kw">in</span> <span class="co">(* se croisent *)</span></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true"></a>         <span class="kw">let</span> u = (cross a1a2 a1b1) /. delta <span class="kw">in</span></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true"></a>         t &gt;= <span class="dv">0</span>. &amp;&amp; t &lt;= <span class="dv">1</span>. &amp;&amp; u &gt;= <span class="dv">0</span>. &amp;&amp; u &lt;= <span class="dv">1</span>.</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> intersecte (a1,b1) (a2,b2) =</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> vec (x1,y1) (x2,y2) = (x2-.x1,y2-.y1) <span class="kw">in</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> cross (x1,y1) (x2,y2) = x1 *. y2 -. y1 *. x2 <span class="kw">in</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> dot (x1,y1) (x2,y2) = x1 *. x2 +. y1 *. y2 <span class="kw">in</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> proche0 x = <span class="kw">let</span> eps = <span class="fl">1e-20</span> <span class="kw">in</span> </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> x &lt; <span class="dv">0</span>. <span class="kw">then</span> -.x &lt; eps <span class="kw">else</span> x &lt; eps <span class="kw">in</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> a1b1 = vec a1 b1 <span class="kw">in</span> <span class="kw">let</span> a2b2 = vec a2 b2 <span class="kw">in</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> a1a2 = vec a1 a2 <span class="kw">in</span> <span class="kw">let</span> a1b2 = vec a1 b2 <span class="kw">in</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> delta = cross a1b1 a2b2 <span class="kw">in</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> proche0 delta</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>         <span class="kw">if</span> proche0 (cross a1a2 a1b1)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>         <span class="kw">then</span> <span class="kw">let</span> na1b1 = dot a1b1 a1b1 <span class="kw">in</span> <span class="co">(* colinéaires *)</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>              <span class="kw">let</span> tA = (dot a1a2 a1b1) /. na1b1 <span class="kw">in</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>              <span class="kw">let</span> tB = (dot a1b2 a1b1) /. na1b1 <span class="kw">in</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>              <span class="kw">if</span> tA &lt; tB</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>              <span class="kw">then</span> <span class="dt">not</span> (tB &lt; <span class="dv">0</span>. || tA &gt; <span class="dv">1</span>.)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>              <span class="kw">else</span> <span class="dt">not</span> (tA &lt; <span class="dv">0</span>. || tB &gt; <span class="dv">1</span>.)</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>         <span class="kw">else</span> <span class="kw">false</span> <span class="co">(* parallèles *)</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> <span class="kw">let</span> t = (cross a1a2 a2b2) /. delta <span class="kw">in</span> <span class="co">(* se croisent *)</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>         <span class="kw">let</span> u = (cross a1a2 a1b1) /. delta <span class="kw">in</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>         t &gt;= <span class="dv">0</span>. &amp;&amp; t &lt;= <span class="dv">1</span>. &amp;&amp; u &gt;= <span class="dv">0</span>. &amp;&amp; u &lt;= <span class="dv">1</span>.</span></code></pre></div>
 <p></div></p>
 <p></div></p>
 <p><div class="ui message blue"><div class="header">Note</div>réécrire cela avec le déterminant de deux vecteurs du plan qui est au programme de mathématiques de seconde.</div></p>
 <p>La recherche par force brute va alors énumérer l’ensemble des paires de segments distincts et tester deux à deux les intersections. On peut ainsi écrire le programme suivant qui est assez simple et effectuera effectivement <span class="math inline">\(O(|v|^2)\)</span> itérations dans le pire cas, i.e. lorsqu’il n’y a pas d’intersections.</p>
 <p><div class="ui segment" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">exception</span> Trouve</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a><span class="kw">let</span> intersection_ensemble (v: ((<span class="dt">float</span> * <span class="dt">float</span>) * (<span class="dt">float</span> * <span class="dt">float</span>)) <span class="dt">array</span>) : <span class="dt">bool</span> =</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length v <span class="kw">in</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>    <span class="kw">try</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>        <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n - <span class="dv">1</span> <span class="kw">do</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a>            <span class="kw">for</span> j = i+<span class="dv">1</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a>                <span class="kw">if</span> intersecte v.(i) v.(j)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a>                <span class="kw">then</span> <span class="dt">raise</span> Trouve</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a>            <span class="kw">done</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true"></a>        <span class="kw">done</span>;</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true"></a>        <span class="kw">false</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true"></a>    <span class="kw">with</span> Trouve -&gt; <span class="kw">true</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">exception</span> Trouve</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> intersection_ensemble (v: ((<span class="dt">float</span> * <span class="dt">float</span>) * (<span class="dt">float</span> * <span class="dt">float</span>)) <span class="dt">array</span>) : <span class="dt">bool</span> =</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length v <span class="kw">in</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">try</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n - <span class="dv">1</span> <span class="kw">do</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>            <span class="kw">for</span> j = i+<span class="dv">1</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                <span class="kw">if</span> intersecte v.(i) v.(j)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                <span class="kw">then</span> <span class="dt">raise</span> Trouve</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>            <span class="kw">done</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>;</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">false</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">with</span> Trouve -&gt; <span class="kw">true</span></span></code></pre></div>
 <p></div></p>
 <p>TODO approche par droite de balayage : algorithme de Shamos et Hoey (1976)</p>
 <h2 data-number="1.3" id="sec:recherche-par-retour-sur-trace-backtracking"><span class="header-section-number">1.3</span> Recherche par retour sur trace (<strong>backtracking</strong>)</h2>
@@ -576,50 +578,50 @@ u = - \frac{\overrightarrow{A_2 A_1} \times \overrightarrow{A_1 B_1}}{\Delta}
 <p>Ici, quand on dit qu’on continue la recherche, ce qu’on signifie c’est qu’on effectue un appel récursif.</p>
 <p>Pour programmer cette méthode, on va définir une fonction récursive de signature :</p>
 <p><div class="ui segment" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">val</span> resout_reines : (<span class="dt">int</span> * <span class="dt">int</span>) <span class="dt">list</span> -&gt; (<span class="dt">int</span> * <span class="dt">int</span>) <span class="dt">list</span> <span class="dt">list</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> resout_reines : (<span class="dt">int</span> * <span class="dt">int</span>) <span class="dt">list</span> -&gt; (<span class="dt">int</span> * <span class="dt">int</span>) <span class="dt">list</span> <span class="dt">list</span></span></code></pre></div>
 <p></div></p>
 <p>Un appel à <code>resout_reines part</code> va ainsi renvoyer la liste des solutions complètes construites à partir de la solution partielle <code>part</code>. Les solutions sont représentées par des listes de couples de coordonnées sur l’échiquier, donc dans <span class="math inline">\([|0;7|]^2\)</span></p>
 <p>Voici une implémentation où on explore les solutions à l’aide d’une boucle impérative dans l’appel récursif. La fonction <code>valide</code> permet de tester si le placement d’une reine est possible avant d’effectuer un appel.</p>
 <p><div class="ui segment" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="kw">let</span> <span class="kw">rec</span> valide (x1,y1) l =</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a>    | [] -&gt; <span class="kw">true</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a>    | (x2,y2)::q -&gt;</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a>        x1 &lt;&gt; x2 &amp;&amp; <span class="dt">abs</span> (x2-x1) &lt;&gt; <span class="dt">abs</span>(y2-y1) &amp;&amp; valide (x1,y1) q</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a><span class="kw">let</span> <span class="kw">rec</span> resout_reines part =</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a>    <span class="kw">let</span> k = <span class="dt">List</span>.length part <span class="kw">in</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a>    <span class="kw">if</span> k = <span class="dv">8</span> </span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true"></a>    <span class="kw">then</span> [ part ]</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true"></a>    <span class="kw">else</span> <span class="kw">begin</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true"></a>        <span class="kw">let</span> resultats = <span class="dt">ref</span> [] <span class="kw">in</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true"></a>        <span class="kw">for</span> x = <span class="dv">0</span> <span class="kw">to</span> <span class="dv">7</span> <span class="kw">do</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true"></a>            <span class="kw">let</span> essai = (x,k) :: part <span class="kw">in</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true"></a>            <span class="kw">if</span> valide (x,k) part</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true"></a>            <span class="kw">then</span> <span class="kw">begin</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true"></a>                resultats := (resout_reines essai) @ !resultats;</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true"></a>            <span class="kw">end</span></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true"></a>        <span class="kw">done</span>;</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true"></a>        !resultats</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true"></a>    <span class="kw">end</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> valide (x1,y1) l =</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    | [] -&gt; <span class="kw">true</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    | (x2,y2)::q -&gt;</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        x1 &lt;&gt; x2 &amp;&amp; <span class="dt">abs</span> (x2-x1) &lt;&gt; <span class="dt">abs</span>(y2-y1) &amp;&amp; valide (x1,y1) q</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> resout_reines part =</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> k = <span class="dt">List</span>.length part <span class="kw">in</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> k = <span class="dv">8</span> </span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> [ part ]</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> <span class="kw">begin</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> resultats = <span class="dt">ref</span> [] <span class="kw">in</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>        <span class="kw">for</span> x = <span class="dv">0</span> <span class="kw">to</span> <span class="dv">7</span> <span class="kw">do</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>            <span class="kw">let</span> essai = (x,k) :: part <span class="kw">in</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span> valide (x,k) part</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>            <span class="kw">then</span> <span class="kw">begin</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>                resultats := (resout_reines essai) @ !resultats;</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>            <span class="kw">end</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>;</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>        !resultats</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span></code></pre></div>
 <p></div></p>
 <p>et, ici, une autre implémentation purement récursive à l’aide d’une fonction récursive.</p>
 <p><div class="ui segment" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="kw">let</span> <span class="kw">rec</span> resout_reines part =</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a>    <span class="kw">let</span> k = <span class="dt">List</span>.length part <span class="kw">in</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a>    <span class="kw">if</span> k = <span class="dv">8</span> </span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a>    <span class="kw">then</span> [ part ]</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a>    <span class="kw">else</span> </span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a>        <span class="kw">let</span> <span class="kw">rec</span> aux x acc =</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a>            <span class="kw">if</span> x &lt; <span class="dv">0</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a>            <span class="kw">then</span> acc</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true"></a>            <span class="kw">else</span> <span class="kw">let</span> essai = (x,k) :: part <span class="kw">in</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true"></a>                 <span class="kw">let</span> nacc = <span class="kw">if</span> valide (x,k) part</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true"></a>                           <span class="kw">then</span> (resout_reines essai) @ acc</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true"></a>                           <span class="kw">else</span> acc <span class="kw">in</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true"></a>                    aux (x<span class="dv">-1</span>) nacc</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true"></a>        <span class="kw">in</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true"></a>        aux <span class="dv">7</span> [] </span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> resout_reines part =</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> k = <span class="dt">List</span>.length part <span class="kw">in</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> k = <span class="dv">8</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> [ part ]</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> <span class="kw">rec</span> aux x acc =</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span> x &lt; <span class="dv">0</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>            <span class="kw">then</span> acc</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>            <span class="kw">else</span> <span class="kw">let</span> essai = (x,k) :: part <span class="kw">in</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>                 <span class="kw">let</span> nacc = <span class="kw">if</span> valide (x,k) part</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>                           <span class="kw">then</span> (resout_reines essai) @ acc</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>                           <span class="kw">else</span> acc <span class="kw">in</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>                    aux (x<span class="dv">-1</span>) nacc</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">in</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>        aux <span class="dv">7</span> [] </span></code></pre></div>
 <p></div></p>
 <p>Une partie de l’arbre de recherche est présenté sur l’image suivante :</p>
 <figure>
@@ -636,99 +638,99 @@ u = - \frac{\overrightarrow{A_2 A_1} \times \overrightarrow{A_1 B_1}}{\Delta}
 </ul>
 <p>Pour représenter une grille de Sudoku en <code>OCaml</code> on utilise un <code>(int option) array array</code>, la valeur <code>None</code> signifiant que la case est vide et la valeur <code>Some x</code> qu’elle est remplie avec la valeur <span class="math inline">\(x\)</span>.</p>
 <p><div class="ui segment" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="kw">type</span> grille = (<span class="dt">int</span> <span class="dt">option</span>) <span class="dt">array</span> <span class="dt">array</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> grille = (<span class="dt">int</span> <span class="dt">option</span>) <span class="dt">array</span> <span class="dt">array</span></span></code></pre></div>
 <p></div></p>
 <p>On fait le choix de représenté la grille par un tableau de lignes, ce qui signiie que pour accèder à la case de coordonnée <span class="math inline">\((x,y)\)</span> dans <code>g</code> il faut écrire <code>g.(y).(x)</code>.</p>
 <p>Le problème donnée précédemment est alors représenté par la valeur suivante : <div class="ui segment" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="kw">let</span> probleme = [|</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a>    [| <span class="dt">Some</span> <span class="dv">1</span>; <span class="dt">None</span>; <span class="dt">None</span>;    <span class="dt">None</span>; <span class="dt">None</span>; <span class="dt">None</span>;   <span class="dt">None</span>; <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">6</span> |];</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a>    [| <span class="dt">None</span>; <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">6</span>;    <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">2</span>; <span class="dt">None</span>;   <span class="dt">Some</span> <span class="dv">7</span>; <span class="dt">None</span>; <span class="dt">None</span> |];</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a>    [| <span class="dt">Some</span> <span class="dv">7</span>; <span class="dt">Some</span> <span class="dv">8</span>; <span class="dt">Some</span> <span class="dv">9</span>;    <span class="dt">Some</span> <span class="dv">4</span>; <span class="dt">Some</span> <span class="dv">5</span>; <span class="dt">None</span>;   <span class="dt">Some</span> <span class="dv">1</span>; <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">3</span> |];</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true"></a>    [| <span class="dt">None</span>; <span class="dt">None</span>; <span class="dt">None</span>;    <span class="dt">Some</span> <span class="dv">8</span>; <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">7</span>;   <span class="dt">None</span>; <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">4</span> |];</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true"></a>    [| <span class="dt">None</span>; <span class="dt">None</span>; <span class="dt">None</span>;    <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">3</span>; <span class="dt">None</span>;   <span class="dt">None</span>; <span class="dt">None</span>; <span class="dt">None</span> |];</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true"></a>    [| <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">9</span>; <span class="dt">None</span>;    <span class="dt">None</span>; <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">4</span>;   <span class="dt">Some</span> <span class="dv">2</span>; <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">1</span> |];</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true"></a></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true"></a>    [| <span class="dt">Some</span> <span class="dv">3</span>; <span class="dt">Some</span> <span class="dv">1</span>; <span class="dt">Some</span> <span class="dv">2</span>;    <span class="dt">Some</span> <span class="dv">9</span>; <span class="dt">Some</span> <span class="dv">7</span>; <span class="dt">None</span>;   <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">4</span>; <span class="dt">None</span> |];</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true"></a>    [| <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">4</span>; <span class="dt">None</span>;    <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">1</span>; <span class="dt">Some</span> <span class="dv">2</span>;   <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">7</span>; <span class="dt">Some</span> <span class="dv">8</span> |];</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true"></a>    [| <span class="dt">Some</span> <span class="dv">9</span>; <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">8</span>;    <span class="dt">None</span>; <span class="dt">None</span>; <span class="dt">None</span>;   <span class="dt">None</span>; <span class="dt">None</span>; <span class="dt">None</span> |];</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true"></a>    |]</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> probleme = [|</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    [| <span class="dt">Some</span> <span class="dv">1</span>; <span class="dt">None</span>; <span class="dt">None</span>;    <span class="dt">None</span>; <span class="dt">None</span>; <span class="dt">None</span>;   <span class="dt">None</span>; <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">6</span> |];</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    [| <span class="dt">None</span>; <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">6</span>;    <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">2</span>; <span class="dt">None</span>;   <span class="dt">Some</span> <span class="dv">7</span>; <span class="dt">None</span>; <span class="dt">None</span> |];</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    [| <span class="dt">Some</span> <span class="dv">7</span>; <span class="dt">Some</span> <span class="dv">8</span>; <span class="dt">Some</span> <span class="dv">9</span>;    <span class="dt">Some</span> <span class="dv">4</span>; <span class="dt">Some</span> <span class="dv">5</span>; <span class="dt">None</span>;   <span class="dt">Some</span> <span class="dv">1</span>; <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">3</span> |];</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    [| <span class="dt">None</span>; <span class="dt">None</span>; <span class="dt">None</span>;    <span class="dt">Some</span> <span class="dv">8</span>; <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">7</span>;   <span class="dt">None</span>; <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">4</span> |];</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    [| <span class="dt">None</span>; <span class="dt">None</span>; <span class="dt">None</span>;    <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">3</span>; <span class="dt">None</span>;   <span class="dt">None</span>; <span class="dt">None</span>; <span class="dt">None</span> |];</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    [| <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">9</span>; <span class="dt">None</span>;    <span class="dt">None</span>; <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">4</span>;   <span class="dt">Some</span> <span class="dv">2</span>; <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">1</span> |];</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    [| <span class="dt">Some</span> <span class="dv">3</span>; <span class="dt">Some</span> <span class="dv">1</span>; <span class="dt">Some</span> <span class="dv">2</span>;    <span class="dt">Some</span> <span class="dv">9</span>; <span class="dt">Some</span> <span class="dv">7</span>; <span class="dt">None</span>;   <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">4</span>; <span class="dt">None</span> |];</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    [| <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">4</span>; <span class="dt">None</span>;    <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">1</span>; <span class="dt">Some</span> <span class="dv">2</span>;   <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">7</span>; <span class="dt">Some</span> <span class="dv">8</span> |];</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    [| <span class="dt">Some</span> <span class="dv">9</span>; <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">8</span>;    <span class="dt">None</span>; <span class="dt">None</span>; <span class="dt">None</span>;   <span class="dt">None</span>; <span class="dt">None</span>; <span class="dt">None</span> |];</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    |]</span></code></pre></div>
 <p></div></p>
 <p>Afin de définir la fonction de résolution, on définit une première fonction <code>suivant</code> de signature :</p>
 <p><div class="ui segment" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="kw">val</span> suivant : grille -&gt; (<span class="dt">int</span> * <span class="dt">int</span>) -&gt; (<span class="dt">int</span> * <span class="dt">int</span>) <span class="dt">option</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> suivant : grille -&gt; (<span class="dt">int</span> * <span class="dt">int</span>) -&gt; (<span class="dt">int</span> * <span class="dt">int</span>) <span class="dt">option</span></span></code></pre></div>
 <p></div></p>
 <p>telle que l’appel à <code>suivant g (x,y)</code> renvoie <code>Some (xi,yi)</code> quand <span class="math inline">\((x_i,y_i)\)</span> sont les coordonnées de la prochaine case libre, dans l’ordre gauche à droite puis haut vers bas, après <span class="math inline">\((x,y)\)</span> ou <code>None</code> quand il n’existe pas de telle case libre. Cela signifie alors que la grille est entièrement remplie.</p>
 <p><div class="ui segment" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="kw">let</span> <span class="kw">rec</span> suivant g (x,y) =</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a>    <span class="kw">if</span> y &gt; <span class="dv">8</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a>    <span class="kw">then</span> <span class="dt">None</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a>    <span class="kw">else</span> <span class="kw">if</span> g.(y).(x) = <span class="dt">None</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a>    <span class="kw">then</span> <span class="dt">Some</span> (x,y)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true"></a>    <span class="kw">else</span> <span class="kw">if</span> x &lt; <span class="dv">8</span> <span class="kw">then</span> suivant g (x+<span class="dv">1</span>, y)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true"></a>    <span class="kw">else</span> suivant g (<span class="dv">0</span>, y+<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> suivant g (x,y) =</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> y &gt; <span class="dv">8</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> <span class="dt">None</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> <span class="kw">if</span> g.(y).(x) = <span class="dt">None</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> <span class="dt">Some</span> (x,y)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> <span class="kw">if</span> x &lt; <span class="dv">8</span> <span class="kw">then</span> suivant g (x+<span class="dv">1</span>, y)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> suivant g (<span class="dv">0</span>, y+<span class="dv">1</span>)</span></code></pre></div>
 <p></div></p>
 <p>On définit également une fonction <code>valide</code> de signature</p>
 <p><div class="ui segment" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="kw">val</span> valide : grille -&gt; <span class="dt">int</span> -&gt; <span class="dt">int</span> -&gt; <span class="dt">bool</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> valide : grille -&gt; <span class="dt">int</span> -&gt; <span class="dt">int</span> -&gt; <span class="dt">bool</span></span></code></pre></div>
 <p></div></p>
 <p>telle que l’appel à <code>valide g x y</code> renvoie <code>true</code> si et seulement si la valeur placée en coordonnée <span class="math inline">\((x,y)\)</span> n’invalide pas la grille. Ne pas prendre cette valeur en paramètre permettant d’écrire un peu plus simplement cette fonction. La fonction est assez directe, étant donné <span class="math inline">\((x,y)\)</span> on va parcourir sa ligne, sa colonne et sa sous-grille pour vérifier qu’un nombre n’a pas été placé deux fois à l’aide d’un tableau de drapeaux :</p>
 <p><div class="ui segment" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="kw">let</span> valide g x y =</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a>    <span class="kw">let</span> v = <span class="dt">ref</span> <span class="kw">true</span> <span class="kw">in</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a>    <span class="kw">let</span> vus_colonne = <span class="dt">Array</span>.make <span class="dv">9</span> <span class="kw">false</span> <span class="kw">in</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a>    <span class="kw">for</span> y0 = <span class="dv">0</span> <span class="kw">to</span> <span class="dv">8</span> <span class="kw">do</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a>        <span class="kw">match</span> g.(y0).(x) <span class="kw">with</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true"></a>        | <span class="dt">None</span> -&gt; ()</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true"></a>        | <span class="dt">Some</span> k -&gt; </span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true"></a>                <span class="kw">if</span> vus_colonne.(k<span class="dv">-1</span>)</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true"></a>                <span class="kw">then</span> v := <span class="kw">false</span>;</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true"></a>                vus_colonne.(k<span class="dv">-1</span>) &lt;- <span class="kw">true</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true"></a>    <span class="kw">done</span>;</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true"></a>    <span class="kw">let</span> vus_ligne = <span class="dt">Array</span>.make <span class="dv">9</span> <span class="kw">false</span> <span class="kw">in</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true"></a>    <span class="kw">for</span> x0 = <span class="dv">0</span> <span class="kw">to</span> <span class="dv">8</span> <span class="kw">do</span></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true"></a>        <span class="kw">match</span> g.(y).(x0) <span class="kw">with</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true"></a>        | <span class="dt">None</span> -&gt; ()</span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true"></a>        | <span class="dt">Some</span> k -&gt; </span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true"></a>                <span class="kw">if</span> vus_ligne.(k<span class="dv">-1</span>)</span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true"></a>                <span class="kw">then</span> v := <span class="kw">false</span>;</span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true"></a>                vus_ligne.(k<span class="dv">-1</span>) &lt;- <span class="kw">true</span></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true"></a>    <span class="kw">done</span>;</span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true"></a>    <span class="kw">let</span> vus_grille = <span class="dt">Array</span>.make <span class="dv">9</span> <span class="kw">false</span> <span class="kw">in</span></span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true"></a>    <span class="kw">let</span> xb = (x / <span class="dv">3</span>) * <span class="dv">3</span> <span class="kw">in</span></span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true"></a>    <span class="kw">let</span> yb = (y / <span class="dv">3</span>) * <span class="dv">3</span> <span class="kw">in</span></span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true"></a>    <span class="kw">for</span> xd = <span class="dv">0</span> <span class="kw">to</span> <span class="dv">2</span> <span class="kw">do</span></span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true"></a>        <span class="kw">for</span> yd = <span class="dv">0</span> <span class="kw">to</span> <span class="dv">2</span> <span class="kw">do</span></span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true"></a>            <span class="kw">match</span> g.(yb+yd).(xb+xd) <span class="kw">with</span></span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true"></a>            | <span class="dt">None</span> -&gt; ()</span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true"></a>            | <span class="dt">Some</span> k -&gt; </span>
-<span id="cb16-29"><a href="#cb16-29" aria-hidden="true"></a>                    <span class="kw">if</span> vus_grille.(k<span class="dv">-1</span>)</span>
-<span id="cb16-30"><a href="#cb16-30" aria-hidden="true"></a>                    <span class="kw">then</span> v := <span class="kw">false</span>;</span>
-<span id="cb16-31"><a href="#cb16-31" aria-hidden="true"></a>                    vus_grille.(k<span class="dv">-1</span>) &lt;- <span class="kw">true</span></span>
-<span id="cb16-32"><a href="#cb16-32" aria-hidden="true"></a>        <span class="kw">done</span></span>
-<span id="cb16-33"><a href="#cb16-33" aria-hidden="true"></a>    <span class="kw">done</span>;</span>
-<span id="cb16-34"><a href="#cb16-34" aria-hidden="true"></a>    !v</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> valide g x y =</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> v = <span class="dt">ref</span> <span class="kw">true</span> <span class="kw">in</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> vus_colonne = <span class="dt">Array</span>.make <span class="dv">9</span> <span class="kw">false</span> <span class="kw">in</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> y0 = <span class="dv">0</span> <span class="kw">to</span> <span class="dv">8</span> <span class="kw">do</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">match</span> g.(y0).(x) <span class="kw">with</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        | <span class="dt">None</span> -&gt; ()</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>        | <span class="dt">Some</span> k -&gt; </span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>                <span class="kw">if</span> vus_colonne.(k<span class="dv">-1</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>                <span class="kw">then</span> v := <span class="kw">false</span>;</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>                vus_colonne.(k<span class="dv">-1</span>) &lt;- <span class="kw">true</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> vus_ligne = <span class="dt">Array</span>.make <span class="dv">9</span> <span class="kw">false</span> <span class="kw">in</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> x0 = <span class="dv">0</span> <span class="kw">to</span> <span class="dv">8</span> <span class="kw">do</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">match</span> g.(y).(x0) <span class="kw">with</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>        | <span class="dt">None</span> -&gt; ()</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>        | <span class="dt">Some</span> k -&gt; </span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>                <span class="kw">if</span> vus_ligne.(k<span class="dv">-1</span>)</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>                <span class="kw">then</span> v := <span class="kw">false</span>;</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>                vus_ligne.(k<span class="dv">-1</span>) &lt;- <span class="kw">true</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> vus_grille = <span class="dt">Array</span>.make <span class="dv">9</span> <span class="kw">false</span> <span class="kw">in</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> xb = (x / <span class="dv">3</span>) * <span class="dv">3</span> <span class="kw">in</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> yb = (y / <span class="dv">3</span>) * <span class="dv">3</span> <span class="kw">in</span></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> xd = <span class="dv">0</span> <span class="kw">to</span> <span class="dv">2</span> <span class="kw">do</span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>        <span class="kw">for</span> yd = <span class="dv">0</span> <span class="kw">to</span> <span class="dv">2</span> <span class="kw">do</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>            <span class="kw">match</span> g.(yb+yd).(xb+xd) <span class="kw">with</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>            | <span class="dt">None</span> -&gt; ()</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>            | <span class="dt">Some</span> k -&gt; </span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">if</span> vus_grille.(k<span class="dv">-1</span>)</span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">then</span> v := <span class="kw">false</span>;</span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>                    vus_grille.(k<span class="dv">-1</span>) &lt;- <span class="kw">true</span></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span></span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>    !v</span></code></pre></div>
 <p></div></p>
 <p>On peut alors définir la fonction <code>resout</code> qui va résoudre le Sudoku en effectuant tous les remplissages tant qu’on a une grille valide. Dès qu’une solution est trouvé, on s’arrête. Pour cela, on utilise le mécanisme des exceptions pour permettre une sortie prématurée. On a fait le choix de travailler en place dans la grille, ainsi à la fin de l’exécution de la fonction, la grille correspond à la solution.</p>
 <p><div class="ui segment" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a><span class="kw">exception</span> Solution</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true"></a><span class="kw">let</span> resout g =</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true"></a>    <span class="kw">let</span> <span class="kw">rec</span> aux xi yi = <span class="kw">match</span> suivant g (xi, yi) <span class="kw">with</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true"></a>        | <span class="dt">None</span> -&gt; <span class="dt">raise</span> Solution</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true"></a>        | <span class="dt">Some</span> (x,y) -&gt;</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true"></a>            <span class="kw">for</span> i = <span class="dv">1</span> <span class="kw">to</span> <span class="dv">9</span> <span class="kw">do</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true"></a>                g.(y).(x) &lt;- <span class="dt">Some</span> i;</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true"></a>                <span class="kw">if</span> valide g x y</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true"></a>                <span class="kw">then</span> <span class="kw">begin</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true"></a>                    aux x y</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true"></a>                <span class="kw">end</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true"></a>            <span class="kw">done</span>;</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true"></a>            g.(y).(x) &lt;- <span class="dt">None</span></span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true"></a>    <span class="kw">in</span> </span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true"></a>    <span class="kw">try</span> </span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true"></a>        aux <span class="dv">0</span> <span class="dv">0</span></span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true"></a>    <span class="kw">with</span> Solution -&gt; ()</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">exception</span> Solution</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> resout g =</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">rec</span> aux xi yi = <span class="kw">match</span> suivant g (xi, yi) <span class="kw">with</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        | <span class="dt">None</span> -&gt; <span class="dt">raise</span> Solution</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>        | <span class="dt">Some</span> (x,y) -&gt;</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>            <span class="kw">for</span> i = <span class="dv">1</span> <span class="kw">to</span> <span class="dv">9</span> <span class="kw">do</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>                g.(y).(x) &lt;- <span class="dt">Some</span> i;</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>                <span class="kw">if</span> valide g x y</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>                <span class="kw">then</span> <span class="kw">begin</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>                    aux x y</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>                <span class="kw">end</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>            <span class="kw">done</span>;</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>            g.(y).(x) &lt;- <span class="dt">None</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">in</span> </span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">try</span> </span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>        aux <span class="dv">0</span> <span class="dv">0</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">with</span> Solution -&gt; ()</span></code></pre></div>
 <p></div></p>
 <p>La résolution du Sudoku donnée précédemment par ce programme est présenté dans la vidéo suivante :</p>
 <p><center><video width="400" height="380" controls="controls"><source src="assets/pics/sudoku.mp4" type="video/mp4" /></video></center></p>
@@ -799,26 +801,26 @@ u = - \frac{\overrightarrow{A_2 A_1} \times \overrightarrow{A_1 B_1}}{\Delta}
 <p>L’implémentation de cet algorithme est alors assez directe avec une file de priorité.</p>
 <p><div class="ui message blue"><div class="header">Note</div>FIXME: utiliser un module file de priorité fait dans un chapitre précédent plutôt</div></p>
 <p><div class="ui segment" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a><span class="kw">module</span> Heap = Core_kernel.Heap</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true"></a><span class="kw">let</span> compare_pair f a b = Stdlib.<span class="dt">compare</span> (f a) (f b)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true"></a></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true"></a><span class="kw">type</span> arbre = Feuille <span class="kw">of</span> <span class="dt">char</span> | Noeud <span class="kw">of</span> arbre * arbre</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true"></a></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true"></a><span class="kw">let</span> huffman freq =</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true"></a>    <span class="kw">let</span> arbres = Heap.create ~cmp:(compare_pair <span class="dt">fst</span>) () <span class="kw">in</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true"></a>    <span class="kw">let</span> compte = <span class="dt">ref</span> (<span class="dt">Array</span>.length freq) <span class="kw">in</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> <span class="dt">Array</span>.length freq - <span class="dv">1</span> <span class="kw">do</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true"></a>        <span class="kw">let</span> c, f = freq.(i) <span class="kw">in</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true"></a>        Heap.add arbres (f, Feuille c)</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true"></a>    <span class="kw">done</span>;</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true"></a>    <span class="kw">while</span> !compte &gt; <span class="dv">1</span> <span class="kw">do</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true"></a>        <span class="kw">let</span> fx, x = Heap.pop_exn arbres <span class="kw">in</span></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true"></a>        <span class="kw">let</span> fy, y = Heap.pop_exn arbres <span class="kw">in</span></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true"></a>        Heap.add arbres (fx+.fy, Noeud(x,y));</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true"></a>        compte := !compte - <span class="dv">1</span></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true"></a>    <span class="kw">done</span>;</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true"></a>    <span class="dt">snd</span> (Heap.pop_exn arbres)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> Heap = Core_kernel.Heap</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> compare_pair f a b = Stdlib.<span class="dt">compare</span> (f a) (f b)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> arbre = Feuille <span class="kw">of</span> <span class="dt">char</span> | Noeud <span class="kw">of</span> arbre * arbre</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> huffman freq =</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> arbres = Heap.create ~cmp:(compare_pair <span class="dt">fst</span>) () <span class="kw">in</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> compte = <span class="dt">ref</span> (<span class="dt">Array</span>.length freq) <span class="kw">in</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> <span class="dt">Array</span>.length freq - <span class="dv">1</span> <span class="kw">do</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> c, f = freq.(i) <span class="kw">in</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>        Heap.add arbres (f, Feuille c)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">while</span> !compte &gt; <span class="dv">1</span> <span class="kw">do</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> fx, x = Heap.pop_exn arbres <span class="kw">in</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> fy, y = Heap.pop_exn arbres <span class="kw">in</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>        Heap.add arbres (fx+.fy, Noeud(x,y));</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>        compte := !compte - <span class="dv">1</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    <span class="dt">snd</span> (Heap.pop_exn arbres)</span></code></pre></div>
 <p></div></p>
 <p><div class="ui message orange"><div class="header">Remarque</div>FIXME: Rajouter la compression/décompression</div></p>
 <p>L’algorithme de Huffman est un algorithme glouton car si on considère pour solution partielle la fôret présente dans la file et pour objectif la fonction <span class="math inline">\(\varphi\)</span> étendue aux fôrets en sommant la valeur de <span class="math inline">\(\varphi\)</span> sur chaque arbre, alors fusionner dans la fôret <span class="math inline">\(F\)</span> deux arbres <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> en la transformant en une fôret <span class="math inline">\(F&#39;\)</span> va avoir l’impact suivant sur la fonction d’objectif :</p>
@@ -905,70 +907,70 @@ Preuve
 <p>Pour résoudre ce problème, on considère l’algorithme glouton associé à la fonction d’objectif cardinal et <strong>en triant les activités</strong> ordre croissant de temps de fin.</p>
 <p>Cet algorithme est implémenté dans le programme suivant :</p>
 <p><div class="ui segment" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true"></a><span class="kw">typedef</span> <span class="kw">struct</span> {</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> id;</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> debut;</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> fin;</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true"></a>    <span class="dt">unsigned</span> <span class="dt">char</span> selectionnee;</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true"></a>} activite;</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true"></a></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true"></a><span class="dt">int</span> compare_activites(<span class="dt">const</span> <span class="dt">void</span> *t1, <span class="dt">const</span> <span class="dt">void</span> *t2)</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true"></a>{</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true"></a>    <span class="cf">return</span> ((activite *)t1)-&gt;fin - ((activite *)t2)-&gt;fin;</span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true"></a>}</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true"></a></span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true"></a><span class="dt">void</span> selectionne(activite *activites, <span class="dt">size_t</span> nb_activites)</span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true"></a>{</span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true"></a>    <span class="dt">size_t</span> derniere_activite = <span class="dv">0</span>;</span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true"></a>    <span class="co">/* on commmence par trier en O(n log2 n) les activites</span></span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true"></a><span class="co">     * selon le temps de fin */</span></span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true"></a>    qsort(activites, nb_activites,</span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true"></a>        <span class="kw">sizeof</span>(activite), compare_activites);</span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true"></a>    activites[<span class="dv">0</span>].selectionnee = <span class="dv">1</span>;</span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true"></a>    <span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">1</span>; i &lt; nb_activites; i++)</span>
-<span id="cb19-25"><a href="#cb19-25" aria-hidden="true"></a>    {</span>
-<span id="cb19-26"><a href="#cb19-26" aria-hidden="true"></a>        <span class="cf">if</span> (activites[i].debut &gt;= activites[derniere_activite].fin)</span>
-<span id="cb19-27"><a href="#cb19-27" aria-hidden="true"></a>        {</span>
-<span id="cb19-28"><a href="#cb19-28" aria-hidden="true"></a>            activites[i].selectionnee = <span class="dv">1</span>;</span>
-<span id="cb19-29"><a href="#cb19-29" aria-hidden="true"></a>            derniere_activite = i;</span>
-<span id="cb19-30"><a href="#cb19-30" aria-hidden="true"></a>        }</span>
-<span id="cb19-31"><a href="#cb19-31" aria-hidden="true"></a>    }</span>
-<span id="cb19-32"><a href="#cb19-32" aria-hidden="true"></a>}</span>
-<span id="cb19-33"><a href="#cb19-33" aria-hidden="true"></a></span>
-<span id="cb19-34"><a href="#cb19-34" aria-hidden="true"></a><span class="dt">int</span> main()</span>
-<span id="cb19-35"><a href="#cb19-35" aria-hidden="true"></a>{</span>
-<span id="cb19-36"><a href="#cb19-36" aria-hidden="true"></a>    activite activites[] = {</span>
-<span id="cb19-37"><a href="#cb19-37" aria-hidden="true"></a>        { <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">0</span> }, { <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">0</span> }, { <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">0</span> },</span>
-<span id="cb19-38"><a href="#cb19-38" aria-hidden="true"></a>        { <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">0</span> }, { <span class="dv">4</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">0</span> }, { <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">0</span> },</span>
-<span id="cb19-39"><a href="#cb19-39" aria-hidden="true"></a>        { <span class="dv">6</span>, <span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">0</span> }</span>
-<span id="cb19-40"><a href="#cb19-40" aria-hidden="true"></a>    };</span>
-<span id="cb19-41"><a href="#cb19-41" aria-hidden="true"></a></span>
-<span id="cb19-42"><a href="#cb19-42" aria-hidden="true"></a>    <span class="dt">size_t</span> nb_activites = <span class="kw">sizeof</span>(activites) / <span class="kw">sizeof</span>(activite);</span>
-<span id="cb19-43"><a href="#cb19-43" aria-hidden="true"></a></span>
-<span id="cb19-44"><a href="#cb19-44" aria-hidden="true"></a>    selectionne(activites, nb_activites);</span>
-<span id="cb19-45"><a href="#cb19-45" aria-hidden="true"></a></span>
-<span id="cb19-46"><a href="#cb19-46" aria-hidden="true"></a>    <span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; nb_activites; i++)</span>
-<span id="cb19-47"><a href="#cb19-47" aria-hidden="true"></a>    {</span>
-<span id="cb19-48"><a href="#cb19-48" aria-hidden="true"></a>        printf(<span class="st">&quot;Activité %d (%d,%d) : %d</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
-<span id="cb19-49"><a href="#cb19-49" aria-hidden="true"></a>                activites[i].id, activites[i].debut,</span>
-<span id="cb19-50"><a href="#cb19-50" aria-hidden="true"></a>                activites[i].fin, activites[i].selectionnee);</span>
-<span id="cb19-51"><a href="#cb19-51" aria-hidden="true"></a>    }</span>
-<span id="cb19-52"><a href="#cb19-52" aria-hidden="true"></a></span>
-<span id="cb19-53"><a href="#cb19-53" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb19-54"><a href="#cb19-54" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">struct</span> {</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> id;</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> debut;</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> fin;</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">char</span> selectionnee;</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>} activite;</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> compare_activites(<span class="dt">const</span> <span class="dt">void</span> *t1, <span class="dt">const</span> <span class="dt">void</span> *t2)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ((activite *)t1)-&gt;fin - ((activite *)t2)-&gt;fin;</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> selectionne(activite *activites, <span class="dt">size_t</span> nb_activites)</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    <span class="dt">size_t</span> derniere_activite = <span class="dv">0</span>;</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* on commmence par trier en O(n log2 n) les activites</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="co">     * selon le temps de fin */</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>    qsort(activites, nb_activites,</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>        <span class="kw">sizeof</span>(activite), compare_activites);</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>    activites[<span class="dv">0</span>].selectionnee = <span class="dv">1</span>;</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">1</span>; i &lt; nb_activites; i++)</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (activites[i].debut &gt;= activites[derniere_activite].fin)</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>            activites[i].selectionnee = <span class="dv">1</span>;</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>            derniere_activite = i;</span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main()</span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>    activite activites[] = {</span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>        { <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">0</span> }, { <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">0</span> }, { <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">0</span> },</span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a>        { <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">0</span> }, { <span class="dv">4</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">0</span> }, { <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">0</span> },</span>
+<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a>        { <span class="dv">6</span>, <span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">0</span> }</span>
+<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a>    };</span>
+<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a>    <span class="dt">size_t</span> nb_activites = <span class="kw">sizeof</span>(activites) / <span class="kw">sizeof</span>(activite);</span>
+<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a>    selectionne(activites, nb_activites);</span>
+<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; nb_activites; i++)</span>
+<span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a>        printf(<span class="st">&quot;Activité %d (%d,%d) : %d</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
+<span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a>                activites[i].id, activites[i].debut,</span>
+<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a>                activites[i].fin, activites[i].selectionnee);</span>
+<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb19-54"><a href="#cb19-54" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p></div></p>
 <p>Ce programme produit alors la sortie :</p>
 <p><div class="ui segment" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a>Activité <span class="dv">0</span> (<span class="dv">1</span>,<span class="dv">3</span>) : <span class="dv">1</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true"></a>Activité <span class="dv">1</span> (<span class="dv">3</span>,<span class="dv">4</span>) : <span class="dv">1</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true"></a>Activité <span class="dv">2</span> (<span class="dv">2</span>,<span class="dv">5</span>) : <span class="dv">0</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true"></a>Activité <span class="dv">6</span> (<span class="dv">0</span>,<span class="dv">7</span>) : <span class="dv">0</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true"></a>Activité <span class="dv">3</span> (<span class="dv">5</span>,<span class="dv">9</span>) : <span class="dv">1</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true"></a>Activité <span class="dv">5</span> (<span class="dv">8</span>,<span class="dv">10</span>) : <span class="dv">0</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true"></a>Activité <span class="dv">4</span> (<span class="dv">11</span>,<span class="dv">12</span>) : <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>Activité <span class="dv">0</span> (<span class="dv">1</span>,<span class="dv">3</span>) : <span class="dv">1</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>Activité <span class="dv">1</span> (<span class="dv">3</span>,<span class="dv">4</span>) : <span class="dv">1</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>Activité <span class="dv">2</span> (<span class="dv">2</span>,<span class="dv">5</span>) : <span class="dv">0</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>Activité <span class="dv">6</span> (<span class="dv">0</span>,<span class="dv">7</span>) : <span class="dv">0</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>Activité <span class="dv">3</span> (<span class="dv">5</span>,<span class="dv">9</span>) : <span class="dv">1</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>Activité <span class="dv">5</span> (<span class="dv">8</span>,<span class="dv">10</span>) : <span class="dv">0</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>Activité <span class="dv">4</span> (<span class="dv">11</span>,<span class="dv">12</span>) : <span class="dv">1</span></span></code></pre></div>
 <p></div></p>
 <p><div class="ui message orange"><div class="header">Remarque</div>Comme l’algorithme commence par effectuer un tri, on a rajouté dans la structure <code>activite</code> un champ permettant d’identifier une activité autrement que par son indice.</div></p>
 <h3 data-number="2.4.3" id="sec:preuve-doptimalité-1"><span class="header-section-number">2.4.3</span> Preuve d’optimalité</h3>
@@ -1026,7 +1028,6 @@ Preuve
 <h2 data-number="3.3" id="sec:ordonnancement-de-tâches"><span class="header-section-number">3.3</span> Ordonnancement de tâches</h2>
 <h2 data-number="3.4" id="sec:plus-longue-sous-suite-commune"><span class="header-section-number">3.4</span> Plus longue sous-suite commune</h2>
 <h2 data-number="3.5" id="sec:distance-dédition"><span class="header-section-number">3.5</span> Distance d’édition</h2>
-<h1 data-number="4" id="sec:algorihtmique-du-texte"><span class="header-section-number">4</span> Algorihtmique du texte</h1>
 </div>
 </div>
 </div>
