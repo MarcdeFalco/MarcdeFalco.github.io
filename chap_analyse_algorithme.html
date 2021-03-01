@@ -121,6 +121,9 @@ $(document).ready(function() {
     $('.ui.sidebar').append(links);
     $('.ui.sidebar').find('ul').detach();
     $('.ui.sidebar').find('li').detach();
+    $('.tabular.menu .item').tab({
+            context: 'parent'
+        });
 })
 </script>
 
@@ -154,6 +157,10 @@ $(document).ready(function() {
 
 .shrink {
     width: 60%;
+}
+
+.code {
+    font-size: 0.8em !important;
 }
 
 table {
@@ -372,7 +379,7 @@ table td {
 <p><div class="ui message orange"><div class="header">Remarque</div>Cela n’empêche pas que ce nombre d’étapes puisse être arbitrairement grand en fonction des entrées.</div></p>
 <p>Un algorithme qui n’utilise ni boucles inconditionnelles ni récursivité termine toujours. Ainsi, la question de la terminaison n’est à considérer que dans ces deux cas.</p>
 <p>Considérons par exemple l’algorithme suivant qui, étant donné un entier naturel <span class="math inline">\(n\)</span> strictement positif, inférieur à <span class="math inline">\(2^{30}\)</span>, détermine le plus petit entier <span class="math inline">\(k\)</span> tel que <span class="math inline">\(n \le 2^k\)</span> :</p>
-<p><div class="ui segment" style="font-size:0.8em" ></p>
+<p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> plus_grande_puissance2(<span class="dt">int</span> n)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>{</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> k = <span class="dv">0</span>;</span>
@@ -412,7 +419,7 @@ table td {
 </ul></li>
 </ul>
 <p>Le programme suivant présente une implémentation de cet algorithme en C.</p>
-<p><div class="ui segment" style="font-size:0.8em" ></p>
+<p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> rech_dicho(<span class="dt">int</span> *t, <span class="dt">size_t</span> n, <span class="dt">int</span> x)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>{</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* renvoie un indice de x </span></span>
@@ -447,7 +454,7 @@ table td {
 </ul></li>
 </ul>
 <p>Ainsi, il s’agit d’un variant de boucle et l’algorithme termine.</p>
-<p><div class="ui message orange"><div class="header">Remarque</div>On remarque que le programme récursif suivant réalise également cet algorithme. <div class="ui segment" style="font-size:0.8em" ></p>
+<p><div class="ui message orange"><div class="header">Remarque</div>On remarque que le programme récursif suivant réalise également cet algorithme. <div class="ui segment code"></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">(* rech_dicho : int array -&gt; int -&gt; int -&gt; int -&gt; int option *)</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> rech_dicho t i j x =</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> i &lt;= j</span>
@@ -500,7 +507,7 @@ table td {
 <li><code>indice_minimum</code> renvoie l’indice de la plus petite valeur entre deux indices donnés</li>
 <li><code>tri_par_selection</code> réalise le tri en parcourant le tableau du premier au dernier indice et en plaçant à la position courante le minimum restant.</li>
 </ul>
-<p><div class="ui segment" style="font-size:0.8em" ></p>
+<p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> echange(<span class="dt">int</span> *tableau, <span class="dt">int</span> i, <span class="dt">int</span> j)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>{</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> temp = tableau[i];</span>
@@ -564,7 +571,7 @@ Ce prédicat est bien un invariant. Ainsi, en sortie de boucle, <span class="mat
 <li>pour la comparaison, puis pour l’affectation éventuelle</li>
 <li>pour mettre en place la valeur de retour afin que le résultat soit lu</li>
 </ul>
-<p>On peut remarquer que la notion de pire cas dépend de la précision à laquelle on se place. Ici, si on ne s’intéresse qu’à l’ordre de grandeur, tous les tableaux de taille <span class="math inline">\(n\)</span> sont équivalents. Par contre, si on cherche avec précision le pire cas, il est atteint avec un tableau trié par ordre croissant car c’est le cas qui effectue une affectation à chaque itération. </div><div class="eight wide column"> <div class="ui segment" style="font-size:0.8em" ></p>
+<p>On peut remarquer que la notion de pire cas dépend de la précision à laquelle on se place. Ici, si on ne s’intéresse qu’à l’ordre de grandeur, tous les tableaux de taille <span class="math inline">\(n\)</span> sont équivalents. Par contre, si on cherche avec précision le pire cas, il est atteint avec un tableau trié par ordre croissant car c’est le cas qui effectue une affectation à chaque itération. </div><div class="eight wide column"> <div class="ui segment code"></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> maximum(<span class="dt">int</span> *tableau, <span class="dt">int</span> taille)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>{</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> M = INT_MIN;</span>
@@ -582,7 +589,7 @@ Ce prédicat est bien un invariant. Ainsi, en sortie de boucle, <span class="mat
 <h2 data-number="3.2" id="sec:comparer-des-complexités"><span class="header-section-number">3.2</span> Comparer des complexités</h2>
 <p>Avant de pouvoir comparer les complexités des algorithmes ou des programmes, il est nécessaire de mettre en place des outils pour en parler à la fois avec précision mais également sans rentrer dans des détails inextricables d’implémentation.</p>
 <p>En effet, comparons les deux fonctions suivantes permettant de calculer le maximum d’un tableau non vide :</p>
-<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"> <div class="ui segment" style="font-size:0.8em" ></p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"> <div class="ui segment code"></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> maximum(<span class="dt">int</span> *tableau, <span class="dt">int</span> taille)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>{</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> M = INT_MIN;</span>
@@ -596,7 +603,7 @@ Ce prédicat est bien un invariant. Ainsi, en sortie de boucle, <span class="mat
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> M;</span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p></div></p>
-<p></div><div class="eight wide column"> <div class="ui segment" style="font-size:0.8em" ></p>
+<p></div><div class="eight wide column"> <div class="ui segment code"></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> maximum(<span class="dt">int</span> *tableau, <span class="dt">int</span> taille)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>{</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> M = tableau[<span class="dv">0</span>];</span>
@@ -684,7 +691,7 @@ n^\alpha = O(\beta^n)
 <h3 data-number="3.3.2" id="sec:complexité-linéaire"><span class="header-section-number">3.3.2</span> Complexité linéaire</h3>
 <p>On dit qu’un algorithme a une complexité linéaire quand <span class="math inline">\(C^t_n = O(n)\)</span>.</p>
 <p>Cette complexité correspond à un traitement de temps constant sur chaque élément d’une entrée de taille <span class="math inline">\(n\)</span>. C’est le cas de la recherche d’un élément dans un tableau ou de la recherche de son maximum.</p>
-<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"> Pour la recherche linéaire d’un élément, correspondant par exemple au programme ci-contre, le pire cas correspond à ne pas avoir <code>x</code> dans <code>tableau</code> ce qui oblige à effectuer toutes les itérations. On a bien une complexité temporelle en pire cas de <span class="math inline">\(O(n)\)</span>. </div><div class="eight wide column"> <div class="ui segment" style="font-size:0.8em" ></p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"> Pour la recherche linéaire d’un élément, correspondant par exemple au programme ci-contre, le pire cas correspond à ne pas avoir <code>x</code> dans <code>tableau</code> ce qui oblige à effectuer toutes les itérations. On a bien une complexité temporelle en pire cas de <span class="math inline">\(O(n)\)</span>. </div><div class="eight wide column"> <div class="ui segment code"></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> recherche(<span class="dt">int</span> *tableau, <span class="dt">int</span> taille, <span class="dt">int</span> x)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>{</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* renvoie le plus petit indice i tel que tableau[i] = x</span></span>
@@ -783,7 +790,7 @@ n^\alpha = O(\beta^n)
 <p>Plus généralement, si on considère des données organisées dans des tableaux imbriqués, on effectuera un traitement sur chaque donnée à l’aide de boucles imbriquées non conditionnelles. La complexité sera alors celle du corps de boucles multipliée par le produit du nombre d’itérations de chaque boucle.</p>
 <h3 data-number="3.5.2" id="sec:compromis-entre-paramètres"><span class="header-section-number">3.5.2</span> Compromis entre paramètres</h3>
 <p>Dans certains cas, en particulier pour les graphes, on peut effectuer des traitements successifs dont la complexité ne s’exprime pas en fonction du même paramètre. Imaginons par exemple un programme ayant la structure suivante :</p>
-<p><div class="ui segment" style="font-size:0.8em" ></p>
+<p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i&lt;n; i++)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>{</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* corps de boucle en O(1) */</span></span>
@@ -819,7 +826,7 @@ n^\alpha = O(\beta^n)
 <p>Un tableau dynamique d’entiers est un triplet <code>(t,c,n)</code> où <code>t</code> est un tableau de taille <code>c</code>, appelée la capacité du tableau dynamique, et <code>n</code> est un autre entier représentant la taille logique du tableau. A tout moment <span class="math inline">\(c \ge n\)</span>. Dans <code>t</code> il y a ainsi <span class="math inline">\(c-n\)</span> cases déjà allouées qui permettent de rajouter un élément en temps constant. Quand <span class="math inline">\(c=n\)</span>, on alloue une nouvelle zone mémoire, souvent de taille <span class="math inline">\(2c\)</span>, on déplace le tableau <code>t</code> dans cette zone et on a donc pour cet ajout prévu un certain nombre de cases d’avance.</p>
 <p>La figure suivante présente une succession d’ajouts : <img src="assets/pics/tableau_dyn.png" /></p>
 <p>Une implémentation de ces opérations est proposée dans le programme suivant :</p>
-<p><div class="ui segment" style="font-size:0.8em" ></p>
+<p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -873,7 +880,7 @@ n^\alpha = O(\beta^n)
 <span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p></div></p>
 <p>Ce programme, une fois exécuté produit la sortie suivante qui permet de retrouver exactement le comportement attendu :</p>
-<p><div class="ui segment" style="font-size:0.8em" ></p>
+<p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>c=<span class="dv">2</span> n=<span class="dv">0</span> | | |</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>c=<span class="dv">2</span> n=<span class="dv">1</span> |<span class="dv">1</span>| |</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>c=<span class="dv">2</span> n=<span class="dv">2</span> |<span class="dv">1</span>|<span class="dv">2</span>|</span>
@@ -887,7 +894,7 @@ n^\alpha = O(\beta^n)
 <p>Même si la complexité temporelle est le plus souvent celle qui est importante à calculer, certains algorithmes ont une complexité temporelle faible mais en contrepartie une complexité spatiale élevée. On parle alors de compromis temps-mémoire.</p>
 <p>Un exemple classique d’un tel compromis est celui de la programmation dynamique où on passe d’une complexité temporelle exponentielle à une complexité temporelle polynomiale en stockant des valeurs intermédiaires pour ne pas les recalculer. En procédant ainsi, on passe d’une complexité spatiale constante à polynomiale.</p>
 <p>Cela est illustré dans le programme suivant qui permet de déterminer le <span class="math inline">\(n\)</span>-ième terme de la suite de Fibonacci, ce qui n’a pas d’intérêt informatique mais est caractéristique de récurrence que l’on résoudra par la programmation dynamique.</p>
-<p><div class="ui segment" style="font-size:0.8em" ></p>
+<p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">(* Fibonacci exponentiel *)</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> fibo n =</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> n = <span class="dv">0</span></span>

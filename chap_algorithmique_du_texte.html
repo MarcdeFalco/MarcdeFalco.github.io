@@ -121,6 +121,9 @@ $(document).ready(function() {
     $('.ui.sidebar').append(links);
     $('.ui.sidebar').find('ul').detach();
     $('.ui.sidebar').find('li').detach();
+    $('.tabular.menu .item').tab({
+            context: 'parent'
+        });
 })
 </script>
 
@@ -154,6 +157,10 @@ $(document).ready(function() {
 
 .shrink {
     width: 60%;
+}
+
+.code {
+    font-size: 0.8em !important;
 }
 
 table {
@@ -341,7 +348,7 @@ table td {
 <li><p>Pour <span class="math inline">\(i\)</span> allant de <span class="math inline">\(0\)</span> à <span class="math inline">\(n-p\)</span> :</p>
 <ul>
 <li>Si <span class="math inline">\(e_m = e\)</span>, on renvoie un succès pour la recherche à la position <span class="math inline">\(i\)</span> si <span class="math inline">\(m = c_i \dots c_{i+p-1}\)</span></li>
-<li>si <span class="math inline">\(i&lt;n-p\)</span> on met à jour l’empreinte <span class="math inline">\(e = \delta_{c_i,c_{i+p}}(e)\)</span>.</li>
+<li>si <span class="math inline">\(i&lt;n-p\)</span> on met à jour l’empreinte <span class="math inline">\(e \leftarrow \delta_{c_i,c_{i+p}}(e)\)</span>.</li>
 </ul></li>
 </ul>
 <p>La complexité temporelle liée à la gestion des empreintes est donc en <span class="math inline">\(O(n+p) = O(n)\)</span> car <span class="math inline">\(n \ge p\)</span>. Par contre, pour calculer la complexité liée à la recherche <span class="math inline">\(m = c_i \dots c_{i+p-1}\)</span>, il est nécessaire d’estimer la proportion de faux positifs, c’est-à-dire de positions <span class="math inline">\(i\)</span> telles que <span class="math inline">\(e_m = e\)</span> mais <span class="math inline">\(m \neq c_i \dots c_{i+p-1}\)</span>. On va voir dans la partie suivante qu’on peut supposer qu’elle est négligeable, ce qui permet de considérer que l’algorithme de Rabin-Karp est linéaire.</p>
@@ -355,7 +362,7 @@ c_i r^{p-1-i} = c_0 r^{p-1} + c_1 r^{p-2} + \dots + c_{p-1}
 <p>Si on précalcule <span class="math inline">\(r^{p-1} \mod q\)</span> il suffit d’un nombre d’opération constant, et indépendant de <span class="math inline">\(p\)</span>, pour calculer la nouvelle empreinte à l’aide de <span class="math inline">\(\delta_{a,b}\)</span>.</p>
 <p>Le point essentiel est alors de déterminer un nombre premier <span class="math inline">\(q\)</span> tel qu’il soit peu probable d’obtenir des faux positifs. Une analyse mathématique permet d’affirmer que chaque élément de <span class="math inline">\([|0;q-1|]\)</span> a de l’ordre de <span class="math inline">\(\frac{r^p}{q}\)</span> antécédents par <span class="math inline">\(h\)</span>. Ainsi, si on choisit deux chaînes aléatoirement dans <span class="math inline">\(\Sigma^p\)</span>, il y aura collision avec probabilité proche de <span class="math inline">\(\frac{1}{q}\)</span>. En considérant <span class="math inline">\(q\)</span> proche de la taille maximale pour le type entier considéré, on minimise donc cette probabilité.</p>
 <p><div class="ui message orange"><div class="header">Remarque</div>On peut également s’intéresser à des nombres <span class="math inline">\(q\)</span> pour lesquels le modulo soit rapide à calculer. Un exemple classique est <span class="math inline">\(q = 2^{31} - 1\)</span> car on peut déduire la division euclidienne de <span class="math inline">\(a\)</span> par <span class="math inline">\(q\)</span> de l’écriture de <span class="math inline">\(a\)</span> en base <span class="math inline">\(2^{31}\)</span>. En effet, si <span class="math inline">\(a = \sum_{k=0}^n a_k 2^{31k}\)</span> comme <span class="math inline">\(2^{31}-1 | 2^{31k} - 1\)</span> pour <span class="math inline">\(k \ge 1\)</span>, on a <span class="math inline">\(2^{31k} \equiv 1 ~[q]\)</span> et ainsi <span class="math inline">\(a \equiv \sum_{k=0}^n a_k [q]\)</span>. On remarque que <span class="math inline">\(a_k = (a &gt;&gt; 31k) \&amp; 2^{31}\)</span>, on a alors soit <span class="math inline">\(a_k &lt; q\)</span> et alors <span class="math inline">\(a_k \mod q = a_k\)</span>, soit <span class="math inline">\(a_k = q\)</span> et <span class="math inline">\(a_k \mod q = 0\)</span>. Il suffit donc de faire un masquage pour obtenir directement <span class="math inline">\(a_k \mod q = (a &gt;&gt; 31k) \&amp; q\)</span>.</p>
-<p>On obtient alors le programme suivant : <div class="ui segment" style="font-size:0.8em" ></p>
+<p>On obtient alors le programme suivant : <div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-37">ocaml</a>   <a class="item" data-tab="c-37">c</a>   <a class="item" data-tab="python-37">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-37"></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> fastmod a =</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> s = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> x = <span class="dt">ref</span> a <span class="kw">in</span></span>
@@ -369,42 +376,136 @@ c_i r^{p-1-i} = c_0 r^{p-1} + c_1 r^{p-2} + \dots + c_{p-1}
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> <span class="kw">if</span> !s = q</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> <span class="dv">0</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> !s</span></code></pre></div>
-<p></div></p>
-<p></div></p>
-<p>Le programme suivant présente deux manières de calculer naïvement <span class="math inline">\(h\)</span> et <span class="math inline">\(\delta_{a,b}\)</span> : <div class="ui segment" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> hash r q s =</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> p = <span class="dt">ref</span> <span class="dv">1</span> <span class="kw">in</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> e = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> i = <span class="dt">String</span>.length s - <span class="dv">1</span> <span class="kw">downto</span> <span class="dv">0</span> <span class="kw">do</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        e := (!p * (<span class="dt">Char</span>.code s.[i]) + !e) <span class="kw">mod</span> q;</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        p := (r * !p) <span class="kw">mod</span> q</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    !e</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> delta r q rp a b e = <span class="co">(* rp est r^(p-1) mod q *)</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    (r * (e - rp * (<span class="dt">Char</span>.code a)) + <span class="dt">Char</span>.code b) <span class="kw">mod</span> q</span></code></pre></div>
-<p></div></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-37"></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int64_t</span> fastmod(<span class="dt">int64_t</span> a)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int64_t</span> s = <span class="dv">0</span>;</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> <span class="dt">int64_t</span> q = <span class="bn">0x7fffffff</span>;</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> (a &gt; <span class="dv">0</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        s = s + a &amp; q;</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        a = a &gt;&gt; <span class="dv">31</span>;</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (s &gt; q)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fastmod(s);</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (s == q)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s;</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-37"></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fastmod(a):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    q <span class="op">=</span> <span class="bn">0x7fffffff</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> a <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        s <span class="op">=</span> s <span class="op">+</span> a <span class="op">&amp;</span> q</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        a <span class="op">=</span> a <span class="op">&gt;&gt;</span> <span class="dv">31</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> s <span class="op">&gt;</span> q:</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fastmod(s)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> s <span class="op">==</span> q:</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s</span></code></pre></div>
+<p></div> </div> </div></p>
+<p>Le programme suivant implémente naïvement les calculs de <span class="math inline">\(h\)</span> et de <span class="math inline">\(\delta_{a,b}\)</span> :</p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-40">ocaml</a>   <a class="item" data-tab="c-40">c</a>   <a class="item" data-tab="python-40">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-40"></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> hash r q s =</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> p = <span class="dt">ref</span> <span class="dv">1</span> <span class="kw">in</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> e = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> i = <span class="dt">String</span>.length s - <span class="dv">1</span> <span class="kw">downto</span> <span class="dv">0</span> <span class="kw">do</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        e := (!p * (<span class="dt">Char</span>.code s.[i]) + !e) <span class="kw">mod</span> q;</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        p := (r * !p) <span class="kw">mod</span> q</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    !e</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> delta r q rp a b e = <span class="co">(* rp est r^(p-1) mod q *)</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    (r * (e - rp * (<span class="dt">Char</span>.code a)) + <span class="dt">Char</span>.code b) <span class="kw">mod</span> q</span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-40"></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int64_t</span> hash(<span class="dt">int64_t</span> r, <span class="dt">int64_t</span> q, <span class="dt">char</span> *s, <span class="dt">int</span> n)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int64_t</span> p = <span class="dv">1</span>;</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int64_t</span> e = <span class="dv">0</span>;</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="dt">int</span> i = n-<span class="dv">1</span>; i &gt;= <span class="dv">0</span>; i--)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        e = (p * s[i] + e) % q;</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        p = (r * p) % q;</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> e;</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="dt">int64_t</span> delta(<span class="dt">int64_t</span> r, <span class="dt">int64_t</span> q, <span class="dt">int64_t</span> rp,</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        <span class="dt">char</span> a, <span class="dt">char</span> b, <span class="dt">int64_t</span> e)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (r * (e - rp * a) + b) % q;</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-40"></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="bu">hash</span>(r,q,s):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    e <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">reversed</span>(s):</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        e <span class="op">=</span> (<span class="bu">ord</span>(c) <span class="op">*</span> p <span class="op">+</span> e) <span class="op">%</span> q</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> (r <span class="op">*</span> p) <span class="op">%</span> q</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> e</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> delta(r,q,rp,a,b,e):</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (r <span class="op">*</span> (e <span class="op">-</span> rp <span class="op">*</span> <span class="bu">ord</span>(a)) <span class="op">+</span> <span class="bu">ord</span>(b)) <span class="op">%</span> q</span></code></pre></div>
+<p></div> </div></p>
 <h2 data-number="1.3" id="sec:implémentation"><span class="header-section-number">1.3</span> Implémentation</h2>
 <p>Une implémentation directe de l’algorithme de Rabin-Karp est donnée dans le programme qui suit. On se sert ici du caractère paresseux du <code>&amp;&amp;</code> pour n’effecuter le test coûteux d’égalité des chaînes qu’en cas d’égalité des empreintes.</p>
-<p><div class="ui segment" style="font-size:0.8em" ></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">exception</span> Trouve <span class="kw">of</span> <span class="dt">int</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> rabin_karp m s =</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n = <span class="dt">String</span>.length s <span class="kw">in</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> p = <span class="dt">String</span>.length m <span class="kw">in</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> r = <span class="dv">256</span> <span class="kw">in</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> q = <span class="bn">0x7fffffff</span> <span class="kw">in</span> <span class="co">(* 2^(31)-1 *)</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> rp = pow r (p<span class="dv">-1</span>) q <span class="kw">in</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> me = hash r q m <span class="kw">in</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> e = <span class="dt">ref</span> (hash r q (<span class="dt">String</span>.sub s <span class="dv">0</span> p)) <span class="kw">in</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">try</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n-p+<span class="dv">1</span> <span class="kw">do</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span> me = !e &amp;&amp; m = <span class="dt">String</span>.sub s i p</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>            <span class="kw">then</span> <span class="dt">raise</span> (Trouve i);</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span> i+p &lt; n <span class="kw">then</span> e := delta r q rp s.[i] s.[i+p] !e</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>; <span class="dt">None</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">with</span> Trouve k -&gt; <span class="dt">Some</span> k</span></code></pre></div>
-<p></div></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-42">ocaml</a>   <a class="item" data-tab="c-42">c</a>   <a class="item" data-tab="python-42">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-42"></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">exception</span> Trouve <span class="kw">of</span> <span class="dt">int</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> rabin_karp m s =</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n = <span class="dt">String</span>.length s <span class="kw">in</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> p = <span class="dt">String</span>.length m <span class="kw">in</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> r = <span class="dv">256</span> <span class="kw">in</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> q = <span class="bn">0x7fffffff</span> <span class="kw">in</span> <span class="co">(* 2^(31)-1 *)</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> rp = pow r (p<span class="dv">-1</span>) q <span class="kw">in</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> me = hash r q m <span class="kw">in</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> e = <span class="dt">ref</span> (hash r q (<span class="dt">String</span>.sub s <span class="dv">0</span> p)) <span class="kw">in</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">try</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n-p+<span class="dv">1</span> <span class="kw">do</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span> me = !e &amp;&amp; m = <span class="dt">String</span>.sub s i p</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>            <span class="kw">then</span> <span class="dt">raise</span> (Trouve i);</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span> i+p &lt; n <span class="kw">then</span> e := delta r q rp s.[i] s.[i+p] !e</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>; <span class="dt">None</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">with</span> Trouve k -&gt; <span class="dt">Some</span> k</span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-42"></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> rabin_karp(<span class="dt">char</span> *m, <span class="dt">char</span> *s)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> <span class="dt">int64_t</span> r = <span class="dv">256</span>;</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> <span class="dt">int64_t</span> q = <span class="bn">0x7fffffff</span>;</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> <span class="dt">int</span> p = strlen(m);</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> <span class="dt">int</span> n = strlen(s);</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> <span class="dt">int64_t</span> rp = powmod(r,p-<span class="dv">1</span>,q);</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> <span class="dt">int64_t</span> me = hash(r,q,m,p);</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int64_t</span> e = hash(r,q,s,p);</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="dt">int</span> i=<span class="dv">0</span>; i &lt;n-p+<span class="dv">1</span>; i++)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (me == e &amp;&amp; strncmp(m,(s+i),p) == <span class="dv">0</span>)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> i;</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (i+p &lt; n)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>            e = delta(r,q,rp,s[i],s[i+p],e);</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> -<span class="dv">1</span>;</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-42"></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rabin_karp(m, s):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    p, n <span class="op">=</span> <span class="bu">len</span>(m), <span class="bu">len</span>(s)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    r, q <span class="op">=</span> <span class="dv">256</span>, <span class="bn">0x7fffffff</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    rp <span class="op">=</span> (r <span class="op">**</span> (p<span class="op">-</span><span class="dv">1</span>)) <span class="op">%</span> q</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    me, e <span class="op">=</span> <span class="bu">hash</span>(r,q,m), <span class="bu">hash</span>(r,q,s[:p])</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,n<span class="op">-</span>p<span class="op">+</span><span class="dv">2</span>):</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> me <span class="op">==</span> e <span class="kw">and</span> m <span class="op">==</span> s[i:i<span class="op">+</span>p]:</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> i</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i<span class="op">+</span>p <span class="op">&lt;</span> n:</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>            e <span class="op">=</span> delta(r,q,rp,s[i],s[i<span class="op">+</span>p],e)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">None</span></span></code></pre></div>
+<p></div> </div></p>
 <p>Si on suppose qu’il est improbable d’obtenir un faux positif, il est possible de renvoyer un succès dès que les empreintes sont égales. L’avantage d’une telle version est alors d’être un algorithme sans retour sur les données. C’est-à-dire qu’il n’est pas nécessaire de garder en mémoire ou de réaccéder à un caractère.</p>
 <h2 data-number="1.4" id="sec:lalgorithme-originel-de-rabin-et-karp"><span class="header-section-number">1.4</span> L’algorithme originel de Rabin et Karp</h2>
 <p>Si on regarde l’article originel de Rabin et Karp décrivant cette méthode, on peut être étonné du fait que la méthode précédemment décrite était considérée comme déjà connue dans la littérature par les auteurs. En fait, ce qu’ils décrivent et annoncent comme étant novateur est l’utilisation d’un algorithme probabiliste en choisissant aléatoirement une fonction de hachage à chaque lancement de l’algorithme. En pratique, il s’agit de choisir aléatoirement un nombre premier <span class="math inline">\(q\)</span> parmi un ensemble précalculé de nombres premiers.</p>

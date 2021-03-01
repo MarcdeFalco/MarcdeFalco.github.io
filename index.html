@@ -56,6 +56,9 @@ $(document).ready(function() {
     $('.ui.sidebar').append(links);
     $('.ui.sidebar').find('ul').detach();
     $('.ui.sidebar').find('li').detach();
+    $('.tabular.menu .item').tab({
+            context: 'parent'
+        });
 })
 </script>
 
@@ -89,6 +92,10 @@ $(document).ready(function() {
 
 .shrink {
     width: 60%;
+}
+
+.code {
+    font-size: 0.8em !important;
 }
 
 table {
