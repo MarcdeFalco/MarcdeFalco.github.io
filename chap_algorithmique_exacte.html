@@ -232,18 +232,30 @@ table td {
 <li><a href="#sec:algorithme-glouton-et-implémentation"><span class="toc-section-number">2.4.2</span> Algorithme glouton et implémentation</a></li>
 <li><a href="#sec:preuve-doptimalité-1"><span class="toc-section-number">2.4.3</span> Preuve d’optimalité</a></li>
 </ul></li>
-<li><a href="#sec:points-les-plus-proches"><span class="toc-section-number">2.5</span> Points les plus proches</a></li>
-<li><a href="#sec:sous-ensemble-de-somme-donnée"><span class="toc-section-number">2.6</span> Sous-ensemble de somme donnée</a></li>
-<li><a href="#sec:recherche-dichotomique"><span class="toc-section-number">2.7</span> Recherche dichotomique</a></li>
-<li><a href="#sec:couverture-par-des-segments-égaux"><span class="toc-section-number">2.8</span> Couverture par des segments égaux</a></li>
+<li><a href="#sec:ordonnancement-de-tâches"><span class="toc-section-number">2.5</span> Ordonnancement de tâches</a>
+<ul>
+<li><a href="#sec:description-1"><span class="toc-section-number">2.5.1</span> Description</a></li>
+<li><a href="#sec:algorithme-glouton-et-implémentation-1"><span class="toc-section-number">2.5.2</span> Algorithme glouton et implémentation</a></li>
+<li><a href="#sec:preuve-doptimalité-2"><span class="toc-section-number">2.5.3</span> Preuve d’optimalité</a></li>
 </ul></li>
-<li><a href="#sec:programmation-dynamique"><span class="toc-section-number">3</span> Programmation dynamique</a>
+</ul></li>
+<li><a href="#sec:diviser-pour-régner"><span class="toc-section-number">3</span> Diviser pour régner</a>
 <ul>
 <li><a href="#sec:principe-2"><span class="toc-section-number">3.1</span> Principe</a></li>
-<li><a href="#sec:somme-de-sous-ensembles"><span class="toc-section-number">3.2</span> Somme de sous-ensembles</a></li>
-<li><a href="#sec:ordonnancement-de-tâches"><span class="toc-section-number">3.3</span> Ordonnancement de tâches</a></li>
-<li><a href="#sec:plus-longue-sous-suite-commune"><span class="toc-section-number">3.4</span> Plus longue sous-suite commune</a></li>
-<li><a href="#sec:distance-dédition"><span class="toc-section-number">3.5</span> Distance d’édition</a></li>
+<li><a href="#sec:tri-fusion"><span class="toc-section-number">3.2</span> Tri fusion</a></li>
+<li><a href="#sec:nombre-dinversions"><span class="toc-section-number">3.3</span> Nombre d’inversions</a></li>
+<li><a href="#sec:points-les-plus-proches"><span class="toc-section-number">3.4</span> Points les plus proches</a></li>
+<li><a href="#sec:sous-ensemble-de-somme-donnée"><span class="toc-section-number">3.5</span> Sous-ensemble de somme donnée</a></li>
+<li><a href="#sec:recherche-dichotomique"><span class="toc-section-number">3.6</span> Recherche dichotomique</a></li>
+<li><a href="#sec:couverture-par-des-segments-égaux"><span class="toc-section-number">3.7</span> Couverture par des segments égaux</a></li>
+</ul></li>
+<li><a href="#sec:programmation-dynamique"><span class="toc-section-number">4</span> Programmation dynamique</a>
+<ul>
+<li><a href="#sec:principe-3"><span class="toc-section-number">4.1</span> Principe</a></li>
+<li><a href="#sec:somme-de-sous-ensembles"><span class="toc-section-number">4.2</span> Somme de sous-ensembles</a></li>
+<li><a href="#sec:ordonnancement-de-tâches-1"><span class="toc-section-number">4.3</span> Ordonnancement de tâches</a></li>
+<li><a href="#sec:plus-longue-sous-suite-commune"><span class="toc-section-number">4.4</span> Plus longue sous-suite commune</a></li>
+<li><a href="#sec:distance-dédition"><span class="toc-section-number">4.5</span> Distance d’édition</a></li>
 </ul></li>
 </ul>
 </div>
@@ -632,7 +644,7 @@ u = - \frac{\overrightarrow{A_2 A_1} \times \overrightarrow{A_1 B_1}}{\Delta}
 <p></div></p>
 <p>Une partie de l’arbre de recherche est présenté sur l’image suivante :</p>
 <figure>
-<img src="../html/assets/pics/reines_arbre.png" width="1000" alt="Arbre de recherche pour les huit reines" /><figcaption aria-hidden="true">Arbre de recherche pour les huit reines</figcaption>
+<img src="../assets/pics/reines_arbre.png" width="1000" alt="Arbre de recherche pour les huit reines" /><figcaption aria-hidden="true">Arbre de recherche pour les huit reines</figcaption>
 </figure>
 <p>L’arbre complet comporte 2057 noeuds dont 92 feuilles correspondant aux solutions du problème. A titre de comparaison, l’arbre exhaustif correspondant à faire tous les choix de placement à raison d’une reine par ligne compterait <span class="math inline">\(8^8 = 16777216\)</span> noeuds. On voit bien que le backtracking est plus économe en exploration.</p>
 <h3 data-number="1.3.1" id="sec:problème-résolution-de-sudoku"><span class="header-section-number">1.3.1</span> Problème : résolution de Sudoku</h3>
@@ -917,67 +929,67 @@ Preuve
 <div class="sourceCode" id="cb19"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">struct</span> {</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> id;</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> debut;</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> fin;</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">char</span> selectionnee;</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>} activite;</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> id<span class="op">;</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> debut<span class="op">;</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> fin<span class="op">;</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">char</span> selectionnee<span class="op">;</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> activite<span class="op">;</span></span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> compare_activites(<span class="dt">const</span> <span class="dt">void</span> *t1, <span class="dt">const</span> <span class="dt">void</span> *t2)</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ((activite *)t1)-&gt;fin - ((activite *)t2)-&gt;fin;</span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> compare_activites<span class="op">(</span><span class="dt">const</span> <span class="dt">void</span> <span class="op">*</span>t1<span class="op">,</span> <span class="dt">const</span> <span class="dt">void</span> <span class="op">*</span>t2<span class="op">)</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">((</span>activite <span class="op">*)</span>t1<span class="op">)-&gt;</span>fin <span class="op">-</span> <span class="op">((</span>activite <span class="op">*)</span>t2<span class="op">)-&gt;</span>fin<span class="op">;</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> selectionne(activite *activites, <span class="dt">size_t</span> nb_activites)</span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    <span class="dt">size_t</span> derniere_activite = <span class="dv">0</span>;</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> selectionne<span class="op">(</span>activite <span class="op">*</span>activites<span class="op">,</span> <span class="dt">size_t</span> nb_activites<span class="op">)</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    <span class="dt">size_t</span> derniere_activite <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* on commmence par trier en O(n log2 n) les activites</span></span>
 <span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="co">     * selon le temps de fin */</span></span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>    qsort(activites, nb_activites,</span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>        <span class="kw">sizeof</span>(activite), compare_activites);</span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>    activites[<span class="dv">0</span>].selectionnee = <span class="dv">1</span>;</span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">1</span>; i &lt; nb_activites; i++)</span>
-<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>    {</span>
-<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (activites[i].debut &gt;= activites[derniere_activite].fin)</span>
-<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>            activites[i].selectionnee = <span class="dv">1</span>;</span>
-<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>            derniere_activite = i;</span>
-<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>    qsort<span class="op">(</span>activites<span class="op">,</span> nb_activites<span class="op">,</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>        <span class="kw">sizeof</span><span class="op">(</span>activite<span class="op">),</span> compare_activites<span class="op">);</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>    activites<span class="op">[</span><span class="dv">0</span><span class="op">].</span>selectionnee <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> i <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> i <span class="op">&lt;</span> nb_activites<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>activites<span class="op">[</span>i<span class="op">].</span>debut <span class="op">&gt;=</span> activites<span class="op">[</span>derniere_activite<span class="op">].</span>fin<span class="op">)</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>            activites<span class="op">[</span>i<span class="op">].</span>selectionnee <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>            derniere_activite <span class="op">=</span> i<span class="op">;</span></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main()</span>
-<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>    activite activites[] = {</span>
-<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>        { <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">0</span> }, { <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">0</span> }, { <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">0</span> },</span>
-<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a>        { <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">0</span> }, { <span class="dv">4</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">0</span> }, { <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">0</span> },</span>
-<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a>        { <span class="dv">6</span>, <span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">0</span> }</span>
-<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a>    };</span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span></span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>    activite activites<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">0</span> <span class="op">},</span> <span class="op">{</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">0</span> <span class="op">},</span> <span class="op">{</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">0</span> <span class="op">},</span></span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">9</span><span class="op">,</span> <span class="dv">0</span> <span class="op">},</span> <span class="op">{</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">11</span><span class="op">,</span> <span class="dv">12</span><span class="op">,</span> <span class="dv">0</span> <span class="op">},</span> <span class="op">{</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">8</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">0</span> <span class="op">},</span></span>
+<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">7</span><span class="op">,</span> <span class="dv">0</span> <span class="op">}</span></span>
+<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
 <span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a>    <span class="dt">size_t</span> nb_activites = <span class="kw">sizeof</span>(activites) / <span class="kw">sizeof</span>(activite);</span>
+<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a>    <span class="dt">size_t</span> nb_activites <span class="op">=</span> <span class="kw">sizeof</span><span class="op">(</span>activites<span class="op">)</span> <span class="op">/</span> <span class="kw">sizeof</span><span class="op">(</span>activite<span class="op">);</span></span>
 <span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a>    selectionne(activites, nb_activites);</span>
+<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a>    selectionne<span class="op">(</span>activites<span class="op">,</span> nb_activites<span class="op">);</span></span>
 <span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; nb_activites; i++)</span>
-<span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a>    {</span>
-<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a>        printf(<span class="st">&quot;Activité %d (%d,%d) : %d</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
-<span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a>                activites[i].id, activites[i].debut,</span>
-<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a>                activites[i].fin, activites[i].selectionnee);</span>
-<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> nb_activites<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">&quot;Activité %d (%d,%d) : %d</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span></span>
+<span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a>                activites<span class="op">[</span>i<span class="op">].</span>id<span class="op">,</span> activites<span class="op">[</span>i<span class="op">].</span>debut<span class="op">,</span></span>
+<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a>                activites<span class="op">[</span>i<span class="op">].</span>fin<span class="op">,</span> activites<span class="op">[</span>i<span class="op">].</span>selectionnee<span class="op">);</span></span>
+<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb19-54"><a href="#cb19-54" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb19-54"><a href="#cb19-54" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
 <p>Ce programme produit alors la sortie :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>Activité <span class="dv">0</span> (<span class="dv">1</span>,<span class="dv">3</span>) : <span class="dv">1</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>Activité <span class="dv">1</span> (<span class="dv">3</span>,<span class="dv">4</span>) : <span class="dv">1</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>Activité <span class="dv">2</span> (<span class="dv">2</span>,<span class="dv">5</span>) : <span class="dv">0</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>Activité <span class="dv">6</span> (<span class="dv">0</span>,<span class="dv">7</span>) : <span class="dv">0</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>Activité <span class="dv">3</span> (<span class="dv">5</span>,<span class="dv">9</span>) : <span class="dv">1</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>Activité <span class="dv">5</span> (<span class="dv">8</span>,<span class="dv">10</span>) : <span class="dv">0</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>Activité <span class="dv">4</span> (<span class="dv">11</span>,<span class="dv">12</span>) : <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>Activité <span class="dv">0</span> <span class="op">(</span><span class="dv">1</span><span class="op">,</span><span class="dv">3</span><span class="op">)</span> <span class="op">:</span> <span class="dv">1</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>Activité <span class="dv">1</span> <span class="op">(</span><span class="dv">3</span><span class="op">,</span><span class="dv">4</span><span class="op">)</span> <span class="op">:</span> <span class="dv">1</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>Activité <span class="dv">2</span> <span class="op">(</span><span class="dv">2</span><span class="op">,</span><span class="dv">5</span><span class="op">)</span> <span class="op">:</span> <span class="dv">0</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>Activité <span class="dv">6</span> <span class="op">(</span><span class="dv">0</span><span class="op">,</span><span class="dv">7</span><span class="op">)</span> <span class="op">:</span> <span class="dv">0</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>Activité <span class="dv">3</span> <span class="op">(</span><span class="dv">5</span><span class="op">,</span><span class="dv">9</span><span class="op">)</span> <span class="op">:</span> <span class="dv">1</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>Activité <span class="dv">5</span> <span class="op">(</span><span class="dv">8</span><span class="op">,</span><span class="dv">10</span><span class="op">)</span> <span class="op">:</span> <span class="dv">0</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>Activité <span class="dv">4</span> <span class="op">(</span><span class="dv">11</span><span class="op">,</span><span class="dv">12</span><span class="op">)</span> <span class="op">:</span> <span class="dv">1</span></span></code></pre></div>
 <p></div></p>
 <p><div class="ui message orange"><div class="header">Remarque</div>Comme l’algorithme commence par effectuer un tri, on a rajouté dans la structure <code>activite</code> un champ permettant d’identifier une activité autrement que par son indice.</div></p>
 <h3 data-number="2.4.3" id="sec:preuve-doptimalité-1"><span class="header-section-number">2.4.3</span> Preuve d’optimalité</h3>
@@ -1025,16 +1037,389 @@ Preuve
 <p>Par hypothèse de récurrence, l’algorithme glouton sur <span class="math inline">\(A&#39;\)</span> produit un ensemble indépendant optimal <span class="math inline">\(G&#39;\)</span>, donc tel que <span class="math inline">\(|G&#39;| = |I&#39;|\)</span>. Par construction l’algorithme glouton sur <span class="math inline">\(A\)</span> renvoie <span class="math inline">\(G = G&#39; \cup \{ a_1\}\)</span> de même cardinal que <span class="math inline">\(I\)</span>, donc optimal.</p></li>
 </ul>
 </div>
-<h2 data-number="2.5" id="sec:points-les-plus-proches"><span class="header-section-number">2.5</span> Points les plus proches</h2>
-<h2 data-number="2.6" id="sec:sous-ensemble-de-somme-donnée"><span class="header-section-number">2.6</span> Sous-ensemble de somme donnée</h2>
-<h2 data-number="2.7" id="sec:recherche-dichotomique"><span class="header-section-number">2.7</span> Recherche dichotomique</h2>
-<h2 data-number="2.8" id="sec:couverture-par-des-segments-égaux"><span class="header-section-number">2.8</span> Couverture par des segments égaux</h2>
-<h1 data-number="3" id="sec:programmation-dynamique"><span class="header-section-number">3</span> Programmation dynamique</h1>
+<h2 data-number="2.5" id="sec:ordonnancement-de-tâches"><span class="header-section-number">2.5</span> Ordonnancement de tâches</h2>
+<h3 data-number="2.5.1" id="sec:description-1"><span class="header-section-number">2.5.1</span> Description</h3>
+<p>On considère ici un problème voisin du problème précédent. On considère <span class="math inline">\(n\)</span> tâches <span class="math inline">\(T = \{ t_1, \dots, t_n \}\)</span> prenant une unité de temps pour être traitées sur une unité de calcul.</p>
+<p>Chaque tâche <span class="math inline">\(t\)</span> dispose d’une date limite <span class="math inline">\(f(t) \in \range{1}{n}\)</span> (<strong>deadline</strong>) à laquelle elle doit être traitée sans quoi on écope d’une pénalité <span class="math inline">\(p(t) \in \N\)</span>.</p>
+<p>On appelle stratégie d’ordonnancement une application <span class="math inline">\(d : T \rightarrow \range{0}{n-1}\)</span> qui associe à chaque tache un unique temps de début <span class="math inline">\(d(t)\)</span>. Selon cette stratégie, on déduit une séparation de <span class="math inline">\(T\)</span> en deux ensembles disjoints :</p>
+<ul>
+<li><span class="math inline">\(T^+(d)\)</span> l’ensemble des tâches traitées dans les délais : <span class="math inline">\(t \in T^+(d) \iff d(t) &lt; f(t)\)</span>.</li>
+<li><span class="math inline">\(T^-(d)\)</span> l’ensemble des tâches traitées en retard : <span class="math inline">\(t \in T^-(d) \iff d(t) \ge f(t)\)</span>.</li>
+</ul>
+<p>On note alors <span class="math inline">\(P(d) = \sum_{t \in T^-(d)} p(t)\)</span> la somme des pénalités des tâches en retard.</p>
+<div class="ui message blue">
+<div class="header">
+Exemple
+</div>
+<p>On considère l’ensemble de tâches :</p>
+<table>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(t_i\)</span></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(f(t_i)\)</span></td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td>6</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(p(t_i)\)</span></td>
+<td>3</td>
+<td>6</td>
+<td>4</td>
+<td>2</td>
+<td>5</td>
+<td>7</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>Une stratégie d’ordonnancement (les tâches en retard sont en gras) est donnée dans le tableau suivant :</p>
+<table>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(t_i\)</span></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(d(t_i)\)</span></td>
+<td><strong>6</strong></td>
+<td>0</td>
+<td>1</td>
+<td><strong>4</strong></td>
+<td>3</td>
+<td>2</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p>On a alors <span class="math inline">\(P(d) = 5\)</span>.</p>
+</div>
+<p>On cherche à obtenir une stratégie d’ordonnancement de valeur <span class="math inline">\(P(d)\)</span> minimale.</p>
+<p>On remarque que l’ordonnancement des tâches en retard n’a aucune importance, et on peut donc se contenter de déterminer une stratégie d’ordonnancement pour les tâches traitées dans les délais et la compléter par n’importe quel ordonnancement des autres tâches. On peut ainsi reformuler le problème : déterminer un sous-ensemble <span class="math inline">\(T^+ \subset T\)</span> de tâches <strong>pouvant</strong> être traitées dans les délais tel que <span class="math inline">\(\sum_{t \in T^+} p(t)\)</span> soit <strong>maximale</strong>.</p>
+<h3 data-number="2.5.2" id="sec:algorithme-glouton-et-implémentation-1"><span class="header-section-number">2.5.2</span> Algorithme glouton et implémentation</h3>
+<p>On résout maintenant ce problème de maximisation des pénalités <span class="math inline">\(T^+\)</span> par un algorithme glouton :</p>
+<ul>
+<li>On commence avec <span class="math inline">\(T^+ = \emptyset\)</span> et tous les temps de <span class="math inline">\(\range{0}{n-1}\)</span> sont marqués comme étant disponibles.</li>
+<li>On parcourt les tâches dans l’ordre décroissant des pénalités.
+<ul>
+<li>Quand on considère la tâche <span class="math inline">\(t\)</span> s’il existe un temps <span class="math inline">\(i\)</span> disponible tel que <span class="math inline">\(i &lt; d(t)\)</span> alors on marque comme indisponible le temps <span class="math inline">\(i_0 = \max \enscomp{i \in \range{0}{n-1}}{i &lt; d(t) \text{ et } i \text { disponible} }\)</span> et on rajoute alors <span class="math inline">\(t\)</span> à <span class="math inline">\(T^+\)</span> en commençant <span class="math inline">\(t\)</span> au temps <span class="math inline">\(i_0\)</span>.</li>
+</ul></li>
+<li>On place les tâches restantes aux temps disponibles.</li>
+</ul>
+<p>Pour les structures de données, on utilise une représentation en tableaux de booléens (des <code>unsigned char</code> à <code>0</code> ou <code>1</code> en C) pour la disponibilités des temps. L’ensemble <span class="math inline">\(T^+\)</span> est alors implicite car il correspond aux tâches ordonnancé dans la première étape. Utiliser un tableau implique qu’une recherche linéaire soit faite pour chercher un plus grand temps disponible, et donc, la complexité temporelle globale sera en <span class="math inline">\(O(n^2)\)</span>.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Il est possible d’améliorer cela pour passer en <span class="math inline">\(O(n \log_2 n)\)</span> (<em>exercice</em>).</div></p>
+<p>Le programme C suivant implémente cet algorithme.</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;string.h&gt;</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> id<span class="op">;</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> date_limite<span class="op">;</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> penalite<span class="op">;</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> debut<span class="op">;</span> <span class="co">/* -1 tant que la tâche n&#39;est pas ordonnancée */</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> tache<span class="op">;</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> compare_taches<span class="op">(</span><span class="dt">const</span> <span class="dt">void</span> <span class="op">*</span>t1<span class="op">,</span> <span class="dt">const</span> <span class="dt">void</span> <span class="op">*</span>t2<span class="op">)</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">((</span>tache <span class="op">*)</span>t2<span class="op">)-&gt;</span>penalite <span class="op">-</span> <span class="op">((</span>tache <span class="op">*)</span>t1<span class="op">)-&gt;</span>penalite<span class="op">;</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> <span class="op">*</span>ordonnancement<span class="op">(</span>tache <span class="op">*</span>taches<span class="op">,</span> <span class="dt">size_t</span> nb_taches<span class="op">)</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">char</span> <span class="op">*</span>temps_occupe <span class="op">=</span> malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span><span class="dt">unsigned</span> <span class="dt">char</span><span class="op">)</span> <span class="op">*</span> nb_taches<span class="op">);</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>    memset<span class="op">(</span>temps_occupe<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> nb_taches<span class="op">);</span></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* tri des activités par ordre décroissant des pénalités */</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>    qsort<span class="op">(</span>taches<span class="op">,</span> nb_taches<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>tache<span class="op">),</span> compare_taches<span class="op">);</span></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* T+ par algorithme glouton */</span></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> k <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> k <span class="op">&lt;</span> nb_taches<span class="op">;</span> k<span class="op">++)</span></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> i0 <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> nb_taches<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>temps_occupe<span class="op">[</span>i<span class="op">]</span> <span class="op">==</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span> i <span class="op">&lt;</span> taches<span class="op">[</span>k<span class="op">].</span>date_limite<span class="op">)</span></span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a>                i0 <span class="op">=</span> i<span class="op">;</span></span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>i0 <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a>            taches<span class="op">[</span>k<span class="op">].</span>debut <span class="op">=</span> i0<span class="op">;</span></span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a>            temps_occupe<span class="op">[</span>i0<span class="op">]</span> <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Complétion par les tâches en retard */</span></span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> <span class="co">// indice du dernier temps disponible utilisé</span></span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> k <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> k <span class="op">&lt;</span> nb_taches<span class="op">;</span> k<span class="op">++)</span></span>
+<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>taches<span class="op">[</span>k<span class="op">].</span>debut <span class="op">==</span> <span class="op">-</span><span class="dv">1</span><span class="op">)</span></span>
+<span id="cb21-48"><a href="#cb21-48" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb21-49"><a href="#cb21-49" aria-hidden="true" tabindex="-1"></a>            <span class="cf">while</span><span class="op">(</span>temps_occupe<span class="op">[</span>i<span class="op">]</span> <span class="op">==</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb21-50"><a href="#cb21-50" aria-hidden="true" tabindex="-1"></a>                i<span class="op">++;</span></span>
+<span id="cb21-51"><a href="#cb21-51" aria-hidden="true" tabindex="-1"></a>            taches<span class="op">[</span>k<span class="op">].</span>debut <span class="op">=</span> i<span class="op">;</span></span>
+<span id="cb21-52"><a href="#cb21-52" aria-hidden="true" tabindex="-1"></a>            temps_occupe<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb21-53"><a href="#cb21-53" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb21-54"><a href="#cb21-54" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb21-55"><a href="#cb21-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-56"><a href="#cb21-56" aria-hidden="true" tabindex="-1"></a>    free<span class="op">(</span>temps_occupe<span class="op">);</span></span>
+<span id="cb21-57"><a href="#cb21-57" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb21-58"><a href="#cb21-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-59"><a href="#cb21-59" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span></span>
+<span id="cb21-60"><a href="#cb21-60" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb21-61"><a href="#cb21-61" aria-hidden="true" tabindex="-1"></a>    tache taches<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb21-62"><a href="#cb21-62" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span> <span class="op">},</span> <span class="op">{</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">6</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span> <span class="op">},</span> <span class="op">{</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span> <span class="op">},</span></span>
+<span id="cb21-63"><a href="#cb21-63" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span> <span class="op">},</span> <span class="op">{</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span> <span class="op">},</span> <span class="op">{</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">7</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span> <span class="op">},</span></span>
+<span id="cb21-64"><a href="#cb21-64" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span> <span class="dv">7</span><span class="op">,</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span> <span class="op">}</span></span>
+<span id="cb21-65"><a href="#cb21-65" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb21-66"><a href="#cb21-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-67"><a href="#cb21-67" aria-hidden="true" tabindex="-1"></a>    <span class="dt">size_t</span> nb_taches <span class="op">=</span> <span class="kw">sizeof</span><span class="op">(</span>taches<span class="op">)</span> <span class="op">/</span> <span class="kw">sizeof</span><span class="op">(</span>tache<span class="op">);</span></span>
+<span id="cb21-68"><a href="#cb21-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-69"><a href="#cb21-69" aria-hidden="true" tabindex="-1"></a>    ordonnancement<span class="op">(</span>taches<span class="op">,</span> nb_taches<span class="op">);</span></span>
+<span id="cb21-70"><a href="#cb21-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-71"><a href="#cb21-71" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> nb_taches<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb21-72"><a href="#cb21-72" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb21-73"><a href="#cb21-73" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">&quot;T%d (f:%d,p:%d) @ %d</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> taches<span class="op">[</span>i<span class="op">].</span>id<span class="op">,</span> taches<span class="op">[</span>i<span class="op">].</span>date_limite<span class="op">,</span></span>
+<span id="cb21-74"><a href="#cb21-74" aria-hidden="true" tabindex="-1"></a>                taches<span class="op">[</span>i<span class="op">].</span>penalite<span class="op">,</span> taches<span class="op">[</span>i<span class="op">].</span>debut<span class="op">);</span></span>
+<span id="cb21-75"><a href="#cb21-75" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb21-76"><a href="#cb21-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-77"><a href="#cb21-77" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb21-78"><a href="#cb21-78" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p>Il produit la sortie : <div class="ui segment code"></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>T6 <span class="op">(</span>f<span class="op">:</span><span class="dv">4</span><span class="op">,</span>p<span class="op">:</span><span class="dv">7</span><span class="op">)</span> @ <span class="dv">3</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>T2 <span class="op">(</span>f<span class="op">:</span><span class="dv">2</span><span class="op">,</span>p<span class="op">:</span><span class="dv">6</span><span class="op">)</span> @ <span class="dv">1</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>T5 <span class="op">(</span>f<span class="op">:</span><span class="dv">4</span><span class="op">,</span>p<span class="op">:</span><span class="dv">5</span><span class="op">)</span> @ <span class="dv">2</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>T3 <span class="op">(</span>f<span class="op">:</span><span class="dv">3</span><span class="op">,</span>p<span class="op">:</span><span class="dv">4</span><span class="op">)</span> @ <span class="dv">0</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>T1 <span class="op">(</span>f<span class="op">:</span><span class="dv">1</span><span class="op">,</span>p<span class="op">:</span><span class="dv">3</span><span class="op">)</span> @ <span class="dv">4</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>T4 <span class="op">(</span>f<span class="op">:</span><span class="dv">4</span><span class="op">,</span>p<span class="op">:</span><span class="dv">2</span><span class="op">)</span> @ <span class="dv">6</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>T7 <span class="op">(</span>f<span class="op">:</span><span class="dv">6</span><span class="op">,</span>p<span class="op">:</span><span class="dv">1</span><span class="op">)</span> @ <span class="dv">5</span></span></code></pre></div>
+<p></div></p>
+<p>Ce qui correspond à l’ordonnancement <span class="math inline">\(t_3, t_2, t_5, t_6, t_1, t_7, t_4\)</span>. Les tâches <span class="math inline">\(t_1\)</span> et <span class="math inline">\(t_4\)</span> sont en retard, donc la pénalité totale est de 5.</p>
+<h3 data-number="2.5.3" id="sec:preuve-doptimalité-2"><span class="header-section-number">2.5.3</span> Preuve d’optimalité</h3>
+<p>On va montrer que cet algorithme glouton renvoie un ensemble <span class="math inline">\(T^+\)</span> optimal. Pour cela, on procède comme précédemment. Tout d’abord, on montre qu’il existe une solution optimale qui effectue le premier choix de l’algorithme glouton.</p>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p>Soit <span class="math inline">\(T\)</span> un ensemble de tâches et <span class="math inline">\(t \in T\)</span> une tâche de pénalité maximale. Il existe un ensemble <span class="math inline">\(T^+\)</span> de tâches pouvant être traitées dans les délais, maximal pour les pénalités et tel que <span class="math inline">\(t \in T^+\)</span>.</p>
+</div>
+<div class="ui message">
+<div class="header">
+Preuve
+</div>
+<p>Soit <span class="math inline">\(T^+ \subset T\)</span> un ensemble maximal. S’il contient <span class="math inline">\(t\)</span>, il convient directement. Sinon, il existe une tâche <span class="math inline">\(t&#39;\)</span> de <span class="math inline">\(T^+\)</span> qui est traitée à un moment où on pourrait traiter <span class="math inline">\(t\)</span> à temps (sinon <span class="math inline">\(T^+ \cup \{t\}\)</span> conviendrait et <span class="math inline">\(T^+\)</span> ne pourrait être maximal). On a <span class="math inline">\(p(t&#39;) \le p(t)\)</span> par maximalité de <span class="math inline">\(t\)</span>. L’ensemble <span class="math inline">\(T&#39;\)</span> déduit de <span class="math inline">\(T^+\)</span> en remplaçant <span class="math inline">\(t&#39;\)</span> par <span class="math inline">\(t\)</span> convient car on a forcément <span class="math inline">\(P(T&#39;) = P(T^+)\)</span> (en fait <span class="math inline">\(\ge\)</span> mais <span class="math inline">\(=\)</span> par optimalité de <span class="math inline">\(T^+\)</span>) et par construction toutes ses tâches peuvent être traitées à temps.</p>
+</div>
+<p>On montre maintenant qu’en enlevant le choix glouton, on obtient une solution optimale du sous-problème.</p>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p>Soit <span class="math inline">\(T^+ \subset T\)</span> ensemble de tâches pouvant être traitées, maximal pour les pénalités et contenant une tâche <span class="math inline">\(t\)</span> de plus grande pénalité. Soit <span class="math inline">\(i\)</span> l’instant auquel la tâche <span class="math inline">\(t\)</span> commence dans un ordonnancement de <span class="math inline">\(T^+\)</span>.</p>
+<p>On pose <span class="math inline">\(T&#39; = T \backslash \{ t \}\)</span> avec des dates limites modifiées : <span class="math display">\[\forall t&#39; \in T&#39;, d_{T&#39;}(t&#39;) = 
+\begin{cases}
+d_T(t&#39;) &amp; \text{si } d_T(t&#39;) \le i \\
+d_T(t&#39;)-1 &amp; \text{sinon} 
+\end{cases}\]</span></p>
+<p><span class="math inline">\(T^+ \backslash \{t\}\)</span> est alors maximal pour <span class="math inline">\(T&#39;\)</span>.</p>
+</div>
+<div class="ui message">
+<div class="header">
+Preuve
+</div>
+<p>Dans <span class="math inline">\(T&#39;\)</span>, on a à la fois enlevé <span class="math inline">\(t\)</span> et supprimé l’instant <span class="math inline">\(i\)</span>. Tout ordonnancement de <span class="math inline">\(T&#39;\)</span> peut alors être <em>relevé</em> en un ordonnancement de <span class="math inline">\(T\)</span> en décalant d’un instant les tâches commençant à partir de l’instant <span class="math inline">\(i\)</span> et en ordonnançant là la tâche <span class="math inline">\(t\)</span>. Réciproquement d’un ordonnancement dans <span class="math inline">\(T\)</span>, on déduit directement un ordonnancement de <span class="math inline">\(T&#39;\)</span></p>
+<p>Ainsi, s’il existait <span class="math inline">\(T&#39;^+\)</span> maximal pour <span class="math inline">\(T&#39;\)</span> tel que <span class="math inline">\(P(T&#39;^+) &gt; P(T^+ \backslash \{ t\}) = P(T^+) - p(t)\)</span> alors <span class="math inline">\(T&#39;^+ \cup \{ t \}\)</span> serait de somme de pénalités strictement plus grande que celle de <span class="math inline">\(T^+\)</span> supposé maximal.</p>
+<p>Donc, <span class="math inline">\(T^+ \backslash \{ t\}\)</span> est maximal.</p>
+</div>
+<p>On conclut alors directement par récurrence sur le nombre de tâches comme on l’a fait précédemment pour la sélection d’activités :</p>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p>L’algorithme glouton renvoie un ordonnancement optimal.</p>
+</div>
+<h1 data-number="3" id="sec:diviser-pour-régner"><span class="header-section-number">3</span> Diviser pour régner</h1>
 <h2 data-number="3.1" id="sec:principe-2"><span class="header-section-number">3.1</span> Principe</h2>
-<h2 data-number="3.2" id="sec:somme-de-sous-ensembles"><span class="header-section-number">3.2</span> Somme de sous-ensembles</h2>
-<h2 data-number="3.3" id="sec:ordonnancement-de-tâches"><span class="header-section-number">3.3</span> Ordonnancement de tâches</h2>
-<h2 data-number="3.4" id="sec:plus-longue-sous-suite-commune"><span class="header-section-number">3.4</span> Plus longue sous-suite commune</h2>
-<h2 data-number="3.5" id="sec:distance-dédition"><span class="header-section-number">3.5</span> Distance d’édition</h2>
+<p>Le principe des algorithmes dits <em>Diviser pour régner</em> est de décomposer un problème en plusieurs sous-problèmes disjoints et de déduire des solutions de ces sous-problème une solution au problème de départ.</p>
+<p>Le point clé pour ce principe est de pouvoir <strong>fusionner</strong> les solutions de sous-problèmes pour en faire une solution, et de pouvoir le faire dans un temps/espace raisonnable. On procède alors par récursivité en appliquant ce principe pour résoudre les sous-problèmes eux-mêmes jusqu’à tomber sur des sous-problèmes très simples.</p>
+<h2 data-number="3.2" id="sec:tri-fusion"><span class="header-section-number">3.2</span> Tri fusion</h2>
+<p>L’algorithme du tri fusion est un des exemples les plus important d’algorithmes <em>Diviser pour régner</em> :</p>
+<ul>
+<li>Étant donnée une liste <span class="math inline">\(l\)</span> de taille <span class="math inline">\(n \ge 2\)</span>, on va considérer les sous-listes <span class="math inline">\(l_p\)</span> des valeurs d’indice pair et <span class="math inline">\(l_i\)</span> des valeurs d’indice impair.</li>
+<li>On trie ensuite <span class="math inline">\(l_1\)</span> et <span class="math inline">\(l_2\)</span> pour obtenir <span class="math inline">\(l&#39;_1\)</span> et <span class="math inline">\(l&#39;_2\)</span>.</li>
+<li>On fusionne ces deux listes pour obtenir <span class="math inline">\(l&#39; = \text{fusion}(l&#39;_1,l&#39;_2)\)</span> liste triée déduite de <span class="math inline">\(l\)</span>.</li>
+</ul>
+<p>Comme expliqué dans le paragraphe précédent, les tris de <span class="math inline">\(l_1\)</span> et <span class="math inline">\(l_2\)</span> s’effectuent eux-aussi à l’aide d’un tri fusion.</p>
+<p><div class="ui message blue"><div class="header">Note</div>TODO : dessin</div></p>
+<p>Voici une implémentation en <code>OCaml</code> de cet algorithme :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> separe_en_deux l =</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    | [] -&gt; ([], [])</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    | [x] -&gt; ([x], [])</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    | x::y::q -&gt; <span class="kw">let</span> l1, l2 = separe_en_deux l <span class="kw">in</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>        (x::l1, y::l2)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> fusionne l1 l2 =</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">match</span> l1, l2 <span class="kw">with</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    | [], _ -&gt; l2</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    | _, [] -&gt; l1</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    | x::q1, y::q2 -&gt;</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> x &lt; y</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">then</span> x :: (fusionne q1 l2)</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>        <span class="kw">else</span> y :: (fusionne l1 q2)</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> tri_fusion l =</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>    | [] -&gt; []</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>    | [x] -&gt; [x]</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>    | _ -&gt; </span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> l1, l2 = separe_en_deux l <span class="kw">in</span></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> l1p = tri_fusion l1 <span class="kw">in</span></span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> l2p = tri_fusion l2 <span class="kw">in</span></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>        fusionne l1p l2p</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
+<p></div></p>
+<p>La correction et la terminaison de cet algorithme ne posant aucune difficulté, on va se concentrer sur le calcul de la complexité temporelle :</p>
+<ul>
+<li><code>separe_en_deux</code> consiste en un parcours linéaire de la liste <code>l</code> donc <span class="math inline">\(O(|l|)\)</span>.</li>
+<li><code>fusionne</code> supprime un élément d’une des deux listes à chaque appel récursif, donc une complexité en <span class="math inline">\(O(|l_1|+|l_2|)\)</span>.</li>
+<li>Pour <code>tri_fusion</code> la situation est plus complexe en raison du double appel récursif. On va d’abord traiter le cas des listes contenant <span class="math inline">\(2^k\)</span> éléments.</li>
+</ul>
+<p>Notons <span class="math inline">\(t_n\)</span> la complexité temporelle pour <span class="math inline">\(|l|=n\)</span>.</p>
+<div class="ui message olive">
+<div class="header">
+Lemme
+</div>
+<p><span class="math inline">\(t_{2^n} = O(2^n \log_2 2^n)\)</span></p>
+</div>
+<div class="ui message">
+<div class="header">
+Preuve
+</div>
+<p>Par l’analyse de complexité des deux fonctions auxiliaires, on a pour <span class="math inline">\(n \in \N\)</span> <span class="math display">\[t_{2^{n+1}} = 2 t_{2^n} + O(2^n) \le 2 t_{2^n} + M 2^n\]</span> où on peut supposer que <span class="math inline">\(M \ge 1\)</span>.</p>
+<p>On va montrer par récurence sur <span class="math inline">\(n \in \N^*\)</span> que <span class="math inline">\(t_{2^n} \le 2 M n 2^n\)</span>.</p>
+<ul>
+<li>Initialisation : <span class="math inline">\(t_{2^1} = 2 t_1 + M 2 = 2 M + 2 \le 4 M = 2 \times 1 \times 2^1 M\)</span>.</li>
+<li>Hérédité : si <span class="math inline">\(n \in \N^*\)</span> et l’hypothèse est vérifiée pour <span class="math inline">\(t_{2^n}\)</span>, alors <span class="math inline">\(t_{2^{n+1}} \le 4 n 2^n M + M 2^n = (4n +1) M 2^n \le 4 (n+1) M 2^n \le 2 M (n+1) 2^{n+1}\)</span>.</li>
+</ul>
+<p>Ainsi <span class="math inline">\(t_{2^n} = O(n 2^n)\)</span>.</p>
+</div>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p><span class="math inline">\(t_n = O(n \log_2 n)\)</span></p>
+</div>
+<div class="ui message">
+<div class="header">
+Preuve
+</div>
+<p>Le lemme assure qu’il existe <span class="math inline">\(M&#39;\)</span> tel que <span class="math inline">\(\forall p \in \N^*, t_{2^p} \le M&#39; p 2^p\)</span>.</p>
+<p>Soit <span class="math inline">\(n\in \N^*\)</span> et <span class="math inline">\(p\)</span> minimum tel que <span class="math inline">\(n \le 2^p\)</span>. On a <span class="math inline">\(\log_2 n \le p\)</span> par croissance de <span class="math inline">\(\log_2\)</span> et ainsi <span class="math inline">\(t_n \le t_{2^p} \le M&#39; p 2^p = M&#39; n \log_2 n\)</span>.</p>
+<p>Ainsi, <span class="math inline">\(t_n = O(n \log_2 n)\)</span>.</p>
+</div>
+<p><div class="ui message orange"><div class="header">Remarque</div>On a utilisé implicitement la croissance de <span class="math inline">\(t_n\)</span> ici : plus la liste est longue, plus on effectue d’opérations.</div></p>
+<p>Le programme suivant présente une implémentation du tri fusion reposant sur des tableaux. Les sous-tableaux sont manipulés à l’aide de leurs indices de début et de fin comme pour la recherche dichotomique.</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> separe_en_deux l =</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    | [] -&gt; ([], [])</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    | [x] -&gt; ([x], [])</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    | x::y::q -&gt; <span class="kw">let</span> l1, l2 = separe_en_deux l <span class="kw">in</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>        (x::l1, y::l2)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> fusionne l1 l2 =</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">match</span> l1, l2 <span class="kw">with</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    | [], _ -&gt; l2</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    | _, [] -&gt; l1</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    | x::q1, y::q2 -&gt;</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> x &lt; y</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">then</span> x :: (fusionne q1 l2)</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>        <span class="kw">else</span> y :: (fusionne l1 q2)</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> tri_fusion l =</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    | [] -&gt; []</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>    | [x] -&gt; [x]</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>    | _ -&gt; </span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> l1, l2 = separe_en_deux l <span class="kw">in</span></span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> l1p = tri_fusion l1 <span class="kw">in</span></span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> l2p = tri_fusion l2 <span class="kw">in</span></span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>        fusionne l1p l2p</span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
+<p></div></p>
+<p><div class="ui message blue"><div class="header">Note</div>TODO : exercice tri avec un tableau et tri <strong>en place</strong></div></p>
+<h2 data-number="3.3" id="sec:nombre-dinversions"><span class="header-section-number">3.3</span> Nombre d’inversions</h2>
+<p><div class="ui message"><div class="header">Définition</div> Soit <span class="math inline">\(t\)</span> une structure séquentielle (tableau, liste, ….) contenant des valeurs comparables <span class="math inline">\(a_0, ..., a_{n-1}\)</span> et énumérées dans cet ordre au sein de <span class="math inline">\(t\)</span>.</p>
+<p>Une paire <span class="math inline">\((i,j) \in \range{0}{n-1}^2\)</span> où <span class="math inline">\(i &lt; j\)</span> est appelée une <em>inversion</em> de <span class="math inline">\(t\)</span> lorsque <span class="math inline">\(a_i &gt; a_j\)</span>.</p>
+<p>On note <span class="math inline">\(I(t)\)</span> le nombre d’inversion de <span class="math inline">\(t\)</span>. </div></p>
+<p><div class="ui message orange"><div class="header">Remarque</div>* Le nombre d’inversions permet de mesurer à quel point <span class="math inline">\(t\)</span> est non triée dans l’ordre croissante. * Ce concept d’inversion est exactement celui utilisé pour les permutations en mathématiques : si <span class="math inline">\(\sigma \in \mathfrak{S}_n\)</span>, il suffit de considérer <span class="math inline">\((\sigma(1),\dots, \sigma(n))\)</span>.</div></p>
+<p>On cherche dans ce paragraphe à calculer <span class="math inline">\(I(t)\)</span> efficacement. Remarquons tout d’abord qu’un algorithme naïf est en <span class="math inline">\(O(n^2)\)</span> où <span class="math inline">\(|t|=n\)</span> en explorant toutes les paires :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="dt">size_t</span> inversions<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>t<span class="op">,</span> <span class="dt">size_t</span> taille<span class="op">)</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">size_t</span> inv <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> taille<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> j <span class="op">=</span> i<span class="op">+</span><span class="dv">1</span><span class="op">;</span> j <span class="op">&lt;</span> taille<span class="op">;</span> j<span class="op">++)</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>t<span class="op">[</span>i<span class="op">]</span> <span class="op">&gt;</span> t<span class="op">[</span>j<span class="op">])</span> inv<span class="op">++;</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> inv<span class="op">;</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p>On va maintenant donner un algorithme type <em>Diviser pour régner</em> :</p>
+<ul>
+<li>On sépare <span class="math inline">\(t\)</span> en deux moitiés <span class="math inline">\(t_1\)</span> et <span class="math inline">\(t_2\)</span>.</li>
+<li>On calcule <span class="math inline">\(I(t_1)\)</span> et <span class="math inline">\(I(t_2)\)</span> par des appels récursifs.</li>
+<li>On compte les inversions entre des éléments de <span class="math inline">\(t_1\)</span> et des éléments de <span class="math inline">\(t_2\)</span>
+<ul>
+<li>Cela ne dépend pas de leur position dans <span class="math inline">\(t_1\)</span> ou dans <span class="math inline">\(t_2\)</span>.</li>
+<li>On peut donc trier <span class="math inline">\(t_1\)</span> en <span class="math inline">\(t&#39;_1\)</span> et <span class="math inline">\(t_2\)</span> en <span class="math inline">\(t&#39;_2\)</span>.</li>
+<li>On compte <span class="math inline">\(N(t_1,t_2) = N(t&#39;_1,t&#39;_2)\)</span> le nombre d’inversions entre <span class="math inline">\(t&#39;_1\)</span> et <span class="math inline">\(t&#39;_2\)</span>.</li>
+</ul></li>
+<li>On en déduit que <span class="math inline">\(I(t) = I(t_1) + I(t_2) + N(t_1,t_2)\)</span>.</li>
+</ul>
+<p>Pour calculer le nombre d’inversions entre deux tableaux triés <span class="math inline">\(t&#39;_1\)</span> et <span class="math inline">\(t&#39;_2\)</span> on peut utiliser l’algorithme en <span class="math inline">\(O(|t&#39;_1| + |t&#39;_2|)\)</span> suivant : pour <span class="math inline">\(j\)</span> parcourant les indices de <span class="math inline">\(t&#39;_2\)</span>, on cherche le plus petit <span class="math inline">\(i\)</span> tel que <span class="math inline">\(t&#39;_1[i]\)</span>.</p>
+<h2 data-number="3.4" id="sec:points-les-plus-proches"><span class="header-section-number">3.4</span> Points les plus proches</h2>
+<h2 data-number="3.5" id="sec:sous-ensemble-de-somme-donnée"><span class="header-section-number">3.5</span> Sous-ensemble de somme donnée</h2>
+<h2 data-number="3.6" id="sec:recherche-dichotomique"><span class="header-section-number">3.6</span> Recherche dichotomique</h2>
+<h2 data-number="3.7" id="sec:couverture-par-des-segments-égaux"><span class="header-section-number">3.7</span> Couverture par des segments égaux</h2>
+<h1 data-number="4" id="sec:programmation-dynamique"><span class="header-section-number">4</span> Programmation dynamique</h1>
+<h2 data-number="4.1" id="sec:principe-3"><span class="header-section-number">4.1</span> Principe</h2>
+<h2 data-number="4.2" id="sec:somme-de-sous-ensembles"><span class="header-section-number">4.2</span> Somme de sous-ensembles</h2>
+<h2 data-number="4.3" id="sec:ordonnancement-de-tâches-1"><span class="header-section-number">4.3</span> Ordonnancement de tâches</h2>
+<h2 data-number="4.4" id="sec:plus-longue-sous-suite-commune"><span class="header-section-number">4.4</span> Plus longue sous-suite commune</h2>
+<h2 data-number="4.5" id="sec:distance-dédition"><span class="header-section-number">4.5</span> Distance d’édition</h2>
 </div>
 </div>
 </div>
