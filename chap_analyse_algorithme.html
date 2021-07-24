@@ -114,13 +114,12 @@ $(document).ready(function() {
         $("#toc").sidebar("show");
     }).end();
 
-   //$('.sidebar').children().addClass('vertical inverted menu');
-   //$('.sidebar').find('ul').addClass('ui');
-   //$('.sidebar').find('li').addClass('ui');
-   var links = $('.ui.sidebar').find('a').addClass('item');
-    $('.ui.sidebar').append(links);
-    $('.ui.sidebar').find('ul').detach();
-    $('.ui.sidebar').find('li').detach();
+    $('.sidebar > ul > li').unwrap().wrap("<div class='item mod'></div>").contents().unwrap()
+    $('.sidebar > .mod > a').wrap('<div class="header"></div>').contents().unwrap()
+    $('.sidebar > .mod > ul').wrap("<div class='item menu'></div>").contents().unwrap()
+    $('.sidebar > .mod > .menu > li').contents().unwrap()
+    $('.sidebar > .mod > .menu > a').addClass('item')
+
     $('.tabular.menu .item').tab({
             context: 'parent'
         });
@@ -202,12 +201,66 @@ table td {
 
   </head>
   <body class="pushable class="pushable"">
+<div style="display: none;">
+\(
+\def\N{{\mathbb{N}}}
+\def\R{{\mathbb{R}}}
+\def\D{{\mathbb{D}}}
+\def\C{{\mathbb{C}}}
+\def\Z{{\mathbb{Z}}}
+\def\Q{{\mathbb{Q}}}
+\def\K{{\mathbb{K}}}
+\def\KX{{\mathbb{K}}[X]}
+\def\U{{\mathbb{U}}}
+\def\B{{\mathcal{B}}}
+\newcommand\ensfonctions[2]{\mathcal{F}(#1,#2)}
+\newcommand\classeck[3]{\mathcal{C}^{#1}(#2,#3)}
+\newcommand\range[2]{[| #1,#2 |]}
+\newcommand\mod[0]{\mathop{mod}}
+\newcommand\land[0]{\mathop{land}}
+\newcommand\matrices[3]{\mathcal{M}_{#1,#2}(#3)}
+\newcommand\matricescarres[2]{\mathcal{M}_{#1}(#2)}
+\newcommand\gln[2]{\mbox{GL}_{#1}(#2)}
+\newcommand\Support[1]{\mbox{Supp}(#1)}
+\newcommand\dom[0]{\mbox{dom}}
+\newcommand\uniondisjointe{\sqcup}
+\def\lt{<}
+\def\rR{\mathcal{R}}
+\newcommand\parties[1]{\mathcal{P}(#1)}
+\newcommand\entiere[1]{\left\lfloor #1 \right\rfloor}
+\newcommand\congru[3]{#1 = #2\ [#3]}
+\newcommand\enscomp[2]{\left\{\left.\ #1\ \right|\ #2\ \right\}}
+\newcommand\classe[1]{\overline{#1}}
+\newcommand\classemod[2]{\overline{#1}^{[#2]}}
+\newcommand\quotient[2]{#1 / #2}
+\newcommand\ZnZ[1]{\quotient{\Z}{#1 \Z}}
+\newcommand\card[1]{\text{Card}\ #1}
+\newcommand\indic{\mathbbm{1}}
+\newcommand\id{\mbox{id}}
+\newcommand\Perm[1]{\mathfrak{S}_#1}
+\newcommand\comb[2]{\binom{#1}{#2}}
+\newcommand\tend[2]{\xrightarrow[#1 \rightarrow #2]{}}
+\newcommand\limite[2]{\lim_{#1 \rightarrow #2}}
+\newcommand\application[5]{\begin{array}{rcccc}
+#1 & : & #2 & \mapsto & #3 \\ 
+& & #4 & \mapsto & #5
+\end{array}}
+\)
+</div>
+
 
 
 <div class="ui vertical inverted visible fixed sidebar menu" id="toc">
-<a href="index.html" class="item">
-    Informatique en CPGE
-</a>
+    <div class="item">
+    <a href="/">
+        Informatique en CPGE
+    </a>
+    </div>
+    <div class="item">
+    <a href="#">
+        Introduction à l’analyse des algorithmes
+    </a>
+    </div>
 <ul>
 <li><a href="#sec:terminaison"><span class="toc-section-number">1</span> Terminaison</a>
 <ul>
@@ -222,33 +275,11 @@ table td {
 <li><a href="#sec:complexité"><span class="toc-section-number">3</span> Complexité</a>
 <ul>
 <li><a href="#sec:complexité-dans-le-pire-des-cas"><span class="toc-section-number">3.1</span> Complexité dans le pire des cas</a></li>
-<li><a href="#sec:comparer-des-complexités"><span class="toc-section-number">3.2</span> Comparer des complexités</a>
-<ul>
-<li><a href="#sec:la-notation-grand-o"><span class="toc-section-number">3.2.1</span> La notation grand O</a></li>
-<li><a href="#sec:échelle-de-comparaison"><span class="toc-section-number">3.2.2</span> Échelle de comparaison</a></li>
-<li><a href="#sec:ordre-de-grandeur-et-relation-theta"><span class="toc-section-number">3.2.3</span> Ordre de grandeur et relation <span class="math inline">\(\Theta\)</span></a></li>
-<li><a href="#sec:opérations-sur-les-grands-o"><span class="toc-section-number">3.2.4</span> Opérations sur les grands O</a></li>
-</ul></li>
-<li><a href="#sec:complexités-en-temps-classiques"><span class="toc-section-number">3.3</span> Complexités en temps classiques</a>
-<ul>
-<li><a href="#sec:complexité-constante"><span class="toc-section-number">3.3.1</span> Complexité constante</a></li>
-<li><a href="#sec:complexité-linéaire"><span class="toc-section-number">3.3.2</span> Complexité linéaire</a></li>
-<li><a href="#sec:complexité-quadratique-polynomiale"><span class="toc-section-number">3.3.3</span> Complexité quadratique, polynomiale</a></li>
-<li><a href="#sec:complexité-logarithmique"><span class="toc-section-number">3.3.4</span> Complexité logarithmique</a></li>
-<li><a href="#sec:complexité-quasi-linéaire"><span class="toc-section-number">3.3.5</span> Complexité quasi-linéaire</a></li>
-<li><a href="#sec:complexité-exponentielle"><span class="toc-section-number">3.3.6</span> Complexité exponentielle</a></li>
-<li><a href="#sec:estimation-de-limpact-des-complexités-sur-le-temps"><span class="toc-section-number">3.3.7</span> Estimation de l’impact des complexités sur le temps</a></li>
-</ul></li>
+<li><a href="#sec:comparer-des-complexités"><span class="toc-section-number">3.2</span> Comparer des complexités</a></li>
+<li><a href="#sec:complexités-en-temps-classiques"><span class="toc-section-number">3.3</span> Complexités en temps classiques</a></li>
 <li><a href="#sec:calculer-des-complexités"><span class="toc-section-number">3.4</span> Calculer des complexités</a></li>
-<li><a href="#sec:complexité-à-plusieurs-paramètres"><span class="toc-section-number">3.5</span> Complexité à plusieurs paramètres</a>
-<ul>
-<li><a href="#sec:données-multidimensionnelles"><span class="toc-section-number">3.5.1</span> Données multidimensionnelles</a></li>
-<li><a href="#sec:compromis-entre-paramètres"><span class="toc-section-number">3.5.2</span> Compromis entre paramètres</a></li>
-</ul></li>
-<li><a href="#sec:complexité-en-moyenne"><span class="toc-section-number">3.6</span> Complexité en moyenne</a>
-<ul>
-<li><a href="#sec:exemple-de-calcul-de-complexité-temporelle-en-moyenne"><span class="toc-section-number">3.6.1</span> Exemple de calcul de complexité temporelle en moyenne</a></li>
-</ul></li>
+<li><a href="#sec:complexité-à-plusieurs-paramètres"><span class="toc-section-number">3.5</span> Complexité à plusieurs paramètres</a></li>
+<li><a href="#sec:complexité-en-moyenne"><span class="toc-section-number">3.6</span> Complexité en moyenne</a></li>
 <li><a href="#sec:complexité-amortie"><span class="toc-section-number">3.7</span> Complexité amortie</a></li>
 <li><a href="#sec:pertinence-de-la-complexité-spatiale"><span class="toc-section-number">3.8</span> Pertinence de la complexité spatiale</a></li>
 </ul></li>
@@ -259,7 +290,7 @@ table td {
     <div class="ui inverted top menu" id="top-menu">
         <div class="ui container">
 	  <a class="launch icon item" id="sidebar-menu-button">
-	    <i class="content icon"></i>
+	    <i class="angle double left icon"></i>
 	  </a>
 	  <div class="item">
           Introduction à l’analyse des algorithmes
@@ -267,96 +298,6 @@ table td {
         </div>
       </div>
       <div class="ui padded basic segment" id="main">
-\(
-\def\N{{\mathbb{N}}}
-\def\R{{\mathbb{R}}}
-\def\D{{\mathbb{D}}}
-\def\C{{\mathbb{C}}}
-\def\Z{{\mathbb{Z}}}
-\def\Q{{\mathbb{Q}}}
-\def\K{{\mathbb{K}}}
-\def\KX{{\mathbb{K}}[X]}
-\def\U{{\mathbb{U}}}
-\def\B{{\mathcal{B}}}
-
-\newcommand\ensfonctions[2]{\mathcal{F}(#1,#2)}
-\newcommand\ensfonctionszero[3]{\mathcal{F}_{#3,0}(#1,#2)}
-\newcommand\continues[2]{\mathcal{C}(#1,#2)}
-\newcommand\lineaires[2]{\mathcal{L}(#1,#2)}
-\newcommand\nlineaires[3]{\mathcal{L}_{#1}(#2,#3)}
-\newcommand\ensendo[1]{\mathcal{L}(#1)}
-\newcommand\derivables[2]{\mathcal{D}(#1,#2)}
-\newcommand\segment[2]{[#1,#2]}
-\newcommand\intouvert[2]{]#1,#2[}
-\newcommand\intouvertgauche[2]{]#1,#2]}
-\newcommand\intouvertdroite[2]{[#1,#2[}
-\newcommand\classeck[3]{\mathcal{C}^{#1}(#2,#3)}
-\newcommand\range[2]{[| #1,#2 |]}
-\newcommand\mod[0]{\mathop{mod}}
-\newcommand\land[0]{\mathop{land}}
-\newcommand\voisinages[2]{\mathcal{V}_{#1}(#2)}
-\newcommand\matrices[3]{\mathcal{M}_{#1,#2}(#3)}
-\newcommand\matricescarres[2]{\mathcal{M}_{#1}(#2)}
-\newcommand\gln[2]{\mbox{GL}_{#1}(#2)}
-\newcommand\Vect[1]{\mbox{Vect}(#1)}
-\newcommand\Support[1]{\mbox{Supp}(#1)}
-\newcommand\rang[1]{\mbox{rg}(#1)}
-\newcommand\trace[1]{\mbox{tr}(#1)}
-\newcommand\gl[1]{\mbox{GL}(#1)}
-\newcommand\dom[0]{\mbox{dom}}
-\newcommand\codim[0]{\mbox{codim}}
-\newcommand\tr{\mbox{tr}}
-\newcommand\uniondisjointe{\sqcup}
-\def\Rbar{\overline\R}
-\def\lt{<}
-\def\rR{\mathcal{R}}
-\newcommand\parties[1]{\mathcal{P}(#1)}
-\newcommand\entiere[1]{\left\lfloor #1 \right\rfloor}
-\newcommand\congru[3]{#1 = #2\ [#3]}
-\newcommand\enscomp[2]{\left\{\left.\ #1\ \right|\ #2\ \right\}}
-\newcommand\classe[1]{\overline{#1}}
-\newcommand\classemod[2]{\overline{#1}^{[#2]}}
-\newcommand\quotient[2]{#1 / #2}
-\newcommand\ZnZ[1]{\quotient{\Z}{#1 \Z}}
-\newcommand\card[1]{\text{Card}\ #1}
-\newcommand\Det{\mbox{Det}}
-\newcommand\indic{\mathbbm{1}}
-\newcommand\groupeengendre[1]{\langle #1 \rangle}
-\renewcommand\Im{\mathfrak{I}}
-\newcommand\id{\mbox{id}}
-\newcommand\Bary[1]{\mbox{Bary}\{#1\}}
-\newcommand\Ker{\mbox{Ker}~}
-\newcommand\Ima{\mbox{Im}~}
-\newcommand\Perm[1]{\mathfrak{S}_#1}
-\newcommand\comb[2]{\binom{#1}{#2}}
-\newcommand\tend[2]{\xrightarrow[#1 \rightarrow #2]{}}
-\newcommand\limite[2]{\lim_{#1 \rightarrow #2}}
-\newcommand\sh{\mbox{sh}}
-\newcommand\ch{\mbox{ch}}
-\renewcommand\tanh{\mbox{th}}
-\newcommand\Arcsin{\mbox{Arcsin}~}
-\newcommand\Arccos{\mbox{Arccos}~}
-\newcommand\Arctan{\mbox{Arctan}~}
-\newcommand\Argsh{\mbox{Argsh}}
-\newcommand\Argch{\mbox{Argch}}
-\newcommand\Argth{\mbox{Argth}}
-\newcommand\argu{\mbox{arg}}
-\newcommand\dron[2]{\frac{\partial #1}{\partial #2}}
-\newcommand\conj[1]{\overline{#1}}
-\newcommand\ei[1]{e^{i #1}}
-\newcommand\eii[2]{e^{#1 i #2}}
-\newcommand\crochet[1]{\left[ #1 \right]}
-
-\newcommand\application[5]{\begin{array}{rcccc}
-#1 & : & #2 & \mapsto & #3 \\ 
-& & #4 & \mapsto & #5
-\end{array}}
-
-\newcommand{\diff}{\mathop{}\mathopen{}\mathrm{d}}
-\newcommand{\cc}{{\cal C}}
-
-\)
-
 <div class="masthead">
 <div class="segment">
 <center>
@@ -380,19 +321,19 @@ table td {
 <p>Un algorithme qui n’utilise ni boucles inconditionnelles ni récursivité termine toujours. Ainsi, la question de la terminaison n’est à considérer que dans ces deux cas.</p>
 <p>Considérons par exemple l’algorithme suivant qui, étant donné un entier naturel <span class="math inline">\(n\)</span> strictement positif, inférieur à <span class="math inline">\(2^{30}\)</span>, détermine le plus petit entier <span class="math inline">\(k\)</span> tel que <span class="math inline">\(n \le 2^k\)</span> :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> plus_grande_puissance2(<span class="dt">int</span> n)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> k = <span class="dv">0</span>;</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> p = <span class="dv">1</span>;</span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> plus_grande_puissance2<span class="op">(</span><span class="dt">int</span> n<span class="op">)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> k <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> p <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> (p &lt; n)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    {</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        k = k+<span class="dv">1</span>;</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        p = p*<span class="dv">2</span>;</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>p <span class="op">&lt;</span> n<span class="op">)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        k <span class="op">=</span> k<span class="op">+</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> p<span class="op">*</span><span class="dv">2</span><span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> k;</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> k<span class="op">;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
 <p>On remarque que <code>p</code> prend successivement pour valeurs toutes les puissances de 2 jusqu’à une éventuelle sortie de boucle. Or, il existe une puissance de 2 supérieure ou égale à <code>n</code>, donc, une fois atteinte, la condition de la boucle <code>while</code> n’est plus remplie et l’algorithme termine.</p>
 <h2 data-number="1.1" id="sec:variant-de-boucle"><span class="header-section-number">1.1</span> Variant de boucle</h2>
@@ -420,28 +361,28 @@ table td {
 </ul>
 <p>Le programme suivant présente une implémentation de cet algorithme en C.</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> rech_dicho(<span class="dt">int</span> *t, <span class="dt">size_t</span> n, <span class="dt">int</span> x)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> rech_dicho<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>t<span class="op">,</span> <span class="dt">size_t</span> n<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* renvoie un indice de x </span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">      si x est dans le tableau et -1 sinon */</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">size_t</span> i = <span class="dv">0</span>;</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">size_t</span> j = n-<span class="dv">1</span>;</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">size_t</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">size_t</span> j <span class="op">=</span> n<span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> (i &lt;= j) </span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    {</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">size_t</span> p = i + (j-i)/<span class="dv">2</span>;</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> m = t[p];</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>i <span class="op">&lt;=</span> j<span class="op">)</span> </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">size_t</span> p <span class="op">=</span> i <span class="op">+</span> <span class="op">(</span>j<span class="op">-</span>i<span class="op">)/</span><span class="dv">2</span><span class="op">;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> m <span class="op">=</span> t<span class="op">[</span>p<span class="op">];</span></span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (x == m)</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> p;</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> <span class="cf">if</span> (x &lt; m)</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                j = p-<span class="dv">1</span>;</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>x <span class="op">==</span> m<span class="op">)</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> p<span class="op">;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>x <span class="op">&lt;</span> m<span class="op">)</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                j <span class="op">=</span> p<span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>             <span class="cf">else</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>                i = p+<span class="dv">1</span>;</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>                i <span class="op">=</span> p<span class="op">+</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> -<span class="dv">1</span>;</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
 <p><div class="ui message orange"><div class="header">Remarque</div>On a écrit <code>i+(j-i)/2</code> et non <code>(i+j)/2</code> afin d’éviter des erreurs de dépassement dans le calcul de <code>i+j</code>.</div></p>
 <p>Ici, la terminaison n’est pas immédiate, on va la prouver à l’aide d’un variant de boucle. On considère ainsi la quantité <span class="math inline">\(d(i,j) = j-i\)</span>.</p>
@@ -508,33 +449,33 @@ table td {
 <li><code>tri_par_selection</code> réalise le tri en parcourant le tableau du premier au dernier indice et en plaçant à la position courante le minimum restant.</li>
 </ul>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> echange(<span class="dt">int</span> *tableau, <span class="dt">int</span> i, <span class="dt">int</span> j)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> temp = tableau[i];</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    tableau[i] = tableau[j];</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    tableau[j] = temp;</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> echange<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>tableau<span class="op">,</span> <span class="dt">int</span> i<span class="op">,</span> <span class="dt">int</span> j<span class="op">)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> temp <span class="op">=</span> tableau<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    tableau<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> tableau<span class="op">[</span>j<span class="op">];</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    tableau<span class="op">[</span>j<span class="op">]</span> <span class="op">=</span> temp<span class="op">;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> indice_minimum(<span class="dt">int</span> *tableau, <span class="dt">int</span> min_indice, <span class="dt">int</span> max_indice)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> i = min_indice;</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> indice_minimum<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>tableau<span class="op">,</span> <span class="dt">int</span> min_indice<span class="op">,</span> <span class="dt">int</span> max_indice<span class="op">)</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> i <span class="op">=</span> min_indice<span class="op">;</span></span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="dt">int</span> j = min_indice + <span class="dv">1</span>; j &lt;= max_indice; j++)</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    {</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (tableau[j] &lt; tableau[i])</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>            i = j;</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> j <span class="op">=</span> min_indice <span class="op">+</span> <span class="dv">1</span><span class="op">;</span> j <span class="op">&lt;=</span> max_indice<span class="op">;</span> j<span class="op">++)</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>tableau<span class="op">[</span>j<span class="op">]</span> <span class="op">&lt;</span> tableau<span class="op">[</span>i<span class="op">])</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>            i <span class="op">=</span> j<span class="op">;</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> i;</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> i<span class="op">;</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> tri_par_selection(<span class="dt">int</span> *tableau, <span class="dt">int</span> taille)</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; taille; i++)</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    {</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        echange(tableau, i, indice_minimum(tableau, i, taille-<span class="dv">1</span>));</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> tri_par_selection<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>tableau<span class="op">,</span> <span class="dt">int</span> taille<span class="op">)</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> taille<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        echange<span class="op">(</span>tableau<span class="op">,</span> i<span class="op">,</span> indice_minimum<span class="op">(</span>tableau<span class="op">,</span> i<span class="op">,</span> taille<span class="op">-</span><span class="dv">1</span><span class="op">));</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
 <p>Il n’y a pas de problèmes de terminaison ici car toutes les boucles sont inconditionnelles. Pour prouver sa correction, on va considérer séparément les deux boucles.</p>
 <ul>
@@ -572,50 +513,50 @@ Ce prédicat est bien un invariant. Ainsi, en sortie de boucle, <span class="mat
 <li>pour mettre en place la valeur de retour afin que le résultat soit lu</li>
 </ul>
 <p>On peut remarquer que la notion de pire cas dépend de la précision à laquelle on se place. Ici, si on ne s’intéresse qu’à l’ordre de grandeur, tous les tableaux de taille <span class="math inline">\(n\)</span> sont équivalents. Par contre, si on cherche avec précision le pire cas, il est atteint avec un tableau trié par ordre croissant car c’est le cas qui effectue une affectation à chaque itération. </div><div class="eight wide column"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> maximum(<span class="dt">int</span> *tableau, <span class="dt">int</span> taille)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> M = INT_MIN;</span>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> maximum<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>tableau<span class="op">,</span> <span class="dt">int</span> taille<span class="op">)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> M <span class="op">=</span> INT_MIN<span class="op">;</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(<span class="dt">int</span> i=<span class="dv">0</span>; i&lt;taille; i++) </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    {</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (M &gt; tableau[i])</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>            M = tableau[i];</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i<span class="op">=</span><span class="dv">0</span><span class="op">;</span> i<span class="op">&lt;</span>taille<span class="op">;</span> i<span class="op">++)</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>M <span class="op">&gt;</span> tableau<span class="op">[</span>i<span class="op">])</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>            M <span class="op">=</span> tableau<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> M;</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> M<span class="op">;</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
 <p></div></div></div></p>
 <h2 data-number="3.2" id="sec:comparer-des-complexités"><span class="header-section-number">3.2</span> Comparer des complexités</h2>
 <p>Avant de pouvoir comparer les complexités des algorithmes ou des programmes, il est nécessaire de mettre en place des outils pour en parler à la fois avec précision mais également sans rentrer dans des détails inextricables d’implémentation.</p>
 <p>En effet, comparons les deux fonctions suivantes permettant de calculer le maximum d’un tableau non vide :</p>
 <p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> maximum(<span class="dt">int</span> *tableau, <span class="dt">int</span> taille)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> M = INT_MIN;</span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> maximum<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>tableau<span class="op">,</span> <span class="dt">int</span> taille<span class="op">)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> M <span class="op">=</span> INT_MIN<span class="op">;</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(<span class="dt">int</span> i=<span class="dv">0</span>; i&lt;taille; i++) </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    {</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (M &gt; tableau[i])</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>            M = tableau[i];</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i<span class="op">=</span><span class="dv">0</span><span class="op">;</span> i<span class="op">&lt;</span>taille<span class="op">;</span> i<span class="op">++)</span> </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>M <span class="op">&gt;</span> tableau<span class="op">[</span>i<span class="op">])</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>            M <span class="op">=</span> tableau<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> M;</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> M<span class="op">;</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
 <p></div><div class="eight wide column"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> maximum(<span class="dt">int</span> *tableau, <span class="dt">int</span> taille)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> M = tableau[<span class="dv">0</span>];</span>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> maximum<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>tableau<span class="op">,</span> <span class="dt">int</span> taille<span class="op">)</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> M <span class="op">=</span> tableau<span class="op">[</span><span class="dv">0</span><span class="op">];</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(<span class="dt">int</span> i=<span class="dv">1</span>; i&lt;taille; i++) </span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    {</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (M &gt; tableau[i])</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>            M = tableau[i];</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i<span class="op">=</span><span class="dv">1</span><span class="op">;</span> i<span class="op">&lt;</span>taille<span class="op">;</span> i<span class="op">++)</span> </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>M <span class="op">&gt;</span> tableau<span class="op">[</span>i<span class="op">])</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>            M <span class="op">=</span> tableau<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> M;</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> M<span class="op">;</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
 <p></div></div></div></p>
 <p>La fonction de gauche semble moins efficace que celle de droite car elle effectue une itération de boucle de moins. Mais on doit se poser la question de la pertinence de cette optimisation selon la taille du tableau.</p>
@@ -692,18 +633,18 @@ n^\alpha = O(\beta^n)
 <p>On dit qu’un algorithme a une complexité linéaire quand <span class="math inline">\(C^t_n = O(n)\)</span>.</p>
 <p>Cette complexité correspond à un traitement de temps constant sur chaque élément d’une entrée de taille <span class="math inline">\(n\)</span>. C’est le cas de la recherche d’un élément dans un tableau ou de la recherche de son maximum.</p>
 <p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"> Pour la recherche linéaire d’un élément, correspondant par exemple au programme ci-contre, le pire cas correspond à ne pas avoir <code>x</code> dans <code>tableau</code> ce qui oblige à effectuer toutes les itérations. On a bien une complexité temporelle en pire cas de <span class="math inline">\(O(n)\)</span>. </div><div class="eight wide column"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> recherche(<span class="dt">int</span> *tableau, <span class="dt">int</span> taille, <span class="dt">int</span> x)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> recherche<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>tableau<span class="op">,</span> <span class="dt">int</span> taille<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* renvoie le plus petit indice i tel que tableau[i] = x</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">       ou -1 si x n&#39;est pas dans le tableau */</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; taille; i++)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    {</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (tableau[i] == x)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> i;</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> taille<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>tableau<span class="op">[</span>i<span class="op">]</span> <span class="op">==</span> x<span class="op">)</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> i<span class="op">;</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> -<span class="dv">1</span>;</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
 <p></div></div></div></p>
 <h3 data-number="3.3.3" id="sec:complexité-quadratique-polynomiale"><span class="header-section-number">3.3.3</span> Complexité quadratique, polynomiale</h3>
@@ -791,15 +732,15 @@ n^\alpha = O(\beta^n)
 <h3 data-number="3.5.2" id="sec:compromis-entre-paramètres"><span class="header-section-number">3.5.2</span> Compromis entre paramètres</h3>
 <p>Dans certains cas, en particulier pour les graphes, on peut effectuer des traitements successifs dont la complexité ne s’exprime pas en fonction du même paramètre. Imaginons par exemple un programme ayant la structure suivante :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i&lt;n; i++)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i<span class="op">&lt;</span>n<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* corps de boucle en O(1) */</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (<span class="dt">int</span> j = <span class="dv">0</span>; j&lt;p; j++)</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j<span class="op">&lt;</span>p<span class="op">;</span> j<span class="op">++)</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* corps de boucle en O(1) */</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
 <p>La complexité de la première boucle est en <span class="math inline">\(O(n)\)</span> et celle de la deuxième en <span class="math inline">\(O(p)\)</span>. La complexité globale est en <span class="math inline">\(O(n+p)\)</span> car <span class="math inline">\(n \le n+p\)</span> et <span class="math inline">\(p \le n+p\)</span>.</p>
 <h2 data-number="3.6" id="sec:complexité-en-moyenne"><span class="header-section-number">3.6</span> Complexité en moyenne</h2>
@@ -830,63 +771,63 @@ n^\alpha = O(\beta^n)
 <div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">struct</span> {</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> *t;</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">size_t</span> c;</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">size_t</span> n;</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>} tableau_dynamique ;</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> <span class="op">*</span>t<span class="op">;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">size_t</span> c<span class="op">;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">size_t</span> n<span class="op">;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> tableau_dynamique <span class="op">;</span></span>
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>tableau_dynamique tableau_dynamique_creer()</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    tableau_dynamique d;</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> <span class="dt">size_t</span> capacite_initiale = <span class="dv">2</span>;</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>tableau_dynamique tableau_dynamique_creer<span class="op">()</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    tableau_dynamique d<span class="op">;</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> <span class="dt">size_t</span> capacite_initiale <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
 <span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    d.t = malloc(capacite_initiale * <span class="kw">sizeof</span>(<span class="dt">int</span>));</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    d.c = capacite_initiale;</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    d.n = <span class="dv">0</span>;</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    d<span class="op">.</span>t <span class="op">=</span> malloc<span class="op">(</span>capacite_initiale <span class="op">*</span> <span class="kw">sizeof</span><span class="op">(</span><span class="dt">int</span><span class="op">));</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    d<span class="op">.</span>c <span class="op">=</span> capacite_initiale<span class="op">;</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    d<span class="op">.</span>n <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> d;</span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> d<span class="op">;</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> tableau_dynamique_ajout(tableau_dynamique *d, <span class="dt">int</span> x)</span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (d-&gt;c == d-&gt;n) {</span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>        d-&gt;c = <span class="dv">2</span> * d-&gt;c;</span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>        d-&gt;t = realloc(d-&gt;t, d-&gt;c * <span class="kw">sizeof</span>(<span class="dt">int</span>));</span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    d-&gt;t[d-&gt;n] = x;</span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    d-&gt;n++;</span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> tableau_dynamique_ajout<span class="op">(</span>tableau_dynamique <span class="op">*</span>d<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>d<span class="op">-&gt;</span>c <span class="op">==</span> d<span class="op">-&gt;</span>n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>        d<span class="op">-&gt;</span>c <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> d<span class="op">-&gt;</span>c<span class="op">;</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>        d<span class="op">-&gt;</span>t <span class="op">=</span> realloc<span class="op">(</span>d<span class="op">-&gt;</span>t<span class="op">,</span> d<span class="op">-&gt;</span>c <span class="op">*</span> <span class="kw">sizeof</span><span class="op">(</span><span class="dt">int</span><span class="op">));</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    d<span class="op">-&gt;</span>t<span class="op">[</span>d<span class="op">-&gt;</span>n<span class="op">]</span> <span class="op">=</span> x<span class="op">;</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    d<span class="op">-&gt;</span>n<span class="op">++;</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> tableau_dynamique_print(tableau_dynamique d)</span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>    printf(<span class="st">&quot;c=%d</span><span class="sc">\t</span><span class="st">n=%d</span><span class="sc">\t</span><span class="st">|&quot;</span>, d.c, d.n);</span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="dt">size_t</span> i = <span class="dv">0</span>; i &lt; d.n; i++) {</span>
-<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>        printf(<span class="st">&quot;%d|&quot;</span>, d.t[i]);</span>
-<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="dt">size_t</span> i = d.n; i &lt; d.c; i++) {</span>
-<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>        printf(<span class="st">&quot; |&quot;</span>);</span>
-<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>    printf(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>);</span>
-<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> tableau_dynamique_print<span class="op">(</span>tableau_dynamique d<span class="op">)</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;c=%d</span><span class="sc">\t</span><span class="st">n=%d</span><span class="sc">\t</span><span class="st">|&quot;</span><span class="op">,</span> d<span class="op">.</span>c<span class="op">,</span> d<span class="op">.</span>n<span class="op">);</span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> d<span class="op">.</span>n<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">&quot;%d|&quot;</span><span class="op">,</span> d<span class="op">.</span>t<span class="op">[</span>i<span class="op">]);</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> i <span class="op">=</span> d<span class="op">.</span>n<span class="op">;</span> i <span class="op">&lt;</span> d<span class="op">.</span>c<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">&quot; |&quot;</span><span class="op">);</span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main(<span class="dt">void</span>) {</span>
-<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>    tableau_dynamique d = tableau_dynamique_creer();</span>
-<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>    tableau_dynamique_print(d); </span>
-<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">1</span>; i &lt; <span class="dv">6</span>; i++) {</span>
-<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>        tableau_dynamique_ajout(&amp;d,i);</span>
-<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>        tableau_dynamique_print(d); </span>
-<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>    tableau_dynamique d <span class="op">=</span> tableau_dynamique_creer<span class="op">();</span></span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>    tableau_dynamique_print<span class="op">(</span>d<span class="op">);</span> </span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">6</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>        tableau_dynamique_ajout<span class="op">(&amp;</span>d<span class="op">,</span>i<span class="op">);</span></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>        tableau_dynamique_print<span class="op">(</span>d<span class="op">);</span> </span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
 <p>Ce programme, une fois exécuté produit la sortie suivante qui permet de retrouver exactement le comportement attendu :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>c=<span class="dv">2</span> n=<span class="dv">0</span> | | |</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>c=<span class="dv">2</span> n=<span class="dv">1</span> |<span class="dv">1</span>| |</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>c=<span class="dv">2</span> n=<span class="dv">2</span> |<span class="dv">1</span>|<span class="dv">2</span>|</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>c=<span class="dv">4</span> n=<span class="dv">3</span> |<span class="dv">1</span>|<span class="dv">2</span>|<span class="dv">3</span>| |</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>c=<span class="dv">4</span> n=<span class="dv">4</span> |<span class="dv">1</span>|<span class="dv">2</span>|<span class="dv">3</span>|<span class="dv">4</span>|</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>c=<span class="dv">8</span> n=<span class="dv">5</span> |<span class="dv">1</span>|<span class="dv">2</span>|<span class="dv">3</span>|<span class="dv">4</span>|<span class="dv">5</span>| | | |</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>c<span class="op">=</span><span class="dv">2</span> n<span class="op">=</span><span class="dv">0</span> <span class="op">|</span> <span class="op">|</span> <span class="op">|</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>c<span class="op">=</span><span class="dv">2</span> n<span class="op">=</span><span class="dv">1</span> <span class="op">|</span><span class="dv">1</span><span class="op">|</span> <span class="op">|</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>c<span class="op">=</span><span class="dv">2</span> n<span class="op">=</span><span class="dv">2</span> <span class="op">|</span><span class="dv">1</span><span class="op">|</span><span class="dv">2</span><span class="op">|</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>c<span class="op">=</span><span class="dv">4</span> n<span class="op">=</span><span class="dv">3</span> <span class="op">|</span><span class="dv">1</span><span class="op">|</span><span class="dv">2</span><span class="op">|</span><span class="dv">3</span><span class="op">|</span> <span class="op">|</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>c<span class="op">=</span><span class="dv">4</span> n<span class="op">=</span><span class="dv">4</span> <span class="op">|</span><span class="dv">1</span><span class="op">|</span><span class="dv">2</span><span class="op">|</span><span class="dv">3</span><span class="op">|</span><span class="dv">4</span><span class="op">|</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>c<span class="op">=</span><span class="dv">8</span> n<span class="op">=</span><span class="dv">5</span> <span class="op">|</span><span class="dv">1</span><span class="op">|</span><span class="dv">2</span><span class="op">|</span><span class="dv">3</span><span class="op">|</span><span class="dv">4</span><span class="op">|</span><span class="dv">5</span><span class="op">|</span> <span class="op">|</span> <span class="op">|</span> <span class="op">|</span></span></code></pre></div>
 <p></div></p>
 <p>Calculons la complexité amortie de l’ajout d’un élément. Si on considère un ajout d’élément qui provoque une réallocation du tableau, celle-ci sera en <span class="math inline">\(O(c)\)</span> et les <span class="math inline">\(c-1\)</span> opérations suivantes d’ajout seront en <span class="math inline">\(O(1)\)</span>. La complexité globale de ces <span class="math inline">\(c\)</span> opérations d’ajout est alors en <span class="math inline">\(O(c)\)</span>, ce qui donne une complexité amortie en <span class="math inline">\(O(1)\)</span>. On peut ainsi considérer que l’ajout d’un élément dans un tableau dynamique est en complexité temporelle amortie constante.</p>
 <p><div class="ui message blue"><div class="header">Note</div>Il faut faire un choix entre reprendre ici une preuve plus précise ou la garder pour un chapitre ultérieur avec au moins un exemple de méthode du potentiel (Skew Heaps?)</div></p>
@@ -921,6 +862,5 @@ n^\alpha = O(\beta^n)
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
 Marc de Falco
 </div>
-
   </body>
 </html>

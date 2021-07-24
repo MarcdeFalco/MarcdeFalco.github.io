@@ -49,13 +49,12 @@ $(document).ready(function() {
         $("#toc").sidebar("show");
     }).end();
 
-   //$('.sidebar').children().addClass('vertical inverted menu');
-   //$('.sidebar').find('ul').addClass('ui');
-   //$('.sidebar').find('li').addClass('ui');
-   var links = $('.ui.sidebar').find('a').addClass('item');
-    $('.ui.sidebar').append(links);
-    $('.ui.sidebar').find('ul').detach();
-    $('.ui.sidebar').find('li').detach();
+    $('.sidebar > ul > li').unwrap().wrap("<div class='item mod'></div>").contents().unwrap()
+    $('.sidebar > .mod > a').wrap('<div class="header"></div>').contents().unwrap()
+    $('.sidebar > .mod > ul').wrap("<div class='item menu'></div>").contents().unwrap()
+    $('.sidebar > .mod > .menu > li').contents().unwrap()
+    $('.sidebar > .mod > .menu > a').addClass('item')
+
     $('.tabular.menu .item').tab({
             context: 'parent'
         });
@@ -137,30 +136,7 @@ table td {
 
   </head>
   <body class="pushable class="pushable"">
-
-
-<div class="ui vertical inverted visible fixed sidebar menu" id="toc">
-<a href="index.html" class="item">
-    Informatique en CPGE
-</a>
-<ul>
-<li><a href="#feuille-de-route"><span class="toc-section-number">1</span> Feuille de route</a></li>
-<li><a href="#plan-du-cours"><span class="toc-section-number">2</span> Plan du cours</a></li>
-</ul>
-</div>
-
-<div class="pusher" id="main-content">
-    <div class="ui inverted top menu" id="top-menu">
-        <div class="ui container">
-	  <a class="launch icon item" id="sidebar-menu-button">
-	    <i class="content icon"></i>
-	  </a>
-	  <div class="item">
-          Informatique - Introduction
-	  </div>
-        </div>
-      </div>
-      <div class="ui padded basic segment" id="main">
+<div style="display: none;">
 \(
 \def\N{{\mathbb{N}}}
 \def\R{{\mathbb{R}}}
@@ -172,36 +148,17 @@ table td {
 \def\KX{{\mathbb{K}}[X]}
 \def\U{{\mathbb{U}}}
 \def\B{{\mathcal{B}}}
-
 \newcommand\ensfonctions[2]{\mathcal{F}(#1,#2)}
-\newcommand\ensfonctionszero[3]{\mathcal{F}_{#3,0}(#1,#2)}
-\newcommand\continues[2]{\mathcal{C}(#1,#2)}
-\newcommand\lineaires[2]{\mathcal{L}(#1,#2)}
-\newcommand\nlineaires[3]{\mathcal{L}_{#1}(#2,#3)}
-\newcommand\ensendo[1]{\mathcal{L}(#1)}
-\newcommand\derivables[2]{\mathcal{D}(#1,#2)}
-\newcommand\segment[2]{[#1,#2]}
-\newcommand\intouvert[2]{]#1,#2[}
-\newcommand\intouvertgauche[2]{]#1,#2]}
-\newcommand\intouvertdroite[2]{[#1,#2[}
 \newcommand\classeck[3]{\mathcal{C}^{#1}(#2,#3)}
 \newcommand\range[2]{[| #1,#2 |]}
 \newcommand\mod[0]{\mathop{mod}}
 \newcommand\land[0]{\mathop{land}}
-\newcommand\voisinages[2]{\mathcal{V}_{#1}(#2)}
 \newcommand\matrices[3]{\mathcal{M}_{#1,#2}(#3)}
 \newcommand\matricescarres[2]{\mathcal{M}_{#1}(#2)}
 \newcommand\gln[2]{\mbox{GL}_{#1}(#2)}
-\newcommand\Vect[1]{\mbox{Vect}(#1)}
 \newcommand\Support[1]{\mbox{Supp}(#1)}
-\newcommand\rang[1]{\mbox{rg}(#1)}
-\newcommand\trace[1]{\mbox{tr}(#1)}
-\newcommand\gl[1]{\mbox{GL}(#1)}
 \newcommand\dom[0]{\mbox{dom}}
-\newcommand\codim[0]{\mbox{codim}}
-\newcommand\tr{\mbox{tr}}
 \newcommand\uniondisjointe{\sqcup}
-\def\Rbar{\overline\R}
 \def\lt{<}
 \def\rR{\mathcal{R}}
 \newcommand\parties[1]{\mathcal{P}(#1)}
@@ -213,44 +170,50 @@ table td {
 \newcommand\quotient[2]{#1 / #2}
 \newcommand\ZnZ[1]{\quotient{\Z}{#1 \Z}}
 \newcommand\card[1]{\text{Card}\ #1}
-\newcommand\Det{\mbox{Det}}
 \newcommand\indic{\mathbbm{1}}
-\newcommand\groupeengendre[1]{\langle #1 \rangle}
-\renewcommand\Im{\mathfrak{I}}
 \newcommand\id{\mbox{id}}
-\newcommand\Bary[1]{\mbox{Bary}\{#1\}}
-\newcommand\Ker{\mbox{Ker}~}
-\newcommand\Ima{\mbox{Im}~}
 \newcommand\Perm[1]{\mathfrak{S}_#1}
 \newcommand\comb[2]{\binom{#1}{#2}}
 \newcommand\tend[2]{\xrightarrow[#1 \rightarrow #2]{}}
 \newcommand\limite[2]{\lim_{#1 \rightarrow #2}}
-\newcommand\sh{\mbox{sh}}
-\newcommand\ch{\mbox{ch}}
-\renewcommand\tanh{\mbox{th}}
-\newcommand\Arcsin{\mbox{Arcsin}~}
-\newcommand\Arccos{\mbox{Arccos}~}
-\newcommand\Arctan{\mbox{Arctan}~}
-\newcommand\Argsh{\mbox{Argsh}}
-\newcommand\Argch{\mbox{Argch}}
-\newcommand\Argth{\mbox{Argth}}
-\newcommand\argu{\mbox{arg}}
-\newcommand\dron[2]{\frac{\partial #1}{\partial #2}}
-\newcommand\conj[1]{\overline{#1}}
-\newcommand\ei[1]{e^{i #1}}
-\newcommand\eii[2]{e^{#1 i #2}}
-\newcommand\crochet[1]{\left[ #1 \right]}
-
 \newcommand\application[5]{\begin{array}{rcccc}
 #1 & : & #2 & \mapsto & #3 \\ 
 & & #4 & \mapsto & #5
 \end{array}}
-
-\newcommand{\diff}{\mathop{}\mathopen{}\mathrm{d}}
-\newcommand{\cc}{{\cal C}}
-
 \)
+</div>
 
+
+
+<div class="ui vertical inverted visible fixed sidebar menu" id="toc">
+    <div class="item">
+    <a href="/">
+        Informatique en CPGE
+    </a>
+    </div>
+    <div class="item">
+    <a href="#">
+        Informatique - Introduction
+    </a>
+    </div>
+<ul>
+<li><a href="#feuille-de-route"><span class="toc-section-number">1</span> Feuille de route</a></li>
+<li><a href="#plan-du-cours"><span class="toc-section-number">2</span> Plan du cours</a></li>
+</ul>
+</div>
+
+<div class="pusher" id="main-content">
+    <div class="ui inverted top menu" id="top-menu">
+        <div class="ui container">
+	  <a class="launch icon item" id="sidebar-menu-button">
+	    <i class="angle double left icon"></i>
+	  </a>
+	  <div class="item">
+          Informatique - Introduction
+	  </div>
+        </div>
+      </div>
+      <div class="ui padded basic segment" id="main">
 <div class="masthead">
 <div class="segment">
 <center>
@@ -303,6 +266,5 @@ table td {
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
 Marc de Falco
 </div>
-
   </body>
 </html>
