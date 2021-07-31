@@ -49,11 +49,14 @@ $(document).ready(function() {
         $("#toc").sidebar("show");
     }).end();
 
+        /*
     $('.sidebar > ul > li').unwrap().wrap("<div class='item mod'></div>").contents().unwrap()
     $('.sidebar > .mod > a').wrap('<div class="header"></div>').contents().unwrap()
-    $('.sidebar > .mod > ul').wrap("<div class='item menu'></div>").contents().unwrap()
+    $('.sidebar > .mod > ul').wrap("<div class='item menu ui accordion'></div>").contents().unwrap()
+    $('.sidebar > .mod > .menu > li > ul').wrap("<div class='content'></div>")
     $('.sidebar > .mod > .menu > li').contents().unwrap()
-    $('.sidebar > .mod > .menu > a').addClass('item')
+    $('.sidebar > .mod > .menu > a').addClass('item').addClass('title')
+   */
 
     $('.tabular.menu .item').tab({
             context: 'parent'
@@ -88,6 +91,9 @@ function setLang(l) {
   .ui.footer.segment {
     //margin: 5em 0em 0em;
     //padding: 5em 0em;
+  }
+  :target {
+      display: block;
   }
   #top-menu {
     display: none;
@@ -134,6 +140,9 @@ table td {
     border-right: none;
 }
 
+  .menu .item {
+      padding: .5em 1em !important;
+  }
 
 @media only screen and (max-width: 700px) {
     #top-menu {
@@ -196,7 +205,7 @@ table td {
 <div class="ui vertical inverted visible fixed sidebar menu" id="toc">
     <div class="item">
     <a href="/">
-        Informatique en CPGE
+        <i class="icon home"></i> Informatique en CPGE
     </a>
     </div>
     <div class="item">
@@ -212,10 +221,8 @@ table td {
         Informatique - Introduction
     </a>
     </div>
-<ul>
-<li><a href="#feuille-de-route"><span class="toc-section-number">1</span> Feuille de route</a></li>
-<li><a href="#plan-du-cours"><span class="toc-section-number">2</span> Plan du cours</a></li>
-</ul>
+<!-- FIX TOC -->
+<div class="item header"><span>1</span> Feuille de route<div class="menu"></div></div><div class="item header"><span>2</span> Plan du cours<div class="menu"></div></div><!-- FIX TOC -->
 </div>
 
 <div class="pusher" id="main-content">
@@ -230,13 +237,8 @@ table td {
         </div>
       </div>
       <div class="ui padded basic segment" id="main">
-<div class="masthead">
+          <!-- <div class="masthead"> -->
 <div class="segment">
-<center>
-    <h1>Informatique - Introduction</h1>
-</center>
-</div>
-</div>
 <div class="ui container text">
 <p><div class="ui message blue"><div class="header">Note</div>L’ensemble des documents est regroupé sous forme de livres au format PDF. Cependant, afin d’alléger la présentation, trois versions sont données en fonction du langage utilisé dans le cas où un même programme est présenté dans plusieurs langages :</p>
 <ul>
@@ -280,7 +282,7 @@ table td {
 <li>Langages et problèmes</li>
 </ul>
 </div>
-</div>
+<!-- </div> -->
 </div>
 
 <div class="ui inverted vertical footer segment">

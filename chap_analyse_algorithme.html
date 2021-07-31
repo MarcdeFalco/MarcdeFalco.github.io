@@ -114,11 +114,14 @@ $(document).ready(function() {
         $("#toc").sidebar("show");
     }).end();
 
+        /*
     $('.sidebar > ul > li').unwrap().wrap("<div class='item mod'></div>").contents().unwrap()
     $('.sidebar > .mod > a').wrap('<div class="header"></div>').contents().unwrap()
-    $('.sidebar > .mod > ul').wrap("<div class='item menu'></div>").contents().unwrap()
+    $('.sidebar > .mod > ul').wrap("<div class='item menu ui accordion'></div>").contents().unwrap()
+    $('.sidebar > .mod > .menu > li > ul').wrap("<div class='content'></div>")
     $('.sidebar > .mod > .menu > li').contents().unwrap()
-    $('.sidebar > .mod > .menu > a').addClass('item')
+    $('.sidebar > .mod > .menu > a').addClass('item').addClass('title')
+   */
 
     $('.tabular.menu .item').tab({
             context: 'parent'
@@ -153,6 +156,9 @@ function setLang(l) {
   .ui.footer.segment {
     //margin: 5em 0em 0em;
     //padding: 5em 0em;
+  }
+  :target {
+      display: block;
   }
   #top-menu {
     display: none;
@@ -199,6 +205,9 @@ table td {
     border-right: none;
 }
 
+  .menu .item {
+      padding: .5em 1em !important;
+  }
 
 @media only screen and (max-width: 700px) {
     #top-menu {
@@ -261,7 +270,7 @@ table td {
 <div class="ui vertical inverted visible fixed sidebar menu" id="toc">
     <div class="item">
     <a href="/">
-        Informatique en CPGE
+        <i class="icon home"></i> Informatique en CPGE
     </a>
     </div>
     <div class="item">
@@ -277,29 +286,8 @@ table td {
         Introduction à l’analyse des algorithmes
     </a>
     </div>
-<ul>
-<li><a href="#sec:terminaison"><span class="toc-section-number">1</span> Terminaison</a>
-<ul>
-<li><a href="#sec:variant-de-boucle"><span class="toc-section-number">1.1</span> Variant de boucle</a></li>
-<li><a href="#sec:exemple-de-la-recherche-dichotomique"><span class="toc-section-number">1.2</span> Exemple de la recherche dichotomique</a></li>
-</ul></li>
-<li><a href="#sec:correction"><span class="toc-section-number">2</span> Correction</a>
-<ul>
-<li><a href="#sec:invariant-de-boucle"><span class="toc-section-number">2.1</span> Invariant de boucle</a></li>
-<li><a href="#sec:exemple-du-tri-par-sélection"><span class="toc-section-number">2.2</span> Exemple du tri par sélection</a></li>
-</ul></li>
-<li><a href="#sec:complexité"><span class="toc-section-number">3</span> Complexité</a>
-<ul>
-<li><a href="#sec:complexité-dans-le-pire-des-cas"><span class="toc-section-number">3.1</span> Complexité dans le pire des cas</a></li>
-<li><a href="#sec:comparer-des-complexités"><span class="toc-section-number">3.2</span> Comparer des complexités</a></li>
-<li><a href="#sec:complexités-en-temps-classiques"><span class="toc-section-number">3.3</span> Complexités en temps classiques</a></li>
-<li><a href="#sec:calculer-des-complexités"><span class="toc-section-number">3.4</span> Calculer des complexités</a></li>
-<li><a href="#sec:complexité-à-plusieurs-paramètres"><span class="toc-section-number">3.5</span> Complexité à plusieurs paramètres</a></li>
-<li><a href="#sec:complexité-en-moyenne"><span class="toc-section-number">3.6</span> Complexité en moyenne</a></li>
-<li><a href="#sec:complexité-amortie"><span class="toc-section-number">3.7</span> Complexité amortie</a></li>
-<li><a href="#sec:pertinence-de-la-complexité-spatiale"><span class="toc-section-number">3.8</span> Pertinence de la complexité spatiale</a></li>
-</ul></li>
-</ul>
+<!-- FIX TOC -->
+<div class="item header"><span>1</span> Terminaison<div class="menu"><a class="item" href="#sec:variant-de-boucle"><div class="ui label">1.1</div> Variant de boucle</a><a class="item" href="#sec:exemple-de-la-recherche-dichotomique"><div class="ui label">1.2</div> Exemple de la recherche dichotomique</a></div></div><div class="item header"><span>2</span> Correction<div class="menu"><a class="item" href="#sec:invariant-de-boucle"><div class="ui label">2.1</div> Invariant de boucle</a><a class="item" href="#sec:exemple-du-tri-par-sélection"><div class="ui label">2.2</div> Exemple du tri par sélection</a></div></div><div class="item header"><span>3</span> Complexité<div class="menu"><a class="item" href="#sec:complexité-dans-le-pire-des-cas"><div class="ui label">3.1</div> Complexité dans le pire des cas</a><a class="item" href="#sec:comparer-des-complexités"><div class="ui label">3.2</div> Comparer des complexités</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:la-notation-grand-o"><i class="circle icon"></i> La notation grand O</a><a style="font-size:0.6em" class="item" href="#sec:échelle-de-comparaison"><i class="circle icon"></i> Échelle de comparaison</a><a style="font-size:0.6em" class="item" href="#sec:opérations-sur-les-grands-o"><i class="circle icon"></i> Opérations sur les grands O</a></div><a class="item" href="#sec:complexités-en-temps-classiques"><div class="ui label">3.3</div> Complexités en temps classiques</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:complexité-constante"><i class="circle icon"></i> Complexité constante</a><a style="font-size:0.6em" class="item" href="#sec:complexité-linéaire"><i class="circle icon"></i> Complexité linéaire</a><a style="font-size:0.6em" class="item" href="#sec:complexité-quadratique-polynomiale"><i class="circle icon"></i> Complexité quadratique, polynomiale</a><a style="font-size:0.6em" class="item" href="#sec:complexité-logarithmique"><i class="circle icon"></i> Complexité logarithmique</a><a style="font-size:0.6em" class="item" href="#sec:complexité-quasi-linéaire"><i class="circle icon"></i> Complexité quasi-linéaire</a><a style="font-size:0.6em" class="item" href="#sec:complexité-exponentielle"><i class="circle icon"></i> Complexité exponentielle</a><a style="font-size:0.6em" class="item" href="#sec:estimation-de-limpact-des-complexités-sur-le-temps"><i class="circle icon"></i> Estimation de l’impact des complexités sur le temps</a></div><a class="item" href="#sec:calculer-des-complexités"><div class="ui label">3.4</div> Calculer des complexités</a><a class="item" href="#sec:complexité-à-plusieurs-paramètres"><div class="ui label">3.5</div> Complexité à plusieurs paramètres</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:données-multidimensionnelles"><i class="circle icon"></i> Données multidimensionnelles</a><a style="font-size:0.6em" class="item" href="#sec:compromis-entre-paramètres"><i class="circle icon"></i> Compromis entre paramètres</a></div><a class="item" href="#sec:complexité-en-moyenne"><div class="ui label">3.6</div> Complexité en moyenne</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:exemple-de-calcul-de-complexité-temporelle-en-moyenne"><i class="circle icon"></i> Exemple de calcul de complexité temporelle en moyenne</a></div><a class="item" href="#sec:complexité-amortie"><div class="ui label">3.7</div> Complexité amortie</a><a class="item" href="#sec:pertinence-de-la-complexité-spatiale"><div class="ui label">3.8</div> Pertinence de la complexité spatiale</a></div></div><!-- FIX TOC -->
 </div>
 
 <div class="pusher" id="main-content">
@@ -314,15 +302,10 @@ table td {
         </div>
       </div>
       <div class="ui padded basic segment" id="main">
-<div class="masthead">
+          <!-- <div class="masthead"> -->
 <div class="segment">
-<center>
-    <h1>Introduction à l’analyse des algorithmes</h1>
-</center>
-</div>
-</div>
 <div class="ui container text">
-<p><img class="ui image fluid" src="assets/pics/chap_analyse_algo.png"/></p>
+<p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Introduction à l'analyse des algorithmes     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_analyse_algo.png"> </div></p>
 <p><em>Source de l’image d’en-tête <a href="https://xkcd.com/1667/">XKCD #1667</a></em></p>
 <p><div class="ui message orange"><div class="header">Remarque</div>Ce chapitre présente les trois grands principes qui nous serviront de guide pour analyser les algorithmes et les programmes :</p>
 <ul>
@@ -871,7 +854,7 @@ n^\alpha = O(\beta^n)
 <span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    prec.(n)</span></code></pre></div>
 <p></div></p>
 </div>
-</div>
+<!-- </div> -->
 </div>
 
 <div class="ui inverted vertical footer segment">

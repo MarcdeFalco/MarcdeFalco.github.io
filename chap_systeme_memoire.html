@@ -114,11 +114,14 @@ $(document).ready(function() {
         $("#toc").sidebar("show");
     }).end();
 
+        /*
     $('.sidebar > ul > li').unwrap().wrap("<div class='item mod'></div>").contents().unwrap()
     $('.sidebar > .mod > a').wrap('<div class="header"></div>').contents().unwrap()
-    $('.sidebar > .mod > ul').wrap("<div class='item menu'></div>").contents().unwrap()
+    $('.sidebar > .mod > ul').wrap("<div class='item menu ui accordion'></div>").contents().unwrap()
+    $('.sidebar > .mod > .menu > li > ul').wrap("<div class='content'></div>")
     $('.sidebar > .mod > .menu > li').contents().unwrap()
-    $('.sidebar > .mod > .menu > a').addClass('item')
+    $('.sidebar > .mod > .menu > a').addClass('item').addClass('title')
+   */
 
     $('.tabular.menu .item').tab({
             context: 'parent'
@@ -153,6 +156,9 @@ function setLang(l) {
   .ui.footer.segment {
     //margin: 5em 0em 0em;
     //padding: 5em 0em;
+  }
+  :target {
+      display: block;
   }
   #top-menu {
     display: none;
@@ -199,6 +205,9 @@ table td {
     border-right: none;
 }
 
+  .menu .item {
+      padding: .5em 1em !important;
+  }
 
 @media only screen and (max-width: 700px) {
     #top-menu {
@@ -261,7 +270,7 @@ table td {
 <div class="ui vertical inverted visible fixed sidebar menu" id="toc">
     <div class="item">
     <a href="/">
-        Informatique en CPGE
+        <i class="icon home"></i> Informatique en CPGE
     </a>
     </div>
     <div class="item">
@@ -277,19 +286,8 @@ table td {
         Gestion de la mémoire dans un programme compilé
     </a>
     </div>
-<ul>
-<li><a href="#sec:orga"><span class="toc-section-number">1</span> Organisation de la mémoire</a></li>
-<li><a href="#sec:portée-dun-identificateur"><span class="toc-section-number">2</span> Portée d’un identificateur</a></li>
-<li><a href="#sec:durée-de-vie-dune-variable"><span class="toc-section-number">3</span> Durée de vie d’une variable</a></li>
-<li><a href="#sec:piles-dexécution-variables-locales-et-paramètres"><span class="toc-section-number">4</span> Piles d’exécution, variables locales et paramètres</a></li>
-<li><a href="#sec:allocation-dynamique"><span class="toc-section-number">5</span> Allocation dynamique</a>
-<ul>
-<li><a href="#sec:allocation"><span class="toc-section-number">5.1</span> Allocation</a></li>
-<li><a href="#sec:libération"><span class="toc-section-number">5.2</span> Libération</a></li>
-<li><a href="#sec:protection-mémoire"><span class="toc-section-number">5.3</span> Protection mémoire</a></li>
-<li><a href="#sec:custommalloc"><span class="toc-section-number">5.4</span> Réalisation d’un système d’allocation de mémoire</a></li>
-</ul></li>
-</ul>
+<!-- FIX TOC -->
+<div class="item header"><span>1</span> Organisation de la mémoire<div class="menu"></div></div><div class="item header"><span>2</span> Portée d’un identificateur<div class="menu"></div></div><div class="item header"><span>3</span> Durée de vie d’une variable<div class="menu"></div></div><div class="item header"><span>4</span> Piles d’exécution, variables locales et paramètres<div class="menu"></div></div><div class="item header"><span>5</span> Allocation dynamique<div class="menu"><a class="item" href="#sec:allocation"><div class="ui label">5.1</div> Allocation</a><a class="item" href="#sec:libération"><div class="ui label">5.2</div> Libération</a><a class="item" href="#sec:protection-mémoire"><div class="ui label">5.3</div> Protection mémoire</a><a class="item" href="#sec:custommalloc"><div class="ui label">5.4</div> Réalisation d’un système d’allocation de mémoire</a></div></div><!-- FIX TOC -->
 </div>
 
 <div class="pusher" id="main-content">
@@ -304,15 +302,10 @@ table td {
         </div>
       </div>
       <div class="ui padded basic segment" id="main">
-<div class="masthead">
+          <!-- <div class="masthead"> -->
 <div class="segment">
-<center>
-    <h1>Gestion de la mémoire dans un programme compilé</h1>
-</center>
-</div>
-</div>
 <div class="ui container text">
-<p><img class="ui image fluid" src="assets/pics/chap_memoire.jpg"/></p>
+<p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Gestion de la mémoire dans un programme compilé     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_memoire.jpg"> </div></p>
 <p><div class="ui message orange"><div class="header">Remarque</div>Ce chapitre se concentre sur la manière dont un programme compilé gère la mémoire. Il est question, en particulier, de la notion de variable. Le modèle dans lequel on se place est celui du langage C où une variable est un emplacement mémoire.</div></p>
 <h1 data-number="1" id="sec:orga"><span class="header-section-number">1</span> Organisation de la mémoire</h1>
 <p><div class="ui message blue"><div class="header">Note</div>Ici, je fais le choix d’une présentation assez informelle pour ne pas qu’elle soit trop liée à la réalité d’un compilateur en particulier.</div></p>
@@ -911,7 +904,7 @@ OFFSET           TYPE              VALUE
 <span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
 </div>
-</div>
+<!-- </div> -->
 </div>
 
 <div class="ui inverted vertical footer segment">
