@@ -123,7 +123,15 @@ $(document).ready(function() {
     $('.tabular.menu .item').tab({
             context: 'parent'
         });
+
 })
+
+function setLang(l) {
+    $('.tabular.menu .item').removeClass("active")
+    $('.tabular.menu .item[data-tab^="'+l+'"]').addClass("active")
+    $('.code').removeClass("active")
+    $('.code[data-tab^="'+l+'"]').addClass("active")
+}
 </script>
 
   <style type="text/css">
@@ -255,6 +263,14 @@ table td {
     <a href="/">
         Informatique en CPGE
     </a>
+    </div>
+    <div class="item">
+        <div class="ui buttons compact">
+            <button onClick="setLang('ocaml')" class="ui button compact">OCaml</button>
+            <button onClick="setLang('c')" class="ui button compact">C</button>
+            <button onClick="setLang('python')" class="ui button compact">Python</button>
+        </div>
+        <div>Langage des exemples</div>
     </div>
     <div class="item">
     <a href="#">

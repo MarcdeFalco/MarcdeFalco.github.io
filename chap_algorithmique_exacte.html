@@ -123,7 +123,15 @@ $(document).ready(function() {
     $('.tabular.menu .item').tab({
             context: 'parent'
         });
+
 })
+
+function setLang(l) {
+    $('.tabular.menu .item').removeClass("active")
+    $('.tabular.menu .item[data-tab^="'+l+'"]').addClass("active")
+    $('.code').removeClass("active")
+    $('.code[data-tab^="'+l+'"]').addClass("active")
+}
 </script>
 
   <style type="text/css">
@@ -257,6 +265,14 @@ table td {
     </a>
     </div>
     <div class="item">
+        <div class="ui buttons compact">
+            <button onClick="setLang('ocaml')" class="ui button compact">OCaml</button>
+            <button onClick="setLang('c')" class="ui button compact">C</button>
+            <button onClick="setLang('python')" class="ui button compact">Python</button>
+        </div>
+        <div>Langage des exemples</div>
+    </div>
+    <div class="item">
     <a href="#">
         Algorithmique exacte
     </a>
@@ -321,18 +337,14 @@ table td {
 <p><em>Source image : https://www.flickr.com/photos/x6e38/3440634940/</em></p>
 <p><div class="ui message orange"><div class="header">Remarque</div>Dans ce chapitre, on étudie des problèmes pour lesquels on va exprimer des algorithmes permettant d’obtenir des solutions exactes. C’est à contraster avec le chapitre sur l’algorithmique approchée.</div></p>
 <p>Une grande partie des stratégies de résolution est basée sur la résolution de sous-problèmes. On verra ainsi trois types de stratégies résumées dans le schéma suivant :</p>
-<p><center></p>
-<p><img src="assets/pics/strategies_sousproblemes.png" /></p>
-<p></center></p>
+<p><center><img src="assets/pics/strategies_sousproblemes.png" /> </center></p>
 <h1 data-number="1" id="sec:recherche-par-force-brute"><span class="header-section-number">1</span> Recherche par force brute</h1>
 <h2 data-number="1.1" id="sec:principe"><span class="header-section-number">1.1</span> Principe</h2>
 <p>Considérons un problème du type trouver un <span class="math inline">\(x \in V\)</span> vérifiant une propriété <span class="math inline">\(P(x)\)</span>. Par exemple, <span class="math inline">\(V\)</span> est l’ensemble des chaînes de caractère et <span class="math inline">\(P\)</span> vérifie si une chaîne est un mot de passe qu’on cherche. Dans certains problèmes, un tel <span class="math inline">\(x\)</span> n’est pas unique et on cherche à tous les énumérer.</p>
 <p>Une recherche par force brute, ou recherche exhaustive, consiste à parcourir l’ensemble <span class="math inline">\(V\)</span> jusqu’à obtenir une solution. Pour la recherche du mot de passe, on pourrait commencer par énumérer les chaînes de longueur 1, puis de longueur 2, et ainsi de suite.</p>
 <p>Le plus souvent, l’ensemble <span class="math inline">\(V\)</span> est fini (pour les mots de passe, cela peut consister à limiter la longueur maximale du mot de passe). Ainsi, une recherche par force brute effectue <span class="math inline">\(O(|V|)\)</span> itérations.</p>
 <p>Considérons le problème <em>PlusProchePaire</em> qui, étant donné un ensemble de <span class="math inline">\(n\)</span> points (<span class="math inline">\(n \ge 2\)</span>), détermine la paire constituée des deux points les plus proches.</p>
-<p><center></p>
-<p><img src="assets/pics/plusprochepaire_a.png" /></p>
-<p></center></p>
+<p><center><img src="assets/pics/plusprochepaire_a.png" /> </center></p>
 <p>Une implémentation naïve de la recherche par force brute consiste à énumérer les <span class="math inline">\(\frac{n(n-1)}{2}\)</span> paires et donc à effectuer <span class="math inline">\(O(n^2)\)</span> itérations.</p>
 <p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> plus_proche_paire points =</span>
@@ -353,17 +365,11 @@ table td {
 <p>Reprenons le problème précédent, on considère que les points sont triés par abscisse croissante : <span class="math inline">\((x_0,y_0), \dots, (x_{n-1}, y_{n-1})\)</span>. On va parcourir les points dans cet ordre en maintenant un ensemble de points à gauche du point courant, appelés <em>points actifs</em>, et en ne calculant que les intersections avec les points actifs.</p>
 <p>Si on a parcouru les <span class="math inline">\(N\)</span> premiers points et qu’on a obtenu que la plus petite distance était <span class="math inline">\(d\)</span>, lorsqu’on considère le point <span class="math inline">\((x_N,y_N)\)</span>, il est inutile de tester les points qui sont forcément à distance <span class="math inline">\(&gt; d\)</span> de celui-ci. C’est-à-dire qu’on peut éliminer les points qui ne sont pas dans le rectangle <span class="math inline">\([x_N-d,x_N]\times [y_N-d,y_N+d]\)</span> du test. Les points dont l’abscisse est <span class="math inline">\(&lt; x_N -d\)</span> peuvent être éliminés définitivement vu que l’on raisonne par abscisse croissante, par contre, les points d’ordonnées invalides doivent être conservés pour les points ultérieurs.</p>
 <p>Ce rectangle est représenté sur le schéma suivant ainsi qu’une ligne imaginaire qui correspond à l’abscisse du point courant et qu’on peut imaginer parcourant le plan de gauche à droite pour traiter les points au fur et à mesure.</p>
-<p><center></p>
-<p><img src="assets/pics/plusprochepaire_b.png" /></p>
-<p></center></p>
+<p><center><img src="assets/pics/plusprochepaire_b.png" /> </center></p>
 <p>Afin de déterminer la complexité de cet algorithme, il est nécessaire de connaitre le nombre maximal de points dans le rectangle. Comme ces points ont été pris en compte précédemment, ils sont forcément à distance au moins <span class="math inline">\(d\)</span> les uns des autres. Il s’agit donc de déterminer le nombre maximum de points qu’on peut placer dans ce rectangle à distance au moins <span class="math inline">\(d\)</span>. On remarque tout d’abord qu’on peut placer six points ainsi :</p>
-<p><center></p>
-<p><img src="assets/pics/plusprochepaire_activesize_a.png" /></p>
-<p></center></p>
+<p><center><img src="assets/pics/plusprochepaire_activesize_a.png" /> </center></p>
 <p>Si jamais on avait au moins sept points, on peut voir qu’il y a forcément un des six sous-rectangles suivants qui contiendrait au moins deux points :</p>
-<p><center></p>
-<p><img src="assets/pics/plusprochepaire_activesize_b.png" /></p>
-<p></center></p>
+<p><center><img src="assets/pics/plusprochepaire_activesize_b.png" /> </center></p>
 <p>Or, ces sous-rectangles sont de longueur <span class="math inline">\(\frac{1}{2}d\)</span> et de hauteur <span class="math inline">\(\frac{2}{3}d\)</span>, donc la distance maximale entre deux de leurs points correspond à la longueur des diagonales : <span class="math inline">\(\sqrt{\frac{1}{4} + \frac{4}{9}}d = \frac{5}{6}d &lt; d\)</span>.</p>
 <p>Comme un de ces six points est le point courant, il y a toujours au plus 5 points dans l’ensemble des points actifs.</p>
 <p>Voici le principe de l’algorithme que l’on va implémenter :</p>
@@ -822,9 +828,7 @@ p(t,a)
 Théorème
 </div>
 <p>Soit <span class="math inline">\(t\)</span> un arbre ayant <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> comme feuilles soeurs et <span class="math inline">\(t&#39;\)</span> l’arbre obtenu en remplaçant le noeud liant <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> par une feuille étiquettée par <span class="math inline">\(z\)</span> où <span class="math inline">\(z\)</span> est une nouvelle lettre telle que <span class="math inline">\(f(z) = f(x) + f(y)\)</span>.</p>
-<p><center></p>
-<p><img src="assets/pics/huffman_fusion.png" /></p>
-<p></center></p>
+<p><center><img src="assets/pics/huffman_fusion.png" /> </center></p>
 <p>On a alors <span class="math inline">\(\varphi(t) = \varphi(t&#39;) + f(z)\)</span>.</p>
 </div>
 <div class="ui message">
@@ -1230,7 +1234,7 @@ Théorème
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    | [] -&gt; ([], [])</span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    | [x] -&gt; ([x], [])</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    | x::y::q -&gt; <span class="kw">let</span> l1, l2 = separe_en_deux l <span class="kw">in</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    | x::y::q -&gt; <span class="kw">let</span> l1, l2 = separe_en_deux q <span class="kw">in</span></span>
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>        (x::l1, y::l2)</span>
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> fusionne l1 l2 =</span>
@@ -1299,7 +1303,7 @@ Preuve
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    | [] -&gt; ([], [])</span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    | [x] -&gt; ([x], [])</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    | x::y::q -&gt; <span class="kw">let</span> l1, l2 = separe_en_deux l <span class="kw">in</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    | x::y::q -&gt; <span class="kw">let</span> l1, l2 = separe_en_deux q <span class="kw">in</span></span>
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>        (x::l1, y::l2)</span>
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> fusionne l1 l2 =</span>

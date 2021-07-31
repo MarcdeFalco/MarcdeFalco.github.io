@@ -58,7 +58,15 @@ $(document).ready(function() {
     $('.tabular.menu .item').tab({
             context: 'parent'
         });
+
 })
+
+function setLang(l) {
+    $('.tabular.menu .item').removeClass("active")
+    $('.tabular.menu .item[data-tab^="'+l+'"]').addClass("active")
+    $('.code').removeClass("active")
+    $('.code[data-tab^="'+l+'"]').addClass("active")
+}
 </script>
 
   <style type="text/css">
@@ -192,6 +200,14 @@ table td {
     </a>
     </div>
     <div class="item">
+        <div class="ui buttons compact">
+            <button onClick="setLang('ocaml')" class="ui button compact">OCaml</button>
+            <button onClick="setLang('c')" class="ui button compact">C</button>
+            <button onClick="setLang('python')" class="ui button compact">Python</button>
+        </div>
+        <div>Langage des exemples</div>
+    </div>
+    <div class="item">
     <a href="#">
         Informatique - Introduction
     </a>
@@ -222,7 +238,12 @@ table td {
 </div>
 </div>
 <div class="ui container text">
-<p><div class="ui message blue"><div class="header">Note</div><a href="pdf/complet.pdf">Version PDF</a></div></p>
+<p><div class="ui message blue"><div class="header">Note</div>L’ensemble des documents est regroupé sous forme de livres au format PDF. Cependant, afin d’alléger la présentation, trois versions sont données en fonction du langage utilisé dans le cas où un même programme est présenté dans plusieurs langages :</p>
+<ul>
+<li><a href="pdf/complet_ocaml.pdf">Version PDF + OCaml</a></li>
+<li><a href="pdf/complet_c.pdf">Version PDF + C</a></li>
+<li><a href="pdf/complet_python.pdf">Version PDF + Python</a></div></li>
+</ul>
 <p>Introduction</p>
 <p>Ce site présente des documents personnels autour de l’informatique.</p>
 <p>Il s’agit pour le moment d’un premier jet, et il est amené à beaucoup évoluer. Il correspond à mon interprétation personnelle de certaines notions.</p>

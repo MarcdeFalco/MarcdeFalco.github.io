@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="Marc de Falco">
 
-    <title>Algorithmique du texte</title>
+    <title>Algorithmique des textes</title>
 
     <link rel="stylesheet" type="text/css" href="assets/semantic.min.css">
     <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
@@ -123,7 +123,15 @@ $(document).ready(function() {
     $('.tabular.menu .item').tab({
             context: 'parent'
         });
+
 })
+
+function setLang(l) {
+    $('.tabular.menu .item').removeClass("active")
+    $('.tabular.menu .item[data-tab^="'+l+'"]').addClass("active")
+    $('.code').removeClass("active")
+    $('.code[data-tab^="'+l+'"]').addClass("active")
+}
 </script>
 
   <style type="text/css">
@@ -257,17 +265,37 @@ table td {
     </a>
     </div>
     <div class="item">
+        <div class="ui buttons compact">
+            <button onClick="setLang('ocaml')" class="ui button compact">OCaml</button>
+            <button onClick="setLang('c')" class="ui button compact">C</button>
+            <button onClick="setLang('python')" class="ui button compact">Python</button>
+        </div>
+        <div>Langage des exemples</div>
+    </div>
+    <div class="item">
     <a href="#">
-        Algorithmique du texte
+        Algorithmique des textes
     </a>
     </div>
 <ul>
 <li><a href="#sec:recherche-dans-un-texte"><span class="toc-section-number">1</span> Recherche dans un texte</a>
 <ul>
-<li><a href="#sec:principe-de-la-recherche-algorithme-force-brute"><span class="toc-section-number">1.1</span> Principe de la recherche, algorithme force brute</a></li>
-<li><a href="#sec:algorithme-de-boyer-moore"><span class="toc-section-number">1.2</span> Algorithme de Boyer-Moore</a></li>
-<li><a href="#sec:algorithme-de-rabin-karp"><span class="toc-section-number">1.3</span> Algorithme de Rabin-Karp</a></li>
-<li><a href="#sec:implémentation"><span class="toc-section-number">1.4</span> Implémentation</a></li>
+<li><a href="#sec:principe-de-la-recherche"><span class="toc-section-number">1.1</span> Principe de la recherche</a></li>
+<li><a href="#sec:algorithme-naïf-en-force-brute"><span class="toc-section-number">1.2</span> Algorithme naïf en force brute</a></li>
+<li><a href="#sec:algorithme-de-boyer-moore"><span class="toc-section-number">1.3</span> Algorithme de Boyer-Moore</a></li>
+<li><a href="#sec:algorithme-de-rabin-karp"><span class="toc-section-number">1.4</span> Algorithme de Rabin-Karp</a></li>
+</ul></li>
+<li><a href="#sec:compression"><span class="toc-section-number">2</span> Compression</a>
+<ul>
+<li><a href="#sec:principe-1"><span class="toc-section-number">2.1</span> Principe</a></li>
+<li><a href="#sec:algorithme-dhuffman"><span class="toc-section-number">2.2</span> Algorithme d’Huffman</a></li>
+<li><a href="#sec:algorithme-de-lampel-ziv-welch"><span class="toc-section-number">2.3</span> Algorithme de Lampel-Ziv-Welch</a></li>
+</ul></li>
+<li><a href="#sec:problèmes-supplémentaires"><span class="toc-section-number">3</span> Problèmes supplémentaires</a>
+<ul>
+<li><a href="#sec:la-structure-de-donnée-corde"><span class="toc-section-number">3.1</span> La structure de donnée <strong>corde</strong></a></li>
+<li><a href="#sec:lalgorithme-de-knuth-morris-pratt"><span class="toc-section-number">3.2</span> L’algorithme de Knuth-Morris-Pratt</a></li>
+<li><a href="#sec:extensions-à-lanalyse-dimages"><span class="toc-section-number">3.3</span> Extensions à l’analyse d’images</a></li>
 </ul></li>
 </ul>
 </div>
@@ -279,7 +307,7 @@ table td {
 	    <i class="angle double left icon"></i>
 	  </a>
 	  <div class="item">
-          Algorithmique du texte
+          Algorithmique des textes
 	  </div>
         </div>
       </div>
@@ -287,26 +315,802 @@ table td {
 <div class="masthead">
 <div class="segment">
 <center>
-    <h1>Algorithmique du texte</h1>
+    <h1>Algorithmique des textes</h1>
 </center>
 </div>
 </div>
 <div class="ui container text">
 <p><img class="ui image fluid" src="assets/pics/chap_algo_texte.png"/></p>
 <p><em>Source image : https://xkcd.com/1288/ </em></p>
-<p><div class="ui message blue"><div class="header">Note</div>version très partielle uniquement pour présenter Rabin-Karp</div></p>
+<p>Sources</p>
+<ul>
+<li><em>Algorithms</em> Robert Sedgewick, Kevin Wayne</li>
+<li><em>Élémets d’algorithmique</em> D. Beauquier, J. Berstel, Ph. Chrétienne</li>
+<li><em>125 Problems in Text Algorithms with Solutions</em> Maxime Crochemore, Thierry Lecroq, Wojciech Rytter</li>
+</ul>
 <h1 data-number="1" id="sec:recherche-dans-un-texte"><span class="header-section-number">1</span> Recherche dans un texte</h1>
-<h2 data-number="1.1" id="sec:principe-de-la-recherche-algorithme-force-brute"><span class="header-section-number">1.1</span> Principe de la recherche, algorithme force brute</h2>
-<h2 data-number="1.2" id="sec:algorithme-de-boyer-moore"><span class="header-section-number">1.2</span> Algorithme de Boyer-Moore</h2>
-<h2 data-number="1.3" id="sec:algorithme-de-rabin-karp"><span class="header-section-number">1.3</span> Algorithme de Rabin-Karp</h2>
-<h3 data-number="1.3.1" id="sec:principe"><span class="header-section-number">1.3.1</span> Principe</h3>
+<h2 data-number="1.1" id="sec:principe-de-la-recherche"><span class="header-section-number">1.1</span> Principe de la recherche</h2>
+<p>On s’intéresse ici au problème suivant :</p>
+<div class="ui message gray">
+<div class="header">
+Problème - RechercheTexte
+</div>
+<ul>
+<li>
+<p>Entrée(s) :</p>
+<ul>
+<li>une chaîne de caractère <span class="math inline">\(s\)</span> sur l’alphabet <span class="math inline">\(\Sigma\)</span></li>
+<li>un autre chaîne de caractère <span class="math inline">\(m\)</span> sur ce même alphabet appelé <em>motif</em> et de longueur plus petite que <span class="math inline">\(s\)</span></li>
+</ul>
+</li>
+<li>
+Sortie : un résultat partiel correspondant à l’indice de la première occurrence du motif dans la chaîne s’il est présent.
+</li>
+</ul>
+</div>
+<p>La différence fondamentale entre ce problème et celui de la recherche d’un sous-tableau dans un tableau est le fait qu’on considère un alphabet fini et dont le nombre d’éléments est le plus souvent négligeable par rapport à la taille des chaînes de caractères. Cela permet d’effectuer des optimisations qui ne sont pas sans rappeler les tris linéaires comme le tri par comptage.</p>
+<p>On parle alors d’algorithmique du texte pour désigner des algorithmes tirant partie de cette contrainte sur les données. La plupart des algorithmes que l’on présente peuvent ainsi s’adapter aisément au cas de tableaux dont les éléments sont pris dans un ensemble fini de petit cardinal.</p>
+<p>Avant d’entamer ce chapitre, remarquons qu’il existe, outre l’alphabet usuel, trois alphabets très importants :</p>
+<ul>
+<li>celui des caractères ASCII usuels</li>
+<li>celui contenant les deux éléments 0 et 1, ce qui permet de travailler sur des recherche en binaire.</li>
+<li>et enfin, très important pour la biologie, l’alphabet à quatre lettres A, T, G et C correspondant aux bases d’un brin d’ADN et qui ouvre la porte à beaucoup d’applications en bio-informatique.</li>
+</ul>
+<p><div class="ui message blue"><div class="header">Note</div>Il y aura sûrement des applications bio-info dans la partie programmation dynamique, faire le lien ici.</div></p>
+<h2 data-number="1.2" id="sec:algorithme-naïf-en-force-brute"><span class="header-section-number">1.2</span> Algorithme naïf en force brute</h2>
+<p>Une solution naïve consiste à parcourir chaque position de <span class="math inline">\(s\)</span> afin de tester si le motif est présent à partir de cette position.</p>
+<p><img src="assets/pics/texte_rech_naive.png" /></p>
+<p>Cela donne l’implémentation assez directe suivante :</p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-42">ocaml</a>   <a class="item" data-tab="c-42">c</a>   <a class="item" data-tab="python-42">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-42"></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">exception</span> Trouve <span class="kw">of</span> <span class="dt">int</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">exception</span> PasDeMotif</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">(* renvoie un booléen indiquant si m est présent</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"> * dans s à l&#39;indice i *)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> cherche_motif (m:<span class="dt">string</span>) (s:<span class="dt">string</span>) (i:<span class="dt">int</span>) : <span class="dt">bool</span> =</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> p = <span class="dt">String</span>.length m <span class="kw">in</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">try</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">for</span> j = <span class="dv">0</span> <span class="kw">to</span> p<span class="dv">-1</span> <span class="kw">do</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span> s.[i+j] &lt;&gt; m.[j]</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>            <span class="kw">then</span> <span class="dt">raise</span> PasDeMotif</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>;</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        <span class="kw">true</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">with</span> PasDeMotif -&gt; <span class="kw">false</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> recherche_naive m s =</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n = <span class="dt">String</span>.length s <span class="kw">in</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> p = <span class="dt">String</span>.length m <span class="kw">in</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">try</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n-p <span class="kw">do</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span> cherche_motif m s i</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>            <span class="kw">then</span> <span class="dt">raise</span> (Trouve i)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>;</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        <span class="dt">None</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">with</span> Trouve i -&gt; <span class="dt">Some</span> i</span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-42"></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* recherche_naive(m,s) recherche le motif m dans la chaine</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * s et renvoie l&#39;indice de la première occurrence s&#39;il est présent</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * ou -1 sinon */</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> recherche_naive<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>m<span class="op">,</span> <span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span>s<span class="op">)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> n <span class="op">=</span> strlen<span class="op">(</span>s<span class="op">);</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> p <span class="op">=</span> strlen<span class="op">(</span>m<span class="op">);</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;=</span> n<span class="op">-</span>p<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> j<span class="op">;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span>j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> p<span class="op">;</span> j<span class="op">++)</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>s<span class="op">[</span>i<span class="op">+</span>j<span class="op">]</span> <span class="op">!=</span> m<span class="op">[</span>j<span class="op">])</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>j <span class="op">==</span> p<span class="op">)</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> i<span class="op">;</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-42"></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> recherche_naive(motif, chaine):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Recherche le motif dans la chaine et renvoie l&#39;indice de </span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">    la première occurrence du motif s&#39;il est présent ou None sinon.&#39;&#39;&#39;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    n, p <span class="op">=</span> <span class="bu">len</span>(chaine), <span class="bu">len</span>(motif)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n<span class="op">-</span>p<span class="op">+</span><span class="dv">1</span>):</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        present <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(p):</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> chaine[i<span class="op">+</span>j] <span class="op">!=</span> motif[j]:</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                present <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> present:</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> i</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">None</span></span></code></pre></div>
+<p></div> </div></p>
+<p>La complexité temporelle en pire cas de cet algorithme correspond au maximum de comparaisons. On peut naturellement en déduire par majoration une borne en <span class="math inline">\(O(np)\)</span> mais on peut remarquer qu’il est assez difficile d’obtenir un exemple concret, ce qui fait penser que ce pire cas est <em>rare</em>.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Considérons la chaîne <span class="math inline">\(s = a a ... a = a^n\)</span> qui contient <span class="math inline">\(n\)</span> fois la lettre <span class="math inline">\(a\)</span> et le motif <span class="math inline">\(m = a^{p-1} b\)</span> qui contient <span class="math inline">\(p-1\)</span> a et finit par un <span class="math inline">\(b\)</span>. Dans l’algorithme, on va donc à chaque étape de la première boucle effectuer <span class="math inline">\(p\)</span> itérations dans la seconde avant de se rendre compte que le motif n’est pas présent en comparant <span class="math inline">\(b\)</span> et <span class="math inline">\(a\)</span>. On a donc exactement <span class="math inline">\((n-p+1)p = \Theta(np)\)</span> comparaisons et on retombe ainsi sur la complexité <span class="math inline">\(O(np)\)</span> pour ces exemples.</div></p>
+<p>Ce qui va se passer dans une application usuelle de cet algorithme, c’est qu’au bout d’une ou deux comparaisons, on pourra invalider la position et passer à la suivante. On va alors avoir une complexité en <span class="math inline">\(O(n+p)\)</span> en considérant en plus la validation du motif dans le cas où il est présent. Ici <span class="math inline">\(p \le n\)</span> donc <span class="math inline">\(O(n+p) = O(n)\)</span> mais c’est important de garder en tête cette complexité en <span class="math inline">\(O(n+p)\)</span> qu’on retrouvera car elle s’appliquera à des algorithmes où on effectue un prétraitement sur le motif pour l’appliquer ensuite sur plusieurs chaînes.</p>
+<h2 data-number="1.3" id="sec:algorithme-de-boyer-moore"><span class="header-section-number">1.3</span> Algorithme de Boyer-Moore</h2>
+<p>Dans un premier temps, on va présenter la variante usuelle de cet algorithme appelée algorithme de Boyer-Moore-Horspool. On présentera ensuite l’algorithme de Boyer-Moore en tant que tel.</p>
+<h3 data-number="1.3.1" id="sec:principe-de-boyer-moore-horspool"><span class="header-section-number">1.3.1</span> Principe de Boyer-Moore-Horspool</h3>
+<p>Le principe de l’algorithme de Boyer-Moore-Horspool est d’effectuer une recherche du motif comme précédemment mais en partant de la fin. On va alors tenter de trouver des suffixes de plus en plus grand du motif. Si on trouve ainsi le motif, on renvoie la position. Sinon, c’est qu’on a lu dans <span class="math inline">\(s\)</span> un mot de la forme <span class="math inline">\(x m&#39;\)</span> où <span class="math inline">\(m&#39;\)</span> est un suffixe strict de <span class="math inline">\(m\)</span> mais <span class="math inline">\(x m&#39;\)</span> n’en est pas un. Si <span class="math inline">\(x\)</span> n’est pas présent dans <span class="math inline">\(m\)</span>, alors on peut relancer la recherche juste après <span class="math inline">\(x\)</span> dans <span class="math inline">\(s\)</span>. Si <span class="math inline">\(x\)</span> est présent dans <span class="math inline">\(m\)</span>, on peut relancer la recherche en alignant ce caractère avec sa position la plus à droite dans <span class="math inline">\(m\)</span>.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Il faut tenir compte différemment du dernier caractère du motif, car il n’est pas utile de le réaligner. On considère alors, quand elle existe, l’occurrence précédente de ce caractère.</div></p>
+<p>On obtient ainsi une stratégie de saut qui en cas d’échec relance la recherche plus loin.</p>
+<p>Voici un premier exemple où on effectue une recherche de <span class="math inline">\(abaa\)</span> dans le mot <span class="math inline">\(aabababbaa\)</span>. Cette stratégie a permis d’éviter une recherche inutile à partir de l’indice 1.</p>
+<p><img src="assets/pics/texte_bm_exemple.png" /></p>
+<h3 data-number="1.3.2" id="sec:implémentation-par-table-de-saut"><span class="header-section-number">1.3.2</span> Implémentation par table de saut</h3>
+<p>Pour réaliser ces sauts, on construit une table <code>droite</code> indexée par <span class="math inline">\(\Sigma\)</span> et telle que <code>droite[c]</code> indique l’indice de l’occurrence la plus à droite dans le motif <span class="math inline">\(m\)</span> du caractère <span class="math inline">\(c\)</span>, en ignorant le dernier caractère du motif.</p>
+<p>Ainsi, dans l’exemple précédent du motif <code>abaa</code>, on obtient la table suivante :</p>
+<table>
+<thead>
+<tr class="header">
+<th><code>c</code></th>
+<th>‘a’</th>
+<th>‘b’</th>
+<th>‘c’</th>
+<th>…</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>droite[c]</code></td>
+<td>2</td>
+<td>1</td>
+<td><span class="math inline">\(\emptyset\)</span></td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p>On a indiqué ici <span class="math inline">\(\emptyset\)</span> quand un caractère de <span class="math inline">\(\Sigma\)</span> n’est pas présent dans le motif, car il peut être présent dans <span class="math inline">\(s\)</span>.</p>
+<p>Cette table contient donc de l’ordre de <span class="math inline">\(\Sigma\)</span> éléments. On peut la réaliser par un tableau direct de taille <span class="math inline">\(|\Sigma|\)</span> étant donné un ordre d’énumération. On peut aussi la réaliser par un dictionnaire, ce qui est plus économe en espace si le motif contient peu de lettres différentes. On a choisit ici, pour des raisons pédagogiques, de considérer la numérotation ASCII naturelle associées au caractère de cette table.</p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-56">ocaml</a>   <a class="item" data-tab="c-56">c</a>   <a class="item" data-tab="python-56">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-56"></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> taille_alphabet = <span class="dv">256</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> calcule_droite (motif:<span class="dt">string</span>) : <span class="dt">int</span> <span class="dt">option</span> <span class="dt">array</span> =</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">(* Calcule le tableau droite associé au motif *)</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> droite = <span class="dt">Array</span>.make taille_alphabet <span class="dt">None</span> <span class="kw">in</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> p = <span class="dt">String</span>.length motif <span class="kw">in</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> p<span class="dv">-2</span> <span class="kw">do</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> j = p<span class="dv">-2</span>-i <span class="kw">in</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> c = motif.[j] <span class="kw">in</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> droite.(<span class="dt">Char</span>.code c) = <span class="dt">None</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">then</span> droite.(<span class="dt">Char</span>.code c) &lt;- <span class="dt">Some</span> j</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    droite</span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-56"></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> taille_alphabet <span class="op">=</span> <span class="dv">256</span><span class="op">;</span> <span class="co">// on pourrait passer par un define</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">/* Calcule le tableau droite associé au motif</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"> * le tableau renvoyé a été alloué, il devra être libéré après utilisation */</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> <span class="op">*</span>calcule_droite<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>motif<span class="op">)</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> <span class="op">*</span>droite <span class="op">=</span> malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span><span class="dt">int</span><span class="op">)</span> <span class="op">*</span> taille_alphabet<span class="op">);</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> p <span class="op">=</span> strlen<span class="op">(</span>motif<span class="op">);</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    memset<span class="op">(</span>droite<span class="op">,</span> <span class="op">-</span><span class="dv">1</span><span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span><span class="dt">int</span><span class="op">)</span> <span class="op">*</span> taille_alphabet<span class="op">);</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> p<span class="op">-</span><span class="dv">2</span><span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> j <span class="op">=</span> p<span class="op">-</span><span class="dv">2</span><span class="op">-</span>i<span class="op">;</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        <span class="dt">char</span> c <span class="op">=</span> motif<span class="op">[</span>j<span class="op">];</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>droite<span class="op">[</span>c<span class="op">]</span> <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>            droite<span class="op">[</span>c<span class="op">]</span> <span class="op">=</span> j<span class="op">;</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> droite<span class="op">;</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-56"></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>taille_alphabet <span class="op">=</span> <span class="dv">256</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calcule_droite(motif):</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Calcule le tableau droite associé au motif&#39;&#39;&#39;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    droite <span class="op">=</span> [ <span class="va">None</span> ] <span class="op">*</span> taille_alphabet</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> <span class="bu">len</span>(motif)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(p<span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        j <span class="op">=</span> p<span class="op">-</span><span class="dv">2</span><span class="op">-</span>i <span class="co"># indice en partant de la fin</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        c <span class="op">=</span> motif[j]</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> droite[<span class="bu">ord</span>(c)] <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>            droite[<span class="bu">ord</span>(c)] <span class="op">=</span> j</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> droite</span></code></pre></div>
+<p></div> </div></p>
+<p>Afin d’implémenter l’algorithme lui-même, il est nécessaire de faire des calculs élémentaires mais précis pour déterminer le saut à effectuer. Si à la position <span class="math inline">\(i+j\)</span> on a un échec après avoir lu le caractère <code>c</code> où <code>droite[c]</code> contient la valeur <span class="math inline">\(k\)</span>.</p>
+<ul>
+<li>Si <span class="math inline">\(k = \emptyset\)</span>, c’est que le motif ne pourra jamais être trouvé tant que ce caractère <code>c</code> sera présent. On relance donc la recherche juste après à l’indice <span class="math inline">\(i+j+1\)</span>.</li>
+</ul>
+<p><img src="assets/pics/texte_bm_saut_cas_vide.png" /></p>
+<ul>
+<li><p>Si <span class="math inline">\(k \ge j\)</span>, cela signifie que <code>c</code> est présent plus à droite dans le motif, donc aligner cette occurrence ne permettrait pas d’avancer la recherche. Rien ne nous permet de savoir si <code>c</code> est présent ou non ailleurs dans le motif, on relance alors prudemment la recherche en <span class="math inline">\(i+1\)</span>. <img src="assets/pics/texte_bm_saut_cas_pres.png" /></p></li>
+<li><p>Sinon, on veut aligner ce <code>c</code> avec le caractère correspondant du motif, si on relance à l’indice <span class="math inline">\(i&#39;\)</span>, on souhaite ainsi avoir <span class="math inline">\(i&#39; + k = i + j\)</span> donc <span class="math inline">\(i &#39; = i + j - k\)</span>.</p></li>
+</ul>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-63">ocaml</a>   <a class="item" data-tab="c-63">c</a>   <a class="item" data-tab="python-63">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-63"></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">exception</span> Difference</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">exception</span> Trouve <span class="kw">of</span> <span class="dt">int</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> recherche_BMH (motif:<span class="dt">string</span>) (droite:<span class="dt">int</span> <span class="dt">option</span> <span class="dt">array</span>) </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    (chaine:<span class="dt">string</span>) : <span class="dt">int</span> <span class="dt">option</span> =</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n = <span class="dt">String</span>.length chaine <span class="kw">in</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> p = <span class="dt">String</span>.length motif <span class="kw">in</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> i = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">try</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">while</span> !i &lt;= n-p <span class="kw">do</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>            <span class="kw">try</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>                <span class="kw">for</span> j = p<span class="dv">-1</span> <span class="kw">downto</span> <span class="dv">0</span> <span class="kw">do</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">if</span> chaine.[!i+j] &lt;&gt; motif.[j]</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">then</span> <span class="kw">begin</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>                        <span class="kw">let</span> dec =  <span class="kw">match</span> droite.(<span class="dt">Char</span>.code chaine.[!i+j]) <span class="kw">with</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>                                | <span class="dt">None</span> -&gt; j+<span class="dv">1</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>                                | <span class="dt">Some</span> k <span class="kw">when</span> k &lt; j -&gt; j-k</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>                                | _ -&gt; <span class="dv">1</span> <span class="kw">in</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>                        i := !i + dec;</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>                        <span class="dt">raise</span> Difference</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">end</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>                <span class="kw">done</span>;</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>                <span class="dt">raise</span> (Trouve !i)</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>            <span class="kw">with</span> Difference -&gt; ()</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>;</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>        <span class="dt">None</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">with</span> Trouve k -&gt; <span class="dt">Some</span> k</span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-63"></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* cherche motif dans chaine en utilisant la table de saut précalculée</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * droite. Renvoie l&#39;indice de la première occurrence ou -1 s&#39;il n&#39;est pas</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * présent */</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> recherche_BMH<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>motif<span class="op">,</span> <span class="dt">int</span> <span class="op">*</span>droite<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>chaine<span class="op">)</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> n <span class="op">=</span> strlen<span class="op">(</span>chaine<span class="op">);</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> p <span class="op">=</span> strlen<span class="op">(</span>motif<span class="op">);</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;=</span> n<span class="op">-</span>p<span class="op">;</span> <span class="op">)</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        <span class="dt">bool</span> present <span class="op">=</span> true<span class="op">;</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> j <span class="op">=</span> p<span class="op">-</span><span class="dv">1</span><span class="op">;</span> j <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">;</span> j<span class="op">--)</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>chaine<span class="op">[</span>i<span class="op">+</span>j<span class="op">]</span> <span class="op">!=</span> motif<span class="op">[</span>j<span class="op">])</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>                <span class="dt">int</span> k <span class="op">=</span> droite<span class="op">[</span>chaine<span class="op">[</span>i<span class="op">+</span>j<span class="op">]];</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>                present <span class="op">=</span> false<span class="op">;</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="op">(</span>k <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>                    i <span class="op">=</span> i <span class="op">+</span> j <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>                <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>k <span class="op">&lt;</span> j<span class="op">)</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>                    i <span class="op">=</span> i <span class="op">+</span> j <span class="op">-</span> k<span class="op">;</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>                <span class="cf">else</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>                    i <span class="op">=</span> i <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>present<span class="op">)</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> i<span class="op">;</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-63"></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> recherche_BMH(motif, droite, chaine):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Cherche motif dans chaine en utilisant la table de saut</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">    précalculée droite&#39;&#39;&#39;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    n, p <span class="op">=</span> <span class="bu">len</span>(chaine), <span class="bu">len</span>(motif)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    i <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> i <span class="op">&lt;=</span> n<span class="op">-</span>p:</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        present <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">reversed</span>(<span class="bu">range</span>(p)):</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> chaine[i<span class="op">+</span>j] <span class="op">!=</span> motif[j]:</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>                present <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>                k <span class="op">=</span> droite[<span class="bu">ord</span>(chaine[i<span class="op">+</span>j])]</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> k <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>                    i <span class="op">=</span> i <span class="op">+</span> j <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>                <span class="cf">elif</span> k <span class="op">&lt;</span> j:</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>                    i <span class="op">=</span> i <span class="op">+</span> j <span class="op">-</span> k</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>                <span class="cf">else</span>:</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>                    i <span class="op">=</span> i <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> present:</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> i</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">None</span></span></code></pre></div>
+<p></div> </div></p>
+<h4 data-number="1.3.2.1" id="sec:correction"><span class="header-section-number">1.3.2.1</span> Correction</h4>
+<p>Tout d’abord, remarquons que la terminaison ne pose pas de questions dans la mesure où on le nouvel indice auquel on relance la recherche est toujours strictement plus grand que le précédent.</p>
+<p>Au sujet de la correction, il suffit de s’assurer que les indices écartés correspondent nécessairement à des recherches infructueuses. Sans perte de généralité, on peut supposer que la recherche s’effectue depuis le premier indice de <span class="math inline">\(s\)</span>. Comme seul les sauts d’au moins deux indices sont ceux pour lesquels il est nécessaire de faire une preuve, cela correspond au cas où <span class="math inline">\(m = m_1 c m_2 d m_3 x\)</span> et <span class="math inline">\(s = s_1 c m_3 s&#39;\)</span> avec <span class="math inline">\(c,d\)</span> et <span class="math inline">\(x\)</span> des caractères, <span class="math inline">\(d \neq c\)</span> et <span class="math inline">\(c\)</span> non présent dans <span class="math inline">\(m_2 d m_3\)</span>.</p>
+<p>Ainsi, toute recherche démarrant à des indices inférieurs échouera systématiquement, au plus tard, en comparant le caractère <span class="math inline">\(c\)</span> de <span class="math inline">\(c m_3\)</span> avec un caractère du motif dans <span class="math inline">\(m_2 d m_3\)</span> donc différent de <span class="math inline">\(c\)</span>.</p>
+<h4 data-number="1.3.2.2" id="sec:complexité"><span class="header-section-number">1.3.2.2</span> Complexité</h4>
+<p>Tout d’abord, on remarque que la table de saut se construit en <span class="math inline">\(O(\max(|m|,|\Sigma|))\)</span> pour un motif <span class="math inline">\(m\)</span> sur un alphabet <span class="math inline">\(\Sigma\)</span>.</p>
+<p>Sans chercher à rentrer dans les détails, on peut raisonnablement penser <strong>si l’alphabet contient assez de caractères</strong> que les motifs auront peu de répétitions et qu’ainsi, les sauts seront presque toujours maximaux, ce qui permet d’obtenir de l’ordre de <span class="math inline">\(\frac{n}{p}\)</span> comparaisons où <span class="math inline">\(n\)</span> est la longueur de la chaîne et <span class="math inline">\(p\)</span> la longueur du motif.</p>
+<p>Cependant, en pire cas, cet algorithme n’est pas meilleur que le précédent. Pour s’en convaincre, on va considérer un exemple proche de celui introduit poru l’algorithme naïf. Si on cherche <span class="math inline">\(b a^{p-1}\)</span> dans <span class="math inline">\(a^n\)</span> à l’indice <span class="math inline">\(i\)</span>, il est nécessaire d’attendre de comparer au caractère <span class="math inline">\(b\)</span> pour constater un échec et devoir relancer l’algorithme à l’indice <span class="math inline">\(i+1\)</span>. On va donc faire ici aussi <span class="math inline">\((n-p+1)p = \Theta(np)\)</span> comparaisons.</p>
+<p>La complexite temporelle en pire cas de Boyer-Moore-Horspool est donc de <span class="math inline">\(O(np)\)</span>, même si, en pratique, elle est sous-linéaire.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Si l’alphabet contient peu de caractères, ce qui est le cas en particulier du binaire, il y a de grandes chances qu’on soit dans ce cas pire cas. Ainsi, Boyer-Moore-Horspool n’est pas adapté pour ce type de texte.</div></p>
+<h3 data-number="1.3.3" id="sec:principe-de-boyer-moore"><span class="header-section-number">1.3.3</span> Principe de Boyer-Moore</h3>
+<p>Considérons le cas suivant de l’algorithme précédent : on cherche abbcabc dans cbacbbcabc.</p>
+<p><img src="assets/pics/texte_bm_complet_a.png" /></p>
+<p>On remarque qu’en raison du fonctionnement de cet algorithme, on est forcé de faire de tous petits sauts et on est ramené à l’algorithme naïf. Cependant, après la première étape, on sait qu’on a lu un suffixe du motif <code>bc</code> qui est précédé d’un caractère <code>a</code> en sorte que <code>bbc</code> ne soit pas un suffixe du motif.</p>
+<p>Il y a un autre endroit dans le motif où on peut trouver <code>*bc</code> avec <code>*</code> un autre caractère que <code>a</code>. On pourrait donc relancer la recherche en alignant cette occurrence de <code>bc</code> avec celle qu’on vient de lire. Cela revient à sauter directement à la dernière étape dans cet exemple :</p>
+<p><img src="assets/pics/texte_bm_complet_b.png" /></p>
+<p>Pour pouvoir réaliser ce décalage, il est nécessaire de calculer une nouvelle table en parcourant le motif pour identifier de telles apparitions de suffixes.</p>
+<p>On peut aller plus loin en considérant également le plus long préfixe du motif qui soit un suffixe du suffixe considéré. Par exemple, pour le motif <code>bcabc</code> on remarque que <code>bc</code> étant un préfixe, on peut effectuer un saut comme dans l’exemple suivant :</p>
+<p><img src="assets/pics/texte_bm_complet_c.png" /></p>
+<h4 data-number="1.3.3.1" id="sec:table-des-bons-suffixes"><span class="header-section-number">1.3.3.1</span> Table des bons suffixes</h4>
+<p><div class="ui message blue"><div class="header">Note</div>Tout cela sera redéfini proprement plus tard dans le chapitre sur les langages. Je laisse cette partie en attendant pour que la présentation soit complète.</div></p>
+<p>Il est nécessaire d’introduire des définitions précises pour formaliser la stratégie qu’on vient de présenter. Dans le contexte des langages, on parle plus souvent de mot que de chaîne de caractères, qui sont un type de données permettant de les représenter. Un mot sur l’alphabet <span class="math inline">\(\Sigma\)</span> est donc une suite finie <span class="math inline">\(a_1 \dots a_n\)</span> de lettres dans l’alphabet. On note <span class="math inline">\(\mu\)</span> l’unique mot vide, c’est-à-dire ne contenant aucune lettre. L’ensemble des mots sur <span class="math inline">\(\Sigma\)</span> est noté <span class="math inline">\(\Sigma^*\)</span>. Si <span class="math inline">\(u\)</span> et <span class="math inline">\(v\)</span> sont des mots, <span class="math inline">\(uv\)</span> est le mot obtenu par concaténation.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div><span class="math inline">\(\Sigma^*\)</span> muni de cette loi de composition a une structure proche de l’ensemble des entiers naturels <span class="math inline">\(\N\)</span> muni de l’addition :</p>
+<ul>
+<li>on a : <span class="math inline">\(\forall u,v,w \in \Sigma^*, u(vw) = (uv)w = uvw\)</span>, on dit que la loi est associative ;</li>
+<li>elle possède un élément neutre <span class="math inline">\(\mu\)</span> : <span class="math inline">\(\forall u \in \Sigma^*, \mu u = u \mu = u\)</span>.</li>
+</ul>
+<p>On dit alors que <span class="math inline">\(\Sigma^*\)</span> est un <strong>monoïde</strong>. Cette structure très simple est cruciale en informatique.</div></p>
+<p><div class="ui message"><div class="header">Définition</div> Soit <span class="math inline">\(u, v \in \Sigma^*\)</span>, on dit que <span class="math inline">\(v\)</span> est :</p>
+<ul>
+<li>un <strong>suffixe</strong> de <span class="math inline">\(u\)</span> s’il existe <span class="math inline">\(w \in \Sigma^*\)</span> tel que <span class="math inline">\(u = w v\)</span></li>
+<li>un <strong>préfixe</strong> de <span class="math inline">\(u\)</span> s’il existe <span class="math inline">\(w \in \Sigma^*\)</span> tel que <span class="math inline">\(u = v w\)</span></li>
+</ul>
+<p>Lorsque <span class="math inline">\(w \neq \mu\)</span>, on parle de suffixe ou de préfixe <strong>propre</strong>.</p>
+<p>On dit que <span class="math inline">\(v\)</span> est un <strong>bord</strong> de <span class="math inline">\(u\)</span> lorsque <span class="math inline">\(v\)</span> est suffixe et préfixe propre de <span class="math inline">\(u\)</span>. </div></p>
+<div class="ui message blue">
+<div class="header">
+Exemple
+</div>
+<p>Soit <span class="math inline">\(u = a b a c a b a\)</span>. <span class="math inline">\(ab a c\)</span> est un préfixe de <span class="math inline">\(u\)</span>, <span class="math inline">\(c a ba\)</span> un suffixe et <span class="math inline">\(aba\)</span> un bord.</p>
+</div>
+<p><div class="ui message"><div class="header">Définition</div> Soit <span class="math inline">\(x = x_1 \dots x_n\)</span> et <span class="math inline">\(u,v\)</span> deux suffixes <strong>distincts</strong> de <span class="math inline">\(x\)</span>. On dit que <span class="math inline">\(u\)</span> et <span class="math inline">\(v\)</span> sont des suffixes <strong>disjoints</strong> quand on est dans l’un des cas suivants :</p>
+<ul>
+<li><span class="math inline">\(u = x\)</span></li>
+<li><span class="math inline">\(v = x\)</span></li>
+<li><span class="math inline">\(u \neq x, v \neq x\)</span> et <span class="math inline">\(x_{|x|-|u|} \neq x_{|x|-|v|}\)</span>. </div></li>
+</ul>
+<p>Des suffixes disjoints sont donc des suffixes précédés par des lettres différentes dans <span class="math inline">\(x\)</span>. On définit de même la notion de préfixes disjoints.</p>
+<p>On considère un motif <span class="math inline">\(x = x_0 \dots x_{n-1}\)</span> et on va reprendre, en la précisant, la description précédente. Se faisant, on va construire une table <code>bonsuffixe</code> appelée la table des <strong>bons suffixes</strong> du motif <span class="math inline">\(x\)</span> et telle que, pour <span class="math inline">\(i \in \range{0}{n-1}\)</span>, <code>bonsuffixe[i]</code> donne le nombre de positions dont on doit décaler le motif vers la droite pour relancer la recherche après la lecture du suffixe <span class="math inline">\(x_{i+1} \dots x_{n-1}\)</span>.</p>
+<p>Supposons qu’on vient de lire avec succès un suffixe propre <span class="math inline">\(u\)</span>. Ainsi <span class="math inline">\(x = x_0 \dots x_i u\)</span> et on vient de lire dans la chaîne où on effectue la recherche <span class="math inline">\(a u\)</span> avec <span class="math inline">\(a \neq x_i\)</span>.</p>
+<ul>
+<li>Soit il existe un autre suffixe <span class="math inline">\(b u v\)</span> de <span class="math inline">\(x\)</span> où <span class="math inline">\(b \neq x_i\)</span> et alors on appelle bon suffixe pour <span class="math inline">\(u\)</span> un tel suffixe de longueur minimale et on pose alors <code>bonsuffixe[i]</code><span class="math inline">\(=|v|\)</span></li>
+<li>Sinon, on cherche <span class="math inline">\(v\)</span> de longueur minimale tel que <span class="math inline">\(x\)</span> soit un suffixe de <span class="math inline">\(u v\)</span> et on pose également <code>bonsuffixe[i]</code><span class="math inline">\(=|v|\)</span>.</li>
+</ul>
+<p>On remarque que si <span class="math inline">\(x\)</span> est suffixe de <span class="math inline">\(u v\)</span> et qu’on a également <span class="math inline">\(b u v&#39;\)</span> suffixe de <span class="math inline">\(x\)</span>, alors <span class="math inline">\(|uv| = |u|+|v| \ge |x| \ge |buv&#39;| \ge |u|+|v&#39;|\)</span> donc <span class="math inline">\(|v| \ge |v&#39;|\)</span> ce qui permet de considérer le plus petit <span class="math inline">\(v\)</span> sur l’ensemble des cas.</p>
+<h4 data-number="1.3.3.2" id="sec:table-des-suffixes"><span class="header-section-number">1.3.3.2</span> Table des suffixes</h4>
+<p>Afin de calculer efficacement <code>bonsuffixe</code> on va commencer par calculer la table des suffixes du motif, il s’agit de la table <code>suffixe</code> où <code>suffixe[i]</code> contient la longueur du plus long suffixe de <span class="math inline">\(x\)</span> de la forme <span class="math inline">\(x_j \dots x_i\)</span>. Ainsi</p>
+<p><span class="math display">\[
+\texttt{suffixe}[i] = \max \enscomp{i-j}{j \le i, x_j\dots x_i \text{ sufixe de } x}
+\]</span></p>
+<p>Nécessairement, <code>suffixe[n-1]=n</code> car <span class="math inline">\(x\)</span> convient.</p>
+<div class="ui message blue">
+<div class="header">
+Exemple
+</div>
+<p>Pour <span class="math inline">\(x = bcabc\)</span> on a :</p>
+<table>
+<thead>
+<tr class="header">
+<th>i</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>suffixe[i]</code></td>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p>et pour <span class="math inline">\(x = abbabba\)</span> :</p>
+<table>
+<thead>
+<tr class="header">
+<th>i</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>suffixe[i]</code></td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td>7</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Il est possible de construire <code>suffixe</code> avec un simple parcours linéaire en tirant partie de l’information déjà calculée. Pour cela, on va remplir <code>suffixe</code> de droite à gauche.</p>
+<p>A tout moment, on va conserver le meilleur suffixe rencontré, c’est-à-dire celui pour lequel on est allé le plus loin à gauche avant d’avoir un échec de comparaison. On note <span class="math inline">\(s\)</span> la position la plus à droite de ce suffixe et <span class="math inline">\(k\)</span> sa longueur, il s’agit donc de <span class="math inline">\(u = x_{s-k+1} ... x_s\)</span> et il y a eu un échec de comparaison en <span class="math inline">\(x_{s-k}\)</span>. Par définition de <code>suffixe</code> on a <code>suffixe[s]</code><span class="math inline">\(=k\)</span>. Le mot <span class="math inline">\(x\)</span> s’écrit alors :</p>
+<p><img src="assets/pics/texte_bm_complet_suff_ex.png" /></p>
+<p>Ce qu’on peut représenter schématiquement ainsi : <center><img src="assets/pics/texte_bm_complet_suff_ex2.png" /> </center></p>
+<p>Maintenant, on considère la position <span class="math inline">\(s-i\)</span> où <span class="math inline">\(s &gt; s-i &gt; s-k\)</span>, cela signifie qu’on cherche un suffixe depuis une position interne au mot <span class="math inline">\(u\)</span> de gauche. Le point clé permettant d’obtenir un algorithme linéaire est de remarquer que la situation est la même que dans le mot <span class="math inline">\(u\)</span> de droite. Or, comme on procède de gauche à droite, on a déjà calculé la valeur correspondante <code>suffixe[n-1-i]</code>. Là, on a deux cas :</p>
+<ul>
+<li><p>soit quand on a cherché le plus grand suffixe à partir de <span class="math inline">\(n-i\)</span>, on s’est heurté à une erreur de comparaison à la position <span class="math inline">\(n-k\)</span>. Dans ce cas, on a <code>suffixe[n-1-i]</code><span class="math inline">\(=k-i\)</span> et on peut regarder, en partant de la position <span class="math inline">\(s-k\)</span>, si on peut prolonger le suffixe finissant à la position <span class="math inline">\(s-i\)</span>.</p>
+<p><center> <img src="assets/pics/texte_bm_complet_suff_ex3.png" /> </center></p>
+<p>Pour effectuer ce prolongement, il suffit de comparer, caractère par caractère, vers la gauche en partant de la position <span class="math inline">\(s-k\)</span>. On aboutira alors à une nouvelle position du suffixe finissant le plus à gauche qui finira en <span class="math inline">\(s-i\)</span>.</p>
+<p><center> <img src="assets/pics/texte_bm_complet_suff_ex4.png" /> </center></p>
+<p>Remarquons qu’il n’est pas nécessaire que <span class="math inline">\(s-i-l \neq s-k\)</span>. C’est-à-dire que même si <span class="math inline">\(a\)</span> ne permet pas de prolonger le suffixe déduit de la position <span class="math inline">\(n-i\)</span>, on considère tout de même que la nouvelle position de référence est <span class="math inline">\(s-i\)</span>. On en déduit également la valeur <code>suffixe[s-i]</code><span class="math inline">\(=l\)</span>.</p></li>
+<li><p>soit <code>suffixe[n-1-i]</code><span class="math inline">\(= p \neq k-i\)</span> et alors</p>
+<ul>
+<li><p>soit <span class="math inline">\(p &lt; k-i\)</span>, on a alors poru ce suffixe un échec dans <span class="math inline">\(u\)</span>, ce qui limite de la même manière la valeur en <span class="math inline">\(s-i\)</span> : <code>suffixe[s-i]</code><span class="math inline">\(=p\)</span>.</p></li>
+<li><p>soit <span class="math inline">\(p &gt; k-i\)</span>, donc on doit avoir un <span class="math inline">\(b\)</span> après avoir le suffixe dans <span class="math inline">\(u\)</span> depuis <span class="math inline">\(s-i\)</span> pour le prolonger, or, c’est impossible car il y a un <span class="math inline">\(a \neq b\)</span>. Ainsi, le suffixe est limité par <span class="math inline">\(u\)</span> : <code>suffixe[s-i]</code><span class="math inline">\(=k-i\)</span>.</p></li>
+</ul></li>
+</ul>
+<p>Il reste à traiter le cas où <span class="math inline">\(s - i \le s-k\)</span>, ce qui revient à considérer qu’on a dépassé le précédent suffixe pouvant apporter une information. On procède donc naïvement pour trouver le plus grand suffixe depuis cette position.</p>
+<p>On en déduit l’implémentation suivante :</p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-93">ocaml</a>   <a class="item" data-tab="c-93">c</a>   <a class="item" data-tab="python-93">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-93"></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> calcule_suffixe (x:<span class="dt">string</span>) : <span class="dt">int</span> <span class="dt">array</span> =</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">(* Prend en entrée un mot non vide x et renvoie son tableau de suffixe *)</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n = <span class="dt">String</span>.length x <span class="kw">in</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> suffixe = <span class="dt">Array</span>.make n (<span class="dv">-1</span>) <span class="kw">in</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    suffixe.(n<span class="dv">-1</span>) &lt;- n;</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> plus_a_gauche = <span class="dt">ref</span> (n<span class="dv">-1</span>) <span class="kw">in</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> depart = <span class="dt">ref</span> (<span class="dv">-1</span>) <span class="kw">in</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> j = n<span class="dv">-2</span> <span class="kw">downto</span> <span class="dv">0</span> <span class="kw">do</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> !plus_a_gauche &lt; j</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>            &amp;&amp; suffixe.(n<span class="dv">-1</span>- !depart+j) &lt;&gt; j - !plus_a_gauche</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">then</span> suffixe.(j) &lt;- <span class="dt">min</span> suffixe.(n<span class="dv">-1</span>- !depart+j) (j - !plus_a_gauche)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>        <span class="kw">else</span> <span class="kw">begin</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>            plus_a_gauche := <span class="dt">min</span> j !plus_a_gauche;</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>            depart := j;</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>            <span class="kw">while</span> !plus_a_gauche &gt;= <span class="dv">0</span> </span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>                &amp;&amp; x.[!plus_a_gauche] = x.[n<span class="dv">-1</span>-j + !plus_a_gauche] <span class="kw">do</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>                plus_a_gauche := !plus_a_gauche - <span class="dv">1</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>            <span class="kw">done</span>;</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>            suffixe.(j) &lt;- !depart - !plus_a_gauche</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>        <span class="kw">end</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    suffixe</span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-93"></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* Calcule le tableau suffixe associé au mot x</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * le tableau renvoyé a été alloué, il devra être libéré après utilisation */</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> <span class="op">*</span>calcule_suffixe<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>x<span class="op">)</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> n <span class="op">=</span> strlen<span class="op">(</span>x<span class="op">);</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> <span class="op">*</span>suffixe <span class="op">=</span> malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span><span class="dt">int</span><span class="op">)</span> <span class="op">*</span> n<span class="op">);</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> plus_a_gauche <span class="op">=</span> n<span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> depart <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    memset<span class="op">(</span>suffixe<span class="op">,</span> <span class="op">-</span><span class="dv">1</span><span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span><span class="dt">int</span><span class="op">)</span> <span class="op">*</span> n<span class="op">);</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    suffixe<span class="op">[</span>n<span class="op">-</span><span class="dv">1</span><span class="op">]</span> <span class="op">=</span> n<span class="op">;</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> j <span class="op">=</span> n<span class="op">-</span><span class="dv">2</span><span class="op">;</span> j <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">;</span> j<span class="op">--)</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>plus_a_gauche <span class="op">&lt;</span> j</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>            <span class="op">&amp;&amp;</span> suffixe<span class="op">[</span>n<span class="op">-</span><span class="dv">1</span><span class="op">-</span>depart<span class="op">+</span>j<span class="op">]</span> <span class="op">!=</span> j<span class="op">-</span>plus_a_gauche<span class="op">)</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>            suffixe<span class="op">[</span>j<span class="op">]</span> <span class="op">=</span> MIN<span class="op">(</span>suffixe<span class="op">[</span>n<span class="op">-</span><span class="dv">1</span><span class="op">-</span>depart<span class="op">+</span>j<span class="op">],</span> j<span class="op">-</span>plus_a_gauche<span class="op">);</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>            plus_a_gauche <span class="op">=</span> MIN<span class="op">(</span>plus_a_gauche<span class="op">,</span> j<span class="op">);</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>            depart <span class="op">=</span> j<span class="op">;</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">while</span> <span class="op">(</span>plus_a_gauche <span class="op">&gt;=</span><span class="dv">0</span> </span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>                    <span class="op">&amp;&amp;</span> x<span class="op">[</span>plus_a_gauche<span class="op">]</span> <span class="op">==</span> x<span class="op">[</span>n<span class="op">-</span><span class="dv">1</span><span class="op">-</span>j<span class="op">+</span>plus_a_gauche<span class="op">])</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>                plus_a_gauche<span class="op">--;</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>            suffixe<span class="op">[</span>j<span class="op">]</span> <span class="op">=</span> depart <span class="op">-</span> plus_a_gauche<span class="op">;</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> suffixe<span class="op">;</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-93"></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calcule_suffixe(x):</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Prend en entrée un mot non vide x et renvoie son tableau de suffixe&#39;&#39;&#39;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(x)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    suffixe <span class="op">=</span> [ <span class="va">None</span> ] <span class="op">*</span> n</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    suffixe[n<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> n</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    plus_a_gauche <span class="op">=</span> n<span class="op">-</span><span class="dv">1</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    depart <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">reversed</span>(<span class="bu">range</span>(<span class="dv">0</span>,n<span class="op">-</span><span class="dv">1</span>)):</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> plus_a_gauche <span class="op">&lt;</span> j <span class="kw">and</span> suffixe[n<span class="op">-</span><span class="dv">1</span><span class="op">-</span>depart<span class="op">+</span>j] <span class="op">!=</span> j<span class="op">-</span>plus_a_gauche:</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>            suffixe[j] <span class="op">=</span> <span class="bu">min</span>(suffixe[n<span class="op">-</span><span class="dv">1</span><span class="op">-</span>depart<span class="op">+</span>j],j<span class="op">-</span>plus_a_gauche)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>            plus_a_gauche <span class="op">=</span> <span class="bu">min</span>(plus_a_gauche, j)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>            depart <span class="op">=</span> j</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">while</span> plus_a_gauche <span class="op">&gt;=</span> <span class="dv">0</span> <span class="op">\</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">and</span> x[plus_a_gauche] <span class="op">==</span> x[n<span class="op">-</span><span class="dv">1</span><span class="op">-</span>j<span class="op">+</span>plus_a_gauche]:</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>                plus_a_gauche <span class="op">=</span> plus_a_gauche <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>            suffixe[j] <span class="op">=</span> depart <span class="op">-</span> plus_a_gauche</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> suffixe</span></code></pre></div>
+<p></div> </div></p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Cette implémentation est optimisée par rapport à la description précédente en calculant directement sans introduire <span class="math inline">\(i\)</span> ou <span class="math inline">\(k\)</span>, et en fusionnant deux cas qui reviennent à dupliquer du code.</p>
+<p>On donne ici le code maladroit qui correspond à la traduction exacte de la description précédente :</p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-98">ocaml</a>   <a class="item" data-tab="c-98">c</a>   <a class="item" data-tab="python-98">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-98"></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> calcule_suffixe_rep (x:<span class="dt">string</span>) : <span class="dt">int</span> <span class="dt">array</span> =</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">(* Prend en entrée un mot non vide x et renvoie son tableau de suffixe *)</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n = <span class="dt">String</span>.length x <span class="kw">in</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> suffixe = <span class="dt">Array</span>.make n <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    suffixe.(n<span class="dv">-1</span>) &lt;- n;</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> plus_a_gauche = <span class="dt">ref</span> (n<span class="dv">-1</span>) <span class="kw">in</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> depart = <span class="dt">ref</span> (<span class="dv">-1</span>) <span class="kw">in</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> j = n<span class="dv">-2</span> <span class="kw">downto</span> <span class="dv">0</span> <span class="kw">do</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> !plus_a_gauche &lt; j</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">then</span> <span class="kw">begin</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>            <span class="co">(* on a j = depart - i avec *)</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>            <span class="kw">let</span> i = !depart - j <span class="kw">in</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>            <span class="co">(* et plus_a_gauche = depart - k avec *)</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>            <span class="kw">let</span> k = !depart - !plus_a_gauche <span class="kw">in</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span> suffixe.(n<span class="dv">-1</span>-i) &lt;&gt; k-i</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>            <span class="kw">then</span> suffixe.(j) &lt;- <span class="dt">min</span> suffixe.(n<span class="dv">-1</span>-i) (k-i)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>            <span class="kw">else</span> <span class="kw">begin</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>                depart := j;</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>                <span class="kw">while</span> !plus_a_gauche &gt;= <span class="dv">0</span> </span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>                    &amp;&amp; x.[!plus_a_gauche] = x.[n<span class="dv">-1</span>-j + !plus_a_gauche] <span class="kw">do</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>                    plus_a_gauche := !plus_a_gauche - <span class="dv">1</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>                <span class="kw">done</span>;</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>                suffixe.(j) &lt;- !depart - !plus_a_gauche</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>            <span class="kw">end</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>        <span class="kw">end</span> <span class="kw">else</span> <span class="kw">begin</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>            plus_a_gauche := j;</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>            depart := j;</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>            <span class="kw">while</span> !plus_a_gauche &gt;= <span class="dv">0</span> </span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>                &amp;&amp; x.[!plus_a_gauche] = x.[n<span class="dv">-1</span>-j + !plus_a_gauche] <span class="kw">do</span></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>                plus_a_gauche := !plus_a_gauche - <span class="dv">1</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>            <span class="kw">done</span>;</span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>            suffixe.(j) &lt;- !depart - !plus_a_gauche</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>        <span class="kw">end</span></span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>    suffixe</span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-98"></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* Calcule le tableau suffixe associé au mot x</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * le tableau renvoyé a été alloué, il devra être libéré après utilisation */</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> <span class="op">*</span>calcule_suffixe_rep<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>x<span class="op">)</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> n <span class="op">=</span> strlen<span class="op">(</span>x<span class="op">);</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> <span class="op">*</span>suffixe <span class="op">=</span> malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span><span class="dt">int</span><span class="op">)</span> <span class="op">*</span> n<span class="op">);</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> plus_a_gauche <span class="op">=</span> n<span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> depart <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    memset<span class="op">(</span>suffixe<span class="op">,</span> <span class="op">-</span><span class="dv">1</span><span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span><span class="dt">int</span><span class="op">)</span> <span class="op">*</span> n<span class="op">);</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    suffixe<span class="op">[</span>n<span class="op">-</span><span class="dv">1</span><span class="op">]</span> <span class="op">=</span> n<span class="op">;</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> j <span class="op">=</span> n<span class="op">-</span><span class="dv">2</span><span class="op">;</span> j <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">;</span> j<span class="op">--)</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>plus_a_gauche <span class="op">&lt;</span> j<span class="op">)</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>            <span class="co">// on a j = depart - i avec</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>            <span class="dt">int</span> i <span class="op">=</span> depart <span class="op">-</span> j<span class="op">;</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>            <span class="co">// et plus_a_gauche = depart -k avec</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>            <span class="dt">int</span> k <span class="op">=</span> depart <span class="op">-</span> plus_a_gauche<span class="op">;</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>suffixe<span class="op">[</span>n<span class="op">-</span><span class="dv">1</span><span class="op">-</span>i<span class="op">]</span> <span class="op">!=</span> k<span class="op">-</span>i<span class="op">)</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>                suffixe<span class="op">[</span>j<span class="op">]</span> <span class="op">=</span> MIN<span class="op">(</span>suffixe<span class="op">[</span>n<span class="op">-</span><span class="dv">1</span><span class="op">-</span>i<span class="op">],</span> k<span class="op">-</span>i<span class="op">);</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>                depart <span class="op">=</span> j<span class="op">;</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>                <span class="cf">while</span> <span class="op">(</span>plus_a_gauche <span class="op">&gt;=</span><span class="dv">0</span> </span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>                        <span class="op">&amp;&amp;</span> x<span class="op">[</span>plus_a_gauche<span class="op">]</span> <span class="op">==</span> x<span class="op">[</span>n<span class="op">-</span><span class="dv">1</span><span class="op">-</span>j<span class="op">+</span>plus_a_gauche<span class="op">])</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>                    plus_a_gauche<span class="op">--;</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>                suffixe<span class="op">[</span>j<span class="op">]</span> <span class="op">=</span> depart <span class="op">-</span> plus_a_gauche<span class="op">;</span></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>            plus_a_gauche <span class="op">=</span> depart <span class="op">=</span> j<span class="op">;</span></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>            <span class="cf">while</span> <span class="op">(</span>plus_a_gauche <span class="op">&gt;=</span><span class="dv">0</span> </span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>                    <span class="op">&amp;&amp;</span> x<span class="op">[</span>plus_a_gauche<span class="op">]</span> <span class="op">==</span> x<span class="op">[</span>n<span class="op">-</span><span class="dv">1</span><span class="op">-</span>j<span class="op">+</span>plus_a_gauche<span class="op">])</span></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>                plus_a_gauche<span class="op">--;</span></span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>            suffixe<span class="op">[</span>j<span class="op">]</span> <span class="op">=</span> depart <span class="op">-</span> plus_a_gauche<span class="op">;</span></span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> suffixe<span class="op">;</span></span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-98"></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calcule_suffixe_rep(x):</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Prend en entrée un mot non vide x et renvoie son tableau de suffixe&#39;&#39;&#39;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(x)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    suffixe <span class="op">=</span> [ <span class="va">None</span> ] <span class="op">*</span> n</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    suffixe[n<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> n</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    plus_a_gauche <span class="op">=</span> n<span class="op">-</span><span class="dv">1</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    depart <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">reversed</span>(<span class="bu">range</span>(<span class="dv">0</span>,n<span class="op">-</span><span class="dv">1</span>)):</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> plus_a_gauche <span class="op">&lt;</span> j:</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>            <span class="co"># on a j = depart - i avec</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>            i <span class="op">=</span> depart <span class="op">-</span> j</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>            <span class="co"># et plus_a_gauche = depart - k avec</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>            k <span class="op">=</span> depart <span class="op">-</span> plus_a_gauche</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> suffixe[n<span class="op">-</span><span class="dv">1</span><span class="op">-</span>i] <span class="op">!=</span> k<span class="op">-</span>i:</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>                suffixe[j] <span class="op">=</span> <span class="bu">min</span>(suffixe[n<span class="op">-</span><span class="dv">1</span><span class="op">-</span>i],k<span class="op">-</span>i)</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>                depart <span class="op">=</span> j</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>                <span class="cf">while</span> plus_a_gauche <span class="op">&gt;=</span> <span class="dv">0</span> <span class="op">\</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>                        <span class="kw">and</span> x[plus_a_gauche] <span class="op">==</span> x[n<span class="op">-</span><span class="dv">1</span><span class="op">-</span>j<span class="op">+</span>plus_a_gauche]:</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>                    plus_a_gauche <span class="op">=</span> plus_a_gauche <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>                suffixe[j] <span class="op">=</span> depart <span class="op">-</span> plus_a_gauche</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>            plus_a_gauche <span class="op">=</span> depart <span class="op">=</span> j</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">while</span> plus_a_gauche <span class="op">&gt;=</span> <span class="dv">0</span> <span class="op">\</span></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">and</span> x[plus_a_gauche] <span class="op">==</span> x[n<span class="op">-</span><span class="dv">1</span><span class="op">-</span>j<span class="op">+</span>plus_a_gauche]:</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>                plus_a_gauche <span class="op">=</span> plus_a_gauche <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>            suffixe[j] <span class="op">=</span> depart <span class="op">-</span> plus_a_gauche</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> suffixe</span></code></pre></div>
+<p></div> </div></div></p>
+<p>On remarque que dans ce code, <code>plus_a_gauche</code> ne peut que diminuer, on effectue donc au plus <span class="math inline">\(n\)</span> itérations dans la boucle <code>while</code> pour tout l’algorithme. Donc, en considérant la boucle <code>for</code>, on effectue au plus <span class="math inline">\(2n\)</span> comparaisons de caractères : au plus une pour chaque itération de la boucle <code>for</code> pour voir si on entre dans le <code>while</code>, puis en tout au plus <span class="math inline">\(n\)</span> avant de sortir du <code>while</code>.</p>
+<p>L’algorithme qu’on a obtenue est bien linéaire en <span class="math inline">\(|x|\)</span>.</p>
+<h4 data-number="1.3.3.3" id="sec:obtention-de-bonsuffixe-à-partir-de-suffixe"><span class="header-section-number">1.3.3.3</span> Obtention de <code>bonsuffixe</code> à partir de <code>suffixe</code></h4>
+<p>On reprend maintenant le calcul de <code>bonsuffixe[i]</code> dans le mot <span class="math inline">\(x = x_0 \dots x_{n-1}\)</span>.</p>
+<p>On cherche à obtenir des suffixe de la forme <span class="math inline">\(b u v\)</span> de <span class="math inline">\(x\)</span> où <span class="math inline">\(b \neq x_i\)</span> et <span class="math inline">\(u = x_{i+1} \dots x_{n-1}\)</span> est un suffixe de <span class="math inline">\(x\)</span>. Mais si <code>suffixe[k]</code><span class="math inline">\(=n-1-i\)</span> cela signifie que ce suffixe est exactement <span class="math inline">\(u\)</span> et qu’il est soit préfixe, soit précédé d’une lettre différente de <span class="math inline">\(x_i\)</span>, sinon <span class="math inline">\(n-1-i\)</span> ne serait pas maximal.</p>
+<p>On a donc <span class="math display">\[
+\begin{array}{rcl}
+\texttt{bonsuffixe}[n-1-i] &amp; = &amp; \min \enscomp{n-1-k}{\texttt{suffixe}[k] =
+n-1-i} \\ &amp; = &amp; n -1 - \max \enscomp{k}{\texttt{suffixe}[k] = n-1-i}
+\end{array}
+\]</span> On remarque qu’on peut ainsi faire croitre <span class="math inline">\(k\)</span> et poser : <span class="math display">\[\texttt{bonsuffixe}[n-1-\texttt{suffixe}[k]] = n-1-k\]</span> On a aura alors naturellement, à la fin de la boucle, la valeur minimale placée en dernier.</p>
+<p>Reste à considérer les valeurs non remplies ainsi dans le tableau <code>bonsuffixe</code>. Elles correspondent aux positions <span class="math inline">\(i\)</span> telles qu’il n’existe pas de suffixe de la forme <span class="math inline">\(b u v\)</span>. On doit donc chercher un mot <span class="math inline">\(uv\)</span> de longueur minimale dont <span class="math inline">\(x\)</span> est suffixe. Mais <span class="math inline">\(u\)</span> étant un suffixe de <span class="math inline">\(x\)</span>, cela revient à considérer les bords de <span class="math inline">\(x\)</span>. La table <code>suffixe</code> permet également de détecter les bords : si <span class="math inline">\(x_0 ... x_k\)</span> est un bord c’est que <code>suffixe[k]</code><span class="math inline">\(=k+1\)</span>.</p>
+<p>Soit <span class="math inline">\(k &lt; n-1\)</span> maximal vérifiant cette condition. Pour tout <span class="math inline">\(u = x_{i+1} \dots x_n\)</span> suffixe de <span class="math inline">\(x\)</span>, pour qu’il ait <span class="math inline">\(x_0 \dots x_k\)</span> comme suffixe, il faut qu’il soit strictement plus long (sinon on est dans le cas précédent), donc que <span class="math inline">\(n-i &gt; k+1 \iff i &lt; n-1-k\)</span>. Dans ce cas, <span class="math inline">\(x\)</span> est alors suffixe de <span class="math inline">\(u v\)</span> où <span class="math inline">\(v = x_{k+1} \dots x_{n-1}\)</span> donc <span class="math inline">\(|v|=n-1-k\)</span>. Les <span class="math inline">\(k\)</span> plus petits ne pourront alors que faire augmenter <span class="math inline">\(|v|\)</span>, on peut ainsi poser <code>bonsuffixe[i]</code><span class="math inline">\(=n-1-k\)</span>.</p>
+<p>On en déduit un remplissage en parcourant les <span class="math inline">\(k\)</span> dans l’ordre décroissant de <span class="math inline">\(n-2\)</span> à <span class="math inline">\(0\)</span>, tout en maintenant l’indice <span class="math inline">\(i\)</span> de la prochaine valeur à remplir dans <code>bonsuffixe</code>. Dès qu’on détecte un bord, on place <span class="math inline">\(n-1-k\)</span> jusqu’à ce que <span class="math inline">\(i \ge n-1-k\)</span>.</p>
+<p>En sortie de boucle, il est possible que <span class="math inline">\(i &lt; n\)</span> donc qu’il reste des valeurs à remplir. On remarque dans ce cas là que pour que <span class="math inline">\(x\)</span> soit un suffixe de <span class="math inline">\(u v\)</span> il faut que <span class="math inline">\(v = x\)</span>. On a donc pour ces valeurs restantes <code>bonsuffixe[i]</code><span class="math inline">\(=n\)</span>.</p>
+<p>Comme ce second cas est toujours plus long que le premier quand les deux se produisent en <span class="math inline">\(i\)</span>, on implémente successivement les remplissages de sorte à obtenir la valeur minimum. On en déduit le programme suivant :</p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-106">ocaml</a>   <a class="item" data-tab="c-106">c</a>   <a class="item" data-tab="python-106">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-106"></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> calcule_bonsuffixe (x:<span class="dt">string</span>) : <span class="dt">int</span> <span class="dt">array</span> =</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">(* Prend en entrée un mot non vide x et renvoie son tableau de suffixe *)</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n = <span class="dt">String</span>.length x <span class="kw">in</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> suffixe = calcule_suffixe x <span class="kw">in</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> bonsuffixe = <span class="dt">Array</span>.make n n <span class="kw">in</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> suivant = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> k = n<span class="dv">-2</span> <span class="kw">downto</span> <span class="dv">0</span> <span class="kw">do</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> suffixe.(k) = k+<span class="dv">1</span> <span class="co">(* c&#39;est un bord *)</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">then</span> <span class="kw">begin</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>            <span class="kw">for</span> i = !suivant <span class="kw">to</span> n<span class="dv">-2</span>-k <span class="kw">do</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>                bonsuffixe.(i) &lt;- n<span class="dv">-1</span>-k</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>            <span class="kw">done</span>;</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>            suivant := n<span class="dv">-1</span>-k</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>        <span class="kw">end</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> k = <span class="dv">0</span> <span class="kw">to</span> n<span class="dv">-2</span> <span class="kw">do</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>        bonsuffixe.(n<span class="dv">-1</span>-suffixe.(k)) &lt;- n<span class="dv">-1</span>-k</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>    bonsuffixe</span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-106"></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* Calcule le tableau suffixe associé au mot x</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * le tableau renvoyé a été alloué, il devra être libéré après utilisation */</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> <span class="op">*</span>calcule_bonsuffixe<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>x<span class="op">)</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> n <span class="op">=</span> strlen<span class="op">(</span>x<span class="op">);</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> <span class="op">*</span>suffixe <span class="op">=</span> calcule_suffixe<span class="op">(</span>x<span class="op">);</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> <span class="op">*</span>bonsuffixe <span class="op">=</span> malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span><span class="dt">int</span><span class="op">)</span> <span class="op">*</span> n<span class="op">);</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> suivant <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    memset<span class="op">(</span>bonsuffixe<span class="op">,</span> n<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span><span class="dt">int</span><span class="op">)</span> <span class="op">*</span> n<span class="op">);</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> k <span class="op">=</span> n<span class="op">-</span><span class="dv">2</span><span class="op">;</span> k <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">;</span> k<span class="op">--)</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>suffixe<span class="op">[</span>k<span class="op">]</span> <span class="op">==</span> k<span class="op">+</span><span class="dv">1</span><span class="op">)</span> <span class="co">// bord</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> suivant<span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">-</span><span class="dv">1</span><span class="op">-</span>k<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>                bonsuffixe<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> n<span class="op">-</span><span class="dv">1</span><span class="op">-</span>k<span class="op">;</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>            suivant <span class="op">=</span> n<span class="op">-</span><span class="dv">1</span><span class="op">-</span>k<span class="op">;</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> k <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> k <span class="op">&lt;</span> n<span class="op">-</span><span class="dv">1</span><span class="op">;</span> k<span class="op">++)</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>        bonsuffixe<span class="op">[</span>n<span class="op">-</span><span class="dv">1</span><span class="op">-</span>suffixe<span class="op">[</span>k<span class="op">]]</span> <span class="op">=</span> n<span class="op">-</span><span class="dv">1</span><span class="op">-</span>k<span class="op">;</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>    free<span class="op">(</span>suffixe<span class="op">);</span></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> bonsuffixe<span class="op">;</span></span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-106"></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calcule_bonsuffixe(x):</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Prend en entrée un mot non vide x et renvoie son tableau de suffixe&#39;&#39;&#39;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(x)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    suffixe <span class="op">=</span> calcule_suffixe(x)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    bonsuffixe <span class="op">=</span> [ n ] <span class="op">*</span> n</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    suivant <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">reversed</span>(<span class="bu">range</span>(<span class="dv">0</span>,n<span class="op">-</span><span class="dv">1</span>)):</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> suffixe[k] <span class="op">==</span> k<span class="op">+</span><span class="dv">1</span>: <span class="co"># c&#39;est un bord</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(suivant,n<span class="op">-</span><span class="dv">1</span><span class="op">-</span>k):</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>                bonsuffixe[i] <span class="op">=</span> n<span class="op">-</span><span class="dv">1</span><span class="op">-</span>k</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>            suivant <span class="op">=</span> n<span class="op">-</span><span class="dv">1</span><span class="op">-</span>k</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,n<span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>        bonsuffixe[n<span class="op">-</span><span class="dv">1</span><span class="op">-</span>suffixe[k]] <span class="op">=</span> n<span class="op">-</span><span class="dv">1</span><span class="op">-</span>k</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> bonsuffixe</span></code></pre></div>
+<p></div> </div></p>
+<p>Il est facile de constater que cet algorithme est de complexité temporelle linéaire en <span class="math inline">\(|x|\)</span>.</p>
+<h4 data-number="1.3.3.4" id="sec:algorithme-de-boyer-moore-1"><span class="header-section-number">1.3.3.4</span> Algorithme de Boyer-Moore</h4>
+<p>On incorpore naturellement la table precédente à l’algorithme de Boyer-Moore en choisissant le meilleur décalage entre cette table et la stratégie précédente.</p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-112">ocaml</a>   <a class="item" data-tab="c-112">c</a>   <a class="item" data-tab="python-112">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-112"></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> recherche_BM (motif:<span class="dt">string</span>) </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    (droite:<span class="dt">int</span> <span class="dt">option</span> <span class="dt">array</span>) (bonsuffixe:<span class="dt">int</span> <span class="dt">array</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    (chaine:<span class="dt">string</span>) : <span class="dt">int</span> <span class="dt">option</span> =</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n = <span class="dt">String</span>.length chaine <span class="kw">in</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> p = <span class="dt">String</span>.length motif <span class="kw">in</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> i = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">try</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">while</span> !i &lt;= n-p <span class="kw">do</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>            <span class="kw">try</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>                <span class="kw">for</span> j = p<span class="dv">-1</span> <span class="kw">downto</span> <span class="dv">0</span> <span class="kw">do</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">if</span> chaine.[!i+j] &lt;&gt; motif.[j]</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">then</span> <span class="kw">begin</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>                        <span class="kw">let</span> dec =  <span class="kw">match</span> droite.(<span class="dt">Char</span>.code chaine.[!i+j]) <span class="kw">with</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>                                | <span class="dt">None</span> -&gt; j+<span class="dv">1</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>                                | <span class="dt">Some</span> k <span class="kw">when</span> k &lt; j -&gt; j-k</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>                                | _ -&gt; <span class="dv">1</span> <span class="kw">in</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>                        i := !i + <span class="dt">max</span> dec bonsuffixe.(j);</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>                        <span class="dt">raise</span> Difference</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">end</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>                <span class="kw">done</span>;</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>                <span class="dt">raise</span> (Trouve !i)</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>            <span class="kw">with</span> Difference -&gt; ()</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>;</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>        <span class="dt">None</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">with</span> Trouve k -&gt; <span class="dt">Some</span> k</span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-112"></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* cherche motif dans chaine en utilisant les tables de saut précalculées</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * droite et bonsuffixe. Renvoie l&#39;indice de la première occurrence ou -1 s&#39;il n&#39;est pas</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * présent */</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> recherche_BM<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>motif<span class="op">,</span> <span class="dt">int</span> <span class="op">*</span>droite<span class="op">,</span> <span class="dt">int</span> <span class="op">*</span>bonsuffixe<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>chaine<span class="op">)</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> n <span class="op">=</span> strlen<span class="op">(</span>chaine<span class="op">);</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> p <span class="op">=</span> strlen<span class="op">(</span>motif<span class="op">);</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;=</span> n<span class="op">-</span>p<span class="op">;</span> <span class="op">)</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>        <span class="dt">bool</span> present <span class="op">=</span> true<span class="op">;</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> j <span class="op">=</span> p<span class="op">-</span><span class="dv">1</span><span class="op">;</span> j <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">;</span> j<span class="op">--)</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>chaine<span class="op">[</span>i<span class="op">+</span>j<span class="op">]</span> <span class="op">!=</span> motif<span class="op">[</span>j<span class="op">])</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>                <span class="dt">int</span> k <span class="op">=</span> droite<span class="op">[</span>chaine<span class="op">[</span>i<span class="op">+</span>j<span class="op">]];</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>                <span class="dt">int</span> dec <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>                present <span class="op">=</span> false<span class="op">;</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="op">(</span>k <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>                    dec <span class="op">=</span> j <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>                <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>k <span class="op">&lt;</span> j<span class="op">)</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>                    dec <span class="op">=</span> j <span class="op">-</span> k<span class="op">;</span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>                i <span class="op">=</span> i <span class="op">+</span> MAX<span class="op">(</span>dec<span class="op">,</span> bonsuffixe<span class="op">[</span>j<span class="op">]);</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>present<span class="op">)</span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> i<span class="op">;</span></span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-112"></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> recherche_BM(motif, droite, bonsuffixe, chaine):</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Cherche motif dans chaine en utilisant les tables de sauts</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">    droite et bonsuffixe&#39;&#39;&#39;</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    n, p <span class="op">=</span> <span class="bu">len</span>(chaine), <span class="bu">len</span>(motif)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    i <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> i <span class="op">&lt;=</span> n<span class="op">-</span>p:</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>        present <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">reversed</span>(<span class="bu">range</span>(p)):</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> chaine[i<span class="op">+</span>j] <span class="op">!=</span> motif[j]:</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>                present <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>                k <span class="op">=</span> droite[<span class="bu">ord</span>(chaine[i<span class="op">+</span>j])]</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> k <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>                    dec <span class="op">=</span> j <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>                <span class="cf">elif</span> k <span class="op">&lt;</span> j:</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>                    dec <span class="op">=</span> j <span class="op">-</span> k</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>                <span class="cf">else</span>:</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>                    dec <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>                dec <span class="op">=</span> <span class="bu">max</span>(dec, bonsuffixe[j])</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>                i <span class="op">=</span> i <span class="op">+</span> dec</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> present:</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> i</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">None</span></span></code></pre></div>
+<p></div> </div></p>
+<p>Supposons que le motif est de longueur <span class="math inline">\(p\)</span>, que la chaîne dans laquelle on recherche est de longueur <span class="math inline">\(n\)</span> et que la taille de l’alphabet est une constante indépendante des entrées. La première partie de l’algorithme consiste à construire les tables de sauts, comme on l’a vu, elle est en complexité en temps et en espace en pire cas en <span class="math inline">\(O(p)\)</span>.</p>
+<p>On admet que l’algorithme Boyer-Moore complet, étant donné les deux tables de saut, est en complexité temporelle en pire cas en <span class="math inline">\(O(n)\)</span>.</p>
+<p>Il est assez raisonnable de penser que soit <span class="math inline">\(p \le n\)</span> quand on effectue une recherche, soit on compte chercher un même motif dans plusieurs textes et on réutilise ainsi les tables de sauts. Il n’est donc pas forcément très pertinent de parler de la complexité globale de l’algorithme, mais lorsqu’on le fait, on dit qu’elle est en <span class="math inline">\(O(p+n)\)</span>. On rappelle ici le rôle de l’addition dans les complexités qui fait référence à la succession de deux traitements, un en <span class="math inline">\(O(p)\)</span> suivi d’un en <span class="math inline">\(O(n)\)</span>.</p>
+<h2 data-number="1.4" id="sec:algorithme-de-rabin-karp"><span class="header-section-number">1.4</span> Algorithme de Rabin-Karp</h2>
+<h3 data-number="1.4.1" id="sec:principe"><span class="header-section-number">1.4.1</span> Principe</h3>
 <p>L’algorithme de Rabin-Karp est un algorithme de recherche d’un motif dans un texte qui utilise une notion d’empreinte pour déterminer, en temps constant, si il est probable que la position actuelle corresponde à une occurrence du motif.</p>
 <p>Pour cela, si on cherche un motif de longueur <span class="math inline">\(p\)</span> sur l’alphabet <span class="math inline">\(\Sigma\)</span>, on considère une <strong>fonction de hachage</strong> <span class="math inline">\(h : \Sigma^p \rightarrow X\)</span>. Les éléments de l’ensemble <span class="math inline">\(X\)</span> sont appelés des empreintes et on suppose que l’égalité entre deux empreintes se vérifie en temps constant contrairement à l’égalité dans <span class="math inline">\(\Sigma^p\)</span> qui se vérifie en <span class="math inline">\(O(p)\)</span> dans le pire des cas. Le plus souvent, on choisit pour <span class="math inline">\(X\)</span> un type entier machine.</p>
 <p><div class="ui message blue"><div class="header">Note</div>Sûrement mettre ici des renvois vers la partie portant le plus sur la notion de fonction de hachage pour la définition la plus complète.</div></p>
 <p>Bien qu’il soit normalement aussi coûteux de calculer l’image par <span class="math inline">\(h\)</span> d’une sous-chaîne de longueur <span class="math inline">\(p\)</span> que de tester l’égalité entre cette sous-chaîne et le motif, le point essentiel de l’algorithme de Rabin-Karp est d’utiliser une fonction de hachage permettant un calcul incrémental en temps constant :</p>
-<p><center></p>
-<p><img src="assets/pics/calcul_hachage_incremental.png" /></p>
-<p></center></p>
+<p><center><img src="assets/pics/calcul_hachage_incremental.png" /> </center></p>
 <p>Ici, on considère donc, pour <span class="math inline">\(a, b \in \Sigma\)</span>, une fonction de mise à jour <span class="math inline">\(\delta_{a,b} : X \rightarrow X\)</span> telle que pour tout <span class="math inline">\(c_2,\dots,c_p \in \Sigma\)</span> on ait <span class="math inline">\(\delta_{a,b}(h(ac_2 \dots c_p)) = h(c_2\dots c_p b)\)</span>.</p>
 <p>L’algorithme de Rabin-Karp procède alors ainsi pour chercher <span class="math inline">\(m\)</span> de longueur <span class="math inline">\(p\)</span> dans la chaîne <span class="math inline">\(s = c_0 \dots c_{n-1}\)</span> où <span class="math inline">\(n \ge p\)</span> :</p>
 <ul>
@@ -318,7 +1122,7 @@ table td {
 </ul></li>
 </ul>
 <p>La complexité temporelle liée à la gestion des empreintes est donc en <span class="math inline">\(O(n+p) = O(n)\)</span> car <span class="math inline">\(n \ge p\)</span>. Par contre, pour calculer la complexité liée à la recherche <span class="math inline">\(m = c_i \dots c_{i+p-1}\)</span>, il est nécessaire d’estimer la proportion de faux positifs, c’est-à-dire de positions <span class="math inline">\(i\)</span> telles que <span class="math inline">\(e_m = e\)</span> mais <span class="math inline">\(m \neq c_i \dots c_{i+p-1}\)</span>. On va voir dans la partie suivante qu’on peut supposer qu’elle est négligeable, ce qui permet de considérer que l’algorithme de Rabin-Karp est linéaire.</p>
-<h3 data-number="1.3.2" id="sec:choix-dune-fonction-de-hachage"><span class="header-section-number">1.3.2</span> Choix d’une fonction de hachage</h3>
+<h3 data-number="1.4.2" id="sec:choix-dune-fonction-de-hachage"><span class="header-section-number">1.4.2</span> Choix d’une fonction de hachage</h3>
 <p>Réaliser une bonne fonction de hachage est une question très complexe qui dépasse le cadre du cours d’informatique de MPI. Cependant, il est possible de réaliser ici une fonction de hachage répondant aux contraintes de Rabin-Karp assez facilement.</p>
 <p>Pour cela, on considère que les caractères sont des entiers compris entre 0 et 255, ce qui correspond au type des caractères non signés sur un octet. On peut alors identifier une chaîne de longueur <span class="math inline">\(p\)</span> avec un nombre entre <span class="math inline">\(0\)</span> et <span class="math inline">\(r^{p} - 1\)</span> où <span class="math inline">\(r =2^8\)</span>, on note ainsi <span class="math display">\[
 P(c_0\dots c_{p-1}) = \sum_{i=0}^{p-1}
@@ -328,156 +1132,164 @@ c_i r^{p-1-i} = c_0 r^{p-1} + c_1 r^{p-2} + \dots + c_{p-1}
 <p>Si on précalcule <span class="math inline">\(r^{p-1} \mod q\)</span> il suffit d’un nombre d’opération constant, et indépendant de <span class="math inline">\(p\)</span>, pour calculer la nouvelle empreinte à l’aide de <span class="math inline">\(\delta_{a,b}\)</span>.</p>
 <p>Le point essentiel est alors de déterminer un nombre premier <span class="math inline">\(q\)</span> tel qu’il soit peu probable d’obtenir des faux positifs. Une analyse mathématique permet d’affirmer que chaque élément de <span class="math inline">\([|0;q-1|]\)</span> a de l’ordre de <span class="math inline">\(\frac{r^p}{q}\)</span> antécédents par <span class="math inline">\(h\)</span>. Ainsi, si on choisit deux chaînes aléatoirement dans <span class="math inline">\(\Sigma^p\)</span>, il y aura collision avec probabilité proche de <span class="math inline">\(\frac{1}{q}\)</span>. En considérant <span class="math inline">\(q\)</span> proche de la taille maximale pour le type entier considéré, on minimise donc cette probabilité.</p>
 <p><div class="ui message orange"><div class="header">Remarque</div>On peut également s’intéresser à des nombres <span class="math inline">\(q\)</span> pour lesquels le modulo soit rapide à calculer. Un exemple classique est <span class="math inline">\(q = 2^{31} - 1\)</span> car on peut déduire la division euclidienne de <span class="math inline">\(a\)</span> par <span class="math inline">\(q\)</span> de l’écriture de <span class="math inline">\(a\)</span> en base <span class="math inline">\(2^{31}\)</span>. En effet, si <span class="math inline">\(a = \sum_{k=0}^n a_k 2^{31k}\)</span> comme <span class="math inline">\(2^{31}-1 | 2^{31k} - 1\)</span> pour <span class="math inline">\(k \ge 1\)</span>, on a <span class="math inline">\(2^{31k} \equiv 1 ~[q]\)</span> et ainsi <span class="math inline">\(a \equiv \sum_{k=0}^n a_k [q]\)</span>. On remarque que <span class="math inline">\(a_k = (a &gt;&gt; 31k) \&amp; 2^{31}\)</span>, on a alors soit <span class="math inline">\(a_k &lt; q\)</span> et alors <span class="math inline">\(a_k \mod q = a_k\)</span>, soit <span class="math inline">\(a_k = q\)</span> et <span class="math inline">\(a_k \mod q = 0\)</span>. Il suffit donc de faire un masquage pour obtenir directement <span class="math inline">\(a_k \mod q = (a &gt;&gt; 31k) \&amp; q\)</span>.</p>
-<p>On obtient alors le programme suivant : <div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-40">ocaml</a>   <a class="item" data-tab="c-40">c</a>   <a class="item" data-tab="python-40">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-40"></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> fastmod a =</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> s = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> x = <span class="dt">ref</span> a <span class="kw">in</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> q = <span class="bn">0x7fffffff</span> <span class="kw">in</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">while</span> !x &gt; <span class="dv">0</span> <span class="kw">do</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        s := !s + (!x <span class="kw">land</span> q);</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        x := !x <span class="kw">lsr</span> <span class="dv">31</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> !s &gt; q</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> fastmod !s</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> <span class="kw">if</span> !s = q</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> <span class="dv">0</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> !s</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-40"></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int64_t</span> fastmod<span class="op">(</span><span class="dt">int64_t</span> a<span class="op">)</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int64_t</span> s <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> <span class="dt">int64_t</span> q <span class="op">=</span> <span class="bn">0x7fffffff</span><span class="op">;</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>a <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        s <span class="op">=</span> s <span class="op">+</span> a <span class="op">&amp;</span> q<span class="op">;</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        a <span class="op">=</span> a <span class="op">&gt;&gt;</span> <span class="dv">31</span><span class="op">;</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>s <span class="op">&gt;</span> q<span class="op">)</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fastmod<span class="op">(</span>s<span class="op">);</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>s <span class="op">==</span> q<span class="op">)</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s<span class="op">;</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-40"></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fastmod(a):</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    q <span class="op">=</span> <span class="bn">0x7fffffff</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> a <span class="op">&gt;</span> <span class="dv">0</span>:</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        s <span class="op">=</span> s <span class="op">+</span> a <span class="op">&amp;</span> q</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        a <span class="op">=</span> a <span class="op">&gt;&gt;</span> <span class="dv">31</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> s <span class="op">&gt;</span> q:</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fastmod(s)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> s <span class="op">==</span> q:</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s</span></code></pre></div>
+<p>On obtient alors le programme suivant : <div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-120">ocaml</a>   <a class="item" data-tab="c-120">c</a>   <a class="item" data-tab="python-120">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-120"></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> fastmod a =</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> s = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> x = <span class="dt">ref</span> a <span class="kw">in</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> q = <span class="bn">0x7fffffff</span> <span class="kw">in</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">while</span> !x &gt; <span class="dv">0</span> <span class="kw">do</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>        s := !s + (!x <span class="kw">land</span> q);</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        x := !x <span class="kw">lsr</span> <span class="dv">31</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> !s &gt; q</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> fastmod !s</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> <span class="kw">if</span> !s = q</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> <span class="dv">0</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> !s</span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-120"></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int64_t</span> fastmod<span class="op">(</span><span class="dt">int64_t</span> a<span class="op">)</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int64_t</span> s <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> <span class="dt">int64_t</span> q <span class="op">=</span> <span class="bn">0x7fffffff</span><span class="op">;</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>a <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>        s <span class="op">=</span> s <span class="op">+</span> a <span class="op">&amp;</span> q<span class="op">;</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        a <span class="op">=</span> a <span class="op">&gt;&gt;</span> <span class="dv">31</span><span class="op">;</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>s <span class="op">&gt;</span> q<span class="op">)</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fastmod<span class="op">(</span>s<span class="op">);</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>s <span class="op">==</span> q<span class="op">)</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s<span class="op">;</span></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-120"></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fastmod(a):</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    q <span class="op">=</span> <span class="bn">0x7fffffff</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> a <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>        s <span class="op">=</span> s <span class="op">+</span> a <span class="op">&amp;</span> q</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>        a <span class="op">=</span> a <span class="op">&gt;&gt;</span> <span class="dv">31</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> s <span class="op">&gt;</span> q:</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fastmod(s)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> s <span class="op">==</span> q:</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s</span></code></pre></div>
 <p></div> </div> </div></p>
 <p>Le programme suivant implémente naïvement les calculs de <span class="math inline">\(h\)</span> et de <span class="math inline">\(\delta_{a,b}\)</span> :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-43">ocaml</a>   <a class="item" data-tab="c-43">c</a>   <a class="item" data-tab="python-43">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-43"></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> hash r q s =</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> p = <span class="dt">ref</span> <span class="dv">1</span> <span class="kw">in</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> e = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> i = <span class="dt">String</span>.length s - <span class="dv">1</span> <span class="kw">downto</span> <span class="dv">0</span> <span class="kw">do</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        e := (!p * (<span class="dt">Char</span>.code s.[i]) + !e) <span class="kw">mod</span> q;</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        p := (r * !p) <span class="kw">mod</span> q</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    !e</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> delta r q rp a b e = <span class="co">(* rp est r^(p-1) mod q *)</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    (r * (e - rp * (<span class="dt">Char</span>.code a)) + <span class="dt">Char</span>.code b) <span class="kw">mod</span> q</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-43"></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int64_t</span> hash<span class="op">(</span><span class="dt">int64_t</span> r<span class="op">,</span> <span class="dt">int64_t</span> q<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>s<span class="op">,</span> <span class="dt">int</span> n<span class="op">)</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int64_t</span> p <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int64_t</span> e <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> n<span class="op">-</span><span class="dv">1</span><span class="op">;</span> i <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">;</span> i<span class="op">--)</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        e <span class="op">=</span> <span class="op">(</span>p <span class="op">*</span> s<span class="op">[</span>i<span class="op">]</span> <span class="op">+</span> e<span class="op">)</span> <span class="op">%</span> q<span class="op">;</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> <span class="op">(</span>r <span class="op">*</span> p<span class="op">)</span> <span class="op">%</span> q<span class="op">;</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> e<span class="op">;</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="dt">int64_t</span> delta<span class="op">(</span><span class="dt">int64_t</span> r<span class="op">,</span> <span class="dt">int64_t</span> q<span class="op">,</span> <span class="dt">int64_t</span> rp<span class="op">,</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        <span class="dt">char</span> a<span class="op">,</span> <span class="dt">char</span> b<span class="op">,</span> <span class="dt">int64_t</span> e<span class="op">)</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">(</span>r <span class="op">*</span> <span class="op">(</span>e <span class="op">-</span> rp <span class="op">*</span> a<span class="op">)</span> <span class="op">+</span> b<span class="op">)</span> <span class="op">%</span> q<span class="op">;</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-43"></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="bu">hash</span>(r,q,s):</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    e <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">reversed</span>(s):</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        e <span class="op">=</span> (<span class="bu">ord</span>(c) <span class="op">*</span> p <span class="op">+</span> e) <span class="op">%</span> q</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> (r <span class="op">*</span> p) <span class="op">%</span> q</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> e</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> delta(r,q,rp,a,b,e):</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (r <span class="op">*</span> (e <span class="op">-</span> rp <span class="op">*</span> <span class="bu">ord</span>(a)) <span class="op">+</span> <span class="bu">ord</span>(b)) <span class="op">%</span> q</span></code></pre></div>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-123">ocaml</a>   <a class="item" data-tab="c-123">c</a>   <a class="item" data-tab="python-123">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-123"></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> hash r q s =</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> p = <span class="dt">ref</span> <span class="dv">1</span> <span class="kw">in</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> e = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> i = <span class="dt">String</span>.length s - <span class="dv">1</span> <span class="kw">downto</span> <span class="dv">0</span> <span class="kw">do</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>        e := (!p * (<span class="dt">Char</span>.code s.[i]) + !e) <span class="kw">mod</span> q;</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>        p := (r * !p) <span class="kw">mod</span> q</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    !e</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> delta r q rp a b e = <span class="co">(* rp est r^(p-1) mod q *)</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    (r * (e - rp * (<span class="dt">Char</span>.code a)) + <span class="dt">Char</span>.code b) <span class="kw">mod</span> q</span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-123"></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int64_t</span> hash<span class="op">(</span><span class="dt">int64_t</span> r<span class="op">,</span> <span class="dt">int64_t</span> q<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>s<span class="op">,</span> <span class="dt">int</span> n<span class="op">)</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int64_t</span> p <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int64_t</span> e <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> n<span class="op">-</span><span class="dv">1</span><span class="op">;</span> i <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">;</span> i<span class="op">--)</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>        e <span class="op">=</span> <span class="op">(</span>p <span class="op">*</span> s<span class="op">[</span>i<span class="op">]</span> <span class="op">+</span> e<span class="op">)</span> <span class="op">%</span> q<span class="op">;</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> <span class="op">(</span>r <span class="op">*</span> p<span class="op">)</span> <span class="op">%</span> q<span class="op">;</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> e<span class="op">;</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="dt">int64_t</span> delta<span class="op">(</span><span class="dt">int64_t</span> r<span class="op">,</span> <span class="dt">int64_t</span> q<span class="op">,</span> <span class="dt">int64_t</span> rp<span class="op">,</span></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>        <span class="dt">char</span> a<span class="op">,</span> <span class="dt">char</span> b<span class="op">,</span> <span class="dt">int64_t</span> e<span class="op">)</span></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">(</span>r <span class="op">*</span> <span class="op">(</span>e <span class="op">-</span> rp <span class="op">*</span> a<span class="op">)</span> <span class="op">+</span> b<span class="op">)</span> <span class="op">%</span> q<span class="op">;</span></span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-123"></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="bu">hash</span>(r,q,s):</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    e <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">reversed</span>(s):</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>        e <span class="op">=</span> (<span class="bu">ord</span>(c) <span class="op">*</span> p <span class="op">+</span> e) <span class="op">%</span> q</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> (r <span class="op">*</span> p) <span class="op">%</span> q</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> e</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> delta(r,q,rp,a,b,e):</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (r <span class="op">*</span> (e <span class="op">-</span> rp <span class="op">*</span> <span class="bu">ord</span>(a)) <span class="op">+</span> <span class="bu">ord</span>(b)) <span class="op">%</span> q</span></code></pre></div>
 <p></div> </div></p>
-<h2 data-number="1.4" id="sec:implémentation"><span class="header-section-number">1.4</span> Implémentation</h2>
+<h3 data-number="1.4.3" id="sec:implémentation"><span class="header-section-number">1.4.3</span> Implémentation</h3>
 <p>Une implémentation directe de l’algorithme de Rabin-Karp est donnée dans le programme qui suit. On se sert ici du caractère paresseux du <code>&amp;&amp;</code> pour n’effecuter le test coûteux d’égalité des chaînes qu’en cas d’égalité des empreintes.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-45">ocaml</a>   <a class="item" data-tab="c-45">c</a>   <a class="item" data-tab="python-45">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-45"></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">exception</span> Trouve <span class="kw">of</span> <span class="dt">int</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> rabin_karp m s =</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n = <span class="dt">String</span>.length s <span class="kw">in</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> p = <span class="dt">String</span>.length m <span class="kw">in</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> r = <span class="dv">256</span> <span class="kw">in</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> q = <span class="bn">0x7fffffff</span> <span class="kw">in</span> <span class="co">(* 2^(31)-1 *)</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> rp = pow r (p<span class="dv">-1</span>) q <span class="kw">in</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> me = hash r q m <span class="kw">in</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> e = <span class="dt">ref</span> (hash r q (<span class="dt">String</span>.sub s <span class="dv">0</span> p)) <span class="kw">in</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">try</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n-p+<span class="dv">1</span> <span class="kw">do</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span> me = !e &amp;&amp; m = <span class="dt">String</span>.sub s i p</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>            <span class="kw">then</span> <span class="dt">raise</span> (Trouve i);</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span> i+p &lt; n <span class="kw">then</span> e := delta r q rp s.[i] s.[i+p] !e</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>; <span class="dt">None</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">with</span> Trouve k -&gt; <span class="dt">Some</span> k</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-45"></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> rabin_karp<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>m<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>s<span class="op">)</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> <span class="dt">int64_t</span> r <span class="op">=</span> <span class="dv">256</span><span class="op">;</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> <span class="dt">int64_t</span> q <span class="op">=</span> <span class="bn">0x7fffffff</span><span class="op">;</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> <span class="dt">int</span> p <span class="op">=</span> strlen<span class="op">(</span>m<span class="op">);</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> <span class="dt">int</span> n <span class="op">=</span> strlen<span class="op">(</span>s<span class="op">);</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> <span class="dt">int64_t</span> rp <span class="op">=</span> powmod<span class="op">(</span>r<span class="op">,</span>p<span class="op">-</span><span class="dv">1</span><span class="op">,</span>q<span class="op">);</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> <span class="dt">int64_t</span> me <span class="op">=</span> hash<span class="op">(</span>r<span class="op">,</span>q<span class="op">,</span>m<span class="op">,</span>p<span class="op">);</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int64_t</span> e <span class="op">=</span> hash<span class="op">(</span>r<span class="op">,</span>q<span class="op">,</span>s<span class="op">,</span>p<span class="op">);</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i<span class="op">=</span><span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span>n<span class="op">-</span>p<span class="op">+</span><span class="dv">1</span><span class="op">;</span> i<span class="op">++)</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>me <span class="op">==</span> e <span class="op">&amp;&amp;</span> strncmp<span class="op">(</span>m<span class="op">,(</span>s<span class="op">+</span>i<span class="op">),</span>p<span class="op">)</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> i<span class="op">;</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>i<span class="op">+</span>p <span class="op">&lt;</span> n<span class="op">)</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>            e <span class="op">=</span> delta<span class="op">(</span>r<span class="op">,</span>q<span class="op">,</span>rp<span class="op">,</span>s<span class="op">[</span>i<span class="op">],</span>s<span class="op">[</span>i<span class="op">+</span>p<span class="op">],</span>e<span class="op">);</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-45"></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rabin_karp(m, s):</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    p, n <span class="op">=</span> <span class="bu">len</span>(m), <span class="bu">len</span>(s)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    r, q <span class="op">=</span> <span class="dv">256</span>, <span class="bn">0x7fffffff</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    rp <span class="op">=</span> (r <span class="op">**</span> (p<span class="op">-</span><span class="dv">1</span>)) <span class="op">%</span> q</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    me, e <span class="op">=</span> <span class="bu">hash</span>(r,q,m), <span class="bu">hash</span>(r,q,s[:p])</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,n<span class="op">-</span>p<span class="op">+</span><span class="dv">2</span>):</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> me <span class="op">==</span> e <span class="kw">and</span> m <span class="op">==</span> s[i:i<span class="op">+</span>p]:</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> i</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i<span class="op">+</span>p <span class="op">&lt;</span> n:</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>            e <span class="op">=</span> delta(r,q,rp,s[i],s[i<span class="op">+</span>p],e)</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">None</span></span></code></pre></div>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-125">ocaml</a>   <a class="item" data-tab="c-125">c</a>   <a class="item" data-tab="python-125">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-125"></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">exception</span> Trouve <span class="kw">of</span> <span class="dt">int</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> rabin_karp m s =</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n = <span class="dt">String</span>.length s <span class="kw">in</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> p = <span class="dt">String</span>.length m <span class="kw">in</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> r = <span class="dv">256</span> <span class="kw">in</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> q = <span class="bn">0x7fffffff</span> <span class="kw">in</span> <span class="co">(* 2^(31)-1 *)</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> rp = pow r (p<span class="dv">-1</span>) q <span class="kw">in</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> me = hash r q m <span class="kw">in</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> e = <span class="dt">ref</span> (hash r q (<span class="dt">String</span>.sub s <span class="dv">0</span> p)) <span class="kw">in</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">try</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n-p+<span class="dv">1</span> <span class="kw">do</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span> me = !e &amp;&amp; m = <span class="dt">String</span>.sub s i p</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>            <span class="kw">then</span> <span class="dt">raise</span> (Trouve i);</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span> i+p &lt; n <span class="kw">then</span> e := delta r q rp s.[i] s.[i+p] !e</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>; <span class="dt">None</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">with</span> Trouve k -&gt; <span class="dt">Some</span> k</span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-125"></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> rabin_karp<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>m<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>s<span class="op">)</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> <span class="dt">int64_t</span> r <span class="op">=</span> <span class="dv">256</span><span class="op">;</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> <span class="dt">int64_t</span> q <span class="op">=</span> <span class="bn">0x7fffffff</span><span class="op">;</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> <span class="dt">int</span> p <span class="op">=</span> strlen<span class="op">(</span>m<span class="op">);</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> <span class="dt">int</span> n <span class="op">=</span> strlen<span class="op">(</span>s<span class="op">);</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> <span class="dt">int64_t</span> rp <span class="op">=</span> powmod<span class="op">(</span>r<span class="op">,</span>p<span class="op">-</span><span class="dv">1</span><span class="op">,</span>q<span class="op">);</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> <span class="dt">int64_t</span> me <span class="op">=</span> hash<span class="op">(</span>r<span class="op">,</span>q<span class="op">,</span>m<span class="op">,</span>p<span class="op">);</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int64_t</span> e <span class="op">=</span> hash<span class="op">(</span>r<span class="op">,</span>q<span class="op">,</span>s<span class="op">,</span>p<span class="op">);</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i<span class="op">=</span><span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span>n<span class="op">-</span>p<span class="op">+</span><span class="dv">1</span><span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>me <span class="op">==</span> e <span class="op">&amp;&amp;</span> strncmp<span class="op">(</span>m<span class="op">,(</span>s<span class="op">+</span>i<span class="op">),</span>p<span class="op">)</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> i<span class="op">;</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>i<span class="op">+</span>p <span class="op">&lt;</span> n<span class="op">)</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>            e <span class="op">=</span> delta<span class="op">(</span>r<span class="op">,</span>q<span class="op">,</span>rp<span class="op">,</span>s<span class="op">[</span>i<span class="op">],</span>s<span class="op">[</span>i<span class="op">+</span>p<span class="op">],</span>e<span class="op">);</span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-125"></p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rabin_karp(m, s):</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    p, n <span class="op">=</span> <span class="bu">len</span>(m), <span class="bu">len</span>(s)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    r, q <span class="op">=</span> <span class="dv">256</span>, <span class="bn">0x7fffffff</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    rp <span class="op">=</span> (r <span class="op">**</span> (p<span class="op">-</span><span class="dv">1</span>)) <span class="op">%</span> q</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    me, e <span class="op">=</span> <span class="bu">hash</span>(r,q,m), <span class="bu">hash</span>(r,q,s[:p])</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,n<span class="op">-</span>p<span class="op">+</span><span class="dv">2</span>):</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> me <span class="op">==</span> e <span class="kw">and</span> m <span class="op">==</span> s[i:i<span class="op">+</span>p]:</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> i</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i<span class="op">+</span>p <span class="op">&lt;</span> n:</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>            e <span class="op">=</span> delta(r,q,rp,s[i],s[i<span class="op">+</span>p],e)</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">None</span></span></code></pre></div>
 <p></div> </div></p>
 <p>Si on suppose qu’il est improbable d’obtenir un faux positif, il est possible de renvoyer un succès dès que les empreintes sont égales. L’avantage d’une telle version est alors d’être un algorithme sans retour sur les données. C’est-à-dire qu’il n’est pas nécessaire de garder en mémoire ou de réaccéder à un caractère.</p>
-<h3 data-number="1.4.1" id="sec:lalgorithme-originel-de-rabin-et-karp"><span class="header-section-number">1.4.1</span> L’algorithme originel de Rabin et Karp</h3>
+<h3 data-number="1.4.4" id="sec:lalgorithme-originel-de-rabin-et-karp"><span class="header-section-number">1.4.4</span> L’algorithme originel de Rabin et Karp</h3>
 <p>Si on regarde l’article originel de Rabin et Karp décrivant cette méthode, on peut être étonné du fait que la méthode précédemment décrite était considérée comme déjà connue dans la littérature par les auteurs. En fait, ce qu’ils décrivent et annoncent comme étant novateur est l’utilisation d’un algorithme probabiliste en choisissant aléatoirement une fonction de hachage à chaque lancement de l’algorithme. En pratique, il s’agit de choisir aléatoirement un nombre premier <span class="math inline">\(q\)</span> parmi un ensemble précalculé de nombres premiers.</p>
 <p>L’algorithme que l’on vient de décrire a un pire cas qui est très improbable car on considère que la probabilité d’un faux positif est à peu près de <span class="math inline">\(1/q\)</span>, donc moins de <span class="math inline">\(5.10^{-10}\)</span> pour <span class="math inline">\(q = 2^{31}-1\)</span>. Le problème ici est la notion de probabilité sur les entrées : est-on certain que l’algorithme recevra une entrée choisie uniformément ? Rabin et Karp parlent d’un <em>adversaire intelligent</em> qui aurait connaissance de la fonction de hachage choisie pour produire des entrées en pire cas. On pourrait ainsi imaginer une <em>attaque</em> sur serveur effectuant une recherche avec Rabin-Karp suite à l’entrée d’un utilisateur. Un adversaire pourrait construire une entrée en pire cas et tenter de surcharger le serveur en l’effectuant de manière répétée.</p>
 <p>Pour bien mettre en lumière ce phénomène, nous allons ici construire, dans un cas très simple de fonction de hachage, une telle chaîne problématique. Pour cela, considérons la fonction de hachage précédemment décrite dans le cas de motif de taille 2, avec <span class="math inline">\(\Sigma\)</span> contenant les lettres de <code>a</code> à <code>z</code>, <span class="math inline">\(r = 26\)</span> et <span class="math inline">\(q = 17\)</span>. On considère une recherche du motif <code>aa</code> dont l’empreinte est <code>0</code>, la même que celle des chaînes <code>ar</code> et <code>ra</code>. On peut donc considérer la chaîne <code>arar...ar</code> qui produira un faux positif à chaque étape.</p>
 <p><div class="ui message orange"><div class="header">Remarque</div>Détail des calculs. Ici on associe à <code>a</code> la valeur <span class="math inline">\(0\)</span>, …, à <code>z</code> la valeur <span class="math inline">\(25\)</span>. On a donc <span class="math display">\[h(aa) = (0 \times 26 + 0) \mod 17 = 0\]</span> <span class="math display">\[h(ar) = (0 \times 26 + 17) \mod 17 = 0\]</span> <span class="math display">\[h(ra) = (17 \times 26 + 0) \mod 17 = 0\]</span> L’empreinte reste ainsi nulle tout au long de l’algorithme de Rabin-Karp et on a un faux positif à chaque itération.</div></p>
+<h1 data-number="2" id="sec:compression"><span class="header-section-number">2</span> Compression</h1>
+<h2 data-number="2.1" id="sec:principe-1"><span class="header-section-number">2.1</span> Principe</h2>
+<h2 data-number="2.2" id="sec:algorithme-dhuffman"><span class="header-section-number">2.2</span> Algorithme d’Huffman</h2>
+<h2 data-number="2.3" id="sec:algorithme-de-lampel-ziv-welch"><span class="header-section-number">2.3</span> Algorithme de Lampel-Ziv-Welch</h2>
+<h1 data-number="3" id="sec:problèmes-supplémentaires"><span class="header-section-number">3</span> Problèmes supplémentaires</h1>
+<h2 data-number="3.1" id="sec:la-structure-de-donnée-corde"><span class="header-section-number">3.1</span> La structure de donnée <strong>corde</strong></h2>
+<h2 data-number="3.2" id="sec:lalgorithme-de-knuth-morris-pratt"><span class="header-section-number">3.2</span> L’algorithme de Knuth-Morris-Pratt</h2>
+<h2 data-number="3.3" id="sec:extensions-à-lanalyse-dimages"><span class="header-section-number">3.3</span> Extensions à l’analyse d’images</h2>
 </div>
 </div>
 </div>
