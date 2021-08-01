@@ -26,18 +26,27 @@
 $(document).ready(function() {
     
     $("#toc").sidebar("setting", "dimPage", false);
+    $("#toc").sidebar("setting", "delaySetup", true);
+
     if (matchMedia) {
-        var mq = window.matchMedia("(max-width: 700px)");
+        var mq = window.matchMedia("(max-width: 900px)");
         mq.addListener(big_or_small);
         big_or_small(mq);
     }
+
+    $("[href^='#']").click(
+        () => {
+            if (! $("#main").hasClass('shrink')) {
+	            $("#toc").sidebar("hide");
+            }
+        })
 
     function big_or_small(mq) {
         // The sidebar *pushes* the pusher, the main content, so we
         // add a class that reduces the pusher's width so the edge
         // content isn't cut off.
         if (mq.matches) {
-	    $("#toc").sidebar("hide");
+	        $("#toc").sidebar("hide");
             $("#main").removeClass("shrink")
         } else {
             $("#toc").sidebar("show");
@@ -48,15 +57,6 @@ $(document).ready(function() {
     $("#sidebar-menu-button").click(function() {
         $("#toc").sidebar("show");
     }).end();
-
-        /*
-    $('.sidebar > ul > li').unwrap().wrap("<div class='item mod'></div>").contents().unwrap()
-    $('.sidebar > .mod > a').wrap('<div class="header"></div>').contents().unwrap()
-    $('.sidebar > .mod > ul').wrap("<div class='item menu ui accordion'></div>").contents().unwrap()
-    $('.sidebar > .mod > .menu > li > ul').wrap("<div class='content'></div>")
-    $('.sidebar > .mod > .menu > li').contents().unwrap()
-    $('.sidebar > .mod > .menu > a').addClass('item').addClass('title')
-   */
 
     $('.tabular.menu .item').tab({
             context: 'parent'
@@ -75,7 +75,7 @@ function setLang(l) {
   <style type="text/css">
 
   .ui.sidebar {
-    font-size: 18px;
+    font-size: 15px;
   }
 
   body {
@@ -92,12 +92,9 @@ function setLang(l) {
     //margin: 5em 0em 0em;
     //padding: 5em 0em;
   }
-  :target {
-      display: block;
-  }
   #top-menu {
     display: none;
-}
+    }
 
     .message {
         color: #000 !important;
@@ -144,7 +141,13 @@ table td {
       padding: .5em 1em !important;
   }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 900px) {
+    .ui.image, .ui.image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
     #top-menu {
         display: block !important;
     }
@@ -236,7 +239,7 @@ table td {
 	  </div>
         </div>
       </div>
-      <div class="ui padded basic segment" id="main">
+      <div class="ui padded basic segment shrink" id="main">
           <!-- <div class="masthead"> -->
 <div class="segment">
 <div class="ui container text">

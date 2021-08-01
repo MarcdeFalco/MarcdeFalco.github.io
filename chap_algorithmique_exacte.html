@@ -91,18 +91,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 $(document).ready(function() {
     
     $("#toc").sidebar("setting", "dimPage", false);
+    $("#toc").sidebar("setting", "delaySetup", true);
+
     if (matchMedia) {
-        var mq = window.matchMedia("(max-width: 700px)");
+        var mq = window.matchMedia("(max-width: 900px)");
         mq.addListener(big_or_small);
         big_or_small(mq);
     }
+
+    $("[href^='#']").click(
+        () => {
+            if (! $("#main").hasClass('shrink')) {
+	            $("#toc").sidebar("hide");
+            }
+        })
 
     function big_or_small(mq) {
         // The sidebar *pushes* the pusher, the main content, so we
         // add a class that reduces the pusher's width so the edge
         // content isn't cut off.
         if (mq.matches) {
-	    $("#toc").sidebar("hide");
+	        $("#toc").sidebar("hide");
             $("#main").removeClass("shrink")
         } else {
             $("#toc").sidebar("show");
@@ -113,15 +122,6 @@ $(document).ready(function() {
     $("#sidebar-menu-button").click(function() {
         $("#toc").sidebar("show");
     }).end();
-
-        /*
-    $('.sidebar > ul > li').unwrap().wrap("<div class='item mod'></div>").contents().unwrap()
-    $('.sidebar > .mod > a').wrap('<div class="header"></div>').contents().unwrap()
-    $('.sidebar > .mod > ul').wrap("<div class='item menu ui accordion'></div>").contents().unwrap()
-    $('.sidebar > .mod > .menu > li > ul').wrap("<div class='content'></div>")
-    $('.sidebar > .mod > .menu > li').contents().unwrap()
-    $('.sidebar > .mod > .menu > a').addClass('item').addClass('title')
-   */
 
     $('.tabular.menu .item').tab({
             context: 'parent'
@@ -140,7 +140,7 @@ function setLang(l) {
   <style type="text/css">
 
   .ui.sidebar {
-    font-size: 18px;
+    font-size: 15px;
   }
 
   body {
@@ -157,12 +157,9 @@ function setLang(l) {
     //margin: 5em 0em 0em;
     //padding: 5em 0em;
   }
-  :target {
-      display: block;
-  }
   #top-menu {
     display: none;
-}
+    }
 
     .message {
         color: #000 !important;
@@ -209,7 +206,13 @@ table td {
       padding: .5em 1em !important;
   }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 900px) {
+    .ui.image, .ui.image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
     #top-menu {
         display: block !important;
     }
@@ -301,7 +304,7 @@ table td {
 	  </div>
         </div>
       </div>
-      <div class="ui padded basic segment" id="main">
+      <div class="ui padded basic segment shrink" id="main">
           <!-- <div class="masthead"> -->
 <div class="segment">
 <div class="ui container text">
@@ -309,14 +312,16 @@ table td {
 <p><em>Source image : https://www.flickr.com/photos/x6e38/3440634940/</em></p>
 <p><div class="ui message orange"><div class="header">Remarque</div>Dans ce chapitre, on étudie des problèmes pour lesquels on va exprimer des algorithmes permettant d’obtenir des solutions exactes. C’est à contraster avec le chapitre sur l’algorithmique approchée.</div></p>
 <p>Une grande partie des stratégies de résolution est basée sur la résolution de sous-problèmes. On verra ainsi trois types de stratégies résumées dans le schéma suivant :</p>
-<p><center><img src="assets/pics/strategies_sousproblemes.png" /> </center></p>
+<p><center><div class="ui image center"><center><div class="ui image center"><img src="assets/pics/strategies_sousproblemes.png" /></div></center></p>
+<p></div></center></p>
 <h1 data-number="1" id="sec:recherche-par-force-brute"><span class="header-section-number">1</span> Recherche par force brute</h1>
 <h2 data-number="1.1" id="sec:principe"><span class="header-section-number">1.1</span> Principe</h2>
 <p>Considérons un problème du type trouver un <span class="math inline">\(x \in V\)</span> vérifiant une propriété <span class="math inline">\(P(x)\)</span>. Par exemple, <span class="math inline">\(V\)</span> est l’ensemble des chaînes de caractère et <span class="math inline">\(P\)</span> vérifie si une chaîne est un mot de passe qu’on cherche. Dans certains problèmes, un tel <span class="math inline">\(x\)</span> n’est pas unique et on cherche à tous les énumérer.</p>
 <p>Une recherche par force brute, ou recherche exhaustive, consiste à parcourir l’ensemble <span class="math inline">\(V\)</span> jusqu’à obtenir une solution. Pour la recherche du mot de passe, on pourrait commencer par énumérer les chaînes de longueur 1, puis de longueur 2, et ainsi de suite.</p>
 <p>Le plus souvent, l’ensemble <span class="math inline">\(V\)</span> est fini (pour les mots de passe, cela peut consister à limiter la longueur maximale du mot de passe). Ainsi, une recherche par force brute effectue <span class="math inline">\(O(|V|)\)</span> itérations.</p>
 <p>Considérons le problème <em>PlusProchePaire</em> qui, étant donné un ensemble de <span class="math inline">\(n\)</span> points (<span class="math inline">\(n \ge 2\)</span>), détermine la paire constituée des deux points les plus proches.</p>
-<p><center><img src="assets/pics/plusprochepaire_a.png" /> </center></p>
+<p><center><div class="ui image center"><center><div class="ui image center"><img src="assets/pics/plusprochepaire_a.png" /></div></center></p>
+<p></div></center></p>
 <p>Une implémentation naïve de la recherche par force brute consiste à énumérer les <span class="math inline">\(\frac{n(n-1)}{2}\)</span> paires et donc à effectuer <span class="math inline">\(O(n^2)\)</span> itérations.</p>
 <p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> plus_proche_paire points =</span>
@@ -337,11 +342,14 @@ table td {
 <p>Reprenons le problème précédent, on considère que les points sont triés par abscisse croissante : <span class="math inline">\((x_0,y_0), \dots, (x_{n-1}, y_{n-1})\)</span>. On va parcourir les points dans cet ordre en maintenant un ensemble de points à gauche du point courant, appelés <em>points actifs</em>, et en ne calculant que les intersections avec les points actifs.</p>
 <p>Si on a parcouru les <span class="math inline">\(N\)</span> premiers points et qu’on a obtenu que la plus petite distance était <span class="math inline">\(d\)</span>, lorsqu’on considère le point <span class="math inline">\((x_N,y_N)\)</span>, il est inutile de tester les points qui sont forcément à distance <span class="math inline">\(&gt; d\)</span> de celui-ci. C’est-à-dire qu’on peut éliminer les points qui ne sont pas dans le rectangle <span class="math inline">\([x_N-d,x_N]\times [y_N-d,y_N+d]\)</span> du test. Les points dont l’abscisse est <span class="math inline">\(&lt; x_N -d\)</span> peuvent être éliminés définitivement vu que l’on raisonne par abscisse croissante, par contre, les points d’ordonnées invalides doivent être conservés pour les points ultérieurs.</p>
 <p>Ce rectangle est représenté sur le schéma suivant ainsi qu’une ligne imaginaire qui correspond à l’abscisse du point courant et qu’on peut imaginer parcourant le plan de gauche à droite pour traiter les points au fur et à mesure.</p>
-<p><center><img src="assets/pics/plusprochepaire_b.png" /> </center></p>
+<p><center><div class="ui image center"><center><div class="ui image center"><img src="assets/pics/plusprochepaire_b.png" /></div></center></p>
+<p></div></center></p>
 <p>Afin de déterminer la complexité de cet algorithme, il est nécessaire de connaitre le nombre maximal de points dans le rectangle. Comme ces points ont été pris en compte précédemment, ils sont forcément à distance au moins <span class="math inline">\(d\)</span> les uns des autres. Il s’agit donc de déterminer le nombre maximum de points qu’on peut placer dans ce rectangle à distance au moins <span class="math inline">\(d\)</span>. On remarque tout d’abord qu’on peut placer six points ainsi :</p>
-<p><center><img src="assets/pics/plusprochepaire_activesize_a.png" /> </center></p>
+<p><center><div class="ui image center"><center><div class="ui image center"><img src="assets/pics/plusprochepaire_activesize_a.png" /></div></center></p>
+<p></div></center></p>
 <p>Si jamais on avait au moins sept points, on peut voir qu’il y a forcément un des six sous-rectangles suivants qui contiendrait au moins deux points :</p>
-<p><center><img src="assets/pics/plusprochepaire_activesize_b.png" /> </center></p>
+<p><center><div class="ui image center"><center><div class="ui image center"><img src="assets/pics/plusprochepaire_activesize_b.png" /></div></center></p>
+<p></div></center></p>
 <p>Or, ces sous-rectangles sont de longueur <span class="math inline">\(\frac{1}{2}d\)</span> et de hauteur <span class="math inline">\(\frac{2}{3}d\)</span>, donc la distance maximale entre deux de leurs points correspond à la longueur des diagonales : <span class="math inline">\(\sqrt{\frac{1}{4} + \frac{4}{9}}d = \frac{5}{6}d &lt; d\)</span>.</p>
 <p>Comme un de ces six points est le point courant, il y a toujours au plus 5 points dans l’ensemble des points actifs.</p>
 <p>Voici le principe de l’algorithme que l’on va implémenter :</p>
@@ -509,7 +517,7 @@ u = - \frac{\overrightarrow{A_2 A_1} \times \overrightarrow{A_1 B_1}}{\Delta}
 <p>Dans des problèmes admettant des solutions partielles, on peut construire une solution par essai de toutes les possibilités en complétant tant qu’on a bien une solution partielle. La recherche par retour sur trace repose sur ce constat pour énumérer l’ensemble des solutions en utilisant la récursivité (d’où la notion de <em>retour sur trace</em>) pour les essais.</p>
 <p>L’exemble classique de ce problème est celui des huit reines : étant donné un échiquier, peut-on placer huit reines de sorte qu’aucune reine ne puisse prendre une autre reine ? Plus précisément : sur un plateau de 8x8 cases, peut-on placer huit pions tels que deux pions quelconques ne soient jamais sur la même ligne ou la même diagonale ?</p>
 <p>Exemple de solution :</p>
-<p><img src="assets/pics/huit_reines_ex.png" /></p>
+<p><center><div class="ui image center"><img src="assets/pics/huit_reines_ex.png" /></div></center></p>
 <p>Ce problème admet effectivement des solutions partielles en ne considérant que <span class="math inline">\(k\)</span> reines à placer. Pour énumérer les solutions, on peut même se contenter de solutions partielles où les <span class="math inline">\(k\)</span> reines sont placées sur les <span class="math inline">\(k\)</span> premières rangées.</p>
 <p>Voici ainsi un algorithme pour énumérer les solutions :</p>
 <ul>
@@ -576,7 +584,7 @@ u = - \frac{\overrightarrow{A_2 A_1} \times \overrightarrow{A_1 B_1}}{\Delta}
 <p>La recherche par retour sur trace se prête très bien à la résolution de problèmes comme le Sudoku. On va ici tout simplement tenter de remplir chaque case du haut vers le bas tant qu’on satisfait les contraintes du Sudoku. Le programme sera ainsi très proche de la résolution des huit reines.</p>
 <p>Commençons par rappeler le principe du Sudoku :</p>
 <ul>
-<li><p>On part d’une grille de 81 cases réparties en une grille de 3x3 sous-grilles de 3x3 cases et comportant des chiffres de 1 à 9 dans certaines cases. <img src="assets/pics/sudoku_exemple.png" /></p></li>
+<li><p>On part d’une grille de 81 cases réparties en une grille de 3x3 sous-grilles de 3x3 cases et comportant des chiffres de 1 à 9 dans certaines cases. <center><div class="ui image center"><img src="assets/pics/sudoku_exemple.png" /></div></center></p></li>
 <li><p>L’objectif est de remplir chaque case avec un chiffre de 1 à 9 de sorte que chaque ligne, chaque colonne et chaque sous-grille 3x3 comporte une et une seule fois chaque chiffre.</p></li>
 <li><p>Un sudoku admet une unique solution.</p></li>
 </ul>
@@ -689,12 +697,12 @@ u = - \frac{\overrightarrow{A_2 A_1} \times \overrightarrow{A_1 B_1}}{\Delta}
 </ul>
 <p>Une première stratégie très élémentaire consiste alors à énumérer <span class="math inline">\(S\)</span>, de manière exhaustive ou avec une stratégie plus fine comme le retour sur trace, puis à déterminer un élément maximal de manière directe.</p>
 <p>Cela revient donc à déterminer l’arbre des solutions puis à trouver une feuille maximisant l’objectif :</p>
-<p><img src="assets/pics/glouton_exhaustif.png" /></p>
+<p><center><div class="ui image center"><img src="assets/pics/glouton_exhaustif.png" /></div></center></p>
 <p>Un algorithme glouton va suivre une approche beaucoup plus efficace : à chaque étape de construction de la solution, on choisit la branche qui maximise la fonction d’objectif. C’est-à-dire que si en partant d’une solution partielle <span class="math inline">\(x \in P\)</span> il est possible de l’étendre en d’autres solutions partielles <span class="math inline">\(p_x = \{ y_1, ..., y_n \}\)</span>, on va choisir <span class="math inline">\(y = \text{argmax}_{t \in p_x} f(t)\)</span> la solution qui maximise localement <span class="math inline">\(f\)</span>.</p>
 <p>Sur l’arbre précédent, cela reviendrait à n’emprunter qu’une seule branche :</p>
-<p><img src="assets/pics/glouton_glouton1.png" /></p>
+<p><center><div class="ui image center"><img src="assets/pics/glouton_glouton1.png" /></div></center></p>
 <p>Cela a l’air très efficace mais il y a un problème majeur : il n’y a aucune garantie qu’on aboutisse ainsi à une solution, encore moins à une solution optimale. En effet, on aurait très bien pu faire les choix suivants :</p>
-<p><img src="assets/pics/glouton_glouton2.png" /></p>
+<p><center><div class="ui image center"><img src="assets/pics/glouton_glouton2.png" /></div></center></p>
 <p>et ne pas aboutir à une solution.</p>
 <p>Considérons par exemple le problème du <strong>rendu de monnaie</strong> : étant donné, une liste de valeurs faciales de pièces <span class="math inline">\(P = (v_1,\dots,v_p) \in (\N^*)^p\)</span> avec <span class="math inline">\(1 = v_1 &lt; \dots &lt; v_p\)</span> et une somme <span class="math inline">\(n \in \N^*\)</span>, on cherche la manière d’exprimer cette somme avec le plus petit nombre de pièces possible.</p>
 <p>Plus précisément, l’ensemble des solutions <span class="math inline">\(S = \{ (k_1,\dots,k_p) \in N^p ~|~ k_1 v_1 + \dots + k_p v_p = n \}\)</span> et la fonction d’objectif est <span class="math inline">\(f : (k_1,\dots,k_p) \mapsto k_1 + \dots + k_p\)</span>. Les solutions partielles ici sont les réalisations de valeur <span class="math inline">\(&lt; n\)</span>. On cherche alors <span class="math inline">\(x = argmin_{y \in S} f(y)\)</span>.</p>
@@ -730,7 +738,7 @@ u = - \frac{\overrightarrow{A_2 A_1} \times \overrightarrow{A_1 B_1}}{\Delta}
 <p>En effet, si le texte considéré est de longueur <span class="math inline">\(n\)</span>, il y a exactement <span class="math inline">\(f(x) n\)</span> occurences de <span class="math inline">\(x\)</span> dans le texte et <span class="math inline">\(f(x) n |c(x)|\)</span> bits après codage. La longueur du texte codé est donc <span class="math inline">\(n \sum_{x \in \Sigma} f(x) |c(x)|\)</span>.</p>
 <p>L’application de codage <span class="math inline">\(c\)</span> peut être représenté par un arbre binaire où les arêtes gauches correspondent à 0, les arêtes droites à 1 et les feuilles aux éléments de <span class="math inline">\(\Sigma\)</span> dont les étiquettes des chemins y menant depuis la racine de l’arbre correspondent à leur image par <span class="math inline">\(c\)</span>.</p>
 <p>Par exemple, pour le code <span class="math inline">\(a=0,b=10,c=11\)</span> on aurait l’arbre :</p>
-<p><img src="assets/pics/arbre_huffman_ex1.png" /></p>
+<p><center><div class="ui image center"><img src="assets/pics/arbre_huffman_ex1.png" /></div></center></p>
 <p>Avec un tel arbre, il est très simple de décoder le texte codé car il suffit de suivre un chemin dans l’arbre jusqu’à tomber sur une feuille, produire la lettre correspondante, puis repartir de la racine de l’arbre. La longueur du code associé à une lettre est alors égale à la profondeur de la feuille correspondante. L’optimalité du codage préfixe est ainsi équivalente à la minimalité de l’arbre vis-à-vis de la fonction d’objectif <span class="math inline">\(\varphi(t) = \sum_{x \in \Sigma} f(x) p(t,x)\)</span> où <span class="math inline">\(p(t,x)\)</span> est la profondeur de la feuille d’étiquette <span class="math inline">\(x\)</span> dans l’arbre <span class="math inline">\(t\)</span> ou <span class="math inline">\(0\)</span> si <span class="math inline">\(x\)</span> n’est pas une des étiquettes, cet extension permettant d’étendre la fonction d’objectif aux solutions partielles.</p>
 <p>L’algorithme d’Huffman va construire un arbre correspondant à un codage optimal à l’aide d’une file de priorité d’arbres. On étend pour cela l’application <span class="math inline">\(f\)</span> à de tels arbres en définissant que si <span class="math inline">\(t\)</span> est un arbre de feuilles <span class="math inline">\(x_1,\dots,x_n\)</span> alors <span class="math inline">\(f(t) = f(x_1) + \dots + f(x_n)\)</span>.</p>
 <ul>
@@ -800,7 +808,8 @@ p(t,a)
 Théorème
 </div>
 <p>Soit <span class="math inline">\(t\)</span> un arbre ayant <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> comme feuilles soeurs et <span class="math inline">\(t&#39;\)</span> l’arbre obtenu en remplaçant le noeud liant <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> par une feuille étiquettée par <span class="math inline">\(z\)</span> où <span class="math inline">\(z\)</span> est une nouvelle lettre telle que <span class="math inline">\(f(z) = f(x) + f(y)\)</span>.</p>
-<p><center><img src="assets/pics/huffman_fusion.png" /> </center></p>
+<p><center><div class="ui image center"><center><div class="ui image center"><img src="assets/pics/huffman_fusion.png" /></div></center></p>
+<p></div></center></p>
 <p>On a alors <span class="math inline">\(\varphi(t) = \varphi(t&#39;) + f(z)\)</span>.</p>
 </div>
 <div class="ui message">
@@ -842,7 +851,7 @@ Preuve
 <h3 data-number="2.4.1" id="sec:description"><span class="header-section-number">2.4.1</span> Description</h3>
 <p>Étant donné un ensemble d’activités données par leur temps de début et leur temps de fin (on considère les temps comme des entiers pour simplifier), on se pose la question du nombre maximal d’activité que l’on puisse sélectionner sans que deux activités soient en conflits. Cela correspond par exemple à l’organisation du planning d’un employé.</p>
 <p>On dit que deux activités <span class="math inline">\((d_1,f_1)\)</span> et <span class="math inline">\((d_2,f_2)\)</span> sont en conflits quand <span class="math inline">\([d_1,f_1[ \cap [d_2,f_2[ \neq \emptyset\)</span>.</p>
-<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"> <img src="assets/pics/activites_conflits.png" /></p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"> <center><div class="ui image center"><img src="assets/pics/activites_conflits.png" /></div></center></p>
 <p></div><div class="eight wide column"> Ici, <span class="math inline">\(t_1\)</span> et <span class="math inline">\(t_2\)</span> sont en conflits avec <span class="math inline">\(t_3\)</span>. Mais <span class="math inline">\(t_1\)</span> et <span class="math inline">\(t_2\)</span> ne sont pas en conflit. On considère que deux activités peuvent se succéder directement : <span class="math inline">\(f_1 = d_2\)</span>. </div></div></div></p>
 <p>On considère donc en entrée de ce problème une suite finie <span class="math inline">\(( (d_1,f_1), \dots, (d_n,f_n) )\)</span> et on cherche un sous-ensemble <span class="math inline">\(I \subset \range{1}{n}\)</span> de plus grand cardinal tel que pour tous <span class="math inline">\(i, j \in I\)</span>, si <span class="math inline">\(i \neq j\)</span> alors <span class="math inline">\((d_i,f_i)\)</span> et <span class="math inline">\((d_j,f_j)\)</span> ne sont pas en conflits. On dit que <span class="math inline">\(I\)</span> est un <strong>ensemble indépendant</strong>.</p>
 <h3 data-number="2.4.2" id="sec:algorithme-glouton-et-implémentation"><span class="header-section-number">2.4.2</span> Algorithme glouton et implémentation</h3>

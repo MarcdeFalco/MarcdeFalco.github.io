@@ -91,18 +91,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 $(document).ready(function() {
     
     $("#toc").sidebar("setting", "dimPage", false);
+    $("#toc").sidebar("setting", "delaySetup", true);
+
     if (matchMedia) {
-        var mq = window.matchMedia("(max-width: 700px)");
+        var mq = window.matchMedia("(max-width: 900px)");
         mq.addListener(big_or_small);
         big_or_small(mq);
     }
+
+    $("[href^='#']").click(
+        () => {
+            if (! $("#main").hasClass('shrink')) {
+	            $("#toc").sidebar("hide");
+            }
+        })
 
     function big_or_small(mq) {
         // The sidebar *pushes* the pusher, the main content, so we
         // add a class that reduces the pusher's width so the edge
         // content isn't cut off.
         if (mq.matches) {
-	    $("#toc").sidebar("hide");
+	        $("#toc").sidebar("hide");
             $("#main").removeClass("shrink")
         } else {
             $("#toc").sidebar("show");
@@ -113,15 +122,6 @@ $(document).ready(function() {
     $("#sidebar-menu-button").click(function() {
         $("#toc").sidebar("show");
     }).end();
-
-        /*
-    $('.sidebar > ul > li').unwrap().wrap("<div class='item mod'></div>").contents().unwrap()
-    $('.sidebar > .mod > a').wrap('<div class="header"></div>').contents().unwrap()
-    $('.sidebar > .mod > ul').wrap("<div class='item menu ui accordion'></div>").contents().unwrap()
-    $('.sidebar > .mod > .menu > li > ul').wrap("<div class='content'></div>")
-    $('.sidebar > .mod > .menu > li').contents().unwrap()
-    $('.sidebar > .mod > .menu > a').addClass('item').addClass('title')
-   */
 
     $('.tabular.menu .item').tab({
             context: 'parent'
@@ -140,7 +140,7 @@ function setLang(l) {
   <style type="text/css">
 
   .ui.sidebar {
-    font-size: 18px;
+    font-size: 15px;
   }
 
   body {
@@ -157,12 +157,9 @@ function setLang(l) {
     //margin: 5em 0em 0em;
     //padding: 5em 0em;
   }
-  :target {
-      display: block;
-  }
   #top-menu {
     display: none;
-}
+    }
 
     .message {
         color: #000 !important;
@@ -209,7 +206,13 @@ table td {
       padding: .5em 1em !important;
   }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 900px) {
+    .ui.image, .ui.image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
     #top-menu {
         display: block !important;
     }
@@ -301,7 +304,7 @@ table td {
 	  </div>
         </div>
       </div>
-      <div class="ui padded basic segment" id="main">
+      <div class="ui padded basic segment shrink" id="main">
           <!-- <div class="masthead"> -->
 <div class="segment">
 <div class="ui container text">
@@ -344,9 +347,9 @@ Sortie : un résultat partiel correspondant à l’indice de la première occurr
 <p><div class="ui message blue"><div class="header">Note</div>Il y aura sûrement des applications bio-info dans la partie programmation dynamique, faire le lien ici.</div></p>
 <h2 data-number="1.2" id="sec:algorithme-naïf-en-force-brute"><span class="header-section-number">1.2</span> Algorithme naïf en force brute</h2>
 <p>Une solution naïve consiste à parcourir chaque position de <span class="math inline">\(s\)</span> afin de tester si le motif est présent à partir de cette position.</p>
-<p><img src="assets/pics/texte_rech_naive.png" /></p>
+<p><center><div class="ui image center"><img src="assets/pics/texte_rech_naive.png" /></div></center></p>
 <p>Cela donne l’implémentation assez directe suivante :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-42">ocaml</a>   <a class="item" data-tab="c-42">c</a>   <a class="item" data-tab="python-42">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-42"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-43">ocaml</a>   <a class="item" data-tab="c-43">c</a>   <a class="item" data-tab="python-43">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-43"></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">exception</span> Trouve <span class="kw">of</span> <span class="dt">int</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">exception</span> PasDeMotif</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -372,7 +375,7 @@ Sortie : un résultat partiel correspondant à l’indice de la première occurr
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>;</span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        <span class="dt">None</span></span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">with</span> Trouve i -&gt; <span class="dt">Some</span> i</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-42"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-43"></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* recherche_naive(m,s) recherche le motif m dans la chaine</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * s et renvoie l&#39;indice de la première occurrence s&#39;il est présent</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * ou -1 sinon */</span></span>
@@ -395,7 +398,7 @@ Sortie : un résultat partiel correspondant à l’indice de la première occurr
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-42"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-43"></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> recherche_naive(motif, chaine):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Recherche le motif dans la chaine et renvoie l&#39;indice de </span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">    la première occurrence du motif s&#39;il est présent ou None sinon.&#39;&#39;&#39;</span></span>
@@ -420,7 +423,7 @@ Sortie : un résultat partiel correspondant à l’indice de la première occurr
 <p><div class="ui message orange"><div class="header">Remarque</div>Il faut tenir compte différemment du dernier caractère du motif, car il n’est pas utile de le réaligner. On considère alors, quand elle existe, l’occurrence précédente de ce caractère.</div></p>
 <p>On obtient ainsi une stratégie de saut qui en cas d’échec relance la recherche plus loin.</p>
 <p>Voici un premier exemple où on effectue une recherche de <span class="math inline">\(abaa\)</span> dans le mot <span class="math inline">\(aabababbaa\)</span>. Cette stratégie a permis d’éviter une recherche inutile à partir de l’indice 1.</p>
-<p><img src="assets/pics/texte_bm_exemple.png" /></p>
+<p><center><div class="ui image center"><img src="assets/pics/texte_bm_exemple.png" /></div></center></p>
 <h3 data-number="1.3.2" id="sec:implémentation-par-table-de-saut"><span class="header-section-number">1.3.2</span> Implémentation par table de saut</h3>
 <p>Pour réaliser ces sauts, on construit une table <code>droite</code> indexée par <span class="math inline">\(\Sigma\)</span> et telle que <code>droite[c]</code> indique l’indice de l’occurrence la plus à droite dans le motif <span class="math inline">\(m\)</span> du caractère <span class="math inline">\(c\)</span>, en ignorant le dernier caractère du motif.</p>
 <p>Ainsi, dans l’exemple précédent du motif <code>abaa</code>, on obtient la table suivante :</p>
@@ -446,7 +449,7 @@ Sortie : un résultat partiel correspondant à l’indice de la première occurr
 </table>
 <p>On a indiqué ici <span class="math inline">\(\emptyset\)</span> quand un caractère de <span class="math inline">\(\Sigma\)</span> n’est pas présent dans le motif, car il peut être présent dans <span class="math inline">\(s\)</span>.</p>
 <p>Cette table contient donc de l’ordre de <span class="math inline">\(\Sigma\)</span> éléments. On peut la réaliser par un tableau direct de taille <span class="math inline">\(|\Sigma|\)</span> étant donné un ordre d’énumération. On peut aussi la réaliser par un dictionnaire, ce qui est plus économe en espace si le motif contient peu de lettres différentes. On a choisit ici, pour des raisons pédagogiques, de considérer la numérotation ASCII naturelle associées au caractère de cette table.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-56">ocaml</a>   <a class="item" data-tab="c-56">c</a>   <a class="item" data-tab="python-56">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-56"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-58">ocaml</a>   <a class="item" data-tab="c-58">c</a>   <a class="item" data-tab="python-58">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-58"></p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> taille_alphabet = <span class="dv">256</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> calcule_droite (motif:<span class="dt">string</span>) : <span class="dt">int</span> <span class="dt">option</span> <span class="dt">array</span> =</span>
@@ -460,7 +463,7 @@ Sortie : un résultat partiel correspondant à l’indice de la première occurr
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">then</span> droite.(<span class="dt">Char</span>.code c) &lt;- <span class="dt">Some</span> j</span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    droite</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-56"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-58"></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> taille_alphabet <span class="op">=</span> <span class="dv">256</span><span class="op">;</span> <span class="co">// on pourrait passer par un define</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">/* Calcule le tableau droite associé au motif</span></span>
@@ -482,7 +485,7 @@ Sortie : un résultat partiel correspondant à l’indice de la première occurr
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> droite<span class="op">;</span></span>
 <span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-56"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-58"></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>taille_alphabet <span class="op">=</span> <span class="dv">256</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calcule_droite(motif):</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Calcule le tableau droite associé au motif&#39;&#39;&#39;</span></span>
@@ -499,12 +502,12 @@ Sortie : un résultat partiel correspondant à l’indice de la première occurr
 <ul>
 <li>Si <span class="math inline">\(k = \emptyset\)</span>, c’est que le motif ne pourra jamais être trouvé tant que ce caractère <code>c</code> sera présent. On relance donc la recherche juste après à l’indice <span class="math inline">\(i+j+1\)</span>.</li>
 </ul>
-<p><img src="assets/pics/texte_bm_saut_cas_vide.png" /></p>
+<p><center><div class="ui image center"><img src="assets/pics/texte_bm_saut_cas_vide.png" /></div></center></p>
 <ul>
-<li><p>Si <span class="math inline">\(k \ge j\)</span>, cela signifie que <code>c</code> est présent plus à droite dans le motif, donc aligner cette occurrence ne permettrait pas d’avancer la recherche. Rien ne nous permet de savoir si <code>c</code> est présent ou non ailleurs dans le motif, on relance alors prudemment la recherche en <span class="math inline">\(i+1\)</span>. <img src="assets/pics/texte_bm_saut_cas_pres.png" /></p></li>
+<li><p>Si <span class="math inline">\(k \ge j\)</span>, cela signifie que <code>c</code> est présent plus à droite dans le motif, donc aligner cette occurrence ne permettrait pas d’avancer la recherche. Rien ne nous permet de savoir si <code>c</code> est présent ou non ailleurs dans le motif, on relance alors prudemment la recherche en <span class="math inline">\(i+1\)</span>. <center><div class="ui image center"><img src="assets/pics/texte_bm_saut_cas_pres.png" /></div></center></p></li>
 <li><p>Sinon, on veut aligner ce <code>c</code> avec le caractère correspondant du motif, si on relance à l’indice <span class="math inline">\(i&#39;\)</span>, on souhaite ainsi avoir <span class="math inline">\(i&#39; + k = i + j\)</span> donc <span class="math inline">\(i &#39; = i + j - k\)</span>.</p></li>
 </ul>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-63">ocaml</a>   <a class="item" data-tab="c-63">c</a>   <a class="item" data-tab="python-63">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-63"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-67">ocaml</a>   <a class="item" data-tab="c-67">c</a>   <a class="item" data-tab="python-67">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-67"></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">exception</span> Difference</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">exception</span> Trouve <span class="kw">of</span> <span class="dt">int</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -532,7 +535,7 @@ Sortie : un résultat partiel correspondant à l’indice de la première occurr
 <span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>;</span>
 <span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>        <span class="dt">None</span></span>
 <span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">with</span> Trouve k -&gt; <span class="dt">Some</span> k</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-63"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-67"></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* cherche motif dans chaine en utilisant la table de saut précalculée</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * droite. Renvoie l&#39;indice de la première occurrence ou -1 s&#39;il n&#39;est pas</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * présent */</span></span>
@@ -565,7 +568,7 @@ Sortie : un résultat partiel correspondant à l’indice de la première occurr
 <span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
 <span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-63"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-67"></p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> recherche_BMH(motif, droite, chaine):</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Cherche motif dans chaine en utilisant la table de saut</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">    précalculée droite&#39;&#39;&#39;</span></span>
@@ -600,13 +603,13 @@ Sortie : un résultat partiel correspondant à l’indice de la première occurr
 <p><div class="ui message orange"><div class="header">Remarque</div>Si l’alphabet contient peu de caractères, ce qui est le cas en particulier du binaire, il y a de grandes chances qu’on soit dans ce cas pire cas. Ainsi, Boyer-Moore-Horspool n’est pas adapté pour ce type de texte.</div></p>
 <h3 data-number="1.3.3" id="sec:principe-de-boyer-moore"><span class="header-section-number">1.3.3</span> Principe de Boyer-Moore</h3>
 <p>Considérons le cas suivant de l’algorithme précédent : on cherche abbcabc dans cbacbbcabc.</p>
-<p><img src="assets/pics/texte_bm_complet_a.png" /></p>
+<p><center><div class="ui image center"><img src="assets/pics/texte_bm_complet_a.png" /></div></center></p>
 <p>On remarque qu’en raison du fonctionnement de cet algorithme, on est forcé de faire de tous petits sauts et on est ramené à l’algorithme naïf. Cependant, après la première étape, on sait qu’on a lu un suffixe du motif <code>bc</code> qui est précédé d’un caractère <code>a</code> en sorte que <code>bbc</code> ne soit pas un suffixe du motif.</p>
 <p>Il y a un autre endroit dans le motif où on peut trouver <code>*bc</code> avec <code>*</code> un autre caractère que <code>a</code>. On pourrait donc relancer la recherche en alignant cette occurrence de <code>bc</code> avec celle qu’on vient de lire. Cela revient à sauter directement à la dernière étape dans cet exemple :</p>
-<p><img src="assets/pics/texte_bm_complet_b.png" /></p>
+<p><center><div class="ui image center"><img src="assets/pics/texte_bm_complet_b.png" /></div></center></p>
 <p>Pour pouvoir réaliser ce décalage, il est nécessaire de calculer une nouvelle table en parcourant le motif pour identifier de telles apparitions de suffixes.</p>
 <p>On peut aller plus loin en considérant également le plus long préfixe du motif qui soit un suffixe du suffixe considéré. Par exemple, pour le motif <code>bcabc</code> on remarque que <code>bc</code> étant un préfixe, on peut effectuer un saut comme dans l’exemple suivant :</p>
-<p><img src="assets/pics/texte_bm_complet_c.png" /></p>
+<p><center><div class="ui image center"><img src="assets/pics/texte_bm_complet_c.png" /></div></center></p>
 <h4 data-number="1.3.3.1" id="sec:table-des-bons-suffixes"><span class="header-section-number">1.3.3.1</span> Table des bons suffixes</h4>
 <p><div class="ui message blue"><div class="header">Note</div>Tout cela sera redéfini proprement plus tard dans le chapitre sur les langages. Je laisse cette partie en attendant pour que la présentation soit complète.</div></p>
 <p>Il est nécessaire d’introduire des définitions précises pour formaliser la stratégie qu’on vient de présenter. Dans le contexte des langages, on parle plus souvent de mot que de chaîne de caractères, qui sont un type de données permettant de les représenter. Un mot sur l’alphabet <span class="math inline">\(\Sigma\)</span> est donc une suite finie <span class="math inline">\(a_1 \dots a_n\)</span> de lettres dans l’alphabet. On note <span class="math inline">\(\mu\)</span> l’unique mot vide, c’est-à-dire ne contenant aucune lettre. L’ensemble des mots sur <span class="math inline">\(\Sigma\)</span> est noté <span class="math inline">\(\Sigma^*\)</span>. Si <span class="math inline">\(u\)</span> et <span class="math inline">\(v\)</span> sont des mots, <span class="math inline">\(uv\)</span> est le mot obtenu par concaténation.</p>
@@ -644,9 +647,12 @@ Exemple
 </ul>
 <p>On remarque que si <span class="math inline">\(x\)</span> est suffixe de <span class="math inline">\(u v\)</span> et qu’on a également <span class="math inline">\(b u v&#39;\)</span> suffixe de <span class="math inline">\(x\)</span>, alors <span class="math inline">\(|uv| = |u|+|v| \ge |x| \ge |buv&#39;| \ge |u|+|v&#39;|\)</span> donc <span class="math inline">\(|v| \ge |v&#39;|\)</span> ce qui permet de considérer le plus petit <span class="math inline">\(v\)</span> sur l’ensemble des cas.</p>
 <h4 data-number="1.3.3.2" id="sec:table-des-suffixes"><span class="header-section-number">1.3.3.2</span> Table des suffixes</h4>
-<p>Afin de calculer efficacement <code>bonsuffixe</code> on va commencer par calculer la table des suffixes du motif, il s’agit de la table <code>suffixe</code> où <code>suffixe[i]</code> contient la longueur du plus long suffixe de <span class="math inline">\(x\)</span> de la forme <span class="math inline">\(x_j \dots x_i\)</span>. Ainsi</p>
+<p>Afin de calculer efficacement <code>bonsuffixe</code> on va commencer par calculer la table des suffixes du motif, il s’agit de la table <code>suffixe</code> où <code>suffixe[i]</code> contient la longueur du plus long suffixe de <span class="math inline">\(x\)</span> de la forme <span class="math inline">\(x_j \dots x_i\)</span>. Ainsi, si on note <span class="math inline">\(S_i\)</span> les suffixes de cette forme, on a :</p>
 <p><span class="math display">\[
-\texttt{suffixe}[i] = \max \enscomp{i-j}{j \le i, x_j\dots x_i \text{ sufixe de } x}
+\texttt{suffixe}[i] = \begin{cases}
+    0 &amp; \text{si } S_i = \emptyset \\
+    \max \enscomp{|s|}{s \in S_i} &amp; \text{sinon }
+    \end{cases}
 \]</span></p>
 <p>Nécessairement, <code>suffixe[n-1]=n</code> car <span class="math inline">\(x\)</span> convient.</p>
 <div class="ui message blue">
@@ -706,14 +712,14 @@ Exemple
 </div>
 <p>Il est possible de construire <code>suffixe</code> avec un simple parcours linéaire en tirant partie de l’information déjà calculée. Pour cela, on va remplir <code>suffixe</code> de droite à gauche.</p>
 <p>A tout moment, on va conserver le meilleur suffixe rencontré, c’est-à-dire celui pour lequel on est allé le plus loin à gauche avant d’avoir un échec de comparaison. On note <span class="math inline">\(s\)</span> la position la plus à droite de ce suffixe et <span class="math inline">\(k\)</span> sa longueur, il s’agit donc de <span class="math inline">\(u = x_{s-k+1} ... x_s\)</span> et il y a eu un échec de comparaison en <span class="math inline">\(x_{s-k}\)</span>. Par définition de <code>suffixe</code> on a <code>suffixe[s]</code><span class="math inline">\(=k\)</span>. Le mot <span class="math inline">\(x\)</span> s’écrit alors :</p>
-<p><img src="assets/pics/texte_bm_complet_suff_ex.png" /></p>
-<p>Ce qu’on peut représenter schématiquement ainsi : <center><img src="assets/pics/texte_bm_complet_suff_ex2.png" /> </center></p>
+<p><center><div class="ui image center"><img src="assets/pics/texte_bm_complet_suff_ex.png" /></div></center></p>
+<p>Ce qu’on peut représenter schématiquement ainsi : <center><div class="ui image center"><img src="assets/pics/texte_bm_complet_suff_ex2.png" /></div></center></p>
 <p>Maintenant, on considère la position <span class="math inline">\(s-i\)</span> où <span class="math inline">\(s &gt; s-i &gt; s-k\)</span>, cela signifie qu’on cherche un suffixe depuis une position interne au mot <span class="math inline">\(u\)</span> de gauche. Le point clé permettant d’obtenir un algorithme linéaire est de remarquer que la situation est la même que dans le mot <span class="math inline">\(u\)</span> de droite. Or, comme on procède de gauche à droite, on a déjà calculé la valeur correspondante <code>suffixe[n-1-i]</code>. Là, on a deux cas :</p>
 <ul>
 <li><p>soit quand on a cherché le plus grand suffixe à partir de <span class="math inline">\(n-i\)</span>, on s’est heurté à une erreur de comparaison à la position <span class="math inline">\(n-k\)</span>. Dans ce cas, on a <code>suffixe[n-1-i]</code><span class="math inline">\(=k-i\)</span> et on peut regarder, en partant de la position <span class="math inline">\(s-k\)</span>, si on peut prolonger le suffixe finissant à la position <span class="math inline">\(s-i\)</span>.</p>
-<p><center> <img src="assets/pics/texte_bm_complet_suff_ex3.png" /> </center></p>
+<p><center><div class="ui image center"><img src="assets/pics/texte_bm_complet_suff_ex3.png" /></div></center></p>
 <p>Pour effectuer ce prolongement, il suffit de comparer, caractère par caractère, vers la gauche en partant de la position <span class="math inline">\(s-k\)</span>. On aboutira alors à une nouvelle position du suffixe finissant le plus à gauche qui finira en <span class="math inline">\(s-i\)</span>.</p>
-<p><center> <img src="assets/pics/texte_bm_complet_suff_ex4.png" /> </center></p>
+<p><center><div class="ui image center"><img src="assets/pics/texte_bm_complet_suff_ex4.png" /></div></center></p>
 <p>Remarquons qu’il n’est pas nécessaire que <span class="math inline">\(s-i-l \neq s-k\)</span>. C’est-à-dire que même si <span class="math inline">\(a\)</span> ne permet pas de prolonger le suffixe déduit de la position <span class="math inline">\(n-i\)</span>, on considère tout de même que la nouvelle position de référence est <span class="math inline">\(s-i\)</span>. On en déduit également la valeur <code>suffixe[s-i]</code><span class="math inline">\(=l\)</span>.</p></li>
 <li><p>soit <code>suffixe[n-1-i]</code><span class="math inline">\(= p \neq k-i\)</span> et alors</p>
 <ul>
@@ -723,7 +729,7 @@ Exemple
 </ul>
 <p>Il reste à traiter le cas où <span class="math inline">\(s - i \le s-k\)</span>, ce qui revient à considérer qu’on a dépassé le précédent suffixe pouvant apporter une information. On procède donc naïvement pour trouver le plus grand suffixe depuis cette position.</p>
 <p>On en déduit l’implémentation suivante :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-93">ocaml</a>   <a class="item" data-tab="c-93">c</a>   <a class="item" data-tab="python-93">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-93"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-101">ocaml</a>   <a class="item" data-tab="c-101">c</a>   <a class="item" data-tab="python-101">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-101"></p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> calcule_suffixe (x:<span class="dt">string</span>) : <span class="dt">int</span> <span class="dt">array</span> =</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">(* Prend en entrée un mot non vide x et renvoie son tableau de suffixe *)</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n = <span class="dt">String</span>.length x <span class="kw">in</span></span>
@@ -747,7 +753,7 @@ Exemple
 <span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>        <span class="kw">end</span></span>
 <span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    suffixe</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-93"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-101"></p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* Calcule le tableau suffixe associé au mot x</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * le tableau renvoyé a été alloué, il devra être libéré après utilisation */</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> <span class="op">*</span>calcule_suffixe<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>x<span class="op">)</span></span>
@@ -777,7 +783,7 @@ Exemple
 <span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> suffixe<span class="op">;</span></span>
 <span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-93"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-101"></p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calcule_suffixe(x):</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Prend en entrée un mot non vide x et renvoie son tableau de suffixe&#39;&#39;&#39;</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(x)</span>
@@ -801,7 +807,7 @@ Exemple
 <p></div> </div></p>
 <p><div class="ui message orange"><div class="header">Remarque</div>Cette implémentation est optimisée par rapport à la description précédente en calculant directement sans introduire <span class="math inline">\(i\)</span> ou <span class="math inline">\(k\)</span>, et en fusionnant deux cas qui reviennent à dupliquer du code.</p>
 <p>On donne ici le code maladroit qui correspond à la traduction exacte de la description précédente :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-98">ocaml</a>   <a class="item" data-tab="c-98">c</a>   <a class="item" data-tab="python-98">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-98"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-106">ocaml</a>   <a class="item" data-tab="c-106">c</a>   <a class="item" data-tab="python-106">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-106"></p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> calcule_suffixe_rep (x:<span class="dt">string</span>) : <span class="dt">int</span> <span class="dt">array</span> =</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">(* Prend en entrée un mot non vide x et renvoie son tableau de suffixe *)</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n = <span class="dt">String</span>.length x <span class="kw">in</span></span>
@@ -838,7 +844,7 @@ Exemple
 <span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>        <span class="kw">end</span></span>
 <span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>    suffixe</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-98"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-106"></p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* Calcule le tableau suffixe associé au mot x</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * le tableau renvoyé a été alloué, il devra être libéré après utilisation */</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> <span class="op">*</span>calcule_suffixe_rep<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>x<span class="op">)</span></span>
@@ -880,7 +886,7 @@ Exemple
 <span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> suffixe<span class="op">;</span></span>
 <span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-98"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-106"></p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calcule_suffixe_rep(x):</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Prend en entrée un mot non vide x et renvoie son tableau de suffixe&#39;&#39;&#39;</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(x)</span>
@@ -928,7 +934,7 @@ n-1-i} \\ &amp; = &amp; n -1 - \max \enscomp{k}{\texttt{suffixe}[k] = n-1-i}
 <p>On en déduit un remplissage en parcourant les <span class="math inline">\(k\)</span> dans l’ordre décroissant de <span class="math inline">\(n-2\)</span> à <span class="math inline">\(0\)</span>, tout en maintenant l’indice <span class="math inline">\(i\)</span> de la prochaine valeur à remplir dans <code>bonsuffixe</code>. Dès qu’on détecte un bord, on place <span class="math inline">\(n-1-k\)</span> jusqu’à ce que <span class="math inline">\(i \ge n-1-k\)</span>.</p>
 <p>En sortie de boucle, il est possible que <span class="math inline">\(i &lt; n\)</span> donc qu’il reste des valeurs à remplir. On remarque dans ce cas là que pour que <span class="math inline">\(x\)</span> soit un suffixe de <span class="math inline">\(u v\)</span> il faut que <span class="math inline">\(v = x\)</span>. On a donc pour ces valeurs restantes <code>bonsuffixe[i]</code><span class="math inline">\(=n\)</span>.</p>
 <p>Comme ce second cas est toujours plus long que le premier quand les deux se produisent en <span class="math inline">\(i\)</span>, on implémente successivement les remplissages de sorte à obtenir la valeur minimum. On en déduit le programme suivant :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-106">ocaml</a>   <a class="item" data-tab="c-106">c</a>   <a class="item" data-tab="python-106">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-106"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-114">ocaml</a>   <a class="item" data-tab="c-114">c</a>   <a class="item" data-tab="python-114">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-114"></p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> calcule_bonsuffixe (x:<span class="dt">string</span>) : <span class="dt">int</span> <span class="dt">array</span> =</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">(* Prend en entrée un mot non vide x et renvoie son tableau de suffixe *)</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n = <span class="dt">String</span>.length x <span class="kw">in</span></span>
@@ -951,7 +957,7 @@ n-1-i} \\ &amp; = &amp; n -1 - \max \enscomp{k}{\texttt{suffixe}[k] = n-1-i}
 <span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>    bonsuffixe</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-106"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-114"></p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* Calcule le tableau suffixe associé au mot x</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * le tableau renvoyé a été alloué, il devra être libéré après utilisation */</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> <span class="op">*</span>calcule_bonsuffixe<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>x<span class="op">)</span></span>
@@ -980,7 +986,7 @@ n-1-i} \\ &amp; = &amp; n -1 - \max \enscomp{k}{\texttt{suffixe}[k] = n-1-i}
 <span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> bonsuffixe<span class="op">;</span></span>
 <span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-106"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-114"></p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calcule_bonsuffixe(x):</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Prend en entrée un mot non vide x et renvoie son tableau de suffixe&#39;&#39;&#39;</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(x)</span>
@@ -1002,7 +1008,7 @@ n-1-i} \\ &amp; = &amp; n -1 - \max \enscomp{k}{\texttt{suffixe}[k] = n-1-i}
 <p>Il est facile de constater que cet algorithme est de complexité temporelle linéaire en <span class="math inline">\(|x|\)</span>.</p>
 <h4 data-number="1.3.3.4" id="sec:algorithme-de-boyer-moore-1"><span class="header-section-number">1.3.3.4</span> Algorithme de Boyer-Moore</h4>
 <p>On incorpore naturellement la table precédente à l’algorithme de Boyer-Moore en choisissant le meilleur décalage entre cette table et la stratégie précédente.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-112">ocaml</a>   <a class="item" data-tab="c-112">c</a>   <a class="item" data-tab="python-112">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-112"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-120">ocaml</a>   <a class="item" data-tab="c-120">c</a>   <a class="item" data-tab="python-120">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-120"></p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> recherche_BM (motif:<span class="dt">string</span>) </span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    (droite:<span class="dt">int</span> <span class="dt">option</span> <span class="dt">array</span>) (bonsuffixe:<span class="dt">int</span> <span class="dt">array</span>)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    (chaine:<span class="dt">string</span>) : <span class="dt">int</span> <span class="dt">option</span> =</span>
@@ -1028,7 +1034,7 @@ n-1-i} \\ &amp; = &amp; n -1 - \max \enscomp{k}{\texttt{suffixe}[k] = n-1-i}
 <span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>;</span>
 <span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>        <span class="dt">None</span></span>
 <span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">with</span> Trouve k -&gt; <span class="dt">Some</span> k</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-112"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-120"></p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* cherche motif dans chaine en utilisant les tables de saut précalculées</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * droite et bonsuffixe. Renvoie l&#39;indice de la première occurrence ou -1 s&#39;il n&#39;est pas</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * présent */</span></span>
@@ -1061,7 +1067,7 @@ n-1-i} \\ &amp; = &amp; n -1 - \max \enscomp{k}{\texttt{suffixe}[k] = n-1-i}
 <span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
 <span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-112"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-120"></p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> recherche_BM(motif, droite, bonsuffixe, chaine):</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Cherche motif dans chaine en utilisant les tables de sauts</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">    droite et bonsuffixe&#39;&#39;&#39;</span></span>
@@ -1095,7 +1101,8 @@ n-1-i} \\ &amp; = &amp; n -1 - \max \enscomp{k}{\texttt{suffixe}[k] = n-1-i}
 <p>Pour cela, si on cherche un motif de longueur <span class="math inline">\(p\)</span> sur l’alphabet <span class="math inline">\(\Sigma\)</span>, on considère une <strong>fonction de hachage</strong> <span class="math inline">\(h : \Sigma^p \rightarrow X\)</span>. Les éléments de l’ensemble <span class="math inline">\(X\)</span> sont appelés des empreintes et on suppose que l’égalité entre deux empreintes se vérifie en temps constant contrairement à l’égalité dans <span class="math inline">\(\Sigma^p\)</span> qui se vérifie en <span class="math inline">\(O(p)\)</span> dans le pire des cas. Le plus souvent, on choisit pour <span class="math inline">\(X\)</span> un type entier machine.</p>
 <p><div class="ui message blue"><div class="header">Note</div>Sûrement mettre ici des renvois vers la partie portant le plus sur la notion de fonction de hachage pour la définition la plus complète.</div></p>
 <p>Bien qu’il soit normalement aussi coûteux de calculer l’image par <span class="math inline">\(h\)</span> d’une sous-chaîne de longueur <span class="math inline">\(p\)</span> que de tester l’égalité entre cette sous-chaîne et le motif, le point essentiel de l’algorithme de Rabin-Karp est d’utiliser une fonction de hachage permettant un calcul incrémental en temps constant :</p>
-<p><center><img src="assets/pics/calcul_hachage_incremental.png" /> </center></p>
+<p><center><div class="ui image center"><center><div class="ui image center"><img src="assets/pics/calcul_hachage_incremental.png" /></div></center></p>
+<p></div></center></p>
 <p>Ici, on considère donc, pour <span class="math inline">\(a, b \in \Sigma\)</span>, une fonction de mise à jour <span class="math inline">\(\delta_{a,b} : X \rightarrow X\)</span> telle que pour tout <span class="math inline">\(c_2,\dots,c_p \in \Sigma\)</span> on ait <span class="math inline">\(\delta_{a,b}(h(ac_2 \dots c_p)) = h(c_2\dots c_p b)\)</span>.</p>
 <p>L’algorithme de Rabin-Karp procède alors ainsi pour chercher <span class="math inline">\(m\)</span> de longueur <span class="math inline">\(p\)</span> dans la chaîne <span class="math inline">\(s = c_0 \dots c_{n-1}\)</span> où <span class="math inline">\(n \ge p\)</span> :</p>
 <ul>
@@ -1117,7 +1124,7 @@ c_i r^{p-1-i} = c_0 r^{p-1} + c_1 r^{p-2} + \dots + c_{p-1}
 <p>Si on précalcule <span class="math inline">\(r^{p-1} \mod q\)</span> il suffit d’un nombre d’opération constant, et indépendant de <span class="math inline">\(p\)</span>, pour calculer la nouvelle empreinte à l’aide de <span class="math inline">\(\delta_{a,b}\)</span>.</p>
 <p>Le point essentiel est alors de déterminer un nombre premier <span class="math inline">\(q\)</span> tel qu’il soit peu probable d’obtenir des faux positifs. Une analyse mathématique permet d’affirmer que chaque élément de <span class="math inline">\([|0;q-1|]\)</span> a de l’ordre de <span class="math inline">\(\frac{r^p}{q}\)</span> antécédents par <span class="math inline">\(h\)</span>. Ainsi, si on choisit deux chaînes aléatoirement dans <span class="math inline">\(\Sigma^p\)</span>, il y aura collision avec probabilité proche de <span class="math inline">\(\frac{1}{q}\)</span>. En considérant <span class="math inline">\(q\)</span> proche de la taille maximale pour le type entier considéré, on minimise donc cette probabilité.</p>
 <p><div class="ui message orange"><div class="header">Remarque</div>On peut également s’intéresser à des nombres <span class="math inline">\(q\)</span> pour lesquels le modulo soit rapide à calculer. Un exemple classique est <span class="math inline">\(q = 2^{31} - 1\)</span> car on peut déduire la division euclidienne de <span class="math inline">\(a\)</span> par <span class="math inline">\(q\)</span> de l’écriture de <span class="math inline">\(a\)</span> en base <span class="math inline">\(2^{31}\)</span>. En effet, si <span class="math inline">\(a = \sum_{k=0}^n a_k 2^{31k}\)</span> comme <span class="math inline">\(2^{31}-1 | 2^{31k} - 1\)</span> pour <span class="math inline">\(k \ge 1\)</span>, on a <span class="math inline">\(2^{31k} \equiv 1 ~[q]\)</span> et ainsi <span class="math inline">\(a \equiv \sum_{k=0}^n a_k [q]\)</span>. On remarque que <span class="math inline">\(a_k = (a &gt;&gt; 31k) \&amp; 2^{31}\)</span>, on a alors soit <span class="math inline">\(a_k &lt; q\)</span> et alors <span class="math inline">\(a_k \mod q = a_k\)</span>, soit <span class="math inline">\(a_k = q\)</span> et <span class="math inline">\(a_k \mod q = 0\)</span>. Il suffit donc de faire un masquage pour obtenir directement <span class="math inline">\(a_k \mod q = (a &gt;&gt; 31k) \&amp; q\)</span>.</p>
-<p>On obtient alors le programme suivant : <div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-120">ocaml</a>   <a class="item" data-tab="c-120">c</a>   <a class="item" data-tab="python-120">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-120"></p>
+<p>On obtient alors le programme suivant : <div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-129">ocaml</a>   <a class="item" data-tab="c-129">c</a>   <a class="item" data-tab="python-129">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-129"></p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> fastmod a =</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> s = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> x = <span class="dt">ref</span> a <span class="kw">in</span></span>
@@ -1131,7 +1138,7 @@ c_i r^{p-1-i} = c_0 r^{p-1} + c_1 r^{p-2} + \dots + c_{p-1}
 <span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> <span class="kw">if</span> !s = q</span>
 <span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> <span class="dv">0</span></span>
 <span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> !s</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-120"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-129"></p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int64_t</span> fastmod<span class="op">(</span><span class="dt">int64_t</span> a<span class="op">)</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int64_t</span> s <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
@@ -1149,7 +1156,7 @@ c_i r^{p-1-i} = c_0 r^{p-1} + c_1 r^{p-2} + \dots + c_{p-1}
 <span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s<span class="op">;</span></span>
 <span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-120"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-129"></p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fastmod(a):</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    q <span class="op">=</span> <span class="bn">0x7fffffff</span></span>
@@ -1164,7 +1171,7 @@ c_i r^{p-1-i} = c_0 r^{p-1} + c_1 r^{p-2} + \dots + c_{p-1}
 <span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s</span></code></pre></div>
 <p></div> </div> </div></p>
 <p>Le programme suivant implémente naïvement les calculs de <span class="math inline">\(h\)</span> et de <span class="math inline">\(\delta_{a,b}\)</span> :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-123">ocaml</a>   <a class="item" data-tab="c-123">c</a>   <a class="item" data-tab="python-123">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-123"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-132">ocaml</a>   <a class="item" data-tab="c-132">c</a>   <a class="item" data-tab="python-132">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-132"></p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> hash r q s =</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> p = <span class="dt">ref</span> <span class="dv">1</span> <span class="kw">in</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> e = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
@@ -1176,7 +1183,7 @@ c_i r^{p-1-i} = c_0 r^{p-1} + c_1 r^{p-2} + \dots + c_{p-1}
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> delta r q rp a b e = <span class="co">(* rp est r^(p-1) mod q *)</span></span>
 <span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    (r * (e - rp * (<span class="dt">Char</span>.code a)) + <span class="dt">Char</span>.code b) <span class="kw">mod</span> q</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-123"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-132"></p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int64_t</span> hash<span class="op">(</span><span class="dt">int64_t</span> r<span class="op">,</span> <span class="dt">int64_t</span> q<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>s<span class="op">,</span> <span class="dt">int</span> n<span class="op">)</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int64_t</span> p <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
@@ -1197,7 +1204,7 @@ c_i r^{p-1-i} = c_0 r^{p-1} + c_1 r^{p-2} + \dots + c_{p-1}
 <span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">(</span>r <span class="op">*</span> <span class="op">(</span>e <span class="op">-</span> rp <span class="op">*</span> a<span class="op">)</span> <span class="op">+</span> b<span class="op">)</span> <span class="op">%</span> q<span class="op">;</span></span>
 <span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-123"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-132"></p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="bu">hash</span>(r,q,s):</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    e <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> <span class="dv">1</span></span>
@@ -1211,7 +1218,7 @@ c_i r^{p-1-i} = c_0 r^{p-1} + c_1 r^{p-2} + \dots + c_{p-1}
 <p></div> </div></p>
 <h3 data-number="1.4.3" id="sec:implémentation"><span class="header-section-number">1.4.3</span> Implémentation</h3>
 <p>Une implémentation directe de l’algorithme de Rabin-Karp est donnée dans le programme qui suit. On se sert ici du caractère paresseux du <code>&amp;&amp;</code> pour n’effecuter le test coûteux d’égalité des chaînes qu’en cas d’égalité des empreintes.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-125">ocaml</a>   <a class="item" data-tab="c-125">c</a>   <a class="item" data-tab="python-125">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-125"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-134">ocaml</a>   <a class="item" data-tab="c-134">c</a>   <a class="item" data-tab="python-134">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-134"></p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">exception</span> Trouve <span class="kw">of</span> <span class="dt">int</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> rabin_karp m s =</span>
@@ -1229,7 +1236,7 @@ c_i r^{p-1-i} = c_0 r^{p-1} + c_1 r^{p-2} + \dots + c_{p-1}
 <span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span> i+p &lt; n <span class="kw">then</span> e := delta r q rp s.[i] s.[i+p] !e</span>
 <span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>; <span class="dt">None</span></span>
 <span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">with</span> Trouve k -&gt; <span class="dt">Some</span> k</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-125"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-134"></p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> rabin_karp<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>m<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>s<span class="op">)</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> <span class="dt">int64_t</span> r <span class="op">=</span> <span class="dv">256</span><span class="op">;</span></span>
@@ -1248,7 +1255,7 @@ c_i r^{p-1-i} = c_0 r^{p-1} + c_1 r^{p-2} + \dots + c_{p-1}
 <span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
 <span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-125"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-134"></p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rabin_karp(m, s):</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    p, n <span class="op">=</span> <span class="bu">len</span>(m), <span class="bu">len</span>(s)</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    r, q <span class="op">=</span> <span class="dv">256</span>, <span class="bn">0x7fffffff</span></span>

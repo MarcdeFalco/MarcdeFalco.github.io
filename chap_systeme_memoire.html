@@ -91,18 +91,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 $(document).ready(function() {
     
     $("#toc").sidebar("setting", "dimPage", false);
+    $("#toc").sidebar("setting", "delaySetup", true);
+
     if (matchMedia) {
-        var mq = window.matchMedia("(max-width: 700px)");
+        var mq = window.matchMedia("(max-width: 900px)");
         mq.addListener(big_or_small);
         big_or_small(mq);
     }
+
+    $("[href^='#']").click(
+        () => {
+            if (! $("#main").hasClass('shrink')) {
+	            $("#toc").sidebar("hide");
+            }
+        })
 
     function big_or_small(mq) {
         // The sidebar *pushes* the pusher, the main content, so we
         // add a class that reduces the pusher's width so the edge
         // content isn't cut off.
         if (mq.matches) {
-	    $("#toc").sidebar("hide");
+	        $("#toc").sidebar("hide");
             $("#main").removeClass("shrink")
         } else {
             $("#toc").sidebar("show");
@@ -113,15 +122,6 @@ $(document).ready(function() {
     $("#sidebar-menu-button").click(function() {
         $("#toc").sidebar("show");
     }).end();
-
-        /*
-    $('.sidebar > ul > li').unwrap().wrap("<div class='item mod'></div>").contents().unwrap()
-    $('.sidebar > .mod > a').wrap('<div class="header"></div>').contents().unwrap()
-    $('.sidebar > .mod > ul').wrap("<div class='item menu ui accordion'></div>").contents().unwrap()
-    $('.sidebar > .mod > .menu > li > ul').wrap("<div class='content'></div>")
-    $('.sidebar > .mod > .menu > li').contents().unwrap()
-    $('.sidebar > .mod > .menu > a').addClass('item').addClass('title')
-   */
 
     $('.tabular.menu .item').tab({
             context: 'parent'
@@ -140,7 +140,7 @@ function setLang(l) {
   <style type="text/css">
 
   .ui.sidebar {
-    font-size: 18px;
+    font-size: 15px;
   }
 
   body {
@@ -157,12 +157,9 @@ function setLang(l) {
     //margin: 5em 0em 0em;
     //padding: 5em 0em;
   }
-  :target {
-      display: block;
-  }
   #top-menu {
     display: none;
-}
+    }
 
     .message {
         color: #000 !important;
@@ -209,7 +206,13 @@ table td {
       padding: .5em 1em !important;
   }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 900px) {
+    .ui.image, .ui.image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
     #top-menu {
         display: block !important;
     }
@@ -301,7 +304,7 @@ table td {
 	  </div>
         </div>
       </div>
-      <div class="ui padded basic segment" id="main">
+      <div class="ui padded basic segment shrink" id="main">
           <!-- <div class="masthead"> -->
 <div class="segment">
 <div class="ui container text">
@@ -323,7 +326,7 @@ table td {
 </ul>
 <p>L’allocation dynamique utilise une zone mémoire appelée tas dont une possible organisation est développée dans la partie sec. 5.4.</p>
 <p></div><div class="four wide column"></p>
-<p><img src="assets/pics/memorymap.png" /></p>
+<p><center><div class="ui image center"><img src="assets/pics/memorymap.png" /></div></center></p>
 <p><br/>Structure de la mémoire associée à un programme</p>
 <p></div></div></div></p>
 <p>Considérons le programme c suivant.</p>
@@ -549,7 +552,7 @@ OFFSET           TYPE              VALUE
 <p>La convention <code>cdecl</code> qui est assez répandue sur les architectures 32bits consiste à utiliser la pile. Par contre la valeur de retour est présente dans des registres comme pour la convention <code>System V AMD64 ABI</code>.</div></p>
 <p><div class="ui internally celled grid"><div class="row"><div class="eleven wide column"> Lors d’un appel d’une fonction passant par la pile, on commence par empiler les paramètres (souvent de la droite vers la gauche) puis on empile l’adresse à laquelle doit revenir l’exécution une fois que la fonction aura terminé son exécution.</p>
 <p>Au début de l’exécution de cette fonction, on place sur la pile l’adresse du fond de pile et on déplace celui-ci pour réserver de la place pour les variables locales.</p>
-<p>L’empreinte sur la pile d’un appel de fonction est appelée une structure pile (<strong>stack frame</strong> en anglais). La pile est alors organisée, depuis l’appel au point d’entrée du programme, par empilement et dépilement de structures piles. </div><div class="four wide column"> <img src="assets/pics/stackframe.png" /></p>
+<p>L’empreinte sur la pile d’un appel de fonction est appelée une structure pile (<strong>stack frame</strong> en anglais). La pile est alors organisée, depuis l’appel au point d’entrée du programme, par empilement et dépilement de structures piles. </div><div class="four wide column"> <center><div class="ui image center"><img src="assets/pics/stackframe.png" /></div></center></p>
 <p><br/>Structure pile associée à un appel de fonction </div></div></div></p>
 <p>Voici un exemple possible de l’état de la pile d’exécution lors de l’exécution d’un programme compilé avec la norme <code>cdecl</code> (Il suffit d’ajouter l’argument <code>-m32</code> pour compiler en 32bits).</p>
 <p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"> <div class="ui segment code"></p>
@@ -567,7 +570,7 @@ OFFSET           TYPE              VALUE
 <span id="cb6-12"><a href="#cb6-12"></a><span class="op">{</span></span>
 <span id="cb6-13"><a href="#cb6-13"></a>    <span class="dt">int</span> x <span class="op">=</span> f<span class="op">(</span><span class="dv">10</span><span class="op">,</span><span class="dv">12</span><span class="op">);</span></span>
 <span id="cb6-14"><a href="#cb6-14"></a><span class="op">}</span></span></code></pre></div>
-<p></div> </div><div class="eight wide column"> <img src="assets/pics/stackframe1.png" /></p>
+<p></div> </div><div class="eight wide column"> <center><div class="ui image center"><img src="assets/pics/stackframe1.png" /></div></center></p>
 <p></div></div></div></p>
 <p>A chaque appel de fonction, on va donc empiler une structure de pile complète, puis la dépiler à la sortie. Ce mécanisme est essentiel pour permettre la récurrence car il permet d’effectuer plusieurs appels d’une même fonction sans risquer que la mémoire utilisée lors d’un des appels interfère avec un autre. On comprend également les limites de la récursivité ici car cet empilement successif de structures de piles peut dépasser la taille maximale de la pile d’exécution : on parle alors de <em>dépassement de pile</em> ou <strong>stack overflow</strong> en anglais.</p>
 <p><div class="ui message orange"><div class="header">Remarque</div>Il est possible de définir des variables locales qui soient situées au même emplacement mémoire pour tous les appels d’une fonction, c’est ce qu’on appelé des variables <em>statiques</em> dans le paragraphe précédent.</p>
@@ -692,10 +695,10 @@ OFFSET           TYPE              VALUE
 <p>Afin de comprendre comment fonctionne le tas, et en particulier malloc et free, on va simuler ici ce comportement en allouant une grande plage de mémoire avec malloc et en gérant le découpage et l’allocation de celle-ci.</p>
 <p>Pour gérer les blocs mémoires libres, on utilise une liste circulaire. Une liste circulaire est une liste chaînée avec un lien supplémentaire entre le premier et le dernier maillon, ce qui fait qu’on peut considérer n’importe quel maillon comme étant la <em>tête</em> de la liste.</p>
 <p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"> Une liste chaînée :</p>
-<p><img src="assets/pics/listechainee.png" /></p>
+<p><center><div class="ui image center"><img src="assets/pics/listechainee.png" /></div></center></p>
 <p>Ici le dernier maillon comprend un pointeur qui ne pointe sur rien indiqué par <span class="math inline">\(\times\)</span>, en pratique il a la valeur <code>NULL</code></p>
 <p></div><div class="eight wide column"> Une liste circulaire :</p>
-<p><img src="assets/pics/listecirculaire.png" /></p>
+<p><center><div class="ui image center"><img src="assets/pics/listecirculaire.png" /></div></center></p>
 <p>Le seul changement est donc de faire pointer le dernier maillon sur le premier. Le fait d’avoir preserver les valeurs dans les maillons permet ici de voir ce qu’est devenu le premier maillon, mais on peut accéder à cette liste par n’importe lequel de ces maillons.</p>
 <p></div></div></div></p>
 <p>Les noeuds de la liste circulaire de blocs libres auront pour valeur un triplet <code>(adresse,taille,libre)</code> qui indique qu’à l’adresse <code>adresse</code> il y a un bloc de <code>taille</code> octets et le booléen <code>libre</code> indique si ce bloc a été alloué ou non.</p>
@@ -837,28 +840,28 @@ OFFSET           TYPE              VALUE
 <div class="sourceCode" id="cb27"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>Allocation a<span class="op">:</span><span class="bn">0x55c6c0c922a0</span> b<span class="op">:</span><span class="bn">0x55c6c0c922a5</span> c<span class="op">:(</span>nil<span class="op">)</span> d<span class="op">:</span><span class="bn">0x55c6c0c922a5</span></span></code></pre></div>
 <p></div></p>
 <p>Voici l’évolution de la liste circulaire en présentant les maillons sous la forme :</p>
-<p><img src="assets/pics/maillon.png" /></p>
+<p><center><div class="ui image center"><img src="assets/pics/maillon.png" /></div></center></p>
 <p>L’évolution de la liste des blocs entre les lignes 3 et 9 est alors :</p>
 <ul>
 <li>Ligne 3</li>
 </ul>
-<p><img src="assets/pics/custom_malloc_evolution1.png" /></p>
+<p><center><div class="ui image center"><img src="assets/pics/custom_malloc_evolution1.png" /></div></center></p>
 <ul>
 <li>Ligne 5</li>
 </ul>
-<p><img src="assets/pics/custom_malloc_evolution2.png" /></p>
+<p><center><div class="ui image center"><img src="assets/pics/custom_malloc_evolution2.png" /></div></center></p>
 <ul>
 <li>Ligne 6</li>
 </ul>
-<p><img src="assets/pics/custom_malloc_evolution3.png" /></p>
+<p><center><div class="ui image center"><img src="assets/pics/custom_malloc_evolution3.png" /></div></center></p>
 <ul>
 <li>Ligne 8</li>
 </ul>
-<p><img src="assets/pics/custom_malloc_evolution4.png" /></p>
+<p><center><div class="ui image center"><img src="assets/pics/custom_malloc_evolution4.png" /></div></center></p>
 <ul>
 <li>Ligne 9</li>
 </ul>
-<p><img src="assets/pics/custom_malloc_evolution5.png" /></p>
+<p><center><div class="ui image center"><img src="assets/pics/custom_malloc_evolution5.png" /></div></center></p>
 <p>Cette méthode d’allocation a un défaut majeur : elle fragmente l’espace libre. Dans le programme suivant, il sera impossible d’allouer <code>b</code> car la liste circulaire contient deux blocs libres de 5 octets et non une bloc libre de 10 octets.</p>
 <p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>creation_blocs_libres<span class="op">(</span><span class="dv">10</span><span class="op">);</span></span>
