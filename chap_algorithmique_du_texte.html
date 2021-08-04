@@ -1093,7 +1093,7 @@ n-1-i} \\ &amp; = &amp; n -1 - \max \enscomp{k}{\texttt{suffixe}[k] = n-1-i}
 <span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">None</span></span></code></pre></div>
 <p></div> </div></p>
 <p>Supposons que le motif est de longueur <span class="math inline">\(p\)</span>, que la chaîne dans laquelle on recherche est de longueur <span class="math inline">\(n\)</span> et que la taille de l’alphabet est une constante indépendante des entrées. La première partie de l’algorithme consiste à construire les tables de sauts, comme on l’a vu, elle est en complexité en temps et en espace en pire cas en <span class="math inline">\(O(p)\)</span>.</p>
-<p>On admet que l’algorithme Boyer-Moore complet, étant donné les deux tables de saut, est en complexité temporelle en pire cas en <span class="math inline">\(O(n)\)</span>.</p>
+<p>On admet que l’algorithme Boyer-Moore complet, étant donné les deux tables de saut et d’autres modifications mineures non présentées ici, est en complexité temporelle en pire cas en <span class="math inline">\(O(n)\)</span>.</p>
 <p>Il est assez raisonnable de penser que soit <span class="math inline">\(p \le n\)</span> quand on effectue une recherche, soit on compte chercher un même motif dans plusieurs textes et on réutilise ainsi les tables de sauts. Il n’est donc pas forcément très pertinent de parler de la complexité globale de l’algorithme, mais lorsqu’on le fait, on dit qu’elle est en <span class="math inline">\(O(p+n)\)</span>. On rappelle ici le rôle de l’addition dans les complexités qui fait référence à la succession de deux traitements, un en <span class="math inline">\(O(p)\)</span> suivi d’un en <span class="math inline">\(O(n)\)</span>.</p>
 <h2 data-number="1.4" id="sec:algorithme-de-rabin-karp"><span class="header-section-number">1.4</span> Algorithme de Rabin-Karp</h2>
 <h3 data-number="1.4.1" id="sec:principe"><span class="header-section-number">1.4.1</span> Principe</h3>
@@ -1293,18 +1293,16 @@ c_i r^{p-1-i} = c_0 r^{p-1} + c_1 r^{p-2} + \dots + c_{p-1}
 <div class="sourceCode" id="cb31"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> table_occurrences nomdefichier =</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> fichier = <span class="dt">open_in_bin</span> nomdefichier <span class="kw">in</span></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> occurrences = <span class="dt">Array</span>.make <span class="dv">256</span> <span class="dv">0</span> <span class="kw">in</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> caracteres = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">begin</span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">try</span></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">while</span> <span class="kw">true</span> <span class="kw">do</span></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>            <span class="kw">let</span> c = <span class="dt">input_byte</span> fichier <span class="kw">in</span></span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>            occurrences.(c) &lt;- occurrences.(c) + <span class="dv">1</span>;</span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>            <span class="dt">incr</span> caracteres</span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span></span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">with</span> <span class="dt">End_of_file</span> -&gt; ()</span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span>;</span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">close_in</span> fichier;</span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>    occurrences</span></code></pre></div>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">begin</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>     <span class="kw">try</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">while</span> <span class="kw">true</span> <span class="kw">do</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>            <span class="kw">let</span> c = <span class="dt">input_byte</span> fichier <span class="kw">in</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>            occurrences.(c) &lt;- occurrences.(c) + <span class="dv">1</span>;</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>      <span class="kw">with</span> <span class="dt">End_of_file</span> -&gt; ()</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span>;</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">close_in</span> fichier;</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>    occurrences</span></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="c-149"></p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> src<span class="op">/</span>algorithmique<span class="op">/../../</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>huffman<span class="op">.</span>c does not exist</span></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="python-149"></p>
@@ -1403,11 +1401,14 @@ Exemple
 <p>On obtient alors la fonction de fermeture de fichier suivante :</p>
 <p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-169">ocaml</a>   <a class="item" data-tab="c-169">c</a>   <a class="item" data-tab="python-169">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-169"></p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> close_out_bits f =</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> padding = <span class="dv">8</span> - f.o_bits_accumules <span class="kw">in</span></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> padding &gt; <span class="dv">0</span></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> <span class="dt">output_byte</span> f.o_fichier (Int.shift_left f.o_accumulateur padding);</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">output_byte</span> f.o_fichier padding;</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">close_out</span> f.o_fichier</span></code></pre></div>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> f.o_bits_accumules = <span class="dv">0</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> <span class="dt">output_byte</span> f.o_fichier <span class="dv">0</span>;</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> <span class="kw">begin</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> padding = <span class="dv">8</span> - f.o_bits_accumules <span class="kw">in</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">output_byte</span> f.o_fichier (Int.shift_left f.o_accumulateur padding);</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">output_byte</span> f.o_fichier padding</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">in</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">close_out</span> f.o_fichier</span></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="c-169"></p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> src<span class="op">/</span>algorithmique<span class="op">/../../</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>bitpacking<span class="op">.</span>c does not exist</span></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="python-169"></p>
@@ -1496,8 +1497,8 @@ Exemple
 <span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">rec</span> parcours a chemin =</span>
 <span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">match</span> a <span class="kw">with</span></span>
 <span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>        | Noeud (g, d) -&gt; </span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>            parcours g (<span class="kw">fun</span> f -&gt; chemin f; output_bit f <span class="kw">false</span>);</span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>            parcours d (<span class="kw">fun</span> f -&gt; chemin f; output_bit f <span class="kw">true</span>)</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>            parcours g (<span class="kw">fun</span> f -&gt; chemin f; Bitpacking.output_bit f <span class="kw">false</span>);</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>            parcours d (<span class="kw">fun</span> f -&gt; chemin f; Bitpacking.output_bit f <span class="kw">true</span>)</span>
 <span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>        | Feuille c -&gt; a_plat.(c) &lt;- chemin</span>
 <span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">in</span> parcours a (<span class="kw">fun</span> _ -&gt; ()); a_plat</span>
 <span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a></span>
@@ -1532,14 +1533,16 @@ Exemple
 <span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>    output_arbre f_out.o_fichier a; </span>
 <span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> a_plat = chemins a <span class="kw">in</span></span>
 <span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> f_in = <span class="dt">open_in_bin</span> nom_in <span class="kw">in</span></span>
-<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">try</span></span>
-<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">while</span> <span class="kw">true</span> <span class="kw">do</span></span>
-<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>            <span class="kw">let</span> c = <span class="dt">input_byte</span> f_in <span class="kw">in</span></span>
-<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>            compresse_byte f_out a_plat c</span>
-<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span></span>
-<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">with</span> <span class="dt">End_of_file</span> -&gt; ();</span>
-<span id="cb58-14"><a href="#cb58-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">close_in</span> f_in;</span>
-<span id="cb58-15"><a href="#cb58-15" aria-hidden="true" tabindex="-1"></a>    Bitpacking.close_out_bits f_out</span></code></pre></div>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">begin</span></span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a>      <span class="kw">try</span></span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">while</span> <span class="kw">true</span> <span class="kw">do</span></span>
+<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>            <span class="kw">let</span> c = <span class="dt">input_byte</span> f_in <span class="kw">in</span></span>
+<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>            compresse_byte f_out a_plat c</span>
+<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span></span>
+<span id="cb58-14"><a href="#cb58-14" aria-hidden="true" tabindex="-1"></a>      <span class="kw">with</span> <span class="dt">End_of_file</span> -&gt; ()</span>
+<span id="cb58-15"><a href="#cb58-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span>;</span>
+<span id="cb58-16"><a href="#cb58-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">close_in</span> f_in;</span>
+<span id="cb58-17"><a href="#cb58-17" aria-hidden="true" tabindex="-1"></a>    Bitpacking.close_out_bits f_out</span></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="c-206"></p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> src<span class="op">/</span>algorithmique<span class="op">/../../</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>huffman<span class="op">.</span>c does not exist</span></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="python-206"></p>
@@ -1551,14 +1554,16 @@ Exemple
 <span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> f_in = Bitpacking.open_in_bits nom_in <span class="kw">in</span></span>
 <span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> a = input_arbre f_in.i_fichier <span class="kw">in</span></span>
 <span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> f_out = <span class="dt">open_out_bin</span> nom_out <span class="kw">in</span></span>
-<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">try</span></span>
-<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">while</span> <span class="kw">true</span> <span class="kw">do</span></span>
-<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>            <span class="kw">let</span> c = decompresse_byte f_in a <span class="kw">in</span></span>
-<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>            <span class="dt">output_byte</span> f_out c</span>
-<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span></span>
-<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">with</span> <span class="dt">End_of_file</span> -&gt; ();</span>
-<span id="cb61-11"><a href="#cb61-11" aria-hidden="true" tabindex="-1"></a>    Bitpacking.close_in_bits f_in;</span>
-<span id="cb61-12"><a href="#cb61-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">close_out</span> f_out</span></code></pre></div>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">begin</span></span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>      <span class="kw">try</span></span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>          <span class="kw">while</span> <span class="kw">true</span> <span class="kw">do</span></span>
+<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>              <span class="kw">let</span> c = decompresse_byte f_in a <span class="kw">in</span></span>
+<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a>              <span class="dt">output_byte</span> f_out c</span>
+<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a>          <span class="kw">done</span></span>
+<span id="cb61-11"><a href="#cb61-11" aria-hidden="true" tabindex="-1"></a>      <span class="kw">with</span> <span class="dt">End_of_file</span> -&gt; ()</span>
+<span id="cb61-12"><a href="#cb61-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span>;</span>
+<span id="cb61-13"><a href="#cb61-13" aria-hidden="true" tabindex="-1"></a>    Bitpacking.close_in_bits f_in;</span>
+<span id="cb61-14"><a href="#cb61-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">close_out</span> f_out</span></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="c-211"></p>
 <div class="sourceCode" id="cb62"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> src<span class="op">/</span>algorithmique<span class="op">/../../</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>huffman<span class="op">.</span>c does not exist</span></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="python-211"></p>
