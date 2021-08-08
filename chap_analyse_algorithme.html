@@ -491,7 +491,7 @@ table td {
 </ul></li>
 </ul>
 Ce prédicat est bien un invariant. Ainsi, en sortie de boucle, et donc avant de renvoyer sa valeur, on a bien <span class="math inline">\(I(i,\text{taille})\)</span> donc <span class="math inline">\(\text{tableau}[i]\)</span> est la plus petite valeur du tableau.</li>
-<li>Boucle dans <code>tri_par_selection</code> : on va valider l’invariant $T(i) := $ le sous-tableau <code>tableau[0..i-1]</code> des indices 0 à <span class="math inline">\(i-1\)</span> est trié et ne contient que des valeurs plus petites que celles du sous-tableau <code>tableau[i..taille-1]</code>.
+<li>Boucle dans <code>tri_par_selection</code> : on va valider l’invariant <span class="math inline">\(T(i) :=\)</span> le sous-tableau <code>tableau[0..i-1]</code> des indices 0 à <span class="math inline">\(i-1\)</span> est trié et ne contient que des valeurs plus petites que celles du sous-tableau <code>tableau[i..taille-1]</code>.
 <ul>
 <li>En entrée de boucle, le sous-tableau est vide donc trié.</li>
 <li>Si en entrée d’itération, le prédicat est vérifié. On récupère l’indice <span class="math inline">\(j\)</span> du minimum du sous-tableau <code>tableau[i..taille-1]</code> à l’aide la fonction <code>indice_minimum</code>, par hypothèse <code>tableau[j]</code> est alors supérieur ou égal à chaque élément de <code>tableau[0..i-1]</code>, en le plaçant à l’indice i, on a bien <code>tableau[0..i]</code> qui est trié et par construction la valeur de <code>tableau[i]</code> est inférieure à toutes celels de <code>tableau[i+1..taille-1]</code>. On a ainsi <span class="math inline">\(T(i+1)\)</span> vérifié en sortie d’itération.</li>
