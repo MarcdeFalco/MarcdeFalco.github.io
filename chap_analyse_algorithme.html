@@ -507,14 +507,17 @@ Ce prédicat est bien un invariant. Ainsi, en sortie de boucle, <span class="mat
 <li><strong>complexité spatiale dans le pire des cas</strong>, la suite <span class="math inline">\((C^s_n)_{n \in \N}\)</span> telle que pour tout <span class="math inline">\(n \in \N\)</span>, <span class="math inline">\(C^s_n = \max_{e \in I_n} s(e)\)</span>. </div></li>
 </ul>
 <p>Comme on va le voir, calculer explicitement ces suites n’a pas beaucoup d’intérêt tant elles sont dépendantes de la manière dont on mesure le temps et l’espace. Ce qui compte ici, c’est de connaître l’<em>ordre de grandeur</em> de ces complexités en fonction de <span class="math inline">\(n\)</span>.</p>
-<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"> Pour un tableau de taille <span class="math inline">\(n\)</span>, ce programme va effectuer <span class="math inline">\(n\)</span> itérations et sa complexité est ainsi de l’ordre de <span class="math inline">\(n\)</span>. Il est possible d’être très précis en considérant les temps pris</p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
+<p>Pour un tableau de taille <span class="math inline">\(n\)</span>, ce programme va effectuer <span class="math inline">\(n\)</span> itérations et sa complexité est ainsi de l’ordre de <span class="math inline">\(n\)</span>. Il est possible d’être très précis en considérant les temps pris</p>
 <ul>
 <li>pour mettre en place l’appel de fonction et le passage des arguments</li>
 <li>par la gestion de l’indice de la boucle for</li>
 <li>pour la comparaison, puis pour l’affectation éventuelle</li>
 <li>pour mettre en place la valeur de retour afin que le résultat soit lu</li>
 </ul>
-<p>On peut remarquer que la notion de pire cas dépend de la précision à laquelle on se place. Ici, si on ne s’intéresse qu’à l’ordre de grandeur, tous les tableaux de taille <span class="math inline">\(n\)</span> sont équivalents. Par contre, si on cherche avec précision le pire cas, il est atteint avec un tableau trié par ordre croissant car c’est le cas qui effectue une affectation à chaque itération. </div><div class="eight wide column"> <div class="ui segment code"></p>
+<p>On peut remarquer que la notion de pire cas dépend de la précision à laquelle on se place. Ici, si on ne s’intéresse qu’à l’ordre de grandeur, tous les tableaux de taille <span class="math inline">\(n\)</span> sont équivalents. Par contre, si on cherche avec précision le pire cas, il est atteint avec un tableau trié par ordre croissant car c’est le cas qui effectue une affectation à chaque itération.</p>
+<p></div><div class="eight wide column"></p>
+<p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> maximum<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>tableau<span class="op">,</span> <span class="dt">int</span> taille<span class="op">)</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> M <span class="op">=</span> INT_MIN<span class="op">;</span></span>
@@ -532,7 +535,8 @@ Ce prédicat est bien un invariant. Ainsi, en sortie de boucle, <span class="mat
 <h2 data-number="3.2" id="sec:comparer-des-complexités"><span class="header-section-number">3.2</span> Comparer des complexités</h2>
 <p>Avant de pouvoir comparer les complexités des algorithmes ou des programmes, il est nécessaire de mettre en place des outils pour en parler à la fois avec précision mais également sans rentrer dans des détails inextricables d’implémentation.</p>
 <p>En effet, comparons les deux fonctions suivantes permettant de calculer le maximum d’un tableau non vide :</p>
-<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"> <div class="ui segment code"></p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
+<p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> maximum<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>tableau<span class="op">,</span> <span class="dt">int</span> taille<span class="op">)</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> M <span class="op">=</span> INT_MIN<span class="op">;</span></span>
@@ -546,7 +550,8 @@ Ce prédicat est bien un invariant. Ainsi, en sortie de boucle, <span class="mat
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> M<span class="op">;</span></span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
-<p></div><div class="eight wide column"> <div class="ui segment code"></p>
+<p></div><div class="eight wide column"></p>
+<p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> maximum<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>tableau<span class="op">,</span> <span class="dt">int</span> taille<span class="op">)</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> M <span class="op">=</span> tableau<span class="op">[</span><span class="dv">0</span><span class="op">];</span></span>
@@ -577,15 +582,24 @@ Ce prédicat est bien un invariant. Ainsi, en sortie de boucle, <span class="mat
 <p>Si <span class="math inline">\(u_n = O(v_n)\)</span>, cela signifie qu’il existe un facteur <span class="math inline">\(M &gt; 0\)</span> tel que pour tout entier <span class="math inline">\(n\)</span>, on ait <span class="math inline">\(- M |v_n| \le u_n \le M |v_n|\)</span>. Les variations de la suite <span class="math inline">\((u_n)_n\)</span> sont ainsi entièrement contrôlées par les variations de <span class="math inline">\((v_n)_n\)</span>.</p>
 <p>En informatique, on ne considère pour la complexité que des suites positives, ce qui permet de simplifier la relation : si <span class="math inline">\((u_n)_n, (v_n)_n\)</span> sont des suites de réels strictement positifs, alors <span class="math inline">\(u_n = O(v_n) \iff \exists M &gt; 0, \forall n\in\N, u_n \le M v_n\)</span>. C’est le cadre dans lequel on se place implicitement dans la suite de ce document.</p>
 <p>On peut visualiser graphiquement cette relation :</p>
-<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"> <center><div class="ui image center"><img src="assets/pics/grando_ex1.png" /></div></center></p>
-<p></div><div class="eight wide column"> On a <span class="math inline">\(u_n = O(v_n)\)</span> si et seulement s’il est possible de multiplier les ordonnés de chaque point <span class="math inline">\((n,v_n)\)</span> par une constante afin que ces nouveaux points soient tous au-dessus des points <span class="math inline">\((n,u_n)\)</span>. On peut voir que la courbe déduite des <span class="math inline">\(v_n\)</span> enveloppe, à un facteur près, celle des <span class="math inline">\(u_n\)</span>.</p>
-<p><strong>Remarque:</strong> <em>On a relié ici les valeurs des suites pour mieux mettre en valeur cette notion d’enveloppe.</em> </div></div></div></p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
+<p><center><div class="ui image center"><img src="assets/pics/grando_ex1.png" /></div></center></p>
+<p></div><div class="eight wide column"></p>
+<p>On a <span class="math inline">\(u_n = O(v_n)\)</span> si et seulement s’il est possible de multiplier les ordonnés de chaque point <span class="math inline">\((n,v_n)\)</span> par une constante afin que ces nouveaux points soient tous au-dessus des points <span class="math inline">\((n,u_n)\)</span>. On peut voir que la courbe déduite des <span class="math inline">\(v_n\)</span> enveloppe, à un facteur près, celle des <span class="math inline">\(u_n\)</span>.</p>
+<p><strong>Remarque:</strong> <em>On a relié ici les valeurs des suites pour mieux mettre en valeur cette notion d’enveloppe.</em></p>
+<p></div></div></div></p>
 <p>Cette relation est une notion <strong>asymptotique</strong> : elle n’a d’intérêt que lorsqu’on considère des rangs au voisinage de l’infini. En effet, pour un nombre fini de termes, il est toujours possible de trouver un tel <span class="math inline">\(M\)</span>, mais pour un nombre infini, ce n’est pas le cas.</p>
-<p><div class="ui internally celled grid"><div class="row"><div class="nine wide column"> <center><div class="ui image center"><img src="assets/pics/grando_ex2.png" /></div></center></p>
-<p></div><div class="six wide column"> Ici, on compare asymptotiquement les suites <span class="math inline">\((u_n)_n\)</span> et <span class="math inline">\((v_n)_n\)</span> où pour <span class="math inline">\(n \in \N\)</span>, <span class="math inline">\(u_n = n + n \log_2 n\)</span> et <span class="math inline">\(v_n = n \log_2 n\)</span>. Pour simplifier la visualisation, on a tracé les fonctions correspondantes. On remarque qu’on a bien <span class="math inline">\(n + n \log_2 n = O(n \log_2 n)\)</span>. </div></div></div></p>
-<p><div class="ui internally celled grid"><div class="row"><div class="nine wide column"> <center><div class="ui image center"><img src="assets/pics/grando_ex3.png" /></div></center></p>
-<p></div><div class="six wide column"> Par contre, si on compare les suites <span class="math inline">\((u_n)_n\)</span> et <span class="math inline">\((v_n)_n\)</span> où pour <span class="math inline">\(n \in \N\)</span>, <span class="math inline">\(u_n = n^2\)</span> et <span class="math inline">\(v_n = n \log_2 n\)</span>, on remarque que quelle que soit la valeur choisie pour <span class="math inline">\(M\)</span>, il y aura un rang à partir duquel <span class="math inline">\(u_n &gt; M v_n\)</span>.</p>
-<p>Ici, <span class="math inline">\(n^2 \not = O(n \log_2 n)\)</span>. </div></div></div></p>
+<p><div class="ui internally celled grid"><div class="row"><div class="nine wide column"></p>
+<p><center><div class="ui image center"><img src="assets/pics/grando_ex2.png" /></div></center></p>
+<p></div><div class="six wide column"></p>
+<p>Ici, on compare asymptotiquement les suites <span class="math inline">\((u_n)_n\)</span> et <span class="math inline">\((v_n)_n\)</span> où pour <span class="math inline">\(n \in \N\)</span>, <span class="math inline">\(u_n = n + n \log_2 n\)</span> et <span class="math inline">\(v_n = n \log_2 n\)</span>. Pour simplifier la visualisation, on a tracé les fonctions correspondantes. On remarque qu’on a bien <span class="math inline">\(n + n \log_2 n = O(n \log_2 n)\)</span>.</p>
+<p></div></div></div></p>
+<p><div class="ui internally celled grid"><div class="row"><div class="nine wide column"></p>
+<p><center><div class="ui image center"><img src="assets/pics/grando_ex3.png" /></div></center></p>
+<p></div><div class="six wide column"></p>
+<p>Par contre, si on compare les suites <span class="math inline">\((u_n)_n\)</span> et <span class="math inline">\((v_n)_n\)</span> où pour <span class="math inline">\(n \in \N\)</span>, <span class="math inline">\(u_n = n^2\)</span> et <span class="math inline">\(v_n = n \log_2 n\)</span>, on remarque que quelle que soit la valeur choisie pour <span class="math inline">\(M\)</span>, il y aura un rang à partir duquel <span class="math inline">\(u_n &gt; M v_n\)</span>.</p>
+<p>Ici, <span class="math inline">\(n^2 \not = O(n \log_2 n)\)</span>.</p>
+<p></div></div></div></p>
 <p><div class="ui message orange"><div class="header">Remarque</div>On a ici utilisé le logarithme en base 2, noté <span class="math inline">\(\log_2\)</span>, qui est essentiel informatique : si <span class="math inline">\(x = \log_2(n)\)</span> alors <span class="math inline">\(n = 2^x\)</span> où <span class="math inline">\(x\)</span> est un réel. On considère aussi <span class="math inline">\(p = \lceil \log_2(n) \rceil\)</span> qui est le plus petit entier égal ou supérieur à <span class="math inline">\(\log_2(n)\)</span>. On parle de <strong>partie entière supérieure</strong> et on a alors <span class="math inline">\(2^{p-1} &lt; n \le 2^p\)</span>. Cet entier <span class="math inline">\(p\)</span> correspond alors au plus petit nombre de chiffre nécessaire pour pouvoir écrire <span class="math inline">\(n\)</span> en binaire. On a <span class="math inline">\(\lceil \log_2(n) \rceil = O(\log_2(n))\)</span> et ainsi, le plus souvent, on ne considère pas la partie entière explicitement. De la même manière, <span class="math inline">\(\log_2(n) = \frac{\ln n}{\ln 2} = O(\ln n)\)</span>.</div></p>
 <p>Un cas important de grand O est celui des <span class="math inline">\(O(1)\)</span>. Si <span class="math inline">\(u_n = O(1)\)</span>, cela signifie que <span class="math inline">\((u_n)_{n\in\N}\)</span> est une suite bornée.</p>
 <h3 data-number="3.2.2" id="sec:échelle-de-comparaison"><span class="header-section-number">3.2.2</span> Échelle de comparaison</h3>
@@ -613,8 +627,11 @@ n^\alpha = O(\beta^n)
 <p>On peut visualiser cette relation <span class="math inline">\(\Theta\)</span> en considérant qu’il existe ainsi <span class="math inline">\(M,M&#39; &gt; 0\)</span> tels que <span class="math inline">\(u_n \le M v_n\)</span> et <span class="math inline">\(v_n \le M&#39; u_n\)</span>. Mais on a alors <span class="math display">\[
 1/M&#39; v_n \le u_n \le M v_n
 \]</span> Ainsi, <span class="math inline">\(u_n = \Theta(v_n)\)</span> signifie qu’on peut encadrer <span class="math inline">\((u_n)_n\)</span> entre deux multiples de <span class="math inline">\((v_n)_n\)</span>.</p>
-<p><div class="ui internally celled grid"><div class="row"><div class="nine wide column"> <center><div class="ui image center"><img src="assets/pics/grando_theta.png" /></div></center></p>
-<p></div><div class="six wide column"> En reprenant la figure précédente, on observe visuellement <span class="math display">\[n \log_2 n \le n \log_2 n + n \le 2 n \log_2 n\]</span> </div></div></div></p>
+<p><div class="ui internally celled grid"><div class="row"><div class="nine wide column"></p>
+<p><center><div class="ui image center"><img src="assets/pics/grando_theta.png" /></div></center></p>
+<p></div><div class="six wide column"></p>
+<p>En reprenant la figure précédente, on observe visuellement <span class="math display">\[n \log_2 n \le n \log_2 n + n \le 2 n \log_2 n\]</span></p>
+<p></div></div></div></p>
 <p>Avoir <span class="math inline">\(u_n = \Theta(v_n)\)</span> signifie donc que <span class="math inline">\(u_n\)</span> évolue entre deux guides suivant les variations de <span class="math inline">\(v_n\)</span>.</p>
 <h3 data-number="3.2.4" id="sec:opérations-sur-les-grands-o"><span class="header-section-number">3.2.4</span> Opérations sur les grands O</h3>
 <p>Si <span class="math inline">\(u_n = O(w_n)\)</span> et <span class="math inline">\(v_n = O(w_n)\)</span> alors <span class="math inline">\(u_n + v_n = O(w_n)\)</span>. Ainsi, des grand O de même ordre s’ajoutent.</p>
@@ -634,7 +651,10 @@ n^\alpha = O(\beta^n)
 <h3 data-number="3.3.2" id="sec:complexité-linéaire"><span class="header-section-number">3.3.2</span> Complexité linéaire</h3>
 <p>On dit qu’un algorithme a une complexité linéaire quand <span class="math inline">\(C^t_n = O(n)\)</span>.</p>
 <p>Cette complexité correspond à un traitement de temps constant sur chaque élément d’une entrée de taille <span class="math inline">\(n\)</span>. C’est le cas de la recherche d’un élément dans un tableau ou de la recherche de son maximum.</p>
-<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"> Pour la recherche linéaire d’un élément, correspondant par exemple au programme ci-contre, le pire cas correspond à ne pas avoir <code>x</code> dans <code>tableau</code> ce qui oblige à effectuer toutes les itérations. On a bien une complexité temporelle en pire cas de <span class="math inline">\(O(n)\)</span>. </div><div class="eight wide column"> <div class="ui segment code"></p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
+<p>Pour la recherche linéaire d’un élément, correspondant par exemple au programme ci-contre, le pire cas correspond à ne pas avoir <code>x</code> dans <code>tableau</code> ce qui oblige à effectuer toutes les itérations. On a bien une complexité temporelle en pire cas de <span class="math inline">\(O(n)\)</span>.</p>
+<p></div><div class="eight wide column"></p>
+<p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> recherche<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>tableau<span class="op">,</span> <span class="dt">int</span> taille<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* renvoie le plus petit indice i tel que tableau[i] = x</span></span>

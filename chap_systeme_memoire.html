@@ -407,7 +407,9 @@ OFFSET           TYPE              VALUE
 <li><code>.bss</code> contenant les variables non initialisées</li>
 <li><code>.rodata</code> contenant les variables globales initialisées mais constantes.</li>
 </ul>
-<p></div><div class="four wide column"> Ici, le schéma mémoire est un peu plus compliqué car une zone mémoire distincte est prévue pour les variables constantes initialisées pour des raisons de sécurité. </div></div></div></p>
+<p></div><div class="four wide column"></p>
+<p>Ici, le schéma mémoire est un peu plus compliqué car une zone mémoire distincte est prévue pour les variables constantes initialisées pour des raisons de sécurité.</p>
+<p></div></div></div></p>
 <p>La pile et le tas sont automatiques et n’ont pas besoin de figurer dans le binaire, c’est pour cela qu’on ne les trouve pas dans la liste.</p>
 <p>Dans cette description mémoire, on trouve la table des symboles qui décrit où vont se trouver en mémoire certaines variables.</p>
 <table>
@@ -550,12 +552,17 @@ OFFSET           TYPE              VALUE
 <p><div class="ui message orange"><div class="header">Remarque</div>Afin de pouvoir appeler une fonction dans une bibliothèque potentiellement compilée avec un autre compilateur, il est nécessaire d’avoir une convention d’appels de fonctions. Une telle convention est appelée une <em>interface applicative binaire</em> (Application Binary Interface).</p>
 <p>La convention <code>System V AMD64 ABI</code> qui est celle de Linux et macOS sur des architectures 64bits consiste à utiliser des registres entiers pour les six premiers arguments entiers ou pointeurs et des registres flottants pour les huit premiers arguments flottants. Les arguments suivants sont alors passés sur la pile (donc dès le septième entier/pointeur ou neuvième flottant).</p>
 <p>La convention <code>cdecl</code> qui est assez répandue sur les architectures 32bits consiste à utiliser la pile. Par contre la valeur de retour est présente dans des registres comme pour la convention <code>System V AMD64 ABI</code>.</div></p>
-<p><div class="ui internally celled grid"><div class="row"><div class="eleven wide column"> Lors d’un appel d’une fonction passant par la pile, on commence par empiler les paramètres (souvent de la droite vers la gauche) puis on empile l’adresse à laquelle doit revenir l’exécution une fois que la fonction aura terminé son exécution.</p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eleven wide column"></p>
+<p>Lors d’un appel d’une fonction passant par la pile, on commence par empiler les paramètres (souvent de la droite vers la gauche) puis on empile l’adresse à laquelle doit revenir l’exécution une fois que la fonction aura terminé son exécution.</p>
 <p>Au début de l’exécution de cette fonction, on place sur la pile l’adresse du fond de pile et on déplace celui-ci pour réserver de la place pour les variables locales.</p>
-<p>L’empreinte sur la pile d’un appel de fonction est appelée une structure pile (<strong>stack frame</strong> en anglais). La pile est alors organisée, depuis l’appel au point d’entrée du programme, par empilement et dépilement de structures piles. </div><div class="four wide column"> <center><div class="ui image center"><img src="assets/pics/stackframe.png" /></div></center></p>
-<p><br/>Structure pile associée à un appel de fonction </div></div></div></p>
+<p>L’empreinte sur la pile d’un appel de fonction est appelée une structure pile (<strong>stack frame</strong> en anglais). La pile est alors organisée, depuis l’appel au point d’entrée du programme, par empilement et dépilement de structures piles.</p>
+<p></div><div class="four wide column"></p>
+<p><center><div class="ui image center"><img src="assets/pics/stackframe.png" /></div></center></p>
+<p><br/>Structure pile associée à un appel de fonction</p>
+<p></div></div></div></p>
 <p>Voici un exemple possible de l’état de la pile d’exécution lors de l’exécution d’un programme compilé avec la norme <code>cdecl</code> (Il suffit d’ajouter l’argument <code>-m32</code> pour compiler en 32bits).</p>
-<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"> <div class="ui segment code"></p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
+<p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1"></a></span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="dt">int</span> f<span class="op">(</span><span class="dt">int</span> a<span class="op">,</span> <span class="dt">int</span> b<span class="op">)</span></span>
 <span id="cb6-3"><a href="#cb6-3"></a><span class="op">{</span></span>
@@ -570,7 +577,9 @@ OFFSET           TYPE              VALUE
 <span id="cb6-12"><a href="#cb6-12"></a><span class="op">{</span></span>
 <span id="cb6-13"><a href="#cb6-13"></a>    <span class="dt">int</span> x <span class="op">=</span> f<span class="op">(</span><span class="dv">10</span><span class="op">,</span><span class="dv">12</span><span class="op">);</span></span>
 <span id="cb6-14"><a href="#cb6-14"></a><span class="op">}</span></span></code></pre></div>
-<p></div> </div><div class="eight wide column"> <center><div class="ui image center"><img src="assets/pics/stackframe1.png" /></div></center></p>
+<p></div></p>
+<p></div><div class="eight wide column"></p>
+<p><center><div class="ui image center"><img src="assets/pics/stackframe1.png" /></div></center></p>
 <p></div></div></div></p>
 <p>A chaque appel de fonction, on va donc empiler une structure de pile complète, puis la dépiler à la sortie. Ce mécanisme est essentiel pour permettre la récurrence car il permet d’effectuer plusieurs appels d’une même fonction sans risquer que la mémoire utilisée lors d’un des appels interfère avec un autre. On comprend également les limites de la récursivité ici car cet empilement successif de structures de piles peut dépasser la taille maximale de la pile d’exécution : on parle alors de <em>dépassement de pile</em> ou <strong>stack overflow</strong> en anglais.</p>
 <p><div class="ui message orange"><div class="header">Remarque</div>Il est possible de définir des variables locales qui soient situées au même emplacement mémoire pour tous les appels d’une fonction, c’est ce qu’on appelé des variables <em>statiques</em> dans le paragraphe précédent.</p>
@@ -670,16 +679,23 @@ OFFSET           TYPE              VALUE
 <p>Comme on l’a vu dans la première partie, quand un programme s’exécute il a un environnement mémoire constitué de plusieurs zones, parfois appelées <strong>segments</strong>, avec le droit d’écriture dans certaines d’entre elles.</p>
 <p>Le système d’exploitation protège ainsi la mémoire et, au niveau matériel, l’unité de gestion de la mémoire connait les adresses accessibles à un programme. En cas d’accès anormal, le matériel provoque une erreur qui remonte au système d’exploitation qui termine l’exécution du programme avec une erreur souvent intitulée <code>Segmentation fault</code>.</p>
 <p>Voici quelques exemples commentés produisant des erreurs de type <code>segmentation fault</code> à l’exécution.</p>
-<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"> Lecture à l’adresse 0, ce qui provoque toujours une erreur.</p>
-<p>Même problème avec une adresse inaccessible ou invalide. </div><div class="eight wide column"> <div class="ui segment code"></p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
+<p>Lecture à l’adresse 0, ce qui provoque toujours une erreur.</p>
+<p>Même problème avec une adresse inaccessible ou invalide.</p>
+<p></div><div class="eight wide column"></p>
+<p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> <span class="op">*</span>a <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a<span class="op">[</span><span class="dv">0</span><span class="op">];</span></span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> </div></div></div></p>
-<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"> Écriture dans une zone en lecture seule comme le segment du code. </div><div class="eight wide column"> <div class="ui segment code"></p>
+<p></div></p>
+<p></div></div></div></p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
+<p>Écriture dans une zone en lecture seule comme le segment du code.</p>
+<p></div><div class="eight wide column"></p>
+<p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> <span class="op">*</span>a <span class="op">=</span> <span class="op">(</span><span class="dt">int</span><span class="op">*)</span> <span class="op">(&amp;</span>main<span class="op">);</span></span>
@@ -689,15 +705,18 @@ OFFSET           TYPE              VALUE
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> </div></div></div></p>
+<p></div></p>
+<p></div></div></div></p>
 <h2 data-number="5.4" id="sec:custommalloc"><span class="header-section-number">5.4</span> Réalisation d’un système d’allocation de mémoire</h2>
 <p><div class="ui message blue"><div class="header">Note</div>Prérequis : listes chaînées</div></p>
 <p>Afin de comprendre comment fonctionne le tas, et en particulier malloc et free, on va simuler ici ce comportement en allouant une grande plage de mémoire avec malloc et en gérant le découpage et l’allocation de celle-ci.</p>
 <p>Pour gérer les blocs mémoires libres, on utilise une liste circulaire. Une liste circulaire est une liste chaînée avec un lien supplémentaire entre le premier et le dernier maillon, ce qui fait qu’on peut considérer n’importe quel maillon comme étant la <em>tête</em> de la liste.</p>
-<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"> Une liste chaînée :</p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
+<p>Une liste chaînée :</p>
 <p><center><div class="ui image center"><img src="assets/pics/listechainee.png" /></div></center></p>
 <p>Ici le dernier maillon comprend un pointeur qui ne pointe sur rien indiqué par <span class="math inline">\(\times\)</span>, en pratique il a la valeur <code>NULL</code></p>
-<p></div><div class="eight wide column"> Une liste circulaire :</p>
+<p></div><div class="eight wide column"></p>
+<p>Une liste circulaire :</p>
 <p><center><div class="ui image center"><img src="assets/pics/listecirculaire.png" /></div></center></p>
 <p>Le seul changement est donc de faire pointer le dernier maillon sur le premier. Le fait d’avoir preserver les valeurs dans les maillons permet ici de voir ce qu’est devenu le premier maillon, mais on peut accéder à cette liste par n’importe lequel de ces maillons.</p>
 <p></div></div></div></p>
