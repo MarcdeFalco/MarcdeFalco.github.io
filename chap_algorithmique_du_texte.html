@@ -1657,7 +1657,7 @@ Exemple
 </ul></li>
 <li>quand tous les caractères ont été lus, on produit le code correspondant à <span class="math inline">\(m\)</span>.</li>
 </ul>
-<p>Voici les diffèrentes étapes pour la compression de la chaîne <code>AAABABAAAB</code> qui produit la suite d’entiers <code>65,256,66,65,258,257</code> qui seront alors codés dans un fichier sur d bits. Les 256 premières entrées de la table ont été volontairement ignorées. On remarque juste que <code>A</code> correspond à l’index 65 et <code>B</code> à l’index 66.</p>
+<p>Voici les diffèrentes étapes pour la compression de la chaîne <code>AABABAAAB</code> qui produit la suite d’entiers <code>65,256,66,65,258,257</code> qui seront alors codés dans un fichier sur d bits. Les 256 premières entrées de la table ont été volontairement ignorées. On remarque juste que <code>A</code> correspond à l’index 65 et <code>B</code> à l’index 66.</p>
 <p><center><div class="ui image center"><img src="assets/pics/lzw_comp_ex1.png" /></div></center></p>
 <p><center><div class="ui image center"><img src="assets/pics/lzw_comp_ex2.png" /></div></center></p>
 <p><center><div class="ui image center"><img src="assets/pics/lzw_comp_ex3.png" /></div></center></p>
@@ -1669,9 +1669,16 @@ Exemple
 <ul>
 <li>on lit un code <span class="math inline">\(n\)</span> où <span class="math inline">\(n &lt; |\textsf{table}|\)</span> et <span class="math inline">\(\textsf{table}[n] = x m&#39;\)</span>, <span class="math inline">\(x\)</span> est un caractère et <span class="math inline">\(m&#39;\)</span> un mot.</li>
 <li>on écrit <span class="math inline">\(x m&#39;\)</span> dans le fichier de sortie.</li>
-<li>si le code lu précèdemment est <span class="math inline">\(c\)</span> et <span class="math inline">\(\textsf{table}[c] = m\)</span>, on rajoute dans la table <span class="math inline">\(m x\)</span>.</li>
+<li>on rajoute ensuite <span class="math inline">\(m x\)</span> dans la table où <span class="math inline">\(c\)</span> et le précédent code lu et <span class="math inline">\(\textsf{table}[c] = m\)</span></li>
 </ul>
-<p>En faisant ainsi, on reproduit le processus de compression mais en remplissant la table avec un temps de retard. En effet, si on reprend le principe exposé plus haut, une entrée pour <span class="math inline">\(mx\)</span> est ajoutée dans la table quand on lit le caractère <span class="math inline">\(x\)</span> et que le motif lu précèdemment est <span class="math inline">\(m\)</span>, on repart alors avec <span class="math inline">\(x\)</span> pour motif lu. C’est exactement ce qu’on fait ici en tenant compte du premier caractère de <span class="math inline">\(\textsf{table}[n]\)</span>.</p>
+<p>En faisant ainsi, on reproduit le processus de compression mais en remplissant la table avec un temps de retard. En effet, si on reprend le principe exposé plus haut, une entrée pour <span class="math inline">\(mx\)</span> est ajoutée dans la table quand on lit le caractère <span class="math inline">\(x\)</span> et que le motif lu précèdemment est <span class="math inline">\(m\)</span>, on repart alors avec <span class="math inline">\(x\)</span> pour motif lu. C’est exactement ce qu’on fait ici en tenant compte du premier caractère de <span class="math inline">\(\textsf{table}[n]\)</span>. Contrairement à la compression, il est inutile ici de retrouver l’indice associé à un motif. On peut donc ignorer la table de hachage utilisée par la compression.</p>
+<p>Voici les étapes de décompression de l’exemple précédent :</p>
+<p><center><div class="ui image center"><img src="assets/pics/lzw_decomp_ex1.png" /></div></center></p>
+<p><center><div class="ui image center"><img src="assets/pics/lzw_decomp_ex2.png" /></div></center></p>
+<p><center><div class="ui image center"><img src="assets/pics/lzw_decomp_ex3.png" /></div></center></p>
+<p><center><div class="ui image center"><img src="assets/pics/lzw_decomp_ex4.png" /></div></center></p>
+<p><center><div class="ui image center"><img src="assets/pics/lzw_decomp_ex5.png" /></div></center></p>
+<p><center><div class="ui image center"><img src="assets/pics/lzw_decomp_ex6.png" /></div></center></p>
 <p>Il reste toutefois un cas à traiter, celui où <span class="math inline">\(n = |\textsf{table}|\)</span>, c’est-à-dire quand on lit un code qui n’est pas encore présent dans la table. Pour comprendre ce cas, il est important d’identifier précisèment quand il se produit dans le processus de compression. Comme on vient de le voir, on rajoute une entrée pour <span class="math inline">\(m x\)</span> après avoir produit le code <span class="math inline">\(c\)</span> correspondant à <span class="math inline">\(m\)</span>. Pour que le code <span class="math inline">\(n\)</span> ne soit pas présent dans la table, il faut donc que <span class="math inline">\(n\)</span> corresponde à cette entrée <span class="math inline">\(m x\)</span>. Or, quand on a compressé, on est reparti du motif <span class="math inline">\(x\)</span> à ce moment là, donc nécessairement <span class="math inline">\(m\)</span> commence par <span class="math inline">\(x\)</span>. Cela signifie qu’on peut reconstruire <span class="math inline">\(\textsf{table}[n]\)</span> en décompressant avec <span class="math inline">\(m x\)</span> où <span class="math inline">\(x\)</span> est la première lettre de <span class="math inline">\(\textsf{table}[c] = m\)</span>.</p>
 <p>On en déduit alors la procédure complète suivante :</p>
 <ul>
@@ -1684,14 +1691,14 @@ Exemple
 <li>Dans tous les cas, on remplace <span class="math inline">\(c \leftarrow n\)</span> et on ajoute <span class="math inline">\(\textsf{table}[c] x\)</span> à la table.</li>
 </ul></li>
 </ul>
-<p>Contrairement à la compression, il est inutile ici de retrouver l’indice associé à un motif. On peut donc ignorer la table de hachage utilisée par la compression.</p>
-<p>Voici les étapes de décompression de l’exemple précédent :</p>
-<p><center><div class="ui image center"><img src="assets/pics/lzw_decomp_ex1.png" /></div></center></p>
-<p><center><div class="ui image center"><img src="assets/pics/lzw_decomp_ex2.png" /></div></center></p>
-<p><center><div class="ui image center"><img src="assets/pics/lzw_decomp_ex3.png" /></div></center></p>
-<p><center><div class="ui image center"><img src="assets/pics/lzw_decomp_ex4.png" /></div></center></p>
-<p><center><div class="ui image center"><img src="assets/pics/lzw_decomp_ex5.png" /></div></center></p>
-<p><center><div class="ui image center"><img src="assets/pics/lzw_decomp_ex6.png" /></div></center></p>
+<p>Il y a un exemple classique où on a besoin de traiter ce cas : celui où le même caractère est présent plusieurs fois en début de fichier. Comme LZW est utilisé pour compresser des formats d’images où les pixels sont des indices dans une palette de 256 couleurs avec une couleur pour la transparence, le cas où la même couleur est présente au début du fichier est fréquent. Voici ici un exemple de compression et de décompression pour <code>AAA</code> :</p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
+<p><center><div class="ui image center"><img src="assets/pics/lzw_comp_exa1.png" /></div></center></p>
+<p><center><div class="ui image center"><img src="assets/pics/lzw_comp_exa2.png" /></div></center></p>
+<p></div><div class="eight wide column"></p>
+<p><center><div class="ui image center"><img src="assets/pics/lzw_decomp_exa1.png" /></div></center></p>
+<p><center><div class="ui image center"><img src="assets/pics/lzw_decomp_exa2.png" /></div></center></p>
+<p></div></div></div></p>
 <p><div class="ui message orange"><div class="header">Remarque</div>On peut pousser un peu plus l’analyse précédente afin d’identifier précisément les situations menant à ces cas problèmatiques. Comme on vient de le voir, il est nécessaire que le texte à compresser contienne un motif de la forme <span class="math inline">\(x w x w x\)</span> où <span class="math inline">\(w\)</span> est un mot et <span class="math inline">\(x\)</span> une lettre. Mais pour que le motif lu contienne <span class="math inline">\(x w\)</span> au moment où on ajoute l’entrée <span class="math inline">\(x w x\)</span> il faut que <span class="math inline">\(x w\)</span> lui même soit dans la table, ce qui signifie que chaque préfixe de <span class="math inline">\(x w\)</span> est également dans la table au moment où on commence à le lire, mais que si le motif précédent est <span class="math inline">\(w&#39;\)</span> alors <span class="math inline">\(w&#39; x\)</span> n’était pas dans la table.</p>
 <p>On considère un mot <span class="math inline">\(w = a_1 \dots a_n a\)</span> où toutes les lettres sont distinctes, et on va essayer de construire un mot <span class="math inline">\(p\)</span> tel que la compression de <span class="math inline">\(p\)</span> permettra avoir <span class="math inline">\(a_1\)</span>, <span class="math inline">\(a_1 a_2\)</span>, <span class="math inline">\(a_1 a_2 a_3\)</span>, …, <span class="math inline">\(a_1 \dots a_n\)</span> dans la table.</p>
 <p>Si on lit <span class="math inline">\(a_1 a_2\)</span>, on va ajouter <span class="math inline">\(a_1\)</span> puis <span class="math inline">\(a_1 a_2\)</span> dans la table. On continue alors en partant de <span class="math inline">\(a_2\)</span> comme motif, pour pouvoir ajouter <span class="math inline">\(a_1 a_2 a_3\)</span> à la table, il faut lire <span class="math inline">\(a_1 a_2 a_3\)</span> ensuite car à la lecture de <span class="math inline">\(a_1\)</span>, comme <span class="math inline">\(a_2 a_1\)</span> n’est pas dans la table on l’ajoute et <span class="math inline">\(m\)</span> devient <span class="math inline">\(a_1\)</span>, puis <span class="math inline">\(a_1 a_2\)</span>. Ainsi <span class="math inline">\(a_1 a_2 a_1 a_2 a_3\)</span> va ajouter <span class="math inline">\(a_1, a_1 a_2, a_1 a_2 a_3\)</span> dans la table. En continuant ainsi avec <span class="math inline">\(a_1 a_2 a_3 a_4\)</span>, comme <span class="math inline">\(a_3 a_1\)</span> n’est pas dans la table, on va procèder de même.</p>
@@ -1712,7 +1719,7 @@ Exemple
 <h3 data-number="2.3.3" id="sec:implémentation-1"><span class="header-section-number">2.3.3</span> Implémentation</h3>
 <p>Avant de commencer à implémenter l’algorithme, il est nécessaire de définir des fonctions de manipulation des entiers sur d bits et de lecture/écriture dans un fichier.</p>
 <p>Tout d’abord, on définit des fonctions d’écriture d’entiers sous forme codée sur d bits à l’aide des fonctions vues précédemment :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-259">ocaml</a>   <a class="item" data-tab="c-259">c</a>   <a class="item" data-tab="python-259">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-259"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-271">ocaml</a>   <a class="item" data-tab="c-271">c</a>   <a class="item" data-tab="python-271">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-271"></p>
 <div class="sourceCode" id="cb64"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> input_code f longueur_code =</span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> acc = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
 <span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> longueur_code - <span class="dv">1</span> <span class="kw">do</span></span>
@@ -1730,9 +1737,9 @@ Exemple
 <span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a>        output_bit f (!acc <span class="kw">mod</span> <span class="dv">2</span> = <span class="dv">1</span>);</span>
 <span id="cb64-16"><a href="#cb64-16" aria-hidden="true" tabindex="-1"></a>        acc := !acc / <span class="dv">2</span></span>
 <span id="cb64-17"><a href="#cb64-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-259"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-271"></p>
 <div class="sourceCode" id="cb65"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> src<span class="op">/</span>algorithmique<span class="op">/../../</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>bitpacking<span class="op">.</span>c does not exist</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-259"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-271"></p>
 <div class="sourceCode" id="cb66"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> read_code(<span class="va">self</span>, longueur_code):</span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>        acc <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(longueur_code):</span>
@@ -1752,7 +1759,7 @@ Exemple
 <span id="cb66-17"><a href="#cb66-17" aria-hidden="true" tabindex="-1"></a>            code <span class="op">//=</span> <span class="dv">2</span></span></code></pre></div>
 <p></div> </div></p>
 <p>On implèmente alors assez directement la compression :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-264">ocaml</a>   <a class="item" data-tab="c-264">c</a>   <a class="item" data-tab="python-264">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-264"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-276">ocaml</a>   <a class="item" data-tab="c-276">c</a>   <a class="item" data-tab="python-276">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-276"></p>
 <div class="sourceCode" id="cb67"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> table_bidir = {</span>
 <span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>    elements : <span class="dt">string</span> <span class="dt">array</span>;</span>
 <span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>    indices : (<span class="dt">string</span>, <span class="dt">int</span>) <span class="dt">Hashtbl</span>.t;</span>
@@ -1806,10 +1813,10 @@ Exemple
 <span id="cb67-51"><a href="#cb67-51" aria-hidden="true" tabindex="-1"></a>    Bitpacking.output_code f_out i longueur_code;</span>
 <span id="cb67-52"><a href="#cb67-52" aria-hidden="true" tabindex="-1"></a>    <span class="dt">close_in</span> f_in;</span>
 <span id="cb67-53"><a href="#cb67-53" aria-hidden="true" tabindex="-1"></a>    Bitpacking.close_out_bits f_out</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-264"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-276"></p>
 <div class="sourceCode" id="cb68"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> src<span class="op">/</span>algorithmique<span class="op">/../../</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>lzw<span class="op">.</span>c does not exist</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-264"></p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compresse(nom_in, nom_out, longueur_code<span class="op">=</span><span class="dv">12</span>):</span>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-276"></p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compresse_(nom_in, nom_out, longueur_code<span class="op">=</span><span class="dv">12</span>):</span>
 <span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>    table <span class="op">=</span> [ <span class="bu">bytes</span>([c]) <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">256</span>) ]</span>
 <span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>    indices <span class="op">=</span> { <span class="bu">bytes</span>([c]) : c <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">256</span>) }</span>
 <span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1832,7 +1839,7 @@ Exemple
 <span id="cb69-21"><a href="#cb69-21" aria-hidden="true" tabindex="-1"></a>        fout.write_code(indices[m], longueur_code)</span></code></pre></div>
 <p></div> </div></p>
 <p>Et on procède de même pour la décompression :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-269">ocaml</a>   <a class="item" data-tab="c-269">c</a>   <a class="item" data-tab="python-269">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-269"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-281">ocaml</a>   <a class="item" data-tab="c-281">c</a>   <a class="item" data-tab="python-281">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-281"></p>
 <div class="sourceCode" id="cb70"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> decompresse_fichier nom_in nom_out longueur_code =</span>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> table = cree_table longueur_code <span class="kw">in</span></span>
 <span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> taille_table = <span class="dv">1</span> <span class="kw">lsl</span> longueur_code <span class="kw">in</span></span>
@@ -1861,10 +1868,10 @@ Exemple
 <span id="cb70-26"><a href="#cb70-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span>;</span>
 <span id="cb70-27"><a href="#cb70-27" aria-hidden="true" tabindex="-1"></a>    Bitpacking.close_in_bits f_in;</span>
 <span id="cb70-28"><a href="#cb70-28" aria-hidden="true" tabindex="-1"></a>    <span class="dt">close_out</span> f_out</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-269"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-281"></p>
 <div class="sourceCode" id="cb71"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> src<span class="op">/</span>algorithmique<span class="op">/../../</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>lzw<span class="op">.</span>c does not exist</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-269"></p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> decompresse(nom_in, nom_out, longueur_code<span class="op">=</span><span class="dv">12</span>):</span>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-281"></p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> decompresse_(nom_in, nom_out, longueur_code<span class="op">=</span><span class="dv">12</span>):</span>
 <span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>    table <span class="op">=</span> [ <span class="bu">bytes</span>([c]) <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">256</span>) ]</span>
 <span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>     </span>
 <span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> Bitpacking(nom_in, <span class="st">&#39;rb&#39;</span>) <span class="im">as</span> fin, <span class="op">\</span></span>
