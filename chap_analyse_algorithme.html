@@ -318,6 +318,11 @@ table td {
 <div class="ui container text">
 <p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Introduction à l'analyse des algorithmes     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_analyse_algo.png"> </div></p>
 <p><em>Source de l’image d’en-tête <a href="https://xkcd.com/1667/">XKCD #1667</a></em></p>
+<p><div class="ui message blue"><div class="header">Note</div><strong>Roadmap</strong> :</p>
+<ul>
+<li>reprendre les exemples dans les trois langages.</li>
+<li>rajouter plus exercices.</div></li>
+</ul>
 <p><div class="ui message orange"><div class="header">Remarque</div>Ce chapitre présente les trois grands principes qui nous serviront de guide pour analyser les algorithmes et les programmes :</p>
 <ul>
 <li>La <strong>terminaison</strong> : l’algorithme termine-t-il au bout d’un nombre fini d’étapes quelle que soit l’entrée ?</li>
@@ -379,7 +384,7 @@ table td {
 <p><div class="ui message orange"><div class="header">Remarque</div>Cela n’empêche pas que ce nombre d’étapes puisse être arbitrairement grand en fonction des entrées.</div></p>
 <p>Un algorithme qui n’utilise ni boucles inconditionnelles ni récursivité termine toujours. Ainsi, la question de la terminaison n’est à considérer que dans ces deux cas.</p>
 <p>Considérons par exemple l’algorithme suivant qui, étant donné un entier naturel <span class="math inline">\(n\)</span> strictement positif, inférieur à <span class="math inline">\(2^{30}\)</span>, détermine le plus petit entier <span class="math inline">\(k\)</span> tel que <span class="math inline">\(n \le 2^k\)</span> :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-41">ocaml</a>   <a class="item" data-tab="c-41">c</a>   <a class="item" data-tab="python-41">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-41"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-43">ocaml</a>   <a class="item" data-tab="c-43">c</a>   <a class="item" data-tab="python-43">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-43"></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> plus_grande_puissance2 n =</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> k = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> p = <span class="dt">ref</span> <span class="dv">1</span> <span class="kw">in</span></span>
@@ -388,7 +393,7 @@ table td {
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        p := !p * <span class="dv">2</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    !k</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-41"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-43"></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> plus_grande_puissance2<span class="op">(</span><span class="dt">int</span> n<span class="op">)</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> k <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
@@ -402,7 +407,7 @@ table td {
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> k<span class="op">;</span></span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-41"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-43"></p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plus_grande_puissance2(n):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    k <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> <span class="dv">1</span></span>
@@ -464,7 +469,7 @@ Théorème
 </ul></li>
 </ul>
 <p>Le programme suivant présente une implémentation de cet algorithme en C.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-52">ocaml</a>   <a class="item" data-tab="c-52">c</a>   <a class="item" data-tab="python-52">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-52"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-54">ocaml</a>   <a class="item" data-tab="c-54">c</a>   <a class="item" data-tab="python-54">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-54"></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">exception</span> Trouve <span class="kw">of</span> <span class="dt">int</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> rech_dicho t x =</span>
@@ -484,7 +489,7 @@ Théorème
 <span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>;</span>
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        <span class="dt">None</span></span>
 <span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">with</span> Trouve i -&gt; <span class="dt">Some</span> i</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-52"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-54"></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> rech_dicho<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>t<span class="op">,</span> <span class="dt">size_t</span> n<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* renvoie un indice de x </span></span>
@@ -513,7 +518,7 @@ Théorème
 <span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
 <span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-52"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-54"></p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rech_dicho(t, x):</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    i <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    j <span class="op">=</span> <span class="bu">len</span>(t) <span class="op">-</span> <span class="dv">1</span></span>
@@ -1085,9 +1090,9 @@ n^\alpha = O(\beta^n)
 Exercice
 </div>
 <p>On considère le programme suivant :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-161">ocaml</a>   <a class="item" data-tab="c-161">c</a>   <a class="item" data-tab="python-161">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-161"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-163">ocaml</a>   <a class="item" data-tab="c-163">c</a>   <a class="item" data-tab="python-163">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-163"></p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-161"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-163"></p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> multiplication<span class="op">(</span><span class="dt">int</span> x<span class="op">,</span> <span class="dt">int</span> y<span class="op">,</span> <span class="dt">int</span> c<span class="op">)</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> m <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
@@ -1099,7 +1104,7 @@ Exercice
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> m<span class="op">;</span></span>
 <span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-161"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-163"></p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"></code></pre></div>
 <p></div> </div></p>
 <p>On suppose que <span class="math inline">\(c \ge 2\)</span>.</p>
@@ -1141,9 +1146,9 @@ Exercice
 </div>
 <p>On considère un polynôme <span class="math inline">\(P=\sum_{i=0}^n c_i X^i\)</span> représenté comme un tableau de <span class="math inline">\(n+1\)</span> coefficients tel que pour tout <span class="math inline">\(i \in \range{0}{n}, P[i] = c_i\)</span>.</p>
 <p>On veut calculer <span class="math inline">\(P(a)\)</span> pour une valeur <span class="math inline">\(a\)</span>. Pour simplifier, on va considérer ici que les valeurs sont toutes entières.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-165">ocaml</a>   <a class="item" data-tab="c-165">c</a>   <a class="item" data-tab="python-165">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-165"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-167">ocaml</a>   <a class="item" data-tab="c-167">c</a>   <a class="item" data-tab="python-167">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-167"></p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-165"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-167"></p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> horner<span class="op">(</span><span class="dt">const</span> <span class="dt">int</span> <span class="op">*</span>P<span class="op">,</span> <span class="dt">int</span> n<span class="op">,</span> <span class="dt">int</span> a<span class="op">)</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> v <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
@@ -1153,7 +1158,7 @@ Exercice
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> v<span class="op">;</span></span>
 <span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-165"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-167"></p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="bu">int</span> horner(P, <span class="bu">int</span> a)</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>{</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    v <span class="op">=</span> <span class="dv">0</span></span>

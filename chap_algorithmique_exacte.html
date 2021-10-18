@@ -318,6 +318,13 @@ table td {
 <div class="ui container text">
 <p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Algorithmique exacte     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_algo_exacte.png"> </div></p>
 <p><em>Source image : https://www.flickr.com/photos/x6e38/3440634940/</em></p>
+<p><div class="ui message blue"><div class="header">Note</div><strong>Roadmap</strong> :</p>
+<ul>
+<li>finir l’écriture.</li>
+<li>rajouter les codes dans les trois langages.</li>
+<li>des exercices, plein d’exercices !</li>
+<li>et aussi des problèmes.</div></li>
+</ul>
 <p><div class="ui message orange"><div class="header">Remarque</div>Dans ce chapitre, on étudie des problèmes pour lesquels on va exprimer des algorithmes permettant d’obtenir des solutions exactes. C’est à contraster avec le chapitre sur l’algorithmique approchée.</div></p>
 <p>Une grande partie des stratégies de résolution est basée sur la résolution de sous-problèmes. On verra ainsi trois types de stratégies résumées dans le schéma suivant :</p>
 <p><center><div class="ui image center"><center><div class="ui image center"><img src="assets/pics/strategies_sousproblemes.png" /></div></center></p>
@@ -760,7 +767,7 @@ u = - \frac{\overrightarrow{A_2 A_1} \times \overrightarrow{A_1 B_1}}{\Delta}
 <li><p>On renvoie l’unique élément restant dans la file.</p></li>
 </ul>
 <p>L’implémentation de cet algorithme est alors assez directe avec une file de priorité. On réutilise ici la structure de tas implementée en FIXME. Comme il s’agit d’un tas max, on insère avec <span class="math inline">\(-f(x)\)</span> comme valeur.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-109">ocaml</a>   <a class="item" data-tab="c-109">c</a>   <a class="item" data-tab="python-109">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-109"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-111">ocaml</a>   <a class="item" data-tab="c-111">c</a>   <a class="item" data-tab="python-111">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-111"></p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> construit_arbre occ =</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> arbres = Tas.cree <span class="dv">2000</span> (<span class="dv">0</span>, Feuille <span class="dv">0</span>) <span class="kw">in</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> <span class="dv">255</span> <span class="kw">do</span></span>
@@ -774,9 +781,9 @@ u = - \frac{\overrightarrow{A_2 A_1} \times \overrightarrow{A_1 B_1}}{\Delta}
 <span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>        Tas.insere (fx+fy, Noeud(x,y)) arbres</span>
 <span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">snd</span> (Tas.supprime_racine arbres)</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-109"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-111"></p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> src<span class="op">/</span>algorithmique<span class="op">/../../</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>huffman<span class="op">.</span>c does not exist</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-109"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-111"></p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>ERROR: src<span class="op">/</span>algorithmique<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>huffman.py does <span class="kw">not</span> exist</span></code></pre></div>
 <p></div> </div></p>
 <p>L’algorithme de Huffman est un algorithme glouton car si on considère pour solution partielle la fôret présente dans la file et pour objectif la fonction <span class="math inline">\(\varphi\)</span> étendue aux fôrets en sommant la valeur de <span class="math inline">\(\varphi\)</span> sur chaque arbre, alors fusionner dans la fôret <span class="math inline">\(F\)</span> deux arbres <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> en la transformant en une fôret <span class="math inline">\(F&#39;\)</span> va avoir l’impact suivant sur la fonction d’objectif :</p>
