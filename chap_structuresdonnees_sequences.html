@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="generator" content="pandoc">
+    <meta name="description" content="">
+    <meta name="author" content="Marc de Falco">
+
+    <title>Séquences et ses implémentations : tableaux, listes chaînées</title>
+
+    <link rel="stylesheet" type="text/css" href="assets/semantic.min.css">
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-PHZQE2FC4W"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-PHZQE2FC4W');
+	</script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="assets/semantic.min.js"></script>
+
+    <style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    </style>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script>
+$(document).ready(function() {
+    
+    $("#toc").sidebar("setting", "dimPage", false);
+    $("#toc").sidebar("setting", "delaySetup", true);
+
+    if (matchMedia) {
+        var mq = window.matchMedia("(max-width: 900px)");
+        mq.addListener(big_or_small);
+        big_or_small(mq);
+    }
+
+    $("[href^='#']").click(
+        () => {
+            if (! $("#main").hasClass('shrink')) {
+	            $("#toc").sidebar("hide");
+            }
+        })
+
+    function big_or_small(mq) {
+        // The sidebar *pushes* the pusher, the main content, so we
+        // add a class that reduces the pusher's width so the edge
+        // content isn't cut off.
+        if (mq.matches) {
+	        $("#toc").sidebar("hide");
+            $("#main").removeClass("shrink")
+        } else {
+            $("#toc").sidebar("show");
+            $("#main").addClass("shrink");
+        }
+    }
+
+    $("#sidebar-menu-button").click(function() {
+        $("#toc").sidebar("show");
+    }).end();
+
+    $('.tabular.menu .item').tab({
+            context: 'parent'
+        });
+
+})
+
+function setLang(l) {
+    $('.tabular.menu .item').removeClass("active")
+    $('.tabular.menu .item[data-tab^="'+l+'"]').addClass("active")
+    $('.code').removeClass("active")
+    $('.code[data-tab^="'+l+'"]').addClass("active")
+}
+</script>
+
+  <style type="text/css">
+
+  .ui.sidebar {
+    font-size: 15px;
+  }
+
+  body {
+    background-color: #FFFFFF;
+    font-size: 20px;
+  }
+  .ui.segment {
+    font-size: 20px;
+  }
+  .wireframe {
+    //margin-top: 2em;
+  }
+  .ui.footer.segment {
+    //margin: 5em 0em 0em;
+    //padding: 5em 0em;
+  }
+  #top-menu {
+    display: none;
+    }
+
+    .message {
+        color: #000 !important;
+    }
+
+.shrink {
+    width: 60%;
+}
+
+.code {
+    font-size: 0.8em !important;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 24px;
+    border-spacing: 0;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+}
+
+table tr {
+    display: table-row !important;
+}
+
+table th {
+    padding: 3px 10px;
+    background-color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid black;
+}
+table td {
+    padding: 3px 10px;
+    border-top: none;
+    border-left: none;
+    border-bottom: none;
+    border-right: none;
+}
+
+  .menu .item {
+      padding: .5em 1em !important;
+  }
+
+@media only screen and (max-width: 900px) {
+    .ui.image, .ui.image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    #top-menu {
+        display: block !important;
+    }
+}
+  </style>
+
+  </head>
+  <body class="pushable class="pushable"">
+<div style="display: none;">
+\(
+\def\N{{\mathbb{N}}}
+\def\R{{\mathbb{R}}}
+\def\D{{\mathbb{D}}}
+\def\C{{\mathbb{C}}}
+\def\Z{{\mathbb{Z}}}
+\def\Q{{\mathbb{Q}}}
+\def\K{{\mathbb{K}}}
+\def\KX{{\mathbb{K}}[X]}
+\def\U{{\mathbb{U}}}
+\def\B{{\mathcal{B}}}
+\newcommand\ensfonctions[2]{\mathcal{F}(#1,#2)}
+\newcommand\classeck[3]{\mathcal{C}^{#1}(#2,#3)}
+\newcommand\range[2]{[| #1,#2 |]}
+\newcommand\mod[0]{\mathop{mod}}
+\newcommand\land[0]{\mathop{land}}
+\newcommand\matrices[3]{\mathcal{M}_{#1,#2}(#3)}
+\newcommand\matricescarres[2]{\mathcal{M}_{#1}(#2)}
+\newcommand\gln[2]{\mbox{GL}_{#1}(#2)}
+\newcommand\Support[1]{\mbox{Supp}(#1)}
+\newcommand\dom[0]{\mbox{dom}}
+\newcommand\uniondisjointe{\sqcup}
+\def\lt{<}
+\def\rR{\mathcal{R}}
+\newcommand\parties[1]{\mathcal{P}(#1)}
+\newcommand\entiere[1]{\left\lfloor #1 \right\rfloor}
+\newcommand\congru[3]{#1 = #2\ [#3]}
+\newcommand\enscomp[2]{\left\{\left.\ #1\ \right|\ #2\ \right\}}
+\newcommand\classe[1]{\overline{#1}}
+\newcommand\classemod[2]{\overline{#1}^{[#2]}}
+\newcommand\quotient[2]{#1 / #2}
+\newcommand\ZnZ[1]{\quotient{\Z}{#1 \Z}}
+\newcommand\card[1]{\text{Card}\ #1}
+\newcommand\indic{\mathbbm{1}}
+\newcommand\id{\mbox{id}}
+\newcommand\Perm[1]{\mathfrak{S}_#1}
+\newcommand\comb[2]{\binom{#1}{#2}}
+\newcommand\tend[2]{\xrightarrow[#1 \rightarrow #2]{}}
+\newcommand\limite[2]{\lim_{#1 \rightarrow #2}}
+\newcommand\application[5]{\begin{array}{rcccc}
+#1 & : & #2 & \mapsto & #3 \\ 
+& & #4 & \mapsto & #5
+\end{array}}
+\)
+</div>
+
+
+
+<div class="ui vertical inverted visible fixed sidebar menu" id="toc">
+    <div class="item">
+    <a href="/">
+        <i class="icon home"></i> Informatique en CPGE
+    </a>
+    </div>
+    <div class="item">
+        <div class="ui buttons compact">
+            <button onClick="setLang('ocaml')" class="ui button compact">OCaml</button>
+            <button onClick="setLang('c')" class="ui button compact">C</button>
+            <button onClick="setLang('python')" class="ui button compact">Python</button>
+        </div>
+        <div>Langage des exemples</div>
+    </div>
+    <div class="item">
+    <a href="#">
+        Séquences et ses implémentations : tableaux, listes chaînées
+    </a>
+    </div>
+<!-- FIX TOC -->
+<div class="item header"> <a href="#sec:structure-abstraite-séquence-ou-liste"><span>1</span> Structure abstraite séquence ou liste</a><div class="menu"></div></div><div class="item header"> <a href="#sec:implémentations"><span>2</span> Implémentations</a><div class="menu"></div></div><div class="item header"> <a href="#sec:implémentations-concrètes-des-listes-chaînées"><span>3</span> Implémentations concrètes des Listes chaînées</a><div class="menu"><a class="item" href="#sec:en-c"><div class="ui label">3.1</div> En <code>C</code></a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:représentation-et-type"><i class="circle icon"></i> Représentation et type</a><a style="font-size:0.6em" class="item" href="#sec:constructeur"><i class="circle icon"></i> Constructeur</a><a style="font-size:0.6em" class="item" href="#sec:destructeur"><i class="circle icon"></i> Destructeur</a><a style="font-size:0.6em" class="item" href="#sec:ajout-et-suppression-en-tête"><i class="circle icon"></i> Ajout et suppression en tête</a><a style="font-size:0.6em" class="item" href="#sec:longueur-de-la-liste"><i class="circle icon"></i> Longueur de la liste</a><a style="font-size:0.6em" class="item" href="#sec:accès-au-nième-maillon-de-la-liste"><i class="circle icon"></i> Accès au nième maillon de la liste</a><a style="font-size:0.6em" class="item" href="#sec:ajoutsuppression-ailleurs-quen-tête"><i class="circle icon"></i> Ajout/Suppression ailleurs qu’en tête</a><a style="font-size:0.6em" class="item" href="#sec:autres-implémentations"><i class="circle icon"></i> Autres implémentations</a></div><a class="item" href="#sec:en-ocaml"><div class="ui label">3.2</div> En <code>OCaml</code></a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:cas-des-a-list"><i class="circle icon"></i> Cas des <code>'a list</code></a><a style="font-size:0.6em" class="item" href="#sec:type-des-listes-chaînées"><i class="circle icon"></i> Type des listes chaînées</a><a style="font-size:0.6em" class="item" href="#sec:ajout-et-suppression-en-tête-1"><i class="circle icon"></i> Ajout et suppression en tête</a><a style="font-size:0.6em" class="item" href="#sec:exemple-de-parcours-sans-modification-calcul-de-la-longueur"><i class="circle icon"></i> Exemple de parcours sans modification : calcul de la longueur</a><a style="font-size:0.6em" class="item" href="#sec:exemple-de-parcours-avec-modification-ajout-dune-maillon-en-fin-de-liste"><i class="circle icon"></i> Exemple de parcours avec modification : ajout d’une maillon en fin de liste</a><a style="font-size:0.6em" class="item" href="#sec:raffinement-pour-permettre-lajout-à-la-fin-en-temps-constant"><i class="circle icon"></i> Raffinement pour permettre l’ajout à la fin en temps constant</a></div><a class="item" href="#sec:structure-de-la-mémoire"><div class="ui label">3.3</div> Structure de la mémoire</a></div></div><!-- FIX TOC -->
+</div>
+
+<div class="pusher" id="main-content">
+    <div class="ui inverted top menu" id="top-menu">
+        <div class="ui container">
+	  <a class="launch icon item" id="sidebar-menu-button">
+	    <i class="angle double left icon"></i>
+	  </a>
+	  <div class="item">
+          Séquences et ses implémentations : tableaux, listes chaînées
+	  </div>
+        </div>
+      </div>
+      <div class="ui padded basic segment shrink" id="main">
+          <!-- <div class="masthead"> -->
+<div class="segment">
+<div class="ui container text">
+<p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Séquences et ses implémentations : tableaux, listes chaînées     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_programmation_imperative.jpg"> </div></p>
+<h1 data-number="1" id="sec:structure-abstraite-séquence-ou-liste"><span class="header-section-number">1</span> Structure abstraite séquence ou liste</h1>
+<h1 data-number="2" id="sec:implémentations"><span class="header-section-number">2</span> Implémentations</h1>
+<h1 data-number="3" id="sec:implémentations-concrètes-des-listes-chaînées"><span class="header-section-number">3</span> Implémentations concrètes des Listes chaînées</h1>
+<h2 data-number="3.1" id="sec:en-c"><span class="header-section-number">3.1</span> En <code>C</code></h2>
+<h3 data-number="3.1.1" id="sec:représentation-et-type"><span class="header-section-number">3.1.1</span> Représentation et type</h3>
+<p>Il existe de nombreuses possibilités d’implémentation des listes chaînées en <code>C</code>. On présente ici les opérations autour d’une implémentation et on discutera ensuite des alternatives.</p>
+<p>Dans les limites du programme, on ne présente que des listes permettant de contenir un même type, ici des entiers.</p>
+<p>Une liste est ainsi un pointeur sur un maillon et un maillon est un couple <code>(valeur, suivant)</code> représenté dans une <code>struct</code> où <code>suivant</code> pointe vers le prochain maillon de la chaîne. Le pointeur nul, de valeur <code>NULL</code>, permet ainsi de représenter la liste vide.</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> maillon <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> valeur<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> maillon <span class="op">*</span>suivant<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">struct</span> maillon maillon<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> maillon <span class="op">*</span>liste<span class="op">;</span></span></code></pre></div>
+<p></div></p>
+<p>On représentera graphiquement le pointeur nul par une croix et les maillons par des blocs contenant une valeur et un pointeur. Ainsi, le dernier maillon de la liste contient une croix. La liste <code>l</code> correspondant à la valeur qu’on pourrait noter <code>[1,2,3]</code> sera représentée ainsi :</p>
+<p><center><div class="ui image center"><img src="assets/pics/exempleliste.png" /></div></center></p>
+<h3 data-number="3.1.2" id="sec:constructeur"><span class="header-section-number">3.1.2</span> Constructeur</h3>
+<p>On parle de constructeur pour des fonctions qui permettent d’allouer et d’initialiser une valeur d’une structure de donnée. Ici, comme les listes sont des pointeurs sur des maillons, il s’agit uniquement de créer un maillon. Pour cela, on va utiliser <code>malloc</code> pour allouer dynamiquement un nouveau maillon.</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>maillon <span class="op">*</span>maillon_creer<span class="op">(</span><span class="dt">int</span> valeur<span class="op">,</span> maillon <span class="op">*</span>suivant<span class="op">)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    maillon <span class="op">*</span>m <span class="op">=</span> malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span>maillon<span class="op">));</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    m<span class="op">-&gt;</span>valeur <span class="op">=</span> valeur<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    m<span class="op">-&gt;</span>suivant <span class="op">=</span> suivant<span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> m<span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p>En fait, ce constructeur pourrait être découpé en deux parties : l’allocation qui va se charger de récupérer un emplacement mémoire pour le maillon et l’initialisation qui va attribuer des valeurs.</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>maillon <span class="op">*</span>maillon_allouer<span class="op">()</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span>maillon<span class="op">));</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> maillon_initialiser<span class="op">(</span>maillon <span class="op">*</span>m<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">,</span> maillon <span class="op">*</span>suivant<span class="op">)</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    m<span class="op">-&gt;</span>valeur <span class="op">=</span> valeur<span class="op">;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    m<span class="op">-&gt;</span>suivant <span class="op">=</span> suivant<span class="op">;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>maillon <span class="op">*</span>maillon_creer<span class="op">(</span><span class="dt">int</span> valeur<span class="op">,</span> maillon <span class="op">*</span>suivant<span class="op">)</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    maillon <span class="op">*</span>m <span class="op">=</span> maillon_allouer<span class="op">();</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    maillon_initialiser<span class="op">(</span>m<span class="op">,</span> valeur<span class="op">,</span> suivant<span class="op">);</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> m<span class="op">;</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p>On peut alors commencer à créer des listes en enchainant les maillons :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>maillon <span class="op">*</span>m1 <span class="op">=</span> creer_maillon<span class="op">(</span><span class="dv">1</span><span class="op">,</span> NULL<span class="op">);</span> <span class="co">// pas de suivant, c&#39;est le dernier maillon</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>maillon <span class="op">*</span>m2 <span class="op">=</span> creer_maillon<span class="op">(</span><span class="dv">2</span><span class="op">,</span> m1<span class="op">);</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>maillon <span class="op">*</span>m3 <span class="op">=</span> creer_maillon<span class="op">(</span><span class="dv">3</span><span class="op">,</span> m2<span class="op">);</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>liste l <span class="op">=</span> m3<span class="op">;</span> <span class="co">// la liste pointe sur le premier maillon</span></span></code></pre></div>
+<p></div></p>
+<p>Comme le pointeur sur le premier maillon suffit ici, on aurait pu directement écrire :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>liste l <span class="op">=</span> creer_maillon<span class="op">(</span><span class="dv">3</span><span class="op">,</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>            creer_maillon<span class="op">(</span><span class="dv">2</span><span class="op">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                creer_maillon<span class="op">(</span><span class="dv">1</span><span class="op">,</span> NULL<span class="op">)));</span></span></code></pre></div>
+<p></div></p>
+<h3 data-number="3.1.3" id="sec:destructeur"><span class="header-section-number">3.1.3</span> Destructeur</h3>
+<p>Pour détruire un maillon, il suffit de libérer l’espace qu’on lui a attribué.</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> maillon_detruire<span class="op">(</span>maillon <span class="op">*</span>m<span class="op">)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    free<span class="op">(</span>m<span class="op">);</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p>Pour détruire une liste, on va par contre avoir besoin de parcourir l’ensemble des maillons qui la constitue. Comme pour les autres parcours, on a alors deux choix :</p>
+<ul>
+<li><strong>parcours récursif</strong> on a un cas de base quand la liste est vide et dans le cas général, un éventuel appel récursif sur le pointeur <code>suivant</code>.</li>
+</ul>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> liste_detruire<span class="op">(</span>liste l<span class="op">)</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>l <span class="op">!=</span> NULL<span class="op">)</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        liste_detruire<span class="op">(</span>l<span class="op">-&gt;</span>suivant<span class="op">);</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        maillon_detruire<span class="op">(</span>l<span class="op">);</span> <span class="co">// Attention à l&#39;ordre pour l-&gt;suivant </span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<ul>
+<li><strong>parcours impératif</strong> on boucle tant que la liste est non nulle. On fait ici attention à ne pas accéder à <code>-&gt;suivant</code> après avoir libéré le maillon.</li>
+</ul>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> liste_detruire<span class="op">(</span>liste l<span class="op">)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>l <span class="op">!=</span> NULL<span class="op">)</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        liste suivante <span class="op">=</span> l<span class="op">-&gt;</span>suivant<span class="op">;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        maillon_detruire<span class="op">(</span>l<span class="op">);</span> </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        l <span class="op">=</span> suivante<span class="op">;</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<h3 data-number="3.1.4" id="sec:ajout-et-suppression-en-tête"><span class="header-section-number">3.1.4</span> Ajout et suppression en tête</h3>
+<p>Pour ajouter ou supprimer un maillon en tête de la liste, on va avoir besoin de modifier le pointeur vers le premier maillon. Pour cela, on a deux approches possibles :</p>
+<ul>
+<li>passer un pointeur vers la liste elle-même, c’est-à-dire un pointeur sur un pointeur sur un maillon, ce qui en <code>C</code> aura le type <code>maillon **</code>, qui s’écrit aussi <code>liste *</code>. On aura alors le prototype :</li>
+</ul>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> liste_ajout_en_tete<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">);</span></span></code></pre></div>
+<p></div></p>
+<ul>
+<li>renvoyer un pointeur vers le nouveau premier maillon. On aura alors le prototype :</li>
+</ul>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>liste liste_ajout_en_tete<span class="op">(</span>liste l<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">);</span></span></code></pre></div>
+<p></div></p>
+<p>On présente ici les versions renvoyant une nouvelle liste :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>liste liste_ajout_en_tete<span class="op">(</span>liste l<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    maillon <span class="op">*</span>m <span class="op">=</span> maillon_creer<span class="op">(</span>valeur<span class="op">,</span> l<span class="op">);</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> m<span class="op">;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>liste liste_suppr_en_tete<span class="op">(</span>liste l<span class="op">)</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    assert<span class="op">(</span>l <span class="op">!=</span> NULL<span class="op">);</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    liste queue <span class="op">=</span> l<span class="op">-&gt;</span>suivant<span class="op">;</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    maillon_detruire<span class="op">(</span>l<span class="op">);</span> <span class="co">// Attention, on détruit juste le maillon, pas la liste</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> queue<span class="op">;</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<h3 data-number="3.1.5" id="sec:longueur-de-la-liste"><span class="header-section-number">3.1.5</span> Longueur de la liste</h3>
+<p>On présente ici le calcul de la longueur comme exemple de parcours de la liste. C’est encore très proche du parcours effectué dans le destructeur.</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> liste_longueur<span class="op">(</span>liste l<span class="op">)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> longueur <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span><span class="op">(</span>l <span class="op">!=</span> NULL<span class="op">)</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        longueur <span class="op">=</span> longueur <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        l <span class="op">=</span> l<span class="op">-&gt;</span>suivant<span class="op">;</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> longueur<span class="op">;</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<h3 data-number="3.1.6" id="sec:accès-au-nième-maillon-de-la-liste"><span class="header-section-number">3.1.6</span> Accès au nième maillon de la liste</h3>
+<p>On effectue un parcours similaire pour accéder au nième maillon.</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>maillon <span class="op">*</span>liste_nieme<span class="op">(</span>liste l<span class="op">,</span> <span class="dt">int</span> n<span class="op">)</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span><span class="op">(</span>n <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        assert<span class="op">(</span>l <span class="op">!=</span> NULL<span class="op">);</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        l <span class="op">=</span> l<span class="op">-&gt;</span>suivant<span class="op">;</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        n <span class="op">=</span> n<span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    assert<span class="op">(</span>l <span class="op">!=</span> NULL<span class="op">);</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> l<span class="op">;</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p>Toujours avec un programme similaire, on peut chercher un maillon avec sa valeur :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>maillon <span class="op">*</span>liste_recherche<span class="op">(</span>liste l<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span><span class="op">(</span>l <span class="op">!=</span> NULL <span class="op">&amp;&amp;</span> l<span class="op">-&gt;</span>valeur <span class="op">!=</span> x<span class="op">)</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        l <span class="op">=</span> l<span class="op">-&gt;</span>suivant<span class="op">;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> l<span class="op">;</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p>Ici, pas besoin d’asserts, en cas d’échec de la recherche, on renvoie un pointeur nul.</p>
+<h3 data-number="3.1.7" id="sec:ajoutsuppression-ailleurs-quen-tête"><span class="header-section-number">3.1.7</span> Ajout/Suppression ailleurs qu’en tête</h3>
+<p>Pour ajouter ou supprimer ailleurs qu’en tête, il est nécessaire de pouvoir repérer précisément un maillon. Pour cela, on peut le faire :</p>
+<ul>
+<li>par son indice, celui utilisé dans <code>liste_nieme</code> ;</li>
+<li>par sa valeur, avec une recherche ;</li>
+<li>ou encore directement par un pointeur sur le maillon.</li>
+</ul>
+<p>Une fois le maillon supprimé, on peut procéder comme pour un ajout/suppression en tête, cependant il va falloir reconnecter le pointeur <code>suivant</code> du maillon précédent et pour cela on garde dans la boucle du parcours un pointeur vers ce maillon.</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> liste_ajout_non_en_tete<span class="op">(</span>liste l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    liste prec <span class="op">=</span> NULL<span class="op">;</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span><span class="op">(</span>l <span class="op">!=</span> m<span class="op">)</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>        assert<span class="op">(</span>l <span class="op">!=</span> NULL<span class="op">);</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        prec <span class="op">=</span> l<span class="op">;</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        l <span class="op">=</span> l<span class="op">-&gt;</span>suivant<span class="op">;</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    prec<span class="op">-&gt;</span>suivant <span class="op">=</span> liste_ajout_en_tete<span class="op">(</span>m<span class="op">,</span> x<span class="op">);</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> liste_suppr_non_en_tete<span class="op">(</span>liste l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">)</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    liste prec <span class="op">=</span> NULL<span class="op">;</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span><span class="op">(</span>l <span class="op">!=</span> m<span class="op">)</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>        assert<span class="op">(</span>l <span class="op">!=</span> NULL<span class="op">);</span></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>        prec <span class="op">=</span> l<span class="op">;</span></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>        l <span class="op">=</span> l<span class="op">-&gt;</span>suivant<span class="op">;</span></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>    prec<span class="op">-&gt;</span>suivant <span class="op">=</span> liste_suppr_en_tete<span class="op">(</span>m<span class="op">);</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p>En fait, lorsqu’on regarde le parcours précédent, on remarque deux points :</p>
+<ul>
+<li>comme on a donné le maillon concerné, le parcours a uniquement pour but de repérer le maillon qui le précède ;</li>
+<li>on pourrait se contenter d’utiliser uniquement un pointeur sur le maillon précédent lors du parcours car le maillon qui le suit est accessible avec <code>-&gt;suivant</code>.</li>
+</ul>
+<h3 data-number="3.1.8" id="sec:autres-implémentations"><span class="header-section-number">3.1.8</span> Autres implémentations</h3>
+<p>Une autre implémentation standard consiste à <em>cacher</em> le pointeur sur le premier maillon, ce qui permet de donner également un pointeur sur le dernier maillon. En effet, le pointeur sur le dernier maillon permet de réaliser un ajout en fin de liste en <span class="math inline">\(O(1)\)</span> car il n’y a pas besoin de parcourir la liste pour faire cet ajout.</p>
+<p>On obtient alors un type comme :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> maillon <span class="op">{</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> valeur<span class="op">;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> maillon <span class="op">*</span>suivant<span class="op">;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">struct</span> maillon maillon<span class="op">;</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> liste <span class="op">{</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    maillon <span class="op">*</span>premier<span class="op">;</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    maillon <span class="op">*</span>dernier<span class="op">;</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">struct</span> liste liste<span class="op">;</span></span></code></pre></div>
+<p></div></p>
+<h2 data-number="3.2" id="sec:en-ocaml"><span class="header-section-number">3.2</span> En <code>OCaml</code></h2>
+<h3 data-number="3.2.1" id="sec:cas-des-a-list"><span class="header-section-number">3.2.1</span> Cas des <code>'a list</code></h3>
+<p>Tout d’abord, il faut se rendre compte que le type par défaut</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> &#39;a <span class="dt">list</span> = (::) <span class="kw">of</span> &#39;a * &#39;list | []</span></code></pre></div>
+<p>fait intervenir des maillons et des pointeurs. La différence principale avec <code>C</code> est qu’on ne peut pas changer la valeur des pointeurs.</p>
+<h3 data-number="3.2.2" id="sec:type-des-listes-chaînées"><span class="header-section-number">3.2.2</span> Type des listes chaînées</h3>
+<p>Pour retrouver la richesse du type précédent, on peut définir un type comme :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> &#39;a maillon = {</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">mutable</span> valeur : &#39;a;</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">mutable</span> suivant : &#39;a liste</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>} <span class="kw">and</span> &#39;a liste = Vide | Lien <span class="kw">of</span> &#39;a maillon</span></code></pre></div>
+<p></div></p>
+<p>Ici, le type est une traduction directe du type précédent. On remarque que les types sont mutuellement récursifs car un maillon contient une liste. Le type somme <code>'a liste</code> ressemble fortement à un pointeur qui peut être nul ou pointer sur un maillon. On remarque qu’on aurait pu aussi se contenter d’écrire le type suivant :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> &#39;a maillon = {</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">mutable</span> valeur : &#39;a;</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">mutable</span> suivant : &#39;a maillon <span class="dt">option</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> &#39;a liste = &#39;a maillon <span class="dt">option</span></span></code></pre></div>
+<p></div></p>
+<p>Mais on va préférer le premier type qui a l’avantage de permettre de bien faire apparaitre la structure.</p>
+<h3 data-number="3.2.3" id="sec:ajout-et-suppression-en-tête-1"><span class="header-section-number">3.2.3</span> Ajout et suppression en tête</h3>
+<p>Pour rajouter un maillon en tête, on peut écrire :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> cons x l = Lien { valeur = x; suivant = l}</span></code></pre></div>
+<p></div></p>
+<p>On remarque que la fonction est beaucoup plus simple que celle en <code>C</code> car l’allocation est automatique et l’initialisation se fait naturellement dans la syntaxe. Cette fonction renvoie une nouvelle liste, on aurait pu aussi rajouter une référence pour les listes afin de permettre de les rendre modifiables, c’est la même discussion que dans la partie précédente.</p>
+<p>La suppression en tête, cela revient à renvoyer la queue de la liste comme le fait <code>List.tl</code> :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> tl l  = <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    | Vide -&gt; <span class="dt">failwith</span> <span class="st">&quot;Liste vide&quot;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    | Lien { valeur = _; suivant = q} -&gt; q</span></code></pre></div>
+<p></div></p>
+<p>On remarque le filtrage imbriqué <code>| Lien { valeur = t; suivant = q }</code> qui correspond au filtrage <code>| t :: q</code> du type <code>a list</code>.</p>
+<h3 data-number="3.2.4" id="sec:exemple-de-parcours-sans-modification-calcul-de-la-longueur"><span class="header-section-number">3.2.4</span> Exemple de parcours sans modification : calcul de la longueur</h3>
+<p>Vu les remarques précédentes, il n’est pas étonnant que le parcours d’une liste de manière récursive soit très proche de ce qu’on a déjà pu voir avec les listes de base.</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> longueur l = <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    | Vide -&gt; <span class="dv">0</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    | Lien { valeur = _; suivant = q } -&gt; <span class="dv">1</span> + longueur q</span></code></pre></div>
+<p></div></p>
+<p>On en déduit de même une fonction renvoyant un maillon par son indice :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> nieme l n = <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    | Vide -&gt; <span class="dt">failwith</span> <span class="st">&quot;Liste vide&quot;</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    | Lien m -&gt; <span class="kw">if</span> n = <span class="dv">0</span> <span class="kw">then</span> m <span class="kw">else</span> nieme m.suivant (n<span class="dv">-1</span>)</span></code></pre></div>
+<p></div></p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Il est possible de réecrire la fonction précédente en permettant à la fois de donner un nom, ici <code>m</code>, au maillon et de faire un filtrage sur ce qu’il contient. Pour cela, on utilise le mot clé <code>as</code> en <code>OCaml</code> :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> nieme l n = <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    | Vide -&gt; <span class="dt">failwith</span> <span class="st">&quot;Liste vide&quot;</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    | Lien ({ valeur=_; suivant = q} <span class="kw">as</span> m) -&gt; </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span> n = <span class="dv">0</span> <span class="kw">then</span> m <span class="kw">else</span> nieme q (n<span class="dv">-1</span>)</span></code></pre></div>
+<p></div> </div></p>
+<h3 data-number="3.2.5" id="sec:exemple-de-parcours-avec-modification-ajout-dune-maillon-en-fin-de-liste"><span class="header-section-number">3.2.5</span> Exemple de parcours avec modification : ajout d’une maillon en fin de liste</h3>
+<p>On va montrer un exemple de modification de liste en rajoutant un maillon en fin d’une liste non vide. Ici, on effectue un parcours jusqu’à tomber sur le dernier maillon auquel on rajoute le nouveau à la suite.</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> ajout_fin l x =</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    | Vide -&gt; <span class="dt">failwith</span> <span class="st">&quot;Liste vide&quot;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    | Lien m -&gt;</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> m.suivant = Vide</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">then</span> m.suivant &lt;- Lien { valeur = x; suivant = Vide }</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">else</span> ajout_fin m.suivant x</span></code></pre></div>
+<p></div></p>
+<h3 data-number="3.2.6" id="sec:raffinement-pour-permettre-lajout-à-la-fin-en-temps-constant"><span class="header-section-number">3.2.6</span> Raffinement pour permettre l’ajout à la fin en temps constant</h3>
+<p>Le programme précédent est à comparer au programme suivant :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> ajout_fin l x =</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    | [] -&gt; [x]</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    | t::q -&gt; t :: ajout_fin q x</span></code></pre></div>
+<p></div></p>
+<p>On n’a pas l’impression d’avoir vraiment gagné en expressivité ou en efficacité.</p>
+<p>Cependant, on peut se dire qu’en changeant le type <code>'a liste</code> on peut tirer partie des maillons pour obtenir un ajout en fin de liste en temps constant. Le programme suivant présente une interface permettant de le faire.</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> &#39;a maillon = {</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">mutable</span> valeur : &#39;a;</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">mutable</span> suivant : &#39;a maillon_ptr</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="kw">and</span> &#39;a maillon_ptr = &#39;a maillon <span class="dt">option</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="kw">and</span> &#39;a liste = {</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>      <span class="kw">mutable</span> premier : &#39;a maillon_ptr;</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>      <span class="kw">mutable</span> dernier : &#39;a maillon_ptr</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> liste_vide () = { premier = <span class="dt">None</span>; dernier = <span class="dt">None</span> }</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> ajout_debut l x =</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>    l.premier &lt;- <span class="dt">Some</span> { valeur = x; suivant = l.premier };</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> l.dernier = <span class="dt">None</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> l.dernier &lt;- l.premier</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> suppr_debut l =</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">match</span> l.premier <span class="kw">with</span></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>    | <span class="dt">None</span> -&gt; <span class="dt">failwith</span> <span class="st">&quot;Liste vide&quot;</span></span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>    | <span class="dt">Some</span> { valeur = _; suivant = l&#39; } -&gt;</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>            l.premier &lt;- l&#39;</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> ajout_fin l x =</span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> m = { valeur = x; suivant = <span class="dt">None</span> } <span class="kw">in</span></span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">match</span> l.dernier <span class="kw">with</span></span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>    | <span class="dt">Some</span> m&#39; -&gt; m&#39;.suivant &lt;- <span class="dt">Some</span> m</span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>    | <span class="dt">None</span> -&gt; () );</span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>    l.dernier &lt;- <span class="dt">Some</span> m;</span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> l.premier = <span class="dt">None</span></span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> l.premier &lt;- l.dernier</span></code></pre></div>
+<p></div></p>
+<p>Quelques remarques sur ce programme :</p>
+<ul>
+<li>comme on change directement <code>premier</code> et <code>dernier</code>, il est nécessaire de générer une nouvelle liste vide, ce qui est assuré ici par le paramètre <code>()</code> ;</li>
+<li>les pointeurs sont représentés par des options dans des champs mutables ;</li>
+<li>afin de préserver l’intégrité des deux pointeurs, on est obligé de gérer les cas où il n’y a qu’un seul maillon ;</li>
+<li>attention à la priorité du cas de filtrage sur <code>;</code> qui oblige à mettre des parenthèses dans <code>ajout_fin</code>.</li>
+</ul>
+<h2 data-number="3.3" id="sec:structure-de-la-mémoire"><span class="header-section-number">3.3</span> Structure de la mémoire</h2>
+<p>En mémoire, les maillons d’une liste chaînée, comme celle vue en <code>C</code>, sont sur le tas et de manière désorganisée. Cela signifie qu’il n’y a aucune raison que deux maillons proches dans une liste soient proches en mémoire.</p>
+<p><center><div class="ui image center"><img src="assets/pics/memoire.png" /></div></center></p>
+<p>Or, les processeurs optimisent la gestion de la mémoire à l’aide d’un cache qui, au lieu de n’accéder qu’à une seule valeur située à une adresse, va charger une zone mémoire autour de cette adresse. Ceci encourage une cohérence spatiale dans l’organisation de la mémoire afin de profiter au maximum de cette mise en cache.</p>
+<p>Une stratégie pour réaliser des listes chaînées efficacement consiste à allouer un tableau de maillons et à gérer ensuite les allocations parmi cette réserve.</p>
+</div>
+<!-- </div> -->
+</div>
+
+<div class="ui inverted vertical footer segment">
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+Marc de Falco
+</div>
+  </body>
+</html>

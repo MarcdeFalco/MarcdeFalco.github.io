@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="Marc de Falco">
 
-    <title>Informatique - Introduction</title>
+    <title>Structures de données abstraites et implémentations</title>
 
     <link rel="stylesheet" type="text/css" href="assets/semantic.min.css">
     <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
@@ -229,11 +229,11 @@ table td {
     </div>
     <div class="item">
     <a href="#">
-        Informatique - Introduction
+        Structures de données abstraites et implémentations
     </a>
     </div>
 <!-- FIX TOC -->
-<div class="item header"> <a href="#feuille-de-route"><span>1</span> Feuille de route</a><div class="menu"></div></div><div class="item header"> <a href="#plan-du-cours"><span>2</span> Plan du cours</a><div class="menu"></div></div><!-- FIX TOC -->
+<div class="item header"> <a href="#sec:introduction"><span>1</span> Introduction</a><div class="menu"></div></div><div class="item header"> <a href="#sec:structure-de-données-abstraite"><span>2</span> Structure de données abstraite</a><div class="menu"></div></div><!-- FIX TOC -->
 </div>
 
 <div class="pusher" id="main-content">
@@ -243,7 +243,7 @@ table td {
 	    <i class="angle double left icon"></i>
 	  </a>
 	  <div class="item">
-          Informatique - Introduction
+          Structures de données abstraites et implémentations
 	  </div>
         </div>
       </div>
@@ -251,60 +251,12 @@ table td {
           <!-- <div class="masthead"> -->
 <div class="segment">
 <div class="ui container text">
-<p><div class="ui message blue"><div class="header">Note</div>L’ensemble des documents est regroupé sous forme de livres au format PDF. Cependant, afin d’alléger la présentation, trois versions sont données en fonction du langage utilisé dans le cas où un même programme est présenté dans plusieurs langages :</p>
-<ul>
-<li><a href="pdf/complet_ocaml.pdf">Version PDF + OCaml</a></li>
-<li><a href="pdf/complet_c.pdf">Version PDF + C</a></li>
-<li><a href="pdf/complet_python.pdf">Version PDF + Python</a></div></li>
-</ul>
-<p>Introduction</p>
-<p>Ce site présente des documents personnels autour du programme de MP2I/MPI, et donc également du programme d’option informatique de MPSI/MP et du tronc commun.</p>
-<p>Il s’agit pour le moment d’un premier jet, et il est amené à beaucoup évoluer. Il correspond à mon interprétation personnelle de certaines notions.</p>
-<p>Des problèmes sont présentés au cours des documents, ils peuvent donner lieu à des développements en classe, des séances de travaux pratiques ou des problèmes. Plutôt que de donner un découpage figé en questions, ils sont souvent présentés tels quels.</p>
-<p>Mon idée principale avec ces ressources est de proposer un contenu assez riche, plutôt à destination des enseignants. Certains points un peu pointus ne sont pas forcément essentiels pour tous les étudiants.</p>
-<p>Le but ici n’est pas de surpasser des références sur chaque domaine, je n’ai pas cette prétention, mais de présenter un livre  ce qui implique des compromis dans les notions traités et la présentation.</p>
-<h1 data-number="1" id="feuille-de-route"><span class="header-section-number">1</span> Feuille de route</h1>
-<ul>
-<li>Faire une présentation uniforme pour les problèmes avec un index.</li>
-<li>Rajouter des macros pour compiler/exécuter et inclure la sortie des bouts de code.</li>
-<li>Rajouter les TP.</li>
-<li>Des roadmaps sont données dans chaque chapitre.</li>
-</ul>
-<h1 data-number="2" id="plan-du-cours"><span class="header-section-number">2</span> Plan du cours</h1>
-<ul>
-<li><a href="chap_introduction_introduction_informatique.html">Introduction à l’informatique</a> <strong>À reprendre</strong></li>
-<li>Programmation
-<ul>
-<li><a href="chap_programmation_imperatif.html">Introduction à la programmation (impérative)</a> <strong>En cours d’écriture</strong></li>
-<li><a href="chap_programmation_recursivite.html">Récursivité</a> <strong>En cours d’écriture</strong></li>
-</ul></li>
-<li>Structures de données
-<ul>
-<li><a href="chap_structuresdonnees_structurededonnees.html">Structures de données abstraites et implémentations</a></li>
-<li><a href="chap_structuresdonnees_sequences.html">Séquences : structure abstraite et implémentations (tableaux, listes chaînées)</a></li>
-<li><a href="chap_structuresdonnees_pilesfiles.html">Piles et files : structures et implémentations</a></li>
-<li><a href="chap_structuresdonnees_arbres.html">Arbres et structures hiérarchiques</a></li>
-<li><a href="chap_structuresdonnees_graphes.html">Graphes et structures relationnelles</a></li>
-</ul></li>
-<li>Algorithmique
-<ul>
-<li><a href="chap_algorithmique_analyse_algorithme.html">Introduction à l’analyse des algorithmes</a></li>
-<li><a href="chap_algorithmique_algorithmique_exacte.html">Algorithmique exacte</a> <strong>En cours d’écriture</strong></li>
-<li><a href="chap_algorithmique_algorithmique_du_texte.html">Algorithmique du texte</a></li>
-<li>Algorithmique approchée</li>
-<li>Algorithmique des graphes</li>
-<li>Intelligence artificielle</li>
-</ul></li>
-<li>Systèmes
-<ul>
-<li><a href="chap_systeme_memoire.html">Gestion de la mémoire d’un programme</a></li>
-<li>Fichiers et entrées/sorties</li>
-<li>Concurrence et synchronisation</li>
-</ul></li>
-<li>Logique</li>
-<li>Bases de données</li>
-<li>Langages et problèmes</li>
-</ul>
+<p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Structures de données abstraites et implémentations     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_programmation_imperative.jpg"> </div></p>
+<h1 data-number="1" id="sec:introduction"><span class="header-section-number">1</span> Introduction</h1>
+<p>On va étudier dans ce chapitre la notion de structures de données. Une structure de données est une manière de stocker des données et d’interagir avec elles. On peut regrouper de grandes classes de structures données en faisant abstraction de la manière dont les données sont stockées en se concentrant uniquement sur les interactions possibles. Cela permet de définir la notion d’une structure de données abstraites.</p>
+<p>Dans un second temps, on s’intéresse à la notion d’implémentation d’une structure de données abstraites qui correspond à un choix concret de stockage et donc à une réalisation de l’interface attendue.</p>
+<h1 data-number="2" id="sec:structure-de-données-abstraite"><span class="header-section-number">2</span> Structure de données abstraite</h1>
+<p><div class="ui message"><div class="header">Définition</div> On appelle <em>structure de données abstraite</em> la donnée d’un type <code>t</code> et d’une interface </div></p>
 </div>
 <!-- </div> -->
 </div>
