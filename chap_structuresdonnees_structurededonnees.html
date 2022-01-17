@@ -36,6 +36,7 @@ $(document).ready(function() {
     $("#toc").sidebar("setting", "dimPage", false);
     $("#toc").sidebar("setting", "delaySetup", true);
 
+   $('.ui.accordion').accordion();
     if (matchMedia) {
         var mq = window.matchMedia("(max-width: 900px)");
         mq.addListener(big_or_small);

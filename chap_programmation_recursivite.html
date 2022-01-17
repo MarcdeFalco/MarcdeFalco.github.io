@@ -101,6 +101,7 @@ $(document).ready(function() {
     $("#toc").sidebar("setting", "dimPage", false);
     $("#toc").sidebar("setting", "delaySetup", true);
 
+   $('.ui.accordion').accordion();
     if (matchMedia) {
         var mq = window.matchMedia("(max-width: 900px)");
         mq.addListener(big_or_small);
@@ -326,12 +327,12 @@ table td {
 <h2 data-number="1.1" id="sec:principe-et-exemples"><span class="header-section-number">1.1</span> Principe et exemples</h2>
 <p>On dit qu’une fonction est récursive lorsqu’elle va s’appeler elle-même lors de son exécution. Le plus souvent, cet appel sera directement visible depuis le corps de la fonction.</p>
 <p>Par exemple, la fonction <code>fact</code> suivante permettant de calculer <span class="math inline">\(n!\)</span> est récursive :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-38">ocaml</a>   <a class="item" data-tab="c-38">c</a>   <a class="item" data-tab="python-38">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-38"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-39">ocaml</a>   <a class="item" data-tab="c-39">c</a>   <a class="item" data-tab="python-39">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-39"></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> fact n =</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> n = <span class="dv">0</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> <span class="dv">1</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> n * fact (n<span class="dv">-1</span>)</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-38"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-39"></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> fact<span class="op">(</span><span class="dt">int</span> n<span class="op">)</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>n <span class="op">==</span> <span class="dv">0</span><span class="op">)</span></span>
@@ -343,7 +344,7 @@ table td {
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> n <span class="op">*</span> fact<span class="op">(</span>n<span class="op">-</span><span class="dv">1</span><span class="op">);</span></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-38"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-39"></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fact(n):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span></span>
