@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="generator" content="pandoc">
+    <meta name="description" content="">
+    <meta name="author" content="Marc de Falco">
+
+    <title>Exceptions en OCaml</title>
+
+    <link rel="stylesheet" type="text/css" href="assets/semantic.min.css">
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-PHZQE2FC4W"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-PHZQE2FC4W');
+	</script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="assets/semantic.min.js"></script>
+
+    <style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    </style>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script>
+$(document).ready(function() {
+    
+    $("#toc").sidebar("setting", "dimPage", false);
+    $("#toc").sidebar("setting", "delaySetup", true);
+
+   $('.ui.accordion').accordion();
+    if (matchMedia) {
+        var mq = window.matchMedia("(max-width: 900px)");
+        mq.addListener(big_or_small);
+        big_or_small(mq);
+    }
+
+    $("[href^='#']").click(
+        () => {
+            if (! $("#main").hasClass('shrink')) {
+	            $("#toc").sidebar("hide");
+            }
+        })
+
+    function big_or_small(mq) {
+        // The sidebar *pushes* the pusher, the main content, so we
+        // add a class that reduces the pusher's width so the edge
+        // content isn't cut off.
+        if (mq.matches) {
+	        $("#toc").sidebar("hide");
+            $("#main").removeClass("shrink")
+        } else {
+            $("#toc").sidebar("show");
+            $("#main").addClass("shrink");
+        }
+    }
+
+    $("#sidebar-menu-button").click(function() {
+        $("#toc").sidebar("show");
+    }).end();
+
+    $('.tabular.menu .item').tab({
+            context: 'parent'
+        });
+
+})
+
+function setLang(l) {
+    $('.tabular.menu .item').removeClass("active")
+    $('.tabular.menu .item[data-tab^="'+l+'"]').addClass("active")
+    $('.code').removeClass("active")
+    $('.code[data-tab^="'+l+'"]').addClass("active")
+}
+</script>
+
+  <style type="text/css">
+
+  .ui.sidebar {
+    font-size: 15px;
+  }
+
+  body {
+    background-color: #FFFFFF;
+    font-size: 20px;
+  }
+  .ui.segment {
+    font-size: 20px;
+  }
+  .wireframe {
+    //margin-top: 2em;
+  }
+  .ui.footer.segment {
+    //margin: 5em 0em 0em;
+    //padding: 5em 0em;
+  }
+  #top-menu {
+    display: none;
+    }
+
+    .message {
+        color: #000 !important;
+    }
+
+.shrink {
+    width: 60%;
+}
+
+.code {
+    font-size: 0.8em !important;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 24px;
+    border-spacing: 0;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+}
+
+table tr {
+    display: table-row !important;
+}
+
+table th {
+    padding: 3px 10px;
+    background-color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid black;
+}
+table td {
+    padding: 3px 10px;
+    border-top: none;
+    border-left: none;
+    border-bottom: none;
+    border-right: none;
+}
+
+  .menu .item {
+      padding: .5em 1em !important;
+  }
+
+@media only screen and (max-width: 900px) {
+    .ui.image, .ui.image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    #top-menu {
+        display: block !important;
+    }
+}
+  </style>
+
+  </head>
+  <body class="pushable class="pushable"">
+<div style="display: none;">
+\(
+\def\N{{\mathbb{N}}}
+\def\R{{\mathbb{R}}}
+\def\D{{\mathbb{D}}}
+\def\C{{\mathbb{C}}}
+\def\Z{{\mathbb{Z}}}
+\def\Q{{\mathbb{Q}}}
+\def\K{{\mathbb{K}}}
+\def\KX{{\mathbb{K}}[X]}
+\def\U{{\mathbb{U}}}
+\def\B{{\mathcal{B}}}
+\newcommand\ensfonctions[2]{\mathcal{F}(#1,#2)}
+\newcommand\classeck[3]{\mathcal{C}^{#1}(#2,#3)}
+\newcommand\range[2]{[| #1,#2 |]}
+\newcommand\mod[0]{\mathop{mod}}
+\newcommand\land[0]{\mathop{land}}
+\newcommand\matrices[3]{\mathcal{M}_{#1,#2}(#3)}
+\newcommand\matricescarres[2]{\mathcal{M}_{#1}(#2)}
+\newcommand\gln[2]{\mbox{GL}_{#1}(#2)}
+\newcommand\Support[1]{\mbox{Supp}(#1)}
+\newcommand\dom[0]{\mbox{dom}}
+\newcommand\uniondisjointe{\sqcup}
+\def\lt{<}
+\def\rR{\mathcal{R}}
+\newcommand\parties[1]{\mathcal{P}(#1)}
+\newcommand\entiere[1]{\left\lfloor #1 \right\rfloor}
+\newcommand\congru[3]{#1 = #2\ [#3]}
+\newcommand\enscomp[2]{\left\{\left.\ #1\ \right|\ #2\ \right\}}
+\newcommand\classe[1]{\overline{#1}}
+\newcommand\classemod[2]{\overline{#1}^{[#2]}}
+\newcommand\quotient[2]{#1 / #2}
+\newcommand\ZnZ[1]{\quotient{\Z}{#1 \Z}}
+\newcommand\card[1]{\text{Card}\ #1}
+\newcommand\indic{\mathbbm{1}}
+\newcommand\id{\mbox{id}}
+\newcommand\Perm[1]{\mathfrak{S}_#1}
+\newcommand\comb[2]{\binom{#1}{#2}}
+\newcommand\tend[2]{\xrightarrow[#1 \rightarrow #2]{}}
+\newcommand\limite[2]{\lim_{#1 \rightarrow #2}}
+\newcommand\application[5]{\begin{array}{rcccc}
+#1 & : & #2 & \mapsto & #3 \\ 
+& & #4 & \mapsto & #5
+\end{array}}
+\)
+</div>
+
+
+
+<div class="ui vertical inverted visible fixed sidebar menu" id="toc">
+    <div class="item">
+    <a href="/">
+        <i class="icon home"></i> Informatique en CPGE
+    </a>
+    </div>
+    <div class="item">
+        <div class="ui buttons compact">
+            <button onClick="setLang('ocaml')" class="ui button compact">OCaml</button>
+            <button onClick="setLang('c')" class="ui button compact">C</button>
+            <button onClick="setLang('python')" class="ui button compact">Python</button>
+        </div>
+        <div>Langage des exemples</div>
+    </div>
+    <div class="item">
+    <a href="#">
+        Exceptions en OCaml
+    </a>
+    </div>
+<!-- FIX TOC -->
+<div class="item header"> <a href="#sec:syntaxe-des-exceptions"><span>1</span> Syntaxe des exceptions</a><div class="menu"></div></div><div class="item header"> <a href="#sec:exceptions-pour-la-gestion-derreurs"><span>2</span> Exceptions pour la gestion d’erreurs</a><div class="menu"></div></div><!-- FIX TOC -->
+</div>
+
+<div class="pusher" id="main-content">
+    <div class="ui inverted top menu" id="top-menu">
+        <div class="ui container">
+	  <a class="launch icon item" id="sidebar-menu-button">
+	    <i class="angle double left icon"></i>
+	  </a>
+	  <div class="item">
+          Exceptions en OCaml
+	  </div>
+        </div>
+      </div>
+      <div class="ui padded basic segment shrink" id="main">
+          <!-- <div class="masthead"> -->
+<div class="segment">
+<div class="ui container text">
+<p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Exceptions en OCaml     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_algo_exacte.png"> </div></p>
+<p>Les exceptions sont au mécanisme présent dans dans de nombreux langages de programmation afin de permettre à la fois d’indiquer qu’une erreur s’est produite en interrompant l’exécution d’une fonction et aussi de pouvoir, pour l’appelant <strong>rattraper</strong> cette erreur afin de poursuivre l’exécution comme il se doit.</p>
+<p>En <code>OCaml</code>, ce mécanisme va permettre, de plus, de pouvoir interrompre le flot de contrôle, notamment de retrouver des mécanismes comme <code>break</code>, <code>continue</code> et surtout <code>return</code>.</p>
+<h1 data-number="1" id="sec:syntaxe-des-exceptions"><span class="header-section-number">1</span> Syntaxe des exceptions</h1>
+<p>Les exceptions forment un type <code>exn</code> qui est extensible : il est possible de rajouter un nouveau constructeur pour ce type en écrivant :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">(* Pour une exception sans paramètre *)</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">exception</span> NomDeLException</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co">(* Pour une exception avec paramètre de type t*)</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">exception</span> NomDeLException <span class="kw">of</span> t</span></code></pre></div>
+<p></div></p>
+<p>On peut alors <strong>lancer</strong> cette exception à l’aide de <code>raise</code> :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">(* Pour une exception sans paramètre *)</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="dt">raise</span> NomDeLException</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co">(* Pour une exception avec paramètre de valeur v *)</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co">(* Attention aux parenthèses *)</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="dt">raise</span> (NomDeLException v)</span></code></pre></div>
+<p></div></p>
+<p>Il est possible d’évaluer une expression en permettant d’évaluer une autre expression en cas d’exception :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">try</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>    expression</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="kw">with</span> ExceptionsARattraper -&gt; expression&#39;</span></code></pre></div>
+<p></div></p>
+<p>En fait, ce <code>with</code> est un filtrage, un <code>match</code>, sur les valeurs du type <code>exn</code> mais vérification d’exhaustivité. On peut donc effectuer plusieurs cas :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">try</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>    expression</span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="kw">with</span>  motif1 -&gt; expr1</span>
+<span id="cb4-4"><a href="#cb4-4"></a>    | motif2 -&gt; expr2</span>
+<span id="cb4-5"><a href="#cb4-5"></a>    | ...</span></code></pre></div>
+<p></div></p>
+<p>En cas de <code>try... with</code> imbriqués, c’est le <code>try</code> le plus proche de l’exception qui la rattrape. SI une exception n’est pas attrapée, elle va produire une erreur qui stoppera l’exécution d’un programme.</p>
+<h1 data-number="2" id="sec:exceptions-pour-la-gestion-derreurs"><span class="header-section-number">2</span> Exceptions pour la gestion d’erreurs</h1>
+<p>Il s’agit ici de l’utilisation la plus <em>logique</em> des exceptions.</p>
+<p>On a déjà pu rencontrer des exceptions en <code>OCaml</code> :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb5-1"><a href="#cb5-1"></a># <span class="kw">let</span> t = [|<span class="dv">1</span>;<span class="dv">2</span>|];;</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="kw">val</span> t : <span class="dt">int</span> <span class="dt">array</span> = [|<span class="dv">1</span>; <span class="dv">2</span>|]</span>
+<span id="cb5-3"><a href="#cb5-3"></a># t.(<span class="dv">2</span>);;</span>
+<span id="cb5-4"><a href="#cb5-4"></a>Exception: <span class="dt">Invalid_argument</span> <span class="st">&quot;index out of bounds&quot;</span>.</span>
+<span id="cb5-5"><a href="#cb5-5"></a># <span class="dt">List</span>.hd [];;</span>
+<span id="cb5-6"><a href="#cb5-6"></a>Exception: <span class="dt">Failure</span> <span class="st">&quot;hd&quot;</span>.</span></code></pre></div>
+<p></div></p>
+<p>Dans les deux cas, ces exceptions sont plutôt le signe d’une erreur de programmation qu’il faut corriger qu’un comportement limite qu’il faudrait prendre en compte. Dans le cas d’une fonction comme <code>List.hd</code>, on a également vu qu’il était préférable d’utiliser un type option pour pouvoir gérer l’erreur derrière avec :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">let</span> hd_opt l = </span>
+<span id="cb6-2"><a href="#cb6-2"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>    | [] -&gt; <span class="dt">None</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>    | t :: _ -&gt; <span class="dt">Some</span> t</span></code></pre></div>
+<p></div></p>
+<p>Pour autant, il y a des erreurs importantes à gérer en <code>OCaml</code>, ce sont celles qui sont inévitables quand il n’est pas possible de prévoir si un opération va réussir. Citons deux cas :</p>
+<ul>
+<li>la lecture d’un fichier va produire une exception <code>End_of_file</code> une fois atteinte la fin de celui-ci ;</li>
+<li>des structures de données comme <code>Stack.t</code> ne fournissent comme seul moyen efficace de savoir si elles sont vides que d’essayer d’en extraire un élément et d’échouer.</li>
+</ul>
+<p>Ainsi, dans le premier cas, on pourra écrire une fonction comme :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">let</span> <span class="kw">rec</span> input_all_lines ic =</span>
+<span id="cb7-2"><a href="#cb7-2"></a>    <span class="kw">try</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>        w</span></code></pre></div>
+<p></div></p>
+</div>
+<!-- </div> -->
+</div>
+
+<div class="ui inverted vertical footer segment">
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+Marc de Falco
+</div>
+  </body>
+</html>
