@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="generator" content="pandoc">
+    <meta name="description" content="">
+    <meta name="author" content="Marc de Falco">
+
+    <title>Algorithmes gloutons</title>
+
+    <link rel="stylesheet" type="text/css" href="assets/semantic.min.css">
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-PHZQE2FC4W"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-PHZQE2FC4W');
+	</script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="assets/semantic.min.js"></script>
+
+    <style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    </style>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script>
+$(document).ready(function() {
+    
+    $("#toc").sidebar("setting", "dimPage", false);
+    $("#toc").sidebar("setting", "delaySetup", true);
+
+   $('.ui.accordion').accordion();
+    if (matchMedia) {
+        var mq = window.matchMedia("(max-width: 900px)");
+        mq.addListener(big_or_small);
+        big_or_small(mq);
+    }
+
+    $("[href^='#']").click(
+        () => {
+            if (! $("#main").hasClass('shrink')) {
+	            $("#toc").sidebar("hide");
+            }
+        })
+
+    function big_or_small(mq) {
+        // The sidebar *pushes* the pusher, the main content, so we
+        // add a class that reduces the pusher's width so the edge
+        // content isn't cut off.
+        if (mq.matches) {
+	        $("#toc").sidebar("hide");
+            $("#main").removeClass("shrink")
+        } else {
+            $("#toc").sidebar("show");
+            $("#main").addClass("shrink");
+        }
+    }
+
+    $("#sidebar-menu-button").click(function() {
+        $("#toc").sidebar("show");
+    }).end();
+
+    $('.tabular.menu .item').tab({
+            context: 'parent'
+        });
+
+})
+
+function setLang(l) {
+    $('.tabular.menu .item').removeClass("active")
+    $('.tabular.menu .item[data-tab^="'+l+'"]').addClass("active")
+    $('.code').removeClass("active")
+    $('.code[data-tab^="'+l+'"]').addClass("active")
+}
+</script>
+
+  <style type="text/css">
+
+  .ui.sidebar {
+    font-size: 15px;
+  }
+
+  body {
+    background-color: #FFFFFF;
+    font-size: 20px;
+  }
+  .ui.segment {
+    font-size: 20px;
+  }
+  .wireframe {
+    //margin-top: 2em;
+  }
+  .ui.footer.segment {
+    //margin: 5em 0em 0em;
+    //padding: 5em 0em;
+  }
+  #top-menu {
+    display: none;
+    }
+
+    .message {
+        color: #000 !important;
+    }
+
+.shrink {
+    width: 60%;
+}
+
+.code {
+    font-size: 0.8em !important;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 24px;
+    border-spacing: 0;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+}
+
+table tr {
+    display: table-row !important;
+}
+
+table th {
+    padding: 3px 10px;
+    background-color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid black;
+}
+table td {
+    padding: 3px 10px;
+    border-top: none;
+    border-left: none;
+    border-bottom: none;
+    border-right: none;
+}
+
+  .menu .item {
+      padding: .5em 1em !important;
+  }
+
+@media only screen and (max-width: 900px) {
+    .ui.image, .ui.image img {
+        display: block;
+        //width: 100%;
+        width: auto;
+        height: auto;
+    }
+
+    #top-menu {
+        display: block !important;
+    }
+}
+  </style>
+
+  </head>
+  <body class="pushable class="pushable"">
+<div style="display: none;">
+\(
+\def\N{{\mathbb{N}}}
+\def\R{{\mathbb{R}}}
+\def\D{{\mathbb{D}}}
+\def\C{{\mathbb{C}}}
+\def\Z{{\mathbb{Z}}}
+\def\Q{{\mathbb{Q}}}
+\def\K{{\mathbb{K}}}
+\def\KX{{\mathbb{K}}[X]}
+\def\U{{\mathbb{U}}}
+\def\B{{\mathcal{B}}}
+\newcommand\ensfonctions[2]{\mathcal{F}(#1,#2)}
+\newcommand\classeck[3]{\mathcal{C}^{#1}(#2,#3)}
+\newcommand\range[2]{[| #1,#2 |]}
+\newcommand\mod[0]{\mathop{mod}}
+\newcommand\land[0]{\mathop{land}}
+\newcommand\matrices[3]{\mathcal{M}_{#1,#2}(#3)}
+\newcommand\matricescarres[2]{\mathcal{M}_{#1}(#2)}
+\newcommand\gln[2]{\mbox{GL}_{#1}(#2)}
+\newcommand\Support[1]{\mbox{Supp}(#1)}
+\newcommand\dom[0]{\mbox{dom}}
+\newcommand\uniondisjointe{\sqcup}
+\def\lt{<}
+\def\rR{\mathcal{R}}
+\newcommand\parties[1]{\mathcal{P}(#1)}
+\newcommand\entiere[1]{\left\lfloor #1 \right\rfloor}
+\newcommand\congru[3]{#1 = #2\ [#3]}
+\newcommand\enscomp[2]{\left\{\left.\ #1\ \right|\ #2\ \right\}}
+\newcommand\classe[1]{\overline{#1}}
+\newcommand\classemod[2]{\overline{#1}^{[#2]}}
+\newcommand\quotient[2]{#1 / #2}
+\newcommand\ZnZ[1]{\quotient{\Z}{#1 \Z}}
+\newcommand\card[1]{\text{Card}\ #1}
+\newcommand\indic{\mathbbm{1}}
+\newcommand\id{\mbox{id}}
+\newcommand\Perm[1]{\mathfrak{S}_#1}
+\newcommand\comb[2]{\binom{#1}{#2}}
+\newcommand\tend[2]{\xrightarrow[#1 \rightarrow #2]{}}
+\newcommand\limite[2]{\lim_{#1 \rightarrow #2}}
+\newcommand\application[5]{\begin{array}{rcccc}
+#1 & : & #2 & \mapsto & #3 \\ 
+& & #4 & \mapsto & #5
+\end{array}}
+\)
+</div>
+
+
+
+<div class="ui vertical inverted visible fixed sidebar menu" id="toc">
+    <div class="item">
+    <a href="/">
+        <i class="icon home"></i> Informatique en CPGE
+    </a>
+    </div>
+    <div class="item">
+        <div class="ui buttons compact">
+            <button onClick="setLang('ocaml')" class="ui button compact">OCaml</button>
+            <button onClick="setLang('c')" class="ui button compact">C</button>
+            <button onClick="setLang('python')" class="ui button compact">Python</button>
+        </div>
+        <div>Langage des exemples</div>
+    </div>
+    <div class="item">
+    <a href="#">
+        Algorithmes gloutons
+    </a>
+    </div>
+<!-- FIX TOC -->
+<div class="item header"> <a href="#sec:algorithmes-gloutons-1"><span>1</span> Algorithmes gloutons</a><div class="menu"><a class="item" href="#sec:principe"><div class="ui label">1.1</div> Principe</a><a class="item" href="#sec:huffman-arbre"><div class="ui label">1.2</div> Construction de l’arbre de Huffman</a><a class="item" href="#sec:preuve-doptimalité"><div class="ui label">1.3</div> Preuve d’optimalité</a><a class="item" href="#sec:sélection-dactivités"><div class="ui label">1.4</div> Sélection d’activités</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:description"><i class="circle icon"></i> Description</a><a style="font-size:0.6em" class="item" href="#sec:algorithme-glouton-et-implémentation"><i class="circle icon"></i> Algorithme glouton et implémentation</a><a style="font-size:0.6em" class="item" href="#sec:preuve-doptimalité-1"><i class="circle icon"></i> Preuve d’optimalité</a></div><a class="item" href="#sec:ordonnancement-de-tâches"><div class="ui label">1.5</div> Ordonnancement de tâches</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:description-1"><i class="circle icon"></i> Description</a><a style="font-size:0.6em" class="item" href="#sec:algorithme-glouton-et-implémentation-1"><i class="circle icon"></i> Algorithme glouton et implémentation</a><a style="font-size:0.6em" class="item" href="#sec:preuve-doptimalité-2"><i class="circle icon"></i> Preuve d’optimalité</a></div></div></div><!-- FIX TOC -->
+</div>
+
+<div class="pusher" id="main-content">
+    <div class="ui inverted top menu" id="top-menu">
+        <div class="ui container">
+	  <a class="launch icon item" id="sidebar-menu-button">
+	    <i class="angle double left icon"></i>
+	  </a>
+	  <div class="item">
+          Algorithmes gloutons
+	  </div>
+        </div>
+      </div>
+      <div class="ui padded basic segment shrink" id="main">
+          <!-- <div class="masthead"> -->
+<div class="segment">
+<div class="ui container text">
+<p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Algorithmes gloutons     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_algo_exacte.png"> </div></p>
+<h1 data-number="1" id="sec:algorithmes-gloutons-1"><span class="header-section-number">1</span> Algorithmes gloutons</h1>
+<h2 data-number="1.1" id="sec:principe"><span class="header-section-number">1.1</span> Principe</h2>
+<p>On considère ici un problème d’énumération comme dans la section précédente muni d’une fonction d’objectifs qui attribue une valeur numérique aux solutions et aux solutions partielles.</p>
+<p>Soit <span class="math inline">\(f : P \rightarrow \R\)</span> une telle fonction, où <span class="math inline">\(S \cup P\)</span> est l’ensemble des solutions du problème d’énumération et <span class="math inline">\(P\)</span> l’ensemble des solutions partielles, on se pose maintenant le problème de l’optimalité vis-à-vis de <span class="math inline">\(f\)</span> : déterminer <span class="math inline">\(x \in S\)</span> tel que <span class="math inline">\(f(x) = \max_{y \in S} f(y)\)</span> on note souvent <span class="math inline">\(x = \text{argmax}_{y\in S} f(y)\)</span>. On parle alors de problème d’optimisation combinatoire.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<ul>
+<li>En considérant <span class="math inline">\(g : y \mapsto -f(y)\)</span>, on transforme un problème de maximisation en un problème de minimisation.</li>
+<li>Il y a une ambiguïté sur <span class="math inline">\(\text{argmax}_{y \in S} f(y)\)</span> quand plusieurs éléments de <span class="math inline">\(S\)</span> réalisent ce maximum. Dans la plupart des algorithmes gloutons qu’on va considérer, on commence par donner un ordre sur <span class="math inline">\(S\)</span> et on considère le plus petit <span class="math inline">\(y\)</span> pour cet ordre réalisant le maximum. L’ordre choisi est alors crucial dans la preuve de correction. C’est aussi une des raisons pour lesquelles les algorithmes gloutons sont souvent de complexité temporelle <span class="math inline">\(O(n \log_2 n)\)</span>. </div></li>
+</ul>
+<p>Une première stratégie très élémentaire consiste alors à énumérer <span class="math inline">\(S\)</span>, de manière exhaustive ou avec une stratégie plus fine comme le retour sur trace, puis à déterminer un élément maximal de manière directe.</p>
+<p>Cela revient donc à déterminer l’arbre des solutions puis à trouver une feuille maximisant l’objectif :</p>
+<p><center><div class="ui image center"><img src="assets/pics/glouton_exhaustif.png" /></div></center></p>
+<p>Un algorithme glouton va suivre une approche beaucoup plus efficace : à chaque étape de construction de la solution, on choisit la branche qui maximise la fonction d’objectif. C’est-à-dire que si en partant d’une solution partielle <span class="math inline">\(x \in P\)</span> il est possible de l’étendre en d’autres solutions partielles <span class="math inline">\(p_x = \{ y_1, ..., y_n \}\)</span>, on va choisir <span class="math inline">\(y = \text{argmax}_{t \in p_x} f(t)\)</span> la solution qui maximise localement <span class="math inline">\(f\)</span>.</p>
+<p>Sur l’arbre précédent, cela reviendrait à n’emprunter qu’une seule branche :</p>
+<p><center><div class="ui image center"><img src="assets/pics/glouton_glouton1.png" /></div></center></p>
+<p>Cela a l’air très efficace mais il y a un problème majeur : il n’y a aucune garantie qu’on aboutisse ainsi à une solution, encore moins à une solution optimale. En effet, on aurait très bien pu faire les choix suivants :</p>
+<p><center><div class="ui image center"><img src="assets/pics/glouton_glouton2.png" /></div></center></p>
+<p>et ne pas aboutir à une solution.</p>
+<p>Considérons par exemple le problème du <strong>rendu de monnaie</strong> : étant donné, une liste de valeurs faciales de pièces <span class="math inline">\(P = (v_1,\dots,v_p) \in (\N^*)^p\)</span> avec <span class="math inline">\(1 = v_1 &lt; \dots &lt; v_p\)</span> et une somme <span class="math inline">\(n \in \N^*\)</span>, on cherche la manière d’exprimer cette somme avec le plus petit nombre de pièces possible.</p>
+<p>Plus précisément, l’ensemble des solutions <span class="math inline">\(S = \{ (k_1,\dots,k_p) \in N^p ~|~ k_1 v_1 + \dots + k_p v_p = n \}\)</span> et la fonction d’objectif est <span class="math inline">\(f : (k_1,\dots,k_p) \mapsto k_1 + \dots + k_p\)</span>. Les solutions partielles ici sont les réalisations de valeur <span class="math inline">\(&lt; n\)</span>. On cherche alors <span class="math inline">\(x = argmin_{y \in S} f(y)\)</span>.</p>
+<p>Comme <span class="math inline">\(1 = v_1\)</span>, <span class="math inline">\(S \neq \emptyset\)</span> car <span class="math inline">\((n,0,\dots,0) \in S\)</span> et ainsi <span class="math inline">\(f(x) \le n\)</span>.</p>
+<p>L’algorithme glouton va utiliser la plus grande pièce possible à chaque étape puis on applique l’algorithme glouton sur la somme restante sauf si elle est nulle, ce qui constitue la condition d’arrêt.</p>
+<p><strong>Exemple 1</strong></p>
+<ul>
+<li><span class="math inline">\(P = (1, 2, 5, 10)\)</span></li>
+<li><span class="math inline">\(n = 14\)</span></li>
+<li>On utilise la plus grande pièce possible <span class="math inline">\(10 \le 14\)</span> puis on exprime <span class="math inline">\(4 = 14 - 10\)</span></li>
+<li>Ici, la plus grande pièce est <span class="math inline">\(2\)</span> et on continue avec <span class="math inline">\(2 = 4 - 2\)</span></li>
+<li>La plus grande pièce est encore <span class="math inline">\(2\)</span> et on s’arrête car <span class="math inline">\(0 = 2 - 2\)</span>.</li>
+<li>En conclusion, on a obtenu <span class="math inline">\(x = (0,2,0,1)\)</span>.</li>
+<li>Une exploration exhuastive permet de s’assurer qu’on a effectivement obtenu une décomposition minimale. En effet, ici l’ensemble des décompositions est : { (14,0,0,0), (12,1,0,0), (8,3,0,0), (6,4,0,0), (4,5,0,0), (2,6,0,0), (0,7,0,0), (9,0,1,0), (7,1,1,0), (5,2,1,0), (3,3,1,0), (1,4,1,0), (4,0,2,0), (2,1,2,0), (0,2,2,0), (4,0,0,1), (2,1,0,1), (0,2,0,1) }.</li>
+</ul>
+<p><strong>Exemple 2</strong></p>
+<ul>
+<li><span class="math inline">\(P = (1, 2, 7, 10)\)</span></li>
+<li><span class="math inline">\(n = 14\)</span></li>
+<li>L’algorithme glouton va ici procéder comme dans l’exemple 1 et on va obtenir <span class="math inline">\(x = (0,2,0,1)\)</span>.</li>
+<li>Mais on remarque que ce n’est pas un minimum car <span class="math inline">\(x&#39; = (0,0,2,0)\)</span> convient avec <span class="math inline">\(f(x&#39;) = 2 &lt; 3 = f(x)\)</span>.</li>
+</ul>
+<p><em>Conclusion</em> l’algorithme glouton n’a effectivement pas de raisons d’être optimal.</p>
+<p>On peut se poser la question des algorithmes pour lesquels l’algorithme glouton aboutit nécessairement à une solution optimale.</p>
+<p><div class="ui message blue"><div class="header">Note</div>TODO - Ajouter un paragraphe simple sur les matroïdes qui puisse se décliner sous la forme d’un problème.</div></p>
+<h2 data-number="1.2" id="sec:huffman-arbre"><span class="header-section-number">1.2</span> Construction de l’arbre de Huffman</h2>
+<p><div class="ui message orange"><div class="header">Remarque</div>Ce paragraphe décrit l’étape cruciale du principe de compression de Huffman. Celui-ci sera présenté complétement dans le chapitre <a href="chap_algorithmique_algorithmique_du_texte.html#sec:huffman">Algorithmique des textes</a>.</div></p>
+<p>On va étudier ici un principe de compression parfaite (sans perte d’information à la décompression) de données appelé l’algorithme de Huffman et qui repose sur ce principe simple : coder sur moins de bits les caractères les plus fréquents.</p>
+<p>Par exemple si on considère le mot <code>abaabc</code>, en le codant avec un nombre de bits fixes, par exemple 2 avec le code <code>a=00,b=01,c=10</code>, on aurait besoin de 12 bits pour représenter le mot. Mais si on choisit le code suivant : <code>a=0,b=10,c=11</code>, il suffit de 9 bits. On a donc gagné 3 bits soit un facteur de compression de 75%.</p>
+<p>On remarque que pour pouvoir décompreser, il n’aurait pas été possible de faire commencer le code de <code>b</code> ou <code>c</code> par un <code>0</code>, sinon on aurait eu une ambiguité avec la lecture d’un <code>a</code>. On parle alors de code préfixe :</p>
+<p><div class="ui message"><div class="header">Définition</div> Soit <span class="math inline">\(X \subset \{0,1\}^*\)</span>, on dit que <span class="math inline">\(X\)</span> est un code préfixe lorsque pour tous <span class="math inline">\(x, y \in X\)</span>, <span class="math inline">\(x\)</span> n’est pas un préfixe de <span class="math inline">\(y\)</span> et <span class="math inline">\(y\)</span> n’est pas un préfixe de <span class="math inline">\(x\)</span>. </div></p>
+<p>On se pose alors la question du code préfixe optimal pour un texte donné.</p>
+<p>Plus précisément, étant donné un alphabet fini <span class="math inline">\(\Sigma\)</span> et une application <span class="math inline">\(f : \Sigma \rightarrow [0,1]\)</span> associant à chaque lettre son nombre d’occurences dans le texte considéré. Ainsi <span class="math inline">\(\sum_{x \in \Sigma} f(x)\)</span> est la longueur du texte. On cherche un code préfixe <span class="math inline">\(X\)</span> et une application <span class="math inline">\(c : \Sigma \rightarrow X\)</span> telle que <span class="math inline">\(\sum_{x \in \Sigma} f(x) |c(x)|\)</span> soit minimale car cela correspond au nombre de bits après codage.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div>On utilise aussi la notion de fréquence du lettre qui est son nombre d’occurence rapporté à la longueur du texte. Un des avantages de la notion de fréquence est qu’il est possible de considèrer une table de fréquence déjà construite comme celle de la langue française.</div></p>
+<p>L’application de codage <span class="math inline">\(c\)</span> peut être représenté par un arbre binaire où les arêtes gauches correspondent à 0, les arêtes droites à 1 et les feuilles aux éléments de <span class="math inline">\(\Sigma\)</span> dont les étiquettes des chemins y menant depuis la racine de l’arbre correspondent à leur image par <span class="math inline">\(c\)</span>.</p>
+<p>Par exemple, pour le code <span class="math inline">\(a=0,b=10,c=11\)</span> on aurait l’arbre :</p>
+<p><center><div class="ui image center"><img src="assets/pics/arbre_huffman_ex1.png" /></div></center></p>
+<p>Avec un tel arbre, il est très simple de décoder le texte codé car il suffit de suivre un chemin dans l’arbre jusqu’à tomber sur une feuille, produire la lettre correspondante, puis repartir de la racine de l’arbre. La longueur du code associé à une lettre est alors égale à la profondeur de la feuille correspondante. L’optimalité du codage préfixe est ainsi équivalente à la minimalité de l’arbre vis-à-vis de la fonction d’objectif <span class="math inline">\(\varphi(t) = \sum_{x \in \Sigma} f(x) p(t,x)\)</span> où <span class="math inline">\(p(t,x)\)</span> est la profondeur de la feuille d’étiquette <span class="math inline">\(x\)</span> dans l’arbre <span class="math inline">\(t\)</span> ou <span class="math inline">\(0\)</span> si <span class="math inline">\(x\)</span> n’est pas une des étiquettes, cet extension permettant d’étendre la fonction d’objectif aux solutions partielles.</p>
+<p>L’algorithme d’Huffman va construire un arbre correspondant à un codage optimal à l’aide d’une file de priorité d’arbres. On étend pour cela l’application <span class="math inline">\(f\)</span> à de tels arbres en définissant que si <span class="math inline">\(t\)</span> est un arbre de feuilles <span class="math inline">\(x_1,\dots,x_n\)</span> alors <span class="math inline">\(f(t) = f(x_1) + \dots + f(x_n)\)</span>.</p>
+<ul>
+<li><p>Au départ, on place dans la file des arbres réduits à une feuille pour chaque élément <span class="math inline">\(x \in \Sigma\)</span> et dont la priorité est <span class="math inline">\(f(x)\)</span>.</p></li>
+<li><p>Tant que la file contient au moins deux éléments</p>
+<ul>
+<li>on retire les deux plus petits éléments <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> de la file de priorité <span class="math inline">\(f(x)\)</span> et <span class="math inline">\(f(y)\)</span></li>
+<li>on ajoute un arbre <span class="math inline">\(z = Noeud(x,y)\)</span> de priorité <span class="math inline">\(f(z) = f(x) + f(y)\)</span>.</li>
+</ul></li>
+<li><p>On renvoie l’unique élément restant dans la file.</p></li>
+</ul>
+<p>L’implémentation de cet algorithme est alors assez directe avec une file de priorité. On réutilise ici la structure de tas implementée en FIXME. Comme il s’agit d’un tas max, on insère avec <span class="math inline">\(-f(x)\)</span> comme valeur.</p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-60">ocaml</a>   <a class="item" data-tab="c-60">c</a>   <a class="item" data-tab="python-60">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-60"></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> construit_arbre occ =</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> arbres = Tas.cree <span class="dv">2000</span> (<span class="dv">0</span>, Feuille <span class="dv">0</span>) <span class="kw">in</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> <span class="dv">255</span> <span class="kw">do</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> f = occ.(i) <span class="kw">in</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> f &gt; <span class="dv">0</span> <span class="co">(* on ignore les occurrences nulles *)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">then</span> Tas.insere (-f, Feuille i) arbres</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">while</span> Tas.taille arbres &gt; <span class="dv">1</span> <span class="kw">do</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> fx, x = Tas.supprime_racine arbres <span class="kw">in</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> fy, y = Tas.supprime_racine arbres <span class="kw">in</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        Tas.insere (fx+fy, Noeud(x,y)) arbres</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">snd</span> (Tas.supprime_racine arbres)</span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-60"></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> src<span class="op">/</span>algorithmique<span class="op">/../../</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>huffman<span class="op">.</span>c does not exist</span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-60"></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ERROR: src<span class="op">/</span>algorithmique<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>huffman.py does <span class="kw">not</span> exist</span></code></pre></div>
+<p></div> </div></p>
+<p>L’algorithme de Huffman est un algorithme glouton car si on considère pour solution partielle la fôret présente dans la file et pour objectif la fonction <span class="math inline">\(\varphi\)</span> étendue aux fôrets en sommant la valeur de <span class="math inline">\(\varphi\)</span> sur chaque arbre, alors fusionner dans la fôret <span class="math inline">\(F\)</span> deux arbres <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> en la transformant en une fôret <span class="math inline">\(F&#39;\)</span> va avoir l’impact suivant sur la fonction d’objectif :</p>
+<p><span class="math display">\[
+\varphi(F&#39;) = \varphi(F) + f(x) + f(y)
+\]</span></p>
+<p>car, en effet, on va rajouter 1 à la profondeur de chaque feuille et donc on passe pour la contribution de <span class="math inline">\(x\)</span> de <span class="math inline">\(\varphi(x) = \sum_{c \in \Sigma} f(c) p(x,c)\)</span> à <span class="math inline">\(\sum_{c \in \Sigma} f(c) (p(x,c)+1) = \varphi(x) + \sum_{c \in \Sigma} f(c) = \varphi(x) + f(x)\)</span>.</p>
+<p>On remarque ainsi que la fusion qui minimise localement <span class="math inline">\(\varphi\)</span> est celle qui fusionne les deux arbres de plus petite valeur pour <span class="math inline">\(f\)</span>.</p>
+<p>Pour montrer que l’algorithme glouton produit ici un codage minimal, on va utiliser une technique classique qui consiste à montrer qu’étant donné une solution optimale, on peut toujours la transformer sans augmenter sa valeur pour obtenir, de proche en proche, la solution renvoyée par le glouton.</p>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p>Supposons que les lettres les moins fréquentes soient <span class="math inline">\(a\)</span> et <span class="math inline">\(b\)</span>, il existe un arbre optimal dont les deux feuilles étiquettées par <span class="math inline">\(a\)</span> et <span class="math inline">\(b\)</span> descendent du même noeud et sont de profondeur maximale.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> Considérons un arbre optimal <span class="math inline">\(t\)</span> et soient <span class="math inline">\(c\)</span> l’étiquette d’une feuille de profondeur maximale. On remarque qu’elle a forcément une feuille sœur car sinon, on pourrait omettre le noeud et l’arbre obtenu serait de plus petite valeur par <span class="math inline">\(\varphi\)</span>.</p>
+<p>FIXME: dessin</p>
+<p>Soit <span class="math inline">\(d\)</span> l’étiquette de cette feuille sœur. Sans perte de généralités, on suppose que <span class="math inline">\(f(c) \le f(d)\)</span> et <span class="math inline">\(f(a) \le f(b)\)</span>. Comme <span class="math inline">\(a\)</span> a le plus petit nombre d’occurences, a <span class="math inline">\(f(a) \le f(c)\)</span> et comme <span class="math inline">\(b\)</span> est la deuxième, on a <span class="math inline">\(f(b) \le f(d)\)</span>. De plus, <span class="math inline">\(p(t,a) \ge p(t,c)\)</span> et <span class="math inline">\(p(t,b) \ge p(t,d)\)</span>.</p>
+<p>Si on échange les étiquettes <span class="math inline">\(a\)</span> et <span class="math inline">\(c\)</span>, seule les termes associées à ces lettres changent dans l’évaluation de <span class="math inline">\(\varphi\)</span>. Si on note <span class="math inline">\(t&#39;\)</span> le nouvel arbre obtenu après cet échange, on a <span class="math display">\[
+\varphi(t&#39;) = \varphi(t) - f(a) p(t,a) - f(c) p(t,c) + f(a) p(t,c) + f(c)
+p(t,a)
+\]</span> Or, <span class="math inline">\(f(c) \ge f(a)\)</span> et <span class="math inline">\(p(t,a) \ge p(t,c)\)</span> donc <span class="math display">\[\varphi(t&#39;) = \varphi(t) + (f(c) - f(a))(p(t,a)-p(t,c))
+\le \varphi(t)\]</span> L’échange préserve le caractère optimal. En fait, ici, on a nécessairement une égalité pour ne pas aboutir à une contradiction, donc soit les feuilles étaient à même profondeur, soit les lettres avaient le même nombre d’occurrences.</p>
+<p>Comme on a les mêmes relations entre <span class="math inline">\(b\)</span> et <span class="math inline">\(d\)</span>, on peut effectuer le même argument et échanger les étiquettes en préservant le caractère optimal. </div> </div></p>
+<p>Le théorème suivant permet de raisonner par récurrence en diminuant le nombre de lettres.</p>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p>Soit <span class="math inline">\(t\)</span> un arbre ayant <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> comme feuilles soeurs et <span class="math inline">\(t&#39;\)</span> l’arbre obtenu en remplaçant le noeud liant <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> par une feuille étiquettée par <span class="math inline">\(z\)</span> où <span class="math inline">\(z\)</span> est une nouvelle lettre telle que <span class="math inline">\(f(z) = f(x) + f(y)\)</span>.</p>
+<p><center><div class="ui image center"><center><div class="ui image center"><img src="assets/pics/huffman_fusion.png" /></div></center></p>
+<p></div></center></p>
+<p>On a alors <span class="math inline">\(\varphi(t) = \varphi(t&#39;) + f(z)\)</span>.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> Seule les termes portant sur <span class="math inline">\(x, y\)</span> et <span class="math inline">\(z\)</span> sont influencés par le changement et on a : <span class="math display">\[
+\begin{array}{rl}
+\varphi(t) &amp; = \varphi(t&#39;) + f(x) p(t,x) + f(y) p(t,y) - f(z) p(t&#39;,z) \\
+&amp; = \varphi(t&#39;) + f(z) (p(t&#39;,z) + 1) - f(z) p(t&#39;,z) \\
+&amp; = \varphi(t&#39;) + f(z)
+\end{array}
+\]</span> </div> </div></p>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p>L’algorithme de Huffman renvoie un arbre optimal.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> Par récurrence sur <span class="math inline">\(|\Sigma|\)</span>.</p>
+<p><em>Initialisation</em> : si <span class="math inline">\(\Sigma\)</span> ne contient qu’une lettre, il n’y a qu’un arbre qui est nécessairement optimal.</p>
+<p><em>Hérédité</em> : si la propriété est vraie pour un alphabet de <span class="math inline">\(n-1 \ge 1\)</span> lettres, alors soit <span class="math inline">\(\Sigma\)</span> contenant <span class="math inline">\(n\)</span> lettres et <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> les deux lettres les moins fréquentes.</p>
+<p>On pose <span class="math inline">\(\Sigma&#39;\)</span> obtenue en remplaçant <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> par une nouvelle lettre <span class="math inline">\(z\)</span> et on suppose que <span class="math inline">\(f(z) = f(x) + f(y)\)</span>. L’hypothèse de récurrence assure qu’on obtient un arbre optimal <span class="math inline">\(t&#39;\)</span> en appliquant l’algorithme d’Huffman sur <span class="math inline">\(\Sigma&#39;\)</span>. Comme la première étape d’Huffman va fusionner les feuilles <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span>, on sait que l’arbre <span class="math inline">\(t\)</span> obtenu en partant de <span class="math inline">\(\Sigma\)</span> se déduit de <span class="math inline">\(t&#39;\)</span> en remplaçant <span class="math inline">\(z\)</span> par <span class="math inline">\(Noeud(x,y)\)</span>. Le théorème précédent assure alors que <span class="math inline">\(\varphi(t) = \varphi(t&#39;) + f(z)\)</span>.</p>
+<p>Soit <span class="math inline">\(t_o\)</span> un arbre optimal pour <span class="math inline">\(\Sigma\)</span> dans lequel <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> sont soeurs, possible en vertu du premier théorème, et soit <span class="math inline">\(t_o&#39;\)</span> l’arbre obtenue en remplaçant dans <span class="math inline">\(t_o\)</span> le noeud liant <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> par une feuille étiquettée par <span class="math inline">\(z\)</span>. On a ici encore <span class="math inline">\(\varphi(t_o) = \varphi(t_o&#39;) + f(z) \ge \varphi(t&#39;) + f(z) \ge \varphi(t)\)</span> car <span class="math inline">\(t&#39;\)</span> est optimal.</p>
+<p>Ainsi, on a bien l’égalité <span class="math inline">\(\varphi(t_o) = \varphi(t)\)</span> et <span class="math inline">\(t\)</span> est optimal. </div> </div></p>
+<h2 data-number="1.3" id="sec:preuve-doptimalité"><span class="header-section-number">1.3</span> Preuve d’optimalité</h2>
+<p>Dans le paragraphe précédent, on retrouve un schéma de preuve classique pour les preuves d’optimalité des algorithmes gloutons :</p>
+<ul>
+<li>Montrer qu’à partir d’une solution optimale, il est possible de déterminer une solution optimale ayant fait le même choix que l’algorithme glouton. Pour Huffman c’était le fait d’avoir un arbre optimal ayant les deux lettres les moins fréquentes comme sœurs à profondeur maximale.</li>
+<li>Montrer qu’une solution optimale se comportant comme le résultat de l’algorithme glouton à une étape ne peut être meilleure que le résultat de l’algorithme glouton.</li>
+</ul>
+<h2 data-number="1.4" id="sec:sélection-dactivités"><span class="header-section-number">1.4</span> Sélection d’activités</h2>
+<h3 data-number="1.4.1" id="sec:description"><span class="header-section-number">1.4.1</span> Description</h3>
+<p>Étant donné un ensemble d’activités données par leur temps de début et leur temps de fin (on considère les temps comme des entiers pour simplifier), on se pose la question du nombre maximal d’activité que l’on puisse sélectionner sans que deux activités soient en conflits. Cela correspond par exemple à l’organisation du planning d’un employé.</p>
+<p>On dit que deux activités <span class="math inline">\((d_1,f_1)\)</span> et <span class="math inline">\((d_2,f_2)\)</span> sont en conflits quand <span class="math inline">\([d_1,f_1[ \cap [d_2,f_2[ \neq \emptyset\)</span>.</p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
+<p><center><div class="ui image center"><img src="assets/pics/activites_conflits.png" /></div></center></p>
+<p></div><div class="eight wide column"></p>
+<p>Ici, <span class="math inline">\(t_1\)</span> et <span class="math inline">\(t_2\)</span> sont en conflits avec <span class="math inline">\(t_3\)</span>. Mais <span class="math inline">\(t_1\)</span> et <span class="math inline">\(t_2\)</span> ne sont pas en conflit. On considère que deux activités peuvent se succéder directement : <span class="math inline">\(f_1 = d_2\)</span>.</p>
+<p></div></div></div></p>
+<p>On considère donc en entrée de ce problème une suite finie <span class="math inline">\(( (d_1,f_1), \dots, (d_n,f_n) )\)</span> et on cherche un sous-ensemble <span class="math inline">\(I \subset \range{1}{n}\)</span> de plus grand cardinal tel que pour tous <span class="math inline">\(i, j \in I\)</span>, si <span class="math inline">\(i \neq j\)</span> alors <span class="math inline">\((d_i,f_i)\)</span> et <span class="math inline">\((d_j,f_j)\)</span> ne sont pas en conflits. On dit que <span class="math inline">\(I\)</span> est un <strong>ensemble indépendant</strong>.</p>
+<h3 data-number="1.4.2" id="sec:algorithme-glouton-et-implémentation"><span class="header-section-number">1.4.2</span> Algorithme glouton et implémentation</h3>
+<p>Pour résoudre ce problème, on considère l’algorithme glouton associé à la fonction d’objectif cardinal et <strong>en triant les activités</strong> ordre croissant de temps de fin.</p>
+<p>Cet algorithme est implémenté dans le programme suivant :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="kw">typedef</span> <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> id<span class="op">;</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> debut<span class="op">;</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> fin<span class="op">;</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>    <span class="dt">unsigned</span> <span class="dt">char</span> selectionnee<span class="op">;</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="op">}</span> activite<span class="op">;</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="dt">int</span> compare_activites<span class="op">(</span><span class="dt">const</span> <span class="dt">void</span> <span class="op">*</span>t1<span class="op">,</span> <span class="dt">const</span> <span class="dt">void</span> <span class="op">*</span>t2<span class="op">)</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="op">{</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a>    <span class="cf">return</span> <span class="op">((</span>activite <span class="op">*)</span>t1<span class="op">)-&gt;</span>fin <span class="op">-</span> <span class="op">((</span>activite <span class="op">*)</span>t2<span class="op">)-&gt;</span>fin<span class="op">;</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="op">}</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="dt">void</span> selectionne<span class="op">(</span>activite <span class="op">*</span>activites<span class="op">,</span> <span class="dt">size_t</span> nb_activites<span class="op">)</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="op">{</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a>    <span class="dt">size_t</span> derniere_activite <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a>    <span class="co">/* on commmence par trier en O(n log2 n) les activites</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="co">     * selon le temps de fin */</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a>    qsort<span class="op">(</span>activites<span class="op">,</span> nb_activites<span class="op">,</span></span>
+<span id="cb4-22"><a href="#cb4-22"></a>        <span class="kw">sizeof</span><span class="op">(</span>activite<span class="op">),</span> compare_activites<span class="op">);</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a>    activites<span class="op">[</span><span class="dv">0</span><span class="op">].</span>selectionnee <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb4-24"><a href="#cb4-24"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> i <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> i <span class="op">&lt;</span> nb_activites<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb4-25"><a href="#cb4-25"></a>    <span class="op">{</span></span>
+<span id="cb4-26"><a href="#cb4-26"></a>        <span class="cf">if</span> <span class="op">(</span>activites<span class="op">[</span>i<span class="op">].</span>debut <span class="op">&gt;=</span> activites<span class="op">[</span>derniere_activite<span class="op">].</span>fin<span class="op">)</span></span>
+<span id="cb4-27"><a href="#cb4-27"></a>        <span class="op">{</span></span>
+<span id="cb4-28"><a href="#cb4-28"></a>            activites<span class="op">[</span>i<span class="op">].</span>selectionnee <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb4-29"><a href="#cb4-29"></a>            derniere_activite <span class="op">=</span> i<span class="op">;</span></span>
+<span id="cb4-30"><a href="#cb4-30"></a>        <span class="op">}</span></span>
+<span id="cb4-31"><a href="#cb4-31"></a>    <span class="op">}</span></span>
+<span id="cb4-32"><a href="#cb4-32"></a><span class="op">}</span></span>
+<span id="cb4-33"><a href="#cb4-33"></a></span>
+<span id="cb4-34"><a href="#cb4-34"></a><span class="dt">int</span> main<span class="op">()</span></span>
+<span id="cb4-35"><a href="#cb4-35"></a><span class="op">{</span></span>
+<span id="cb4-36"><a href="#cb4-36"></a>    activite activites<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb4-37"><a href="#cb4-37"></a>        <span class="op">{</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">0</span> <span class="op">},</span> <span class="op">{</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">0</span> <span class="op">},</span> <span class="op">{</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">0</span> <span class="op">},</span></span>
+<span id="cb4-38"><a href="#cb4-38"></a>        <span class="op">{</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">9</span><span class="op">,</span> <span class="dv">0</span> <span class="op">},</span> <span class="op">{</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">11</span><span class="op">,</span> <span class="dv">12</span><span class="op">,</span> <span class="dv">0</span> <span class="op">},</span> <span class="op">{</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">8</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">0</span> <span class="op">},</span></span>
+<span id="cb4-39"><a href="#cb4-39"></a>        <span class="op">{</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">7</span><span class="op">,</span> <span class="dv">0</span> <span class="op">}</span></span>
+<span id="cb4-40"><a href="#cb4-40"></a>    <span class="op">};</span></span>
+<span id="cb4-41"><a href="#cb4-41"></a></span>
+<span id="cb4-42"><a href="#cb4-42"></a>    <span class="dt">size_t</span> nb_activites <span class="op">=</span> <span class="kw">sizeof</span><span class="op">(</span>activites<span class="op">)</span> <span class="op">/</span> <span class="kw">sizeof</span><span class="op">(</span>activite<span class="op">);</span></span>
+<span id="cb4-43"><a href="#cb4-43"></a></span>
+<span id="cb4-44"><a href="#cb4-44"></a>    selectionne<span class="op">(</span>activites<span class="op">,</span> nb_activites<span class="op">);</span></span>
+<span id="cb4-45"><a href="#cb4-45"></a></span>
+<span id="cb4-46"><a href="#cb4-46"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> nb_activites<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb4-47"><a href="#cb4-47"></a>    <span class="op">{</span></span>
+<span id="cb4-48"><a href="#cb4-48"></a>        printf<span class="op">(</span><span class="st">&quot;Activité %d (%d,%d) : %d</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span></span>
+<span id="cb4-49"><a href="#cb4-49"></a>                activites<span class="op">[</span>i<span class="op">].</span>id<span class="op">,</span> activites<span class="op">[</span>i<span class="op">].</span>debut<span class="op">,</span></span>
+<span id="cb4-50"><a href="#cb4-50"></a>                activites<span class="op">[</span>i<span class="op">].</span>fin<span class="op">,</span> activites<span class="op">[</span>i<span class="op">].</span>selectionnee<span class="op">);</span></span>
+<span id="cb4-51"><a href="#cb4-51"></a>    <span class="op">}</span></span>
+<span id="cb4-52"><a href="#cb4-52"></a></span>
+<span id="cb4-53"><a href="#cb4-53"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb4-54"><a href="#cb4-54"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p>Ce programme produit alors la sortie :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1"></a>Activité <span class="dv">0</span> <span class="op">(</span><span class="dv">1</span><span class="op">,</span><span class="dv">3</span><span class="op">)</span> <span class="op">:</span> <span class="dv">1</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>Activité <span class="dv">1</span> <span class="op">(</span><span class="dv">3</span><span class="op">,</span><span class="dv">4</span><span class="op">)</span> <span class="op">:</span> <span class="dv">1</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>Activité <span class="dv">2</span> <span class="op">(</span><span class="dv">2</span><span class="op">,</span><span class="dv">5</span><span class="op">)</span> <span class="op">:</span> <span class="dv">0</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>Activité <span class="dv">6</span> <span class="op">(</span><span class="dv">0</span><span class="op">,</span><span class="dv">7</span><span class="op">)</span> <span class="op">:</span> <span class="dv">0</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>Activité <span class="dv">3</span> <span class="op">(</span><span class="dv">5</span><span class="op">,</span><span class="dv">9</span><span class="op">)</span> <span class="op">:</span> <span class="dv">1</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>Activité <span class="dv">5</span> <span class="op">(</span><span class="dv">8</span><span class="op">,</span><span class="dv">10</span><span class="op">)</span> <span class="op">:</span> <span class="dv">0</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a>Activité <span class="dv">4</span> <span class="op">(</span><span class="dv">11</span><span class="op">,</span><span class="dv">12</span><span class="op">)</span> <span class="op">:</span> <span class="dv">1</span></span></code></pre></div>
+<p></div></p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Comme l’algorithme commence par effectuer un tri, on a rajouté dans la structure <code>activite</code> un champ permettant d’identifier une activité autrement que par son indice.</div></p>
+<h3 data-number="1.4.3" id="sec:preuve-doptimalité-1"><span class="header-section-number">1.4.3</span> Preuve d’optimalité</h3>
+<p>On va prouver que l’algorithme glouton renvoie un ensemble indépendant optimal. Le fait que l’ensemble soit indépendant étant direct, on se concentre sur la preuve d’optimalité en présentant un schéma de preuve qui correspond à celui identifié dans le paragraphe précédent.</p>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p>Si <span class="math inline">\(a_1,\dots,a_n\)</span> sont des activités énumérées dans l’ordre croissant de leur temps de fin, alors il existe un ensemble indépendant optimal contenant <span class="math inline">\(a_1\)</span>.</p>
+</div>
+<p><div class="ui message orange"><div class="header">Remarque</div>Cela signifie qu’il fait le même choix que l’algorithme glouton à la première étape.</div></p>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> Soit <span class="math inline">\(I\)</span> un ensemble indépendant optimal ne contenant pas <span class="math inline">\(a_1 = (d_1,f_1)\)</span> (sinon c’est direct). Si <span class="math inline">\(a_k = (d_k,f_k)\)</span> est l’activité de plus petit indice dans <span class="math inline">\(I\)</span>, alors <span class="math inline">\(f_k \ge f_1\)</span> donc pour tout <span class="math inline">\(a_i = (d_i,f_i)\)</span> dans <span class="math inline">\(I&#39; = I \backslash \{ a_k \}\)</span> on a <span class="math inline">\(d_i \ge f_k \ge f_1\)</span> et ainsi <span class="math inline">\(a_1\)</span> et <span class="math inline">\(a_i\)</span> ne sont pas en conflit. Ainsi <span class="math inline">\(I&#39; \cup \{ a_1\}\)</span> est un ensemble indépendant contenant <span class="math inline">\(a_1\)</span> de même cardinal que <span class="math inline">\(I\)</span> donc optimal. </div> </div></p>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p>Soit <span class="math inline">\(A = \{ a_1,\dots,a_n \}\)</span> des activités ordonnées par ordre croissant de temps de fin et <span class="math inline">\(I\)</span> un ensemble indépendant optimal contenant <span class="math inline">\(a_1 = (d_1,f_1)\)</span> (ce qui est possible selon le théorème précédent).</p>
+<p><span class="math inline">\(I&#39; = I \backslash \{a_1\}\)</span> est optimal pour <span class="math inline">\(A&#39; = \enscomp{ (d,f) \in A}{d \ge f_1}\)</span>.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> Si, par l’absurde, <span class="math inline">\(I&#39;\)</span> est pas optimal pour <span class="math inline">\(A&#39;\)</span> alors <span class="math inline">\(J \subset A&#39;\)</span> est un ensemble indépendant de cardinal strictement plus grand que celui de <span class="math inline">\(I&#39;\)</span>. Or, <span class="math inline">\(A&#39; \cup \{ a_1 \}\)</span> est indépendant pour l’ensemble des activités et est de cardinal strictement plus grand que <span class="math inline">\(I\)</span>. Contradiction. </div> </div></p>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p>L’algorithme glouton renvoie un ensemble indépendant optimal.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> Par récurrence forte sur le nombre d’activités.</p>
+<ul>
+<li><p>Initialisation : Pour une activité <span class="math inline">\(a_1\)</span>, le glouton renvoie <span class="math inline">\(\{ a_1 \}\)</span> qui est directement optimal.</p></li>
+<li><p>Hérédité : Si la propriété est vérifiée pour <span class="math inline">\(k \le n\)</span> activités, soit <span class="math inline">\(A = \{ a_1, \dots, a_{n}\}\)</span> des activités ordonnées par temps de fin. Soit <span class="math inline">\(I\)</span> un ensemble indépendant optimal contenant <span class="math inline">\(a_1\)</span> et <span class="math inline">\(I&#39; = I \cap \{ a_1 \}\)</span>. Le théorème précédent assure que <span class="math inline">\(I&#39;\)</span> est optimal sur <span class="math inline">\(A&#39; = \enscomp{ (d,f) \in }{d \ge f_1}\)</span>.</p>
+<p>Par hypothèse de récurrence, l’algorithme glouton sur <span class="math inline">\(A&#39;\)</span> produit un ensemble indépendant optimal <span class="math inline">\(G&#39;\)</span>, donc tel que <span class="math inline">\(|G&#39;| = |I&#39;|\)</span>. Par construction l’algorithme glouton sur <span class="math inline">\(A\)</span> renvoie <span class="math inline">\(G = G&#39; \cup \{ a_1\}\)</span> de même cardinal que <span class="math inline">\(I\)</span>, donc optimal. </div> </div></p></li>
+</ul>
+<h2 data-number="1.5" id="sec:ordonnancement-de-tâches"><span class="header-section-number">1.5</span> Ordonnancement de tâches</h2>
+<h3 data-number="1.5.1" id="sec:description-1"><span class="header-section-number">1.5.1</span> Description</h3>
+<p>On considère ici un problème voisin du problème précédent. On considère <span class="math inline">\(n\)</span> tâches <span class="math inline">\(T = \{ t_1, \dots, t_n \}\)</span> prenant une unité de temps pour être traitées sur une unité de calcul.</p>
+<p>Chaque tâche <span class="math inline">\(t\)</span> dispose d’une date limite <span class="math inline">\(f(t) \in \range{1}{n}\)</span> (<strong>deadline</strong>) à laquelle elle doit être traitée sans quoi on écope d’une pénalité <span class="math inline">\(p(t) \in \N\)</span>.</p>
+<p>On appelle stratégie d’ordonnancement une application <span class="math inline">\(d : T \rightarrow \range{0}{n-1}\)</span> qui associe à chaque tache un unique temps de début <span class="math inline">\(d(t)\)</span>. Selon cette stratégie, on déduit une séparation de <span class="math inline">\(T\)</span> en deux ensembles disjoints :</p>
+<ul>
+<li><span class="math inline">\(T^+(d)\)</span> l’ensemble des tâches traitées dans les délais : <span class="math inline">\(t \in T^+(d) \iff d(t) &lt; f(t)\)</span>.</li>
+<li><span class="math inline">\(T^-(d)\)</span> l’ensemble des tâches traitées en retard : <span class="math inline">\(t \in T^-(d) \iff d(t) \ge f(t)\)</span>.</li>
+</ul>
+<p>On note alors <span class="math inline">\(P(d) = \sum_{t \in T^-(d)} p(t)\)</span> la somme des pénalités des tâches en retard.</p>
+<div class="ui message blue">
+<div class="header">
+Exemple
+</div>
+<p>On considère l’ensemble de tâches :</p>
+<table>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(t_i\)</span></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(f(t_i)\)</span></td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td>6</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(p(t_i)\)</span></td>
+<td>3</td>
+<td>6</td>
+<td>4</td>
+<td>2</td>
+<td>5</td>
+<td>7</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>Une stratégie d’ordonnancement (les tâches en retard sont en gras) est donnée dans le tableau suivant :</p>
+<table>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(t_i\)</span></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(d(t_i)\)</span></td>
+<td><strong>6</strong></td>
+<td>0</td>
+<td>1</td>
+<td><strong>4</strong></td>
+<td>3</td>
+<td>2</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p>On a alors <span class="math inline">\(P(d) = 5\)</span>.</p>
+</div>
+<p>On cherche à obtenir une stratégie d’ordonnancement de valeur <span class="math inline">\(P(d)\)</span> minimale.</p>
+<p>On remarque que l’ordonnancement des tâches en retard n’a aucune importance, et on peut donc se contenter de déterminer une stratégie d’ordonnancement pour les tâches traitées dans les délais et la compléter par n’importe quel ordonnancement des autres tâches. On peut ainsi reformuler le problème : déterminer un sous-ensemble <span class="math inline">\(T^+ \subset T\)</span> de tâches <strong>pouvant</strong> être traitées dans les délais tel que <span class="math inline">\(\sum_{t \in T^+} p(t)\)</span> soit <strong>maximale</strong>.</p>
+<h3 data-number="1.5.2" id="sec:algorithme-glouton-et-implémentation-1"><span class="header-section-number">1.5.2</span> Algorithme glouton et implémentation</h3>
+<p>On résout maintenant ce problème de maximisation des pénalités <span class="math inline">\(T^+\)</span> par un algorithme glouton :</p>
+<ul>
+<li>On commence avec <span class="math inline">\(T^+ = \emptyset\)</span> et tous les temps de <span class="math inline">\(\range{0}{n-1}\)</span> sont marqués comme étant disponibles.</li>
+<li>On parcourt les tâches dans l’ordre décroissant des pénalités.
+<ul>
+<li>Quand on considère la tâche <span class="math inline">\(t\)</span> s’il existe un temps <span class="math inline">\(i\)</span> disponible tel que <span class="math inline">\(i &lt; d(t)\)</span> alors on marque comme indisponible le temps <span class="math inline">\(i_0 = \max \enscomp{i \in \range{0}{n-1}}{i &lt; d(t) \text{ et } i \text { disponible} }\)</span> et on rajoute alors <span class="math inline">\(t\)</span> à <span class="math inline">\(T^+\)</span> en commençant <span class="math inline">\(t\)</span> au temps <span class="math inline">\(i_0\)</span>.</li>
+</ul></li>
+<li>On place les tâches restantes aux temps disponibles.</li>
+</ul>
+<p>Pour les structures de données, on utilise une représentation en tableaux de booléens (des <code>unsigned char</code> à <code>0</code> ou <code>1</code> en C) pour la disponibilités des temps. L’ensemble <span class="math inline">\(T^+\)</span> est alors implicite car il correspond aux tâches ordonnancé dans la première étape. Utiliser un tableau implique qu’une recherche linéaire soit faite pour chercher un plus grand temps disponible, et donc, la complexité temporelle globale sera en <span class="math inline">\(O(n^2)\)</span>.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Il est possible d’améliorer cela pour passer en <span class="math inline">\(O(n \log_2 n)\)</span> (<em>exercice</em>).</div></p>
+<p>Le programme C suivant implémente cet algorithme.</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="pp">#include </span><span class="im">&lt;string.h&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="kw">typedef</span> <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> id<span class="op">;</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> date_limite<span class="op">;</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> penalite<span class="op">;</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a>    <span class="dt">int</span> debut<span class="op">;</span> <span class="co">/* -1 tant que la tâche n&#39;est pas ordonnancée */</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="op">}</span> tache<span class="op">;</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="dt">int</span> compare_taches<span class="op">(</span><span class="dt">const</span> <span class="dt">void</span> <span class="op">*</span>t1<span class="op">,</span> <span class="dt">const</span> <span class="dt">void</span> <span class="op">*</span>t2<span class="op">)</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="op">{</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a>    <span class="cf">return</span> <span class="op">((</span>tache <span class="op">*)</span>t2<span class="op">)-&gt;</span>penalite <span class="op">-</span> <span class="op">((</span>tache <span class="op">*)</span>t1<span class="op">)-&gt;</span>penalite<span class="op">;</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a><span class="op">}</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a></span>
+<span id="cb6-17"><a href="#cb6-17"></a></span>
+<span id="cb6-18"><a href="#cb6-18"></a><span class="dt">void</span> <span class="op">*</span>ordonnancement<span class="op">(</span>tache <span class="op">*</span>taches<span class="op">,</span> <span class="dt">size_t</span> nb_taches<span class="op">)</span></span>
+<span id="cb6-19"><a href="#cb6-19"></a><span class="op">{</span></span>
+<span id="cb6-20"><a href="#cb6-20"></a>    <span class="dt">unsigned</span> <span class="dt">char</span> <span class="op">*</span>temps_occupe <span class="op">=</span> malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span><span class="dt">unsigned</span> <span class="dt">char</span><span class="op">)</span> <span class="op">*</span> nb_taches<span class="op">);</span></span>
+<span id="cb6-21"><a href="#cb6-21"></a>    memset<span class="op">(</span>temps_occupe<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> nb_taches<span class="op">);</span></span>
+<span id="cb6-22"><a href="#cb6-22"></a></span>
+<span id="cb6-23"><a href="#cb6-23"></a>    <span class="co">/* tri des activités par ordre décroissant des pénalités */</span></span>
+<span id="cb6-24"><a href="#cb6-24"></a>    qsort<span class="op">(</span>taches<span class="op">,</span> nb_taches<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>tache<span class="op">),</span> compare_taches<span class="op">);</span></span>
+<span id="cb6-25"><a href="#cb6-25"></a></span>
+<span id="cb6-26"><a href="#cb6-26"></a>    <span class="co">/* T+ par algorithme glouton */</span></span>
+<span id="cb6-27"><a href="#cb6-27"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> k <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> k <span class="op">&lt;</span> nb_taches<span class="op">;</span> k<span class="op">++)</span></span>
+<span id="cb6-28"><a href="#cb6-28"></a>    <span class="op">{</span></span>
+<span id="cb6-29"><a href="#cb6-29"></a>        <span class="dt">int</span> i0 <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb6-30"><a href="#cb6-30"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> nb_taches<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb6-31"><a href="#cb6-31"></a>        <span class="op">{</span></span>
+<span id="cb6-32"><a href="#cb6-32"></a>            <span class="cf">if</span> <span class="op">(</span>temps_occupe<span class="op">[</span>i<span class="op">]</span> <span class="op">==</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span> i <span class="op">&lt;</span> taches<span class="op">[</span>k<span class="op">].</span>date_limite<span class="op">)</span></span>
+<span id="cb6-33"><a href="#cb6-33"></a>                i0 <span class="op">=</span> i<span class="op">;</span></span>
+<span id="cb6-34"><a href="#cb6-34"></a>        <span class="op">}</span></span>
+<span id="cb6-35"><a href="#cb6-35"></a>        <span class="cf">if</span> <span class="op">(</span>i0 <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb6-36"><a href="#cb6-36"></a>        <span class="op">{</span></span>
+<span id="cb6-37"><a href="#cb6-37"></a>            taches<span class="op">[</span>k<span class="op">].</span>debut <span class="op">=</span> i0<span class="op">;</span></span>
+<span id="cb6-38"><a href="#cb6-38"></a>            temps_occupe<span class="op">[</span>i0<span class="op">]</span> <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb6-39"><a href="#cb6-39"></a>        <span class="op">}</span></span>
+<span id="cb6-40"><a href="#cb6-40"></a>    <span class="op">}</span></span>
+<span id="cb6-41"><a href="#cb6-41"></a></span>
+<span id="cb6-42"><a href="#cb6-42"></a>    <span class="co">/* Complétion par les tâches en retard */</span></span>
+<span id="cb6-43"><a href="#cb6-43"></a>    <span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> <span class="co">// indice du dernier temps disponible utilisé</span></span>
+<span id="cb6-44"><a href="#cb6-44"></a></span>
+<span id="cb6-45"><a href="#cb6-45"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> k <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> k <span class="op">&lt;</span> nb_taches<span class="op">;</span> k<span class="op">++)</span></span>
+<span id="cb6-46"><a href="#cb6-46"></a>    <span class="op">{</span></span>
+<span id="cb6-47"><a href="#cb6-47"></a>        <span class="cf">if</span> <span class="op">(</span>taches<span class="op">[</span>k<span class="op">].</span>debut <span class="op">==</span> <span class="op">-</span><span class="dv">1</span><span class="op">)</span></span>
+<span id="cb6-48"><a href="#cb6-48"></a>        <span class="op">{</span></span>
+<span id="cb6-49"><a href="#cb6-49"></a>            <span class="cf">while</span><span class="op">(</span>temps_occupe<span class="op">[</span>i<span class="op">]</span> <span class="op">==</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb6-50"><a href="#cb6-50"></a>                i<span class="op">++;</span></span>
+<span id="cb6-51"><a href="#cb6-51"></a>            taches<span class="op">[</span>k<span class="op">].</span>debut <span class="op">=</span> i<span class="op">;</span></span>
+<span id="cb6-52"><a href="#cb6-52"></a>            temps_occupe<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb6-53"><a href="#cb6-53"></a>        <span class="op">}</span></span>
+<span id="cb6-54"><a href="#cb6-54"></a>    <span class="op">}</span></span>
+<span id="cb6-55"><a href="#cb6-55"></a></span>
+<span id="cb6-56"><a href="#cb6-56"></a>    free<span class="op">(</span>temps_occupe<span class="op">);</span></span>
+<span id="cb6-57"><a href="#cb6-57"></a><span class="op">}</span></span>
+<span id="cb6-58"><a href="#cb6-58"></a></span>
+<span id="cb6-59"><a href="#cb6-59"></a><span class="dt">int</span> main<span class="op">()</span></span>
+<span id="cb6-60"><a href="#cb6-60"></a><span class="op">{</span></span>
+<span id="cb6-61"><a href="#cb6-61"></a>    tache taches<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb6-62"><a href="#cb6-62"></a>        <span class="op">{</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span> <span class="op">},</span> <span class="op">{</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">6</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span> <span class="op">},</span> <span class="op">{</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span> <span class="op">},</span></span>
+<span id="cb6-63"><a href="#cb6-63"></a>        <span class="op">{</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span> <span class="op">},</span> <span class="op">{</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span> <span class="op">},</span> <span class="op">{</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">7</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span> <span class="op">},</span></span>
+<span id="cb6-64"><a href="#cb6-64"></a>        <span class="op">{</span> <span class="dv">7</span><span class="op">,</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span> <span class="op">}</span></span>
+<span id="cb6-65"><a href="#cb6-65"></a>    <span class="op">};</span></span>
+<span id="cb6-66"><a href="#cb6-66"></a></span>
+<span id="cb6-67"><a href="#cb6-67"></a>    <span class="dt">size_t</span> nb_taches <span class="op">=</span> <span class="kw">sizeof</span><span class="op">(</span>taches<span class="op">)</span> <span class="op">/</span> <span class="kw">sizeof</span><span class="op">(</span>tache<span class="op">);</span></span>
+<span id="cb6-68"><a href="#cb6-68"></a></span>
+<span id="cb6-69"><a href="#cb6-69"></a>    ordonnancement<span class="op">(</span>taches<span class="op">,</span> nb_taches<span class="op">);</span></span>
+<span id="cb6-70"><a href="#cb6-70"></a></span>
+<span id="cb6-71"><a href="#cb6-71"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> nb_taches<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb6-72"><a href="#cb6-72"></a>    <span class="op">{</span></span>
+<span id="cb6-73"><a href="#cb6-73"></a>        printf<span class="op">(</span><span class="st">&quot;T%d (f:%d,p:%d) @ %d</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> taches<span class="op">[</span>i<span class="op">].</span>id<span class="op">,</span> taches<span class="op">[</span>i<span class="op">].</span>date_limite<span class="op">,</span></span>
+<span id="cb6-74"><a href="#cb6-74"></a>                taches<span class="op">[</span>i<span class="op">].</span>penalite<span class="op">,</span> taches<span class="op">[</span>i<span class="op">].</span>debut<span class="op">);</span></span>
+<span id="cb6-75"><a href="#cb6-75"></a>    <span class="op">}</span></span>
+<span id="cb6-76"><a href="#cb6-76"></a></span>
+<span id="cb6-77"><a href="#cb6-77"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb6-78"><a href="#cb6-78"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p>Il produit la sortie : <div class="ui segment code"></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1"></a>T6 <span class="op">(</span>f<span class="op">:</span><span class="dv">4</span><span class="op">,</span>p<span class="op">:</span><span class="dv">7</span><span class="op">)</span> @ <span class="dv">3</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>T2 <span class="op">(</span>f<span class="op">:</span><span class="dv">2</span><span class="op">,</span>p<span class="op">:</span><span class="dv">6</span><span class="op">)</span> @ <span class="dv">1</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>T5 <span class="op">(</span>f<span class="op">:</span><span class="dv">4</span><span class="op">,</span>p<span class="op">:</span><span class="dv">5</span><span class="op">)</span> @ <span class="dv">2</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>T3 <span class="op">(</span>f<span class="op">:</span><span class="dv">3</span><span class="op">,</span>p<span class="op">:</span><span class="dv">4</span><span class="op">)</span> @ <span class="dv">0</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>T1 <span class="op">(</span>f<span class="op">:</span><span class="dv">1</span><span class="op">,</span>p<span class="op">:</span><span class="dv">3</span><span class="op">)</span> @ <span class="dv">4</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>T4 <span class="op">(</span>f<span class="op">:</span><span class="dv">4</span><span class="op">,</span>p<span class="op">:</span><span class="dv">2</span><span class="op">)</span> @ <span class="dv">6</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>T7 <span class="op">(</span>f<span class="op">:</span><span class="dv">6</span><span class="op">,</span>p<span class="op">:</span><span class="dv">1</span><span class="op">)</span> @ <span class="dv">5</span></span></code></pre></div>
+<p></div></p>
+<p>Ce qui correspond à l’ordonnancement <span class="math inline">\(t_3, t_2, t_5, t_6, t_1, t_7, t_4\)</span>. Les tâches <span class="math inline">\(t_1\)</span> et <span class="math inline">\(t_4\)</span> sont en retard, donc la pénalité totale est de 5.</p>
+<h3 data-number="1.5.3" id="sec:preuve-doptimalité-2"><span class="header-section-number">1.5.3</span> Preuve d’optimalité</h3>
+<p>On va montrer que cet algorithme glouton renvoie un ensemble <span class="math inline">\(T^+\)</span> optimal. Pour cela, on procède comme précédemment. Tout d’abord, on montre qu’il existe une solution optimale qui effectue le premier choix de l’algorithme glouton.</p>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p>Soit <span class="math inline">\(T\)</span> un ensemble de tâches et <span class="math inline">\(t \in T\)</span> une tâche de pénalité maximale. Il existe un ensemble <span class="math inline">\(T^+\)</span> de tâches pouvant être traitées dans les délais, maximal pour les pénalités et tel que <span class="math inline">\(t \in T^+\)</span>.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> Soit <span class="math inline">\(T^+ \subset T\)</span> un ensemble maximal. S’il contient <span class="math inline">\(t\)</span>, il convient directement. Sinon, il existe une tâche <span class="math inline">\(t&#39;\)</span> de <span class="math inline">\(T^+\)</span> qui est traitée à un moment où on pourrait traiter <span class="math inline">\(t\)</span> à temps (sinon <span class="math inline">\(T^+ \cup \{t\}\)</span> conviendrait et <span class="math inline">\(T^+\)</span> ne pourrait être maximal). On a <span class="math inline">\(p(t&#39;) \le p(t)\)</span> par maximalité de <span class="math inline">\(t\)</span>. L’ensemble <span class="math inline">\(T&#39;\)</span> déduit de <span class="math inline">\(T^+\)</span> en remplaçant <span class="math inline">\(t&#39;\)</span> par <span class="math inline">\(t\)</span> convient car on a forcément <span class="math inline">\(P(T&#39;) = P(T^+)\)</span> (en fait <span class="math inline">\(\ge\)</span> mais <span class="math inline">\(=\)</span> par optimalité de <span class="math inline">\(T^+\)</span>) et par construction toutes ses tâches peuvent être traitées à temps. </div> </div></p>
+<p>On montre maintenant qu’en enlevant le choix glouton, on obtient une solution optimale du sous-problème.</p>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p>Soit <span class="math inline">\(T^+ \subset T\)</span> ensemble de tâches pouvant être traitées, maximal pour les pénalités et contenant une tâche <span class="math inline">\(t\)</span> de plus grande pénalité. Soit <span class="math inline">\(i\)</span> l’instant auquel la tâche <span class="math inline">\(t\)</span> commence dans un ordonnancement de <span class="math inline">\(T^+\)</span>.</p>
+<p>On pose <span class="math inline">\(T&#39; = T \backslash \{ t \}\)</span> avec des dates limites modifiées : <span class="math display">\[\forall t&#39; \in T&#39;, d_{T&#39;}(t&#39;) = 
+\begin{cases}
+d_T(t&#39;) &amp; \text{si } d_T(t&#39;) \le i \\
+d_T(t&#39;)-1 &amp; \text{sinon} 
+\end{cases}\]</span></p>
+<p><span class="math inline">\(T^+ \backslash \{t\}\)</span> est alors maximal pour <span class="math inline">\(T&#39;\)</span>.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> Dans <span class="math inline">\(T&#39;\)</span>, on a à la fois enlevé <span class="math inline">\(t\)</span> et supprimé l’instant <span class="math inline">\(i\)</span>. Tout ordonnancement de <span class="math inline">\(T&#39;\)</span> peut alors être <em>relevé</em> en un ordonnancement de <span class="math inline">\(T\)</span> en décalant d’un instant les tâches commençant à partir de l’instant <span class="math inline">\(i\)</span> et en ordonnançant là la tâche <span class="math inline">\(t\)</span>. Réciproquement d’un ordonnancement dans <span class="math inline">\(T\)</span>, on déduit directement un ordonnancement de <span class="math inline">\(T&#39;\)</span></p>
+<p>Ainsi, s’il existait <span class="math inline">\(T&#39;^+\)</span> maximal pour <span class="math inline">\(T&#39;\)</span> tel que <span class="math inline">\(P(T&#39;^+) &gt; P(T^+ \backslash \{ t\}) = P(T^+) - p(t)\)</span> alors <span class="math inline">\(T&#39;^+ \cup \{ t \}\)</span> serait de somme de pénalités strictement plus grande que celle de <span class="math inline">\(T^+\)</span> supposé maximal.</p>
+<p>Donc, <span class="math inline">\(T^+ \backslash \{ t\}\)</span> est maximal. </div> </div></p>
+<p>On conclut alors directement par récurrence sur le nombre de tâches comme on l’a fait précédemment pour la sélection d’activités :</p>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p>L’algorithme glouton renvoie un ordonnancement optimal.</p>
+</div>
+</div>
+<!-- </div> -->
+</div>
+
+<div class="ui inverted vertical footer segment">
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+Marc de Falco
+</div>
+  </body>
+</html>

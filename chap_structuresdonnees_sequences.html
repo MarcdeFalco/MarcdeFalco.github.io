@@ -218,7 +218,8 @@ table td {
 @media only screen and (max-width: 900px) {
     .ui.image, .ui.image img {
         display: block;
-        width: 100%;
+        //width: 100%;
+        width: auto;
         height: auto;
     }
 
@@ -1273,7 +1274,7 @@ Question
 Question
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb69-1"><a href="#cb69-1"></a><span class="dt">void</span> liste_ajout_maillon_avant<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"></code></pre></div>
 <p></div> qui ajoute un maillon avant <code>m</code>. Dans le cas où <code>m</code> est le premier ou le dernier maillon, l’insertion sera en <span class="math inline">\(O(1)\)</span>.</p>
 </div>
 <p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
@@ -1495,8 +1496,8 @@ Question
 Question
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb77-1"><a href="#cb77-1"></a><span class="dt">void</span> liste_ajout_maillon_avant<span class="op">(</span>liste <span class="op">&amp;</span>l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">);</span></span></code></pre></div>
-<p></div> qui ajout un maillon avant <code>m</code> en <span class="math inline">\(O(1)\)</span>.</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb77-1"><a href="#cb77-1"></a><span class="dt">void</span> liste_ajout_maillon_avant<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">);</span></span></code></pre></div>
+<p></div> qui ajoute un maillon avant <code>m</code> en <span class="math inline">\(O(1)\)</span>.</p>
 </div>
 <p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
 <div class="sourceCode" id="cb78"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb78-1"><a href="#cb78-1"></a><span class="dt">void</span> liste_ajout_maillon_avant<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">)</span></span>

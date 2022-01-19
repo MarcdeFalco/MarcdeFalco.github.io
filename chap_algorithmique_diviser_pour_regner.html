@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="generator" content="pandoc">
+    <meta name="description" content="">
+    <meta name="author" content="Marc de Falco">
+
+    <title>Diviser pour regner</title>
+
+    <link rel="stylesheet" type="text/css" href="assets/semantic.min.css">
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-PHZQE2FC4W"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-PHZQE2FC4W');
+	</script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="assets/semantic.min.js"></script>
+
+    <style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    </style>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script>
+$(document).ready(function() {
+    
+    $("#toc").sidebar("setting", "dimPage", false);
+    $("#toc").sidebar("setting", "delaySetup", true);
+
+   $('.ui.accordion').accordion();
+    if (matchMedia) {
+        var mq = window.matchMedia("(max-width: 900px)");
+        mq.addListener(big_or_small);
+        big_or_small(mq);
+    }
+
+    $("[href^='#']").click(
+        () => {
+            if (! $("#main").hasClass('shrink')) {
+	            $("#toc").sidebar("hide");
+            }
+        })
+
+    function big_or_small(mq) {
+        // The sidebar *pushes* the pusher, the main content, so we
+        // add a class that reduces the pusher's width so the edge
+        // content isn't cut off.
+        if (mq.matches) {
+	        $("#toc").sidebar("hide");
+            $("#main").removeClass("shrink")
+        } else {
+            $("#toc").sidebar("show");
+            $("#main").addClass("shrink");
+        }
+    }
+
+    $("#sidebar-menu-button").click(function() {
+        $("#toc").sidebar("show");
+    }).end();
+
+    $('.tabular.menu .item').tab({
+            context: 'parent'
+        });
+
+})
+
+function setLang(l) {
+    $('.tabular.menu .item').removeClass("active")
+    $('.tabular.menu .item[data-tab^="'+l+'"]').addClass("active")
+    $('.code').removeClass("active")
+    $('.code[data-tab^="'+l+'"]').addClass("active")
+}
+</script>
+
+  <style type="text/css">
+
+  .ui.sidebar {
+    font-size: 15px;
+  }
+
+  body {
+    background-color: #FFFFFF;
+    font-size: 20px;
+  }
+  .ui.segment {
+    font-size: 20px;
+  }
+  .wireframe {
+    //margin-top: 2em;
+  }
+  .ui.footer.segment {
+    //margin: 5em 0em 0em;
+    //padding: 5em 0em;
+  }
+  #top-menu {
+    display: none;
+    }
+
+    .message {
+        color: #000 !important;
+    }
+
+.shrink {
+    width: 60%;
+}
+
+.code {
+    font-size: 0.8em !important;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 24px;
+    border-spacing: 0;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+}
+
+table tr {
+    display: table-row !important;
+}
+
+table th {
+    padding: 3px 10px;
+    background-color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid black;
+}
+table td {
+    padding: 3px 10px;
+    border-top: none;
+    border-left: none;
+    border-bottom: none;
+    border-right: none;
+}
+
+  .menu .item {
+      padding: .5em 1em !important;
+  }
+
+@media only screen and (max-width: 900px) {
+    .ui.image, .ui.image img {
+        display: block;
+        //width: 100%;
+        width: auto;
+        height: auto;
+    }
+
+    #top-menu {
+        display: block !important;
+    }
+}
+  </style>
+
+  </head>
+  <body class="pushable class="pushable"">
+<div style="display: none;">
+\(
+\def\N{{\mathbb{N}}}
+\def\R{{\mathbb{R}}}
+\def\D{{\mathbb{D}}}
+\def\C{{\mathbb{C}}}
+\def\Z{{\mathbb{Z}}}
+\def\Q{{\mathbb{Q}}}
+\def\K{{\mathbb{K}}}
+\def\KX{{\mathbb{K}}[X]}
+\def\U{{\mathbb{U}}}
+\def\B{{\mathcal{B}}}
+\newcommand\ensfonctions[2]{\mathcal{F}(#1,#2)}
+\newcommand\classeck[3]{\mathcal{C}^{#1}(#2,#3)}
+\newcommand\range[2]{[| #1,#2 |]}
+\newcommand\mod[0]{\mathop{mod}}
+\newcommand\land[0]{\mathop{land}}
+\newcommand\matrices[3]{\mathcal{M}_{#1,#2}(#3)}
+\newcommand\matricescarres[2]{\mathcal{M}_{#1}(#2)}
+\newcommand\gln[2]{\mbox{GL}_{#1}(#2)}
+\newcommand\Support[1]{\mbox{Supp}(#1)}
+\newcommand\dom[0]{\mbox{dom}}
+\newcommand\uniondisjointe{\sqcup}
+\def\lt{<}
+\def\rR{\mathcal{R}}
+\newcommand\parties[1]{\mathcal{P}(#1)}
+\newcommand\entiere[1]{\left\lfloor #1 \right\rfloor}
+\newcommand\congru[3]{#1 = #2\ [#3]}
+\newcommand\enscomp[2]{\left\{\left.\ #1\ \right|\ #2\ \right\}}
+\newcommand\classe[1]{\overline{#1}}
+\newcommand\classemod[2]{\overline{#1}^{[#2]}}
+\newcommand\quotient[2]{#1 / #2}
+\newcommand\ZnZ[1]{\quotient{\Z}{#1 \Z}}
+\newcommand\card[1]{\text{Card}\ #1}
+\newcommand\indic{\mathbbm{1}}
+\newcommand\id{\mbox{id}}
+\newcommand\Perm[1]{\mathfrak{S}_#1}
+\newcommand\comb[2]{\binom{#1}{#2}}
+\newcommand\tend[2]{\xrightarrow[#1 \rightarrow #2]{}}
+\newcommand\limite[2]{\lim_{#1 \rightarrow #2}}
+\newcommand\application[5]{\begin{array}{rcccc}
+#1 & : & #2 & \mapsto & #3 \\ 
+& & #4 & \mapsto & #5
+\end{array}}
+\)
+</div>
+
+
+
+<div class="ui vertical inverted visible fixed sidebar menu" id="toc">
+    <div class="item">
+    <a href="/">
+        <i class="icon home"></i> Informatique en CPGE
+    </a>
+    </div>
+    <div class="item">
+        <div class="ui buttons compact">
+            <button onClick="setLang('ocaml')" class="ui button compact">OCaml</button>
+            <button onClick="setLang('c')" class="ui button compact">C</button>
+            <button onClick="setLang('python')" class="ui button compact">Python</button>
+        </div>
+        <div>Langage des exemples</div>
+    </div>
+    <div class="item">
+    <a href="#">
+        Diviser pour regner
+    </a>
+    </div>
+<!-- FIX TOC -->
+<div class="item header"> <a href="#sec:diviser-pour-régner"><span>1</span> Diviser pour régner</a><div class="menu"><a class="item" href="#sec:principe"><div class="ui label">1.1</div> Principe</a><a class="item" href="#sec:tri-fusion"><div class="ui label">1.2</div> Tri fusion</a><a class="item" href="#sec:nombre-dinversions"><div class="ui label">1.3</div> Nombre d’inversions</a><a class="item" href="#sec:points-les-plus-proches"><div class="ui label">1.4</div> Points les plus proches</a><a class="item" href="#sec:sous-ensemble-de-somme-donnée"><div class="ui label">1.5</div> Sous-ensemble de somme donnée</a><a class="item" href="#sec:recherche-dichotomique"><div class="ui label">1.6</div> Recherche dichotomique</a><a class="item" href="#sec:couverture-par-des-segments-égaux"><div class="ui label">1.7</div> Couverture par des segments égaux</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:couverture-par-des-segments-de-longueur-donnée"><i class="circle icon"></i> Couverture par des segments de longueur donnée</a><a style="font-size:0.6em" class="item" href="#sec:longueur-minimale"><i class="circle icon"></i> Longueur minimale</a><a style="font-size:0.6em" class="item" href="#sec:implémentation"><i class="circle icon"></i> Implémentation</a></div></div></div><!-- FIX TOC -->
+</div>
+
+<div class="pusher" id="main-content">
+    <div class="ui inverted top menu" id="top-menu">
+        <div class="ui container">
+	  <a class="launch icon item" id="sidebar-menu-button">
+	    <i class="angle double left icon"></i>
+	  </a>
+	  <div class="item">
+          Diviser pour regner
+	  </div>
+        </div>
+      </div>
+      <div class="ui padded basic segment shrink" id="main">
+          <!-- <div class="masthead"> -->
+<div class="segment">
+<div class="ui container text">
+<p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Diviser pour regner     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_algo_exacte.png"> </div></p>
+<h1 data-number="1" id="sec:diviser-pour-régner"><span class="header-section-number">1</span> Diviser pour régner</h1>
+<h2 data-number="1.1" id="sec:principe"><span class="header-section-number">1.1</span> Principe</h2>
+<p>Le principe des algorithmes dits <em>Diviser pour régner</em> est de décomposer un problème en plusieurs sous-problèmes disjoints et de déduire des solutions de ces sous-problème une solution au problème de départ.</p>
+<p>Le point clé pour ce principe est de pouvoir <strong>fusionner</strong> les solutions de sous-problèmes pour en faire une solution, et de pouvoir le faire dans un temps/espace raisonnable. On procède alors par récursivité en appliquant ce principe pour résoudre les sous-problèmes eux-mêmes jusqu’à tomber sur des sous-problèmes très simples.</p>
+<h2 data-number="1.2" id="sec:tri-fusion"><span class="header-section-number">1.2</span> Tri fusion</h2>
+<p>L’algorithme du tri fusion est un des exemples les plus important d’algorithmes <em>Diviser pour régner</em> :</p>
+<ul>
+<li>Étant donnée une liste <span class="math inline">\(l\)</span> de taille <span class="math inline">\(n \ge 2\)</span>, on va considérer les sous-listes <span class="math inline">\(l_p\)</span> des valeurs d’indice pair et <span class="math inline">\(l_i\)</span> des valeurs d’indice impair.</li>
+<li>On trie ensuite <span class="math inline">\(l_1\)</span> et <span class="math inline">\(l_2\)</span> pour obtenir <span class="math inline">\(l&#39;_1\)</span> et <span class="math inline">\(l&#39;_2\)</span>.</li>
+<li>On fusionne ces deux listes pour obtenir <span class="math inline">\(l&#39; = \text{fusion}(l&#39;_1,l&#39;_2)\)</span> liste triée déduite de <span class="math inline">\(l\)</span>.</li>
+</ul>
+<p>Comme expliqué dans le paragraphe précédent, les tris de <span class="math inline">\(l_1\)</span> et <span class="math inline">\(l_2\)</span> s’effectuent eux-aussi à l’aide d’un tri fusion.</p>
+<p><div class="ui message blue"><div class="header">Note</div>TODO : dessin</div></p>
+<p>Voici une implémentation en <code>OCaml</code> de cet algorithme :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">let</span> <span class="kw">rec</span> separe_en_deux l =</span>
+<span id="cb1-2"><a href="#cb1-2"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>    | [] -&gt; ([], [])</span>
+<span id="cb1-4"><a href="#cb1-4"></a>    | [x] -&gt; ([x], [])</span>
+<span id="cb1-5"><a href="#cb1-5"></a>    | x::y::q -&gt; <span class="kw">let</span> l1, l2 = separe_en_deux q <span class="kw">in</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>        (x::l1, y::l2)</span>
+<span id="cb1-7"><a href="#cb1-7"></a></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="kw">let</span> <span class="kw">rec</span> fusionne l1 l2 =</span>
+<span id="cb1-9"><a href="#cb1-9"></a>    <span class="kw">match</span> l1, l2 <span class="kw">with</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>    | [], _ -&gt; l2</span>
+<span id="cb1-11"><a href="#cb1-11"></a>    | _, [] -&gt; l1</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    | x::q1, y::q2 -&gt;</span>
+<span id="cb1-13"><a href="#cb1-13"></a>        <span class="kw">if</span> x &lt; y</span>
+<span id="cb1-14"><a href="#cb1-14"></a>        <span class="kw">then</span> x :: (fusionne q1 l2)</span>
+<span id="cb1-15"><a href="#cb1-15"></a>        <span class="kw">else</span> y :: (fusionne l1 q2)</span>
+<span id="cb1-16"><a href="#cb1-16"></a></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="kw">let</span> <span class="kw">rec</span> tri_fusion l =</span>
+<span id="cb1-18"><a href="#cb1-18"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a>    | [] -&gt; []</span>
+<span id="cb1-20"><a href="#cb1-20"></a>    | [x] -&gt; [x]</span>
+<span id="cb1-21"><a href="#cb1-21"></a>    | _ -&gt; </span>
+<span id="cb1-22"><a href="#cb1-22"></a>        <span class="kw">let</span> l1, l2 = separe_en_deux l <span class="kw">in</span></span>
+<span id="cb1-23"><a href="#cb1-23"></a>        <span class="kw">let</span> l1p = tri_fusion l1 <span class="kw">in</span></span>
+<span id="cb1-24"><a href="#cb1-24"></a>        <span class="kw">let</span> l2p = tri_fusion l2 <span class="kw">in</span></span>
+<span id="cb1-25"><a href="#cb1-25"></a>        fusionne l1p l2p</span>
+<span id="cb1-26"><a href="#cb1-26"></a></span></code></pre></div>
+<p></div></p>
+<p>La correction et la terminaison de cet algorithme ne posant aucune difficulté, on va se concentrer sur le calcul de la complexité temporelle :</p>
+<ul>
+<li><code>separe_en_deux</code> consiste en un parcours linéaire de la liste <code>l</code> donc <span class="math inline">\(O(|l|)\)</span>.</li>
+<li><code>fusionne</code> supprime un élément d’une des deux listes à chaque appel récursif, donc une complexité en <span class="math inline">\(O(|l_1|+|l_2|)\)</span>.</li>
+<li>Pour <code>tri_fusion</code> la situation est plus complexe en raison du double appel récursif. On va d’abord traiter le cas des listes contenant <span class="math inline">\(2^k\)</span> éléments.</li>
+</ul>
+<p>Notons <span class="math inline">\(t_n\)</span> la complexité temporelle pour <span class="math inline">\(|l|=n\)</span>.</p>
+<div class="ui message olive">
+<div class="header">
+Lemme
+</div>
+<p><span class="math inline">\(t_{2^n} = O(2^n \log_2 2^n)\)</span></p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> Par l’analyse de complexité des deux fonctions auxiliaires, on a pour <span class="math inline">\(n \in \N\)</span> <span class="math display">\[t_{2^{n+1}} = 2 t_{2^n} + O(2^n) \le 2 t_{2^n} + M 2^n\]</span> où on peut supposer que <span class="math inline">\(M \ge 1\)</span>.</p>
+<p>On va montrer par récurence sur <span class="math inline">\(n \in \N^*\)</span> que <span class="math inline">\(t_{2^n} \le 2 M n 2^n\)</span>.</p>
+<ul>
+<li>Initialisation : <span class="math inline">\(t_{2^1} = 2 t_1 + M 2 = 2 M + 2 \le 4 M = 2 \times 1 \times 2^1 M\)</span>.</li>
+<li>Hérédité : si <span class="math inline">\(n \in \N^*\)</span> et l’hypothèse est vérifiée pour <span class="math inline">\(t_{2^n}\)</span>, alors <span class="math inline">\(t_{2^{n+1}} \le 4 n 2^n M + M 2^n = (4n +1) M 2^n \le 4 (n+1) M 2^n \le 2 M (n+1) 2^{n+1}\)</span>.</li>
+</ul>
+<p>Ainsi <span class="math inline">\(t_{2^n} = O(n 2^n)\)</span>. </div> </div></p>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p><span class="math inline">\(t_n = O(n \log_2 n)\)</span></p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> Le lemme assure qu’il existe <span class="math inline">\(M&#39;\)</span> tel que <span class="math inline">\(\forall p \in \N^*, t_{2^p} \le M&#39; p 2^p\)</span>.</p>
+<p>Soit <span class="math inline">\(n\in \N^*\)</span> et <span class="math inline">\(p\)</span> minimum tel que <span class="math inline">\(n \le 2^p\)</span>. On a <span class="math inline">\(\log_2 n \le p\)</span> par croissance de <span class="math inline">\(\log_2\)</span> et ainsi <span class="math inline">\(t_n \le t_{2^p} \le M&#39; p 2^p = M&#39; n \log_2 n\)</span>.</p>
+<p>Ainsi, <span class="math inline">\(t_n = O(n \log_2 n)\)</span>. </div> </div></p>
+<p><div class="ui message orange"><div class="header">Remarque</div>On a utilisé implicitement la croissance de <span class="math inline">\(t_n\)</span> ici : plus la liste est longue, plus on effectue d’opérations.</div></p>
+<p>Le programme suivant présente une implémentation du tri fusion reposant sur des tableaux. Les sous-tableaux sont manipulés à l’aide de leurs indices de début et de fin comme pour la recherche dichotomique.</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">let</span> <span class="kw">rec</span> separe_en_deux l =</span>
+<span id="cb2-2"><a href="#cb2-2"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>    | [] -&gt; ([], [])</span>
+<span id="cb2-4"><a href="#cb2-4"></a>    | [x] -&gt; ([x], [])</span>
+<span id="cb2-5"><a href="#cb2-5"></a>    | x::y::q -&gt; <span class="kw">let</span> l1, l2 = separe_en_deux q <span class="kw">in</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>        (x::l1, y::l2)</span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="kw">let</span> <span class="kw">rec</span> fusionne l1 l2 =</span>
+<span id="cb2-9"><a href="#cb2-9"></a>    <span class="kw">match</span> l1, l2 <span class="kw">with</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>    | [], _ -&gt; l2</span>
+<span id="cb2-11"><a href="#cb2-11"></a>    | _, [] -&gt; l1</span>
+<span id="cb2-12"><a href="#cb2-12"></a>    | x::q1, y::q2 -&gt;</span>
+<span id="cb2-13"><a href="#cb2-13"></a>        <span class="kw">if</span> x &lt; y</span>
+<span id="cb2-14"><a href="#cb2-14"></a>        <span class="kw">then</span> x :: (fusionne q1 l2)</span>
+<span id="cb2-15"><a href="#cb2-15"></a>        <span class="kw">else</span> y :: (fusionne l1 q2)</span>
+<span id="cb2-16"><a href="#cb2-16"></a></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="kw">let</span> <span class="kw">rec</span> tri_fusion l =</span>
+<span id="cb2-18"><a href="#cb2-18"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a>    | [] -&gt; []</span>
+<span id="cb2-20"><a href="#cb2-20"></a>    | [x] -&gt; [x]</span>
+<span id="cb2-21"><a href="#cb2-21"></a>    | _ -&gt; </span>
+<span id="cb2-22"><a href="#cb2-22"></a>        <span class="kw">let</span> l1, l2 = separe_en_deux l <span class="kw">in</span></span>
+<span id="cb2-23"><a href="#cb2-23"></a>        <span class="kw">let</span> l1p = tri_fusion l1 <span class="kw">in</span></span>
+<span id="cb2-24"><a href="#cb2-24"></a>        <span class="kw">let</span> l2p = tri_fusion l2 <span class="kw">in</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a>        fusionne l1p l2p</span>
+<span id="cb2-26"><a href="#cb2-26"></a></span></code></pre></div>
+<p></div></p>
+<p><div class="ui message blue"><div class="header">Note</div>TODO : exercice tri avec un tableau et tri <strong>en place</strong></div></p>
+<h2 data-number="1.3" id="sec:nombre-dinversions"><span class="header-section-number">1.3</span> Nombre d’inversions</h2>
+<p><div class="ui message"><div class="header">Définition</div> Soit <span class="math inline">\(t\)</span> une structure séquentielle (tableau, liste, ….) contenant des valeurs comparables <span class="math inline">\(a_0, ..., a_{n-1}\)</span> et énumérées dans cet ordre au sein de <span class="math inline">\(t\)</span>.</p>
+<p>Une paire <span class="math inline">\((i,j) \in \range{0}{n-1}^2\)</span> où <span class="math inline">\(i &lt; j\)</span> est appelée une <em>inversion</em> de <span class="math inline">\(t\)</span> lorsque <span class="math inline">\(a_i &gt; a_j\)</span>.</p>
+<p>On note <span class="math inline">\(I(t)\)</span> le nombre d’inversion de <span class="math inline">\(t\)</span>. </div></p>
+<p><div class="ui message orange"><div class="header">Remarque</div>* Le nombre d’inversions permet de mesurer à quel point <span class="math inline">\(t\)</span> est non triée dans l’ordre croissante. * Ce concept d’inversion est exactement celui utilisé pour les permutations en mathématiques : si <span class="math inline">\(\sigma \in \mathfrak{S}_n\)</span>, il suffit de considérer <span class="math inline">\((\sigma(1),\dots, \sigma(n))\)</span>.</div></p>
+<p>On cherche dans ce paragraphe à calculer <span class="math inline">\(I(t)\)</span> efficacement. Remarquons tout d’abord qu’un algorithme naïf est en <span class="math inline">\(O(n^2)\)</span> où <span class="math inline">\(|t|=n\)</span> en explorant toutes les paires :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1"></a><span class="dt">size_t</span> inversions<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>t<span class="op">,</span> <span class="dt">size_t</span> taille<span class="op">)</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="op">{</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>    <span class="dt">size_t</span> inv <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> taille<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>    <span class="op">{</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> j <span class="op">=</span> i<span class="op">+</span><span class="dv">1</span><span class="op">;</span> j <span class="op">&lt;</span> taille<span class="op">;</span> j<span class="op">++)</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>        <span class="op">{</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>            <span class="cf">if</span> <span class="op">(</span>t<span class="op">[</span>i<span class="op">]</span> <span class="op">&gt;</span> t<span class="op">[</span>j<span class="op">])</span> inv<span class="op">++;</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>        <span class="op">}</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a>    <span class="op">}</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a></span>
+<span id="cb3-12"><a href="#cb3-12"></a>    <span class="cf">return</span> inv<span class="op">;</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p>On va maintenant donner un algorithme type <em>Diviser pour régner</em> :</p>
+<ul>
+<li>On sépare <span class="math inline">\(t\)</span> en deux moitiés <span class="math inline">\(t_1\)</span> et <span class="math inline">\(t_2\)</span>.</li>
+<li>On calcule <span class="math inline">\(I(t_1)\)</span> et <span class="math inline">\(I(t_2)\)</span> par des appels récursifs.</li>
+<li>On compte les inversions entre des éléments de <span class="math inline">\(t_1\)</span> et des éléments de <span class="math inline">\(t_2\)</span>
+<ul>
+<li>Cela ne dépend pas de leur position dans <span class="math inline">\(t_1\)</span> ou dans <span class="math inline">\(t_2\)</span>.</li>
+<li>On peut donc trier <span class="math inline">\(t_1\)</span> en <span class="math inline">\(t&#39;_1\)</span> et <span class="math inline">\(t_2\)</span> en <span class="math inline">\(t&#39;_2\)</span>.</li>
+<li>On compte <span class="math inline">\(N(t_1,t_2) = N(t&#39;_1,t&#39;_2)\)</span> le nombre d’inversions entre <span class="math inline">\(t&#39;_1\)</span> et <span class="math inline">\(t&#39;_2\)</span>.</li>
+</ul></li>
+<li>On en déduit que <span class="math inline">\(I(t) = I(t_1) + I(t_2) + N(t_1,t_2)\)</span>.</li>
+</ul>
+<p>Pour calculer le nombre d’inversions entre deux tableaux triés <span class="math inline">\(t&#39;_1\)</span> et <span class="math inline">\(t&#39;_2\)</span> on peut utiliser l’algorithme en <span class="math inline">\(O(|t&#39;_1| + |t&#39;_2|)\)</span> suivant : pour <span class="math inline">\(j\)</span> parcourant les indices de <span class="math inline">\(t&#39;_2\)</span>, on cherche le plus petit <span class="math inline">\(i\)</span> tel que <span class="math inline">\(t&#39;_1[i]\)</span>.</p>
+<h2 data-number="1.4" id="sec:points-les-plus-proches"><span class="header-section-number">1.4</span> Points les plus proches</h2>
+<h2 data-number="1.5" id="sec:sous-ensemble-de-somme-donnée"><span class="header-section-number">1.5</span> Sous-ensemble de somme donnée</h2>
+<h2 data-number="1.6" id="sec:recherche-dichotomique"><span class="header-section-number">1.6</span> Recherche dichotomique</h2>
+<h2 data-number="1.7" id="sec:couverture-par-des-segments-égaux"><span class="header-section-number">1.7</span> Couverture par des segments égaux</h2>
+<p>On considère ici <span class="math inline">\(n\)</span> points sur la droite réelle. Le <span class="math inline">\(i\)</span>-ème point est identifié par sa coordonnée <span class="math inline">\(x_i\)</span>. On se pose alors, dans un premier temps, la question de savoir si on peut trouver <span class="math inline">\(k\)</span> segments de longueur <span class="math inline">\(l\)</span> tels que chaque point appartienne à au moins un de ces segments. Dans un second temps, on se posera la question de la longueur <span class="math inline">\(l\)</span> minimale de ces segments.</p>
+<h3 data-number="1.7.1" id="sec:couverture-par-des-segments-de-longueur-donnée"><span class="header-section-number">1.7.1</span> Couverture par des segments de longueur donnée</h3>
+<p>On va ici résoudre le premier problème :</p>
+<div class="ui message gray">
+<div class="header">
+Problème - ExistenceCouvertureSegment
+</div>
+<ul>
+<li>
+<p>Entrée(s) :</p>
+<ul>
+<li><span class="math inline">\(n\)</span> points sur la droite réelle <span class="math inline">\(x_1, ..., x_n\)</span></li>
+<li>un entier <span class="math inline">\(k \ge 1\)</span></li>
+<li>un réel <span class="math inline">\(l\)</span></li>
+</ul>
+</li>
+<li>
+Sortie : existe-t-il <span class="math inline">\(k\)</span> segments <span class="math inline">\(S_1, \dots, S_k\)</span> de longueur <span class="math inline">\(l\)</span> tels que <span class="math inline">\(\forall i \in \range{1}{n}, \exists j \in \range{1}{k},  x_i \in S_j\)</span> ?
+</li>
+</ul>
+</div>
+<p>On remarque qu’un segment de longueur <span class="math inline">\(l\)</span> est uniquement caractérisé par son extrémité gauche. Pour chaque <span class="math inline">\(x_i\)</span>, il doit ainsi exister une extrémité gauche dans le segment <span class="math inline">\(S_i = [x_i-l,x_i]\)</span>. On peut ainsi renverser le problème et en faire un problème de couverture de segments par des points : on cherche <span class="math inline">\(k\)</span> points tel que chaque segment <span class="math inline">\(S_i\)</span> contienne au moins un de ces points.</p>
+<div class="ui message gray">
+<div class="header">
+Problème - EnsembleIntersectantLigne
+</div>
+<ul>
+<li>
+<p>Entrée(s) :</p>
+<ul>
+<li><span class="math inline">\(n\)</span> segments <span class="math inline">\(S_i = [l_i,r_i]\)</span></li>
+<li>un entier <span class="math inline">\(k \ge 1\)</span>.</li>
+</ul>
+</li>
+<li>
+Sortie : Un ensemble <span class="math inline">\(P\)</span> de <span class="math inline">\(k\)</span> points tels que <span class="math inline">\(\forall p \in P, \exists i \in \range{1}{n}, p \in S_i\)</span> en cas de succès
+</li>
+</ul>
+</div>
+<p>Ce problème peut se résoudre par un algorithme glouton :</p>
+<ul>
+<li>on commence avec <span class="math inline">\(P = \emptyset\)</span></li>
+<li>on trie les segments par <span class="math inline">\(r_i\)</span> croissant</li>
+<li>pour chaque segment <span class="math inline">\(S_i = [l_i,r_i]\)</span>, s’il ne contient aucun élément de <span class="math inline">\(P\)</span>, on rajoute <span class="math inline">\(r_i\)</span> à <span class="math inline">\(P\)</span>.</li>
+<li>on répond avec un succès si <span class="math inline">\(|P|\le k\)</span> (on peut alors compléter avec des points quelconques pour avoir exactement <span class="math inline">\(k\)</span> points).</li>
+</ul>
+<p>Cet algorithme est en <span class="math inline">\(O(n \log n)\)</span> en raison du tri initial.</p>
+<h3 data-number="1.7.2" id="sec:longueur-minimale"><span class="header-section-number">1.7.2</span> Longueur minimale</h3>
+<p>On considère maintenant le problème suivant :</p>
+<div class="ui message gray">
+<div class="header">
+Problème - CouvertureSegmentsMinimale
+</div>
+<ul>
+<li>
+<p>Entrée(s) :</p>
+<ul>
+<li><span class="math inline">\(n\)</span> points à coordonnées entières sur la droite réelle <span class="math inline">\(x_1, ..., x_n\)</span></li>
+<li>un entier <span class="math inline">\(k \ge 1\)</span></li>
+</ul>
+</li>
+<li>
+Sortie : la longueur <span class="math inline">\(l\)</span> minimale pour laquelle il existe une couverture des points par <span class="math inline">\(k\)</span> segments de longueur <span class="math inline">\(l\)</span>.
+</li>
+</ul>
+</div>
+<dl>
+<dt>On peut résoudre ce problème par dichotomie à l’aide de l’algorithme précédent</dt>
+<dd>
+</dd>
+</dl>
+<ul>
+<li>on considère <span class="math inline">\(L = \frac{\max_{1 \le i &lt; j \le n} |x_j-x_i|}{k} = \frac{D}{k}\)</span> où le diamètre <span class="math inline">\(D\)</span> se calcule en <span class="math inline">\(O(n)\)</span> et correspond à répartir de manière uniforme les segments pour couvrir les points. Une telle couverture existe toujours.</li>
+<li>on peut considérer, sans avoir besoin de le calculer au préalable, le tableau <span class="math inline">\(V\)</span> de booléen de longueur <span class="math inline">\(L+1\)</span> tel que <span class="math inline">\(V[l]\)</span> indique s’il est possible de couvrir les points par <span class="math inline">\(k\)</span> segments de longueur <span class="math inline">\(l\)</span>. Pour obtenir la valeur <span class="math inline">\(V[l]\)</span> il suffit d’appliquer l’algorithme précédent.</li>
+<li>on effectue alors une recherche dichotomique du plus petit indice <span class="math inline">\(l\)</span> tel que <span class="math inline">\(V[l]\)</span> soit vrai.</li>
+</ul>
+<p>On obtient ainsi un algorithme en <span class="math inline">\(O\left( n \log n \log \frac{D}{k} \right)\)</span> qu’on peut considérer comme étant en <span class="math inline">\(O(n \log n)\)</span> en supposant que <span class="math inline">\(D\)</span> est une constante.</p>
+<p>Cette dichotomie est en fait une instance d’un principe fondamental permettant de transformer un problème de décision (existe-t-il ?) en un problème d’optimisation (quelle est … minimal/maximal ?).</p>
+<h3 data-number="1.7.3" id="sec:implémentation"><span class="header-section-number">1.7.3</span> Implémentation</h3>
+</div>
+<!-- </div> -->
+</div>
+
+<div class="ui inverted vertical footer segment">
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+Marc de Falco
+</div>
+  </body>
+</html>
