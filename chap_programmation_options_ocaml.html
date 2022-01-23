@@ -300,7 +300,7 @@ table td {
     </a>
     </div>
 <!-- FIX TOC -->
-<div class="item header"> <a href="#sec:principe"><span>1</span> Principe</a><div class="menu"></div></div><div class="item header"> <a href="#sec:syntaxe"><span>2</span> Syntaxe</a><div class="menu"></div></div><div class="item header"> <a href="#sec:utilisation-concrète"><span>3</span> Utilisation concrète</a><div class="menu"><a class="item" href="#sec:définir-une-fonction-partielle"><div class="ui label">3.1</div> Définir une fonction partielle</a><a class="item" href="#sec:appeler-une-fonction-partielle"><div class="ui label">3.2</div> Appeler une fonction partielle</a><a class="item" href="#sec:données-partielles"><div class="ui label">3.3</div> Données partielles</a><a class="item" href="#sec:chaîne-de-traitement"><div class="ui label">3.4</div> Chaîne de traitement</a></div></div><!-- FIX TOC -->
+<div class="item header"> <a href="#sec:principe"><span>1</span> Principe</a><div class="menu"></div></div><div class="item header"> <a href="#sec:syntaxe"><span>2</span> Syntaxe</a><div class="menu"></div></div><div class="item header"> <a href="#sec:utilisation-concrète"><span>3</span> Utilisation concrète</a><div class="menu"><a class="item" href="#sec:définir-une-fonction-partielle"><div class="ui label">3.1</div> Définir une fonction partielle</a><a class="item" href="#sec:appeler-une-fonction-partielle"><div class="ui label">3.2</div> Appeler une fonction partielle</a><a class="item" href="#sec:valeurspartielles"><div class="ui label">3.3</div> Données partielles</a><a class="item" href="#sec:chaîne-de-traitement"><div class="ui label">3.4</div> Chaîne de traitement</a></div></div><!-- FIX TOC -->
 </div>
 
 <div class="pusher" id="main-content">
@@ -371,7 +371,7 @@ f^\star &amp; : &amp; A &amp; \rightarrow &amp; B \cup \{ \star \} \\
 \star &amp; \text{ si } a \in A_e \end{cases}
 \end{array}
 \]</span></p>
-<p>La valeur <span class="math inline">\(\star\)</span> est ce qu’on appelle un <em>puis</em>, c’est ici qu’on redirige toutes les entrées invalides.</p>
+<p>La valeur <span class="math inline">\(\star\)</span> est ce qu’on appelle un <em>puit</em>, c’est ici qu’on redirige toutes les entrées invalides.</p>
 <p>Il n’y a pas de type correspondant directement à l’union <span class="math inline">\(B \cup \{ \star \}\)</span> en <code>OCaml</code> et c’est pour cela qu’on utilise le type <code>'b option</code> qui nous force à <em>emballer</em> un retour.</p>
 <p>Ainsi à chaque fois qu’on aurait renvoyé une valeur <code>b</code>, on va renvoyer plutôt une valeur <code>Some b</code>, et à la place de produire une erreur, on renvoie <code>None</code>.</p>
 <p>Par exemple, le code suivant :</p>
@@ -395,8 +395,8 @@ f^\star &amp; : &amp; A &amp; \rightarrow &amp; B \cup \{ \star \} \\
 <span id="cb7-2"><a href="#cb7-2"></a>| <span class="dt">None</span> -&gt; <span class="co">(* ... *)</span></span>
 <span id="cb7-3"><a href="#cb7-3"></a>| <span class="dt">Some</span> b -&gt; <span class="co">(* ... *)</span></span></code></pre></div>
 <p></div></p>
-<h2 data-number="3.3" id="sec:données-partielles"><span class="header-section-number">3.3</span> Données partielles</h2>
-<p>Pour type polymorphe <code>'a t</code> on peut en déduire un type partiel <code>'a option t</code> dans lequel les valeurs peuvent ne pas être définies. Ainsi, un <code>int option array</code> permettra pour chaque case du tableau de :</p>
+<h2 data-number="3.3" id="sec:valeurspartielles"><span class="header-section-number">3.3</span> Données partielles</h2>
+<p>Pour tout type polymorphe <code>'a t</code> on peut en déduire un type partiel <code>'a option t</code> dans lequel les valeurs peuvent ne pas être définies. Ainsi, un <code>int option array</code> permettra pour chaque case du tableau de :</p>
 <ul>
 <li>soit être définie, et ce sera alors une valeur de la forme <code>Some k</code> où <code>k</code> est un <code>int</code>,</li>
 <li>soit être indéfinie avec la valeur <code>None</code>.</li>

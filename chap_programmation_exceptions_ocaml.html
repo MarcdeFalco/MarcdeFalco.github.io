@@ -300,7 +300,7 @@ table td {
     </a>
     </div>
 <!-- FIX TOC -->
-<div class="item header"> <a href="#sec:syntaxe-des-exceptions"><span>1</span> Syntaxe des exceptions</a><div class="menu"></div></div><div class="item header"> <a href="#sec:exceptions-pour-la-gestion-derreurs"><span>2</span> Exceptions pour la gestion d’erreurs</a><div class="menu"></div></div><div class="item header"> <a href="#sec:programmer-avec-des-exceptions"><span>3</span> Programmer avec des exceptions</a><div class="menu"><a class="item" href="#sec:retour-prématuré"><div class="ui label">3.1</div> Retour prématuré</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:break-et-continue"><i class="circle icon"></i> <code>break</code> et <code>continue</code></a></div></div></div><!-- FIX TOC -->
+<div class="item header"> <a href="#sec:syntaxe-des-exceptions"><span>1</span> Syntaxe des exceptions</a><div class="menu"></div></div><div class="item header"> <a href="#sec:exceptions-pour-la-gestion-derreurs"><span>2</span> Exceptions pour la gestion d’erreurs</a><div class="menu"></div></div><div class="item header"> <a href="#sec:exceptions"><span>3</span> Programmer avec des exceptions</a><div class="menu"><a class="item" href="#sec:retour-prématuré"><div class="ui label">3.1</div> Retour prématuré</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:break-et-continue"><i class="circle icon"></i> <code>break</code> et <code>continue</code></a></div></div></div><!-- FIX TOC -->
 </div>
 
 <div class="pusher" id="main-content">
@@ -319,7 +319,7 @@ table td {
 <div class="segment">
 <div class="ui container text">
 <p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Exceptions en OCaml     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_ocaml.png"> </div></p>
-<p>Les exceptions sont au mécanisme présent dans dans de nombreux langages de programmation afin de permettre à la fois d’indiquer qu’une erreur s’est produite en interrompant l’exécution d’une fonction et aussi de pouvoir, pour l’appelant <strong>rattraper</strong> cette erreur afin de poursuivre l’exécution comme il se doit.</p>
+<p>Les exceptions sont un mécanisme présent dans de nombreux langages de programmation afin de permettre à la fois d’indiquer qu’une erreur s’est produite en interrompant l’exécution d’une fonction et aussi de pouvoir, pour l’appelant <strong>rattraper</strong> cette erreur afin de poursuivre l’exécution comme il se doit.</p>
 <p>En <code>OCaml</code>, ce mécanisme va permettre, de plus, de pouvoir interrompre le flot de contrôle, notamment de retrouver des mécanismes comme <code>break</code>, <code>continue</code> et surtout <code>return</code>.</p>
 <h1 data-number="1" id="sec:syntaxe-des-exceptions"><span class="header-section-number">1</span> Syntaxe des exceptions</h1>
 <p>Les exceptions forment un type <code>exn</code> qui est extensible : il est possible de rajouter un nouveau constructeur pour ce type en écrivant :</p>
@@ -345,7 +345,7 @@ table td {
 <span id="cb3-2"><a href="#cb3-2"></a>    expression</span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="kw">with</span> ExceptionsARattraper -&gt; expression&#39;</span></code></pre></div>
 <p></div></p>
-<p>En fait, ce <code>with</code> est un filtrage, un <code>match</code>, sur les valeurs du type <code>exn</code> mais vérification d’exhaustivité. On peut donc effectuer plusieurs cas :</p>
+<p>En fait, ce <code>with</code> est un filtrage, un <code>match</code>, sur les valeurs du type <code>exn</code> mais sans vérification d’exhaustivité. On peut donc effectuer plusieurs cas :</p>
 <p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">try</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>    expression</span>
@@ -382,7 +382,7 @@ table td {
 <div class="sourceCode" id="cb7"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">let</span> <span class="kw">rec</span> input_all_lines ic =</span>
 <span id="cb7-2"><a href="#cb7-2"></a>    <span class="kw">try</span></span>
 <span id="cb7-3"><a href="#cb7-3"></a>        <span class="kw">let</span> l = <span class="dt">input_line</span> ic <span class="kw">in</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a>        l :: input_all_lines ()</span>
+<span id="cb7-4"><a href="#cb7-4"></a>        l :: input_all_lines ic</span>
 <span id="cb7-5"><a href="#cb7-5"></a>    <span class="kw">with</span> <span class="dt">End_of_file</span> -&gt; []</span></code></pre></div>
 <p></div></p>
 <p>Cette fonction prend un <code>input_channel</code> et renvoie toutes les lignes qu’il contient sous la forme d’une liste. Le rattrapage d’exception est crucial, c’est lui qui permet d’avoir un cas de base pour la récurrence.</p>
@@ -390,11 +390,11 @@ table td {
 <p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">let</span> <span class="kw">rec</span> input_all_lines ic =</span>
 <span id="cb8-2"><a href="#cb8-2"></a>    <span class="kw">try</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a>        <span class="dt">input_line</span> ic :: input_all_lines ()</span>
+<span id="cb8-3"><a href="#cb8-3"></a>        <span class="dt">input_line</span> ic :: input_all_lines ic</span>
 <span id="cb8-4"><a href="#cb8-4"></a>    <span class="kw">with</span> <span class="dt">End_of_file</span> -&gt; []</span></code></pre></div>
 <p></div></p>
 <p>Or, il se trouve que <code>OCaml</code> évalue tous les arguments du constructeur <code>::</code> et il le fait de la droite vers la gauche. Le code précédent va donc effectuer des appels récursifs sans jamais lire une seule ligne.</div></p>
-<h1 data-number="3" id="sec:programmer-avec-des-exceptions"><span class="header-section-number">3</span> Programmer avec des exceptions</h1>
+<h1 data-number="3" id="sec:exceptions"><span class="header-section-number">3</span> Programmer avec des exceptions</h1>
 <h2 data-number="3.1" id="sec:retour-prématuré"><span class="header-section-number">3.1</span> Retour prématuré</h2>
 <p>Si on considère le programme <code>C</code> suivant :</p>
 <p><div class="ui segment code"></p>
@@ -434,7 +434,7 @@ table td {
 <p></div></p>
 <p>En effet, on remarque deux feuilles possibles pour l’arbre d’appels récursifs : soit <code>None</code> en fin de tableau, soit <code>Some i</code> quand on a trouvé l’élément.</p>
 <p>Traduire des programmes impératifs sous cette forme est également peu satisfaisant.</p>
-<p>A l’aide des exceptions, on peut retrouver exactement la structure du code <code>C</code> initiale ainsi :</p>
+<p>À l’aide des exceptions, on peut retrouver exactement la structure du code <code>C</code> initiale ainsi :</p>
 <p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">exception</span> Trouve <span class="kw">of</span> <span class="dt">int</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a></span>
