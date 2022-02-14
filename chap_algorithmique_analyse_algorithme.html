@@ -386,7 +386,7 @@ table td {
 <p><div class="ui message orange"><div class="header">Remarque</div>Cela n’empêche pas que ce nombre d’étapes puisse être arbitrairement grand en fonction des entrées.</div></p>
 <p>Un algorithme qui n’utilise ni boucles inconditionnelles ni récursivité termine toujours. Ainsi, la question de la terminaison n’est à considérer que dans ces deux cas.</p>
 <p>Considérons par exemple l’algorithme suivant qui, étant donné un entier naturel <span class="math inline">\(n\)</span> strictement positif, inférieur à <span class="math inline">\(2^{30}\)</span>, détermine le plus petit entier <span class="math inline">\(k\)</span> tel que <span class="math inline">\(n \le 2^k\)</span> :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-45">ocaml</a>   <a class="item" data-tab="c-45">c</a>   <a class="item" data-tab="python-45">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-45"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-46">ocaml</a>   <a class="item" data-tab="c-46">c</a>   <a class="item" data-tab="python-46">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-46"></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> plus_grande_puissance2 n =</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> k = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> p = <span class="dt">ref</span> <span class="dv">1</span> <span class="kw">in</span></span>
@@ -395,7 +395,7 @@ table td {
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        p := !p * <span class="dv">2</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    !k</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-45"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-46"></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> plus_grande_puissance2<span class="op">(</span><span class="dt">int</span> n<span class="op">)</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> k <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
@@ -409,7 +409,7 @@ table td {
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> k<span class="op">;</span></span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-45"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-46"></p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plus_grande_puissance2(n):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    k <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> <span class="dv">1</span></span>
@@ -471,7 +471,7 @@ Théorème
 </ul></li>
 </ul>
 <p>Le programme suivant présente une implémentation de cet algorithme en C.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-56">ocaml</a>   <a class="item" data-tab="c-56">c</a>   <a class="item" data-tab="python-56">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-56"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-57">ocaml</a>   <a class="item" data-tab="c-57">c</a>   <a class="item" data-tab="python-57">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-57"></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">exception</span> Trouve <span class="kw">of</span> <span class="dt">int</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> rech_dicho t x =</span>
@@ -491,7 +491,7 @@ Théorème
 <span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>;</span>
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        <span class="dt">None</span></span>
 <span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">with</span> Trouve i -&gt; <span class="dt">Some</span> i</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-56"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-57"></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> rech_dicho<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>t<span class="op">,</span> <span class="dt">size_t</span> n<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* renvoie un indice de x </span></span>
@@ -520,7 +520,7 @@ Théorème
 <span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
 <span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-56"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-57"></p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rech_dicho(t, x):</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    i <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    j <span class="op">=</span> <span class="bu">len</span>(t) <span class="op">-</span> <span class="dv">1</span></span>
@@ -997,97 +997,29 @@ n^\alpha = O(\beta^n)
 <p>La complexité temporelle en moyenne est alors <span class="math inline">\(C^{t,m}_n = \sum_{i=1}^{n} \frac{1}{n} i C = \frac{(n+1)C}{2} = O(n)\)</span>. On retrouve ici la même complexité que la complexité dans le pire des cas. La sortie prématurée de la boucle n’a donc aucune influence sur la complexité.</p>
 <h2 data-number="4.7" id="sec:complexité-amortie"><span class="header-section-number">4.7</span> Complexité amortie</h2>
 <p>Dans le cadre de l’étude des structures de données, il est fréquent de considérer non pas la complexité dans le pire des cas d’une opération mais celle d’une succession d’opérations divisée par le nombre d’opérations effectuées. Ainsi, on peut très bien avoir une opération ponctuellement plus coûteuse que les autres, mais en procédant ainsi on lisse le surcoût sur l’ensemble des opérations. On parle alors de <strong>complexité amortie</strong>.</p>
-<p><div class="ui message orange"><div class="header">Remarque</div>Cette notion ne masque pas le fait qu’une opération puisse prendre ponctuellement plus de temps. Dans des contextes temps réel où il est importat de maitriser pleinement les complexités, il est peu judicieux d’utiliser de telles complexités. Par exemple, dans une visualisation en 3D, pour maintenir un débit constant d’images par secondes, chaque image doit prendre un temps similaire. Se reposer sur une structure de donnée ayant une faible complexité amortie mais une complexité dans le pire des cas importante, c’est risquer d’avoir des sacades avec une image qui prendrait plus de temps pour être calculée.</div></p>
-<p>Un exemple simple est donnée par la structure de données des tableaux dynamiques. C’est la structure de données utilisées dans de nombreux langages de haut niveau pour implémenter le type abstrait des listes. La différence principale entre cette structure de données et celle des tableaux de C est qu’on peut ajouter et supprimer des éléments.</p>
-<p>Un tableau dynamique d’entiers est un triplet <code>(t,c,n)</code> où <code>t</code> est un tableau de taille <code>c</code>, appelée la capacité du tableau dynamique, et <code>n</code> est un autre entier représentant la taille logique du tableau. A tout moment <span class="math inline">\(c \ge n\)</span>. Dans <code>t</code> il y a ainsi <span class="math inline">\(c-n\)</span> cases déjà allouées qui permettent de rajouter un élément en temps constant. Quand <span class="math inline">\(c=n\)</span>, on alloue une nouvelle zone mémoire, souvent de taille <span class="math inline">\(2c\)</span>, on déplace le tableau <code>t</code> dans cette zone et on a donc pour cet ajout prévu un certain nombre de cases d’avance.</p>
-<p>La figure suivante présente une succession d’ajouts : <center><div class="ui image center"><img src="assets/pics/tableau_dyn.png" /></div></center></p>
-<p>Une implémentation de ces opérations est proposée dans le programme suivant :</p>
-<p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb19-1"><a href="#cb19-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
-<span id="cb19-3"><a href="#cb19-3"></a></span>
-<span id="cb19-4"><a href="#cb19-4"></a><span class="kw">typedef</span> <span class="kw">struct</span> <span class="op">{</span></span>
-<span id="cb19-5"><a href="#cb19-5"></a>    <span class="dt">int</span> <span class="op">*</span>t<span class="op">;</span></span>
-<span id="cb19-6"><a href="#cb19-6"></a>    <span class="dt">size_t</span> c<span class="op">;</span></span>
-<span id="cb19-7"><a href="#cb19-7"></a>    <span class="dt">size_t</span> n<span class="op">;</span></span>
-<span id="cb19-8"><a href="#cb19-8"></a><span class="op">}</span> tableau_dynamique <span class="op">;</span></span>
-<span id="cb19-9"><a href="#cb19-9"></a></span>
-<span id="cb19-10"><a href="#cb19-10"></a>tableau_dynamique tableau_dynamique_creer<span class="op">()</span></span>
-<span id="cb19-11"><a href="#cb19-11"></a><span class="op">{</span></span>
-<span id="cb19-12"><a href="#cb19-12"></a>    tableau_dynamique d<span class="op">;</span></span>
-<span id="cb19-13"><a href="#cb19-13"></a>    <span class="dt">const</span> <span class="dt">size_t</span> capacite_initiale <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb19-14"><a href="#cb19-14"></a></span>
-<span id="cb19-15"><a href="#cb19-15"></a>    d<span class="op">.</span>t <span class="op">=</span> malloc<span class="op">(</span>capacite_initiale <span class="op">*</span> <span class="kw">sizeof</span><span class="op">(</span><span class="dt">int</span><span class="op">));</span></span>
-<span id="cb19-16"><a href="#cb19-16"></a>    d<span class="op">.</span>c <span class="op">=</span> capacite_initiale<span class="op">;</span></span>
-<span id="cb19-17"><a href="#cb19-17"></a>    d<span class="op">.</span>n <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb19-18"><a href="#cb19-18"></a></span>
-<span id="cb19-19"><a href="#cb19-19"></a>    <span class="cf">return</span> d<span class="op">;</span></span>
-<span id="cb19-20"><a href="#cb19-20"></a><span class="op">}</span></span>
-<span id="cb19-21"><a href="#cb19-21"></a></span>
-<span id="cb19-22"><a href="#cb19-22"></a><span class="dt">void</span> tableau_dynamique_ajout<span class="op">(</span>tableau_dynamique <span class="op">*</span>d<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
-<span id="cb19-23"><a href="#cb19-23"></a><span class="op">{</span></span>
-<span id="cb19-24"><a href="#cb19-24"></a>    <span class="cf">if</span> <span class="op">(</span>d<span class="op">-&gt;</span>c <span class="op">==</span> d<span class="op">-&gt;</span>n<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb19-25"><a href="#cb19-25"></a>        d<span class="op">-&gt;</span>c <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> d<span class="op">-&gt;</span>c<span class="op">;</span></span>
-<span id="cb19-26"><a href="#cb19-26"></a>        d<span class="op">-&gt;</span>t <span class="op">=</span> realloc<span class="op">(</span>d<span class="op">-&gt;</span>t<span class="op">,</span> d<span class="op">-&gt;</span>c <span class="op">*</span> <span class="kw">sizeof</span><span class="op">(</span><span class="dt">int</span><span class="op">));</span></span>
-<span id="cb19-27"><a href="#cb19-27"></a>    <span class="op">}</span></span>
-<span id="cb19-28"><a href="#cb19-28"></a>    d<span class="op">-&gt;</span>t<span class="op">[</span>d<span class="op">-&gt;</span>n<span class="op">]</span> <span class="op">=</span> x<span class="op">;</span></span>
-<span id="cb19-29"><a href="#cb19-29"></a>    d<span class="op">-&gt;</span>n<span class="op">++;</span></span>
-<span id="cb19-30"><a href="#cb19-30"></a><span class="op">}</span></span>
-<span id="cb19-31"><a href="#cb19-31"></a></span>
-<span id="cb19-32"><a href="#cb19-32"></a><span class="dt">void</span> tableau_dynamique_print<span class="op">(</span>tableau_dynamique d<span class="op">)</span></span>
-<span id="cb19-33"><a href="#cb19-33"></a><span class="op">{</span></span>
-<span id="cb19-34"><a href="#cb19-34"></a>    printf<span class="op">(</span><span class="st">&quot;c=%d</span><span class="sc">\t</span><span class="st">n=%d</span><span class="sc">\t</span><span class="st">|&quot;</span><span class="op">,</span> d<span class="op">.</span>c<span class="op">,</span> d<span class="op">.</span>n<span class="op">);</span></span>
-<span id="cb19-35"><a href="#cb19-35"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> d<span class="op">.</span>n<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
-<span id="cb19-36"><a href="#cb19-36"></a>        printf<span class="op">(</span><span class="st">&quot;%d|&quot;</span><span class="op">,</span> d<span class="op">.</span>t<span class="op">[</span>i<span class="op">]);</span></span>
-<span id="cb19-37"><a href="#cb19-37"></a>    <span class="op">}</span></span>
-<span id="cb19-38"><a href="#cb19-38"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> i <span class="op">=</span> d<span class="op">.</span>n<span class="op">;</span> i <span class="op">&lt;</span> d<span class="op">.</span>c<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
-<span id="cb19-39"><a href="#cb19-39"></a>        printf<span class="op">(</span><span class="st">&quot; |&quot;</span><span class="op">);</span></span>
-<span id="cb19-40"><a href="#cb19-40"></a>    <span class="op">}</span></span>
-<span id="cb19-41"><a href="#cb19-41"></a>    printf<span class="op">(</span><span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
-<span id="cb19-42"><a href="#cb19-42"></a><span class="op">}</span></span>
-<span id="cb19-43"><a href="#cb19-43"></a></span>
-<span id="cb19-44"><a href="#cb19-44"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb19-45"><a href="#cb19-45"></a>    tableau_dynamique d <span class="op">=</span> tableau_dynamique_creer<span class="op">();</span></span>
-<span id="cb19-46"><a href="#cb19-46"></a>    tableau_dynamique_print<span class="op">(</span>d<span class="op">);</span> </span>
-<span id="cb19-47"><a href="#cb19-47"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">6</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
-<span id="cb19-48"><a href="#cb19-48"></a>        tableau_dynamique_ajout<span class="op">(&amp;</span>d<span class="op">,</span>i<span class="op">);</span></span>
-<span id="cb19-49"><a href="#cb19-49"></a>        tableau_dynamique_print<span class="op">(</span>d<span class="op">);</span> </span>
-<span id="cb19-50"><a href="#cb19-50"></a>    <span class="op">}</span></span>
-<span id="cb19-51"><a href="#cb19-51"></a><span class="op">}</span></span></code></pre></div>
-<p></div></p>
-<p>Ce programme, une fois exécuté produit la sortie suivante qui permet de retrouver exactement le comportement attendu :</p>
-<p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb20-1"><a href="#cb20-1"></a>c<span class="op">=</span><span class="dv">2</span> n<span class="op">=</span><span class="dv">0</span> <span class="op">|</span> <span class="op">|</span> <span class="op">|</span></span>
-<span id="cb20-2"><a href="#cb20-2"></a>c<span class="op">=</span><span class="dv">2</span> n<span class="op">=</span><span class="dv">1</span> <span class="op">|</span><span class="dv">1</span><span class="op">|</span> <span class="op">|</span></span>
-<span id="cb20-3"><a href="#cb20-3"></a>c<span class="op">=</span><span class="dv">2</span> n<span class="op">=</span><span class="dv">2</span> <span class="op">|</span><span class="dv">1</span><span class="op">|</span><span class="dv">2</span><span class="op">|</span></span>
-<span id="cb20-4"><a href="#cb20-4"></a>c<span class="op">=</span><span class="dv">4</span> n<span class="op">=</span><span class="dv">3</span> <span class="op">|</span><span class="dv">1</span><span class="op">|</span><span class="dv">2</span><span class="op">|</span><span class="dv">3</span><span class="op">|</span> <span class="op">|</span></span>
-<span id="cb20-5"><a href="#cb20-5"></a>c<span class="op">=</span><span class="dv">4</span> n<span class="op">=</span><span class="dv">4</span> <span class="op">|</span><span class="dv">1</span><span class="op">|</span><span class="dv">2</span><span class="op">|</span><span class="dv">3</span><span class="op">|</span><span class="dv">4</span><span class="op">|</span></span>
-<span id="cb20-6"><a href="#cb20-6"></a>c<span class="op">=</span><span class="dv">8</span> n<span class="op">=</span><span class="dv">5</span> <span class="op">|</span><span class="dv">1</span><span class="op">|</span><span class="dv">2</span><span class="op">|</span><span class="dv">3</span><span class="op">|</span><span class="dv">4</span><span class="op">|</span><span class="dv">5</span><span class="op">|</span> <span class="op">|</span> <span class="op">|</span> <span class="op">|</span></span></code></pre></div>
-<p></div></p>
-<p>Calculons la complexité amortie de l’ajout d’un élément. Si on considère un ajout d’élément qui provoque une réallocation du tableau, celle-ci sera en <span class="math inline">\(O(c)\)</span> et les <span class="math inline">\(c-1\)</span> opérations suivantes d’ajout seront en <span class="math inline">\(O(1)\)</span>. La complexité globale de ces <span class="math inline">\(c\)</span> opérations d’ajout est alors en <span class="math inline">\(O(c)\)</span>, ce qui donne une complexité amortie en <span class="math inline">\(O(1)\)</span>. On peut ainsi considérer que l’ajout d’un élément dans un tableau dynamique est en complexité temporelle amortie constante.</p>
-<p><div class="ui message blue"><div class="header">Note</div>Il faut faire un choix entre reprendre ici une preuve plus précise ou la garder pour un chapitre ultérieur avec au moins un exemple de méthode du potentiel (Skew Heaps?)</div></p>
+<p>L’étude de la complexité amortie est traitée dans le chapitre TODO.</p>
 <h2 data-number="4.8" id="sec:pertinence-de-la-complexité-spatiale"><span class="header-section-number">4.8</span> Pertinence de la complexité spatiale</h2>
 <p>Même si la complexité temporelle est le plus souvent celle qui est importante à calculer, certains algorithmes ont une complexité temporelle faible mais en contrepartie une complexité spatiale élevée. On parle alors de compromis temps-mémoire.</p>
 <p>Un exemple classique d’un tel compromis est celui de la programmation dynamique où on passe d’une complexité temporelle exponentielle à une complexité temporelle polynomiale en stockant des valeurs intermédiaires pour ne pas les recalculer. En procédant ainsi, on passe d’une complexité spatiale constante à polynomiale.</p>
 <p>Cela est illustré dans le programme suivant qui permet de déterminer le <span class="math inline">\(n\)</span>-ième terme de la suite de Fibonacci, ce qui n’a pas d’intérêt informatique mais est caractéristique de récurrence que l’on résoudra par la programmation dynamique.</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb21-1"><a href="#cb21-1"></a><span class="co">(* Fibonacci exponentiel *)</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a><span class="kw">let</span> <span class="kw">rec</span> fibo n =</span>
-<span id="cb21-3"><a href="#cb21-3"></a>    <span class="kw">if</span> n = <span class="dv">0</span></span>
-<span id="cb21-4"><a href="#cb21-4"></a>    <span class="kw">then</span> <span class="dv">0</span></span>
-<span id="cb21-5"><a href="#cb21-5"></a>    <span class="kw">else</span> <span class="kw">if</span> n = <span class="dv">1</span></span>
-<span id="cb21-6"><a href="#cb21-6"></a>    <span class="kw">then</span> <span class="dv">1</span></span>
-<span id="cb21-7"><a href="#cb21-7"></a>    <span class="kw">else</span> fibo (n<span class="dv">-1</span>) + fibo (n<span class="dv">-2</span>)</span>
-<span id="cb21-8"><a href="#cb21-8"></a></span>
-<span id="cb21-9"><a href="#cb21-9"></a><span class="co">(* Fibonacci linéaire *)</span></span>
-<span id="cb21-10"><a href="#cb21-10"></a><span class="kw">let</span> fibo n =</span>
-<span id="cb21-11"><a href="#cb21-11"></a>    <span class="kw">let</span> prec = <span class="dt">Array</span>.make (n+<span class="dv">1</span>) <span class="dv">0</span> <span class="kw">in</span></span>
-<span id="cb21-12"><a href="#cb21-12"></a>    prec.(<span class="dv">0</span>) &lt;- <span class="dv">0</span>;</span>
-<span id="cb21-13"><a href="#cb21-13"></a>    prec.(<span class="dv">1</span>) &lt;- <span class="dv">1</span>;</span>
-<span id="cb21-14"><a href="#cb21-14"></a>    <span class="kw">for</span> i = <span class="dv">2</span> <span class="kw">to</span> n <span class="kw">do</span></span>
-<span id="cb21-15"><a href="#cb21-15"></a>        prec.(i) &lt;- prec.(i<span class="dv">-1</span>) + prec.(i<span class="dv">-2</span>)</span>
-<span id="cb21-16"><a href="#cb21-16"></a>    <span class="kw">done</span>;</span>
-<span id="cb21-17"><a href="#cb21-17"></a>    prec.(n)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb19-1"><a href="#cb19-1"></a><span class="co">(* Fibonacci exponentiel *)</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="kw">let</span> <span class="kw">rec</span> fibo n =</span>
+<span id="cb19-3"><a href="#cb19-3"></a>    <span class="kw">if</span> n = <span class="dv">0</span></span>
+<span id="cb19-4"><a href="#cb19-4"></a>    <span class="kw">then</span> <span class="dv">0</span></span>
+<span id="cb19-5"><a href="#cb19-5"></a>    <span class="kw">else</span> <span class="kw">if</span> n = <span class="dv">1</span></span>
+<span id="cb19-6"><a href="#cb19-6"></a>    <span class="kw">then</span> <span class="dv">1</span></span>
+<span id="cb19-7"><a href="#cb19-7"></a>    <span class="kw">else</span> fibo (n<span class="dv">-1</span>) + fibo (n<span class="dv">-2</span>)</span>
+<span id="cb19-8"><a href="#cb19-8"></a></span>
+<span id="cb19-9"><a href="#cb19-9"></a><span class="co">(* Fibonacci linéaire *)</span></span>
+<span id="cb19-10"><a href="#cb19-10"></a><span class="kw">let</span> fibo n =</span>
+<span id="cb19-11"><a href="#cb19-11"></a>    <span class="kw">let</span> prec = <span class="dt">Array</span>.make (n+<span class="dv">1</span>) <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb19-12"><a href="#cb19-12"></a>    prec.(<span class="dv">0</span>) &lt;- <span class="dv">0</span>;</span>
+<span id="cb19-13"><a href="#cb19-13"></a>    prec.(<span class="dv">1</span>) &lt;- <span class="dv">1</span>;</span>
+<span id="cb19-14"><a href="#cb19-14"></a>    <span class="kw">for</span> i = <span class="dv">2</span> <span class="kw">to</span> n <span class="kw">do</span></span>
+<span id="cb19-15"><a href="#cb19-15"></a>        prec.(i) &lt;- prec.(i<span class="dv">-1</span>) + prec.(i<span class="dv">-2</span>)</span>
+<span id="cb19-16"><a href="#cb19-16"></a>    <span class="kw">done</span>;</span>
+<span id="cb19-17"><a href="#cb19-17"></a>    prec.(n)</span></code></pre></div>
 <p></div></p>
 <p>!clearpage</p>
 <h1 data-number="5" id="sec:exercices"><span class="header-section-number">5</span> Exercices</h1>
@@ -1096,22 +1028,22 @@ n^\alpha = O(\beta^n)
 Exercice
 </div>
 <p>On considère le programme suivant :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-166">ocaml</a>   <a class="item" data-tab="c-166">c</a>   <a class="item" data-tab="python-166">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-166"></p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-166"></p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> multiplication<span class="op">(</span><span class="dt">int</span> x<span class="op">,</span> <span class="dt">int</span> y<span class="op">,</span> <span class="dt">int</span> c<span class="op">)</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> m <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>y <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> m <span class="op">+</span> x <span class="op">*</span> <span class="op">(</span>y <span class="op">%</span> c<span class="op">);</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> x <span class="op">*</span> c<span class="op">;</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> y <span class="op">/</span> c<span class="op">;</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> m<span class="op">;</span></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-166"></p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"></code></pre></div>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-159">ocaml</a>   <a class="item" data-tab="c-159">c</a>   <a class="item" data-tab="python-159">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-159"></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-159"></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> multiplication<span class="op">(</span><span class="dt">int</span> x<span class="op">,</span> <span class="dt">int</span> y<span class="op">,</span> <span class="dt">int</span> c<span class="op">)</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> m <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>y <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> m <span class="op">+</span> x <span class="op">*</span> <span class="op">(</span>y <span class="op">%</span> c<span class="op">);</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> x <span class="op">*</span> c<span class="op">;</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> y <span class="op">/</span> c<span class="op">;</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> m<span class="op">;</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-159"></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"></code></pre></div>
 <p></div> </div></p>
 <p>On suppose que <span class="math inline">\(c \ge 2\)</span>.</p>
 <ol type="1">
@@ -1136,11 +1068,11 @@ Exercice
 <li><p>En récursif, cela ne change pas la validité des preuves précédentes mais il faudrait présenter l’invariant différemment.</p></li>
 </ol>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb25-1"><a href="#cb25-1"></a><span class="dt">int</span> multiplication<span class="op">(</span><span class="dt">int</span> x<span class="op">,</span> <span class="dt">int</span> y<span class="op">,</span> <span class="dt">int</span> c<span class="op">)</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a><span class="op">{</span></span>
-<span id="cb25-3"><a href="#cb25-3"></a>  <span class="cf">if</span> <span class="op">(</span>y <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb25-4"><a href="#cb25-4"></a>  <span class="cf">return</span> x <span class="op">*</span> <span class="op">(</span>y <span class="op">%</span> c<span class="op">)</span> <span class="op">+</span> multiplication<span class="op">(</span>x <span class="op">*</span> c<span class="op">,</span> y <span class="op">/</span> c<span class="op">,</span> c<span class="op">);</span></span>
-<span id="cb25-5"><a href="#cb25-5"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb23-1"><a href="#cb23-1"></a><span class="dt">int</span> multiplication<span class="op">(</span><span class="dt">int</span> x<span class="op">,</span> <span class="dt">int</span> y<span class="op">,</span> <span class="dt">int</span> c<span class="op">)</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="op">{</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a>  <span class="cf">if</span> <span class="op">(</span>y <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb23-4"><a href="#cb23-4"></a>  <span class="cf">return</span> x <span class="op">*</span> <span class="op">(</span>y <span class="op">%</span> c<span class="op">)</span> <span class="op">+</span> multiplication<span class="op">(</span>x <span class="op">*</span> c<span class="op">,</span> y <span class="op">/</span> c<span class="op">,</span> c<span class="op">);</span></span>
+<span id="cb23-5"><a href="#cb23-5"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
 <p></div> </div></p>
 <div class="ui message orange">
@@ -1149,26 +1081,26 @@ Exercice
 </div>
 <p>On considère un polynôme <span class="math inline">\(P=\sum_{i=0}^n c_i X^i\)</span> représenté comme un tableau de <span class="math inline">\(n+1\)</span> coefficients tel que pour tout <span class="math inline">\(i \in \range{0}{n}, P[i] = c_i\)</span>.</p>
 <p>On veut calculer <span class="math inline">\(P(a)\)</span> pour une valeur <span class="math inline">\(a\)</span>. Pour simplifier, on va considérer ici que les valeurs sont toutes entières.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-170">ocaml</a>   <a class="item" data-tab="c-170">c</a>   <a class="item" data-tab="python-170">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-170"></p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-170"></p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> horner<span class="op">(</span><span class="dt">const</span> <span class="dt">int</span> <span class="op">*</span>P<span class="op">,</span> <span class="dt">int</span> n<span class="op">,</span> <span class="dt">int</span> a<span class="op">)</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> v <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> n<span class="op">;</span> i <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">;</span> i<span class="op">--)</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>        v <span class="op">=</span> a <span class="op">*</span> v <span class="op">+</span> P<span class="op">[</span>i<span class="op">];</span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> v<span class="op">;</span></span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-170"></p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="bu">int</span> horner(P, <span class="bu">int</span> a)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    v <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">reversed</span>(P):</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>        v <span class="op">=</span> a <span class="op">*</span> v <span class="op">+</span> c</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> v</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-163">ocaml</a>   <a class="item" data-tab="c-163">c</a>   <a class="item" data-tab="python-163">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-163"></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-163"></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> horner<span class="op">(</span><span class="dt">const</span> <span class="dt">int</span> <span class="op">*</span>P<span class="op">,</span> <span class="dt">int</span> n<span class="op">,</span> <span class="dt">int</span> a<span class="op">)</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> v <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> n<span class="op">;</span> i <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">;</span> i<span class="op">--)</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>        v <span class="op">=</span> a <span class="op">*</span> v <span class="op">+</span> P<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> v<span class="op">;</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-163"></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="bu">int</span> horner(P, <span class="bu">int</span> a)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    v <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">reversed</span>(P):</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>        v <span class="op">=</span> a <span class="op">*</span> v <span class="op">+</span> c</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> v</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p></div> </div></p>
 <ol type="1">
 <li>Montrer que ce programme est correct.</li>
@@ -1202,41 +1134,41 @@ Exercice
 </div>
 <p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> Le programme :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb30-1"><a href="#cb30-1"></a><span class="dt">void</span> echange<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>t<span class="op">,</span> <span class="dt">int</span> i<span class="op">,</span> <span class="dt">int</span> j<span class="op">)</span></span>
-<span id="cb30-2"><a href="#cb30-2"></a><span class="op">{</span></span>
-<span id="cb30-3"><a href="#cb30-3"></a>    <span class="dt">int</span> temp <span class="op">=</span> t<span class="op">[</span>i<span class="op">];</span></span>
-<span id="cb30-4"><a href="#cb30-4"></a>    t<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> t<span class="op">[</span>j<span class="op">];</span></span>
-<span id="cb30-5"><a href="#cb30-5"></a>    t<span class="op">[</span>j<span class="op">]</span> <span class="op">=</span> temp<span class="op">;</span></span>
-<span id="cb30-6"><a href="#cb30-6"></a><span class="op">}</span></span>
-<span id="cb30-7"><a href="#cb30-7"></a></span>
-<span id="cb30-8"><a href="#cb30-8"></a><span class="dt">void</span> drapeau<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>t<span class="op">,</span> <span class="dt">int</span> nb<span class="op">,</span> <span class="dt">int</span> i<span class="op">)</span></span>
-<span id="cb30-9"><a href="#cb30-9"></a><span class="op">{</span></span>
-<span id="cb30-10"><a href="#cb30-10"></a>    <span class="dt">int</span> v <span class="op">=</span> t<span class="op">[</span>i<span class="op">];</span></span>
-<span id="cb30-11"><a href="#cb30-11"></a>    <span class="dt">int</span> l <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb30-12"><a href="#cb30-12"></a>    <span class="dt">int</span> c <span class="op">=</span> nb<span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
-<span id="cb30-13"><a href="#cb30-13"></a>    <span class="dt">int</span> r <span class="op">=</span> nb<span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
-<span id="cb30-14"><a href="#cb30-14"></a></span>
-<span id="cb30-15"><a href="#cb30-15"></a>    <span class="cf">while</span> <span class="op">(</span>l <span class="op">&lt;=</span> c<span class="op">)</span></span>
-<span id="cb30-16"><a href="#cb30-16"></a>    <span class="op">{</span></span>
-<span id="cb30-17"><a href="#cb30-17"></a>        <span class="dt">int</span> w <span class="op">=</span> t<span class="op">[</span>l<span class="op">];</span></span>
-<span id="cb30-18"><a href="#cb30-18"></a>        <span class="cf">if</span> <span class="op">(</span>w <span class="op">&lt;</span> v<span class="op">)</span></span>
-<span id="cb30-19"><a href="#cb30-19"></a>        <span class="op">{</span></span>
-<span id="cb30-20"><a href="#cb30-20"></a>            l <span class="op">=</span> l<span class="op">+</span><span class="dv">1</span><span class="op">;</span></span>
-<span id="cb30-21"><a href="#cb30-21"></a>        <span class="op">}</span></span>
-<span id="cb30-22"><a href="#cb30-22"></a>        <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>w <span class="op">==</span> v<span class="op">)</span></span>
-<span id="cb30-23"><a href="#cb30-23"></a>        <span class="op">{</span></span>
-<span id="cb30-24"><a href="#cb30-24"></a>            echange<span class="op">(</span>t<span class="op">,</span> l<span class="op">,</span> c<span class="op">);</span></span>
-<span id="cb30-25"><a href="#cb30-25"></a>            c <span class="op">=</span> c<span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
-<span id="cb30-26"><a href="#cb30-26"></a>        <span class="op">}</span></span>
-<span id="cb30-27"><a href="#cb30-27"></a>        <span class="cf">else</span></span>
-<span id="cb30-28"><a href="#cb30-28"></a>        <span class="op">{</span></span>
-<span id="cb30-29"><a href="#cb30-29"></a>            echange<span class="op">(</span>t<span class="op">,</span> l<span class="op">,</span> c<span class="op">);</span></span>
-<span id="cb30-30"><a href="#cb30-30"></a>            echange<span class="op">(</span>t<span class="op">,</span> c<span class="op">,</span> r<span class="op">);</span></span>
-<span id="cb30-31"><a href="#cb30-31"></a>            c <span class="op">=</span> c<span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
-<span id="cb30-32"><a href="#cb30-32"></a>            r <span class="op">=</span> r<span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
-<span id="cb30-33"><a href="#cb30-33"></a>        <span class="op">}</span></span>
-<span id="cb30-34"><a href="#cb30-34"></a>    <span class="op">}</span></span>
-<span id="cb30-35"><a href="#cb30-35"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb28-1"><a href="#cb28-1"></a><span class="dt">void</span> echange<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>t<span class="op">,</span> <span class="dt">int</span> i<span class="op">,</span> <span class="dt">int</span> j<span class="op">)</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="op">{</span></span>
+<span id="cb28-3"><a href="#cb28-3"></a>    <span class="dt">int</span> temp <span class="op">=</span> t<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb28-4"><a href="#cb28-4"></a>    t<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> t<span class="op">[</span>j<span class="op">];</span></span>
+<span id="cb28-5"><a href="#cb28-5"></a>    t<span class="op">[</span>j<span class="op">]</span> <span class="op">=</span> temp<span class="op">;</span></span>
+<span id="cb28-6"><a href="#cb28-6"></a><span class="op">}</span></span>
+<span id="cb28-7"><a href="#cb28-7"></a></span>
+<span id="cb28-8"><a href="#cb28-8"></a><span class="dt">void</span> drapeau<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>t<span class="op">,</span> <span class="dt">int</span> nb<span class="op">,</span> <span class="dt">int</span> i<span class="op">)</span></span>
+<span id="cb28-9"><a href="#cb28-9"></a><span class="op">{</span></span>
+<span id="cb28-10"><a href="#cb28-10"></a>    <span class="dt">int</span> v <span class="op">=</span> t<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb28-11"><a href="#cb28-11"></a>    <span class="dt">int</span> l <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb28-12"><a href="#cb28-12"></a>    <span class="dt">int</span> c <span class="op">=</span> nb<span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb28-13"><a href="#cb28-13"></a>    <span class="dt">int</span> r <span class="op">=</span> nb<span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb28-14"><a href="#cb28-14"></a></span>
+<span id="cb28-15"><a href="#cb28-15"></a>    <span class="cf">while</span> <span class="op">(</span>l <span class="op">&lt;=</span> c<span class="op">)</span></span>
+<span id="cb28-16"><a href="#cb28-16"></a>    <span class="op">{</span></span>
+<span id="cb28-17"><a href="#cb28-17"></a>        <span class="dt">int</span> w <span class="op">=</span> t<span class="op">[</span>l<span class="op">];</span></span>
+<span id="cb28-18"><a href="#cb28-18"></a>        <span class="cf">if</span> <span class="op">(</span>w <span class="op">&lt;</span> v<span class="op">)</span></span>
+<span id="cb28-19"><a href="#cb28-19"></a>        <span class="op">{</span></span>
+<span id="cb28-20"><a href="#cb28-20"></a>            l <span class="op">=</span> l<span class="op">+</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb28-21"><a href="#cb28-21"></a>        <span class="op">}</span></span>
+<span id="cb28-22"><a href="#cb28-22"></a>        <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>w <span class="op">==</span> v<span class="op">)</span></span>
+<span id="cb28-23"><a href="#cb28-23"></a>        <span class="op">{</span></span>
+<span id="cb28-24"><a href="#cb28-24"></a>            echange<span class="op">(</span>t<span class="op">,</span> l<span class="op">,</span> c<span class="op">);</span></span>
+<span id="cb28-25"><a href="#cb28-25"></a>            c <span class="op">=</span> c<span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb28-26"><a href="#cb28-26"></a>        <span class="op">}</span></span>
+<span id="cb28-27"><a href="#cb28-27"></a>        <span class="cf">else</span></span>
+<span id="cb28-28"><a href="#cb28-28"></a>        <span class="op">{</span></span>
+<span id="cb28-29"><a href="#cb28-29"></a>            echange<span class="op">(</span>t<span class="op">,</span> l<span class="op">,</span> c<span class="op">);</span></span>
+<span id="cb28-30"><a href="#cb28-30"></a>            echange<span class="op">(</span>t<span class="op">,</span> c<span class="op">,</span> r<span class="op">);</span></span>
+<span id="cb28-31"><a href="#cb28-31"></a>            c <span class="op">=</span> c<span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb28-32"><a href="#cb28-32"></a>            r <span class="op">=</span> r<span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb28-33"><a href="#cb28-33"></a>        <span class="op">}</span></span>
+<span id="cb28-34"><a href="#cb28-34"></a>    <span class="op">}</span></span>
+<span id="cb28-35"><a href="#cb28-35"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
 <p>L’idée de cet algorithme est d’avoir trois indices <span class="math inline">\(l, c\)</span> et <span class="math inline">\(r\)</span> (pour <em>left</em>, <em>center</em> et <em>right</em>) qui délimitent trois zones :</p>
 <ul>
