@@ -300,7 +300,7 @@ table td {
     </a>
     </div>
 <!-- FIX TOC -->
-<div class="item header"> <a href="#sec:algorithmes-gloutons-1"><span>1</span> Algorithmes gloutons</a><div class="menu"><a class="item" href="#sec:principe"><div class="ui label">1.1</div> Principe</a><a class="item" href="#sec:huffman-arbre"><div class="ui label">1.2</div> Construction de l’arbre de Huffman</a><a class="item" href="#sec:preuve-doptimalité"><div class="ui label">1.3</div> Preuve d’optimalité</a><a class="item" href="#sec:sélection-dactivités"><div class="ui label">1.4</div> Sélection d’activités</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:description"><i class="circle icon"></i> Description</a><a style="font-size:0.6em" class="item" href="#sec:algorithme-glouton-et-implémentation"><i class="circle icon"></i> Algorithme glouton et implémentation</a><a style="font-size:0.6em" class="item" href="#sec:preuve-doptimalité-1"><i class="circle icon"></i> Preuve d’optimalité</a></div><a class="item" href="#sec:ordonnancement-de-tâches"><div class="ui label">1.5</div> Ordonnancement de tâches</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:description-1"><i class="circle icon"></i> Description</a><a style="font-size:0.6em" class="item" href="#sec:algorithme-glouton-et-implémentation-1"><i class="circle icon"></i> Algorithme glouton et implémentation</a><a style="font-size:0.6em" class="item" href="#sec:preuve-doptimalité-2"><i class="circle icon"></i> Preuve d’optimalité</a></div></div></div><!-- FIX TOC -->
+<div class="item header"> <a href="#sec:principe"><span>1</span> Principe</a><div class="menu"></div></div><div class="item header"> <a href="#sec:huffman-arbre"><span>2</span> Construction de l’arbre de Huffman</a><div class="menu"></div></div><div class="item header"> <a href="#sec:preuve-doptimalité"><span>3</span> Preuve d’optimalité</a><div class="menu"></div></div><div class="item header"> <a href="#sec:sélection-dactivités"><span>4</span> Sélection d’activités</a><div class="menu"><a class="item" href="#sec:description"><div class="ui label">4.1</div> Description</a><a class="item" href="#sec:algorithme-glouton-et-implémentation"><div class="ui label">4.2</div> Algorithme glouton et implémentation</a><a class="item" href="#sec:preuve-doptimalité-1"><div class="ui label">4.3</div> Preuve d’optimalité</a></div></div><div class="item header"> <a href="#sec:ordonnancement-de-tâches"><span>5</span> Ordonnancement de tâches</a><div class="menu"><a class="item" href="#sec:description-1"><div class="ui label">5.1</div> Description</a><a class="item" href="#sec:algorithme-glouton-et-implémentation-1"><div class="ui label">5.2</div> Algorithme glouton et implémentation</a><a class="item" href="#sec:preuve-doptimalité-2"><div class="ui label">5.3</div> Preuve d’optimalité</a></div></div><!-- FIX TOC -->
 </div>
 
 <div class="pusher" id="main-content">
@@ -319,8 +319,7 @@ table td {
 <div class="segment">
 <div class="ui container text">
 <p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Algorithmes gloutons     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_algo_exacte.png"> </div></p>
-<h1 data-number="1" id="sec:algorithmes-gloutons-1"><span class="header-section-number">1</span> Algorithmes gloutons</h1>
-<h2 data-number="1.1" id="sec:principe"><span class="header-section-number">1.1</span> Principe</h2>
+<h1 data-number="1" id="sec:principe"><span class="header-section-number">1</span> Principe</h1>
 <p>On considère ici un problème d’énumération comme dans la section précédente muni d’une fonction d’objectifs qui attribue une valeur numérique aux solutions et aux solutions partielles.</p>
 <p>Soit <span class="math inline">\(f : P \rightarrow \R\)</span> une telle fonction, où <span class="math inline">\(S \cup P\)</span> est l’ensemble des solutions du problème d’énumération et <span class="math inline">\(P\)</span> l’ensemble des solutions partielles, on se pose maintenant le problème de l’optimalité vis-à-vis de <span class="math inline">\(f\)</span> : déterminer <span class="math inline">\(x \in S\)</span> tel que <span class="math inline">\(f(x) = \max_{y \in S} f(y)\)</span> on note souvent <span class="math inline">\(x = \text{argmax}_{y\in S} f(y)\)</span>. On parle alors de problème d’optimisation combinatoire.</p>
 <p><div class="ui message orange"><div class="header">Remarque</div></p>
@@ -361,7 +360,7 @@ table td {
 <p><em>Conclusion</em> l’algorithme glouton n’a effectivement pas de raisons d’être optimal.</p>
 <p>On peut se poser la question des algorithmes pour lesquels l’algorithme glouton aboutit nécessairement à une solution optimale.</p>
 <p><div class="ui message blue"><div class="header">Note</div>TODO - Ajouter un paragraphe simple sur les matroïdes qui puisse se décliner sous la forme d’un problème.</div></p>
-<h2 data-number="1.2" id="sec:huffman-arbre"><span class="header-section-number">1.2</span> Construction de l’arbre de Huffman</h2>
+<h1 data-number="2" id="sec:huffman-arbre"><span class="header-section-number">2</span> Construction de l’arbre de Huffman</h1>
 <p><div class="ui message orange"><div class="header">Remarque</div>Ce paragraphe décrit l’étape cruciale du principe de compression de Huffman. Celui-ci sera présenté complètement dans le chapitre <a href="chap_algorithmique_algorithmique_du_texte.html#sec:huffman">Algorithmique des textes</a>.</div></p>
 <p>On va étudier ici un principe de compression parfaite (sans perte d’information à la décompression) de données appelé l’algorithme de Huffman et qui repose sur ce principe simple : coder sur moins de bits les caractères les plus fréquents.</p>
 <p>Par exemple si on considère le mot <code>abaabc</code>, en le codant avec un nombre de bits fixes, par exemple 2 avec le code <code>a=00,b=01,c=10</code>, on aurait besoin de 12 bits pour représenter le mot. Mais si on choisit le code suivant : <code>a=0,b=10,c=11</code>, il suffit de 9 bits. On a donc gagné 3 bits soit un facteur de compression de 75%.</p>
@@ -385,7 +384,7 @@ table td {
 <li><p>On renvoie l’unique élément restant dans la file.</p></li>
 </ul>
 <p>L’implémentation de cet algorithme est alors assez directe avec une file de priorité. On réutilise ici la structure de tas implementée en FIXME. Comme il s’agit d’un tas max, on insère avec <span class="math inline">\(-f(x)\)</span> comme valeur.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-61">ocaml</a>   <a class="item" data-tab="c-61">c</a>   <a class="item" data-tab="python-61">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-61"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-60">ocaml</a>   <a class="item" data-tab="c-60">c</a>   <a class="item" data-tab="python-60">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-60"></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> construit_arbre occ =</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> arbres = Tas.cree <span class="dv">2000</span> (<span class="dv">0</span>, Feuille <span class="dv">0</span>) <span class="kw">in</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> <span class="dv">255</span> <span class="kw">do</span></span>
@@ -399,9 +398,9 @@ table td {
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        Tas.insere (fx+fy, Noeud(x,y)) arbres</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">snd</span> (Tas.supprime_racine arbres)</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-61"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-60"></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> src<span class="op">/</span>algorithmique<span class="op">/../../</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>huffman<span class="op">.</span>c does not exist</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-61"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-60"></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ERROR: src<span class="op">/</span>algorithmique<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>huffman.py does <span class="kw">not</span> exist</span></code></pre></div>
 <p></div> </div></p>
 <p>L’algorithme de Huffman est un algorithme glouton car si on considère pour solution partielle la fôret présente dans la file et pour objectif la fonction <span class="math inline">\(\varphi\)</span> étendue aux fôrets en sommant la valeur de <span class="math inline">\(\varphi\)</span> sur chaque arbre, alors fusionner dans la fôret <span class="math inline">\(F\)</span> deux arbres <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> en la transformant en une fôret <span class="math inline">\(F&#39;\)</span> va avoir l’impact suivant sur la fonction d’objectif :</p>
@@ -455,14 +454,14 @@ Théorème
 <p>On pose <span class="math inline">\(\Sigma&#39;\)</span> obtenue en remplaçant <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> par une nouvelle lettre <span class="math inline">\(z\)</span> et on suppose que <span class="math inline">\(f(z) = f(x) + f(y)\)</span>. L’hypothèse de récurrence assure qu’on obtient un arbre optimal <span class="math inline">\(t&#39;\)</span> en appliquant l’algorithme d’Huffman sur <span class="math inline">\(\Sigma&#39;\)</span>. Comme la première étape d’Huffman va fusionner les feuilles <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span>, on sait que l’arbre <span class="math inline">\(t\)</span> obtenu en partant de <span class="math inline">\(\Sigma\)</span> se déduit de <span class="math inline">\(t&#39;\)</span> en remplaçant <span class="math inline">\(z\)</span> par <span class="math inline">\(Noeud(x,y)\)</span>. Le théorème précédent assure alors que <span class="math inline">\(\varphi(t) = \varphi(t&#39;) + f(z)\)</span>.</p>
 <p>Soit <span class="math inline">\(t_o\)</span> un arbre optimal pour <span class="math inline">\(\Sigma\)</span> dans lequel <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> sont soeurs, possible en vertu du premier théorème, et soit <span class="math inline">\(t_o&#39;\)</span> l’arbre obtenue en remplaçant dans <span class="math inline">\(t_o\)</span> le noeud liant <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> par une feuille étiquettée par <span class="math inline">\(z\)</span>. On a ici encore <span class="math inline">\(\varphi(t_o) = \varphi(t_o&#39;) + f(z) \ge \varphi(t&#39;) + f(z) \ge \varphi(t)\)</span> car <span class="math inline">\(t&#39;\)</span> est optimal.</p>
 <p>Ainsi, on a bien l’égalité <span class="math inline">\(\varphi(t_o) = \varphi(t)\)</span> et <span class="math inline">\(t\)</span> est optimal. </div> </div></p>
-<h2 data-number="1.3" id="sec:preuve-doptimalité"><span class="header-section-number">1.3</span> Preuve d’optimalité</h2>
+<h1 data-number="3" id="sec:preuve-doptimalité"><span class="header-section-number">3</span> Preuve d’optimalité</h1>
 <p>Dans le paragraphe précédent, on retrouve un schéma de preuve classique pour les preuves d’optimalité des algorithmes gloutons :</p>
 <ul>
 <li>Montrer qu’à partir d’une solution optimale, il est possible de déterminer une solution optimale ayant fait le même choix que l’algorithme glouton. Pour Huffman c’était le fait d’avoir un arbre optimal ayant les deux lettres les moins fréquentes comme sœurs à profondeur maximale.</li>
 <li>Montrer qu’une solution optimale se comportant comme le résultat de l’algorithme glouton à une étape ne peut être meilleure que le résultat de l’algorithme glouton.</li>
 </ul>
-<h2 data-number="1.4" id="sec:sélection-dactivités"><span class="header-section-number">1.4</span> Sélection d’activités</h2>
-<h3 data-number="1.4.1" id="sec:description"><span class="header-section-number">1.4.1</span> Description</h3>
+<h1 data-number="4" id="sec:sélection-dactivités"><span class="header-section-number">4</span> Sélection d’activités</h1>
+<h2 data-number="4.1" id="sec:description"><span class="header-section-number">4.1</span> Description</h2>
 <p>Étant donné un ensemble d’activités données par leur temps de début et leur temps de fin (on considère les temps comme des entiers pour simplifier), on se pose la question du nombre maximal d’activité que l’on puisse sélectionner sans que deux activités soient en conflits. Cela correspond par exemple à l’organisation du planning d’un employé.</p>
 <p>On dit que deux activités <span class="math inline">\((d_1,f_1)\)</span> et <span class="math inline">\((d_2,f_2)\)</span> sont en conflits quand <span class="math inline">\([d_1,f_1[ \cap [d_2,f_2[ \neq \emptyset\)</span>.</p>
 <p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
@@ -471,7 +470,7 @@ Théorème
 <p>Ici, <span class="math inline">\(t_1\)</span> et <span class="math inline">\(t_2\)</span> sont en conflits avec <span class="math inline">\(t_3\)</span>. Mais <span class="math inline">\(t_1\)</span> et <span class="math inline">\(t_2\)</span> ne sont pas en conflit. On considère que deux activités peuvent se succéder directement : <span class="math inline">\(f_1 = d_2\)</span>.</p>
 <p></div></div></div></p>
 <p>On considère donc en entrée de ce problème une suite finie <span class="math inline">\(( (d_1,f_1), \dots, (d_n,f_n) )\)</span> et on cherche un sous-ensemble <span class="math inline">\(I \subset \range{1}{n}\)</span> de plus grand cardinal tel que pour tous <span class="math inline">\(i, j \in I\)</span>, si <span class="math inline">\(i \neq j\)</span> alors <span class="math inline">\((d_i,f_i)\)</span> et <span class="math inline">\((d_j,f_j)\)</span> ne sont pas en conflits. On dit que <span class="math inline">\(I\)</span> est un <strong>ensemble indépendant</strong>.</p>
-<h3 data-number="1.4.2" id="sec:algorithme-glouton-et-implémentation"><span class="header-section-number">1.4.2</span> Algorithme glouton et implémentation</h3>
+<h2 data-number="4.2" id="sec:algorithme-glouton-et-implémentation"><span class="header-section-number">4.2</span> Algorithme glouton et implémentation</h2>
 <p>Pour résoudre ce problème, on considère l’algorithme glouton associé à la fonction d’objectif cardinal et <strong>en triant les activités</strong> ordre croissant de temps de fin.</p>
 <p>Cet algorithme est implémenté dans le programme suivant :</p>
 <p><div class="ui segment code"></p>
@@ -541,7 +540,7 @@ Théorème
 <span id="cb5-7"><a href="#cb5-7"></a>Activité <span class="dv">4</span> <span class="op">(</span><span class="dv">11</span><span class="op">,</span><span class="dv">12</span><span class="op">)</span> <span class="op">:</span> <span class="dv">1</span></span></code></pre></div>
 <p></div></p>
 <p><div class="ui message orange"><div class="header">Remarque</div>Comme l’algorithme commence par effectuer un tri, on a rajouté dans la structure <code>activite</code> un champ permettant d’identifier une activité autrement que par son indice.</div></p>
-<h3 data-number="1.4.3" id="sec:preuve-doptimalité-1"><span class="header-section-number">1.4.3</span> Preuve d’optimalité</h3>
+<h2 data-number="4.3" id="sec:preuve-doptimalité-1"><span class="header-section-number">4.3</span> Preuve d’optimalité</h2>
 <p>On va prouver que l’algorithme glouton renvoie un ensemble indépendant optimal. Le fait que l’ensemble soit indépendant étant direct, on se concentre sur la preuve d’optimalité en présentant un schéma de preuve qui correspond à celui identifié dans le paragraphe précédent.</p>
 <div class="ui message olive">
 <div class="header">
@@ -571,8 +570,8 @@ Théorème
 <li><p>Hérédité : Si la propriété est vérifiée pour <span class="math inline">\(k \le n\)</span> activités, soit <span class="math inline">\(A = \{ a_1, \dots, a_{n}\}\)</span> des activités ordonnées par temps de fin. Soit <span class="math inline">\(I\)</span> un ensemble indépendant optimal contenant <span class="math inline">\(a_1\)</span> et <span class="math inline">\(I&#39; = I \cap \{ a_1 \}\)</span>. Le théorème précédent assure que <span class="math inline">\(I&#39;\)</span> est optimal sur <span class="math inline">\(A&#39; = \enscomp{ (d,f) \in }{d \ge f_1}\)</span>.</p>
 <p>Par hypothèse de récurrence, l’algorithme glouton sur <span class="math inline">\(A&#39;\)</span> produit un ensemble indépendant optimal <span class="math inline">\(G&#39;\)</span>, donc tel que <span class="math inline">\(|G&#39;| = |I&#39;|\)</span>. Par construction l’algorithme glouton sur <span class="math inline">\(A\)</span> renvoie <span class="math inline">\(G = G&#39; \cup \{ a_1\}\)</span> de même cardinal que <span class="math inline">\(I\)</span>, donc optimal. </div> </div></p></li>
 </ul>
-<h2 data-number="1.5" id="sec:ordonnancement-de-tâches"><span class="header-section-number">1.5</span> Ordonnancement de tâches</h2>
-<h3 data-number="1.5.1" id="sec:description-1"><span class="header-section-number">1.5.1</span> Description</h3>
+<h1 data-number="5" id="sec:ordonnancement-de-tâches"><span class="header-section-number">5</span> Ordonnancement de tâches</h1>
+<h2 data-number="5.1" id="sec:description-1"><span class="header-section-number">5.1</span> Description</h2>
 <p>On considère ici un problème voisin du problème précédent. On considère <span class="math inline">\(n\)</span> tâches <span class="math inline">\(T = \{ t_1, \dots, t_n \}\)</span> prenant une unité de temps pour être traitées sur une unité de calcul.</p>
 <p>Chaque tâche <span class="math inline">\(t\)</span> dispose d’une date limite <span class="math inline">\(f(t) \in \range{1}{n}\)</span> (<strong>deadline</strong>) à laquelle elle doit être traitée sans quoi on écope d’une pénalité <span class="math inline">\(p(t) \in \N\)</span>.</p>
 <p>On appelle stratégie d’ordonnancement une application <span class="math inline">\(d : T \rightarrow \range{0}{n-1}\)</span> qui associe à chaque tache un unique temps de début <span class="math inline">\(d(t)\)</span>. Selon cette stratégie, on déduit une séparation de <span class="math inline">\(T\)</span> en deux ensembles disjoints :</p>
@@ -653,7 +652,7 @@ Exemple
 </div>
 <p>On cherche à obtenir une stratégie d’ordonnancement de valeur <span class="math inline">\(P(d)\)</span> minimale.</p>
 <p>On remarque que l’ordonnancement des tâches en retard n’a aucune importance, et on peut donc se contenter de déterminer une stratégie d’ordonnancement pour les tâches traitées dans les délais et la compléter par n’importe quel ordonnancement des autres tâches. On peut ainsi reformuler le problème : déterminer un sous-ensemble <span class="math inline">\(T^+ \subset T\)</span> de tâches <strong>pouvant</strong> être traitées dans les délais tel que <span class="math inline">\(\sum_{t \in T^+} p(t)\)</span> soit <strong>maximale</strong>.</p>
-<h3 data-number="1.5.2" id="sec:algorithme-glouton-et-implémentation-1"><span class="header-section-number">1.5.2</span> Algorithme glouton et implémentation</h3>
+<h2 data-number="5.2" id="sec:algorithme-glouton-et-implémentation-1"><span class="header-section-number">5.2</span> Algorithme glouton et implémentation</h2>
 <p>On résout maintenant ce problème de maximisation des pénalités <span class="math inline">\(T^+\)</span> par un algorithme glouton :</p>
 <ul>
 <li>On commence avec <span class="math inline">\(T^+ = \emptyset\)</span> et tous les temps de <span class="math inline">\(\range{0}{n-1}\)</span> sont marqués comme étant disponibles.</li>
@@ -756,7 +755,7 @@ Exemple
 <span id="cb7-7"><a href="#cb7-7"></a>T7 <span class="op">(</span>f<span class="op">:</span><span class="dv">6</span><span class="op">,</span>p<span class="op">:</span><span class="dv">1</span><span class="op">)</span> @ <span class="dv">5</span></span></code></pre></div>
 <p></div></p>
 <p>Ce qui correspond à l’ordonnancement <span class="math inline">\(t_3, t_2, t_5, t_6, t_1, t_7, t_4\)</span>. Les tâches <span class="math inline">\(t_1\)</span> et <span class="math inline">\(t_4\)</span> sont en retard, donc la pénalité totale est de 5.</p>
-<h3 data-number="1.5.3" id="sec:preuve-doptimalité-2"><span class="header-section-number">1.5.3</span> Preuve d’optimalité</h3>
+<h2 data-number="5.3" id="sec:preuve-doptimalité-2"><span class="header-section-number">5.3</span> Preuve d’optimalité</h2>
 <p>On va montrer que cet algorithme glouton renvoie un ensemble <span class="math inline">\(T^+\)</span> optimal. Pour cela, on procède comme précédemment. Tout d’abord, on montre qu’il existe une solution optimale qui effectue le premier choix de l’algorithme glouton.</p>
 <div class="ui message olive">
 <div class="header">

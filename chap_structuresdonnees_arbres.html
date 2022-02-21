@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="Marc de Falco">
 
-    <title>Séquences et ses implémentations : tableaux, listes chaînées</title>
+    <title>Arbres</title>
 
     <link rel="stylesheet" type="text/css" href="assets/semantic.min.css">
     <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
@@ -28,71 +28,6 @@
       crossorigin="anonymous"></script>
     <script src="assets/semantic.min.js"></script>
 
-    <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-    </style>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script>
@@ -296,11 +231,11 @@ table td {
     </div>
     <div class="item">
     <a href="#">
-        Séquences et ses implémentations : tableaux, listes chaînées
+        Arbres
     </a>
     </div>
 <!-- FIX TOC -->
-<div class="item header"> <a href="#sec:implémentation-des-listes-chaînées"><span>1</span> Implémentation des Listes chaînées</a><div class="menu"><a class="item" href="#sec:en-c"><div class="ui label">1.1</div> En <code>C</code></a><a class="item" href="#sec:en-ocaml"><div class="ui label">1.2</div> En <code>OCaml</code></a></div></div><!-- FIX TOC -->
+<div class="item header"> <a href="#sec:arbres-1"><span>1</span> Arbres</a><div class="menu"></div></div><!-- FIX TOC -->
 </div>
 
 <div class="pusher" id="main-content">
@@ -310,7 +245,7 @@ table td {
 	    <i class="angle double left icon"></i>
 	  </a>
 	  <div class="item">
-          Séquences et ses implémentations : tableaux, listes chaînées
+          Arbres
 	  </div>
         </div>
       </div>
@@ -318,19 +253,8 @@ table td {
           <!-- <div class="masthead"> -->
 <div class="segment">
 <div class="ui container text">
-<p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Séquences et ses implémentations : tableaux, listes chaînées     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_programmation_imperative.jpg"> </div></p>
-<h1 data-number="1" id="sec:implémentation-des-listes-chaînées"><span class="header-section-number">1</span> Implémentation des Listes chaînées</h1>
-<h2 data-number="1.1" id="sec:en-c"><span class="header-section-number">1.1</span> En <code>C</code></h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> maillon <span class="op">{</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> valeur<span class="op">;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> maillon <span class="op">*</span>suivant<span class="op">;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="kw">struct</span> maillon maillon<span class="op">;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>typeder maillon <span class="op">*</span>liste<span class="op">;</span></span></code></pre></div>
-<h2 data-number="1.2" id="sec:en-ocaml"><span class="header-section-number">1.2</span> En <code>OCaml</code></h2>
-<p>Tout d’abord, il faut se rendre compte que le type par défaut</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> &#39;a <span class="dt">list</span> = (::) <span class="kw">of</span> &#39;a * &#39;list | []</span></code></pre></div>
-<p>fait en fait intervenir des maillons et des pointeurs.</p>
+<p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Arbres     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_programmation_imperative.jpg"> </div></p>
+<h1 data-number="1" id="sec:arbres-1"><span class="header-section-number">1</span> Arbres</h1>
 </div>
 <!-- </div> -->
 </div>

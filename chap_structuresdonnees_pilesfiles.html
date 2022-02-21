@@ -28,6 +28,71 @@
       crossorigin="anonymous"></script>
     <script src="assets/semantic.min.js"></script>
 
+    <style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    </style>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script>
@@ -235,7 +300,7 @@ table td {
     </a>
     </div>
 <!-- FIX TOC -->
-<div class="item header"> <a href="#sec:piles"><span>1</span> Piles</a><div class="menu"><a class="item" href="#sec:principe"><div class="ui label">1.1</div> Principe</a><a class="item" href="#sec:implémentations"><div class="ui label">1.2</div> Implémentations</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:dans-un-tableau-borné"><i class="circle icon"></i> Dans un tableau borné</a><a style="font-size:0.6em" class="item" href="#sec:avec-des-listes-chaînées"><i class="circle icon"></i> Avec des listes chaînées</a></div><a class="item" href="#sec:applications"><div class="ui label">1.3</div> Applications</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:parenthésage"><i class="circle icon"></i> Parenthésage</a><a style="font-size:0.6em" class="item" href="#sec:évaluation-dexpressions"><i class="circle icon"></i> Évaluation d’expressions</a></div></div></div><div class="item header"> <a href="#sec:files"><span>2</span> Files</a><div class="menu"><a class="item" href="#sec:principe-1"><div class="ui label">2.1</div> Principe</a><a class="item" href="#sec:implémentations-1"><div class="ui label">2.2</div> Implémentations</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:dans-un-tableau-borné-1"><i class="circle icon"></i> Dans un tableau borné</a><a style="font-size:0.6em" class="item" href="#sec:avec-des-listes-chaînées-1"><i class="circle icon"></i> Avec des listes chaînées</a><a style="font-size:0.6em" class="item" href="#sec:filedeuxpiles"><i class="circle icon"></i> Avec deux piles</a></div><a class="item" href="#sec:applications-1"><div class="ui label">2.3</div> Applications</a></div></div><!-- FIX TOC -->
+<div class="item header"> <a href="#sec:piles"><span>1</span> Piles</a><div class="menu"><a class="item" href="#sec:principe"><div class="ui label">1.1</div> Principe</a><a class="item" href="#sec:représentation-visuelle"><div class="ui label">1.2</div> Représentation visuelle</a><a class="item" href="#sec:implémentations"><div class="ui label">1.3</div> Implémentations</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:dans-un-tableau-borné"><i class="circle icon"></i> Dans un tableau borné</a><a style="font-size:0.6em" class="item" href="#sec:dans-un-tableau-dynamique"><i class="circle icon"></i> Dans un tableau dynamique</a><a style="font-size:0.6em" class="item" href="#sec:avec-des-listes-chaînées"><i class="circle icon"></i> Avec des listes chaînées</a></div><a class="item" href="#sec:applications"><div class="ui label">1.4</div> Applications</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:parenthésage"><i class="circle icon"></i> Parenthésage</a><a style="font-size:0.6em" class="item" href="#sec:évaluation-dexpressions"><i class="circle icon"></i> Évaluation d’expressions</a></div></div></div><div class="item header"> <a href="#sec:files"><span>2</span> Files</a><div class="menu"><a class="item" href="#sec:principe-1"><div class="ui label">2.1</div> Principe</a><a class="item" href="#sec:implémentations-1"><div class="ui label">2.2</div> Implémentations</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:dans-un-tableau-borné-1"><i class="circle icon"></i> Dans un tableau borné</a><a style="font-size:0.6em" class="item" href="#sec:avec-des-listes-chaînées-1"><i class="circle icon"></i> Avec des listes chaînées</a><a style="font-size:0.6em" class="item" href="#sec:filedeuxpiles"><i class="circle icon"></i> Avec deux piles</a></div><a class="item" href="#sec:applications-1"><div class="ui label">2.3</div> Applications</a></div></div><!-- FIX TOC -->
 </div>
 
 <div class="pusher" id="main-content">
@@ -256,17 +321,123 @@ table td {
 <p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Piles et files : structures abstraites et implémentations     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_programmation_imperative.jpg"> </div></p>
 <h1 data-number="1" id="sec:piles"><span class="header-section-number">1</span> Piles</h1>
 <h2 data-number="1.1" id="sec:principe"><span class="header-section-number">1.1</span> Principe</h2>
-<h2 data-number="1.2" id="sec:implémentations"><span class="header-section-number">1.2</span> Implémentations</h2>
-<h3 data-number="1.2.1" id="sec:dans-un-tableau-borné"><span class="header-section-number">1.2.1</span> Dans un tableau borné</h3>
-<h3 data-number="1.2.2" id="sec:avec-des-listes-chaînées"><span class="header-section-number">1.2.2</span> Avec des listes chaînées</h3>
-<h2 data-number="1.3" id="sec:applications"><span class="header-section-number">1.3</span> Applications</h2>
-<h3 data-number="1.3.1" id="sec:parenthésage"><span class="header-section-number">1.3.1</span> Parenthésage</h3>
-<h3 data-number="1.3.2" id="sec:évaluation-dexpressions"><span class="header-section-number">1.3.2</span> Évaluation d’expressions</h3>
+<p>Une pile est une structure de donnée abstraite permettant d’ajouter et de retirer des éléments selon le principe</p>
+<p><strong>LIFO</strong> : <strong>L</strong>ast <strong>I</strong>n <strong>F</strong>irst <strong>O</strong>ut</p>
+<p>C’est-à-dire que le premier élément retiré sera celui qui a été ajouté en dernier. La bonne manière de se représenter une pile est donc d’imaginer une pile de dossiers à traiter sur un bureau. Chaque nouveau dossier est empilé et on traite à chaque fois le dossier sur le dessus.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Ce n’est sûrement pas la manière la plus efficace de gérer des dossiers et l’on risque d’avoir des dossiers empilés depuis très longtemps sans être traités.</div></p>
+<p>On va avoir quatre opérations :</p>
+<ul>
+<li>Créer une pile vide</li>
+<li>Tester si une pile est vide</li>
+<li>Ajouter un élément à une pile, on appelle cette opération <em>empiler</em> et en anglais <em>push</em></li>
+<li>Retirer un élément à une pile et le renvoie, on appelle cette opération <em>dépiler</em> et en anglais <em>pop</em></li>
+</ul>
+<p>Le comportement opérationnel de cette structure abstraite est donné par le principe <strong>LIFO</strong> précédent.</p>
+<p>On considère qu’il est très important que ces quatre opérations soient de complexité en temps constante, éventuellement amorti. Par contre, il est possible de limiter le nombre maximum d’éléments. C’est une vision qui est en accord avec le rôle des piles pour gérer des tâches à traiter pour lesquelles on a souvent un majorant sur leur nombre.</p>
+<h2 data-number="1.2" id="sec:représentation-visuelle"><span class="header-section-number">1.2</span> Représentation visuelle</h2>
+<p>Comme souvent, la représentation visuelle est importante car c’est elle qui permet de raisonner efficacement. Ici, on va représenter une pile verticalement ou horizontalement avec un côté fermé : le <em>fond</em> de pile et un côté ouvert permettant d’empiler et de dépiler des éléments.</p>
+<p><center><div class="ui image center"><img src="assets/pics/pilerep1.png" /></div></center></p>
+<h2 data-number="1.3" id="sec:implémentations"><span class="header-section-number">1.3</span> Implémentations</h2>
+<h3 data-number="1.3.1" id="sec:dans-un-tableau-borné"><span class="header-section-number">1.3.1</span> Dans un tableau borné</h3>
+<p>Reprenant la remarque précédente, on va présenter une implémentation très standard des piles dans des tableaux de taille fixe. L’idée est de considérer un tableau <code>t</code> de taille <span class="math inline">\(N\)</span> muni d’un entier <code>fond</code> indiquant l’indice du prochain élément libre.</p>
+<p>Au départ, <code>fond</code> vaut 0. Chaque fois qu’on empile un élément, on le place à l’indice indiqué par <code>fond</code> et on l’incrémente. Pour dépiler, on décrémente <code>fond</code> et on renvoie l’élément à cet indice. En fait, les éléments ne sont pas vraiment retirés. Il s’agit exactement du comportement de la pile d’exécution du compilateur vue au chapitre <a href="chap_systeme_memoire.html#sec:pileexec">sec:pileexec</a>.</p>
+<p>Le choix de la valeur <span class="math inline">\(N\)</span> donnant le nombre maximum d’éléments empilables est critique : il faut qu’elle soit grande devant l’estimation qu’on peut faire du nombre d’empilements. L’implémentation d’une telle pile se fait en général dans des conditions où l’on va éviter de vérifier l’absence de dépassement. Dans le code qui va suivre, on a fait le choix de passer par des <code>assert</code> pour vérifier ces conditions uniquement en mode développement.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div>En <code>C</code>, on passera le plus souvent par un tableau statique avec <code>N</code> défini à une grande valeur entière par un <code>#define</code>. On présente une version plus dans l’esprit de ces chapitres structures de données.</div></p>
+<p>On va ainsi définir un type <code>pile</code> avec des pointeurs :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">struct</span> pile <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>    <span class="dt">int</span> <span class="op">*</span>t<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>    <span class="dt">int</span> fond<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="op">};</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="kw">typedef</span> <span class="kw">struct</span> pile pile<span class="op">;</span></span></code></pre></div>
+<p></div></p>
+<p>Pour ajouter et retirer un élément, comme on va manipuler l’entier <code>fond</code>, il est nécessaire de passer <code>pile</code> par pointeur. On fait ainsi ce choix pour l’ensemble des fonctions.</p>
+<p>L’opération de création doit faire une allocation et cela va donc nécessiter une opération explicite de destruction :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1"></a><span class="dt">int</span> N  <span class="op">=</span> <span class="dv">1000</span><span class="op">;</span> <span class="co">// La pile sera de 1000 éléments au maximum</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a>pile <span class="op">*</span>pile_creer<span class="op">()</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="op">{</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>    pile <span class="op">*</span>p <span class="op">=</span> malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span>pile<span class="op">));</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>    p<span class="op">-&gt;</span>t <span class="op">=</span> malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span><span class="dt">int</span><span class="op">)</span> <span class="op">*</span> N<span class="op">);</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>    p<span class="op">-&gt;</span>fond <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>    <span class="cf">return</span> p<span class="op">;</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="op">}</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="dt">void</span> pile_detruire<span class="op">(</span>pile <span class="op">*</span>p<span class="op">)</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="op">{</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a>    free<span class="op">(</span>p<span class="op">-&gt;</span>t<span class="op">);</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a>    free<span class="op">(</span>p<span class="op">);</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p>Empiler et dépiler correspond directement à la description précédente.</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1"></a><span class="dt">void</span> empiler<span class="op">(</span>pile <span class="op">*</span>p<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="op">{</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>    assert<span class="op">(</span>p<span class="op">-&gt;</span>fond <span class="op">&lt;</span> N<span class="op">);</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>    p<span class="op">-&gt;</span>t<span class="op">[</span>p<span class="op">-&gt;</span>fond<span class="op">]</span> <span class="op">=</span> x<span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>    p<span class="op">-&gt;</span>fond<span class="op">++;</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="op">}</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="dt">int</span> retirer<span class="op">(</span>pile <span class="op">*</span>p<span class="op">)</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="op">{</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a>    assert<span class="op">(</span>p<span class="op">-&gt;</span>fond <span class="op">&gt;</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>    p<span class="op">-&gt;</span>fond<span class="op">--;</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a>    <span class="cf">return</span> p<span class="op">-&gt;</span>t<span class="op">[</span>p<span class="op">-&gt;</span>fond<span class="op">];</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="op">}</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="dt">bool</span> est_vide<span class="op">(</span>pile <span class="op">*</span>p<span class="op">)</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="op">{</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a>    <span class="cf">return</span> p<span class="op">-&gt;</span>fond <span class="op">==</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<h3 data-number="1.3.2" id="sec:dans-un-tableau-dynamique"><span class="header-section-number">1.3.2</span> Dans un tableau dynamique</h3>
+<p>On a vu qu’on pouvait définir des tableaux redimensionnables et que cela permettait d’effectuer des ajouts et des suppressions en <a href="chap_algorithmique_complexite_amortie.html#sec:comptabdyn">complexité amortie constante</a>.</p>
+<p>On peut donc directement réaliser une pile à l’aide de cette structure en ajoutant et supprimant des éléments. C’est l’interface usuelle avec le type <code>list</code> de <code>Python</code> qui propose déjà cela avec les fonctions <code>append</code> et <code>pop</code>. On peut rajouter une surcouche superficielle pour retrouver la nomenclature précédente :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">def</span> creer_pile():</span>
+<span id="cb4-2"><a href="#cb4-2"></a>    <span class="cf">return</span> []</span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="kw">def</span> est_vide(p):</span>
+<span id="cb4-5"><a href="#cb4-5"></a>    <span class="cf">return</span> p <span class="op">==</span> []</span>
+<span id="cb4-6"><a href="#cb4-6"></a></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="kw">def</span> empiler(p, x):</span>
+<span id="cb4-8"><a href="#cb4-8"></a>    p.append(x)</span>
+<span id="cb4-9"><a href="#cb4-9"></a></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="kw">def</span> depiler(p):</span>
+<span id="cb4-11"><a href="#cb4-11"></a>    <span class="cf">return</span> p.pop()</span></code></pre></div>
+<p></div></p>
+<h3 data-number="1.3.3" id="sec:avec-des-listes-chaînées"><span class="header-section-number">1.3.3</span> Avec des listes chaînées</h3>
+<p>Avec des listes chaînées, l’idée est d’ajouter et de supprimer des éléments en tête. En effet, on a vu que ces deux opérations étaient en temps constant, ce qui est particulièrement adapté aux piles.</p>
+<p>En <code>OCaml</code>, on remarque que les listes par défaut conviennent, cependant, il est nécessaire de changer de liste pour rajouter ou supprimer un élément, c’est pourquoi on définit le type <code>'a pile</code> comme une <code>'a list ref</code> c’est-à-dire un pointeur sur un maillon de tête comme on aurait pu le faire en <code>C</code>.</p>
+<p>On définit ainsi directement les quatre opérations :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">type</span> &#39;a pile = &#39;a <span class="dt">list</span> <span class="dt">ref</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="kw">let</span> cree_pile () = <span class="dt">ref</span> []</span>
+<span id="cb5-4"><a href="#cb5-4"></a></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="kw">let</span> est_vide p = !p = []</span>
+<span id="cb5-6"><a href="#cb5-6"></a></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="kw">let</span> empile p x = p := x :: !p</span>
+<span id="cb5-8"><a href="#cb5-8"></a></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="kw">let</span> depile p =</span>
+<span id="cb5-10"><a href="#cb5-10"></a>    <span class="kw">match</span> !p <span class="kw">with</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a>    | [] -&gt; <span class="dt">failwith</span> <span class="st">&quot;Pile vide&quot;</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a>    | x::q -&gt; p := q; x</span></code></pre></div>
+<p></div></p>
+<h2 data-number="1.4" id="sec:applications"><span class="header-section-number">1.4</span> Applications</h2>
+<h3 data-number="1.4.1" id="sec:parenthésage"><span class="header-section-number">1.4.1</span> Parenthésage</h3>
+<h3 data-number="1.4.2" id="sec:évaluation-dexpressions"><span class="header-section-number">1.4.2</span> Évaluation d’expressions</h3>
 <p>!subsubsubsection(Expression postfixe) !subsubsubsection(Expression infixe)</p>
 <h1 data-number="2" id="sec:files"><span class="header-section-number">2</span> Files</h1>
 <h2 data-number="2.1" id="sec:principe-1"><span class="header-section-number">2.1</span> Principe</h2>
+<p>Une file est une structure de donnée abstraite permettant d’ajouter et de retirer des éléments selon le principe</p>
+<p><strong>FIFO</strong> : <strong>F</strong>irst <strong>I</strong>n <strong>F</strong>irst <strong>O</strong>ut</p>
+<p>C’est-à-dire que le premier élément retiré sera celui qui a été ajouté le plus anciennement. La bonne manière de se représenter une file est donc d’imaginer la file d’attente à la caisse d’un magasin.</p>
 <h2 data-number="2.2" id="sec:implémentations-1"><span class="header-section-number">2.2</span> Implémentations</h2>
 <h3 data-number="2.2.1" id="sec:dans-un-tableau-borné-1"><span class="header-section-number">2.2.1</span> Dans un tableau borné</h3>
+<p>On peut reprendre l’implémentation dans un tableau des piles.</p>
 <h3 data-number="2.2.2" id="sec:avec-des-listes-chaînées-1"><span class="header-section-number">2.2.2</span> Avec des listes chaînées</h3>
 <h3 data-number="2.2.3" id="sec:filedeuxpiles"><span class="header-section-number">2.2.3</span> Avec deux piles</h3>
 <h2 data-number="2.3" id="sec:applications-1"><span class="header-section-number">2.3</span> Applications</h2>
