@@ -437,7 +437,27 @@ table td {
 <p>C’est-à-dire que le premier élément retiré sera celui qui a été ajouté le plus anciennement. La bonne manière de se représenter une file est donc d’imaginer la file d’attente à la caisse d’un magasin.</p>
 <h2 data-number="2.2" id="sec:implémentations-1"><span class="header-section-number">2.2</span> Implémentations</h2>
 <h3 data-number="2.2.1" id="sec:dans-un-tableau-borné-1"><span class="header-section-number">2.2.1</span> Dans un tableau borné</h3>
-<p>On peut reprendre l’implémentation dans un tableau des piles.</p>
+<p>On peut reprendre l’implémentation dans un tableau des piles. Ici, on va conserver deux indices : l’indice de fin et ’indice du début de la file.</p>
+<p>L’idée est de représenter une file comme une plage de cases dans un tableau circulaire :</p>
+<p><center><div class="ui image center"><img src="assets/pics/filescirc.png" /></div></center></p>
+<p>Pour enfiler, il suffit de décaler fin d’une case vers la droite et d’ajouter à cette case l’élément. Ainsi si on enfile 3 dans l’exemple précédent on obtient :</p>
+<p><center><div class="ui image center"><img src="assets/pics/filescirc2.png" /></div></center></p>
+<p>Pour défiler, on va renvoyer l’élément pointé par début et décaler celui-ci d’une case vers la droite. Dans l’exemple précédent, on obtient alors la valeur <span class="math inline">\(1\)</span> et le tableau devient :</p>
+<p><center><div class="ui image center"><img src="assets/pics/filescirc3.png" /></div></center></p>
+<p>Si, comme pour les piles, on suppose que la taille de la file ne dépassera jamais le nombre de cases du tableau circulaire, il n’y a pas de risques de dépassement. La question qui se pose alors est celle de l’implémentation d’un tableau circulaire de <span class="math inline">\(N\)</span> cases dans un tableau usuel de <span class="math inline">\(N\)</span> cases.</p>
+<p>La technique consiste à couper le tableau arbitrairement entre deux cases et à l’aplatir :</p>
+<p><center><div class="ui image center"><img src="assets/pics/filescircplat.png" /></div></center></p>
+<p>Maintenant, la question du bord se pose : les décalages doivent se faire modulo la longueur du tableau pour avoir le même comportement qu’un tableau circulaire.</p>
+<p>On traduit ensuite directement cette représentation en <code>C</code> :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">struct</span> file <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>    <span class="dt">int</span> <span class="op">*</span>t<span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>    <span class="dt">int</span> debut<span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>    <span class="dt">int</span> fin<span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="op">};</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="kw">typedef</span> <span class="kw">struct</span> file file<span class="op">;</span></span></code></pre></div>
+<p></div></p>
 <h3 data-number="2.2.2" id="sec:avec-des-listes-chaînées-1"><span class="header-section-number">2.2.2</span> Avec des listes chaînées</h3>
 <h3 data-number="2.2.3" id="sec:filedeuxpiles"><span class="header-section-number">2.2.3</span> Avec deux piles</h3>
 <h2 data-number="2.3" id="sec:applications-1"><span class="header-section-number">2.3</span> Applications</h2>
