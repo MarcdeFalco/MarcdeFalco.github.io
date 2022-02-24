@@ -381,7 +381,7 @@ Exemple
 <li>On appelle <strong>taille</strong> de <span class="math inline">\(a\)</span>, et on note <span class="math inline">\(|a|\)</span> le nombre de nœuds de <span class="math inline">\(a\)</span>.</li>
 <li>On appelle <strong>hauteur</strong> de <span class="math inline">\(a\)</span> l’entier <span class="math display">\[
 h(a) = \begin{cases} -1 &amp; \text{ si } a = \text{nil} \\
-1 + h(g) + h(d) &amp; \text{ si } a = (g,x,d) \end{cases}
+1 + \max(h(g), h(d)) &amp; \text{ si } a = (g,x,d) \end{cases}
 \]</span></li>
 </ul>
 <p></div></p>
