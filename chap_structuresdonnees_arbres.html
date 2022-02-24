@@ -535,11 +535,11 @@ Question
 <p>Pour représenter des arbres dont les nœuds ont tous deux fils non vides, on va utiliser le type</p>
 <p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">type</span> (&#39;a, &#39;b) arbre_bin = Feuille <span class="kw">of</span> &#39;a </span>
-<span id="cb8-2"><a href="#cb8-2"></a>    | Noeud <span class="kw">of</span> (&#39;a, &#39;b) arbre_bin * &#39;b * (&#39;a, &#39;b) arbre_bin</span></code></pre></div>
+<span id="cb8-2"><a href="#cb8-2"></a>    | NoeudI <span class="kw">of</span> (&#39;a, &#39;b) arbre_bin * &#39;b * (&#39;a, &#39;b) arbre_bin</span></code></pre></div>
 <p></div></p>
 <p>Ce type permet de représenter naturellement des expressions arithmétiques comme :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb9-1"><a href="#cb9-1"></a>Noeud(Noeud( Feuille <span class="dv">2</span>, <span class="ch">&#39;+&#39;</span>, Feuille <span class="dv">3</span>), <span class="ch">&#39;*&#39;</span>, Feuille <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb9-1"><a href="#cb9-1"></a>NoeudI(NoeudI( Feuille <span class="dv">2</span>, <span class="ch">&#39;+&#39;</span>, Feuille <span class="dv">3</span>), <span class="ch">&#39;*&#39;</span>, Feuille <span class="dv">5</span>)</span></code></pre></div>
 <p></div></p>
 <div class="ui message blue">
 <div class="header">
