@@ -431,6 +431,21 @@ Question
 <span id="cb2-6"><a href="#cb2-6"></a><span class="kw">let</span> feuille (a : &#39;a arbre) : <span class="dt">bool</span></span></code></pre></div>
 <p></div></p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">let</span> <span class="kw">rec</span> taille a = <span class="kw">match</span> a <span class="kw">with</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>    | Nil -&gt; <span class="dv">0</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>    | Noeud(g,x,d) -&gt; <span class="dv">1</span> + taille g + taille d</span>
+<span id="cb3-4"><a href="#cb3-4"></a></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="kw">let</span> <span class="kw">rec</span> hauteur a = <span class="kw">match</span> a <span class="kw">with</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>    | Nil -&gt; <span class="dv">-1</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>    | Noeud(g,x,d) -&gt;</span>
+<span id="cb3-8"><a href="#cb3-8"></a>            <span class="dv">1</span> + <span class="dt">max</span> (hauteur g) (hauteur d)</span>
+<span id="cb3-9"><a href="#cb3-9"></a></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="kw">let</span> feuille a = <span class="kw">match</span> a <span class="kw">with</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>    | Nil -&gt; <span class="kw">false</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a>    | Noeud(g, x, d) -&gt; g = Nil &amp;&amp; d = Nil</span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 <div class="ui message blue">
 <div class="header">
 Question
@@ -438,10 +453,34 @@ Question
 <p>Écrire une fonction <code>sous_arbres</code> qui renvoie la liste des sous-arbres non vides d’un arbre.</p>
 <p>En déduire des fonctions <code>noeuds</code>, <code>feuilles</code> et <code>noeuds_internes</code> qui renvoient la liste des étiquettes des <code>noeuds</code> correspondants.</p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">let</span> <span class="kw">rec</span> sous_arbres a = <span class="kw">match</span> a <span class="kw">with</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>    | Nil -&gt; []</span>
+<span id="cb4-3"><a href="#cb4-3"></a>    | Noeud(g, x, d) -&gt;</span>
+<span id="cb4-4"><a href="#cb4-4"></a>       a :: (sous_arbres g @ sous_arbres d)</span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="kw">let</span> <span class="kw">rec</span> noeuds a = <span class="kw">match</span> a <span class="kw">with</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>    | Nil -&gt; []</span>
+<span id="cb4-8"><a href="#cb4-8"></a>    | Noeud(g, x, d) -&gt;</span>
+<span id="cb4-9"><a href="#cb4-9"></a>        x :: (noeuds g @ noeuds d)</span>
+<span id="cb4-10"><a href="#cb4-10"></a></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="kw">let</span> <span class="kw">rec</span> feuilles a = <span class="kw">match</span> a <span class="kw">with</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a>    | Nil -&gt; []</span>
+<span id="cb4-13"><a href="#cb4-13"></a>    | Noeud(g, x, d) -&gt;</span>
+<span id="cb4-14"><a href="#cb4-14"></a>        <span class="kw">if</span> feuille a <span class="kw">then</span> [x]</span>
+<span id="cb4-15"><a href="#cb4-15"></a>        <span class="kw">else</span> feuilles g @ feuilles d</span>
+<span id="cb4-16"><a href="#cb4-16"></a></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="kw">let</span> <span class="kw">rec</span> noeuds_internes a = <span class="kw">match</span> a <span class="kw">with</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a>    | Nil -&gt; []</span>
+<span id="cb4-19"><a href="#cb4-19"></a>    | Noeud(Nil, _, Nil) -&gt; []</span>
+<span id="cb4-20"><a href="#cb4-20"></a>    | Noeud(g, x, d) -&gt;</span>
+<span id="cb4-21"><a href="#cb4-21"></a>        x :: (noeuds_internes g @ noeuds_internes d)</span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 <p>Pour accéder à un nœud de l’arbre, on descend en partant de la racine et en allant à gauche ou à droite. On peut donc représenter un tel chemin par une liste de déplacements :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">type</span> deplacement = Gauche | Droite</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">type</span> chemin = deplacement <span class="dt">list</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">type</span> deplacement = Gauche | Droite</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="kw">type</span> chemin = deplacement <span class="dt">list</span></span></code></pre></div>
 <p></div></p>
 <div class="ui message blue">
 <div class="header">
@@ -449,6 +488,18 @@ Question
 </div>
 <p>Écrire une fonction <code>chemin_noeud : 'a arbre -&gt; chemin -&gt; 'a option</code> qui renvoie l’étiquette d’un nœud donné par son chemin. On utilise un type <code>option</code> en cas de chemin invalide.</p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">type</span> deplacement = Gauche | Droite</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">type</span> chemin = deplacement <span class="dt">list</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="kw">let</span> <span class="kw">rec</span> chemin_noeud a l =</span>
+<span id="cb6-5"><a href="#cb6-5"></a>    <span class="kw">match</span> a, l <span class="kw">with</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>    | Nil, _ -&gt; <span class="dt">None</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>    | Noeud(g,x,d), Gauche::q -&gt; chemin_noeud g q</span>
+<span id="cb6-8"><a href="#cb6-8"></a>    | Noeud(g,x,d), Droite::q -&gt; chemin_noeud d q</span>
+<span id="cb6-9"><a href="#cb6-9"></a>    | Noeud(g,x,d), [] -&gt; <span class="dt">Some</span> x</span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 <h2 data-number="2.2" id="sec:parcours"><span class="header-section-number">2.2</span> Parcours</h2>
 <p>Sur le même modèle que l’exploration par <em>backtracking</em>, on va réaliser un parcours en profondeur d’un arbre en explorant à gauche puis à droite ses sous-arbres de manière récursives. Chaque nœud est donc vu trois fois :</p>
 <ul>
@@ -462,65 +513,106 @@ Question
 </div>
 <p>Écrire des fonctions <code>affiche_avant</code>, <code>affiche_milieu</code> et <code>affiche_apres</code> qui parcourt et affiche les étiquettes d’un <code>string arbre</code> selon les trois cas précédents. <em>Note: il s’agit essentiellement du même code à une ligne près</em>.</p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">let</span> <span class="kw">rec</span> affiche_avant a = <span class="kw">match</span> a <span class="kw">with</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>    | Nil -&gt; ()</span>
+<span id="cb7-3"><a href="#cb7-3"></a>    | Noeud(g,x,d) -&gt;</span>
+<span id="cb7-4"><a href="#cb7-4"></a>            <span class="dt">print_string</span> x;</span>
+<span id="cb7-5"><a href="#cb7-5"></a>            affiche_avant g;</span>
+<span id="cb7-6"><a href="#cb7-6"></a>            affiche_avant d</span>
+<span id="cb7-7"><a href="#cb7-7"></a></span>
+<span id="cb7-8"><a href="#cb7-8"></a></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="kw">let</span> <span class="kw">rec</span> affiche_milieu a = <span class="kw">match</span> a <span class="kw">with</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a>    | Nil -&gt; ()</span>
+<span id="cb7-11"><a href="#cb7-11"></a>    | Noeud(g,x,d) -&gt;</span>
+<span id="cb7-12"><a href="#cb7-12"></a>            affiche_milieu g;</span>
+<span id="cb7-13"><a href="#cb7-13"></a>            <span class="dt">print_string</span> x;</span>
+<span id="cb7-14"><a href="#cb7-14"></a>            affiche_milieu d</span>
+<span id="cb7-15"><a href="#cb7-15"></a></span>
+<span id="cb7-16"><a href="#cb7-16"></a></span>
+<span id="cb7-17"><a href="#cb7-17"></a><span class="kw">let</span> <span class="kw">rec</span> affiche_apres a = <span class="kw">match</span> a <span class="kw">with</span></span>
+<span id="cb7-18"><a href="#cb7-18"></a>    | Nil -&gt; ()</span>
+<span id="cb7-19"><a href="#cb7-19"></a>    | Noeud(g,x,d) -&gt;</span>
+<span id="cb7-20"><a href="#cb7-20"></a>            affiche_apres g;</span>
+<span id="cb7-21"><a href="#cb7-21"></a>            affiche_apres d;</span>
+<span id="cb7-22"><a href="#cb7-22"></a>            <span class="dt">print_string</span> x</span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 <div class="ui message blue">
 <div class="header">
 Question
 </div>
 <p>On peut représenter une expression arithmétique comme <span class="math inline">\((2+3)\times 4\)</span> en tant qu’arbre avec des opérations pour les nœuds internes et des valeurs pour les feuilles. Quitte à utiliser des <code>string</code> dans les deux cas, qu’obtient-on sur une telle expression avec les trois opérations précédentes ?</p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">let</span> <span class="kw">rec</span> evalue a = <span class="kw">match</span> a <span class="kw">with</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>    | Nil -&gt; <span class="dt">failwith</span> <span class="st">&quot;Vide&quot;</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>    | Noeud(Nil,x,Nil) -&gt; <span class="dt">int_of_string</span> x</span>
+<span id="cb8-4"><a href="#cb8-4"></a>    | Noeud(g, x, d) -&gt;</span>
+<span id="cb8-5"><a href="#cb8-5"></a>            <span class="kw">let</span> eg = evalue g <span class="kw">in</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>            <span class="kw">let</span> ed = evalue d <span class="kw">in</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>            <span class="kw">match</span> x <span class="kw">with</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>            | <span class="st">&quot;+&quot;</span> -&gt; eg + ed</span>
+<span id="cb8-9"><a href="#cb8-9"></a>            | <span class="st">&quot;*&quot;</span> -&gt; eg * ed</span>
+<span id="cb8-10"><a href="#cb8-10"></a>            | _ -&gt; <span class="dt">failwith</span> <span class="st">&quot;Ope inconnue&quot;</span></span></code></pre></div>
+<p></div></p>
+<p>L’appel à <code>affiche_avant</code> sur l’expression <span class="math inline">\((2+3)\times 4\)</span> va afficher <code>*+234</code>.</p>
+<p>L’appel à <code>affiche_milieu</code> sur l’expression <span class="math inline">\((2+3)\times 4\)</span> va afficher <code>2+3*4</code>.</p>
+<p>L’appel à <code>affiche_apres</code> sur l’expression <span class="math inline">\((2+3)\times 4\)</span> va afficher <code>23+4*</code>.</p>
+<p>On retrouve ainsi les notions préfixes, infixes et postfixes d’une expression arithmétique. </div> </div></p>
 <p>On redonne ici l’implémentation d’une pile et d’une file en <code>OCaml</code> :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">let</span> pile_creer () = <span class="dt">ref</span> []</span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="kw">let</span> pile_empile p x = p := x :: !p</span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="kw">let</span> pile_depile p =</span>
-<span id="cb4-4"><a href="#cb4-4"></a>    <span class="kw">match</span> !p <span class="kw">with</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a>    | [] -&gt; <span class="dt">failwith</span> <span class="st">&quot;Pile vide&quot;</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a>    | x::q -&gt; p := q; x</span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="kw">let</span> pile_est_vide p = !p = []</span>
-<span id="cb4-8"><a href="#cb4-8"></a></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="kw">let</span> file_creer () = (pile_creer (), pile_creer ())</span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="kw">let</span> file_bascule (pin, pout) = pout := <span class="dt">List</span>.rev !pin; pin := []</span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="kw">let</span> file_enfile (pin, pout) x = pile_empile pin x</span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="kw">let</span> file_defile (pin, pout) =</span>
-<span id="cb4-13"><a href="#cb4-13"></a>    <span class="kw">if</span> pile_est_vide pout </span>
-<span id="cb4-14"><a href="#cb4-14"></a>    <span class="kw">then</span> file_bascule (pin, pout);</span>
-<span id="cb4-15"><a href="#cb4-15"></a>    pile_depile pout</span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="kw">let</span> file_est_vide (pin, pout) = pile_est_vide pin &amp;&amp; pile_est_vide pout</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">let</span> pile_creer () = <span class="dt">ref</span> []</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="kw">let</span> pile_empile p x = p := x :: !p</span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="kw">let</span> pile_depile p =</span>
+<span id="cb9-4"><a href="#cb9-4"></a>    <span class="kw">match</span> !p <span class="kw">with</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>    | [] -&gt; <span class="dt">failwith</span> <span class="st">&quot;Pile vide&quot;</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a>    | x::q -&gt; p := q; x</span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="kw">let</span> pile_est_vide p = !p = []</span>
+<span id="cb9-8"><a href="#cb9-8"></a></span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="kw">let</span> file_creer () = (pile_creer (), pile_creer ())</span>
+<span id="cb9-10"><a href="#cb9-10"></a><span class="kw">let</span> file_bascule (pin, pout) = pout := <span class="dt">List</span>.rev !pin; pin := []</span>
+<span id="cb9-11"><a href="#cb9-11"></a><span class="kw">let</span> file_enfile (pin, pout) x = pile_empile pin x</span>
+<span id="cb9-12"><a href="#cb9-12"></a><span class="kw">let</span> file_defile (pin, pout) =</span>
+<span id="cb9-13"><a href="#cb9-13"></a>    <span class="kw">if</span> pile_est_vide pout </span>
+<span id="cb9-14"><a href="#cb9-14"></a>    <span class="kw">then</span> file_bascule (pin, pout);</span>
+<span id="cb9-15"><a href="#cb9-15"></a>    pile_depile pout</span>
+<span id="cb9-16"><a href="#cb9-16"></a><span class="kw">let</span> file_est_vide (pin, pout) = pile_est_vide pin &amp;&amp; pile_est_vide pout</span></code></pre></div>
 <p></div></p>
 <p>Ces deux structures de données ont la même interface mais deux comportements différents. On va utiliser un unique type pour les représenter afin de permettre à une fonction d’utiliser soit une pile soit une file.</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">type</span> (&#39;a, &#39;b) taches = {</span>
-<span id="cb5-2"><a href="#cb5-2"></a>    creation : <span class="dt">unit</span> -&gt; &#39;a;</span>
-<span id="cb5-3"><a href="#cb5-3"></a>    ajouter : &#39;a -&gt; &#39;b -&gt; <span class="dt">unit</span>;</span>
-<span id="cb5-4"><a href="#cb5-4"></a>    retirer : &#39;a -&gt; &#39;b;</span>
-<span id="cb5-5"><a href="#cb5-5"></a>    est_vide : &#39;a -&gt; <span class="dt">bool</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a>}</span>
-<span id="cb5-7"><a href="#cb5-7"></a></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="kw">let</span> taches_pile = {</span>
-<span id="cb5-9"><a href="#cb5-9"></a>    creation = pile_creer;</span>
-<span id="cb5-10"><a href="#cb5-10"></a>    ajouter = pile_empile;</span>
-<span id="cb5-11"><a href="#cb5-11"></a>    retirer = pile_depile;</span>
-<span id="cb5-12"><a href="#cb5-12"></a>    est_vide = pile_est_vide</span>
-<span id="cb5-13"><a href="#cb5-13"></a>    }</span>
-<span id="cb5-14"><a href="#cb5-14"></a></span>
-<span id="cb5-15"><a href="#cb5-15"></a><span class="kw">let</span> taches_file = {</span>
-<span id="cb5-16"><a href="#cb5-16"></a>    creation = file_creer;</span>
-<span id="cb5-17"><a href="#cb5-17"></a>    ajouter = file_enfile;</span>
-<span id="cb5-18"><a href="#cb5-18"></a>    retirer = file_defile;</span>
-<span id="cb5-19"><a href="#cb5-19"></a>    est_vide = file_est_vide</span>
-<span id="cb5-20"><a href="#cb5-20"></a>    }</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">type</span> (&#39;a, &#39;b) taches = {</span>
+<span id="cb10-2"><a href="#cb10-2"></a>    creation : <span class="dt">unit</span> -&gt; &#39;a;</span>
+<span id="cb10-3"><a href="#cb10-3"></a>    ajouter : &#39;a -&gt; &#39;b -&gt; <span class="dt">unit</span>;</span>
+<span id="cb10-4"><a href="#cb10-4"></a>    retirer : &#39;a -&gt; &#39;b;</span>
+<span id="cb10-5"><a href="#cb10-5"></a>    est_vide : &#39;a -&gt; <span class="dt">bool</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a>}</span>
+<span id="cb10-7"><a href="#cb10-7"></a></span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="kw">let</span> taches_pile = {</span>
+<span id="cb10-9"><a href="#cb10-9"></a>    creation = pile_creer;</span>
+<span id="cb10-10"><a href="#cb10-10"></a>    ajouter = pile_empile;</span>
+<span id="cb10-11"><a href="#cb10-11"></a>    retirer = pile_depile;</span>
+<span id="cb10-12"><a href="#cb10-12"></a>    est_vide = pile_est_vide</span>
+<span id="cb10-13"><a href="#cb10-13"></a>    }</span>
+<span id="cb10-14"><a href="#cb10-14"></a></span>
+<span id="cb10-15"><a href="#cb10-15"></a><span class="kw">let</span> taches_file = {</span>
+<span id="cb10-16"><a href="#cb10-16"></a>    creation = file_creer;</span>
+<span id="cb10-17"><a href="#cb10-17"></a>    ajouter = file_enfile;</span>
+<span id="cb10-18"><a href="#cb10-18"></a>    retirer = file_defile;</span>
+<span id="cb10-19"><a href="#cb10-19"></a>    est_vide = file_est_vide</span>
+<span id="cb10-20"><a href="#cb10-20"></a>    }</span></code></pre></div>
 <p></div></p>
 <p><div class="ui message orange"><div class="header">Remarque</div>Ici, on a une limitation du système de types. On aimerait paramètrer <code>taches</code> par <code>('a 'b, 'a)</code> où <code>'b</code> est un type paramètré, ainsi on aurait soit <code>('a pile, 'a)</code> où <code>('a file, 'a)</code> comme pour les deux case. Cependant, ce n’est pas possible, les types génériques ne sont pas paramètriques. C’est pour cela qu’on a un <code>('a, 'b)</code> sans avoir de lien apparent entre <code>'a</code> et <code>'b</code>.</div></p>
 <p>On pourra alors écrire une fonction prenant un gestionnaire de tâches en paramètre :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">let</span> f t a =</span>
-<span id="cb6-2"><a href="#cb6-2"></a>    <span class="kw">let</span> a_traiter = t.creation () <span class="kw">in</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> <span class="dt">Array</span>.length a - <span class="dv">1</span> <span class="kw">do</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a>        t.ajouter a_traiter a.(i)</span>
-<span id="cb6-5"><a href="#cb6-5"></a>    <span class="kw">done</span>;</span>
-<span id="cb6-6"><a href="#cb6-6"></a>    <span class="kw">while</span> <span class="dt">not</span> (t.est_vide a_traiter) <span class="kw">do</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a>        <span class="dt">print_int</span> (t.retirer a_traiter)</span>
-<span id="cb6-8"><a href="#cb6-8"></a>    <span class="kw">done</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">let</span> f t a =</span>
+<span id="cb11-2"><a href="#cb11-2"></a>    <span class="kw">let</span> a_traiter = t.creation () <span class="kw">in</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> <span class="dt">Array</span>.length a - <span class="dv">1</span> <span class="kw">do</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a>        t.ajouter a_traiter a.(i)</span>
+<span id="cb11-5"><a href="#cb11-5"></a>    <span class="kw">done</span>;</span>
+<span id="cb11-6"><a href="#cb11-6"></a>    <span class="kw">while</span> <span class="dt">not</span> (t.est_vide a_traiter) <span class="kw">do</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a>        <span class="dt">print_int</span> (t.retirer a_traiter)</span>
+<span id="cb11-8"><a href="#cb11-8"></a>    <span class="kw">done</span></span></code></pre></div>
 <p></div></p>
 <p>Ainsi <code>f taches_pile [|1;2;3|]</code> va afficher <code>321</code> et <code>f taches_file [|1;2;3|]</code> va afficher <code>123</code>.</p>
 <div class="ui message blue">
@@ -528,18 +620,32 @@ Question
 Question
 </div>
 <p>En déduire une fonction <div class="ui segment code"></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1"></a>parcours : (&#39;a, &#39;b arbre) taches -&gt; &#39;b arbre -&gt; <span class="dt">unit</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb12-1"><a href="#cb12-1"></a>parcours : (&#39;a, &#39;b arbre) taches -&gt; &#39;b arbre -&gt; <span class="dt">unit</span></span></code></pre></div>
 <p></div> qui effectue un parcours de l’arbre en affichant les étiquettes des nœuds visités dans l’ordre induit par le gestionnaire de tâches passé en paramètre.</p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">let</span> parcours t a =</span>
+<span id="cb13-2"><a href="#cb13-2"></a>    <span class="kw">let</span> avisiter = t.creation () <span class="kw">in</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a>    t.ajouter avisiter a;</span>
+<span id="cb13-4"><a href="#cb13-4"></a>    <span class="kw">while</span> <span class="dt">not</span> (t.est_vide avisiter) <span class="kw">do</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a>        <span class="kw">match</span> t.retirer avisiter <span class="kw">with</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a>        | Nil -&gt; ()</span>
+<span id="cb13-7"><a href="#cb13-7"></a>        | Noeud(g,x,d) -&gt;</span>
+<span id="cb13-8"><a href="#cb13-8"></a>                <span class="dt">print_int</span> x;</span>
+<span id="cb13-9"><a href="#cb13-9"></a>                t.ajouter avisiter g;</span>
+<span id="cb13-10"><a href="#cb13-10"></a>                t.ajouter visiter d</span>
+<span id="cb13-11"><a href="#cb13-11"></a>    <span class="kw">done</span></span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 <h2 data-number="2.3" id="sec:arbres-binaires-stricts"><span class="header-section-number">2.3</span> Arbres binaires stricts</h2>
 <p>Pour représenter des arbres dont les nœuds ont tous deux fils non vides, on va utiliser le type</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">type</span> (&#39;a, &#39;b) arbre_bin = Feuille <span class="kw">of</span> &#39;a </span>
-<span id="cb8-2"><a href="#cb8-2"></a>    | NoeudI <span class="kw">of</span> (&#39;a, &#39;b) arbre_bin * &#39;b * (&#39;a, &#39;b) arbre_bin</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">type</span> (&#39;a, &#39;b) arbre_bin = Feuille <span class="kw">of</span> &#39;a </span>
+<span id="cb14-2"><a href="#cb14-2"></a>    | NoeudI <span class="kw">of</span> (&#39;a, &#39;b) arbre_bin * &#39;b * (&#39;a, &#39;b) arbre_bin</span></code></pre></div>
 <p></div></p>
 <p>Ce type permet de représenter naturellement des expressions arithmétiques comme :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb9-1"><a href="#cb9-1"></a>NoeudI(NoeudI( Feuille <span class="dv">2</span>, <span class="ch">&#39;+&#39;</span>, Feuille <span class="dv">3</span>), <span class="ch">&#39;*&#39;</span>, Feuille <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb15-1"><a href="#cb15-1"></a>NoeudI(NoeudI( Feuille <span class="dv">2</span>, <span class="ch">&#39;+&#39;</span>, Feuille <span class="dv">3</span>), <span class="ch">&#39;*&#39;</span>, Feuille <span class="dv">5</span>)</span></code></pre></div>
 <p></div></p>
 <div class="ui message blue">
 <div class="header">
@@ -547,8 +653,20 @@ Question
 </div>
 <p>Écrire une fonction <code>evalue : (int, char) arbre_bin -&gt; int</code> qui évalue une telle expression.</p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">let</span> <span class="kw">rec</span> evalue a = <span class="kw">match</span> a <span class="kw">with</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>    | Feuille n -&gt; n</span>
+<span id="cb16-3"><a href="#cb16-3"></a>    | NoeudI(g, x, d) -&gt;</span>
+<span id="cb16-4"><a href="#cb16-4"></a>            <span class="kw">let</span> eg = evalue g <span class="kw">in</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a>            <span class="kw">let</span> ed = evalue d <span class="kw">in</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a>            <span class="kw">match</span> x <span class="kw">with</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a>            | <span class="ch">&#39;+&#39;</span> -&gt; eg + ed</span>
+<span id="cb16-8"><a href="#cb16-8"></a>            | <span class="ch">&#39;*&#39;</span> -&gt; eg * ed</span>
+<span id="cb16-9"><a href="#cb16-9"></a>            | _ -&gt; <span class="dt">failwith</span> <span class="st">&quot;Ope inconnue&quot;</span></span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 <p>Si on considère le type <div class="ui segment code"></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">type</span> (&#39;a, &#39;b) etiquette = F <span class="kw">of</span> &#39;a | N <span class="kw">of</span> &#39;b</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">type</span> (&#39;a, &#39;b) etiquette = F <span class="kw">of</span> &#39;a | N <span class="kw">of</span> &#39;b</span></code></pre></div>
 <p></div></p>
 <p>On peut passer d’un <code>('a, 'b) arbre_bin</code> à un <code>('a, 'b) etiquette arbre</code> et, dans certains cas, d’un <code>('a, 'b) etiquette arbre</code> à un <code>('a, 'b) arbre_bin</code>.</p>
 <div class="ui message blue">
@@ -557,10 +675,29 @@ Question
 </div>
 <p>Écrire ainsi deux fonctions de conversion :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb11-1"><a href="#cb11-1"></a>arbre_bin_vers_arbre : (&#39;a, &#39;b) arbre_bin -&gt; (&#39;a, &#39;b) etiquette arbre</span>
-<span id="cb11-2"><a href="#cb11-2"></a>arbre_vers_arbre_bin : (&#39;a, &#39;b) etiquette arbre -&gt; (&#39;a, &#39;b) arbre_bin <span class="dt">option</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb18-1"><a href="#cb18-1"></a>arbre_bin_vers_arbre : (&#39;a, &#39;b) arbre_bin -&gt; (&#39;a, &#39;b) etiquette arbre</span>
+<span id="cb18-2"><a href="#cb18-2"></a>arbre_vers_arbre_bin : (&#39;a, &#39;b) etiquette arbre -&gt; (&#39;a, &#39;b) arbre_bin <span class="dt">option</span></span></code></pre></div>
 <p></div></p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">let</span> <span class="kw">rec</span> arbre_bin_vers_arbre a =</span>
+<span id="cb19-2"><a href="#cb19-2"></a>    <span class="kw">match</span> a <span class="kw">with</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a>    | Feuille n -&gt; Noeud(Nil, F n, Nil)</span>
+<span id="cb19-4"><a href="#cb19-4"></a>    | NoeudI(g, x, d) -&gt; Noeud(arbre_bin_vers_arbre g,</span>
+<span id="cb19-5"><a href="#cb19-5"></a>                            N x,</span>
+<span id="cb19-6"><a href="#cb19-6"></a>                            arbre_bin_vers_arbre d)</span>
+<span id="cb19-7"><a href="#cb19-7"></a></span>
+<span id="cb19-8"><a href="#cb19-8"></a><span class="kw">let</span> <span class="kw">rec</span> arbre_vers_arbre_bin a =</span>
+<span id="cb19-9"><a href="#cb19-9"></a>    <span class="kw">match</span> a <span class="kw">with</span></span>
+<span id="cb19-10"><a href="#cb19-10"></a>    | Noeud(Nil, F f, Nil) -&gt; Feuille f</span>
+<span id="cb19-11"><a href="#cb19-11"></a>    | Noeud(g, N x, d) -&gt; <span class="kw">begin</span></span>
+<span id="cb19-12"><a href="#cb19-12"></a>            <span class="kw">match</span> arbre_vers_arbre_bin g, arbre_vers_arbre_bin d <span class="kw">with</span></span>
+<span id="cb19-13"><a href="#cb19-13"></a>            | <span class="dt">Some</span> g&#39;, <span class="dt">Some</span> d&#39; -&gt; NoeudI(g&#39;, x, d&#39;)</span>
+<span id="cb19-14"><a href="#cb19-14"></a>            | _ -&gt; <span class="dt">None</span></span>
+<span id="cb19-15"><a href="#cb19-15"></a>        <span class="kw">end</span></span>
+<span id="cb19-16"><a href="#cb19-16"></a>    | _ -&gt; <span class="dt">None</span></span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 <h2 data-number="2.4" id="sec:dessin-darbres"><span class="header-section-number">2.4</span> Dessin d’arbres</h2>
 <p>On va réaliser dans cette partie une fonction de dessin d’arbres avec <code>graphics</code>. L’idée est de placer la racine et de dessiner les sous-arbres gauche et droit en dessous. Pour cela, il va falloir connaitre la taille de ces sous-arbres en pixels.</p>
 <p>On pourra consulter la documentation de <code>graphics</code> ici : <a href="http://pauillac.inria.fr/~remy/poly/ocaml/htmlman/libref/Graphics.html">Graphics</a></p>
@@ -570,12 +707,51 @@ Question
 </div>
 <p>Écrire une fonction <code>pixels : int arbre -&gt; int * int</code> qui renvoie un couple <code>(largeur, racine)</code> où <code>largeur</code> est la largeur en pixels d’un arbre dans son affichage et <code>racine</code> l’abscisse de la racine dans cet affichage.</p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">let</span> rnoeud = <span class="dv">5</span> <span class="co">(* Le rayon du noeud *)</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="kw">let</span> marge = <span class="dv">2</span> <span class="co">(* la marge autour du noeud *)</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a></span>
+<span id="cb20-4"><a href="#cb20-4"></a><span class="kw">let</span> <span class="kw">rec</span> pixels a = <span class="kw">match</span> a <span class="kw">with</span></span>
+<span id="cb20-5"><a href="#cb20-5"></a>    | Nil -&gt; <span class="dv">0</span>, <span class="dv">0</span></span>
+<span id="cb20-6"><a href="#cb20-6"></a>    | Noeud(g, _, d) -&gt; </span>
+<span id="cb20-7"><a href="#cb20-7"></a>            <span class="kw">let</span> lg, _ = pixels g <span class="kw">in</span></span>
+<span id="cb20-8"><a href="#cb20-8"></a>            <span class="kw">let</span> ld, _ = pixels d <span class="kw">in</span></span>
+<span id="cb20-9"><a href="#cb20-9"></a>            lg + ld + <span class="dv">2</span>*(marge + rnoeud), lg + marge + rnoeud</span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 <div class="ui message blue">
 <div class="header">
 Question
 </div>
 <p>En déduire une fonction <code>dessine : int arbre -&gt; int -&gt; int -&gt; unit</code> tel que <code>dessine a x y</code> dessine l’arbre <span class="math inline">\(a\)</span> en plaçant la racine en <span class="math inline">\((x, y)\)</span>.</p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">let</span> <span class="kw">rec</span> dessine a x y =</span>
+<span id="cb21-2"><a href="#cb21-2"></a>    <span class="kw">match</span> a <span class="kw">with</span></span>
+<span id="cb21-3"><a href="#cb21-3"></a>    | Nil -&gt; ()</span>
+<span id="cb21-4"><a href="#cb21-4"></a>    | Noeud(g, e, d) -&gt;</span>
+<span id="cb21-5"><a href="#cb21-5"></a>            <span class="co">(* On précalcule les tailles des sous-arbres *)</span></span>
+<span id="cb21-6"><a href="#cb21-6"></a>            <span class="kw">let</span> lg, rg = pixels g <span class="kw">in</span></span>
+<span id="cb21-7"><a href="#cb21-7"></a>            <span class="kw">let</span> _, rd = pixels d <span class="kw">in</span></span>
+<span id="cb21-8"><a href="#cb21-8"></a>            <span class="co">(* position de la racine gauche relativement à (x,y) *)</span></span>
+<span id="cb21-9"><a href="#cb21-9"></a>            <span class="kw">let</span> v_rg = x - lg - marge - rnoeud + rg <span class="kw">in</span></span>
+<span id="cb21-10"><a href="#cb21-10"></a>            <span class="co">(* position de la racine droite relative (x, y) *)</span></span>
+<span id="cb21-11"><a href="#cb21-11"></a>            <span class="kw">let</span> v_rd = x + marge + rnoeud + rd <span class="kw">in</span></span>
+<span id="cb21-12"><a href="#cb21-12"></a>            <span class="kw">let</span> dec_y = y - <span class="dv">2</span> * rnoeud - marge <span class="kw">in</span></span>
+<span id="cb21-13"><a href="#cb21-13"></a></span>
+<span id="cb21-14"><a href="#cb21-14"></a>            moveto x y; lineto v_rg dec_y;</span>
+<span id="cb21-15"><a href="#cb21-15"></a>            moveto x y; lineto v_rd dec_y;</span>
+<span id="cb21-16"><a href="#cb21-16"></a>            fill_circle x y rnoeud;</span>
+<span id="cb21-17"><a href="#cb21-17"></a></span>
+<span id="cb21-18"><a href="#cb21-18"></a>            moveto (x-tw/<span class="dv">2</span>) (y-th/<span class="dv">2</span>);</span>
+<span id="cb21-19"><a href="#cb21-19"></a>            set_color white;</span>
+<span id="cb21-20"><a href="#cb21-20"></a>            draw_string e;</span>
+<span id="cb21-21"><a href="#cb21-21"></a>            set_color black;</span>
+<span id="cb21-22"><a href="#cb21-22"></a></span>
+<span id="cb21-23"><a href="#cb21-23"></a>            dessine g v_rg dec_y;</span>
+<span id="cb21-24"><a href="#cb21-24"></a>            dessine d v_rd dec_y</span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 <h2 data-number="2.5" id="sec:génération-aléatoire-darbres"><span class="header-section-number">2.5</span> Génération aléatoire d’arbres</h2>
 <p>Dans cette partie, ce qui nous intéresse est de générer aléatoirement des arbres pour en observer la structure. Les étiquettes ne sont pas pertinentes, on pourra donc au choix, soit considérer des <code>unit arbre</code>, soit redéfinir un type d’arbre non étiquettés.</p>
 <p>On va réaliser ici deux modèles de génération aléatoire d’arbres. Le premier modèle consiste, pour générer un arbre de <span class="math inline">\(n\)</span> nœuds, à choisir aléatoirement <span class="math inline">\(k\)</span> dans <span class="math inline">\(\range{0}{n}\)</span>, à générer aléatoirement un arbre <span class="math inline">\(g\)</span> à <span class="math inline">\(k\)</span> nœuds et un arbre <span class="math inline">\(d\)</span> à <span class="math inline">\(n-k\)</span> nœuds puis à renvoyer l’arbre <code>Noeud(g, (), d)</code>.</p>
@@ -586,6 +762,16 @@ Question
 <p>Implémenter ce modèle avec une fonction <code>genere_arbre_1 : int -&gt; unit arbre</code>.</p>
 <p>Tester votre fonction, notamment avec l’affichage de la partie précédente.</p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">let</span> <span class="kw">rec</span> genere_arbre_1 n = </span>
+<span id="cb22-2"><a href="#cb22-2"></a>    <span class="kw">if</span> n = <span class="dv">0</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a>    <span class="kw">then</span> Nil</span>
+<span id="cb22-4"><a href="#cb22-4"></a>    <span class="kw">else</span> <span class="kw">if</span> n = <span class="dv">1</span> <span class="kw">then</span> Noeud(Nil, (), Nil)</span>
+<span id="cb22-5"><a href="#cb22-5"></a>    <span class="kw">else</span> <span class="kw">let</span> k = <span class="dt">Random</span>.<span class="dt">int</span> (n<span class="dv">-1</span>) <span class="kw">in</span></span>
+<span id="cb22-6"><a href="#cb22-6"></a>        Noeud(genere_arbre_1  k, (), </span>
+<span id="cb22-7"><a href="#cb22-7"></a>            genere_arbre_1  (n<span class="dv">-1</span>-k))</span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 <p>Pour le deuxième modèle, on va choisir un sous-arbre vide uniformément et le remplacer par un nœud.</p>
 <div class="ui message blue">
 <div class="header">
@@ -593,12 +779,34 @@ Question
 </div>
 <p>Écrire une fonction <code>chemins_vides : 'a arbre -&gt; chemin list</code> qui étant donné un arbre renvoie la liste des chemins permettant d’aboutir à un sous-arbre vide.</p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw">let</span> chemins_vide a =</span>
+<span id="cb23-2"><a href="#cb23-2"></a>    <span class="kw">let</span> <span class="kw">rec</span> aux a l =</span>
+<span id="cb23-3"><a href="#cb23-3"></a>        <span class="kw">match</span> a <span class="kw">with</span></span>
+<span id="cb23-4"><a href="#cb23-4"></a>        | Nil -&gt; [ <span class="dt">List</span>.rev l ]</span>
+<span id="cb23-5"><a href="#cb23-5"></a>        | Noeud(g, _, d) -&gt; </span>
+<span id="cb23-6"><a href="#cb23-6"></a>              aux g (Gauche::l)</span>
+<span id="cb23-7"><a href="#cb23-7"></a>            @ aux d (Droite::l)</span>
+<span id="cb23-8"><a href="#cb23-8"></a>    <span class="kw">in</span> aux a []</span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 <div class="ui message blue">
 <div class="header">
 Question
 </div>
 <p>Écrire une fonction <code>remplit : 'a arbre -&gt; chemin -&gt; 'a arbre</code> qui remplace un sous-arbre vide donnée par son chemin par un nœud.</p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw">let</span> <span class="kw">rec</span> remplit a c =</span>
+<span id="cb24-2"><a href="#cb24-2"></a>    <span class="kw">match</span> a, c <span class="kw">with</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a>    | Nil, [] -&gt; Noeud(Nil, (), Nil)</span>
+<span id="cb24-4"><a href="#cb24-4"></a>    | Noeud(g,x,d), Gauche::q -&gt; </span>
+<span id="cb24-5"><a href="#cb24-5"></a>            Noeud(remplit g q, x, d)</span>
+<span id="cb24-6"><a href="#cb24-6"></a>    | Noeud(g,x,d), Droite::q -&gt; </span>
+<span id="cb24-7"><a href="#cb24-7"></a>            Noeud(g, x, remplit d q)</span>
+<span id="cb24-8"><a href="#cb24-8"></a>    | _ -&gt; <span class="dt">failwith</span> <span class="st">&quot;Error&quot;</span></span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 <div class="ui message blue">
 <div class="header">
 Question
@@ -606,6 +814,17 @@ Question
 <p>En déduire une fonction <code>genere_arbres_2 : int -&gt; unit arbre</code> qui prend un entier <code>n</code> et construit un arbre à <span class="math inline">\(n\)</span> nœuds en partant de l’arbre vide et en réalisant <span class="math inline">\(n\)</span> remplacement d’un arbre vide par un nœuds, le choix de l’arbre vide se faisant uniformément.</p>
 <p><em>Note :</em> on pourra utilser <code>List.nth</code> et <code>Random.int</code> Voir par exemple <a href="https://ocaml.org/api/Random.html">Random</a></p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw">let</span> <span class="kw">rec</span> genere_arbre_2 n =</span>
+<span id="cb25-2"><a href="#cb25-2"></a>    <span class="kw">if</span> n = <span class="dv">0</span> <span class="kw">then</span> Nil</span>
+<span id="cb25-3"><a href="#cb25-3"></a>    <span class="kw">else</span> </span>
+<span id="cb25-4"><a href="#cb25-4"></a>        <span class="kw">let</span> a = genere_arbre_2 (n<span class="dv">-1</span>) <span class="kw">in</span></span>
+<span id="cb25-5"><a href="#cb25-5"></a>        <span class="kw">let</span> l = chemins_vide a <span class="kw">in</span></span>
+<span id="cb25-6"><a href="#cb25-6"></a>        <span class="kw">let</span> k = <span class="dt">Random</span>.<span class="dt">int</span> (<span class="dt">List</span>.length l) <span class="kw">in</span></span>
+<span id="cb25-7"><a href="#cb25-7"></a>        <span class="kw">let</span> ch = <span class="dt">List</span>.nth l k <span class="kw">in</span></span>
+<span id="cb25-8"><a href="#cb25-8"></a>        remplit a ch</span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 </div>
 <!-- </div> -->
 </div>
