@@ -576,7 +576,7 @@ Exemple
 <ul>
 <li>Avant l’appel à <code>parcours g</code>, on parle de <em>traitement préfixe</em></li>
 <li>Entre les deux appels, on parle de <em>traitement infixe</em></li>
-<li>Avant l’appel à <code>parcours g</code>, on parle de <em>traitement préfixe</em></li>
+<li>Après l’appel à <code>parcours g</code>, on parle de <em>traitement postfixe</em></li>
 </ul>
 <p>On représente ici l’ordre dans lequel on va effectuer chacun de ces trois traitements selon le code couleur : rouge pour préfixe, bleu pour infixe et vert pour postfixe. On a également indiqué, pour les premiers traitements, l’ordre dans lequel ils sont effectués par des numéros.</p>
 <p><center><div class="ui image center"><img src="assets/pics/parcoursrec.png" /></div></center></p>
@@ -978,7 +978,7 @@ Théorème
 <p>Quelles remarques :</p>
 <ul>
 <li>la racine est noire et les feuilles sont noires ;</li>
-<li>le fils droit d’un nœud est toujours noir ;</li>
+<li>le fils gauche d’un nœud est toujours noir ;</li>
 <li>il ne peut exister d’arêtes liant deux nœuds rouges car par construction les nœuds rouges sont toujours entourés de nœuds noirs ;</li>
 <li>les chemins d’une feuille à la racine dans l’arbre 2-3 sont tous de même taille, à chacun des nœuds de l’arbre 2-3 correspond un nœud noir, on en déduit donc que tous les chemins de la racine aux feuilles contiennent le même nombre de nœud noirs.</li>
 </ul>
@@ -1010,7 +1010,7 @@ Théorème
 <p>En faisant cela on risque d’avoir deux types de problèmes :</p>
 <ul>
 <li>des arêtes rouge-rouge ;</li>
-<li>des fils droits rouges.</li>
+<li>des fils gauches rouges.</li>
 </ul>
 <p>On va alors traiter les différents cas d’insertion et voir comment on peut les ajuster pour obtenir des arbres rouges et noirs.</p>
 <p><strong>Insertion dans un nœud issu d’un nœud binaire</strong></p>
