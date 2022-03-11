@@ -1839,6 +1839,16 @@ Question
 </div>
 <p>Écrire une fonction <code>arbre cree_feuille(int x)</code> qui alloue et crée une feuille de valeur <code>x</code>.</p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb81-1"><a href="#cb81-1"></a>arbre cree_feuille<span class="op">(</span><span class="dt">int</span> x<span class="op">)</span></span>
+<span id="cb81-2"><a href="#cb81-2"></a><span class="op">{</span></span>
+<span id="cb81-3"><a href="#cb81-3"></a>    arbre n <span class="op">=</span> malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span><span class="kw">struct</span> noeud<span class="op">));</span></span>
+<span id="cb81-4"><a href="#cb81-4"></a>    n<span class="op">-&gt;</span>valeur <span class="op">=</span> x<span class="op">;</span></span>
+<span id="cb81-5"><a href="#cb81-5"></a>    n<span class="op">-&gt;</span>gauche <span class="op">=</span> n<span class="op">-&gt;</span>droite <span class="op">=</span> NULL<span class="op">;</span></span>
+<span id="cb81-6"><a href="#cb81-6"></a>    <span class="cf">return</span> n<span class="op">;</span></span>
+<span id="cb81-7"><a href="#cb81-7"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 <div class="ui message blue">
 <div class="header">
 Question
@@ -1848,38 +1858,162 @@ Question
 <p>Pour cela, on vous suggère de créer autant de feuilles que de nœuds et d’effectuer les liens ensuite avec les pointeurs.</p>
 <p>Cet arbre nous servira d’exemple pour vérifier les fonctions suivantes.</p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb82-1"><a href="#cb82-1"></a>    arbre n5 <span class="op">=</span> cree_feuille<span class="op">(</span><span class="dv">5</span><span class="op">);</span></span>
+<span id="cb82-2"><a href="#cb82-2"></a>    arbre n1 <span class="op">=</span> cree_feuille<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb82-3"><a href="#cb82-3"></a>    arbre n4 <span class="op">=</span> cree_feuille<span class="op">(</span><span class="dv">4</span><span class="op">);</span></span>
+<span id="cb82-4"><a href="#cb82-4"></a>    arbre n9 <span class="op">=</span> cree_feuille<span class="op">(</span><span class="dv">9</span><span class="op">);</span></span>
+<span id="cb82-5"><a href="#cb82-5"></a>    arbre n7 <span class="op">=</span> cree_feuille<span class="op">(</span><span class="dv">7</span><span class="op">);</span></span>
+<span id="cb82-6"><a href="#cb82-6"></a>    arbre n20 <span class="op">=</span> cree_feuille<span class="op">(</span><span class="dv">20</span><span class="op">);</span></span>
+<span id="cb82-7"><a href="#cb82-7"></a>    arbre n17 <span class="op">=</span> cree_feuille<span class="op">(</span><span class="dv">17</span><span class="op">);</span></span>
+<span id="cb82-8"><a href="#cb82-8"></a>    n5<span class="op">-&gt;</span>gauche <span class="op">=</span> n1<span class="op">;</span></span>
+<span id="cb82-9"><a href="#cb82-9"></a>    n1<span class="op">-&gt;</span>droite <span class="op">=</span> n4<span class="op">;</span></span>
+<span id="cb82-10"><a href="#cb82-10"></a>    n5<span class="op">-&gt;</span>droite <span class="op">=</span> n9<span class="op">;</span></span>
+<span id="cb82-11"><a href="#cb82-11"></a>    n9<span class="op">-&gt;</span>gauche <span class="op">=</span> n7<span class="op">;</span></span>
+<span id="cb82-12"><a href="#cb82-12"></a>    n9<span class="op">-&gt;</span>droite <span class="op">=</span> n20<span class="op">;</span></span>
+<span id="cb82-13"><a href="#cb82-13"></a>    n20<span class="op">-&gt;</span>gauche <span class="op">=</span> n17<span class="op">;</span></span>
+<span id="cb82-14"><a href="#cb82-14"></a></span>
+<span id="cb82-15"><a href="#cb82-15"></a>    arbre a <span class="op">=</span> n5<span class="op">;</span></span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 <div class="ui message blue">
 <div class="header">
 Question
 </div>
 <p>Écrire une fonction <code>int taille(arbre a)</code> qui renvoie le nombre de nœuds d’un arbre binaire.</p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb83-1"><a href="#cb83-1"></a><span class="dt">int</span> taille<span class="op">(</span>arbre a<span class="op">)</span></span>
+<span id="cb83-2"><a href="#cb83-2"></a><span class="op">{</span></span>
+<span id="cb83-3"><a href="#cb83-3"></a>    <span class="cf">if</span> <span class="op">(</span>a <span class="op">==</span> NULL<span class="op">)</span></span>
+<span id="cb83-4"><a href="#cb83-4"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb83-5"><a href="#cb83-5"></a>    <span class="cf">return</span> <span class="dv">1</span> <span class="op">+</span> taille<span class="op">(</span>a<span class="op">-&gt;</span>gauche<span class="op">)</span> <span class="op">+</span> taille<span class="op">(</span>a<span class="op">-&gt;</span>droite<span class="op">);</span></span>
+<span id="cb83-6"><a href="#cb83-6"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 <div class="ui message blue">
 <div class="header">
 Question
 </div>
 <p>Écrire une fonction <code>int hauteur(arbre a)</code> qui renvoie la hauteur d’un arbre binaire.</p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb84-1"><a href="#cb84-1"></a><span class="dt">int</span> max<span class="op">(</span><span class="dt">int</span> a<span class="op">,</span> <span class="dt">int</span> b<span class="op">)</span></span>
+<span id="cb84-2"><a href="#cb84-2"></a><span class="op">{</span></span>
+<span id="cb84-3"><a href="#cb84-3"></a>    <span class="cf">if</span> <span class="op">(</span>a <span class="op">&gt;</span> b<span class="op">)</span> <span class="cf">return</span> a<span class="op">;</span></span>
+<span id="cb84-4"><a href="#cb84-4"></a>    <span class="cf">else</span> <span class="cf">return</span> b<span class="op">;</span></span>
+<span id="cb84-5"><a href="#cb84-5"></a><span class="op">}</span></span>
+<span id="cb84-6"><a href="#cb84-6"></a></span>
+<span id="cb84-7"><a href="#cb84-7"></a><span class="dt">int</span> hauteur<span class="op">(</span>arbre a<span class="op">)</span></span>
+<span id="cb84-8"><a href="#cb84-8"></a><span class="op">{</span></span>
+<span id="cb84-9"><a href="#cb84-9"></a>    <span class="cf">if</span> <span class="op">(</span>a <span class="op">==</span> NULL<span class="op">)</span></span>
+<span id="cb84-10"><a href="#cb84-10"></a>        <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb84-11"><a href="#cb84-11"></a>    <span class="cf">return</span> <span class="dv">1</span> <span class="op">+</span> max<span class="op">(</span>hauteur<span class="op">(</span>a<span class="op">-&gt;</span>gauche<span class="op">),</span> hauteur<span class="op">(</span>a<span class="op">-&gt;</span>droite<span class="op">));</span></span>
+<span id="cb84-12"><a href="#cb84-12"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 <div class="ui message blue">
 <div class="header">
 Question
 </div>
-<p>Écrire des fonctions <code>void affiche_prefixe(arbre a)</code>, <code>affiche_infixe</code> et <code>affiche_suffixe</code> qui affiche les valeurs des nœuds de l’arbre <code>a</code> selon le traitement correspondant dans un parcours.</p>
+<p>Écrire des fonctions <code>void affiche_prefixe(arbre a)</code>, <code>affiche_infixe</code> et <code>affiche_postfixe</code> qui affiche les valeurs des nœuds de l’arbre <code>a</code> selon le traitement correspondant dans un parcours.</p>
 <p>Écrire une fonction <code>void affiche(arbre a)</code> qui, à l’aide des trois traitements, permet d’afficher un arbre avec des triplets comme nœuds. Par exemple, pour l’arbre précédent, on pourra afficher :</p>
 <pre><code>((nil,1,(nil,4,nil)),5,((nil,7,nil),9,((nil,17,nil),20,nil)))</code></pre>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb86-1"><a href="#cb86-1"></a><span class="dt">void</span> affiche_prefixe<span class="op">(</span>arbre a<span class="op">)</span></span>
+<span id="cb86-2"><a href="#cb86-2"></a><span class="op">{</span></span>
+<span id="cb86-3"><a href="#cb86-3"></a>    <span class="cf">if</span> <span class="op">(</span>a <span class="op">!=</span> NULL<span class="op">)</span></span>
+<span id="cb86-4"><a href="#cb86-4"></a>    <span class="op">{</span></span>
+<span id="cb86-5"><a href="#cb86-5"></a>        printf<span class="op">(</span><span class="st">&quot;%d&quot;</span><span class="op">,</span> a<span class="op">-&gt;</span>valeur<span class="op">);</span></span>
+<span id="cb86-6"><a href="#cb86-6"></a>        affiche_prefixe<span class="op">(</span>a<span class="op">-&gt;</span>gauche<span class="op">);</span></span>
+<span id="cb86-7"><a href="#cb86-7"></a>        affiche_prefixe<span class="op">(</span>a<span class="op">-&gt;</span>droite<span class="op">);</span></span>
+<span id="cb86-8"><a href="#cb86-8"></a>    <span class="op">}</span></span>
+<span id="cb86-9"><a href="#cb86-9"></a><span class="op">}</span></span>
+<span id="cb86-10"><a href="#cb86-10"></a></span>
+<span id="cb86-11"><a href="#cb86-11"></a><span class="dt">void</span> affiche_infixe<span class="op">(</span>arbre a<span class="op">)</span></span>
+<span id="cb86-12"><a href="#cb86-12"></a><span class="op">{</span></span>
+<span id="cb86-13"><a href="#cb86-13"></a>    <span class="cf">if</span> <span class="op">(</span>a <span class="op">!=</span> NULL<span class="op">)</span></span>
+<span id="cb86-14"><a href="#cb86-14"></a>    <span class="op">{</span></span>
+<span id="cb86-15"><a href="#cb86-15"></a>        affiche_infixe<span class="op">(</span>a<span class="op">-&gt;</span>gauche<span class="op">);</span></span>
+<span id="cb86-16"><a href="#cb86-16"></a>        printf<span class="op">(</span><span class="st">&quot;%d&quot;</span><span class="op">,</span> a<span class="op">-&gt;</span>valeur<span class="op">);</span></span>
+<span id="cb86-17"><a href="#cb86-17"></a>        affiche_infixe<span class="op">(</span>a<span class="op">-&gt;</span>droite<span class="op">);</span></span>
+<span id="cb86-18"><a href="#cb86-18"></a>    <span class="op">}</span></span>
+<span id="cb86-19"><a href="#cb86-19"></a><span class="op">}</span></span>
+<span id="cb86-20"><a href="#cb86-20"></a></span>
+<span id="cb86-21"><a href="#cb86-21"></a><span class="dt">void</span> affiche_postfixe<span class="op">(</span>arbre a<span class="op">)</span></span>
+<span id="cb86-22"><a href="#cb86-22"></a><span class="op">{</span></span>
+<span id="cb86-23"><a href="#cb86-23"></a>    <span class="cf">if</span> <span class="op">(</span>a <span class="op">!=</span> NULL<span class="op">)</span></span>
+<span id="cb86-24"><a href="#cb86-24"></a>    <span class="op">{</span></span>
+<span id="cb86-25"><a href="#cb86-25"></a>        affiche_postfixe<span class="op">(</span>a<span class="op">-&gt;</span>gauche<span class="op">);</span></span>
+<span id="cb86-26"><a href="#cb86-26"></a>        affiche_postfixe<span class="op">(</span>a<span class="op">-&gt;</span>droite<span class="op">);</span></span>
+<span id="cb86-27"><a href="#cb86-27"></a>        printf<span class="op">(</span><span class="st">&quot;%d&quot;</span><span class="op">,</span> a<span class="op">-&gt;</span>valeur<span class="op">);</span></span>
+<span id="cb86-28"><a href="#cb86-28"></a>    <span class="op">}</span></span>
+<span id="cb86-29"><a href="#cb86-29"></a><span class="op">}</span></span>
+<span id="cb86-30"><a href="#cb86-30"></a></span>
+<span id="cb86-31"><a href="#cb86-31"></a><span class="dt">void</span> affiche<span class="op">(</span>arbre a<span class="op">)</span></span>
+<span id="cb86-32"><a href="#cb86-32"></a><span class="op">{</span></span>
+<span id="cb86-33"><a href="#cb86-33"></a>    <span class="cf">if</span> <span class="op">(</span>a <span class="op">!=</span> NULL<span class="op">)</span></span>
+<span id="cb86-34"><a href="#cb86-34"></a>    <span class="op">{</span></span>
+<span id="cb86-35"><a href="#cb86-35"></a>        printf<span class="op">(</span><span class="st">&quot;(&quot;</span><span class="op">);</span></span>
+<span id="cb86-36"><a href="#cb86-36"></a>        affiche<span class="op">(</span>a<span class="op">-&gt;</span>gauche<span class="op">);</span></span>
+<span id="cb86-37"><a href="#cb86-37"></a>        printf<span class="op">(</span><span class="st">&quot;,%d,&quot;</span><span class="op">,</span> a<span class="op">-&gt;</span>valeur<span class="op">);</span></span>
+<span id="cb86-38"><a href="#cb86-38"></a>        affiche<span class="op">(</span>a<span class="op">-&gt;</span>droite<span class="op">);</span></span>
+<span id="cb86-39"><a href="#cb86-39"></a>        printf<span class="op">(</span><span class="st">&quot;)&quot;</span><span class="op">);</span></span>
+<span id="cb86-40"><a href="#cb86-40"></a>    <span class="op">}</span> <span class="cf">else</span> printf<span class="op">(</span><span class="st">&quot;nil&quot;</span><span class="op">);</span></span>
+<span id="cb86-41"><a href="#cb86-41"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 <div class="ui message blue">
 <div class="header">
 Question
 </div>
 <p><em>(Optionnel en première lecture)</em> À l’aide d’une file dans un tableau de longueur <span class="math inline">\(|a|\)</span>, réalisez une fonction <code>void affiche_largeur(arbre a)</code> qui affiche les valeurs des nœuds de l’arbre <code>a</code> lors d’un parcours en largeur.</p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb87-1"><a href="#cb87-1"></a><span class="dt">void</span> affiche_largeur<span class="op">(</span>arbre a<span class="op">)</span></span>
+<span id="cb87-2"><a href="#cb87-2"></a><span class="op">{</span></span>
+<span id="cb87-3"><a href="#cb87-3"></a>    arbre <span class="op">*</span>file <span class="op">=</span> malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span>arbre<span class="op">)</span> <span class="op">*</span> taille<span class="op">(</span>a<span class="op">));</span></span>
+<span id="cb87-4"><a href="#cb87-4"></a>    file<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> a<span class="op">;</span></span>
+<span id="cb87-5"><a href="#cb87-5"></a>    <span class="dt">int</span> debut <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb87-6"><a href="#cb87-6"></a>    <span class="dt">int</span> fin <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb87-7"><a href="#cb87-7"></a>    <span class="cf">while</span><span class="op">(</span>fin <span class="op">&gt;</span> debut<span class="op">)</span></span>
+<span id="cb87-8"><a href="#cb87-8"></a>    <span class="op">{</span></span>
+<span id="cb87-9"><a href="#cb87-9"></a>        arbre r <span class="op">=</span> file<span class="op">[</span>debut<span class="op">];</span></span>
+<span id="cb87-10"><a href="#cb87-10"></a>        debut<span class="op">++;</span></span>
+<span id="cb87-11"><a href="#cb87-11"></a>        printf<span class="op">(</span><span class="st">&quot;%d&quot;</span><span class="op">,</span> r<span class="op">-&gt;</span>valeur<span class="op">);</span></span>
+<span id="cb87-12"><a href="#cb87-12"></a>        <span class="cf">if</span><span class="op">(</span>r<span class="op">-&gt;</span>gauche <span class="op">!=</span> NULL<span class="op">)</span></span>
+<span id="cb87-13"><a href="#cb87-13"></a>        <span class="op">{</span></span>
+<span id="cb87-14"><a href="#cb87-14"></a>            file<span class="op">[</span>fin<span class="op">]</span> <span class="op">=</span> r<span class="op">-&gt;</span>gauche<span class="op">;</span></span>
+<span id="cb87-15"><a href="#cb87-15"></a>            fin<span class="op">++;</span></span>
+<span id="cb87-16"><a href="#cb87-16"></a>        <span class="op">}</span></span>
+<span id="cb87-17"><a href="#cb87-17"></a>        <span class="cf">if</span><span class="op">(</span>r<span class="op">-&gt;</span>droite <span class="op">!=</span> NULL<span class="op">)</span></span>
+<span id="cb87-18"><a href="#cb87-18"></a>        <span class="op">{</span></span>
+<span id="cb87-19"><a href="#cb87-19"></a>            file<span class="op">[</span>fin<span class="op">]</span> <span class="op">=</span> r<span class="op">-&gt;</span>droite<span class="op">;</span></span>
+<span id="cb87-20"><a href="#cb87-20"></a>            fin<span class="op">++;</span></span>
+<span id="cb87-21"><a href="#cb87-21"></a>        <span class="op">}</span></span>
+<span id="cb87-22"><a href="#cb87-22"></a>    <span class="op">}</span></span>
+<span id="cb87-23"><a href="#cb87-23"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 <div class="ui message blue">
 <div class="header">
 Question
 </div>
 <p>Écrire une fonction <code>void libere(arbre a)</code> qui libère tous les nœuds de l’arbre <code>a</code>. On fera attention à l’ordre des libérations avec <code>free</code> par rapport aux déréférencements de structure (les <code>-&gt;</code>).</p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb88-1"><a href="#cb88-1"></a><span class="dt">void</span> libere<span class="op">(</span>arbre a<span class="op">)</span></span>
+<span id="cb88-2"><a href="#cb88-2"></a><span class="op">{</span></span>
+<span id="cb88-3"><a href="#cb88-3"></a>    <span class="cf">if</span> <span class="op">(</span>a <span class="op">!=</span> NULL<span class="op">)</span></span>
+<span id="cb88-4"><a href="#cb88-4"></a>    <span class="op">{</span></span>
+<span id="cb88-5"><a href="#cb88-5"></a>        libere<span class="op">(</span>a<span class="op">-&gt;</span>gauche<span class="op">);</span></span>
+<span id="cb88-6"><a href="#cb88-6"></a>        libere<span class="op">(</span>a<span class="op">-&gt;</span>droite<span class="op">);</span></span>
+<span id="cb88-7"><a href="#cb88-7"></a>        free<span class="op">(</span>a<span class="op">);</span></span>
+<span id="cb88-8"><a href="#cb88-8"></a>    <span class="op">}</span></span>
+<span id="cb88-9"><a href="#cb88-9"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 <h3 data-number="6.4.2" id="sec:arbres-binaires-de-recherche-1"><span class="header-section-number">6.4.2</span> Arbres binaires de recherche</h3>
 <p>On conserve le type précédent, mais on considère maintenant qu’on a des arbres binaires de recherche.</p>
 <div class="ui message blue">
@@ -1888,34 +2022,108 @@ Question
 </div>
 <p>Écrire une fonction <code>arbre recherche(arbre a, int x)</code> qui renvoie le premier nœud rencontré d’étiquette <code>x</code> dans un ABR ou <code>NULL</code> s’il n’est pas présent.</p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb89-1"><a href="#cb89-1"></a>arbre recherche<span class="op">(</span>arbre a<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
+<span id="cb89-2"><a href="#cb89-2"></a><span class="op">{</span></span>
+<span id="cb89-3"><a href="#cb89-3"></a>    <span class="cf">if</span> <span class="op">(</span>a <span class="op">==</span> NULL<span class="op">)</span></span>
+<span id="cb89-4"><a href="#cb89-4"></a>        <span class="cf">return</span> NULL<span class="op">;</span></span>
+<span id="cb89-5"><a href="#cb89-5"></a>    <span class="cf">if</span> <span class="op">(</span>a<span class="op">-&gt;</span>valeur <span class="op">==</span> x<span class="op">)</span></span>
+<span id="cb89-6"><a href="#cb89-6"></a>        <span class="cf">return</span> a<span class="op">;</span></span>
+<span id="cb89-7"><a href="#cb89-7"></a>    <span class="cf">if</span> <span class="op">(</span>a<span class="op">-&gt;</span>valeur <span class="op">&lt;</span> x<span class="op">)</span></span>
+<span id="cb89-8"><a href="#cb89-8"></a>        <span class="cf">return</span> recherche<span class="op">(</span>a<span class="op">-&gt;</span>droite<span class="op">,</span> x<span class="op">);</span></span>
+<span id="cb89-9"><a href="#cb89-9"></a>    <span class="cf">return</span> recherche<span class="op">(</span>a<span class="op">-&gt;</span>gauche<span class="op">,</span> x<span class="op">);</span></span>
+<span id="cb89-10"><a href="#cb89-10"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 <div class="ui message blue">
 <div class="header">
 Question
 </div>
 <p>Écrire une fonction <code>arbre insere(arbre a, int x)</code> qui renvoie la racine de l’ABR obtenu en insérant une nouvelle feuille d’étiquette <code>x</code>.</p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb90-1"><a href="#cb90-1"></a>arbre insere<span class="op">(</span>arbre a<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
+<span id="cb90-2"><a href="#cb90-2"></a><span class="op">{</span></span>
+<span id="cb90-3"><a href="#cb90-3"></a>    <span class="cf">if</span> <span class="op">(</span>a <span class="op">==</span> NULL<span class="op">)</span></span>
+<span id="cb90-4"><a href="#cb90-4"></a>        <span class="cf">return</span> cree_feuille<span class="op">(</span>x<span class="op">);</span></span>
+<span id="cb90-5"><a href="#cb90-5"></a></span>
+<span id="cb90-6"><a href="#cb90-6"></a>    <span class="cf">if</span> <span class="op">(</span>a<span class="op">-&gt;</span>valeur <span class="op">&gt;=</span> x<span class="op">)</span></span>
+<span id="cb90-7"><a href="#cb90-7"></a>    <span class="op">{</span></span>
+<span id="cb90-8"><a href="#cb90-8"></a>        a<span class="op">-&gt;</span>gauche <span class="op">=</span> insere<span class="op">(</span>a<span class="op">-&gt;</span>gauche<span class="op">,</span> x<span class="op">);</span></span>
+<span id="cb90-9"><a href="#cb90-9"></a>    <span class="op">}</span></span>
+<span id="cb90-10"><a href="#cb90-10"></a>    <span class="cf">else</span></span>
+<span id="cb90-11"><a href="#cb90-11"></a>    <span class="op">{</span></span>
+<span id="cb90-12"><a href="#cb90-12"></a>        a<span class="op">-&gt;</span>droite <span class="op">=</span> insere<span class="op">(</span>a<span class="op">-&gt;</span>droite<span class="op">,</span> x<span class="op">);</span></span>
+<span id="cb90-13"><a href="#cb90-13"></a>    <span class="op">}</span></span>
+<span id="cb90-14"><a href="#cb90-14"></a></span>
+<span id="cb90-15"><a href="#cb90-15"></a>    <span class="cf">return</span> a<span class="op">;</span></span>
+<span id="cb90-16"><a href="#cb90-16"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 <div class="ui message blue">
 <div class="header">
 Question
 </div>
 <p>Écrire une fonction <code>arbre minimum(arbre a)</code> qui renvoie le nœud de valeur minimale de <code>a</code> en allant le plus à gauche dans l’arbre <code>a</code>. On supposera <code>a</code> non vide.</p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb91-1"><a href="#cb91-1"></a>arbre minimum<span class="op">(</span>arbre a<span class="op">)</span></span>
+<span id="cb91-2"><a href="#cb91-2"></a><span class="op">{</span></span>
+<span id="cb91-3"><a href="#cb91-3"></a>    <span class="cf">if</span> <span class="op">(</span>a<span class="op">-&gt;</span>gauche <span class="op">==</span> NULL<span class="op">)</span></span>
+<span id="cb91-4"><a href="#cb91-4"></a>        <span class="cf">return</span> a<span class="op">;</span></span>
+<span id="cb91-5"><a href="#cb91-5"></a>    <span class="cf">return</span> minimum<span class="op">(</span>a<span class="op">-&gt;</span>gauche<span class="op">);</span></span>
+<span id="cb91-6"><a href="#cb91-6"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 <div class="ui message blue">
 <div class="header">
 Question
 </div>
 <p><em>(Optionnel en première lecture)</em> Écrire une fonction <code>arbre supprime(arbre a, int x)</code> qui renvoie la racine de l’ABR obtenu en supprimant le premier nœud rencontré d’étiquette <code>x</code>.</p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb92-1"><a href="#cb92-1"></a>arbre supprime<span class="op">(</span>arbre a<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
+<span id="cb92-2"><a href="#cb92-2"></a><span class="op">{</span></span>
+<span id="cb92-3"><a href="#cb92-3"></a>    <span class="cf">if</span> <span class="op">(</span>a <span class="op">==</span> NULL<span class="op">)</span></span>
+<span id="cb92-4"><a href="#cb92-4"></a>        <span class="cf">return</span> a<span class="op">;</span></span>
+<span id="cb92-5"><a href="#cb92-5"></a>    <span class="cf">if</span> <span class="op">(</span>a<span class="op">-&gt;</span>valeur <span class="op">==</span> x<span class="op">)</span></span>
+<span id="cb92-6"><a href="#cb92-6"></a>    <span class="op">{</span></span>
+<span id="cb92-7"><a href="#cb92-7"></a>        <span class="cf">if</span> <span class="op">(</span>a<span class="op">-&gt;</span>gauche <span class="op">==</span> NULL <span class="op">&amp;&amp;</span> a<span class="op">-&gt;</span>droite <span class="op">==</span> NULL<span class="op">)</span></span>
+<span id="cb92-8"><a href="#cb92-8"></a>        <span class="op">{</span></span>
+<span id="cb92-9"><a href="#cb92-9"></a>            free<span class="op">(</span>a<span class="op">);</span></span>
+<span id="cb92-10"><a href="#cb92-10"></a>            <span class="cf">return</span> NULL<span class="op">;</span></span>
+<span id="cb92-11"><a href="#cb92-11"></a>        <span class="op">}</span></span>
+<span id="cb92-12"><a href="#cb92-12"></a>        arbre min_a <span class="op">=</span> minimum<span class="op">(</span>a<span class="op">);</span></span>
+<span id="cb92-13"><a href="#cb92-13"></a>        <span class="cf">if</span> <span class="op">(</span>min_a <span class="op">==</span> a<span class="op">)</span></span>
+<span id="cb92-14"><a href="#cb92-14"></a>        <span class="op">{</span></span>
+<span id="cb92-15"><a href="#cb92-15"></a>            arbre a_p <span class="op">=</span> a<span class="op">-&gt;</span>droite<span class="op">;</span></span>
+<span id="cb92-16"><a href="#cb92-16"></a>            free<span class="op">(</span>a<span class="op">);</span></span>
+<span id="cb92-17"><a href="#cb92-17"></a>            <span class="cf">return</span> a_p<span class="op">;</span></span>
+<span id="cb92-18"><a href="#cb92-18"></a>        <span class="op">}</span></span>
+<span id="cb92-19"><a href="#cb92-19"></a>        <span class="dt">int</span> min_a_valeur <span class="op">=</span> min_a<span class="op">-&gt;</span>valeur<span class="op">;</span></span>
+<span id="cb92-20"><a href="#cb92-20"></a>        supprime<span class="op">(</span>a<span class="op">,</span> min_a_valeur<span class="op">);</span></span>
+<span id="cb92-21"><a href="#cb92-21"></a>        a<span class="op">-&gt;</span>valeur <span class="op">=</span> min_a_valeur<span class="op">;</span></span>
+<span id="cb92-22"><a href="#cb92-22"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb92-23"><a href="#cb92-23"></a>        <span class="cf">if</span> <span class="op">(</span>a<span class="op">-&gt;</span>valeur <span class="op">&gt;</span> x<span class="op">)</span></span>
+<span id="cb92-24"><a href="#cb92-24"></a>            a<span class="op">-&gt;</span>gauche <span class="op">=</span> supprime<span class="op">(</span>a<span class="op">-&gt;</span>gauche<span class="op">,</span> x<span class="op">);</span></span>
+<span id="cb92-25"><a href="#cb92-25"></a>        <span class="cf">else</span></span>
+<span id="cb92-26"><a href="#cb92-26"></a>            a<span class="op">-&gt;</span>droite <span class="op">=</span> supprime<span class="op">(</span>a<span class="op">-&gt;</span>droite<span class="op">,</span> x<span class="op">);</span></span>
+<span id="cb92-27"><a href="#cb92-27"></a>    <span class="op">}</span></span>
+<span id="cb92-28"><a href="#cb92-28"></a></span>
+<span id="cb92-29"><a href="#cb92-29"></a>    <span class="cf">return</span> a<span class="op">;</span></span>
+<span id="cb92-30"><a href="#cb92-30"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 <h3 data-number="6.4.3" id="sec:arbres-rouges-et-noirs-1"><span class="header-section-number">6.4.3</span> Arbres rouges et noirs</h3>
 <p>On va rajouter un champ au type précédent pour indiquer la couleur d’un nœud :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb82-1"><a href="#cb82-1"></a><span class="kw">struct</span> noeud <span class="op">{</span></span>
-<span id="cb82-2"><a href="#cb82-2"></a>    <span class="kw">struct</span> noeud <span class="op">*</span>gauche<span class="op">;</span></span>
-<span id="cb82-3"><a href="#cb82-3"></a>    <span class="kw">struct</span> noeud <span class="op">*</span>droite<span class="op">;</span></span>
-<span id="cb82-4"><a href="#cb82-4"></a>    <span class="dt">bool</span> rouge<span class="op">;</span></span>
-<span id="cb82-5"><a href="#cb82-5"></a>    <span class="dt">int</span> valeur<span class="op">;</span></span>
-<span id="cb82-6"><a href="#cb82-6"></a><span class="op">};</span></span>
-<span id="cb82-7"><a href="#cb82-7"></a><span class="kw">typedef</span> <span class="kw">struct</span> noeud <span class="op">*</span>arbre<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb93-1"><a href="#cb93-1"></a><span class="kw">struct</span> noeud <span class="op">{</span></span>
+<span id="cb93-2"><a href="#cb93-2"></a>    <span class="kw">struct</span> noeud <span class="op">*</span>gauche<span class="op">;</span></span>
+<span id="cb93-3"><a href="#cb93-3"></a>    <span class="kw">struct</span> noeud <span class="op">*</span>droite<span class="op">;</span></span>
+<span id="cb93-4"><a href="#cb93-4"></a>    <span class="dt">bool</span> rouge<span class="op">;</span></span>
+<span id="cb93-5"><a href="#cb93-5"></a>    <span class="dt">int</span> valeur<span class="op">;</span></span>
+<span id="cb93-6"><a href="#cb93-6"></a><span class="op">};</span></span>
+<span id="cb93-7"><a href="#cb93-7"></a><span class="kw">typedef</span> <span class="kw">struct</span> noeud <span class="op">*</span>arbre<span class="op">;</span></span></code></pre></div>
 <p></div></p>
 <p>On vous conseille ici de copier le fichier précédent et de faire un nouveau programme.</p>
 <div class="ui message blue">
@@ -1924,30 +2132,127 @@ Question
 </div>
 <p>Reprendre <code>cree_feuille</code> pour que les feuilles soient rouges par défaut.</p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb94-1"><a href="#cb94-1"></a>arbre cree_noeud<span class="op">(</span><span class="dt">int</span> x<span class="op">)</span></span>
+<span id="cb94-2"><a href="#cb94-2"></a><span class="op">{</span></span>
+<span id="cb94-3"><a href="#cb94-3"></a>    arbre n <span class="op">=</span> malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span><span class="kw">struct</span> noeud<span class="op">));</span></span>
+<span id="cb94-4"><a href="#cb94-4"></a>    n<span class="op">-&gt;</span>valeur <span class="op">=</span> x<span class="op">;</span></span>
+<span id="cb94-5"><a href="#cb94-5"></a>    n<span class="op">-&gt;</span>rouge <span class="op">=</span> true<span class="op">;</span></span>
+<span id="cb94-6"><a href="#cb94-6"></a>    n<span class="op">-&gt;</span>gauche <span class="op">=</span> n<span class="op">-&gt;</span>droite <span class="op">=</span> NULL<span class="op">;</span></span>
+<span id="cb94-7"><a href="#cb94-7"></a>    <span class="cf">return</span> n<span class="op">;</span></span>
+<span id="cb94-8"><a href="#cb94-8"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 <div class="ui message blue">
 <div class="header">
 Question
 </div>
 <p>Écrire des fonctions <code>arbre rotation_droite(arbre a)</code>, <code>arbre rotation_gauche(arbre a)</code> et <code>arbre bascule(arbre a)</code> qui effectuent une des trois opérations en renvoyant la nouvelle racine.</p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb95-1"><a href="#cb95-1"></a>arbre rotation_droite<span class="op">(</span>arbre x<span class="op">)</span></span>
+<span id="cb95-2"><a href="#cb95-2"></a><span class="op">{</span></span>
+<span id="cb95-3"><a href="#cb95-3"></a>    arbre y <span class="op">=</span> x<span class="op">-&gt;</span>gauche<span class="op">;</span></span>
+<span id="cb95-4"><a href="#cb95-4"></a>    x<span class="op">-&gt;</span>gauche <span class="op">=</span> y<span class="op">-&gt;</span>droite<span class="op">;</span></span>
+<span id="cb95-5"><a href="#cb95-5"></a>    y<span class="op">-&gt;</span>droite <span class="op">=</span> x<span class="op">;</span></span>
+<span id="cb95-6"><a href="#cb95-6"></a>    y<span class="op">-&gt;</span>rouge <span class="op">=</span> x<span class="op">-&gt;</span>rouge<span class="op">;</span></span>
+<span id="cb95-7"><a href="#cb95-7"></a>    x<span class="op">-&gt;</span>rouge <span class="op">=</span> true<span class="op">;</span></span>
+<span id="cb95-8"><a href="#cb95-8"></a>    <span class="cf">return</span> y<span class="op">;</span></span>
+<span id="cb95-9"><a href="#cb95-9"></a><span class="op">}</span></span>
+<span id="cb95-10"><a href="#cb95-10"></a></span>
+<span id="cb95-11"><a href="#cb95-11"></a>arbre rotation_gauche<span class="op">(</span>arbre y<span class="op">)</span></span>
+<span id="cb95-12"><a href="#cb95-12"></a><span class="op">{</span></span>
+<span id="cb95-13"><a href="#cb95-13"></a>    arbre x <span class="op">=</span> y<span class="op">-&gt;</span>droite<span class="op">;</span></span>
+<span id="cb95-14"><a href="#cb95-14"></a>    y<span class="op">-&gt;</span>droite <span class="op">=</span> x<span class="op">-&gt;</span>gauche<span class="op">;</span></span>
+<span id="cb95-15"><a href="#cb95-15"></a>    x<span class="op">-&gt;</span>gauche <span class="op">=</span> y<span class="op">;</span></span>
+<span id="cb95-16"><a href="#cb95-16"></a>    x<span class="op">-&gt;</span>rouge <span class="op">=</span> y<span class="op">-&gt;</span>rouge<span class="op">;</span></span>
+<span id="cb95-17"><a href="#cb95-17"></a>    y<span class="op">-&gt;</span>rouge <span class="op">=</span> true<span class="op">;</span></span>
+<span id="cb95-18"><a href="#cb95-18"></a>    <span class="cf">return</span> x<span class="op">;</span></span>
+<span id="cb95-19"><a href="#cb95-19"></a><span class="op">}</span></span>
+<span id="cb95-20"><a href="#cb95-20"></a></span>
+<span id="cb95-21"><a href="#cb95-21"></a>arbre bascule<span class="op">(</span>arbre a<span class="op">)</span></span>
+<span id="cb95-22"><a href="#cb95-22"></a><span class="op">{</span></span>
+<span id="cb95-23"><a href="#cb95-23"></a>    a<span class="op">-&gt;</span>rouge <span class="op">=</span> true<span class="op">;</span></span>
+<span id="cb95-24"><a href="#cb95-24"></a>    a<span class="op">-&gt;</span>gauche<span class="op">-&gt;</span>rouge <span class="op">=</span> false<span class="op">;</span></span>
+<span id="cb95-25"><a href="#cb95-25"></a>    a<span class="op">-&gt;</span>droite<span class="op">-&gt;</span>rouge <span class="op">=</span> false<span class="op">;</span></span>
+<span id="cb95-26"><a href="#cb95-26"></a>    <span class="cf">return</span> a<span class="op">;</span></span>
+<span id="cb95-27"><a href="#cb95-27"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 <div class="ui message blue">
 <div class="header">
 Question
 </div>
 <p>Écrire des fonctions utilitaires <code>bool rouge(arbre a)</code> et <code>bool noir(arbre a)</code> qui teste la couleur de la racine. On fera attention au fait que l’arbre vide est noir.</p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb96-1"><a href="#cb96-1"></a><span class="dt">bool</span> rouge<span class="op">(</span>arbre a<span class="op">)</span></span>
+<span id="cb96-2"><a href="#cb96-2"></a><span class="op">{</span></span>
+<span id="cb96-3"><a href="#cb96-3"></a>    <span class="cf">if</span> <span class="op">(</span>a <span class="op">==</span> NULL<span class="op">)</span> <span class="cf">return</span> false<span class="op">;</span></span>
+<span id="cb96-4"><a href="#cb96-4"></a>    <span class="cf">return</span> a<span class="op">-&gt;</span>rouge<span class="op">;</span></span>
+<span id="cb96-5"><a href="#cb96-5"></a><span class="op">}</span></span>
+<span id="cb96-6"><a href="#cb96-6"></a></span>
+<span id="cb96-7"><a href="#cb96-7"></a><span class="dt">bool</span> noir<span class="op">(</span>arbre a<span class="op">)</span></span>
+<span id="cb96-8"><a href="#cb96-8"></a><span class="op">{</span></span>
+<span id="cb96-9"><a href="#cb96-9"></a>    <span class="cf">return</span> <span class="op">!</span>rouge<span class="op">(</span>a<span class="op">);</span></span>
+<span id="cb96-10"><a href="#cb96-10"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 <div class="ui message blue">
 <div class="header">
 Question
 </div>
 <p>Écrire des fonctions <code>arbre essai_rotgauche(arbre a)</code>, <code>essai_rotdroite</code> et <code>essai_bascule</code> qui n’effectuent ces opérations que dans les cas nécessaires pour l’insertion.</p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb97-1"><a href="#cb97-1"></a>arbre essai_bascule<span class="op">(</span>arbre a<span class="op">)</span></span>
+<span id="cb97-2"><a href="#cb97-2"></a><span class="op">{</span></span>
+<span id="cb97-3"><a href="#cb97-3"></a>    <span class="cf">if</span><span class="op">(</span>rouge<span class="op">(</span>a<span class="op">-&gt;</span>gauche<span class="op">)</span> <span class="op">&amp;&amp;</span> rouge<span class="op">(</span>a<span class="op">-&gt;</span>droite<span class="op">))</span></span>
+<span id="cb97-4"><a href="#cb97-4"></a>        <span class="cf">return</span> bascule<span class="op">(</span>a<span class="op">);</span></span>
+<span id="cb97-5"><a href="#cb97-5"></a>    <span class="cf">return</span> a<span class="op">;</span></span>
+<span id="cb97-6"><a href="#cb97-6"></a><span class="op">}</span></span>
+<span id="cb97-7"><a href="#cb97-7"></a></span>
+<span id="cb97-8"><a href="#cb97-8"></a>arbre essai_rotgauche<span class="op">(</span>arbre a<span class="op">)</span></span>
+<span id="cb97-9"><a href="#cb97-9"></a><span class="op">{</span></span>
+<span id="cb97-10"><a href="#cb97-10"></a>    <span class="cf">if</span><span class="op">(</span>rouge<span class="op">(</span>a<span class="op">-&gt;</span>droite<span class="op">)</span> <span class="op">&amp;&amp;</span> rouge<span class="op">(</span>a<span class="op">-&gt;</span>droite<span class="op">-&gt;</span>droite<span class="op">))</span></span>
+<span id="cb97-11"><a href="#cb97-11"></a>        <span class="cf">return</span> rotation_gauche<span class="op">(</span>a<span class="op">);</span></span>
+<span id="cb97-12"><a href="#cb97-12"></a>    <span class="cf">return</span> a<span class="op">;</span></span>
+<span id="cb97-13"><a href="#cb97-13"></a><span class="op">}</span></span>
+<span id="cb97-14"><a href="#cb97-14"></a></span>
+<span id="cb97-15"><a href="#cb97-15"></a>arbre essai_rotdroite<span class="op">(</span>arbre a<span class="op">)</span></span>
+<span id="cb97-16"><a href="#cb97-16"></a><span class="op">{</span></span>
+<span id="cb97-17"><a href="#cb97-17"></a>    <span class="cf">if</span><span class="op">(</span>rouge<span class="op">(</span>a<span class="op">-&gt;</span>gauche<span class="op">)</span> <span class="op">&amp;&amp;</span> noir<span class="op">(</span>a<span class="op">-&gt;</span>droite<span class="op">))</span></span>
+<span id="cb97-18"><a href="#cb97-18"></a>        <span class="cf">return</span> rotation_droite<span class="op">(</span>a<span class="op">);</span></span>
+<span id="cb97-19"><a href="#cb97-19"></a>    <span class="cf">return</span> a<span class="op">;</span></span>
+<span id="cb97-20"><a href="#cb97-20"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 <div class="ui message blue">
 <div class="header">
 Question
 </div>
 <p>En déduire une fonction <code>arbre insere(arbre a, int x)</code> qui effectue l’insertion dans un arbre rouge et noir. On pourra définir une fonction auxiliaire <code>arbre insere_aux(arbre a, int x)</code> qui effectue l’insertion et qu’on appellera dans <code>insere</code> avant de faire le noircissement final de la racine.</p>
 </div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb98-1"><a href="#cb98-1"></a>arbre insere_aux<span class="op">(</span>arbre a<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
+<span id="cb98-2"><a href="#cb98-2"></a><span class="op">{</span></span>
+<span id="cb98-3"><a href="#cb98-3"></a>    <span class="cf">if</span> <span class="op">(</span>a <span class="op">==</span> NULL<span class="op">)</span></span>
+<span id="cb98-4"><a href="#cb98-4"></a>        <span class="cf">return</span> cree_noeud<span class="op">(</span>x<span class="op">);</span></span>
+<span id="cb98-5"><a href="#cb98-5"></a>    <span class="cf">if</span> <span class="op">(</span>a<span class="op">-&gt;</span>valeur <span class="op">&gt;</span> x<span class="op">)</span></span>
+<span id="cb98-6"><a href="#cb98-6"></a>        a<span class="op">-&gt;</span>gauche <span class="op">=</span> insere_aux<span class="op">(</span>a<span class="op">-&gt;</span>gauche<span class="op">,</span> x<span class="op">);</span></span>
+<span id="cb98-7"><a href="#cb98-7"></a>    <span class="cf">else</span></span>
+<span id="cb98-8"><a href="#cb98-8"></a>        a<span class="op">-&gt;</span>droite <span class="op">=</span> insere_aux<span class="op">(</span>a<span class="op">-&gt;</span>droite<span class="op">,</span> x<span class="op">);</span></span>
+<span id="cb98-9"><a href="#cb98-9"></a>    <span class="cf">return</span> essai_bascule<span class="op">(</span>essai_rotgauche<span class="op">(</span>essai_rotdroite<span class="op">(</span>a<span class="op">)));</span></span>
+<span id="cb98-10"><a href="#cb98-10"></a><span class="op">}</span></span>
+<span id="cb98-11"><a href="#cb98-11"></a></span>
+<span id="cb98-12"><a href="#cb98-12"></a>arbre insere<span class="op">(</span>arbre a<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
+<span id="cb98-13"><a href="#cb98-13"></a><span class="op">{</span></span>
+<span id="cb98-14"><a href="#cb98-14"></a>    arbre a2 <span class="op">=</span> insere_aux<span class="op">(</span>a<span class="op">,</span> x<span class="op">);</span></span>
+<span id="cb98-15"><a href="#cb98-15"></a>    a2<span class="op">-&gt;</span>rouge <span class="op">=</span> false<span class="op">;</span></span>
+<span id="cb98-16"><a href="#cb98-16"></a>    <span class="cf">return</span> a2<span class="op">;</span></span>
+<span id="cb98-17"><a href="#cb98-17"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
 </div>
 <!-- </div> -->
 </div>
