@@ -211,6 +211,11 @@ table td {
     border-right: none;
 }
 
+.ui.styled.accordion {
+    width: 100% !important;
+    font-size: 1rem !important;
+}
+
   .menu .item {
       padding: .5em 1em !important;
   }
@@ -300,7 +305,7 @@ table td {
     </a>
     </div>
 <!-- FIX TOC -->
-<div class="item header"> <a href="#sec:diviser-pour-régner"><span>1</span> Diviser pour régner</a><div class="menu"><a class="item" href="#sec:principe"><div class="ui label">1.1</div> Principe</a><a class="item" href="#sec:tri-fusion"><div class="ui label">1.2</div> Tri fusion</a><a class="item" href="#sec:nombre-dinversions"><div class="ui label">1.3</div> Nombre d’inversions</a><a class="item" href="#sec:points-les-plus-proches"><div class="ui label">1.4</div> Points les plus proches</a><a class="item" href="#sec:sous-ensemble-de-somme-donnée"><div class="ui label">1.5</div> Sous-ensemble de somme donnée</a><a class="item" href="#sec:recherche-dichotomique"><div class="ui label">1.6</div> Recherche dichotomique</a><a class="item" href="#sec:couverture-par-des-segments-égaux"><div class="ui label">1.7</div> Couverture par des segments égaux</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:couverture-par-des-segments-de-longueur-donnée"><i class="circle icon"></i> Couverture par des segments de longueur donnée</a><a style="font-size:0.6em" class="item" href="#sec:longueur-minimale"><i class="circle icon"></i> Longueur minimale</a><a style="font-size:0.6em" class="item" href="#sec:implémentation"><i class="circle icon"></i> Implémentation</a></div></div></div><!-- FIX TOC -->
+<div class="item header"> <a href="#sec:premiers-exemples"><span>1</span> Premiers exemples</a><div class="menu"><a class="item" href="#sec:somme-déléments-dans-un-tableau"><div class="ui label">1.1</div> Somme d’éléments dans un tableau</a><a class="item" href="#sec:tri-fusion"><div class="ui label">1.2</div> Tri fusion</a><a class="item" href="#sec:nombre-dinversions"><div class="ui label">1.3</div> Nombre d’inversions</a><a class="item" href="#sec:points-les-plus-proches"><div class="ui label">1.4</div> Points les plus proches</a><a class="item" href="#sec:sous-ensemble-de-somme-donnée"><div class="ui label">1.5</div> Sous-ensemble de somme donnée</a><a class="item" href="#sec:recherche-dichotomique"><div class="ui label">1.6</div> Recherche dichotomique</a><a class="item" href="#sec:couverture-par-des-segments-égaux"><div class="ui label">1.7</div> Couverture par des segments égaux</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:couverture-par-des-segments-de-longueur-donnée"><i class="circle icon"></i> Couverture par des segments de longueur donnée</a><a style="font-size:0.6em" class="item" href="#sec:longueur-minimale"><i class="circle icon"></i> Longueur minimale</a><a style="font-size:0.6em" class="item" href="#sec:implémentation"><i class="circle icon"></i> Implémentation</a></div></div></div><!-- FIX TOC -->
 </div>
 
 <div class="pusher" id="main-content">
@@ -319,10 +324,53 @@ table td {
 <div class="segment">
 <div class="ui container text">
 <p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Diviser pour regner     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_algo_exacte.png"> </div></p>
-<h1 data-number="1" id="sec:diviser-pour-régner"><span class="header-section-number">1</span> Diviser pour régner</h1>
-<h2 data-number="1.1" id="sec:principe"><span class="header-section-number">1.1</span> Principe</h2>
 <p>Le principe des algorithmes dits <em>Diviser pour régner</em> est de décomposer un problème en plusieurs sous-problèmes disjoints et de déduire des solutions de ces sous-problème une solution au problème de départ.</p>
 <p>Le point clé pour ce principe est de pouvoir <strong>fusionner</strong> les solutions de sous-problèmes pour en faire une solution, et de pouvoir le faire dans un temps/espace raisonnable. On procède alors par récursivité en appliquant ce principe pour résoudre les sous-problèmes eux-mêmes jusqu’à tomber sur des sous-problèmes très simples.</p>
+<p>Ainsi, si on a une entrée <span class="math inline">\(E\)</span>, on va en déduire des entrées <span class="math inline">\(E_1, \dots, E_p\)</span> pour des sous-problèmes tels que <span class="math inline">\(|E_i| \le \lfloor \frac{|E|}{p} \rfloor\)</span>, où <strong><span class="math inline">\(p\)</span> est indépendant de <span class="math inline">\(E\)</span></strong>. Une fois les solutions <span class="math inline">\(S_1, \dots, S_p\)</span> à ces sous-problèmes obtenus par des appels récursifs, on va en déduire par une <strong>fusion</strong> des solutions, la solution <span class="math inline">\(S\)</span> au problème initial.</p>
+<p>En terme de complexité temporelle, si <span class="math inline">\(T(n)\)</span> est la complexité de résolution pour une solution de taille <span class="math inline">\(n\)</span>, on aura : <span class="math display">\[
+T(n) \le p T\left( \left\lfloor \frac{n}{p} \right\rfloor \right) + f(n)
+\]</span> où <span class="math inline">\(f(n)\)</span> est le coût de la fusion.</p>
+<p>On ne donnera pas ici de théorème général permettant d’exprimer <span class="math inline">\(T(n)\)</span> selon les différentes valeurs de <span class="math inline">\(f(n)\)</span>, on se contentera de faire des preuves dans des cas particuliers.</p>
+<h1 data-number="1" id="sec:premiers-exemples"><span class="header-section-number">1</span> Premiers exemples</h1>
+<h2 data-number="1.1" id="sec:somme-déléments-dans-un-tableau"><span class="header-section-number">1.1</span> Somme d’éléments dans un tableau</h2>
+<p>On considère un tableau <span class="math inline">\(t\)</span> de <span class="math inline">\(n\)</span> nombres dont on cherche à calculer la somme <span class="math inline">\(S(t) = \sum_{i=0}^{n-1} t[i]\)</span>. Il est possible de faire ce calcul très aisément avec une simple boucle :</p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-39">ocaml</a>   <a class="item" data-tab="c-39">c</a>   <a class="item" data-tab="python-39">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-39"></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> somme t =</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> s = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> <span class="dt">Array</span>.length t - <span class="dv">1</span> <span class="kw">do</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        s := !s + t.(i)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    !s</span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-39"></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> somme<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>t<span class="op">,</span> <span class="dt">size_t</span> nb<span class="op">)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> s <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> nb<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        s <span class="op">=</span> s <span class="op">+</span> t<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s<span class="op">;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-39"></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> somme(t):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x <span class="kw">in</span> t:</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        s <span class="op">=</span> s <span class="op">+</span> x</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s</span></code></pre></div>
+<p></div> </div></p>
+<p>Il est possible, bien que cela ne soit pas naturel, de traiter ce problème avec un algorithme <em>diviser pour régner</em>. En effet, on peut couper le tableau en deux, calculer les deux sous-sommes <span class="math inline">\(S_1\)</span> et <span class="math inline">\(S_2\)</span>, puis les fusionner de manière triviale en calculant la somme <span class="math inline">\(S = S_1+S_2\)</span>.</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">let</span> <span class="kw">rec</span> somme_div t i j =</span>
+<span id="cb4-2"><a href="#cb4-2"></a>    <span class="kw">if</span> i = j</span>
+<span id="cb4-3"><a href="#cb4-3"></a>    <span class="kw">then</span> t.(i)</span>
+<span id="cb4-4"><a href="#cb4-4"></a>    <span class="kw">else</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>        <span class="kw">let</span> m = i + (j-i)/<span class="dv">2</span> <span class="kw">in</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>        <span class="kw">let</span> s1 = somme_div t i m <span class="kw">in</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>        <span class="kw">let</span> s2 = somme_div t (m+<span class="dv">1</span>) j <span class="kw">in</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>        s1 + s2</span>
+<span id="cb4-9"><a href="#cb4-9"></a></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="kw">let</span> somme t = somme_div t <span class="dv">0</span> (<span class="dt">Array</span>.length t - <span class="dv">1</span>)</span></code></pre></div>
+<p></div></p>
 <h2 data-number="1.2" id="sec:tri-fusion"><span class="header-section-number">1.2</span> Tri fusion</h2>
 <p>L’algorithme du tri fusion est un des exemples les plus important d’algorithmes <em>Diviser pour régner</em> :</p>
 <ul>
@@ -334,32 +382,32 @@ table td {
 <p><div class="ui message blue"><div class="header">Note</div>TODO : dessin</div></p>
 <p>Voici une implémentation en <code>OCaml</code> de cet algorithme :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">let</span> <span class="kw">rec</span> separe_en_deux l =</span>
-<span id="cb1-2"><a href="#cb1-2"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a>    | [] -&gt; ([], [])</span>
-<span id="cb1-4"><a href="#cb1-4"></a>    | [x] -&gt; ([x], [])</span>
-<span id="cb1-5"><a href="#cb1-5"></a>    | x::y::q -&gt; <span class="kw">let</span> l1, l2 = separe_en_deux q <span class="kw">in</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a>        (x::l1, y::l2)</span>
-<span id="cb1-7"><a href="#cb1-7"></a></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="kw">let</span> <span class="kw">rec</span> fusionne l1 l2 =</span>
-<span id="cb1-9"><a href="#cb1-9"></a>    <span class="kw">match</span> l1, l2 <span class="kw">with</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a>    | [], _ -&gt; l2</span>
-<span id="cb1-11"><a href="#cb1-11"></a>    | _, [] -&gt; l1</span>
-<span id="cb1-12"><a href="#cb1-12"></a>    | x::q1, y::q2 -&gt;</span>
-<span id="cb1-13"><a href="#cb1-13"></a>        <span class="kw">if</span> x &lt; y</span>
-<span id="cb1-14"><a href="#cb1-14"></a>        <span class="kw">then</span> x :: (fusionne q1 l2)</span>
-<span id="cb1-15"><a href="#cb1-15"></a>        <span class="kw">else</span> y :: (fusionne l1 q2)</span>
-<span id="cb1-16"><a href="#cb1-16"></a></span>
-<span id="cb1-17"><a href="#cb1-17"></a><span class="kw">let</span> <span class="kw">rec</span> tri_fusion l =</span>
-<span id="cb1-18"><a href="#cb1-18"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
-<span id="cb1-19"><a href="#cb1-19"></a>    | [] -&gt; []</span>
-<span id="cb1-20"><a href="#cb1-20"></a>    | [x] -&gt; [x]</span>
-<span id="cb1-21"><a href="#cb1-21"></a>    | _ -&gt; </span>
-<span id="cb1-22"><a href="#cb1-22"></a>        <span class="kw">let</span> l1, l2 = separe_en_deux l <span class="kw">in</span></span>
-<span id="cb1-23"><a href="#cb1-23"></a>        <span class="kw">let</span> l1p = tri_fusion l1 <span class="kw">in</span></span>
-<span id="cb1-24"><a href="#cb1-24"></a>        <span class="kw">let</span> l2p = tri_fusion l2 <span class="kw">in</span></span>
-<span id="cb1-25"><a href="#cb1-25"></a>        fusionne l1p l2p</span>
-<span id="cb1-26"><a href="#cb1-26"></a></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">let</span> <span class="kw">rec</span> separe_en_deux l =</span>
+<span id="cb5-2"><a href="#cb5-2"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>    | [] -&gt; ([], [])</span>
+<span id="cb5-4"><a href="#cb5-4"></a>    | [x] -&gt; ([x], [])</span>
+<span id="cb5-5"><a href="#cb5-5"></a>    | x::y::q -&gt; <span class="kw">let</span> l1, l2 = separe_en_deux q <span class="kw">in</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>        (x::l1, y::l2)</span>
+<span id="cb5-7"><a href="#cb5-7"></a></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="kw">let</span> <span class="kw">rec</span> fusionne l1 l2 =</span>
+<span id="cb5-9"><a href="#cb5-9"></a>    <span class="kw">match</span> l1, l2 <span class="kw">with</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a>    | [], _ -&gt; l2</span>
+<span id="cb5-11"><a href="#cb5-11"></a>    | _, [] -&gt; l1</span>
+<span id="cb5-12"><a href="#cb5-12"></a>    | x::q1, y::q2 -&gt;</span>
+<span id="cb5-13"><a href="#cb5-13"></a>        <span class="kw">if</span> x &lt; y</span>
+<span id="cb5-14"><a href="#cb5-14"></a>        <span class="kw">then</span> x :: (fusionne q1 l2)</span>
+<span id="cb5-15"><a href="#cb5-15"></a>        <span class="kw">else</span> y :: (fusionne l1 q2)</span>
+<span id="cb5-16"><a href="#cb5-16"></a></span>
+<span id="cb5-17"><a href="#cb5-17"></a><span class="kw">let</span> <span class="kw">rec</span> tri_fusion l =</span>
+<span id="cb5-18"><a href="#cb5-18"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a>    | [] -&gt; []</span>
+<span id="cb5-20"><a href="#cb5-20"></a>    | [x] -&gt; [x]</span>
+<span id="cb5-21"><a href="#cb5-21"></a>    | _ -&gt; </span>
+<span id="cb5-22"><a href="#cb5-22"></a>        <span class="kw">let</span> l1, l2 = separe_en_deux l <span class="kw">in</span></span>
+<span id="cb5-23"><a href="#cb5-23"></a>        <span class="kw">let</span> l1p = tri_fusion l1 <span class="kw">in</span></span>
+<span id="cb5-24"><a href="#cb5-24"></a>        <span class="kw">let</span> l2p = tri_fusion l2 <span class="kw">in</span></span>
+<span id="cb5-25"><a href="#cb5-25"></a>        fusionne l1p l2p</span>
+<span id="cb5-26"><a href="#cb5-26"></a></span></code></pre></div>
 <p></div></p>
 <p>La correction et la terminaison de cet algorithme ne posant aucune difficulté, on va se concentrer sur le calcul de la complexité temporelle :</p>
 <ul>
@@ -393,32 +441,32 @@ Théorème
 <p><div class="ui message orange"><div class="header">Remarque</div>On a utilisé implicitement la croissance de <span class="math inline">\(t_n\)</span> ici : plus la liste est longue, plus on effectue d’opérations.</div></p>
 <p>Le programme suivant présente une implémentation du tri fusion reposant sur des tableaux. Les sous-tableaux sont manipulés à l’aide de leurs indices de début et de fin comme pour la recherche dichotomique.</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">let</span> <span class="kw">rec</span> separe_en_deux l =</span>
-<span id="cb2-2"><a href="#cb2-2"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a>    | [] -&gt; ([], [])</span>
-<span id="cb2-4"><a href="#cb2-4"></a>    | [x] -&gt; ([x], [])</span>
-<span id="cb2-5"><a href="#cb2-5"></a>    | x::y::q -&gt; <span class="kw">let</span> l1, l2 = separe_en_deux q <span class="kw">in</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a>        (x::l1, y::l2)</span>
-<span id="cb2-7"><a href="#cb2-7"></a></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="kw">let</span> <span class="kw">rec</span> fusionne l1 l2 =</span>
-<span id="cb2-9"><a href="#cb2-9"></a>    <span class="kw">match</span> l1, l2 <span class="kw">with</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a>    | [], _ -&gt; l2</span>
-<span id="cb2-11"><a href="#cb2-11"></a>    | _, [] -&gt; l1</span>
-<span id="cb2-12"><a href="#cb2-12"></a>    | x::q1, y::q2 -&gt;</span>
-<span id="cb2-13"><a href="#cb2-13"></a>        <span class="kw">if</span> x &lt; y</span>
-<span id="cb2-14"><a href="#cb2-14"></a>        <span class="kw">then</span> x :: (fusionne q1 l2)</span>
-<span id="cb2-15"><a href="#cb2-15"></a>        <span class="kw">else</span> y :: (fusionne l1 q2)</span>
-<span id="cb2-16"><a href="#cb2-16"></a></span>
-<span id="cb2-17"><a href="#cb2-17"></a><span class="kw">let</span> <span class="kw">rec</span> tri_fusion l =</span>
-<span id="cb2-18"><a href="#cb2-18"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
-<span id="cb2-19"><a href="#cb2-19"></a>    | [] -&gt; []</span>
-<span id="cb2-20"><a href="#cb2-20"></a>    | [x] -&gt; [x]</span>
-<span id="cb2-21"><a href="#cb2-21"></a>    | _ -&gt; </span>
-<span id="cb2-22"><a href="#cb2-22"></a>        <span class="kw">let</span> l1, l2 = separe_en_deux l <span class="kw">in</span></span>
-<span id="cb2-23"><a href="#cb2-23"></a>        <span class="kw">let</span> l1p = tri_fusion l1 <span class="kw">in</span></span>
-<span id="cb2-24"><a href="#cb2-24"></a>        <span class="kw">let</span> l2p = tri_fusion l2 <span class="kw">in</span></span>
-<span id="cb2-25"><a href="#cb2-25"></a>        fusionne l1p l2p</span>
-<span id="cb2-26"><a href="#cb2-26"></a></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">let</span> <span class="kw">rec</span> separe_en_deux l =</span>
+<span id="cb6-2"><a href="#cb6-2"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>    | [] -&gt; ([], [])</span>
+<span id="cb6-4"><a href="#cb6-4"></a>    | [x] -&gt; ([x], [])</span>
+<span id="cb6-5"><a href="#cb6-5"></a>    | x::y::q -&gt; <span class="kw">let</span> l1, l2 = separe_en_deux q <span class="kw">in</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>        (x::l1, y::l2)</span>
+<span id="cb6-7"><a href="#cb6-7"></a></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="kw">let</span> <span class="kw">rec</span> fusionne l1 l2 =</span>
+<span id="cb6-9"><a href="#cb6-9"></a>    <span class="kw">match</span> l1, l2 <span class="kw">with</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a>    | [], _ -&gt; l2</span>
+<span id="cb6-11"><a href="#cb6-11"></a>    | _, [] -&gt; l1</span>
+<span id="cb6-12"><a href="#cb6-12"></a>    | x::q1, y::q2 -&gt;</span>
+<span id="cb6-13"><a href="#cb6-13"></a>        <span class="kw">if</span> x &lt; y</span>
+<span id="cb6-14"><a href="#cb6-14"></a>        <span class="kw">then</span> x :: (fusionne q1 l2)</span>
+<span id="cb6-15"><a href="#cb6-15"></a>        <span class="kw">else</span> y :: (fusionne l1 q2)</span>
+<span id="cb6-16"><a href="#cb6-16"></a></span>
+<span id="cb6-17"><a href="#cb6-17"></a><span class="kw">let</span> <span class="kw">rec</span> tri_fusion l =</span>
+<span id="cb6-18"><a href="#cb6-18"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb6-19"><a href="#cb6-19"></a>    | [] -&gt; []</span>
+<span id="cb6-20"><a href="#cb6-20"></a>    | [x] -&gt; [x]</span>
+<span id="cb6-21"><a href="#cb6-21"></a>    | _ -&gt; </span>
+<span id="cb6-22"><a href="#cb6-22"></a>        <span class="kw">let</span> l1, l2 = separe_en_deux l <span class="kw">in</span></span>
+<span id="cb6-23"><a href="#cb6-23"></a>        <span class="kw">let</span> l1p = tri_fusion l1 <span class="kw">in</span></span>
+<span id="cb6-24"><a href="#cb6-24"></a>        <span class="kw">let</span> l2p = tri_fusion l2 <span class="kw">in</span></span>
+<span id="cb6-25"><a href="#cb6-25"></a>        fusionne l1p l2p</span>
+<span id="cb6-26"><a href="#cb6-26"></a></span></code></pre></div>
 <p></div></p>
 <p><div class="ui message blue"><div class="header">Note</div>TODO : exercice tri avec un tableau et tri <strong>en place</strong></div></p>
 <h2 data-number="1.3" id="sec:nombre-dinversions"><span class="header-section-number">1.3</span> Nombre d’inversions</h2>
@@ -428,19 +476,19 @@ Théorème
 <p><div class="ui message orange"><div class="header">Remarque</div>* Le nombre d’inversions permet de mesurer à quel point <span class="math inline">\(t\)</span> est non triée dans l’ordre croissante. * Ce concept d’inversion est exactement celui utilisé pour les permutations en mathématiques : si <span class="math inline">\(\sigma \in \mathfrak{S}_n\)</span>, il suffit de considérer <span class="math inline">\((\sigma(1),\dots, \sigma(n))\)</span>.</div></p>
 <p>On cherche dans ce paragraphe à calculer <span class="math inline">\(I(t)\)</span> efficacement. Remarquons tout d’abord qu’un algorithme naïf est en <span class="math inline">\(O(n^2)\)</span> où <span class="math inline">\(|t|=n\)</span> en explorant toutes les paires :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1"></a><span class="dt">size_t</span> inversions<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>t<span class="op">,</span> <span class="dt">size_t</span> taille<span class="op">)</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="op">{</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a>    <span class="dt">size_t</span> inv <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> taille<span class="op">;</span> i<span class="op">++)</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a>    <span class="op">{</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> j <span class="op">=</span> i<span class="op">+</span><span class="dv">1</span><span class="op">;</span> j <span class="op">&lt;</span> taille<span class="op">;</span> j<span class="op">++)</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a>        <span class="op">{</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a>            <span class="cf">if</span> <span class="op">(</span>t<span class="op">[</span>i<span class="op">]</span> <span class="op">&gt;</span> t<span class="op">[</span>j<span class="op">])</span> inv<span class="op">++;</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a>        <span class="op">}</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a>    <span class="op">}</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a></span>
-<span id="cb3-12"><a href="#cb3-12"></a>    <span class="cf">return</span> inv<span class="op">;</span></span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1"></a><span class="dt">size_t</span> inversions<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>t<span class="op">,</span> <span class="dt">size_t</span> taille<span class="op">)</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="op">{</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>    <span class="dt">size_t</span> inv <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> taille<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>    <span class="op">{</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">size_t</span> j <span class="op">=</span> i<span class="op">+</span><span class="dv">1</span><span class="op">;</span> j <span class="op">&lt;</span> taille<span class="op">;</span> j<span class="op">++)</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>        <span class="op">{</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a>            <span class="cf">if</span> <span class="op">(</span>t<span class="op">[</span>i<span class="op">]</span> <span class="op">&gt;</span> t<span class="op">[</span>j<span class="op">])</span> inv<span class="op">++;</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a>        <span class="op">}</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a>    <span class="op">}</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a></span>
+<span id="cb7-12"><a href="#cb7-12"></a>    <span class="cf">return</span> inv<span class="op">;</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
 <p>On va maintenant donner un algorithme type <em>Diviser pour régner</em> :</p>
 <ul>
