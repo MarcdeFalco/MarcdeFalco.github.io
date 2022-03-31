@@ -371,6 +371,17 @@ T(n) \le p T\left( \left\lfloor \frac{n}{p} \right\rfloor \right) + f(n)
 <span id="cb4-9"><a href="#cb4-9"></a></span>
 <span id="cb4-10"><a href="#cb4-10"></a><span class="kw">let</span> somme t = somme_div t <span class="dv">0</span> (<span class="dt">Array</span>.length t - <span class="dv">1</span>)</span></code></pre></div>
 <p></div></p>
+<p>Si <span class="math inline">\(T(n)\)</span> est le coût d’une somme d’un tableau à <span class="math inline">\(n\)</span> éléments, on a donc <span class="math inline">\(T(1) = 1\)</span> et <span class="math display">\[
+\forall n\ge 2, T(n) \le 2 T(\lfloor n / 2 \rfloor) + O(1)
+\]</span></p>
+<div class="ui message olive">
+<div class="header">
+Lemme
+</div>
+<p>n , T(2^n) = O(2^n)</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"></p>
+<p></div> </div></p>
 <h2 data-number="1.2" id="sec:tri-fusion"><span class="header-section-number">1.2</span> Tri fusion</h2>
 <p>L’algorithme du tri fusion est un des exemples les plus important d’algorithmes <em>Diviser pour régner</em> :</p>
 <ul>
