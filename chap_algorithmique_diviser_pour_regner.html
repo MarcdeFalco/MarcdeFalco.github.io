@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="Marc de Falco">
 
-    <title>Diviser pour regner</title>
+    <title>Division en sous-problèmes</title>
 
     <link rel="stylesheet" type="text/css" href="assets/semantic.min.css">
     <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
@@ -301,11 +301,11 @@ table td {
     </div>
     <div class="item">
     <a href="#">
-        Diviser pour regner
+        Division en sous-problèmes
     </a>
     </div>
 <!-- FIX TOC -->
-<div class="item header"> <a href="#sec:premiers-exemples"><span>1</span> Premiers exemples</a><div class="menu"><a class="item" href="#sec:somme-déléments-dans-un-tableau"><div class="ui label">1.1</div> Somme d’éléments dans un tableau</a><a class="item" href="#sec:tri-fusion"><div class="ui label">1.2</div> Tri fusion</a><a class="item" href="#sec:nombre-dinversions"><div class="ui label">1.3</div> Nombre d’inversions</a><a class="item" href="#sec:points-les-plus-proches"><div class="ui label">1.4</div> Points les plus proches</a><a class="item" href="#sec:sous-ensemble-de-somme-donnée"><div class="ui label">1.5</div> Sous-ensemble de somme donnée</a><a class="item" href="#sec:recherche-dichotomique"><div class="ui label">1.6</div> Recherche dichotomique</a><a class="item" href="#sec:couverture-par-des-segments-égaux"><div class="ui label">1.7</div> Couverture par des segments égaux</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:couverture-par-des-segments-de-longueur-donnée"><i class="circle icon"></i> Couverture par des segments de longueur donnée</a><a style="font-size:0.6em" class="item" href="#sec:longueur-minimale"><i class="circle icon"></i> Longueur minimale</a><a style="font-size:0.6em" class="item" href="#sec:implémentation"><i class="circle icon"></i> Implémentation</a></div></div></div><!-- FIX TOC -->
+<div class="item header"> <a href="#sec:diviser-pour-régner"><span>1</span> Diviser pour régner</a><div class="menu"><a class="item" href="#sec:principe"><div class="ui label">1.1</div> Principe</a><a class="item" href="#sec:somme-déléments-dans-un-tableau"><div class="ui label">1.2</div> Somme d’éléments dans un tableau</a><a class="item" href="#sec:tri-fusion"><div class="ui label">1.3</div> Tri fusion</a><a class="item" href="#sec:recherche-dichotomique"><div class="ui label">1.4</div> Recherche dichotomique</a></div></div><div class="item header"> <a href="#sec:nombre-dinversions"><span>2</span> Nombre d’inversions</a><div class="menu"><a class="item" href="#sec:points-les-plus-proches"><div class="ui label">2.1</div> Points les plus proches</a></div></div><div class="item header"> <a href="#sec:meet-in-the-middle"><span>3</span> Meet in the middle</a><div class="menu"><a class="item" href="#sec:principe-1"><div class="ui label">3.1</div> Principe</a><a class="item" href="#sec:sous-ensemble-de-somme-donnée"><div class="ui label">3.2</div> Sous-ensemble de somme donnée</a></div></div><div class="item header"> <a href="#sec:dichotomie-pour-passer-de-décision-à-optimisation"><span>4</span> Dichotomie pour passer de décision à optimisation</a><div class="menu"><a class="item" href="#sec:principe-2"><div class="ui label">4.1</div> Principe</a><a class="item" href="#sec:couverture-par-des-segments-égaux"><div class="ui label">4.2</div> Couverture par des segments égaux</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:couverture-par-des-segments-de-longueur-donnée"><i class="circle icon"></i> Couverture par des segments de longueur donnée</a><a style="font-size:0.6em" class="item" href="#sec:longueur-minimale"><i class="circle icon"></i> Longueur minimale</a><a style="font-size:0.6em" class="item" href="#sec:implémentation"><i class="circle icon"></i> Implémentation</a></div></div></div><div class="item header"> <a href="#sec:problèmes"><span>5</span> Problèmes</a><div class="menu"><a class="item" href="#sec:multiplication-dentiers"><div class="ui label">5.1</div> Multiplication d’entiers</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:multiplication-naïve"><i class="circle icon"></i> Multiplication naïve</a><a style="font-size:0.6em" class="item" href="#sec:algorithme-de-karatsuba"><i class="circle icon"></i> Algorithme de Karatsuba</a></div></div></div><!-- FIX TOC -->
 </div>
 
 <div class="pusher" id="main-content">
@@ -315,7 +315,7 @@ table td {
 	    <i class="angle double left icon"></i>
 	  </a>
 	  <div class="item">
-          Diviser pour regner
+          Division en sous-problèmes
 	  </div>
         </div>
       </div>
@@ -323,25 +323,31 @@ table td {
           <!-- <div class="masthead"> -->
 <div class="segment">
 <div class="ui container text">
-<p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Diviser pour regner     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_algo_exacte.png"> </div></p>
-<p>Le principe des algorithmes dits <em>Diviser pour régner</em> est de décomposer un problème en plusieurs sous-problèmes disjoints et de déduire des solutions de ces sous-problème une solution au problème de départ.</p>
+<p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Division en sous-problèmes     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_algo_exacte.png"> </div></p>
+<p>Dans ce chapitre, on étudie des algorithmes ayant la particularité de reposer sur une division d’un problème en plusieurs sous-problèmes :</p>
+<ul>
+<li>soit pour les résoudre récursivement, on parle alors de la méthode <em>diviser pour régner</em></li>
+<li>soit pour résoudre ces sous-problèmes, peut-être d’une manière différente, afin d’obtenir une solution plus efficace au problème principal, on parle de <em>rencontre au milieu</em> (ou <em>meet in the middle</em>)</li>
+</ul>
+<h1 data-number="1" id="sec:diviser-pour-régner"><span class="header-section-number">1</span> Diviser pour régner</h1>
+<h2 data-number="1.1" id="sec:principe"><span class="header-section-number">1.1</span> Principe</h2>
+<p>Le principe des algorithmes basé <em>Diviser pour régner</em> est de décomposer un problème en plusieurs sous-problèmes disjoints et de déduire des solutions de ces sous-problème une solution au problème de départ.</p>
 <p>Le point clé pour ce principe est de pouvoir <strong>fusionner</strong> les solutions de sous-problèmes pour en faire une solution, et de pouvoir le faire dans un temps/espace raisonnable. On procède alors par récursivité en appliquant ce principe pour résoudre les sous-problèmes eux-mêmes jusqu’à tomber sur des sous-problèmes très simples.</p>
 <p>Ainsi, si on a une entrée <span class="math inline">\(E\)</span>, on va en déduire des entrées <span class="math inline">\(E_1, \dots, E_p\)</span> pour des sous-problèmes tels que <span class="math inline">\(|E_i| \le \lfloor \frac{|E|}{p} \rfloor\)</span>, où <strong><span class="math inline">\(p\)</span> est indépendant de <span class="math inline">\(E\)</span></strong>. Une fois les solutions <span class="math inline">\(S_1, \dots, S_p\)</span> à ces sous-problèmes obtenus par des appels récursifs, on va en déduire par une <strong>fusion</strong> des solutions, la solution <span class="math inline">\(S\)</span> au problème initial.</p>
 <p>En terme de complexité temporelle, si <span class="math inline">\(T(n)\)</span> est la complexité de résolution pour une solution de taille <span class="math inline">\(n\)</span>, on aura : <span class="math display">\[
 T(n) \le p T\left( \left\lfloor \frac{n}{p} \right\rfloor \right) + f(n)
 \]</span> où <span class="math inline">\(f(n)\)</span> est le coût de la fusion.</p>
 <p>On ne donnera pas ici de théorème général permettant d’exprimer <span class="math inline">\(T(n)\)</span> selon les différentes valeurs de <span class="math inline">\(f(n)\)</span>, on se contentera de faire des preuves dans des cas particuliers.</p>
-<h1 data-number="1" id="sec:premiers-exemples"><span class="header-section-number">1</span> Premiers exemples</h1>
-<h2 data-number="1.1" id="sec:somme-déléments-dans-un-tableau"><span class="header-section-number">1.1</span> Somme d’éléments dans un tableau</h2>
+<h2 data-number="1.2" id="sec:somme-déléments-dans-un-tableau"><span class="header-section-number">1.2</span> Somme d’éléments dans un tableau</h2>
 <p>On considère un tableau <span class="math inline">\(t\)</span> de <span class="math inline">\(n\)</span> nombres dont on cherche à calculer la somme <span class="math inline">\(S(t) = \sum_{i=0}^{n-1} t[i]\)</span>. Il est possible de faire ce calcul très aisément avec une simple boucle :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-39">ocaml</a>   <a class="item" data-tab="c-39">c</a>   <a class="item" data-tab="python-39">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-39"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-40">ocaml</a>   <a class="item" data-tab="c-40">c</a>   <a class="item" data-tab="python-40">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-40"></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> somme t =</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> s = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> <span class="dt">Array</span>.length t - <span class="dv">1</span> <span class="kw">do</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        s := !s + t.(i)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    !s</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-39"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-40"></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> somme<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>t<span class="op">,</span> <span class="dt">size_t</span> nb<span class="op">)</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> s <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
@@ -351,7 +357,7 @@ T(n) \le p T\left( \left\lfloor \frac{n}{p} \right\rfloor \right) + f(n)
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s<span class="op">;</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-39"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-40"></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> somme(t):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x <span class="kw">in</span> t:</span>
@@ -382,7 +388,7 @@ Lemme
 </div>
 <p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"></p>
 <p></div> </div></p>
-<h2 data-number="1.2" id="sec:tri-fusion"><span class="header-section-number">1.2</span> Tri fusion</h2>
+<h2 data-number="1.3" id="sec:tri-fusion"><span class="header-section-number">1.3</span> Tri fusion</h2>
 <p>L’algorithme du tri fusion est un des exemples les plus important d’algorithmes <em>Diviser pour régner</em> :</p>
 <ul>
 <li>Étant donnée une liste <span class="math inline">\(l\)</span> de taille <span class="math inline">\(n \ge 2\)</span>, on va considérer les sous-listes <span class="math inline">\(l_p\)</span> des valeurs d’indice pair et <span class="math inline">\(l_i\)</span> des valeurs d’indice impair.</li>
@@ -480,7 +486,8 @@ Théorème
 <span id="cb6-26"><a href="#cb6-26"></a></span></code></pre></div>
 <p></div></p>
 <p><div class="ui message blue"><div class="header">Note</div>TODO : exercice tri avec un tableau et tri <strong>en place</strong></div></p>
-<h2 data-number="1.3" id="sec:nombre-dinversions"><span class="header-section-number">1.3</span> Nombre d’inversions</h2>
+<h2 data-number="1.4" id="sec:recherche-dichotomique"><span class="header-section-number">1.4</span> Recherche dichotomique</h2>
+<h1 data-number="2" id="sec:nombre-dinversions"><span class="header-section-number">2</span> Nombre d’inversions</h1>
 <p><div class="ui message"><div class="header">Définition</div> Soit <span class="math inline">\(t\)</span> une structure séquentielle (tableau, liste, ….) contenant des valeurs comparables <span class="math inline">\(a_0, ..., a_{n-1}\)</span> et énumérées dans cet ordre au sein de <span class="math inline">\(t\)</span>.</p>
 <p>Une paire <span class="math inline">\((i,j) \in \range{0}{n-1}^2\)</span> où <span class="math inline">\(i &lt; j\)</span> est appelée une <em>inversion</em> de <span class="math inline">\(t\)</span> lorsque <span class="math inline">\(a_i &gt; a_j\)</span>.</p>
 <p>On note <span class="math inline">\(I(t)\)</span> le nombre d’inversion de <span class="math inline">\(t\)</span>. </div></p>
@@ -514,12 +521,16 @@ Théorème
 <li>On en déduit que <span class="math inline">\(I(t) = I(t_1) + I(t_2) + N(t_1,t_2)\)</span>.</li>
 </ul>
 <p>Pour calculer le nombre d’inversions entre deux tableaux triés <span class="math inline">\(t&#39;_1\)</span> et <span class="math inline">\(t&#39;_2\)</span> on peut utiliser l’algorithme en <span class="math inline">\(O(|t&#39;_1| + |t&#39;_2|)\)</span> suivant : pour <span class="math inline">\(j\)</span> parcourant les indices de <span class="math inline">\(t&#39;_2\)</span>, on cherche le plus petit <span class="math inline">\(i\)</span> tel que <span class="math inline">\(t&#39;_1[i]\)</span>.</p>
-<h2 data-number="1.4" id="sec:points-les-plus-proches"><span class="header-section-number">1.4</span> Points les plus proches</h2>
-<h2 data-number="1.5" id="sec:sous-ensemble-de-somme-donnée"><span class="header-section-number">1.5</span> Sous-ensemble de somme donnée</h2>
-<h2 data-number="1.6" id="sec:recherche-dichotomique"><span class="header-section-number">1.6</span> Recherche dichotomique</h2>
-<h2 data-number="1.7" id="sec:couverture-par-des-segments-égaux"><span class="header-section-number">1.7</span> Couverture par des segments égaux</h2>
+<h2 data-number="2.1" id="sec:points-les-plus-proches"><span class="header-section-number">2.1</span> Points les plus proches</h2>
+<h1 data-number="3" id="sec:meet-in-the-middle"><span class="header-section-number">3</span> Meet in the middle</h1>
+<h2 data-number="3.1" id="sec:principe-1"><span class="header-section-number">3.1</span> Principe</h2>
+<h2 data-number="3.2" id="sec:sous-ensemble-de-somme-donnée"><span class="header-section-number">3.2</span> Sous-ensemble de somme donnée</h2>
+<h1 data-number="4" id="sec:dichotomie-pour-passer-de-décision-à-optimisation"><span class="header-section-number">4</span> Dichotomie pour passer de décision à optimisation</h1>
+<h2 data-number="4.1" id="sec:principe-2"><span class="header-section-number">4.1</span> Principe</h2>
+<h2 data-number="4.2" id="sec:couverture-par-des-segments-égaux"><span class="header-section-number">4.2</span> Couverture par des segments égaux</h2>
+<p><div class="ui message blue"><div class="header">Note</div>Il y a une confusion réel/entiers ici. À reprendre.</div></p>
 <p>On considère ici <span class="math inline">\(n\)</span> points sur la droite réelle. Le <span class="math inline">\(i\)</span>-ème point est identifié par sa coordonnée <span class="math inline">\(x_i\)</span>. On se pose alors, dans un premier temps, la question de savoir si on peut trouver <span class="math inline">\(k\)</span> segments de longueur <span class="math inline">\(l\)</span> tels que chaque point appartienne à au moins un de ces segments. Dans un second temps, on se posera la question de la longueur <span class="math inline">\(l\)</span> minimale de ces segments.</p>
-<h3 data-number="1.7.1" id="sec:couverture-par-des-segments-de-longueur-donnée"><span class="header-section-number">1.7.1</span> Couverture par des segments de longueur donnée</h3>
+<h3 data-number="4.2.1" id="sec:couverture-par-des-segments-de-longueur-donnée"><span class="header-section-number">4.2.1</span> Couverture par des segments de longueur donnée</h3>
 <p>On va ici résoudre le premier problème :</p>
 <div class="ui message gray">
 <div class="header">
@@ -565,7 +576,7 @@ Sortie : Un ensemble <span class="math inline">\(P\)</span> de <span class="math
 <li>on répond avec un succès si <span class="math inline">\(|P|\le k\)</span> (on peut alors compléter avec des points quelconques pour avoir exactement <span class="math inline">\(k\)</span> points).</li>
 </ul>
 <p>Cet algorithme est en <span class="math inline">\(O(n \log n)\)</span> en raison du tri initial.</p>
-<h3 data-number="1.7.2" id="sec:longueur-minimale"><span class="header-section-number">1.7.2</span> Longueur minimale</h3>
+<h3 data-number="4.2.2" id="sec:longueur-minimale"><span class="header-section-number">4.2.2</span> Longueur minimale</h3>
 <p>On considère maintenant le problème suivant :</p>
 <div class="ui message gray">
 <div class="header">
@@ -596,7 +607,100 @@ Sortie : la longueur <span class="math inline">\(l\)</span> minimale pour laquel
 </ul>
 <p>On obtient ainsi un algorithme en <span class="math inline">\(O\left( n \log n \log \frac{D}{k} \right)\)</span> qu’on peut considérer comme étant en <span class="math inline">\(O(n \log n)\)</span> en supposant que <span class="math inline">\(D\)</span> est une constante.</p>
 <p>Cette dichotomie est en fait une instance d’un principe fondamental permettant de transformer un problème de décision (existe-t-il ?) en un problème d’optimisation (quelle est … minimal/maximal ?).</p>
-<h3 data-number="1.7.3" id="sec:implémentation"><span class="header-section-number">1.7.3</span> Implémentation</h3>
+<h3 data-number="4.2.3" id="sec:implémentation"><span class="header-section-number">4.2.3</span> Implémentation</h3>
+<h1 data-number="5" id="sec:problèmes"><span class="header-section-number">5</span> Problèmes</h1>
+<h2 data-number="5.1" id="sec:multiplication-dentiers"><span class="header-section-number">5.1</span> Multiplication d’entiers</h2>
+<p>On considère ici le problème de la multiplication de deux entiers données en précision arbitraire par le tableau de leurs chiffres.</p>
+<p>Ainsi, l’entier <span class="math inline">\(123 = 1 \times 10^2 + 2 \times 10^1 + 3 \times 10^0\)</span> sera représenté par le tableau <code>[|3;2;1|]</code> de telle sorte que le nombre représenté par <code>t</code> soit <span class="math inline">\(\sum_{k=0}^{n-1} t[k] 10^k\)</span> où <span class="math inline">\(n = |t|\)</span> la taille de <span class="math inline">\(t\)</span>. On suppose que <code>t</code> ne finit pas par des <code>0</code>. Autrement dit : soit <code>t</code> est vide, soit la dernière valeur de <code>t</code> est non nulle.</p>
+<p>On se convaincra aisément que les entiers naturels sont en bijection avec de telles représentations.</p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction <code>simpl : int array -&gt; int array</code> qui renvoie un nouveau tableau obtenu en supprimant tous les 0 en fin de tableau : <code>simpl [|1;2;3;0;0|] = [|1;2;3|]</code>.</p>
+</div>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction <code>add : int array -&gt; int array -&gt; int array</code> qui calcule la somme de deux entiers en temps linéaire.</p>
+</div>
+<p>On va étudier ici plusieurs techniques de multiplication.</p>
+<h3 data-number="5.1.1" id="sec:multiplication-naïve"><span class="header-section-number">5.1.1</span> Multiplication naïve</h3>
+<p>On considère la multiplication posée comme étudiée à l’école primaire :</p>
+<p><span class="math display">\[
+\begin{array}{cccc}
+&amp; 1 &amp;2 &amp;3 \\
+&amp; \times &amp; 4 &amp; 2 \\
+\hline
+&amp; 2 &amp; 4 &amp; 6 \\
+ 4&amp; 9 &amp; 2 &amp;  \\
+\hline
+5 &amp; 1 &amp; 6 &amp; 6
+\end{array}
+\]</span></p>
+<p>Plus précisément, si <span class="math inline">\(y = \sum_{j=0}^m y_j 10^j\)</span>, on a</p>
+<p><span class="math display">\[
+x \times y = \sum_{j = 0}^m (y_j \times x) 10^j
+\]</span></p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction <code>mult_digit : int -&gt; int array -&gt; int array</code> telle que <code>mult_digit a x</code> renvoie <span class="math inline">\(a \times x\)</span> où <code>a</code> est un chiffre et <code>x</code> un nombre.</p>
+</div>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction <code>mult_dec : int -&gt; int array -&gt; int array</code> telle que <code>mult_dec p x</code> renvoie <span class="math inline">\(x 10^p\)</span> où <span class="math inline">\(p\)</span> est un entier et <code>x</code> un nombre.</p>
+</div>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction <code>mult_naive : int array -&gt; int array -&gt; int array</code> réalisant cette multiplication.</p>
+</div>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Quelle est la complexité de cette méthode en fonction de la longueur des entrées ?</p>
+</div>
+<p>!subsubection(Première approche diviser pour régner)</p>
+<p>On remarque que pour <span class="math inline">\(0 \le a,b,c,d &lt; 10^m\)</span> : <span class="math display">\[
+(10^m a + b) (10^m c + d) = 10^{2m} a c + 10^m (ad + bc) + bd
+\]</span> On peut alors calculer récursivement les quatre produits <span class="math inline">\(ac, ad, bc\)</span> et <span class="math inline">\(bd\)</span>.</p>
+<p>On en déduit donc une solution type <strong>diviser pour régner</strong> de la multiplication :</p>
+<ul>
+<li><span class="math inline">\(mul(x,y,1) = x \times y\)</span></li>
+<li>pour <span class="math inline">\(n \ge 2\)</span>, <span class="math inline">\(mul(x,y,n) = 10^{2m} mul(a, c, m) + 10^m (mul(a,d,m) + mul(b,c,m)) + mul(b,d,m)\)</span> où <span class="math inline">\(x = a 10^m + b\)</span>, <span class="math inline">\(y = c 10^m + d\)</span> et <span class="math inline">\(m = \lceil n / 2 \rceil\)</span>.</li>
+</ul>
+<p>où <span class="math inline">\(x, y \le 10^n\)</span>.</p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Déterminer avec précision la complexité <span class="math inline">\(T(n)\)</span> de <span class="math inline">\(mult(x,y,n)\)</span>.</p>
+<p>Que peut-on en conclure ?</p>
+</div>
+<h3 data-number="5.1.2" id="sec:algorithme-de-karatsuba"><span class="header-section-number">5.1.2</span> Algorithme de Karatsuba</h3>
+<p>Face à ce problème, Karatsuba, alors âgé de 23 ans, est parti de la remarque suivante :</p>
+<p><span class="math display">\[
+ac + bd - (a-b)(c-d) = ad+ bc
+\]</span> qui permet de voir qu’en calculant <span class="math inline">\(ac\)</span>, <span class="math inline">\(bd\)</span> et le produit <span class="math inline">\((a-b)(c-d)\)</span> on peut en déduire le coefficient <span class="math inline">\(ad + bc\)</span> de <span class="math inline">\(10^m\)</span>, et ainsi économiser une multiplication.</p>
+<p>On en déduit ainsi une nouvelle solution pour la multiplication :</p>
+<ul>
+<li><span class="math inline">\(kar(x,y,1) = x \times y\)</span></li>
+<li>pour <span class="math inline">\(n \ge 2\)</span>, <span class="math inline">\(kar(x,y,n) = 10^{2m} X + 10^m (X+Y-Z) + Y\)</span> où où <span class="math inline">\(x = a 10^m + b\)</span>, <span class="math inline">\(y = c 10^m + d\)</span>, <span class="math inline">\(m = \lceil n / 2 \rceil\)</span>, <span class="math inline">\(X = kar(a,c,m)\)</span>, <span class="math inline">\(y = kar(b,d,m)\)</span> et <span class="math inline">\(Z = kar(a-b,c-d,m)\)</span>.</li>
+</ul>
+<p>La présence de nombres négatifs ne complique pas la complexité car il suffit de rajouter un booléen indiquant le le signe à côté du tableau des chiffres d’un nombre.</p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Déterminer avec précision la complexité <span class="math inline">\(K(n)\)</span> de <span class="math inline">\(kar(x,y,n)\)</span>.</p>
+</div>
 </div>
 <!-- </div> -->
 </div>
