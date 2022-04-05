@@ -305,7 +305,7 @@ table td {
     </a>
     </div>
 <!-- FIX TOC -->
-<div class="item header"> <a href="#sec:diviser-pour-régner"><span>1</span> Diviser pour régner</a><div class="menu"><a class="item" href="#sec:principe"><div class="ui label">1.1</div> Principe</a><a class="item" href="#sec:somme-déléments-dans-un-tableau"><div class="ui label">1.2</div> Somme d’éléments dans un tableau</a><a class="item" href="#sec:tri-fusion"><div class="ui label">1.3</div> Tri fusion</a><a class="item" href="#sec:recherche-dichotomique"><div class="ui label">1.4</div> Recherche dichotomique</a></div></div><div class="item header"> <a href="#sec:nombre-dinversions"><span>2</span> Nombre d’inversions</a><div class="menu"><a class="item" href="#sec:points-les-plus-proches"><div class="ui label">2.1</div> Points les plus proches</a></div></div><div class="item header"> <a href="#sec:meet-in-the-middle"><span>3</span> Meet in the middle</a><div class="menu"><a class="item" href="#sec:principe-1"><div class="ui label">3.1</div> Principe</a><a class="item" href="#sec:sous-ensemble-de-somme-donnée"><div class="ui label">3.2</div> Sous-ensemble de somme donnée</a></div></div><div class="item header"> <a href="#sec:dichotomie-pour-passer-de-décision-à-optimisation"><span>4</span> Dichotomie pour passer de décision à optimisation</a><div class="menu"><a class="item" href="#sec:principe-2"><div class="ui label">4.1</div> Principe</a><a class="item" href="#sec:couverture-par-des-segments-égaux"><div class="ui label">4.2</div> Couverture par des segments égaux</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:couverture-par-des-segments-de-longueur-donnée"><i class="circle icon"></i> Couverture par des segments de longueur donnée</a><a style="font-size:0.6em" class="item" href="#sec:longueur-minimale"><i class="circle icon"></i> Longueur minimale</a><a style="font-size:0.6em" class="item" href="#sec:implémentation"><i class="circle icon"></i> Implémentation</a></div></div></div><div class="item header"> <a href="#sec:problèmes"><span>5</span> Problèmes</a><div class="menu"><a class="item" href="#sec:multiplication-dentiers"><div class="ui label">5.1</div> Multiplication d’entiers</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:multiplication-naïve"><i class="circle icon"></i> Multiplication naïve</a><a style="font-size:0.6em" class="item" href="#sec:algorithme-de-karatsuba"><i class="circle icon"></i> Algorithme de Karatsuba</a></div></div></div><!-- FIX TOC -->
+<div class="item header"> <a href="#sec:diviser-pour-régner"><span>1</span> Diviser pour régner</a><div class="menu"><a class="item" href="#sec:principe"><div class="ui label">1.1</div> Principe</a><a class="item" href="#sec:somme-déléments-dans-un-tableau"><div class="ui label">1.2</div> Somme d’éléments dans un tableau</a><a class="item" href="#sec:tri-fusion"><div class="ui label">1.3</div> Tri fusion</a><a class="item" href="#sec:recherche-dichotomique"><div class="ui label">1.4</div> Recherche dichotomique</a><a class="item" href="#sec:nombre-dinversions"><div class="ui label">1.5</div> Nombre d’inversions</a><a class="item" href="#sec:points-les-plus-proches"><div class="ui label">1.6</div> Points les plus proches</a></div></div><div class="item header"> <a href="#sec:meet-in-the-middle"><span>2</span> Meet in the middle</a><div class="menu"><a class="item" href="#sec:principe-1"><div class="ui label">2.1</div> Principe</a><a class="item" href="#sec:sous-ensemble-de-somme-donnée"><div class="ui label">2.2</div> Sous-ensemble de somme donnée</a></div></div><div class="item header"> <a href="#sec:dichotomie-pour-passer-de-décision-à-optimisation"><span>3</span> Dichotomie pour passer de décision à optimisation</a><div class="menu"><a class="item" href="#sec:principe-2"><div class="ui label">3.1</div> Principe</a><a class="item" href="#sec:couverture-par-des-segments-égaux"><div class="ui label">3.2</div> Couverture par des segments égaux</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:couverture-par-des-segments-de-longueur-donnée"><i class="circle icon"></i> Couverture par des segments de longueur donnée</a><a style="font-size:0.6em" class="item" href="#sec:longueur-minimale"><i class="circle icon"></i> Longueur minimale</a><a style="font-size:0.6em" class="item" href="#sec:implémentation"><i class="circle icon"></i> Implémentation</a></div></div></div><div class="item header"> <a href="#sec:problèmes"><span>4</span> Problèmes</a><div class="menu"><a class="item" href="#sec:multiplication-dentiers"><div class="ui label">4.1</div> Multiplication d’entiers</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:multiplication-naïve"><i class="circle icon"></i> Multiplication naïve</a><a style="font-size:0.6em" class="item" href="#sec:première-approche-diviser-pour-régner"><i class="circle icon"></i> Première approche diviser pour régner</a><a style="font-size:0.6em" class="item" href="#sec:algorithme-de-karatsuba"><i class="circle icon"></i> Algorithme de Karatsuba</a></div></div></div><!-- FIX TOC -->
 </div>
 
 <div class="pusher" id="main-content">
@@ -333,21 +333,22 @@ table td {
 <h2 data-number="1.1" id="sec:principe"><span class="header-section-number">1.1</span> Principe</h2>
 <p>Le principe des algorithmes basé <em>Diviser pour régner</em> est de décomposer un problème en plusieurs sous-problèmes disjoints et de déduire des solutions de ces sous-problème une solution au problème de départ.</p>
 <p>Le point clé pour ce principe est de pouvoir <strong>fusionner</strong> les solutions de sous-problèmes pour en faire une solution, et de pouvoir le faire dans un temps/espace raisonnable. On procède alors par récursivité en appliquant ce principe pour résoudre les sous-problèmes eux-mêmes jusqu’à tomber sur des sous-problèmes très simples.</p>
-<p>Ainsi, si on a une entrée <span class="math inline">\(E\)</span>, on va en déduire des entrées <span class="math inline">\(E_1, \dots, E_p\)</span> pour des sous-problèmes tels que <span class="math inline">\(|E_i| \le \lfloor \frac{|E|}{p} \rfloor\)</span>, où <strong><span class="math inline">\(p\)</span> est indépendant de <span class="math inline">\(E\)</span></strong>. Une fois les solutions <span class="math inline">\(S_1, \dots, S_p\)</span> à ces sous-problèmes obtenus par des appels récursifs, on va en déduire par une <strong>fusion</strong> des solutions, la solution <span class="math inline">\(S\)</span> au problème initial.</p>
+<p>Ainsi, si on a une entrée <span class="math inline">\(E\)</span>, on va en déduire des entrées <span class="math inline">\(E_1, \dots, E_k\)</span> pour des sous-problèmes tels que <span class="math inline">\(|E_i| \le \left \lceil \frac{|E|}{p} \right\rceil\)</span>, où <strong><span class="math inline">\(p\)</span> et <span class="math inline">\(k\)</span> sont indépendants de <span class="math inline">\(E\)</span></strong>. Une fois les solutions <span class="math inline">\(S_1, \dots, S_k\)</span> à ces sous-problèmes obtenus par des appels récursifs, on va en déduire par une <strong>fusion</strong> des solutions, la solution <span class="math inline">\(S\)</span> au problème initial.</p>
 <p>En terme de complexité temporelle, si <span class="math inline">\(T(n)\)</span> est la complexité de résolution pour une solution de taille <span class="math inline">\(n\)</span>, on aura : <span class="math display">\[
-T(n) \le p T\left( \left\lfloor \frac{n}{p} \right\rfloor \right) + f(n)
-\]</span> où <span class="math inline">\(f(n)\)</span> est le coût de la fusion.</p>
+T(n) \le k T\left( \left\lceil \frac{n}{p} \right\rceil \right) + f(n)
+\]</span> où <span class="math inline">\(f(n)\)</span> est le coût de la fusion et en supposant, ce qui est très raisonnable, que <span class="math inline">\(T\)</span> est croissante.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div>La croissance de <span class="math inline">\(T\)</span> est naturellement déduite du fait que le problème sur une entrée de taille <span class="math inline">\(n\)</span> est <strong>plus facile</strong> que le problème sur une entrée de taille <span class="math inline">\(p \ge n\)</span>. On peut ainsi penser au tri d’un tableau où il suffit de rajouter des éléments factices au début ou à la fin pour se ramener à un problème sur une entrée de taille plus grande.</div></p>
 <p>On ne donnera pas ici de théorème général permettant d’exprimer <span class="math inline">\(T(n)\)</span> selon les différentes valeurs de <span class="math inline">\(f(n)\)</span>, on se contentera de faire des preuves dans des cas particuliers.</p>
 <h2 data-number="1.2" id="sec:somme-déléments-dans-un-tableau"><span class="header-section-number">1.2</span> Somme d’éléments dans un tableau</h2>
 <p>On considère un tableau <span class="math inline">\(t\)</span> de <span class="math inline">\(n\)</span> nombres dont on cherche à calculer la somme <span class="math inline">\(S(t) = \sum_{i=0}^{n-1} t[i]\)</span>. Il est possible de faire ce calcul très aisément avec une simple boucle :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-40">ocaml</a>   <a class="item" data-tab="c-40">c</a>   <a class="item" data-tab="python-40">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-40"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-42">ocaml</a>   <a class="item" data-tab="c-42">c</a>   <a class="item" data-tab="python-42">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-42"></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> somme t =</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> s = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> <span class="dt">Array</span>.length t - <span class="dv">1</span> <span class="kw">do</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        s := !s + t.(i)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    !s</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-40"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-42"></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> somme<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>t<span class="op">,</span> <span class="dt">size_t</span> nb<span class="op">)</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> s <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
@@ -357,7 +358,7 @@ T(n) \le p T\left( \left\lfloor \frac{n}{p} \right\rfloor \right) + f(n)
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s<span class="op">;</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-40"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-42"></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> somme(t):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x <span class="kw">in</span> t:</span>
@@ -378,16 +379,32 @@ T(n) \le p T\left( \left\lfloor \frac{n}{p} \right\rfloor \right) + f(n)
 <span id="cb4-10"><a href="#cb4-10"></a><span class="kw">let</span> somme t = somme_div t <span class="dv">0</span> (<span class="dt">Array</span>.length t - <span class="dv">1</span>)</span></code></pre></div>
 <p></div></p>
 <p>Si <span class="math inline">\(T(n)\)</span> est le coût d’une somme d’un tableau à <span class="math inline">\(n\)</span> éléments, on a donc <span class="math inline">\(T(1) = 1\)</span> et <span class="math display">\[
-\forall n\ge 2, T(n) \le 2 T(\lfloor n / 2 \rfloor) + O(1)
+\forall n\ge 2, T(n) \le 2 T(\lceil n / 2 \rceil) + O(1)
 \]</span></p>
+<p><div class="ui message orange"><div class="header">Remarque</div>On constate ici qu’on utilise <span class="math inline">\(\lceil x \rceil\)</span> la partie entière supérieure liée à une majoration. En effet, si on coupe l’entrée en deux et qu’elle est de taille impaire <span class="math inline">\(2 p+1\)</span>, une des deux moitiés sera de longueur <span class="math inline">\(p + 1\)</span> qui est la partie entière supérieure.</p>
+<p>On aura alors <span class="math inline">\(T(n) = T(p) + T(p+1) + O(1) \le 2 T(p+1) + O(1)\)</span> par croissance de <span class="math inline">\(T\)</span>.</div></p>
+<p>Les résolutions de récurrence vont se faire en deux temps : un cas où toutes les divisions tombent justes, c’est-à-dire ici une puissance de deux, et un théorème où on s’y ramène pour un entier quelconque par encadrement et croissance de <span class="math inline">\(T\)</span>.</p>
 <div class="ui message olive">
 <div class="header">
 Lemme
 </div>
-<p>n , T(2^n) = O(2^n)</p>
+<p><span class="math inline">\(\forall n \in \N, T(2^n) = O(2^n)\)</span></p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"></p>
-<p></div> </div></p>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> On commence par expliciter le <span class="math inline">\(O(1)\)</span> présent dans la récurrence : il existe <span class="math inline">\(M \ge 1\)</span> tel que <span class="math inline">\(\forall n \in \N^*, T(n) \le 2 T(\lceil n/2 \rceil) + M\)</span>.</p>
+<p>Montrons par récurrence que <span class="math inline">\(\forall n \in \N, T(2^n) \le M 2^n\)</span></p>
+<ol type="a">
+<li>On a <span class="math inline">\(T(2^0) = 1 \le M 2^0\)</span>.</li>
+<li>Si <span class="math inline">\(T(2^n) \le M 2^n\)</span> alors <span class="math inline">\(T(2^{n+1}) \le 2 T(2^n) + M \le M 2^n + M \le M 2^{n+1}\)</span>.</li>
+</ol>
+<p>On a ainsi <span class="math inline">\(T(2^n) = O(2^n)\)</span>. </div> </div></p>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p><span class="math inline">\(\forall n \ge 1, T(n) = O(n)\)</span>.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> Soit <span class="math inline">\(n \in \N^*\)</span>, il existe <span class="math inline">\(p \in \N\)</span> tel que <span class="math inline">\(2^p \le n &lt; 2^{p+1}\)</span>. Par croissance de <span class="math inline">\(T\)</span>, on a <span class="math inline">\(T(n) \le T(2^{p+1})\)</span>. Or, il existe <span class="math inline">\(M&#39;\)</span> tel que <span class="math inline">\(\forall k, T(2^k) \le M&#39; 2^k\)</span>. <span class="math inline">\(T(n) \le M&#39; 2^{p+1} \le 2 M&#39; n\)</span>.</p>
+<p>Donc, <span class="math inline">\(T(n) = O(n)\)</span>. </div> </div></p>
 <h2 data-number="1.3" id="sec:tri-fusion"><span class="header-section-number">1.3</span> Tri fusion</h2>
 <p>L’algorithme du tri fusion est un des exemples les plus important d’algorithmes <em>Diviser pour régner</em> :</p>
 <ul>
@@ -453,7 +470,7 @@ Théorème
 <p><span class="math inline">\(t_n = O(n \log_2 n)\)</span></p>
 </div>
 <p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> Le lemme assure qu’il existe <span class="math inline">\(M&#39;\)</span> tel que <span class="math inline">\(\forall p \in \N^*, t_{2^p} \le M&#39; p 2^p\)</span>.</p>
-<p>Soit <span class="math inline">\(n\in \N^*\)</span> et <span class="math inline">\(p\)</span> minimum tel que <span class="math inline">\(n \le 2^p\)</span>. On a <span class="math inline">\(\log_2 n \le p\)</span> par croissance de <span class="math inline">\(\log_2\)</span> et ainsi <span class="math inline">\(t_n \le t_{2^p} \le M&#39; p 2^p = M&#39; n \log_2 n\)</span>.</p>
+<p>Soit <span class="math inline">\(n \in \N^*\)</span> on sait qu’il existe <span class="math inline">\(p\)</span> tel que <span class="math inline">\(2^{p-1} \le n &lt; 2^{p}\)</span> et donc <span class="math inline">\(p - 1 \le \log_2 n &lt; p\)</span>. Par croissance de <span class="math inline">\(t\)</span> (direct car on a plus d’éléments à trier) on a <span class="math inline">\(t_n \le t_{2^p} \le M&#39; p 2^p \le 2 M&#39; (1 + \log_2 n) n = O(n \log_2 n)\)</span>.</p>
 <p>Ainsi, <span class="math inline">\(t_n = O(n \log_2 n)\)</span>. </div> </div></p>
 <p><div class="ui message orange"><div class="header">Remarque</div>On a utilisé implicitement la croissance de <span class="math inline">\(t_n\)</span> ici : plus la liste est longue, plus on effectue d’opérations.</div></p>
 <p>Le programme suivant présente une implémentation du tri fusion reposant sur des tableaux. Les sous-tableaux sont manipulés à l’aide de leurs indices de début et de fin comme pour la recherche dichotomique.</p>
@@ -487,7 +504,12 @@ Théorème
 <p></div></p>
 <p><div class="ui message blue"><div class="header">Note</div>TODO : exercice tri avec un tableau et tri <strong>en place</strong></div></p>
 <h2 data-number="1.4" id="sec:recherche-dichotomique"><span class="header-section-number">1.4</span> Recherche dichotomique</h2>
-<h1 data-number="2" id="sec:nombre-dinversions"><span class="header-section-number">2</span> Nombre d’inversions</h1>
+<p>On a déjà vu la recherche dichotomique, ici, on coupe le tableau en deux mais on n’effectue qu’un seul appel récursif, la récurrence est donc en</p>
+<p><span class="math display">\[
+T(n) = T(\lceil n/2 \rceil) + O(1)
+\]</span></p>
+<p>et on obtient facilement <span class="math inline">\(T(n) = O(\log_2 n)\)</span>.</p>
+<h2 data-number="1.5" id="sec:nombre-dinversions"><span class="header-section-number">1.5</span> Nombre d’inversions</h2>
 <p><div class="ui message"><div class="header">Définition</div> Soit <span class="math inline">\(t\)</span> une structure séquentielle (tableau, liste, ….) contenant des valeurs comparables <span class="math inline">\(a_0, ..., a_{n-1}\)</span> et énumérées dans cet ordre au sein de <span class="math inline">\(t\)</span>.</p>
 <p>Une paire <span class="math inline">\((i,j) \in \range{0}{n-1}^2\)</span> où <span class="math inline">\(i &lt; j\)</span> est appelée une <em>inversion</em> de <span class="math inline">\(t\)</span> lorsque <span class="math inline">\(a_i &gt; a_j\)</span>.</p>
 <p>On note <span class="math inline">\(I(t)\)</span> le nombre d’inversion de <span class="math inline">\(t\)</span>. </div></p>
@@ -516,21 +538,110 @@ Théorème
 <ul>
 <li>Cela ne dépend pas de leur position dans <span class="math inline">\(t_1\)</span> ou dans <span class="math inline">\(t_2\)</span>.</li>
 <li>On peut donc trier <span class="math inline">\(t_1\)</span> en <span class="math inline">\(t&#39;_1\)</span> et <span class="math inline">\(t_2\)</span> en <span class="math inline">\(t&#39;_2\)</span>.</li>
-<li>On compte <span class="math inline">\(N(t_1,t_2) = N(t&#39;_1,t&#39;_2)\)</span> le nombre d’inversions entre <span class="math inline">\(t&#39;_1\)</span> et <span class="math inline">\(t&#39;_2\)</span>.</li>
+<li>On compte <span class="math inline">\(N(t_1,t_2) = N(t&#39;_1,t&#39;_2)\)</span> le nombre d’inversions entre <span class="math inline">\(t&#39;_1\)</span> et <span class="math inline">\(t&#39;_2\)</span> en <span class="math inline">\(O(n)\)</span> par l’algorithme ci-dessous.</li>
 </ul></li>
 <li>On en déduit que <span class="math inline">\(I(t) = I(t_1) + I(t_2) + N(t_1,t_2)\)</span>.</li>
 </ul>
-<p>Pour calculer le nombre d’inversions entre deux tableaux triés <span class="math inline">\(t&#39;_1\)</span> et <span class="math inline">\(t&#39;_2\)</span> on peut utiliser l’algorithme en <span class="math inline">\(O(|t&#39;_1| + |t&#39;_2|)\)</span> suivant : pour <span class="math inline">\(j\)</span> parcourant les indices de <span class="math inline">\(t&#39;_2\)</span>, on cherche le plus petit <span class="math inline">\(i\)</span> tel que <span class="math inline">\(t&#39;_1[i]\)</span>.</p>
-<h2 data-number="2.1" id="sec:points-les-plus-proches"><span class="header-section-number">2.1</span> Points les plus proches</h2>
-<h1 data-number="3" id="sec:meet-in-the-middle"><span class="header-section-number">3</span> Meet in the middle</h1>
-<h2 data-number="3.1" id="sec:principe-1"><span class="header-section-number">3.1</span> Principe</h2>
-<h2 data-number="3.2" id="sec:sous-ensemble-de-somme-donnée"><span class="header-section-number">3.2</span> Sous-ensemble de somme donnée</h2>
-<h1 data-number="4" id="sec:dichotomie-pour-passer-de-décision-à-optimisation"><span class="header-section-number">4</span> Dichotomie pour passer de décision à optimisation</h1>
-<h2 data-number="4.1" id="sec:principe-2"><span class="header-section-number">4.1</span> Principe</h2>
-<h2 data-number="4.2" id="sec:couverture-par-des-segments-égaux"><span class="header-section-number">4.2</span> Couverture par des segments égaux</h2>
+<p><div class="ui message orange"><div class="header">Remarque</div>Pour calculer le nombre d’inversions entre deux tableaux triés <span class="math inline">\(t&#39;_1\)</span> et <span class="math inline">\(t&#39;_2\)</span>, on remarque que si <span class="math inline">\(t&#39;_1[i] &gt; t&#39;_2[j]\)</span> alors <span class="math inline">\(t&#39;_1[i+1] \ge t&#39;_1[i] &gt; t&#39;_2[j]\)</span>. Cela signifie qu’on peut compter les inversions de manière cumulative en avançant dans les deux tableaux en même temps :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">let</span> inversions_croisees t1 t2 =</span>
+<span id="cb8-2"><a href="#cb8-2"></a>    <span class="kw">let</span> i = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>    <span class="kw">let</span> j = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>    <span class="kw">let</span> n1 = <span class="dt">Array</span>.length t1 <span class="kw">in</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>    <span class="kw">let</span> n2 = <span class="dt">Array</span>.length t2 <span class="kw">in</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>    <span class="kw">let</span> inv = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>    <span class="kw">let</span> cumul = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>    <span class="kw">while</span> !i &lt; n1 &amp;&amp; !j &lt; n2 <span class="kw">do</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a>        <span class="kw">if</span> t1.(!i) &gt; t2.(!j)</span>
+<span id="cb8-10"><a href="#cb8-10"></a>        <span class="kw">then</span> ( <span class="dt">incr</span> j; <span class="dt">incr</span> inv; <span class="dt">incr</span> cumul )</span>
+<span id="cb8-11"><a href="#cb8-11"></a>        <span class="kw">else</span> ( <span class="dt">incr</span> i; inv := !inv + !cumul )</span>
+<span id="cb8-12"><a href="#cb8-12"></a>    <span class="kw">done</span>;</span>
+<span id="cb8-13"><a href="#cb8-13"></a>    !inv + (!cumul * (n1 - !i - <span class="dv">1</span>))</span></code></pre></div>
+<p></div></p>
+<p><div class="ui message blue"><div class="header">Note</div>Rajouter un dessin illustrant l’aspect cumulatif.</div></div></p>
+<p>Pour que cet algorithme fonctionne, il est nécessaire de trier à chaque étape les sous-tableaux, on obtient alors naïvement une récurrence en</p>
+<p><span class="math display">\[
+T(n) \le 2 T(\lceil n / 2 \rceil) + O(n \log n)
+\]</span></p>
+<p>Qui se résout en <span class="math inline">\(T(n) = O(n (\log n)^2)\)</span>. Il est possible de faire mieux en remarquant qu’on peut calculer le nombre d’inversions en décorant le tri fusion car celui fait naturellement calculer les sous-tableaux triés. On a donc une récurrence en</p>
+<p><span class="math display">\[
+T(n) \le 2 T(\lceil n / 2 \rceil) + O(n)
+\]</span> qui se résout en <span class="math inline">\(T(n) = O(n \log n)\)</span>.</p>
+<div class="ui message orange">
+<div class="header">
+Exercice
+</div>
+<p>Écrire le programme réalisant cet algorithme.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">let</span> inversions_croisees t1 t2 =</span>
+<span id="cb9-2"><a href="#cb9-2"></a>    <span class="kw">let</span> i = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>    <span class="kw">let</span> j = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>    <span class="kw">let</span> n1 = <span class="dt">Array</span>.length t1 <span class="kw">in</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>    <span class="kw">let</span> n2 = <span class="dt">Array</span>.length t2 <span class="kw">in</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a>    <span class="kw">let</span> inv = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a>    <span class="kw">let</span> cumul = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>    <span class="kw">while</span> !i &lt; n1 &amp;&amp; !j &lt; n2 <span class="kw">do</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a>        <span class="kw">if</span> t1.(!i) &gt; t2.(!j)</span>
+<span id="cb9-10"><a href="#cb9-10"></a>        <span class="kw">then</span> ( <span class="dt">incr</span> j; <span class="dt">incr</span> inv; <span class="dt">incr</span> cumul )</span>
+<span id="cb9-11"><a href="#cb9-11"></a>        <span class="kw">else</span> ( <span class="dt">incr</span> i; inv := !inv + !cumul )</span>
+<span id="cb9-12"><a href="#cb9-12"></a>    <span class="kw">done</span>;</span>
+<span id="cb9-13"><a href="#cb9-13"></a>    !inv + (!cumul * (n1 - !i - <span class="dv">1</span>))</span>
+<span id="cb9-14"><a href="#cb9-14"></a></span>
+<span id="cb9-15"><a href="#cb9-15"></a><span class="kw">let</span> split t = </span>
+<span id="cb9-16"><a href="#cb9-16"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length t <span class="kw">in</span> </span>
+<span id="cb9-17"><a href="#cb9-17"></a>    <span class="kw">let</span> m = n/<span class="dv">2</span> <span class="kw">in</span></span>
+<span id="cb9-18"><a href="#cb9-18"></a>    <span class="dt">Array</span>.sub t <span class="dv">0</span> m, <span class="dt">Array</span>.sub t m (n-m)</span>
+<span id="cb9-19"><a href="#cb9-19"></a></span>
+<span id="cb9-20"><a href="#cb9-20"></a><span class="kw">let</span> fusion t1 t2 =</span>
+<span id="cb9-21"><a href="#cb9-21"></a>    <span class="kw">let</span> n1 = <span class="dt">Array</span>.length t1 <span class="kw">in</span></span>
+<span id="cb9-22"><a href="#cb9-22"></a>    <span class="kw">let</span> n2 = <span class="dt">Array</span>.length t2 <span class="kw">in</span></span>
+<span id="cb9-23"><a href="#cb9-23"></a>    <span class="kw">let</span> t = <span class="dt">Array</span>.make (n1+n2) (t1.(<span class="dv">0</span>)) <span class="kw">in</span></span>
+<span id="cb9-24"><a href="#cb9-24"></a>    <span class="kw">let</span> i = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span> <span class="kw">let</span> j = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb9-25"><a href="#cb9-25"></a>    <span class="kw">for</span> k = <span class="dv">0</span> <span class="kw">to</span> n1+n2<span class="dv">-1</span> <span class="kw">do</span></span>
+<span id="cb9-26"><a href="#cb9-26"></a>        <span class="kw">if</span> !j = n2 || (!i &lt; n1 &amp;&amp;  t1.(!i) &lt; t2.(!j))</span>
+<span id="cb9-27"><a href="#cb9-27"></a>        <span class="kw">then</span> ( t.(k) &lt;- t1.(!i); <span class="dt">incr</span> i )</span>
+<span id="cb9-28"><a href="#cb9-28"></a>        <span class="kw">else</span> ( t.(k) &lt;- t2.(!j); <span class="dt">incr</span> j )</span>
+<span id="cb9-29"><a href="#cb9-29"></a>    <span class="kw">done</span>;</span>
+<span id="cb9-30"><a href="#cb9-30"></a>    t</span>
+<span id="cb9-31"><a href="#cb9-31"></a></span>
+<span id="cb9-32"><a href="#cb9-32"></a><span class="kw">let</span> <span class="kw">rec</span> inversions_div t =</span>
+<span id="cb9-33"><a href="#cb9-33"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length t <span class="kw">in</span></span>
+<span id="cb9-34"><a href="#cb9-34"></a>    <span class="kw">if</span> n = <span class="dv">1</span></span>
+<span id="cb9-35"><a href="#cb9-35"></a>    <span class="kw">then</span> t, <span class="dv">0</span></span>
+<span id="cb9-36"><a href="#cb9-36"></a>    <span class="kw">else</span> <span class="kw">let</span> t1, t2 = split t <span class="kw">in</span></span>
+<span id="cb9-37"><a href="#cb9-37"></a>        <span class="kw">let</span> t1&#39;, n1 = inversions_div t1 <span class="kw">in</span> </span>
+<span id="cb9-38"><a href="#cb9-38"></a>        <span class="kw">let</span> t2&#39;, n2 = inversions_div t2 <span class="kw">in</span> </span>
+<span id="cb9-39"><a href="#cb9-39"></a>        <span class="kw">let</span> n12 = inversions_croisees t1&#39; t2&#39; <span class="kw">in</span></span>
+<span id="cb9-40"><a href="#cb9-40"></a>        fusion t1&#39; t2&#39;, n1+n2+n12</span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
+<h2 data-number="1.6" id="sec:points-les-plus-proches"><span class="header-section-number">1.6</span> Points les plus proches</h2>
+<p>On considère le problème</p>
+<div class="ui message gray">
+<div class="header">
+Problème - PlusProchePaire
+</div>
+<ul>
+<li>
+<p>Entrée(s) :</p>
+<p>Un ensemble <span class="math inline">\(P\)</span> de <span class="math inline">\(n\)</span> points dans le plan.</p>
+</li>
+<li>
+Sortie : Une paire <span class="math inline">\(\{p,p&#39;\}\)</span> de points telle que <span class="math inline">\(dist(p,p&#39;) = ||\vec{pp&#39;}||\)</span> soit minimale.
+</li>
+</ul>
+</div>
+<p>Ce problème a déjà été étudié dans le chapitre <a href="chap_algorithmique_force_brute.html#sec:plusprochepaire">Recherche par force brute</a>.</p>
+<h1 data-number="2" id="sec:meet-in-the-middle"><span class="header-section-number">2</span> Meet in the middle</h1>
+<h2 data-number="2.1" id="sec:principe-1"><span class="header-section-number">2.1</span> Principe</h2>
+<h2 data-number="2.2" id="sec:sous-ensemble-de-somme-donnée"><span class="header-section-number">2.2</span> Sous-ensemble de somme donnée</h2>
+<h1 data-number="3" id="sec:dichotomie-pour-passer-de-décision-à-optimisation"><span class="header-section-number">3</span> Dichotomie pour passer de décision à optimisation</h1>
+<h2 data-number="3.1" id="sec:principe-2"><span class="header-section-number">3.1</span> Principe</h2>
+<h2 data-number="3.2" id="sec:couverture-par-des-segments-égaux"><span class="header-section-number">3.2</span> Couverture par des segments égaux</h2>
 <p><div class="ui message blue"><div class="header">Note</div>Il y a une confusion réel/entiers ici. À reprendre.</div></p>
 <p>On considère ici <span class="math inline">\(n\)</span> points sur la droite réelle. Le <span class="math inline">\(i\)</span>-ème point est identifié par sa coordonnée <span class="math inline">\(x_i\)</span>. On se pose alors, dans un premier temps, la question de savoir si on peut trouver <span class="math inline">\(k\)</span> segments de longueur <span class="math inline">\(l\)</span> tels que chaque point appartienne à au moins un de ces segments. Dans un second temps, on se posera la question de la longueur <span class="math inline">\(l\)</span> minimale de ces segments.</p>
-<h3 data-number="4.2.1" id="sec:couverture-par-des-segments-de-longueur-donnée"><span class="header-section-number">4.2.1</span> Couverture par des segments de longueur donnée</h3>
+<h3 data-number="3.2.1" id="sec:couverture-par-des-segments-de-longueur-donnée"><span class="header-section-number">3.2.1</span> Couverture par des segments de longueur donnée</h3>
 <p>On va ici résoudre le premier problème :</p>
 <div class="ui message gray">
 <div class="header">
@@ -576,7 +687,7 @@ Sortie : Un ensemble <span class="math inline">\(P\)</span> de <span class="math
 <li>on répond avec un succès si <span class="math inline">\(|P|\le k\)</span> (on peut alors compléter avec des points quelconques pour avoir exactement <span class="math inline">\(k\)</span> points).</li>
 </ul>
 <p>Cet algorithme est en <span class="math inline">\(O(n \log n)\)</span> en raison du tri initial.</p>
-<h3 data-number="4.2.2" id="sec:longueur-minimale"><span class="header-section-number">4.2.2</span> Longueur minimale</h3>
+<h3 data-number="3.2.2" id="sec:longueur-minimale"><span class="header-section-number">3.2.2</span> Longueur minimale</h3>
 <p>On considère maintenant le problème suivant :</p>
 <div class="ui message gray">
 <div class="header">
@@ -607,9 +718,9 @@ Sortie : la longueur <span class="math inline">\(l\)</span> minimale pour laquel
 </ul>
 <p>On obtient ainsi un algorithme en <span class="math inline">\(O\left( n \log n \log \frac{D}{k} \right)\)</span> qu’on peut considérer comme étant en <span class="math inline">\(O(n \log n)\)</span> en supposant que <span class="math inline">\(D\)</span> est une constante.</p>
 <p>Cette dichotomie est en fait une instance d’un principe fondamental permettant de transformer un problème de décision (existe-t-il ?) en un problème d’optimisation (quelle est … minimal/maximal ?).</p>
-<h3 data-number="4.2.3" id="sec:implémentation"><span class="header-section-number">4.2.3</span> Implémentation</h3>
-<h1 data-number="5" id="sec:problèmes"><span class="header-section-number">5</span> Problèmes</h1>
-<h2 data-number="5.1" id="sec:multiplication-dentiers"><span class="header-section-number">5.1</span> Multiplication d’entiers</h2>
+<h3 data-number="3.2.3" id="sec:implémentation"><span class="header-section-number">3.2.3</span> Implémentation</h3>
+<h1 data-number="4" id="sec:problèmes"><span class="header-section-number">4</span> Problèmes</h1>
+<h2 data-number="4.1" id="sec:multiplication-dentiers"><span class="header-section-number">4.1</span> Multiplication d’entiers</h2>
 <p>On considère ici le problème de la multiplication de deux entiers données en précision arbitraire par le tableau de leurs chiffres.</p>
 <p>Ainsi, l’entier <span class="math inline">\(123 = 1 \times 10^2 + 2 \times 10^1 + 3 \times 10^0\)</span> sera représenté par le tableau <code>[|3;2;1|]</code> de telle sorte que le nombre représenté par <code>t</code> soit <span class="math inline">\(\sum_{k=0}^{n-1} t[k] 10^k\)</span> où <span class="math inline">\(n = |t|\)</span> la taille de <span class="math inline">\(t\)</span>. On suppose que <code>t</code> ne finit pas par des <code>0</code>. Autrement dit : soit <code>t</code> est vide, soit la dernière valeur de <code>t</code> est non nulle.</p>
 <p>On se convaincra aisément que les entiers naturels sont en bijection avec de telles représentations.</p>
@@ -626,7 +737,7 @@ Question
 <p>Écrire une fonction <code>add : int array -&gt; int array -&gt; int array</code> qui calcule la somme de deux entiers en temps linéaire.</p>
 </div>
 <p>On va étudier ici plusieurs techniques de multiplication.</p>
-<h3 data-number="5.1.1" id="sec:multiplication-naïve"><span class="header-section-number">5.1.1</span> Multiplication naïve</h3>
+<h3 data-number="4.1.1" id="sec:multiplication-naïve"><span class="header-section-number">4.1.1</span> Multiplication naïve</h3>
 <p>On considère la multiplication posée comme étudiée à l’école primaire :</p>
 <p><span class="math display">\[
 \begin{array}{cccc}
@@ -667,7 +778,7 @@ Question
 </div>
 <p>Quelle est la complexité de cette méthode en fonction de la longueur des entrées ?</p>
 </div>
-<p>!subsubection(Première approche diviser pour régner)</p>
+<h3 data-number="4.1.2" id="sec:première-approche-diviser-pour-régner"><span class="header-section-number">4.1.2</span> Première approche diviser pour régner</h3>
 <p>On remarque que pour <span class="math inline">\(0 \le a,b,c,d &lt; 10^m\)</span> : <span class="math display">\[
 (10^m a + b) (10^m c + d) = 10^{2m} a c + 10^m (ad + bc) + bd
 \]</span> On peut alors calculer récursivement les quatre produits <span class="math inline">\(ac, ad, bc\)</span> et <span class="math inline">\(bd\)</span>.</p>
@@ -684,7 +795,7 @@ Question
 <p>Déterminer avec précision la complexité <span class="math inline">\(T(n)\)</span> de <span class="math inline">\(mult(x,y,n)\)</span>.</p>
 <p>Que peut-on en conclure ?</p>
 </div>
-<h3 data-number="5.1.2" id="sec:algorithme-de-karatsuba"><span class="header-section-number">5.1.2</span> Algorithme de Karatsuba</h3>
+<h3 data-number="4.1.3" id="sec:algorithme-de-karatsuba"><span class="header-section-number">4.1.3</span> Algorithme de Karatsuba</h3>
 <p>Face à ce problème, Karatsuba, alors âgé de 23 ans, est parti de la remarque suivante :</p>
 <p><span class="math display">\[
 ac + bd - (a-b)(c-d) = ad+ bc
