@@ -93,7 +93,9 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
 
 <script>
 $(document).ready(function() {
@@ -324,11 +326,15 @@ table td {
 <div class="segment">
 <div class="ui container text">
 <p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Introduction à l'informatique     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_introduction.jpg"> </div></p>
-<p><div class="ui message blue"><div class="header">Note</div><strong>Roadmap</strong> :</p>
+<p><div class="ui message blue"><div class="header">Note</div><strong>Roadmap</strong>
+:</p>
 <ul>
 <li>tout reprendre. Je suis peu satisfait du résultat.</div></li>
 </ul>
-<p>Dans ce chapitre, on présente de manière très survolée l’informatique. On aura l’occasion de revenir en détail sur certaines notions. L’objectif est avant totu d’avoir une vision claire même si elle est naïve de</p>
+<p>Dans ce chapitre, on présente de manière très survolée
+l’informatique. On aura l’occasion de revenir en détail sur certaines
+notions. L’objectif est avant totu d’avoir une vision claire même si
+elle est naïve de</p>
 <ul>
 <li>ce qu’est un problème informatique</li>
 <li>ce qu’est un programme</li>
@@ -337,20 +343,47 @@ table td {
 </ul>
 <p>Cela permet de répondre à des questions comm :</p>
 <ul>
-<li>qu’est-ce qui permet de dire qu’on programme en OCaml alors qu’on a l’impression de ne faire que des suites de définitions ?</li>
+<li>qu’est-ce qui permet de dire qu’on programme en OCaml alors qu’on a
+l’impression de ne faire que des suites de définitions ?</li>
 <li>peut-on se contenter de programmer sans chercher à comprendre ?</li>
 </ul>
-<p>Précisons ici qu’on parle d’informatique mais que le terme le plus proche de ce que l’on étudie en anglais est <em>computer science</em> par complémentarité avec des notions comme celles de <em>computer engineering</em> plus proches de considérations matérielles. Il n’y a pas une <em>unique</em> vision de l’informatique mais plutôt une grande richesse de point de vue.</p>
-<h1 data-number="1" id="sec:données-problème-algorithme"><span class="header-section-number">1</span> Données, Problème, Algorithme</h1>
-<h2 data-number="1.1" id="sec:données"><span class="header-section-number">1.1</span> Données</h2>
-<p><div class="ui message"><div class="header">Définition</div> Une <em>donnée informatique</em> est un élément d’information fini qu’on peut stocker ou transmettre.</p>
-<p>Selon le niveau d’abstraction auquel on se place, on peut considérer une donnée comme étant une succession de bits, c’est-à-dire de valeur valant 0 ou 1, ou comme une donnée plus structurées, comme un texte, une image, un graphe, … </div></p>
-<p>En informatique, on adapte souvent son point vue sur les notions de base comme celle-ci. Si on fait de la transmission ou de la compression de données, c’est important d’en avoir une représentation la plus primitive possible comme des mots binaires. Mais si s’intéresse à des notions de chemins dans un graphe, il est plus adéquat de considérer un graphe comme un élément de données même si la question de sa représentation n’est pas immédiate.</p>
-<h2 data-number="1.2" id="sec:problèmes"><span class="header-section-number">1.2</span> Problèmes</h2>
-<p><div class="ui message"><div class="header">Définition</div> Un <em>problème informatique</em> est un ensemble de questions parametrées par des données (les <em>entrées</em>) et dont les réponses peuvent être</p>
+<p>Précisons ici qu’on parle d’informatique mais que le terme le plus
+proche de ce que l’on étudie en anglais est <em>computer science</em>
+par complémentarité avec des notions comme celles de <em>computer
+engineering</em> plus proches de considérations matérielles. Il n’y a
+pas une <em>unique</em> vision de l’informatique mais plutôt une grande
+richesse de point de vue.</p>
+<h1 data-number="1" id="sec:données-problème-algorithme"><span
+class="header-section-number">1</span> Données, Problème,
+Algorithme</h1>
+<h2 data-number="1.1" id="sec:données"><span
+class="header-section-number">1.1</span> Données</h2>
+<p><div class="ui message"><div class="header">Définition</div> Une
+<em>donnée informatique</em> est un élément d’information fini qu’on
+peut stocker ou transmettre.</p>
+<p>Selon le niveau d’abstraction auquel on se place, on peut considérer
+une donnée comme étant une succession de bits, c’est-à-dire de valeur
+valant 0 ou 1, ou comme une donnée plus structurées, comme un texte, une
+image, un graphe, … </div></p>
+<p>En informatique, on adapte souvent son point vue sur les notions de
+base comme celle-ci. Si on fait de la transmission ou de la compression
+de données, c’est important d’en avoir une représentation la plus
+primitive possible comme des mots binaires. Mais si s’intéresse à des
+notions de chemins dans un graphe, il est plus adéquat de considérer un
+graphe comme un élément de données même si la question de sa
+représentation n’est pas immédiate.</p>
+<h2 data-number="1.2" id="sec:problèmes"><span
+class="header-section-number">1.2</span> Problèmes</h2>
+<p><div class="ui message"><div class="header">Définition</div> Un
+<em>problème informatique</em> est un ensemble de questions parametrées
+par des données (les <em>entrées</em>) et dont les réponses peuvent
+être</p>
 <ul>
-<li>soit Oui ou Non, auquel cas on parle de problème de <em>décision</em></li>
-<li>ou d’autres données dépendant des entrées : les <em>sorties</em>, on parle alors de problème de <em>recherche</em> ou de <em>construction</em>. </div></li>
+<li>soit Oui ou Non, auquel cas on parle de problème de
+<em>décision</em></li>
+<li>ou d’autres données dépendant des entrées : les <em>sorties</em>, on
+parle alors de problème de <em>recherche</em> ou de
+<em>construction</em>. </div></li>
 </ul>
 <div class="ui message blue">
 <div class="header">
@@ -359,33 +392,83 @@ Exemple
 <ul>
 <li>Étant donné un entier, déterminer s’il est premier ou non.</li>
 <li>Étant donnés deux entiers, calculer leur PGCD.</li>
-<li>Étant donné un graphe pondéré et deux sommets, déterminer un chemin de longueur minimale permettant d’aller de l’un à l’autre.</li>
-<li>Étant un programme informatique et une entrée, déterminer si le programme va s’arrêter ou non.</li>
-<li>Étant donné une image et une base de donnée de visages, déterminer les personnes présentes sur l’image.</li>
+<li>Étant donné un graphe pondéré et deux sommets, déterminer un chemin
+de longueur minimale permettant d’aller de l’un à l’autre.</li>
+<li>Étant un programme informatique et une entrée, déterminer si le
+programme va s’arrêter ou non.</li>
+<li>Étant donné une image et une base de donnée de visages, déterminer
+les personnes présentes sur l’image.</li>
 </ul>
 </div>
-<p>On voit que certains de ces problèmes n’ont pas eu besoin d’attendre l’informatique, comme les problèmes d’arithmétique.</p>
-<p>On peut prouver qu’un problème comme le problème de l’arrêt ne pourra jamais être résolu par un ordinateur (on dira qu’il est <em>indécidable</em>).</p>
-<h2 data-number="1.3" id="sec:algorithme"><span class="header-section-number">1.3</span> Algorithme</h2>
-<p><div class="ui message"><div class="header">Définition</div> Un <em>algorithme</em> est un procédé systématique et mécanisable permettant de résoudre un problème informatique. </div></p>
-<p>Ce qu’on signifie ici par le mot <em>systématique</em> est que le procédé de calcul est précis et non ambigu et par <em>mécanisable</em> qu’il s’agit d’un calcul qui puisse être fait par une <em>machine</em> dans un sens à venir.</p>
-<p>Une autre manière de voir les problèmes est de dire que ce sont des fonctions mathématiques des entrées vers les sorties. Un algorithme est alors une description de la réalisation d’une telle fonction.</p>
-<h1 data-number="2" id="sec:modèle-de-calcul-machines-programmes"><span class="header-section-number">2</span> Modèle de calcul, Machines, Programmes</h1>
-<p>On donne ici des définitions volontairement naïves et imprécises. Elles pourraient être précisées en fixant un cadre théorique plus conséquent, ce qui est prématuré à ce stade.</p>
-<p><div class="ui message"><div class="header">Définition</div> Un modèle de calcul est un cadre permettant de décrire comment calculer la solution de problèmes en fonction des entrées. </div></p>
-<p><div class="ui message"><div class="header">Définition</div> Une <em>machine</em> est un modèle de calcul défini par un ensemble de <em>configurations</em> et des opérations élémentaires, aussi appelées <em>instructions</em>, permettant de passer d’une configuration à une autre.</p>
-<p>Ces instructions sont regroupées sous la forme d’une suite finie appelée un <em>programme</em>.</p>
-<p>Pour éxecuter un programme, il y a dans la configuration un entier qui s’appelle le <em>pointeur d’instruction</em> et qui donne le numéro dans le programme de l’insrtuction courante. Généralement, on part de la première instruction en passant ensuite, sauf contre-ordre, à l’instruction suivante, jusqu’à la fin du programme. </div></p>
-<h2 data-number="2.1" id="sec:exemple-ordinateur"><span class="header-section-number">2.1</span> Exemple : ordinateur</h2>
-<p>Un ordinateur est naturellement un exemple de machine. Une configuration est la donnée de l’état des registres du processeur, de la mémoire et aussi des périphériques d’entrée-sortie. Un programme est une suite d’instructions exécutées par le processeur.</p>
-<h2 data-number="2.2" id="sec:exemple-les-machines-à-deux-compteurs"><span class="header-section-number">2.2</span> Exemple : les machines à deux compteurs</h2>
-<p>Les configurations d’une machine à deux compteurs sont des triplets <span class="math inline">\((A,B,PC)\)</span> où <span class="math inline">\(A\)</span> et <span class="math inline">\(B\)</span> sont deux compteurs entiers naturels, en général initialisés avec les entrées et dans lesquels on pourra lire les sorties, et <span class="math inline">\(PC\)</span> est le pointeur d’intruction, initialisé à la première instruction.</p>
-<p>Un programme est une suite finie et numérotée d’instructions élémentaires parmi les suivantes :</p>
+<p>On voit que certains de ces problèmes n’ont pas eu besoin d’attendre
+l’informatique, comme les problèmes d’arithmétique.</p>
+<p>On peut prouver qu’un problème comme le problème de l’arrêt ne pourra
+jamais être résolu par un ordinateur (on dira qu’il est
+<em>indécidable</em>).</p>
+<h2 data-number="1.3" id="sec:algorithme"><span
+class="header-section-number">1.3</span> Algorithme</h2>
+<p><div class="ui message"><div class="header">Définition</div> Un
+<em>algorithme</em> est un procédé systématique et mécanisable
+permettant de résoudre un problème informatique. </div></p>
+<p>Ce qu’on signifie ici par le mot <em>systématique</em> est que le
+procédé de calcul est précis et non ambigu et par <em>mécanisable</em>
+qu’il s’agit d’un calcul qui puisse être fait par une <em>machine</em>
+dans un sens à venir.</p>
+<p>Une autre manière de voir les problèmes est de dire que ce sont des
+fonctions mathématiques des entrées vers les sorties. Un algorithme est
+alors une description de la réalisation d’une telle fonction.</p>
+<h1 data-number="2" id="sec:modèle-de-calcul-machines-programmes"><span
+class="header-section-number">2</span> Modèle de calcul, Machines,
+Programmes</h1>
+<p>On donne ici des définitions volontairement naïves et imprécises.
+Elles pourraient être précisées en fixant un cadre théorique plus
+conséquent, ce qui est prématuré à ce stade.</p>
+<p><div class="ui message"><div class="header">Définition</div> Un
+modèle de calcul est un cadre permettant de décrire comment calculer la
+solution de problèmes en fonction des entrées. </div></p>
+<p><div class="ui message"><div class="header">Définition</div> Une
+<em>machine</em> est un modèle de calcul défini par un ensemble de
+<em>configurations</em> et des opérations élémentaires, aussi appelées
+<em>instructions</em>, permettant de passer d’une configuration à une
+autre.</p>
+<p>Ces instructions sont regroupées sous la forme d’une suite finie
+appelée un <em>programme</em>.</p>
+<p>Pour éxecuter un programme, il y a dans la configuration un entier
+qui s’appelle le <em>pointeur d’instruction</em> et qui donne le numéro
+dans le programme de l’insrtuction courante. Généralement, on part de la
+première instruction en passant ensuite, sauf contre-ordre, à
+l’instruction suivante, jusqu’à la fin du programme. </div></p>
+<h2 data-number="2.1" id="sec:exemple-ordinateur"><span
+class="header-section-number">2.1</span> Exemple : ordinateur</h2>
+<p>Un ordinateur est naturellement un exemple de machine. Une
+configuration est la donnée de l’état des registres du processeur, de la
+mémoire et aussi des périphériques d’entrée-sortie. Un programme est une
+suite d’instructions exécutées par le processeur.</p>
+<h2 data-number="2.2"
+id="sec:exemple-les-machines-à-deux-compteurs"><span
+class="header-section-number">2.2</span> Exemple : les machines à deux
+compteurs</h2>
+<p>Les configurations d’une machine à deux compteurs sont des triplets
+<span class="math inline">\((A,B,PC)\)</span> où <span
+class="math inline">\(A\)</span> et <span
+class="math inline">\(B\)</span> sont deux compteurs entiers naturels,
+en général initialisés avec les entrées et dans lesquels on pourra lire
+les sorties, et <span class="math inline">\(PC\)</span> est le pointeur
+d’intruction, initialisé à la première instruction.</p>
+<p>Un programme est une suite finie et numérotée d’instructions
+élémentaires parmi les suivantes :</p>
 <ul>
-<li><code>INCA</code> : incrémenter A, c’est-à-dire ajouter 1 à la valeur qu’il contient</li>
-<li><code>DECA</code> : décrementer A, c’est-à-dire soustraire 1 à la valeur qu’il contient</li>
-<li><code>IFA i j</code> sauter à l’instruction numéro <span class="math inline">\(i\)</span> si <span class="math inline">\(A\)</span> est nul, sinon sauter à l’instruction numéro <span class="math inline">\(j\)</span>.</li>
-<li>les instructions <code>INCB</code>, <code>DECB</code> et <code>IFB i j</code> respectives vis-à-vis du compteur <span class="math inline">\(B\)</span>.</li>
+<li><code>INCA</code> : incrémenter A, c’est-à-dire ajouter 1 à la
+valeur qu’il contient</li>
+<li><code>DECA</code> : décrementer A, c’est-à-dire soustraire 1 à la
+valeur qu’il contient</li>
+<li><code>IFA i j</code> sauter à l’instruction numéro <span
+class="math inline">\(i\)</span> si <span
+class="math inline">\(A\)</span> est nul, sinon sauter à l’instruction
+numéro <span class="math inline">\(j\)</span>.</li>
+<li>les instructions <code>INCB</code>, <code>DECB</code> et
+<code>IFB i j</code> respectives vis-à-vis du compteur <span
+class="math inline">\(B\)</span>.</li>
 </ul>
 <p>Ainsi, on peut considérer le programme suivant</p>
 <pre><code>1: IFA 6 2
@@ -395,14 +478,26 @@ Exemple
 5: IFA 1 1
 6: INCA
 7: DECA</code></pre>
-<p>Si on initialise les compteurs <span class="math inline">\((A,B)\)</span> à <span class="math inline">\((n,0)\)</span> et qu’on exécute le programme, on obtient alors <span class="math inline">\((0,2n)\)</span> dans les compteurs. Ce programme réalise ainsi un doublement du compteur <span class="math inline">\(A\)</span> et place le résultat dans le compteur <span class="math inline">\(B\)</span>.</p>
+<p>Si on initialise les compteurs <span
+class="math inline">\((A,B)\)</span> à <span
+class="math inline">\((n,0)\)</span> et qu’on exécute le programme, on
+obtient alors <span class="math inline">\((0,2n)\)</span> dans les
+compteurs. Ce programme réalise ainsi un doublement du compteur <span
+class="math inline">\(A\)</span> et place le résultat dans le compteur
+<span class="math inline">\(B\)</span>.</p>
 <div class="ui message orange">
 <div class="header">
 Exercice
 </div>
 <ol type="1">
-<li>Écrire un programme permettant de passer de la configuration <span class="math inline">\((a,b)\)</span> à <span class="math inline">\((0,a+b)\)</span>.</li>
-<li>Écrire un programme permettant de passer de la configuration <span class="math inline">\((n,0)\)</span> à <span class="math inline">\((0,0)\)</span> si <span class="math inline">\(n\)</span> est pair ou <span class="math inline">\((0,1)\)</span> sinon.</li>
+<li>Écrire un programme permettant de passer de la configuration <span
+class="math inline">\((a,b)\)</span> à <span
+class="math inline">\((0,a+b)\)</span>.</li>
+<li>Écrire un programme permettant de passer de la configuration <span
+class="math inline">\((n,0)\)</span> à <span
+class="math inline">\((0,0)\)</span> si <span
+class="math inline">\(n\)</span> est pair ou <span
+class="math inline">\((0,1)\)</span> sinon.</li>
 </ol>
 </div>
 <p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
@@ -428,63 +523,168 @@ Exercice
 7: INCA
 8: DECA</code></pre>
 <p></div></div></div></p>
-<h2 data-number="2.3" id="sec:exemple-le-noyau-fonctionnel-pur-docaml"><span class="header-section-number">2.3</span> Exemple : le noyau fonctionnel pur d’<code>OCaml</code></h2>
-<p>On considère ici le noyau <code>OCaml</code> avec les entiers, leurs opérations élémentaires, les fonctions, les définitions (récursives ou non) et ce qui correspond à l’évaluation.</p>
-<p>Ainsi le terme <code>OCaml</code> suivant <code>fun n -&gt; 2 * n</code> peut être vu simplement comme prenant en entrée un entier <span class="math inline">\(n\)</span> et renvoyant son double.</p>
-<p>Ce qui est important ici, sans qu’on s’attarde sur la définition précise de l’évaluation, c’est de comprendre qu’il s’agit d’un modèle de calcul sans avoir de notion de machine, d’instructions ou de programme.</p>
-<p>Bien entendu, quand on interprète ou qu’on compile un programme <code>OCaml</code>, cela se passe sur un ordinateur, donc une machine.</p>
-<p>On considère que les termes sont les programmes dans un tel langage de programmation. La différence principale entre un programme vu ainsi et un dans le sens usuel, comme un programme Python, c’est que l’on n’a pas conscience de la réalité la machine quand on programme : il n’y a pas de notion d’instructions. Bien sûr, on verra qu’il est possible de retrouver cela dans OCaml et ainsi de se ramener en terrain connu, mais c’est important de comprendre que ce noyau existe indépendamment d’une notion de machine.</p>
-<p><div class="ui message orange"><div class="header">Remarque</div>C’est Alonzo Church qui a défini ce noyau, qu’on appelle le <span class="math inline">\(\lambda\)</span>-calcul, en 1933 alors qu’il souhaitait présenter un cadre pour exprimer les fonctions calculables.</div></p>
-<h2 data-number="2.4" id="sec:exemple-jeu-de-la-vie"><span class="header-section-number">2.4</span> Exemple : Jeu de la vie</h2>
-<p>Le <em>jeu de la vie</em> défini en 1970 par John Conway dans le but d’être une récréation mathématique s’est révélé être un modèle de calcul très important.</p>
-<p>Il s’agit d’un cas particulier d’une plus grande classe de modèles de calcul appelés les <strong>automates cellulaires</strong>.</p>
-<p>Une configuration du jeu de la vie est une grille bidimensionnelle de valeur booléenne. On appelle chaque case une <em>cellule</em> et on dirait que le booléen permet de déterminer si elle <em>vivante</em> ou <em>morte</em>.</p>
-<p>L’évaluation de ce modèle consiste à définir une nouvelle configuration en appliquant la règle suivante pour chaque cellule :</p>
+<h2 data-number="2.3"
+id="sec:exemple-le-noyau-fonctionnel-pur-docaml"><span
+class="header-section-number">2.3</span> Exemple : le noyau fonctionnel
+pur d’<code>OCaml</code></h2>
+<p>On considère ici le noyau <code>OCaml</code> avec les entiers, leurs
+opérations élémentaires, les fonctions, les définitions (récursives ou
+non) et ce qui correspond à l’évaluation.</p>
+<p>Ainsi le terme <code>OCaml</code> suivant
+<code>fun n -&gt; 2 * n</code> peut être vu simplement comme prenant en
+entrée un entier <span class="math inline">\(n\)</span> et renvoyant son
+double.</p>
+<p>Ce qui est important ici, sans qu’on s’attarde sur la définition
+précise de l’évaluation, c’est de comprendre qu’il s’agit d’un modèle de
+calcul sans avoir de notion de machine, d’instructions ou de
+programme.</p>
+<p>Bien entendu, quand on interprète ou qu’on compile un programme
+<code>OCaml</code>, cela se passe sur un ordinateur, donc une
+machine.</p>
+<p>On considère que les termes sont les programmes dans un tel langage
+de programmation. La différence principale entre un programme vu ainsi
+et un dans le sens usuel, comme un programme Python, c’est que l’on n’a
+pas conscience de la réalité la machine quand on programme : il n’y a
+pas de notion d’instructions. Bien sûr, on verra qu’il est possible de
+retrouver cela dans OCaml et ainsi de se ramener en terrain connu, mais
+c’est important de comprendre que ce noyau existe indépendamment d’une
+notion de machine.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div>C’est
+Alonzo Church qui a défini ce noyau, qu’on appelle le <span
+class="math inline">\(\lambda\)</span>-calcul, en 1933 alors qu’il
+souhaitait présenter un cadre pour exprimer les fonctions
+calculables.</div></p>
+<h2 data-number="2.4" id="sec:exemple-jeu-de-la-vie"><span
+class="header-section-number">2.4</span> Exemple : Jeu de la vie</h2>
+<p>Le <em>jeu de la vie</em> défini en 1970 par John Conway dans le but
+d’être une récréation mathématique s’est révélé être un modèle de calcul
+très important.</p>
+<p>Il s’agit d’un cas particulier d’une plus grande classe de modèles de
+calcul appelés les <strong>automates cellulaires</strong>.</p>
+<p>Une configuration du jeu de la vie est une grille bidimensionnelle de
+valeur booléenne. On appelle chaque case une <em>cellule</em> et on
+dirait que le booléen permet de déterminer si elle <em>vivante</em> ou
+<em>morte</em>.</p>
+<p>L’évaluation de ce modèle consiste à définir une nouvelle
+configuration en appliquant la règle suivante pour chaque cellule :</p>
 <ul>
-<li>si la cellule est vivante et a deux ou trois voisines vivantes, elle reste vivante dans la nouvelle configuration, sinon elle meurt.</li>
-<li>si la cellule est morte, elle devient vivante si et seulement si elle a exactement trois voisines vivantes.</li>
+<li>si la cellule est vivante et a deux ou trois voisines vivantes, elle
+reste vivante dans la nouvelle configuration, sinon elle meurt.</li>
+<li>si la cellule est morte, elle devient vivante si et seulement si
+elle a exactement trois voisines vivantes.</li>
 </ul>
-<p>Quand on parle de cellules voisines, on fait référence aux huit voisines directe sur la grille (on compte ainsi les diagonales).</p>
-<p>Le point essentiel dans cette procédure permettant de passer d’une configuration à une autre est qu’on ne modifie pas la configuration courante, tout se passe comme si chaque cellule était modifié simultanément.</p>
-<p>La configuration initiale est à la fois le programme et ses entrées. Un point critique ici c’est qu’il n’existe pas de notion de fin d’évaluation. En effet, même des configurations très simples n’atteignent pas un point fixe. On devra donc choisir en fonction du problème que l’on cherche à résoudre, comment déterminer la fin du calcul.</p>
-<h2 data-number="2.5" id="sec:exemple-fractran"><span class="header-section-number">2.5</span> Exemple : FRACTRAN</h2>
-<p>FRACTRAN est un modèle de calcul également inventé par John Conway en 1987.</p>
-<p>Un programme FRACTRAN est une suite finie de fractions d’entiers naturels comme :</p>
+<p>Quand on parle de cellules voisines, on fait référence aux huit
+voisines directe sur la grille (on compte ainsi les diagonales).</p>
+<p>Le point essentiel dans cette procédure permettant de passer d’une
+configuration à une autre est qu’on ne modifie pas la configuration
+courante, tout se passe comme si chaque cellule était modifié
+simultanément.</p>
+<p>La configuration initiale est à la fois le programme et ses entrées.
+Un point critique ici c’est qu’il n’existe pas de notion de fin
+d’évaluation. En effet, même des configurations très simples
+n’atteignent pas un point fixe. On devra donc choisir en fonction du
+problème que l’on cherche à résoudre, comment déterminer la fin du
+calcul.</p>
+<h2 data-number="2.5" id="sec:exemple-fractran"><span
+class="header-section-number">2.5</span> Exemple : FRACTRAN</h2>
+<p>FRACTRAN est un modèle de calcul également inventé par John Conway en
+1987.</p>
+<p>Un programme FRACTRAN est une suite finie de fractions d’entiers
+naturels comme :</p>
 <p><span class="math display">\[
 P = \left( \frac{17}{91}, \frac{78}{85}, \frac{19}{51}, \frac{23}{38},
 \frac{29}{33}, \frac{77}{29}, \frac{95}{23}, \frac{77}{19},
 \frac{1}{17}, \frac{11}{13}, \frac{13}{11}, \frac{15}{2}, \frac{1}{7},
 \frac{55}{1} \right)
 \]</span></p>
-<p>Une entrée est un entier et pour <em>exécuter</em> un tel programme, on considère un entier courant <span class="math inline">\(n\)</span>, initialisé à la valeur de l’entrée, et on parcourt les fractions de gauche à droite jusqu’à trouve une fraction <span class="math inline">\(\frac{p}{q}\)</span> tel que <span class="math inline">\(n \frac{p}{q}\)</span> soit un entier. Dans ce cas, c’est la nouvelle valeur de <span class="math inline">\(n\)</span> et on recommence le processus. Sinon, le programme termine.</p>
+<p>Une entrée est un entier et pour <em>exécuter</em> un tel programme,
+on considère un entier courant <span class="math inline">\(n\)</span>,
+initialisé à la valeur de l’entrée, et on parcourt les fractions de
+gauche à droite jusqu’à trouve une fraction <span
+class="math inline">\(\frac{p}{q}\)</span> tel que <span
+class="math inline">\(n \frac{p}{q}\)</span> soit un entier. Dans ce
+cas, c’est la nouvelle valeur de <span class="math inline">\(n\)</span>
+et on recommence le processus. Sinon, le programme termine.</p>
 <div class="ui message blue">
 <div class="header">
 Exemple
 </div>
-<p><span class="math inline">\((\frac{3}{10}, \frac{4}{3})\)</span> sur l’entrée 14 va s’arrêter tout de suite, sur l’entrée 15, on va avoir 20, 6 puis 8 et s’arrêter.</p>
+<p><span class="math inline">\((\frac{3}{10}, \frac{4}{3})\)</span> sur
+l’entrée 14 va s’arrêter tout de suite, sur l’entrée 15, on va avoir 20,
+6 puis 8 et s’arrêter.</p>
 </div>
 <div class="ui message orange">
 <div class="header">
 Exercice
 </div>
-<p>Exécuter <span class="math inline">\(P\)</span> sur l’entrée <span class="math inline">\(2\)</span> suffisament longtemps pour noter les quatres premières puissances de <span class="math inline">\(2\)</span> prises par l’entier courant. Attention, cela nécessite sûrement de programmer l’évaluation.</p>
+<p>Exécuter <span class="math inline">\(P\)</span> sur l’entrée <span
+class="math inline">\(2\)</span> suffisament longtemps pour noter les
+quatres premières puissances de <span class="math inline">\(2\)</span>
+prises par l’entier courant. Attention, cela nécessite sûrement de
+programmer l’évaluation.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> On remarque que les puissances de 2 qui apparaissent sont dans l’ordre : <span class="math inline">\(2^2, 2^3, 2^5, 2^7,2^{11}, 2^{13}, ...\)</span>. Ainsi ce programme énumère les nombres premiers. </div> </div></p>
-<p>Comment fonctionne FRACTRAN ? En fait, chaque fraction va être de la forme <span class="math display">\[
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> On remarque que les puissances de 2
+qui apparaissent sont dans l’ordre : <span class="math inline">\(2^2,
+2^3, 2^5, 2^7,2^{11}, 2^{13}, ...\)</span>. Ainsi ce programme énumère
+les nombres premiers. </div> </div></p>
+<p>Comment fonctionne FRACTRAN ? En fait, chaque fraction va être de la
+forme <span class="math display">\[
 \frac{p_1^{a_1} \dots p_k^{a_k}}{q_1^{b_1} \dots q_l^{b_l}}
-\]</span> où les <span class="math inline">\(p_i\)</span> et les <span class="math inline">\(q_j\)</span> sont des nombres premiers distincts.</p>
-<p>Pour qu’on sélectionne cette fraction, il faut que <span class="math inline">\(n\)</span> soit divisible par le dénominateur, donc si on écrit <span class="math inline">\(n\)</span> en produit de facteurs premiers, il faut que les puissances correspondant à chaque <span class="math inline">\(q_i\)</span> soit <span class="math inline">\(\ge b_i\)</span>. On va alors les diminuer de <span class="math inline">\(b_i\)</span> puis augmenter les puissances correspondant à chaque <span class="math inline">\(p_i\)</span> de <span class="math inline">\(a_i\)</span>.</p>
-<p>Ainsi, si on considère qu’un nombre <span class="math inline">\(n\)</span> s’écrit <span class="math inline">\(n = \prod_{i \in \N} p_i^{a_i}\)</span>, avec les <span class="math inline">\(a_i\)</span> presque tous nuls et <span class="math inline">\(p_0 &lt; p_1 &lt; p_2 &lt; ...\)</span> une énumération des nombres premiers, on voit qu’un nombre n’est alors qu’une configuration d’une infinité de compteurs indexés par des entiers et qui sont presque tous à 0. Une fraction est alors une règle de la forme :</p>
-<p><span class="math display">\[C[i_1] \ge b_1, \dots, C[i_k] \ge b_k \rightarrow C[i_1] - b_1, \dots, C[i_k] 
-- b_k, C[j_1] + a_1, \dots,  C[j_l] + a_l\]</span> où on a nommé <span class="math inline">\(C[0], C[1], ...\)</span> les compteurs.</p>
-<p>FRACTRAN est donc une sorte de machine à compteurs dont les instructions sont exécutées comme dans un filtrage <code>OCaml</code> en cherchant de gauche à droite la première règle qui s’applique. Le point le plus délicat c’est que la condition permettant d’appliquer une règle est destructrice : on divise, et on ne peut pas utiliser le même compteur pour la condition et pour le résultat, car sinon on simplifierait la fraction.</p>
-<p><div class="ui message orange"><div class="header">Remarque</div><strong>Comment fonctionne le programme <span class="math inline">\(P\)</span> ?</strong></p>
-<p>Pour cela, on va réecrire <span class="math inline">\(P\)</span> en suivant la syntaxe précédente, comme on a forcément des décrements de compteurs correspondant à la condition d’application, il est inutile de les répeter et on écrira juste</p>
+\]</span> où les <span class="math inline">\(p_i\)</span> et les <span
+class="math inline">\(q_j\)</span> sont des nombres premiers
+distincts.</p>
+<p>Pour qu’on sélectionne cette fraction, il faut que <span
+class="math inline">\(n\)</span> soit divisible par le dénominateur,
+donc si on écrit <span class="math inline">\(n\)</span> en produit de
+facteurs premiers, il faut que les puissances correspondant à chaque
+<span class="math inline">\(q_i\)</span> soit <span
+class="math inline">\(\ge b_i\)</span>. On va alors les diminuer de
+<span class="math inline">\(b_i\)</span> puis augmenter les puissances
+correspondant à chaque <span class="math inline">\(p_i\)</span> de <span
+class="math inline">\(a_i\)</span>.</p>
+<p>Ainsi, si on considère qu’un nombre <span
+class="math inline">\(n\)</span> s’écrit <span class="math inline">\(n =
+\prod_{i \in \N} p_i^{a_i}\)</span>, avec les <span
+class="math inline">\(a_i\)</span> presque tous nuls et <span
+class="math inline">\(p_0 &lt; p_1 &lt; p_2 &lt; ...\)</span> une
+énumération des nombres premiers, on voit qu’un nombre n’est alors
+qu’une configuration d’une infinité de compteurs indexés par des entiers
+et qui sont presque tous à 0. Une fraction est alors une règle de la
+forme :</p>
+<p><span class="math display">\[C[i_1] \ge b_1, \dots, C[i_k] \ge b_k
+\rightarrow C[i_1] - b_1, \dots, C[i_k]
+- b_k, C[j_1] + a_1, \dots,  C[j_l] + a_l\]</span> où on a nommé <span
+class="math inline">\(C[0], C[1], ...\)</span> les compteurs.</p>
+<p>FRACTRAN est donc une sorte de machine à compteurs dont les
+instructions sont exécutées comme dans un filtrage <code>OCaml</code> en
+cherchant de gauche à droite la première règle qui s’applique. Le point
+le plus délicat c’est que la condition permettant d’appliquer une règle
+est destructrice : on divise, et on ne peut pas utiliser le même
+compteur pour la condition et pour le résultat, car sinon on
+simplifierait la fraction.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div><strong>Comment
+fonctionne le programme <span class="math inline">\(P\)</span>
+?</strong></p>
+<p>Pour cela, on va réecrire <span class="math inline">\(P\)</span> en
+suivant la syntaxe précédente, comme on a forcément des décrements de
+compteurs correspondant à la condition d’application, il est inutile de
+les répeter et on écrira juste</p>
 <pre><code>2:-2 3:-2 |&gt; 1:+2 0:+1</code></pre>
-<p>pour la fraction <span class="math inline">\(\frac{18}{1225} = \frac{2.3^2}{5^2.7^2}\)</span> car <span class="math inline">\(p_0 = 2, p_1=3, p_2=5\)</span> et <span class="math inline">\(p_3 = 7\)</span>. Par soucis de lisibilité, on peut de plus nommer les compteurs par des lettres en commençant à <span class="math inline">\(a\)</span> et donc écrire</p>
+<p>pour la fraction <span class="math inline">\(\frac{18}{1225} =
+\frac{2.3^2}{5^2.7^2}\)</span> car <span class="math inline">\(p_0 = 2,
+p_1=3, p_2=5\)</span> et <span class="math inline">\(p_3 = 7\)</span>.
+Par soucis de lisibilité, on peut de plus nommer les compteurs par des
+lettres en commençant à <span class="math inline">\(a\)</span> et donc
+écrire</p>
 <pre><code>c-2 d-2 |&gt; b+2 a+1</code></pre>
-<p>Comme les régles de <span class="math inline">\(P\)</span> ne font intervenir que des <span class="math inline">\(+1\)</span> et des <span class="math inline">\(-1\)</span>, on pourra encore abréger en écrivant <code>a-</code> plutôt que <code>a-1</code> et <code>b+</code> plutôt que <code>b+1</code>.</p>
-<p>Ainsi, <span class="math inline">\(P\)</span> devient la suite de règles suivantes (numérotées pour y faire référence ensuite).</p>
+<p>Comme les régles de <span class="math inline">\(P\)</span> ne font
+intervenir que des <span class="math inline">\(+1\)</span> et des <span
+class="math inline">\(-1\)</span>, on pourra encore abréger en écrivant
+<code>a-</code> plutôt que <code>a-1</code> et <code>b+</code> plutôt
+que <code>b+1</code>.</p>
+<p>Ainsi, <span class="math inline">\(P\)</span> devient la suite de
+règles suivantes (numérotées pour y faire référence ensuite).</p>
 <pre><code> 0: d-f- |&gt; g+
  1: c-g- |&gt; a+b+f+
  2: b-g- |&gt; h+
@@ -499,19 +699,88 @@ Exercice
 11: a-   |&gt; b+c+
 12: d-   |&gt; 
 13:      |&gt; c+e+</code></pre>
-<p>On commence avec la configuration <span class="math inline">\(n = 2 = 2^1\)</span> donc uniquement <span class="math inline">\(1\)</span> dans le compteur <code>a</code> et <span class="math inline">\(0\)</span> dans les autres. On notera <span class="math display">\[a:1\]</span> cette configuration.</p>
-<p>On remarque donc que si on a la configuration <span class="math display">\[a:n-1\]</span> on va appliquer la règle 11 jusqu’à obtenir la configuration <span class="math display">\[b:n-1,c:n-1\]</span></p>
-<p>Ensuite, on applique la règle 13 puis successivement les règles 4 et 5 jusqu’à être dans la configuration <span class="math display">\[c:n,d:n-1,e:1\]</span> La règle 10 permet de passer à <span class="math display">\[c:n,d:n-1,f:1\]</span></p>
-<p>On va effectuer une succession de règle afin de déterminer si <span class="math inline">\(n-1\)</span> divise <span class="math inline">\(n\)</span>. En fait, cette sucession de règle va déterminer si <span class="math inline">\(d\)</span> divise <span class="math inline">\(c\)</span>. Imaginons donc qu’on a la configuration <span class="math display">\[c:n,d:m,f:1\]</span> on applique successivement les règles 0 et 1 pour obtenir la configuration <span class="math display">\[a:m,b:m,c:n-m,f:1\]</span> La règle 9 s’applique alors pour passer à <span class="math display">\[a:m,b:m,c:n-m,e:1\]</span> et on effectue alors la succession des règles 4 et 5 qu’on a déjà vu pour passer à <span class="math display">\[a:m,c:n-m,d:m,e:1\]</span></p>
-<p>Comme il n’y a plus rien dans <code>b</code> c’est la règle 10 qui s’applique et on repasse à <span class="math display">\[a:m,c:n-m,d:m,f:1\]</span> On repasse alors dans les règles 0 et 1 jusqu’à obtenir <span class="math display">\[a:2m,b:m,c:n-2m,f:1\]</span> et ainsi de suite. Pour l’arret, deux cas peuvent alors se produire :</p>
+<p>On commence avec la configuration <span class="math inline">\(n = 2 =
+2^1\)</span> donc uniquement <span class="math inline">\(1\)</span> dans
+le compteur <code>a</code> et <span class="math inline">\(0\)</span>
+dans les autres. On notera <span class="math display">\[a:1\]</span>
+cette configuration.</p>
+<p>On remarque donc que si on a la configuration <span
+class="math display">\[a:n-1\]</span> on va appliquer la règle 11
+jusqu’à obtenir la configuration <span
+class="math display">\[b:n-1,c:n-1\]</span></p>
+<p>Ensuite, on applique la règle 13 puis successivement les règles 4 et
+5 jusqu’à être dans la configuration <span
+class="math display">\[c:n,d:n-1,e:1\]</span> La règle 10 permet de
+passer à <span class="math display">\[c:n,d:n-1,f:1\]</span></p>
+<p>On va effectuer une succession de règle afin de déterminer si <span
+class="math inline">\(n-1\)</span> divise <span
+class="math inline">\(n\)</span>. En fait, cette sucession de règle va
+déterminer si <span class="math inline">\(d\)</span> divise <span
+class="math inline">\(c\)</span>. Imaginons donc qu’on a la
+configuration <span class="math display">\[c:n,d:m,f:1\]</span> on
+applique successivement les règles 0 et 1 pour obtenir la configuration
+<span class="math display">\[a:m,b:m,c:n-m,f:1\]</span> La règle 9
+s’applique alors pour passer à <span
+class="math display">\[a:m,b:m,c:n-m,e:1\]</span> et on effectue alors
+la succession des règles 4 et 5 qu’on a déjà vu pour passer à <span
+class="math display">\[a:m,c:n-m,d:m,e:1\]</span></p>
+<p>Comme il n’y a plus rien dans <code>b</code> c’est la règle 10 qui
+s’applique et on repasse à <span
+class="math display">\[a:m,c:n-m,d:m,f:1\]</span> On repasse alors dans
+les règles 0 et 1 jusqu’à obtenir <span
+class="math display">\[a:2m,b:m,c:n-2m,f:1\]</span> et ainsi de suite.
+Pour l’arret, deux cas peuvent alors se produire :</p>
 <ul>
-<li><p>Soit on a vidé <code>c</code> en effectuant la soustraction de <span class="math inline">\(m\)</span>, ce qui correspond au cas où <span class="math inline">\(m\)</span> ne divise pas <span class="math inline">\(n\)</span>, et alors la règle 1 ne pourra plus s’appliquer car elle nécessite <span class="math inline">\(c \ge 1\)</span>. Si <span class="math inline">\(n=qm+r\)</span> avec <span class="math inline">\(0 &lt; r &lt; n\)</span>, on aboutit alors avec une dernière application de <span class="math inline">\(0\)</span> en <span class="math display">\[a:n,b:r,d:m-r-1,g:1\]</span> Comme la règle 1 ne s’applique plus, on passe alors à la règle 2 vers <span class="math display">\[a:n,b:r,d:m-r-1,h:1\]</span> on enchaine alors les règles 3 et 6 jusqu’à obtenir la configuration <span class="math display">\[b:r-1,c:n,d:m-r-1,h:1\]</span> On ne peut alors qu’apppliquer la règle 7 qui permet de passer à <span class="math display">\[b:r-1,c:n,d:m-r,e:1\]</span> puis l’alternance 4 et 5 transfère b dans d vers <span class="math display">\[c:n,d:m-1,e:1\]</span> Dans ce cas, si on a <span class="math inline">\(m-1&gt;0\)</span> et on va alors repasser dans la règle 10 pour tester la divisibilité de <span class="math inline">\(n\)</span> par <span class="math inline">\(m-1\)</span>. Mais ce qui est subtil ici, c’est que le cas <span class="math inline">\(m-1=0\)</span> a déjà été pris en compte car il correspond à <span class="math inline">\(m=1\)</span>, c’est-à-dire à une divisibilité qui aboutit forcément et qui est donc traité par le cas suivant.</p></li>
-<li><p>Soit <span class="math inline">\(m\)</span> divise <span class="math inline">\(n\)</span>, donc <span class="math inline">\(n = km\)</span> et on va aboutir forcément par soustraction après une règle 0 à une configuration de la forme <span class="math display">\[a:n,d:m-1,g:1\]</span> Donc, contrairement au cas précédent, la règle 2 ne s’applique pas car <span class="math inline">\(b=0\)</span>. On passe donc à la règle 8 qui produit <span class="math display">\[a:n,d:m-1\]</span> C’est ici qu’on peut produire un nombre premier, car si <span class="math inline">\(m-1=0\)</span>, cela veut dire que la seule divisiblité s’est produite pour 1, donc que <span class="math inline">\(n\)</span> est premier. Or, on a alors uniquement <span class="math inline">\(n\)</span> dans le compteur <code>a</code>, et ainsi ça correspond au <span class="math inline">\(2^n\)</span>.</p>
-<p>On poursuit alors par une étape de nettoyage pour passer à l’entier <span class="math inline">\(n+1\)</span> et continuer. Pour cela, on applique la règle 11 comme précédemment. Le seul changement c’est qu’avant de passer à la règle 13, on va appliquer la règle 12 pour vider le compteur <code>d</code>.</p></li>
+<li><p>Soit on a vidé <code>c</code> en effectuant la soustraction de
+<span class="math inline">\(m\)</span>, ce qui correspond au cas où
+<span class="math inline">\(m\)</span> ne divise pas <span
+class="math inline">\(n\)</span>, et alors la règle 1 ne pourra plus
+s’appliquer car elle nécessite <span class="math inline">\(c \ge
+1\)</span>. Si <span class="math inline">\(n=qm+r\)</span> avec <span
+class="math inline">\(0 &lt; r &lt; n\)</span>, on aboutit alors avec
+une dernière application de <span class="math inline">\(0\)</span> en
+<span class="math display">\[a:n,b:r,d:m-r-1,g:1\]</span> Comme la règle
+1 ne s’applique plus, on passe alors à la règle 2 vers <span
+class="math display">\[a:n,b:r,d:m-r-1,h:1\]</span> on enchaine alors
+les règles 3 et 6 jusqu’à obtenir la configuration <span
+class="math display">\[b:r-1,c:n,d:m-r-1,h:1\]</span> On ne peut alors
+qu’apppliquer la règle 7 qui permet de passer à <span
+class="math display">\[b:r-1,c:n,d:m-r,e:1\]</span> puis l’alternance 4
+et 5 transfère b dans d vers <span
+class="math display">\[c:n,d:m-1,e:1\]</span> Dans ce cas, si on a <span
+class="math inline">\(m-1&gt;0\)</span> et on va alors repasser dans la
+règle 10 pour tester la divisibilité de <span
+class="math inline">\(n\)</span> par <span
+class="math inline">\(m-1\)</span>. Mais ce qui est subtil ici, c’est
+que le cas <span class="math inline">\(m-1=0\)</span> a déjà été pris en
+compte car il correspond à <span class="math inline">\(m=1\)</span>,
+c’est-à-dire à une divisibilité qui aboutit forcément et qui est donc
+traité par le cas suivant.</p></li>
+<li><p>Soit <span class="math inline">\(m\)</span> divise <span
+class="math inline">\(n\)</span>, donc <span class="math inline">\(n =
+km\)</span> et on va aboutir forcément par soustraction après une règle
+0 à une configuration de la forme <span
+class="math display">\[a:n,d:m-1,g:1\]</span> Donc, contrairement au cas
+précédent, la règle 2 ne s’applique pas car <span
+class="math inline">\(b=0\)</span>. On passe donc à la règle 8 qui
+produit <span class="math display">\[a:n,d:m-1\]</span> C’est ici qu’on
+peut produire un nombre premier, car si <span
+class="math inline">\(m-1=0\)</span>, cela veut dire que la seule
+divisiblité s’est produite pour 1, donc que <span
+class="math inline">\(n\)</span> est premier. Or, on a alors uniquement
+<span class="math inline">\(n\)</span> dans le compteur <code>a</code>,
+et ainsi ça correspond au <span class="math inline">\(2^n\)</span>.</p>
+<p>On poursuit alors par une étape de nettoyage pour passer à l’entier
+<span class="math inline">\(n+1\)</span> et continuer. Pour cela, on
+applique la règle 11 comme précédemment. Le seul changement c’est
+qu’avant de passer à la règle 13, on va appliquer la règle 12 pour vider
+le compteur <code>d</code>.</p></li>
 </ul>
-<p>Ainsi, ce programme pourrait être traduit par le code <code>Python</code> suivant :</p>
+<p>Ainsi, ce programme pourrait être traduit par le code
+<code>Python</code> suivant :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>a <span class="op">=</span> <span class="dv">1</span></span>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>a <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="cf">while</span> <span class="va">True</span>:</span>
 <span id="cb7-3"><a href="#cb7-3"></a>    a <span class="op">=</span> a<span class="op">+</span><span class="dv">1</span></span>
 <span id="cb7-4"><a href="#cb7-4"></a>    <span class="cf">for</span> d <span class="kw">in</span> <span class="bu">reversed</span>(<span class="bu">range</span>(<span class="dv">1</span>,a)):</span>
@@ -529,30 +798,109 @@ Exercice
 <span id="cb7-16"><a href="#cb7-16"></a>        <span class="bu">print</span>(a,<span class="st">&#39; est premier&#39;</span>)</span></code></pre></div>
 <p></div></p>
 <p></div></p>
-<h2 data-number="2.6" id="sec:modèle-turing-complets"><span class="header-section-number">2.6</span> Modèle Turing complets</h2>
-<p>Tous les exemples présentés ci-dessus sont équivalents : ils permettent de calculer les mêmes fonctions mathématiques pourvu qu’on précise la manière dont on donne l’entrée et comment on lit la sortie.</p>
-<p>Par exemple, s’il n’est pas possible de réaliser l’incrémentation en FRACTRAN, il est possible d’écrire un programme permettant de passer de <span class="math inline">\(2^a\)</span> à <span class="math inline">\(3^{a+1}\)</span>.</p>
-<p>On dit que ces modèles sont <strong>Turing-complet</strong> en référence au modèle de calcul de référence : les machines de Turing.</p>
-<h1 data-number="3" id="sec:langages-compilateur-interprète"><span class="header-section-number">3</span> Langages, Compilateur, Interprète</h1>
-<h2 data-number="3.1" id="sec:langages"><span class="header-section-number">3.1</span> Langages</h2>
-<p>Un langage de programmation est une manière de représenter textuellement un programme. Cela peut être un programme en lien avec une notion de machine mais aussi une notion plus abstraite comme on va le voir.</p>
-<p>Comme on l’a vu, un ordinateur est une machine. Un programme pour cette machine est ce qu’on appelle un binaire et l’ensemble des instructions s’appelle le langage machine. C’est le langage naturel d’un ordinateur et il dépend de son processeur. Ainsi, un binaire pour un téléphone n’est pas directement utilisable sur son ordinateur, car les premiers ont des processeurs utilisant un jeu d’instructions arm et les seconds un jeu d’instructions x86_64.</p>
-<h2 data-number="3.2" id="sec:compilateur"><span class="header-section-number">3.2</span> Compilateur</h2>
-<p>Un <strong>compilateur</strong> est un traducteur d’un langage à un autre. On considère le plus souvent des compilateurs vers un langage machine, qu’il soit lié à des processeurs réels ou une machine spécifique appelée une machine virtuelle.</p>
-<h2 data-number="3.3" id="sec:interprète"><span class="header-section-number">3.3</span> Interprète</h2>
-<p>Un interprète est un programme qui va lire un programme écrit dans un langage donné et l’évaluer en interprétant les instructions. Cela diffère d’une machine virtuelle dans le fait que le programme utilise toute la richesse du langage de programmation dans lequel il a été programmé pour son interprète. De plus, le fait de ne pas passer par une machine virtuelle permet de plus facilement relier l’environnement de l’interprète et celui du langage interprété. Un autre avantage discutable et la possibilité dans le langage cible de faire référence à l’interpréte. Cela permet notamment de permettre l’évaluation dynamique de code (<code>eval</code> en Python).</p>
-<p>Pour autant, les interprètes ont de nombreux défauts qui font qu’on a de plus en plus recours à des compilateurs vers des machines virtuelles. Parmi ceux-ci, citons le fait de devoir relire directement le programme à chaque fois qu’on va l’exécuter, ce qui est particulièrement critique quand on veut faire appels à des fonctions définies ailleurs, ou le fait que l’interprète lui-même est souvent très verbeux.</p>
-<h2 data-number="3.4" id="sec:unité-de-compilation-modules"><span class="header-section-number">3.4</span> Unité de compilation, modules</h2>
-<p>Un programme est souvent structuré sous la forme de nomnbreux sous-programmes reliés entre eux. C’est une bonne pratique pour regrouper des fonctions selon un même thème et permettre la réutilisation du code sans duplication. On utilise pour cela la notion de modules ou de bibliothèques. Cela correspond au niveau du programme à rajouter du code existant au moment de la compilation ou de l’interprétation. Il est alors possible de réutiliser une partie de la compuilation sur ce code, et ainsi, on utilise en général une version intermédiaire qui est du code pre-compilé utilisable par un autre programme, soit en copiant le résultat dans le programme ou en faisant réference à des versions définies dans le système (bibliothèque dynamique). Un programme est chargé de faire le lien entre les différentes bibliothèques et le programme, c’est l’éditeur de liens.</p>
-<h1 data-number="4" id="sec:paradigmes"><span class="header-section-number">4</span> Paradigmes</h1>
-<p>Un paradigme de programmation est une manière de concevoir des programmes. On va citer ici trois paradigmes.</p>
-<h2 data-number="4.1" id="sec:impératif-structuré"><span class="header-section-number">4.1</span> Impératif structuré</h2>
-<p>Un programme impératif est un programme construit plus ou moins directement en lien avec une notion de machines comme une suite d’instructions. Afin de permettre de programmer convenablement, un tel langage fourni une notion de structure qui permet de structurer le code. D’une certaine manière, la notion de classe et la programmation objet enrichi ce paradigme en permettant de structurer le code autour d’une notion d’objets.</p>
-<h2 data-number="4.2" id="sec:fonctionnel-déclaratif"><span class="header-section-number">4.2</span> Fonctionnel déclaratif</h2>
-<p>On a vu qu’en programmation fonctionnelle, tout n’est qu’une expression, un terme, qu’on évalue. Un programme fonctionnel déclaratif est ainsi consistué d’une succession de définitions de valeurs ou de fonctions. C’est ainsi qu’en <code>OCaml</code> n’est qu’une suite de <code>let</code> ou <code>let rec</code>.</p>
-<p>Comment calcule un tel programme ? En évaluant chacune des déclarations, certaines vont effectivement produire des effets de bords et permettre la lecture ou l’écriture. L’usage en <code>OCaml</code> est ainsi de finir un programme par une déclaration nommée <code>main</code> ou <code>_</code> qui va se charger d’appeler les déclarations précédentes.</p>
-<h2 data-number="4.3" id="sec:programmation-logique"><span class="header-section-number">4.3</span> Programmation logique</h2>
-<p>Le paradigme de la programmation logique est sûrement le plus déroutant des trois. Un programme logique est en fait une formule logique dont une solution correspond à son résultat. Sans rentrer dans les détails, on remarquera que cela correspond à ce qu’on fait en SQL pour les bases de données où une requête de recherche est définie sous une forme de formule logique qui décrit les propriétés qui doivent être vérifiés par les éléments qu’on cherche.</p>
+<h2 data-number="2.6" id="sec:modèle-turing-complets"><span
+class="header-section-number">2.6</span> Modèle Turing complets</h2>
+<p>Tous les exemples présentés ci-dessus sont équivalents : ils
+permettent de calculer les mêmes fonctions mathématiques pourvu qu’on
+précise la manière dont on donne l’entrée et comment on lit la
+sortie.</p>
+<p>Par exemple, s’il n’est pas possible de réaliser l’incrémentation en
+FRACTRAN, il est possible d’écrire un programme permettant de passer de
+<span class="math inline">\(2^a\)</span> à <span
+class="math inline">\(3^{a+1}\)</span>.</p>
+<p>On dit que ces modèles sont <strong>Turing-complet</strong> en
+référence au modèle de calcul de référence : les machines de Turing.</p>
+<h1 data-number="3" id="sec:langages-compilateur-interprète"><span
+class="header-section-number">3</span> Langages, Compilateur,
+Interprète</h1>
+<h2 data-number="3.1" id="sec:langages"><span
+class="header-section-number">3.1</span> Langages</h2>
+<p>Un langage de programmation est une manière de représenter
+textuellement un programme. Cela peut être un programme en lien avec une
+notion de machine mais aussi une notion plus abstraite comme on va le
+voir.</p>
+<p>Comme on l’a vu, un ordinateur est une machine. Un programme pour
+cette machine est ce qu’on appelle un binaire et l’ensemble des
+instructions s’appelle le langage machine. C’est le langage naturel d’un
+ordinateur et il dépend de son processeur. Ainsi, un binaire pour un
+téléphone n’est pas directement utilisable sur son ordinateur, car les
+premiers ont des processeurs utilisant un jeu d’instructions arm et les
+seconds un jeu d’instructions x86_64.</p>
+<h2 data-number="3.2" id="sec:compilateur"><span
+class="header-section-number">3.2</span> Compilateur</h2>
+<p>Un <strong>compilateur</strong> est un traducteur d’un langage à un
+autre. On considère le plus souvent des compilateurs vers un langage
+machine, qu’il soit lié à des processeurs réels ou une machine
+spécifique appelée une machine virtuelle.</p>
+<h2 data-number="3.3" id="sec:interprète"><span
+class="header-section-number">3.3</span> Interprète</h2>
+<p>Un interprète est un programme qui va lire un programme écrit dans un
+langage donné et l’évaluer en interprétant les instructions. Cela
+diffère d’une machine virtuelle dans le fait que le programme utilise
+toute la richesse du langage de programmation dans lequel il a été
+programmé pour son interprète. De plus, le fait de ne pas passer par une
+machine virtuelle permet de plus facilement relier l’environnement de
+l’interprète et celui du langage interprété. Un autre avantage
+discutable et la possibilité dans le langage cible de faire référence à
+l’interpréte. Cela permet notamment de permettre l’évaluation dynamique
+de code (<code>eval</code> en Python).</p>
+<p>Pour autant, les interprètes ont de nombreux défauts qui font qu’on a
+de plus en plus recours à des compilateurs vers des machines virtuelles.
+Parmi ceux-ci, citons le fait de devoir relire directement le programme
+à chaque fois qu’on va l’exécuter, ce qui est particulièrement critique
+quand on veut faire appels à des fonctions définies ailleurs, ou le fait
+que l’interprète lui-même est souvent très verbeux.</p>
+<h2 data-number="3.4" id="sec:unité-de-compilation-modules"><span
+class="header-section-number">3.4</span> Unité de compilation,
+modules</h2>
+<p>Un programme est souvent structuré sous la forme de nomnbreux
+sous-programmes reliés entre eux. C’est une bonne pratique pour
+regrouper des fonctions selon un même thème et permettre la
+réutilisation du code sans duplication. On utilise pour cela la notion
+de modules ou de bibliothèques. Cela correspond au niveau du programme à
+rajouter du code existant au moment de la compilation ou de
+l’interprétation. Il est alors possible de réutiliser une partie de la
+compuilation sur ce code, et ainsi, on utilise en général une version
+intermédiaire qui est du code pre-compilé utilisable par un autre
+programme, soit en copiant le résultat dans le programme ou en faisant
+réference à des versions définies dans le système (bibliothèque
+dynamique). Un programme est chargé de faire le lien entre les
+différentes bibliothèques et le programme, c’est l’éditeur de liens.</p>
+<h1 data-number="4" id="sec:paradigmes"><span
+class="header-section-number">4</span> Paradigmes</h1>
+<p>Un paradigme de programmation est une manière de concevoir des
+programmes. On va citer ici trois paradigmes.</p>
+<h2 data-number="4.1" id="sec:impératif-structuré"><span
+class="header-section-number">4.1</span> Impératif structuré</h2>
+<p>Un programme impératif est un programme construit plus ou moins
+directement en lien avec une notion de machines comme une suite
+d’instructions. Afin de permettre de programmer convenablement, un tel
+langage fourni une notion de structure qui permet de structurer le code.
+D’une certaine manière, la notion de classe et la programmation objet
+enrichi ce paradigme en permettant de structurer le code autour d’une
+notion d’objets.</p>
+<h2 data-number="4.2" id="sec:fonctionnel-déclaratif"><span
+class="header-section-number">4.2</span> Fonctionnel déclaratif</h2>
+<p>On a vu qu’en programmation fonctionnelle, tout n’est qu’une
+expression, un terme, qu’on évalue. Un programme fonctionnel déclaratif
+est ainsi consistué d’une succession de définitions de valeurs ou de
+fonctions. C’est ainsi qu’en <code>OCaml</code> n’est qu’une suite de
+<code>let</code> ou <code>let rec</code>.</p>
+<p>Comment calcule un tel programme ? En évaluant chacune des
+déclarations, certaines vont effectivement produire des effets de bords
+et permettre la lecture ou l’écriture. L’usage en <code>OCaml</code> est
+ainsi de finir un programme par une déclaration nommée <code>main</code>
+ou <code>_</code> qui va se charger d’appeler les déclarations
+précédentes.</p>
+<h2 data-number="4.3" id="sec:programmation-logique"><span
+class="header-section-number">4.3</span> Programmation logique</h2>
+<p>Le paradigme de la programmation logique est sûrement le plus
+déroutant des trois. Un programme logique est en fait une formule
+logique dont une solution correspond à son résultat. Sans rentrer dans
+les détails, on remarquera que cela correspond à ce qu’on fait en SQL
+pour les bases de données où une requête de recherche est définie sous
+une forme de formule logique qui décrit les propriétés qui doivent être
+vérifiés par les éléments qu’on cherche.</p>
 </div>
 <!-- </div> -->
 </div>
