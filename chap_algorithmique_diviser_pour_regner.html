@@ -739,6 +739,28 @@ troisième cas et <span class="math inline">\(T(n) = O(n \log
 n)\)</span>.</li>
 </ul>
 </div>
+<p><div class="ui message orange"><div class="header">Remarque</div>Pour
+retrouver des expressions rapidement, on peut étudier <span
+class="math inline">\(u_n = \frac{T(p^n)}{k^n}\)</span>.</p>
+<p>En effet, de la récurrence <span class="math inline">\(T(p^n) = k
+T(p^{n-1}) + f(p^n)\)</span> on déduit <span class="math inline">\(u_n =
+u_{n-1} + \frac{f(p^n)}{k^n}\)</span> et donc <span
+class="math inline">\(u_n = \sum_{i=0}^n \frac{f(p^i)}{k^i} =
+O(g(n))\)</span> qui se simplifie en général. Pour obtenir ensuite <span
+class="math inline">\(T(p^n) = k^n u_n = O(k^n g(n))\)</span> puis <span
+class="math inline">\(T(n) = O(n^{\log_p k} g(\log_p n))\)</span>.</p>
+<p>Par exemple, pour <span class="math inline">\(T(n) = 2 T(\lceil n/2
+\rceil) + O(n)\)</span> on a <span class="math inline">\(u_n =
+T(2^n)/2^n = \sum_{i=0}^n \frac{O(2^i)}{2^i} = O(n)\)</span> donc <span
+class="math inline">\(T(2^n) = 2^n O(n) = O(n 2^n)\)</span> puis <span
+class="math inline">\(T(n) = O(n \log n)\)</span>.</p>
+<p>Autre exemple, pour <span class="math inline">\(T(n) = 2 T(\lceil n/2
+\rceil) + O(1)\)</span>, on a <span class="math inline">\(u_n =
+\sum_{i=0}^n 2^{-i} O(1) = O(1) \frac{1 - \frac{1}{2^{n+1}}} {1 -
+\frac{1}{2}} = O(1)\)</span> car <span
+class="math inline">\(\frac{1}{2^{n+1}} = o(1)\)</span>. Ainsi <span
+class="math inline">\(T(2^n) = O(2^n)\)</span> puis <span
+class="math inline">\(T(n) = O(n)\)</span>.</div></p>
 <h2 data-number="1.6" id="sec:nombre-dinversions"><span
 class="header-section-number">1.6</span> Nombre d’inversions</h2>
 <p><div class="ui message"><div class="header">Définition</div> Soit
@@ -989,7 +1011,7 @@ src="assets/pics/closest_limit8_b.png" /></div></center></p>
 <p><div class="ui message orange"><div class="header">Remarque</div>Cette
 analyse est très naïve, on peut démontrer qu’il suffit d’observer cinq
 autres points.</div></p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-98">ocaml</a>   <a class="item" data-tab="c-98">c</a>   <a class="item" data-tab="python-98">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-98"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-100">ocaml</a>   <a class="item" data-tab="c-100">c</a>   <a class="item" data-tab="python-100">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-100"></p>
 <div class="sourceCode" id="cb10"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> distance (x1,y1) (x2,y2) =</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> v = (x1-.x2)*.(x1-.x2)+.(y1-.y2)*.(y1-.y2) <span class="kw">in</span></span>
@@ -1035,9 +1057,9 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb10-1"><a hre
 <span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Array</span>.sort Stdlib.<span class="dt">compare</span> points;</span>
 <span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Array</span>.sort Stdlib.<span class="dt">compare</span> p_y;</span>
 <span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>    closest_rec points p_y <span class="dv">0</span> (<span class="dt">Array</span>.length points - <span class="dv">1</span>)</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-98"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-100"></p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> src<span class="op">/</span>algorithmique<span class="op">/../../</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>closest_div<span class="op">.</span>c does not exist</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-98"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-100"></p>
 <div class="sourceCode" id="cb12"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> distance(p1,p2):</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    x1, y1 <span class="op">=</span> p1</span>
