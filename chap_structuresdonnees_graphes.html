@@ -28,6 +28,71 @@
       crossorigin="anonymous"></script>
     <script src="assets/semantic.min.js"></script>
 
+    <style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    </style>
   <script
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
   type="text/javascript"></script>
@@ -209,6 +274,7 @@ table td {
 \newcommand\card[1]{\text{Card}\ #1}
 \newcommand\indic{\mathbbm{1}}
 \newcommand\id{\mbox{id}}
+\newcommand\gO{\mathcal{O}}
 \newcommand\Perm[1]{\mathfrak{S}_#1}
 \newcommand\comb[2]{\binom{#1}{#2}}
 \newcommand\tend[2]{\xrightarrow[#1 \rightarrow #2]{}}
@@ -242,7 +308,7 @@ table td {
     </a>
     </div>
 <!-- FIX TOC -->
-<div class="item header"> <a href="#sec:graphes-1"><span>1</span> Graphes</a><div class="menu"></div></div><!-- FIX TOC -->
+<div class="item header"> <a href="#sec:graphes-orientés"><span>1</span> Graphes orientés</a><div class="menu"><a class="item" href="#sec:définition"><div class="ui label">1.1</div> Définition</a><a class="item" href="#sec:voisins-et-degrés"><div class="ui label">1.2</div> Voisins et degrés</a><a class="item" href="#sec:chemin"><div class="ui label">1.3</div> Chemin</a><a class="item" href="#sec:sous-graphe"><div class="ui label">1.4</div> Sous-graphe</a><a class="item" href="#sec:implémentation"><div class="ui label">1.5</div> Implémentation</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:matrice-dadjacence"><i class="circle icon"></i> Matrice d’adjacence</a><a style="font-size:0.6em" class="item" href="#sec:listes-dadjacences"><i class="circle icon"></i> Listes d’adjacences</a><a style="font-size:0.6em" class="item" href="#sec:comparaison"><i class="circle icon"></i> Comparaison</a></div></div></div><div class="item header"> <a href="#sec:graphes-non-orientés"><span>2</span> Graphes non orientés</a><div class="menu"><a class="item" href="#sec:définition-et-adaptation-du-vocabulaire"><div class="ui label">2.1</div> Définition et adaptation du vocabulaire</a><a class="item" href="#sec:connexité"><div class="ui label">2.2</div> Connexité</a></div></div><div class="item header"> <a href="#sec:graphe-acyclique-connexe"><span>3</span> Graphe acyclique connexe</a><div class="menu"></div></div><div class="item header"> <a href="#sec:parcours"><span>4</span> Parcours</a><div class="menu"><a class="item" href="#sec:principe"><div class="ui label">4.1</div> Principe</a><a class="item" href="#sec:profondeur"><div class="ui label">4.2</div> Profondeur</a><a class="item" href="#sec:largeur"><div class="ui label">4.3</div> Largeur</a></div></div><div class="item header"> <a href="#sec:chemin-de-plus-petit-poids"><span>5</span> Chemin de plus petit poids</a><div class="menu"><a class="item" href="#sec:graphe-pondéré"><div class="ui label">5.1</div> Graphe pondéré</a><a class="item" href="#sec:dijkstra-source-unique"><div class="ui label">5.2</div> Dijkstra : source unique</a><a class="item" href="#sec:todo-floyd-warshall-toutes-paires"><div class="ui label">5.3</div> TODO Floyd-Warshall : toutes paires</a></div></div><!-- FIX TOC -->
 </div>
 
 <div class="pusher" id="main-content">
@@ -261,8 +327,939 @@ table td {
 <div class="segment">
 <div class="ui container text">
 <p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Graphes     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_programmation_imperative.jpg"> </div></p>
-<h1 data-number="1" id="sec:graphes-1"><span
-class="header-section-number">1</span> Graphes</h1>
+<p><div class="ui message blue"><div class="header">Note</div>Une grande
+partie est issue verbatim de mon ancien poly. À affiner.</div></p>
+<h1 data-number="1" id="sec:graphes-orientés"><span
+class="header-section-number">1</span> Graphes orientés</h1>
+<h2 data-number="1.1" id="sec:définition"><span
+class="header-section-number">1.1</span> Définition</h2>
+<p><div class="ui message"><div class="header">Définition</div> Un
+graphe orienté est un couple <span class="math inline">\(G = (S,
+A)\)</span> où <span class="math inline">\(S\)</span> est un ensemble
+fini et <span class="math inline">\(A\)</span> est une relation
+<strong>irréflexive</strong> sur <span class="math inline">\(S\)</span>,
+c’est-à-dire <span class="math inline">\(S \subset \{ (x,y) ~|~ x,y \in
+S, x \neq y\}\)</span>.</p>
+<p>Les éléments de <span class="math inline">\(S\)</span> sont appelés
+les <strong>sommets</strong> du graphe <span
+class="math inline">\(G\)</span> et les éléments de <span
+class="math inline">\(A\)</span> les <strong>arêtes</strong>. Si <span
+class="math inline">\((x,y) \in A\)</span>, on dit que <span
+class="math inline">\(x\)</span> est la source de l’arête et <span
+class="math inline">\(y\)</span> est son but. Quand le contexte n’est
+pas ambigu, on notera <span class="math inline">\(x \rightarrow
+y\)</span>. </div></p>
+<div class="ui message blue">
+<div class="header">
+Exemple
+</div>
+<ul>
+<li><span class="math inline">\(G = ( \{ a, b, c \}, \{ (a, b), (b, c),
+(c, b) \} )\)</span></li>
+<li><span class="math inline">\(D_n = ( \range{1}{n}, \{ (a,b) ~|~ a
+\text{ divise } b \} )\)</span></li>
+</ul>
+</div>
+<p><div class="ui message orange"><div class="header">Remarque</div>Ici,
+on a exclu les graphes infinis ainsi que les graphes avec des boucles ou
+des arêtes parallèles. On est dans le contexte des <strong>graphes finis
+simples</strong>.</div></p>
+<p>On représente graphiquement un graphe sous la forme d’un diagramme
+sagittaire où les sommets sont des points et où une arêtes <span
+class="math inline">\((a,b)\)</span> est une flèche allant du point
+<span class="math inline">\(a\)</span> au point <span
+class="math inline">\(b\)</span>.</p>
+<div class="ui message blue">
+<div class="header">
+Exemple
+</div>
+<ul>
+<li><p><span class="math inline">\(G\)</span> est représenté par
+<center><div class="ui image center"><img
+src="assets/pics/graphe_g_rep.png" /></div></center></p></li>
+<li><p><span class="math inline">\(D_{10}\)</span> est représenté par
+<center><div class="ui image center"><img
+src="assets/pics/graphe_d10_rep.png" /></div></center></p></li>
+</ul>
+</div>
+<h2 data-number="1.2" id="sec:voisins-et-degrés"><span
+class="header-section-number">1.2</span> Voisins et degrés</h2>
+<p><div class="ui message"><div class="header">Définition</div> Soit
+<span class="math inline">\(G = (S, A)\)</span> un graphe orienté et
+<span class="math inline">\(x \in S\)</span>.</p>
+<p>On appelle <strong>voisins sortants</strong>, ou
+<strong>successeurs</strong>, de <span class="math inline">\(x\)</span>
+les éléments de <span class="math display">\[
+v_+(x) = \enscomp{y \in S}{(x,y) \in A}
+\]</span> et on appelle <strong>degré sortant</strong> de <span
+class="math inline">\(x\)</span> le cardinal de cet ensemble <span
+class="math inline">\(d_+(x) = |v_+(x)|\)</span>.</p>
+<p>De même, on parle de <strong>voisins entrants</strong>, ou
+<strong>prédéceseurs</strong> pour les éléments de <span
+class="math display">\[
+v_-(x) = \enscomp{z \in S}{(z,x) \in A}
+\]</span> et on parle de <strong>degré entrant</strong> pour <span
+class="math inline">\(d_-(x) = |v_-(x)|\)</span>. </div></p>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p>Soit <span class="math inline">\(G = (S, A)\)</span> un graphe, on a
+<span class="math inline">\(\sum_{x \in S} d_+(x) = \sum_{x \in S}
+d_-(x) = |A|\)</span></p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> On peut partitionner <span
+class="math inline">\(A\)</span> en regroupant les arêtes de même
+source, on a ainsi :</p>
+<p><span class="math display">\[
+A = \bigcup_{x \in S} \enscomp{(x,y)}{y \in S, (x,y) \in A}
+= \bigcup_{x \in S} \enscomp{(x,y)}{y \in v_+(x)}
+\]</span></p>
+<p>Et en prenant la cardinal de cette égalité, on obtient directement
+<span class="math inline">\(|A| = \sum_{x \in S} d_+(x)\)</span>.
+L’autre égalité est symétrique en considérant les arêtes de même but.
+</div> </div></p>
+<h2 data-number="1.3" id="sec:chemin"><span
+class="header-section-number">1.3</span> Chemin</h2>
+<p><div class="ui message"><div class="header">Définition</div> Soit
+<span class="math inline">\(G = (S,A)\)</span> un graphe orienté et
+<span class="math inline">\(x, y \in S\)</span>.</p>
+<p>Une suite finie <span class="math inline">\(\varphi = (s_0, s_1,
+\dots, s_p)\)</span> où <span class="math inline">\(p \in \N, s_0 = x,
+s_p = y\)</span> et <span class="math display">\[
+\forall i \in \range{1}{p}, (s_{i-1},s_i) \in A
+\]</span> est appelée un <strong>chemin</strong>, de longueur <span
+class="math inline">\(p\)</span>, de <span
+class="math inline">\(x\)</span> vers <span
+class="math inline">\(y\)</span>. On a donc <span
+class="math display">\[
+s_0 \rightarrow s_1 \rightarrow \dots \rightarrow s_p
+\]</span></p>
+<p>On notera <span class="math inline">\(\varphi : x \leadsto y\)</span>
+pour signifier que <span class="math inline">\(\varphi\)</span> est un
+tel chemin et <span class="math inline">\(x \leadsto y\)</span> pour
+signifier qu’il existe un chemin de <span
+class="math inline">\(x\)</span> vers <span
+class="math inline">\(y\)</span>. On dit alors que <span
+class="math inline">\(y\)</span> est accessible depuis <span
+class="math inline">\(x\)</span>. </div></p>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p><span class="math inline">\(\leadsto\)</span> est la plus petite
+relation sur <span class="math inline">\(S\)</span> contenant <span
+class="math inline">\(\rightarrow\)</span> et qui soit réflexive et
+transitive.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> On considère <span
+class="math inline">\(\rightarrow \subset R \subset S^2\)</span> telle
+que <span class="math inline">\(R\)</span> soit réflexive et
+transitive.</p>
+<p>Soient <span class="math inline">\(x, y \in S\)</span> et <span
+class="math inline">\(\varphi = (s_0, \dots, s_p) : x \leadsto
+y\)</span>.</p>
+<p>Comme <span class="math inline">\(s_{i-1} \rightarrow s_i\)</span> on
+a <span class="math inline">\(s_{i-1} R s_i\)</span> et, par
+transitivité, <span class="math inline">\(x = s_0 R s_p = y\)</span>.
+Donc <span class="math inline">\(x \leadsto y \Rightarrow x R
+y\)</span>.</p>
+<p>Ainsi <span class="math inline">\(\leadsto \subset R\)</span>.
+</div> </div></p>
+<p>On dit que <span class="math inline">\(\leadsto\)</span> est la
+clôture réflexive et transitive de <span
+class="math inline">\(\rightarrow\)</span>.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Vocabulaire
+additionnel :</p>
+<ul>
+<li>Si tous les sommets sont distincts, sauf éventuellement le premier
+et le dernier, on dit que le chemin est
+<strong>élémentaire</strong>.</li>
+<li>Si toutes les arêtes sont distinctes, on dit que le chemin est
+<strong>simple</strong>.</li>
+<li>Si <span class="math inline">\(x = y\)</span>, on dit que le chemin
+est <strong>fermé</strong>.</li>
+<li>Un chemin simple dont tous les sommets sont distincts est appelé une
+<strong>chaîne</strong>.</li>
+<li>Un chemin élémentaire fermé simple de longueur au moins 1 est appelé
+un <strong>cycle</strong>. <em>Comme le chemin vide issu de <span
+class="math inline">\(x\)</span> est fermé, il est nécessaire de
+considérer des chemins non vides.</em></li>
+<li>Un graphe contenant au moins un cycle est dit
+<strong>cyclique</strong>. Dans le cas contraire, on dit qu’il est
+<strong>acyclique</strong>.</div></li>
+</ul>
+<p><div class="ui message orange"><div class="header">Remarque</div>Si
+<span class="math inline">\(\varphi : x \leadsto y\)</span> et <span
+class="math inline">\(\psi : y \leadsto z\)</span> on note <span
+class="math inline">\(\varphi \psi :x \leadsto z\)</span> la concaténée
+des deux chemins.</div></p>
+<p><div class="ui message"><div class="header">Définition</div> On note
+<span class="math inline">\(\leftrightarrow y\)</span> la plus grande
+relation d’équivalence incluse dans <span
+class="math inline">\(\leadsto\)</span>.</p>
+<p>Plus précisément, on a <span class="math display">\[
+x \leftrightarrow y \iff (x \leadsto y \wedge y \leadsto x)
+\]</span></p>
+<p>Les classes d’équivalences pour <span
+class="math inline">\(\leftrightarrow\)</span> sont appelées les
+composantes <strong>fortement connexes</strong> du graphe. S’il n’y a
+qu’une classe, on dit que le graphe est <strong>fortement
+connexe</strong>. </div></p>
+<h2 data-number="1.4" id="sec:sous-graphe"><span
+class="header-section-number">1.4</span> Sous-graphe</h2>
+<p><div class="ui message"><div class="header">Définition</div> Soit
+<span class="math inline">\(G = (S,A)\)</span> et <span
+class="math inline">\(X \subset S\)</span>. On appelle
+<strong>sous-graphe</strong> induit par <span
+class="math inline">\(X\)</span> le graphe <span
+class="math inline">\((X, A_X)\)</span> où <span class="math display">\[
+A_X = \enscomp{ (a,b) \in A}{a \in X\wedge b \in X}
+\]</span></p>
+<p>Un graphe <span class="math inline">\(G&#39;\)</span> est un
+<strong>sous-graphe</strong> de <span class="math inline">\(G\)</span>
+quand c’est le sous-graphe de <span class="math inline">\(G\)</span>
+induit par les sommets de <span class="math inline">\(G&#39;\)</span>
+(ils sont alors nécessairement des sommets de <span
+class="math inline">\(G\)</span>). </div></p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Les
+composantes fortement connexes sont les sous-graphes fortement connexes
+maximaux pour l’inclusion.</div></p>
+<h2 data-number="1.5" id="sec:implémentation"><span
+class="header-section-number">1.5</span> Implémentation</h2>
+<h3 data-number="1.5.1" id="sec:matrice-dadjacence"><span
+class="header-section-number">1.5.1</span> Matrice d’adjacence</h3>
+<p><div class="ui message"><div class="header">Définition</div> Soit
+<span class="math inline">\(G = (S,A)\)</span> un graphe et <span
+class="math inline">\(S = \{ s_1, \dots, s_n \}\)</span> une énumération
+sans répétition des sommets de <span class="math inline">\(G\)</span>.
+La matrice <span class="math inline">\(M_G = \left( m_{ij} \right)_{1
+\le i, j \le n} \in \mathcal{M}_n(\R)\)</span> définie par <span
+class="math display">\[
+\forall i, j \in \range{1}{n}, m_{ij} = \begin{cases}
+1 &amp;\text{ si } s_i \rightarrow s_j \\ 0 &amp; \text{ sinon }
+\end{cases}
+\]</span> est appelée une <strong>matrice d’adjacence</strong> de <span
+class="math inline">\(G\)</span>. </div></p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Il
+s’agit bien d’<strong>une</strong> matrice d’adjacence et pas de
+<strong>la</strong> matrice car elle dépend de l’énumération des
+sommets.</div></p>
+<p>On en déduit ainsi une implémentation directe d’un graphe en
+représentant la matrice d’adjacence comme l’a fait pour des images.</p>
+<p>Cette représentation permet d’accéder, en lecture comme en écriture,
+à une arête en temps constant. Cependant, pour récupérer les voisins
+d’un sommet, il est nécessaire de parcourir toute la ligne
+correspondante, donc en <span class="math inline">\(O(|S|)\)</span>.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Dans
+la majorité des cas, <span class="math inline">\(A\)</span> est petit
+par rapport à <span class="math inline">\(|S|^2\)</span>. Ainsi, la
+matrice contient très peu de 1 et beaucoup de 0, on dit qu’elle est
+<em>creuse</em>. Une telle matrice <em>creuse</em> peut-être
+efficacement représenté par l’ensemble fini des arêtes <span
+class="math inline">\((i,j)\)</span>. Par exemple, avec une table de
+hachage.</div></p>
+<h3 data-number="1.5.2" id="sec:listes-dadjacences"><span
+class="header-section-number">1.5.2</span> Listes d’adjacences</h3>
+<p>La donnée de <span class="math inline">\(v_+(x)\)</span> pour chaque
+sommet <span class="math inline">\(x \in S\)</span> suffit à
+reconstruire <span class="math inline">\(A\)</span>. On en déduit ainsi
+une représentation d’un graphe où on place dans un tableau chaque <span
+class="math inline">\(v_+(x)\)</span> représenté par une liste chaînée.
+L’accès en lecture ou en écriture à une arête est alors en <span
+class="math inline">\(O(|A|)\)</span> mais on peut parcourir les voisins
+sortant en <span class="math inline">\(O(|A|)\)</span> également. Pour
+un sommet donné, on peut même préciser <span
+class="math inline">\(O(d_+(x))\)</span>.</p>
+<p>Pour obtenir les voisins entrants, il est par contre nécessaire de
+tester la présence de <span class="math inline">\(x\)</span> dans
+chacune des autres listes, on obtient donc un algorithme en <span
+class="math inline">\(O(|S| + |A|)\)</span> : on parcourt chaque case du
+tableau des listes puis chaque maillon de listes d’adjacence.</p>
+<h3 data-number="1.5.3" id="sec:comparaison"><span
+class="header-section-number">1.5.3</span> Comparaison</h3>
+<table style="width:64%;">
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 16%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>opération</th>
+<th>Matrice</th>
+<th>Listes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>complexité spatiale</td>
+<td><span class="math inline">\(O(|S|^2)\)</span></td>
+<td><span class="math inline">\(O(|S|+|A|)\)</span></td>
+</tr>
+<tr class="even">
+<td>arête test</td>
+<td><span class="math inline">\(O(1)\)</span></td>
+<td><span class="math inline">\(O(|A|)\)</span></td>
+</tr>
+<tr class="odd">
+<td>arête ajout</td>
+<td><span class="math inline">\(O(1)\)</span></td>
+<td><span class="math inline">\(O(1)\)</span></td>
+</tr>
+<tr class="even">
+<td>arête suppression</td>
+<td><span class="math inline">\(O(1)\)</span></td>
+<td><span class="math inline">\(O(|A|)\)</span></td>
+</tr>
+<tr class="odd">
+<td>sommet ajout</td>
+<td><span class="math inline">\(O(|S|^2)\)</span></td>
+<td><span class="math inline">\(O(|S|)\)</span></td>
+</tr>
+<tr class="even">
+<td>sommet suppression</td>
+<td><span class="math inline">\(O(|S|^2)\)</span></td>
+<td><span class="math inline">\(O(|S|)\)</span></td>
+</tr>
+<tr class="odd">
+<td>voisins/degré +</td>
+<td><span class="math inline">\(O(|S|)\)</span></td>
+<td><span class="math inline">\(O(d_+(x))\)</span></td>
+</tr>
+<tr class="even">
+<td>voisins/degré -</td>
+<td><span class="math inline">\(O(|S|)\)</span></td>
+<td><span class="math inline">\(O(|S|+|A|)\)</span></td>
+</tr>
+</tbody>
+</table>
+<h1 data-number="2" id="sec:graphes-non-orientés"><span
+class="header-section-number">2</span> Graphes non orientés</h1>
+<h2 data-number="2.1"
+id="sec:définition-et-adaptation-du-vocabulaire"><span
+class="header-section-number">2.1</span> Définition et adaptation du
+vocabulaire</h2>
+<p><div class="ui message"><div class="header">Définition</div> Un
+graphe non orienté est un couple <span class="math inline">\(G = (S,
+A)\)</span> où <span class="math inline">\(S\)</span> est un ensemble
+fini et <span class="math inline">\(A\)</span> est un ensemble de paires
+d’éléments de <span class="math inline">\(S\)</span>, c’est-à-dire
+d’ensembles à deux éléments <span class="math inline">\(\{x,y\}\)</span>
+où <span class="math inline">\(x, y \in S\)</span>.</p>
+<p>Les éléments de <span class="math inline">\(S\)</span> sont appelés
+les <strong>sommets</strong> du graphe <span
+class="math inline">\(G\)</span> et les éléments de <span
+class="math inline">\(A\)</span> les <strong>arêtes</strong>. Si <span
+class="math inline">\(\{ x,y \} \in A\)</span>, on note <span
+class="math inline">\(x \smile y\)</span>. </div></p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Si
+<span class="math inline">\(G = (S,A)\)</span> est un graphe orienté, on
+peut en déduire deux graphes non orientés :</p>
+<ul>
+<li>un graphe par défaut <span class="math inline">\(G^- = (S,
+A^-)\)</span> où <span class="math display">\[\forall x, y \in S, x
+\smile y
+\iff (x \rightarrow y \wedge y \rightarrow x)\]</span></li>
+<li>un graphe par excès <span class="math inline">\(G^+ = (S,
+A^+)\)</span> où <span class="math display">\[\forall x, y \in S, x
+\smile y
+\iff (x \rightarrow y \vee y \rightarrow x)\]</span></li>
+</ul>
+<p>On a également <span class="math inline">\(A\)</span> symétrique
+<span class="math inline">\(\iff G^+ = G^-\)</span>. Cela correspond à
+un graphe où chaque arête est dans les deux sens <span
+class="math inline">\(x \leftrightarrow y\)</span> et, donc, on peut
+oublier l’orientation.</div></p>
+<p>On reprend directement l’essentiel du vocabulaire des graphes
+orientés symétriques avec des simplifications :</p>
+<p><div class="ui message"><div class="header">Définition</div> Soit
+<span class="math inline">\(G= (S,A)\)</span> un graphe et <span
+class="math inline">\(x \in S\)</span>.</p>
+<ul>
+<li>On appelle <em>voisins</em> de <span
+class="math inline">\(x\)</span> les éléments de <span
+class="math display">\[
+v(x) = \enscomp{y \in S}{x \smile y}
+\]</span></li>
+<li>On appelle <em>degré</em> de <span class="math inline">\(x\)</span>
+l’entier <span class="math inline">\(d(x) = | v(x)|\)</span>.
+</div></li>
+</ul>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p><span class="math inline">\(\sum_{x \in S} d(x) = 2 |A|\)</span></p>
+</div>
+<p>On étend directement la notion de <strong>chemin</strong> mais il
+faut faire attention au fait que <strong>simple</strong> n’a pas le même
+sens entre un graphe non orienté symétrique et un graphe non orienté. En
+effet, on <span class="math inline">\(x \rightarrow y \rightarrow
+x\)</span> est simple pour un graphe orienté alors que <span
+class="math inline">\(x \smile y \smile x\)</span> ne l’est pas vu qu’il
+s’agit de la même arête.</p>
+<h2 data-number="2.2" id="sec:connexité"><span
+class="header-section-number">2.2</span> Connexité</h2>
+<p><div class="ui message"><div class="header">Définition</div> On
+définit <span class="math inline">\(\smile^*\)</span> comme étant la
+clôture réflexive et transitive de <span
+class="math inline">\(\smile\)</span>. </div></p>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<ul>
+<li><span class="math inline">\(\smile^*\)</span> est une relation
+d’équivalence dont les classes sont appelées les <strong>composantes
+connexes</strong> du graphe.</li>
+<li><span class="math inline">\(x \smile^* y \iff\)</span> il existe un
+chemin de <span class="math inline">\(x\)</span> à <span
+class="math inline">\(y\)</span>.</li>
+</ul>
+</div>
+<p><div class="ui message"><div class="header">Définition</div> Un
+graphe n’ayant qu’une classe d’équivalence pour <span
+class="math inline">\(\smile^*\)</span> est dit
+<strong>connexe</strong>. Cela signifie qu’il existe un chemin entre
+toute paire de sommets. </div></p>
+<h1 data-number="3" id="sec:graphe-acyclique-connexe"><span
+class="header-section-number">3</span> Graphe acyclique connexe</h1>
+<p><div class="ui message"><div class="header">Définition</div> On
+appelle <strong>arbre</strong> un graphe acyclique connexe. Quand on a
+distingué un sommet, on parle d’<strong>arbre enraciné</strong>.
+</div></p>
+<h1 data-number="4" id="sec:parcours"><span
+class="header-section-number">4</span> Parcours</h1>
+<h2 data-number="4.1" id="sec:principe"><span
+class="header-section-number">4.1</span> Principe</h2>
+<p>On reprend le principe des parcours d’arbres : un parcours de graphe
+est une méthode qui étant donné un sommet <span
+class="math inline">\(s\)</span> de départ parcourt tous les sommets
+accessibles depuis <span class="math inline">\(s\)</span> une fois et
+une seule. A chaque visite d’un nouveau sommet on effectue un traitement
+qui dépend du problème considéré.</p>
+<p>Tous les parcours de graphe ont la même structure :</p>
+<ul>
+<li>On marque tous les sommets comme étant non visités</li>
+<li>On ajoute <span class="math inline">\(s\)</span> dans un ensemble de
+sommets à visiter <span class="math inline">\(V\)</span></li>
+<li>Tant que <span class="math inline">\(V\)</span> est non vide
+<ul>
+<li>On extrait un sommet <span class="math inline">\(x\)</span> de <span
+class="math inline">\(V\)</span></li>
+<li>Si <span class="math inline">\(x\)</span> a été marqué comme visité,
+on finit l’itération</li>
+<li>On marque <span class="math inline">\(x\)</span> comme visité</li>
+<li>On traite <span class="math inline">\(x\)</span></li>
+<li>On ajoute à <span class="math inline">\(V\)</span> tous les
+successeurs de <span class="math inline">\(x\)</span></li>
+</ul></li>
+</ul>
+<p>Notons qu’on peut aussi optimiser la taille de <span
+class="math inline">\(V\)</span> en ajoutant uniquement les successeurs
+non visités. <em>Mais il faudra tout de même garder le test pour savoir
+si un sommet extrait est visité, car on peut ajouter un successeur déjà
+présent dans <span class="math inline">\(V\)</span> et il ne faut pas le
+visiter de et il ne faut pas le visiter deux fois.</em></p>
+<p>Pour marquer visité ou non des sommets, on considère un
+<code>bool array</code> donc le test est en c.t. <span
+class="math inline">\(\gO(1)\)</span> et la c.s. <span
+class="math inline">\(\gO(|S|)\)</span>.</p>
+<p>Tout l’enjeu, et donc les différentes notions de parcours, provient
+de l’implémentation de l’ensemble <span
+class="math inline">\(V\)</span>. Au maximum <span
+class="math inline">\(V\)</span> contiendra tous les successeurs donc
+une c.s. en <span class="math inline">\(\gO(|A|)\)</span>. Si on
+considère qu’ajout/extraction sont en <span
+class="math inline">\(\gO(1)\)</span>, comme on effectue autant
+d’itérations que d’éléments ajoutés à <span
+class="math inline">\(V\)</span> on a une c.t. en <span
+class="math inline">\(\gO(|A|)\)</span>.</p>
+<p>Voici le code <code>OCaml</code> générique de tout parcours en
+considérant un graphe donné par listes d’adjacence :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">let</span> parcours traitement g s =</span>
+<span id="cb1-2"><a href="#cb1-2"></a>    <span class="kw">let</span> visites = <span class="dt">Array</span>.make (<span class="dt">Array</span>.length g) <span class="kw">false</span> <span class="kw">in</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>    <span class="kw">let</span> a_visiter = cree_ensemble () <span class="kw">in</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>    <span class="kw">let</span> <span class="kw">rec</span> ajoute_liste l = <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>        [] -&gt; () | t::q -&gt; ajoute t a_visiter; ajoute_liste q</span>
+<span id="cb1-6"><a href="#cb1-6"></a>    <span class="kw">in</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>    ajoute s a_visiter;</span>
+<span id="cb1-8"><a href="#cb1-8"></a>    <span class="kw">while</span> <span class="dt">not</span> (est_vide a_visiter) <span class="kw">do</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>        <span class="kw">let</span> x = extraction a_visiter <span class="kw">in</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>        <span class="kw">if</span> <span class="dt">not</span> (visites.(x)) <span class="kw">then</span> <span class="kw">begin</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>            visites.(x) &lt;- <span class="kw">true</span>;</span>
+<span id="cb1-12"><a href="#cb1-12"></a>            traitement x;</span>
+<span id="cb1-13"><a href="#cb1-13"></a>            ajoute_liste g.(x)</span>
+<span id="cb1-14"><a href="#cb1-14"></a>        <span class="kw">end</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a>    <span class="kw">done</span></span></code></pre></div>
+<p></div></p>
+<h2 data-number="4.2" id="sec:profondeur"><span
+class="header-section-number">4.2</span> Profondeur</h2>
+<p>Si on choisit d’implémenter l’ensemble <span
+class="math inline">\(V\)</span> par une pile, on obtient un parcours
+appelé parcours en profondeur (<em>depth-first search</em>).</p>
+<p>Rappel : les piles sont des structures LIFO (Last In First Out),
+i.e. dernier entré premier sorti.</p>
+<p>Exemple de parcours en profondeur (on marque les sommets visités en
+gris)</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/graph_prof_1.png" /></div></center></p>
+<p>en partant de <span class="math inline">\(a\)</span> :</p>
+<ul>
+<li><p>Au départ <span class="math inline">\(V = [a]\)</span>.</p></li>
+<li><p>Visite de <span class="math inline">\(a\)</span>, <span
+class="math inline">\(V = [b]\)</span>
+<center><div class="ui image center"><img
+src="assets/pics/graph_prof_2.png" /></div></center></p></li>
+<li><p>Visite de <span class="math inline">\(b\)</span>, <span
+class="math inline">\(V = [c;d]\)</span>
+<center><div class="ui image center"><img
+src="assets/pics/graph_prof_3.png" /></div></center></p></li>
+</ul>
+<p>. Visite de <span class="math inline">\(c\)</span>, <span
+class="math inline">\(V = [d;e;d]\)</span>
+<center><div class="ui image center"><img
+src="assets/pics/graph_prof_4.png" /></div></center></p>
+<p>. Visite de <span class="math inline">\(d\)</span>, <span
+class="math inline">\(V = [a;e;d]\)</span>
+<center><div class="ui image center"><img
+src="assets/pics/graph_prof_5.png" /></div></center></p>
+<ul>
+<li><p>Extraction sans visite de <span class="math inline">\(a\)</span>
+car déjà visité, <span class="math inline">\(V = [e;d]\)</span></p></li>
+<li><p>Visite de <span class="math inline">\(e\)</span>, <span
+class="math inline">\(V = [d]\)</span>
+<center><div class="ui image center"><img
+src="assets/pics/graph_prof_6.png" /></div></center></p></li>
+<li><p>Extraction sans visite de <span class="math inline">\(d\)</span>
+car déjà visité, <span class="math inline">\(V = []\)</span></p></li>
+</ul>
+<p>En marquant les arêtes qui ont été empruntés
+<center><div class="ui image center"><img
+src="assets/pics/parcours_prof_arbre.png" /></div></center></p>
+<p>on remarque que ce parcours permet d’obtenir un arbre enraciné en
+<span class="math inline">\(a\)</span> comprenant tous les sommets
+accessibles depuis <span class="math inline">\(a\)</span>. L’ordre de
+visite des sommets (a,b,c,d,e) correspond alors à l’ordre de visite d’un
+parcours en profondeur de cet arbre.</p>
+<p>Notons <span class="math inline">\(t_i(x)\)</span> le numéro de
+l’étape où le sommet <span class="math inline">\(x\)</span> a été visité
+et <span class="math inline">\(t_o(x)\)</span> le numéro de l’étape où
+on a extrait le dernier descendant de <span
+class="math inline">\(x\)</span>. C’est-à-dire que si la pile est <span
+class="math inline">\(\pi\)</span> avant d’avoir traité <span
+class="math inline">\(x\)</span>, on note <span
+class="math inline">\(t_o(x)\)</span> le numéro de l’étape où la pile
+redevient <span class="math inline">\(\pi\)</span>.</p>
+<p>Ici, on a <span class="math inline">\(\begin{array}{l|c|c} x &amp;
+t_i(x) &amp; t_o(x) \\ \hline  a &amp; 2 &amp; 8 \\  b &amp; 3 &amp; 8
+\\  c &amp; 4 &amp; 7 \\  d &amp; 5 &amp; 6 \\  e &amp; 7 &amp; 7
+\end{array}\)</span>. On remarque que ces temps sont bien parenthésés :
+si <span class="math inline">\(t_i(x) &lt; t_i(y) \le t_o(x)\)</span>
+alors <span class="math inline">\(t_o(x) &gt; t_o(y)\)</span> (comme si
+on considère <span class="math inline">\(t_i\)</span> l’indice d’une
+parenthèse ouvrante et <span class="math inline">\(t_o\)</span> l’indice
+d’une parenthèse fermante dans une expression bien parenthésée, d’où le
+nom). Si on pose <span class="math inline">\(I(x) =
+[t_i(x);t_i(y)]\)</span>, on voit qu’étant donné deux sommets <span
+class="math inline">\(x\)</span> et <span
+class="math inline">\(y\)</span>, on a soit <span
+class="math inline">\(I(x) \cap I(y) = \emptyset\)</span> soit <span
+class="math inline">\(I(x) \subset I(y)\)</span> soit <span
+class="math inline">\(I(x) \subset I(y)\)</span>. De plus, la relation
+de couverture associée à cet ordre est exactement l’arbre défini
+précédemment.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Pour
+programmer ce parcours en Caml, on a deux options :</p>
+<ul>
+<li>Utiliser directement le module <code>Stack</code> de
+<code>OCaml</code> avec le code précédent en posant :</li>
+</ul>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">let</span> cree_ensemble () = <span class="dt">Stack</span>.create ()</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">let</span> est_vide pi = <span class="dt">Stack</span>.is_empty pi</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="kw">let</span> ajoute x pi = <span class="dt">Stack</span>.push x pi</span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="kw">let</span> extraction pi = <span class="dt">Stack</span>.pop pi</span></code></pre></div>
+<p></div></p>
+<ul>
+<li>Tirer partie de la pile naturelle des appels récursifs :</li>
+</ul>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">let</span> parcours traitement g s =</span>
+<span id="cb3-2"><a href="#cb3-2"></a>    <span class="kw">let</span> visites = make_vect (vect_length g) <span class="kw">false</span> <span class="kw">in</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>    <span class="kw">let</span> <span class="kw">rec</span> parcours_aux l =</span>
+<span id="cb3-4"><a href="#cb3-4"></a>        <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>        | [] -&gt; () <span class="co">(* Plus de sommets *)</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>        | x::q -&gt; <span class="kw">if</span> <span class="dt">not</span> (visites.(x))</span>
+<span id="cb3-7"><a href="#cb3-7"></a>                  <span class="kw">then</span> <span class="kw">begin</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>                    visites.(x) &lt;- <span class="kw">true</span>;</span>
+<span id="cb3-9"><a href="#cb3-9"></a>                    traitement x;</span>
+<span id="cb3-10"><a href="#cb3-10"></a>                    parcours_aux (g.(x) @ q)</span>
+<span id="cb3-11"><a href="#cb3-11"></a>                  <span class="kw">end</span> <span class="kw">else</span> parcours_aux q</span>
+<span id="cb3-12"><a href="#cb3-12"></a>    <span class="kw">in</span> parcours_aux [s]</span></code></pre></div>
+<p></div></p>
+<p>Ici on remarque l’intérêt du test tardif pour savoir si on a déjà
+visité un sommet : on se contente de rajouter <strong>tous</strong> les
+voisins de <span class="math inline">\(x\)</span> avec une
+concaténation.</p>
+<p>Avec un filtre on peut tout de même ajouter moins de sommets, mais
+attention il faut tout de même préserver le test pour éviter le double
+traitement.</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">let</span> parcours traitement g s =</span>
+<span id="cb4-2"><a href="#cb4-2"></a>    <span class="kw">let</span> visites = make_vect (vect_length g) <span class="kw">false</span> <span class="kw">in</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>    <span class="kw">let</span> <span class="kw">rec</span> filtre l = <span class="kw">match</span> l <span class="kw">with</span> [] -&gt; []</span>
+<span id="cb4-4"><a href="#cb4-4"></a>        | x::q -&gt; <span class="kw">if</span> visites.(x) <span class="kw">then</span> filtre q <span class="kw">else</span> x::filtre q</span>
+<span id="cb4-5"><a href="#cb4-5"></a>    <span class="kw">in</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>    <span class="kw">let</span> <span class="kw">rec</span> parcours_aux l =</span>
+<span id="cb4-7"><a href="#cb4-7"></a>        <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>        | [] -&gt; () <span class="co">(* Plus de sommets *)</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a>        | x::q -&gt; <span class="kw">if</span> <span class="dt">not</span> (visites.(x))</span>
+<span id="cb4-10"><a href="#cb4-10"></a>                  <span class="kw">then</span> <span class="kw">begin</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a>                    visites.(x) &lt;- <span class="kw">true</span>;</span>
+<span id="cb4-12"><a href="#cb4-12"></a>                    traitement x;</span>
+<span id="cb4-13"><a href="#cb4-13"></a>                    parcours_aux (filtre g.(x) @ q)</span>
+<span id="cb4-14"><a href="#cb4-14"></a>                  <span class="kw">end</span> <span class="kw">else</span> parcours_aux q</span>
+<span id="cb4-15"><a href="#cb4-15"></a>    <span class="kw">in</span> parcours_aux [s];;</span></code></pre></div>
+<p></div></p>
+<p>Pour finir, une petite note sur la complexité temporelle de cette
+variante. On pourrait croire que l’ajout d’une concaténation augmente la
+complexité, mais ce n’est pas le cas la concaténation se substitue à
+l’ajout des successeurs un par un : on a donc remplacé n opérations en
+<span class="math inline">\(\gO(1)\)</span> par une opération en <span
+class="math inline">\(\gO(n)\)</span>.</div></p>
+<p>Quels sont les problèmes qu’on peut résoudre avec un parcours en
+profondeur ?</p>
+<ul>
+<li><p>L’accessibilité : les sommets marqués en fin de parcours sont
+exactement les sommets <span class="math inline">\(x\)</span> tels que
+<span class="math inline">\(s \leadsto x\)</span>.</p></li>
+<li><p>La forte connexité : posons <span class="math inline">\(G^{-1} =
+(S,A^{-1})\)</span> où <span class="math inline">\(A^{-1} =
+\enscomp{(v,u)}{(u,v) \in A}\)</span> le graphe miroir de <span
+class="math inline">\(G\)</span> obtenu en changeant l’orientation de
+toutes les arêtes. On a <span class="math inline">\(x \leadsto
+y\)</span> dans <span class="math inline">\(G\)</span> ssi <span
+class="math inline">\(y \leadsto x\)</span> dans <span
+class="math inline">\(G^{-1}\)</span>.</p>
+<p>Si <span class="math inline">\(G\)</span> est fortement connexe et
+<span class="math inline">\(s \in G\)</span>, alors pour tout sommet
+<span class="math inline">\(x\)</span> on a <span
+class="math inline">\(s \leadsto x\)</span> <span
+class="math inline">\(x \leadsto s\)</span>.</p>
+<p>Réciproquement, s’il existe un sommet <span
+class="math inline">\(s\)</span> satisfaisant cela, alors pour tout
+<span class="math inline">\(x,y \in G\)</span>, on a un chemin <span
+class="math inline">\(x \leadsto s \leadsto y\)</span> et donc <span
+class="math inline">\(G\)</span> est fortement connexe.</p>
+<p>On en déduit un test en deux parcours en profondeur de la forte
+connexité : un premier parcours sur <span
+class="math inline">\(G\)</span> et un second sur <span
+class="math inline">\(G^{-1}\)</span>.</p></li>
+<li><p>La recherche d’un cycle : si on ajoute un sommet à visiter alors
+qu’on est déjà en train de visiter ses successeurs, c’est qu’il y a un
+cycle contenant ce sommet.</p></li>
+<li><p>La recherche d’une solution dans un labyrinthe.</p></li>
+<li><p>La 2-connexité : ici on exploite une propriété des revisites du
+parcours en profondeur. Si on voit deux fois un sommets c’est qu’il
+existe deux chemins pour l’atteindre depuis <span
+class="math inline">\(s\)</span>. On peut en déduire alors un algorithme
+de test de la 2-connexité : <span class="math inline">\(G\)</span> est
+2-connexe si en enlevant une arête quelconque <span
+class="math inline">\(G\)</span> reste connexe.</p></li>
+</ul>
+<h2 data-number="4.3" id="sec:largeur"><span
+class="header-section-number">4.3</span> Largeur</h2>
+<p>Si on choisit d’implémenter l’ensemble <span
+class="math inline">\(V\)</span> par une file, on obtient un parcours
+appelé parcours en largeur ().</p>
+<p>Rappel : les files sont des structures FIFO (First In First Out),
+i.e. premier entré premier sorti.</p>
+<p>Exemple de parcours en largeur (on marque les sommets visités en gris
+et on omet les sommets déjà visités) du graphe
+<center><div class="ui image center"><img
+src="assets/pics/parcours_largeur_0.png" /></div></center></p>
+<p>en partant de <span class="math inline">\(a\)</span> :</p>
+<ul>
+<li><p>Visite de <span class="math inline">\(a\)</span>, <span
+class="math inline">\(V = [b;c;d]\)</span>,
+<center><div class="ui image center"><img
+src="assets/pics/parcours_largeur_1.png" /></div></center></p></li>
+<li><p>Visite de <span class="math inline">\(b\)</span>, <span
+class="math inline">\(V = [c;d;a;e;f]\)</span>,
+<center><div class="ui image center"><img
+src="assets/pics/parcours_largeur_2.png" /></div></center></p></li>
+<li><p>Visite de <span class="math inline">\(c\)</span>, <span
+class="math inline">\(V = [d;a;e;f;a;b]\)</span>,
+<center><div class="ui image center"><img
+src="assets/pics/parcours_largeur_3.png" /></div></center></p></li>
+<li><p>Visite de <span class="math inline">\(d\)</span>, <span
+class="math inline">\(V = [e;f;a;b;a;f]\)</span>,
+<center><div class="ui image center"><img
+src="assets/pics/parcours_largeur_4.png" /></div></center></p></li>
+<li><p>Visite de <span class="math inline">\(e\)</span>, <span
+class="math inline">\(V = [f;a;b;a;f;b]\)</span>,
+<center><div class="ui image center"><img
+src="assets/pics/parcours_largeur_5.png" /></div></center></p></li>
+<li><p>Visite de <span class="math inline">\(f\)</span>, <span
+class="math inline">\(V = [a;b;a;f;b;b;d]\)</span>,
+<center><div class="ui image center"><img
+src="assets/pics/parcours_largeur_6.png" /></div></center></p></li>
+<li><p>Plus que des sommets visités dans <span
+class="math inline">\(V\)</span>.</p></li>
+</ul>
+<p>L’intêret principal du parcours en largeur c’est qu’il garantit que
+chaque sommet soit découvert au plus tôt et donc il permet d’extraire
+des plus cours chemins depuis <span
+class="math inline">\(s\)</span>.</p>
+<p>Dans notre exemple, on obtient un arbre issu du parcours en largeur
+qui est <center><div class="ui image center"><img
+src="assets/pics/parcours_largeur_arbre.png" /></div></center></p>
+<p>et tous les chemins de <span class="math inline">\(a\)</span> vers
+les feuilles sont des plus courts chemins dans le graphe initial. Par
+opposition, l’arbre suivant issu d’un parcours en profondeur
+<center><div class="ui image center"><img
+src="assets/pics/parcours_largeur_arbre_prof.png" /></div></center></p>
+<p>ne vérifie pas cela, le chemin <span class="math inline">\(a
+\rightarrow b \rightarrow f \rightarrow d\)</span> n’est pas
+minimal.</p>
+<p>La plupart des questions auxquels on a pu répondre par parcours en
+profondeur pourront être résolues par parcours en largeur. Le problème
+du parcours en largeur c’est qu’on doit contenir dans la file à un
+distance donné de <span class="math inline">\(s\)</span> (on parle de
+niveau). Si on considère un arbre <span
+class="math inline">\(n\)</span>-aire complet issu de <span
+class="math inline">\(s\)</span>, le <span
+class="math inline">\(k\)</span>-ième niveau contient exactement <span
+class="math inline">\(n^k\)</span> sommets et donc la file du parcours
+en largeur croit de manière exponentielle. Avec un parcours en
+profondeur, on se contente d’empiler les descendants le long d’une
+branche de la racine à une feuille, ce qui est de l’ordre de <span
+class="math inline">\(k n\)</span> quand on descend au niveau <span
+class="math inline">\(k\)</span>.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Pour
+implémenter ce parcours en Caml, on utilise le type <code>Queue</code>
+des files, en posant :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">let</span> cree_ensemble () = <span class="dt">Queue</span>.create ()</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="kw">let</span> est_vide pi = <span class="dt">Queue</span>.is_empty pi;;</span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="kw">let</span> ajoute x pi = <span class="dt">Queue</span>.add x pi;;</span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="kw">let</span> extraction pi = <span class="dt">Queue</span>.take pi;;</span></code></pre></div>
+<p></div> </div></p>
+<h1 data-number="5" id="sec:chemin-de-plus-petit-poids"><span
+class="header-section-number">5</span> Chemin de plus petit poids</h1>
+<h2 data-number="5.1" id="sec:graphe-pondéré"><span
+class="header-section-number">5.1</span> Graphe pondéré</h2>
+<p>On considère maintenant une pondération sur les arêtes d’un graphe.
+C’est-à-dire une fonction <span class="math inline">\(w : A \rightarrow
+\R\)</span>. On parle de graphe pondéré et <span
+class="math inline">\(w(a)\)</span> est appelé le poids de l’arête <span
+class="math inline">\(a\)</span>. Le poids d’un chemin est la somme des
+poids de ses arêtes.</p>
+<p>On se pose alors la question suivante : étant donné <span
+class="math inline">\(x\)</span> et <span
+class="math inline">\(y\)</span> existe-t-il un chemin de plus petit
+poids de <span class="math inline">\(x\)</span> à <span
+class="math inline">\(y\)</span>, et si oui comment l’obtenir ?</p>
+<p>Notons qu’il est possible de trouver un cycle dont la somme des poids
+soit <span class="math inline">\(&lt; 0\)</span>, en sorte qu’en prenant
+ce cycle plusieus fois on puisse rendre le poids d’un chemin aussi petit
+qu’on le souhaite. C’est en ce sens qu’il n’existe pas forcément de
+chemin de plus petit poids fini.</p>
+<p>En donnant à chaque arête le même poids <span
+class="math inline">\(1\)</span>, on retrouve naturellement la notion de
+plus court chemin dans un graphe.</p>
+<h2 data-number="5.2" id="sec:dijkstra-source-unique"><span
+class="header-section-number">5.2</span> Dijkstra : source unique</h2>
+<p>On considère ici des poids dans <span
+class="math inline">\(\mathbb{R}_+^*\)</span>, ainsi prolonger un chemin
+a forcément un coût.</p>
+<p>On va construire un sous-graphe <span class="math inline">\(G&#39;
+\subset G\)</span> et un tableau <span class="math inline">\(d\)</span>
+tel que <span class="math inline">\(d_x\)</span> contienne</p>
+<ul>
+<li>la distance minimale entre <span class="math inline">\(s\)</span> et
+<span class="math inline">\(x\)</span> pour tout <span
+class="math inline">\(x \in G&#39;\)</span>.</li>
+<li>la distance minimale entre <span class="math inline">\(s\)</span> et
+<span class="math inline">\(x\)</span> passant par des sommets de <span
+class="math inline">\(G&#39;\)</span>.</li>
+</ul>
+<p>On commence avec <span class="math inline">\(G&#39; =
+\emptyset\)</span>. <span class="math inline">\(d.s = 0\)</span> et
+<span class="math inline">\(d.x = \infty\)</span> pour <span
+class="math inline">\(x \neq s\)</span>.</p>
+<p>Si on a construit <span class="math inline">\(G&#39;\)</span>, on
+cherche un sommet qui n’est pas dans <span
+class="math inline">\(G&#39;\)</span> et qui a le <span
+class="math inline">\(d_x\)</span> minimal. On le rajoute dans <span
+class="math inline">\(G&#39;\)</span> et on met à jour ses voisins pour
+que <span class="math inline">\(d\)</span> contienne toujours les
+longueur passant par <span class="math inline">\(G&#39;\)</span> : <span
+class="math inline">\(d_y = d_x + w(x,y)\)</span>.</p>
+<p>On itère jusqu’à avoir ajouté tous les sommets accessibles depuis
+<span class="math inline">\(s\)</span>.</p>
+<p>On va le faire sur l’exemple suivant :
+<center><div class="ui image center"><img
+src="assets/pics/dijkstra_ex1.png" /></div></center></p>
+<p>Les sommets de <span class="math inline">\(G&#39;\)</span> seront
+marqués en gris et les valeurs de <span class="math inline">\(d\)</span>
+indiquées à coté des noeuds dans des carrés.</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/dijkstra_ex2.png" /></div></center></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/dijkstra_ex3.png" /></div></center></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/dijkstra_ex4.png" /></div></center></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/dijkstra_ex5.png" /></div></center></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/dijkstra_ex6.png" /></div></center></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/dijkstra_ex7.png" /></div></center></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/dijkstra_ex8.png" /></div></center></p>
+<p>On peut indiquer en gras les arêtes qui ont permis d’améliorer les
+valeurs du tableau <span class="math inline">\(d\)</span> :
+<center><div class="ui image center"><img
+src="assets/pics/dijkstra_amelioration.png" /></div></center></p>
+<p>Les chemins de plus petits poids sont exactement ceux qui empruntent
+ces arêtes. Pour permettre de calculer efficacement ces chemins, il
+suffit de maintenir un second tableau <span
+class="math inline">\(p\)</span> tel que si on a ajouté une arête <span
+class="math inline">\((u,v)\)</span> alors on a <span
+class="math inline">\(p.v = u\)</span>.</p>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p>Cet algorithme permet d’obtenir un les poids des chemins minimaux
+issus de s.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> Pour cela il faut montrer que
+lorsqu’on considère un sommet à ajouter dans <span
+class="math inline">\(G&#39;\)</span>, on a bien la distance minimale.
+Si ce n’est pas le cas en ajoutant <span
+class="math inline">\(x\)</span>, alors cela signifie qu’il existe un
+chemin plus court de <span class="math inline">\(s\)</span> à <span
+class="math inline">\(x\)</span>. Soit <span
+class="math inline">\(y\)</span> le dernier sommet de <span
+class="math inline">\(G&#39;\)</span> dans ce chemin. On a forcément
+<span class="math inline">\(y\)</span> suivi d’un sommet <span
+class="math inline">\(z \neq x\)</span>. Sinon on aurait l’optimalité.
+Mais <span class="math inline">\(d_x \le d_z = d_y + w(y,z)\)</span> et
+donc le chemin ne peut être plus petit que <span
+class="math inline">\(d_x\)</span>. </div> </div></p>
+<p>Pour implémenter cet algorithme, on considère une structure de file
+de priorité dont on rappelle l’interface :</p>
+<ul>
+<li><code>cree_file ()</code></li>
+<li><code>ajoute x p f</code> qui ajoute x dans la file f avec la
+priorité p</li>
+<li><code>min_priorite f</code> qui renvoie la priorité minimale d’un
+élément de f (utile pour la condition d’arrêt de Dijkstra quand le
+graphe n’est pas connexe)</li>
+<li><code>extrait_minimum f</code> qui renvoie l’élément de priorité
+minimale et le supprime de la file</li>
+<li><code>est_vide f</code></li>
+<li>et une fonction spécifique à Dijkstra
+<code>diminue_priorite x p f</code> qui remplace la priorité de x dans f
+par p.</li>
+</ul>
+<p>Avec une structure de tas sur des couples <span
+class="math inline">\((priorité,valeur)\)</span>, on peut ajouter,
+exraire et diminuer en c.t. <span class="math inline">\(\gO(\log
+n)\)</span> (Attention, pour pouvoir diminuer la priorité, il suffit de
+changer la priorité dans le tas et faire remonter le sommet le long d’un
+chemin vers la racine, mais pour que la complexité soit bonne, il
+<strong>faut</strong> pouvoir accéder en <span
+class="math inline">\(\gO(1)\)</span> à la case correspondant à une
+valeur, donc maintenir une table de correspondance).</p>
+<p>En <code>OCaml</code>, on va représenter un graphe pondéré par des
+listes d’adjancence pondérés, c’est-à-dire que pour chaque arête <span
+class="math inline">\((u,v)\)</span> on aura dans la liste de <span
+class="math inline">\(u\)</span> un couple <span
+class="math inline">\((v,w(u,v))\)</span>.</p>
+<p>Avec cette structure de file de priorité, on obtient le code OCaml
+suivant :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">let</span> infini = <span class="dt">max_int</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">let</span> dijkstra g s =</span>
+<span id="cb6-3"><a href="#cb6-3"></a>    <span class="kw">let</span> n = vect_length g <span class="kw">in</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>    <span class="kw">let</span> <span class="dt">pred</span> = make_vect n (<span class="dv">-1</span>) <span class="kw">in</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>    <span class="kw">let</span> dists = make_vect n infini <span class="kw">in</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>    <span class="kw">let</span> a_visiter = cree_file () <span class="kw">in</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>    dists.(s) &lt;- <span class="dv">0</span>;</span>
+<span id="cb6-8"><a href="#cb6-8"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a>        ajoute i dists.(i) a_visiter;</span>
+<span id="cb6-10"><a href="#cb6-10"></a>    <span class="kw">done</span>;</span>
+<span id="cb6-11"><a href="#cb6-11"></a>    <span class="kw">let</span> <span class="kw">rec</span> traite_liste x l =</span>
+<span id="cb6-12"><a href="#cb6-12"></a>        <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a>        | [] -&gt; ()</span>
+<span id="cb6-14"><a href="#cb6-14"></a>        | (y,poids)::q -&gt; <span class="kw">let</span> nd = dists.(x) + poids <span class="kw">in</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a>            <span class="kw">if</span> nd &lt; dists.(y)</span>
+<span id="cb6-16"><a href="#cb6-16"></a>            <span class="kw">then</span> <span class="kw">begin</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a>                dists.(y) &lt;- nd;</span>
+<span id="cb6-18"><a href="#cb6-18"></a>                <span class="dt">pred</span>.(y) &lt;- x;</span>
+<span id="cb6-19"><a href="#cb6-19"></a>                diminue_priorite y nd a_visiter</span>
+<span id="cb6-20"><a href="#cb6-20"></a>            <span class="kw">end</span></span>
+<span id="cb6-21"><a href="#cb6-21"></a>    <span class="kw">in</span></span>
+<span id="cb6-22"><a href="#cb6-22"></a>    <span class="kw">while</span> <span class="dt">not</span> (est_vide a_visiter) &amp;&amp; min_priorite a_visiter &lt; infini <span class="kw">do</span></span>
+<span id="cb6-23"><a href="#cb6-23"></a>        <span class="kw">let</span> x = extrait_minimum a_visiter <span class="kw">in</span></span>
+<span id="cb6-24"><a href="#cb6-24"></a>        traite_liste x g.(x)   </span>
+<span id="cb6-25"><a href="#cb6-25"></a>    <span class="kw">done</span>;</span>
+<span id="cb6-26"><a href="#cb6-26"></a>    dists, <span class="dt">pred</span></span></code></pre></div>
+<p></div></p>
+<p>Au départ, tous les sommets sont dans la file et à chaque étape on
+extrait un sommet. Il n’est donc pas nécessaire de maintenir une marque
+sur les sommets visités. La condition d’arrêt n’est pas uniquement lié
+au fait que la file soit vide car si le graphe est non connexe, des
+sommets avec distance <span class="math inline">\(\infty\)</span> on été
+ajoutés dans la file au départ. Mais quand on extrait un sommet avec une
+priorité <span class="math inline">\(\infty\)</span> c’est
+nécessairement qu’il n’est pas accessible depuis le s.</p>
+<p>La complexité spatiale de cet algorithme est celle de la file de
+priorité donc <span class="math inline">\(\gO(|S|)\)</span>. Pour la
+complexité temporelle, on a au départ la création de la file en <span
+class="math inline">\(\gO(|S| \log |S|)\)</span> puis <span
+class="math inline">\(|S|\)</span> itérations de la boucle principale
+avec une extraction du minimum en <span class="math inline">\(\gO(\log
+|S|)\)</span> et au maximum <span class="math inline">\(|A|\)</span>
+itérations de parcours d’arêtes ayant au maximum <span
+class="math inline">\(\gO(\log |S|)\)</span> en raison de diminue
+minimum. Au total, on a donc une complexité temporelle en <span
+class="math inline">\(\gO( (|S|+|A|) \log |S|)\)</span>.</p>
+<h2 data-number="5.3" id="sec:todo-floyd-warshall-toutes-paires"><span
+class="header-section-number">5.3</span> TODO Floyd-Warshall : toutes
+paires</h2>
+<p>On considère maintenant des poids quelconques.</p>
+<p>Soit <span class="math inline">\(M^k\)</span> la matrice telle que
+<span class="math inline">\(M^k_{i,j}\)</span> contient le poids du plus
+court chemin de <span class="math inline">\(i\)</span> à <span
+class="math inline">\(j\)</span> n’utilisant que des sommets
+intermédiaires de <span class="math inline">\(1\)</span> à <span
+class="math inline">\(k\)</span> (on place <span
+class="math inline">\(\infty\)</span> s’il n’y en a pas).</p>
+<p>On pose donc <span class="math inline">\(M^0_{i,j} =
+w(i,j)\)</span>.</p>
+<p>On a <span class="math inline">\(M^k_{i,j} = min(M^{k-1}_{i,j},
+M^{k-1}_{i,k} + M^{k-1}_{k,j})\)</span>.</p>
+<p>On peut faire ce calcul en place (boucles sur k puis i, j).</p>
+<p>Complexité en temps <span class="math inline">\(O(|S|^3)\)</span> et
+en espace <span class="math inline">\(O(|E|^2)\)</span>.</p>
+<p>Détection de cycle négatif : <span class="math inline">\(M_{i,j} &lt;
+0\)</span>.</p>
 </div>
 <!-- </div> -->
 </div>
