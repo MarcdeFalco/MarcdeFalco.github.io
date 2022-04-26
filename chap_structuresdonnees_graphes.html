@@ -308,7 +308,7 @@ table td {
     </a>
     </div>
 <!-- FIX TOC -->
-<div class="item header"> <a href="#sec:graphes-orientés"><span>1</span> Graphes orientés</a><div class="menu"><a class="item" href="#sec:définition"><div class="ui label">1.1</div> Définition</a><a class="item" href="#sec:voisins-et-degrés"><div class="ui label">1.2</div> Voisins et degrés</a><a class="item" href="#sec:chemin"><div class="ui label">1.3</div> Chemin</a><a class="item" href="#sec:sous-graphe"><div class="ui label">1.4</div> Sous-graphe</a><a class="item" href="#sec:implémentation"><div class="ui label">1.5</div> Implémentation</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:matrice-dadjacence"><i class="circle icon"></i> Matrice d’adjacence</a><a style="font-size:0.6em" class="item" href="#sec:listes-dadjacences"><i class="circle icon"></i> Listes d’adjacences</a><a style="font-size:0.6em" class="item" href="#sec:comparaison"><i class="circle icon"></i> Comparaison</a></div></div></div><div class="item header"> <a href="#sec:graphes-non-orientés"><span>2</span> Graphes non orientés</a><div class="menu"><a class="item" href="#sec:définition-et-adaptation-du-vocabulaire"><div class="ui label">2.1</div> Définition et adaptation du vocabulaire</a><a class="item" href="#sec:connexité"><div class="ui label">2.2</div> Connexité</a></div></div><div class="item header"> <a href="#sec:graphe-acyclique-connexe"><span>3</span> Graphe acyclique connexe</a><div class="menu"></div></div><div class="item header"> <a href="#sec:parcours"><span>4</span> Parcours</a><div class="menu"><a class="item" href="#sec:principe"><div class="ui label">4.1</div> Principe</a><a class="item" href="#sec:profondeur"><div class="ui label">4.2</div> Profondeur</a><a class="item" href="#sec:largeur"><div class="ui label">4.3</div> Largeur</a></div></div><div class="item header"> <a href="#sec:chemin-de-plus-petit-poids"><span>5</span> Chemin de plus petit poids</a><div class="menu"><a class="item" href="#sec:graphe-pondéré"><div class="ui label">5.1</div> Graphe pondéré</a><a class="item" href="#sec:dijkstra-source-unique"><div class="ui label">5.2</div> Dijkstra : source unique</a><a class="item" href="#sec:todo-floyd-warshall-toutes-paires"><div class="ui label">5.3</div> TODO Floyd-Warshall : toutes paires</a></div></div><!-- FIX TOC -->
+<div class="item header"> <a href="#sec:graphes-orientés"><span>1</span> Graphes orientés</a><div class="menu"><a class="item" href="#sec:définition"><div class="ui label">1.1</div> Définition</a><a class="item" href="#sec:voisins-et-degrés"><div class="ui label">1.2</div> Voisins et degrés</a><a class="item" href="#sec:chemin"><div class="ui label">1.3</div> Chemin</a><a class="item" href="#sec:sous-graphe"><div class="ui label">1.4</div> Sous-graphe</a><a class="item" href="#sec:implémentation"><div class="ui label">1.5</div> Implémentation</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:matrice-dadjacence"><i class="circle icon"></i> Matrice d’adjacence</a><a style="font-size:0.6em" class="item" href="#sec:listes-dadjacences"><i class="circle icon"></i> Listes d’adjacences</a><a style="font-size:0.6em" class="item" href="#sec:comparaison"><i class="circle icon"></i> Comparaison</a></div></div></div><div class="item header"> <a href="#sec:graphes-non-orientés"><span>2</span> Graphes non orientés</a><div class="menu"><a class="item" href="#sec:définition-et-adaptation-du-vocabulaire"><div class="ui label">2.1</div> Définition et adaptation du vocabulaire</a><a class="item" href="#sec:connexité"><div class="ui label">2.2</div> Connexité</a></div></div><div class="item header"> <a href="#sec:graphe-acyclique-connexe"><span>3</span> Graphe acyclique connexe</a><div class="menu"></div></div><div class="item header"> <a href="#sec:parcours"><span>4</span> Parcours</a><div class="menu"><a class="item" href="#sec:principe-et-parcours-récursif"><div class="ui label">4.1</div> Principe et parcours récursif</a><a class="item" href="#sec:profondeur"><div class="ui label">4.2</div> Profondeur</a><a class="item" href="#sec:largeur"><div class="ui label">4.3</div> Largeur</a></div></div><div class="item header"> <a href="#sec:chemin-de-plus-petit-poids"><span>5</span> Chemin de plus petit poids</a><div class="menu"><a class="item" href="#sec:graphe-pondéré"><div class="ui label">5.1</div> Graphe pondéré</a><a class="item" href="#sec:dijkstra-source-unique"><div class="ui label">5.2</div> Dijkstra : source unique</a></div></div><!-- FIX TOC -->
 </div>
 
 <div class="pusher" id="main-content">
@@ -547,8 +547,60 @@ class="math inline">\(G\)</span>. </div></p>
 s’agit bien d’<strong>une</strong> matrice d’adjacence et pas de
 <strong>la</strong> matrice car elle dépend de l’énumération des
 sommets.</div></p>
+<div class="ui message blue">
+<div class="header">
+Exemple
+</div>
+<p>Si on considère le graphe</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/matex1.png" /></div></center></p>
+<p>On aura pour l’énumération <span
+class="math inline">\(a,b,c,d\)</span> la matrice : <span
+class="math display">\[
+\begin{pmatrix}
+0 &amp; 1 &amp; 1 &amp; 1 \\
+1 &amp; 0 &amp; 0 &amp; 1 \\
+0 &amp; 0 &amp; 0 &amp; 1 \\
+1 &amp; 1 &amp; 0 &amp; 0
+\end{pmatrix}
+\]</span> En fait, la ième ligne correspond au ième sommet de
+l’énumération. Ici, la dernière ligne <span class="math inline">\(1 1 0
+0\)</span> correspond au sommet d et donne dans l’ordre <span
+class="math inline">\(a,b,c,d\)</span> la présence ou non d’une arête
+<span class="math inline">\(d \rightarrow *\)</span>.</p>
+<p>Si on considère l’énumération <span
+class="math inline">\(b,a,d,c\)</span> on aura la matrice :</p>
+<p><span class="math display">\[
+\begin{pmatrix}
+0 &amp; 1 &amp; 1 &amp; 0 \\
+1 &amp; 0 &amp; 1 &amp; 1 \\
+1 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0
+\end{pmatrix}
+\]</span></p>
+</div>
 <p>On en déduit ainsi une implémentation directe d’un graphe en
 représentant la matrice d’adjacence comme l’a fait pour des images.</p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="python-77">python</a>   <a class="item" data-tab="c-77">c</a>   <a class="item" data-tab="ocaml-77">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="python-77"></p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> [ [ <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span> ],</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>      [ <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span> ],</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>      [ <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span> ],</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      [ <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span> ] ]</span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-77"></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-77"></p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> m = [| [| <span class="dv">0</span>; <span class="dv">1</span>; <span class="dv">1</span>; <span class="dv">1</span> |];</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>           [| <span class="dv">1</span>; <span class="dv">0</span>; <span class="dv">0</span>; <span class="dv">1</span> |];</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>           [| <span class="dv">0</span>; <span class="dv">0</span>; <span class="dv">0</span>; <span class="dv">1</span> |];</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>           [| <span class="dv">1</span>; <span class="dv">1</span>; <span class="dv">0</span>; <span class="dv">0</span> |] |]</span></code></pre></div>
+<p></div> </div></p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Il y
+a le même lien entre les différentes matrices d’adjacence d’un graphe
+donnée et la matrice d’un endomorphisme dans les différentes
+permutations d’une même base, à chaque fois on obtient la nouvelle
+matrice en permutant de même ses lignes et ses colonnes.</div></p>
 <p>Cette représentation permet d’accéder, en lecture comme en écriture,
 à une arête en temps constant. Cependant, pour récupérer les voisins
 d’un sommet, il est nécessaire de parcourir toute la ligne
@@ -565,32 +617,77 @@ hachage.</div></p>
 class="header-section-number">1.5.2</span> Listes d’adjacences</h3>
 <p>La donnée de <span class="math inline">\(v_+(x)\)</span> pour chaque
 sommet <span class="math inline">\(x \in S\)</span> suffit à
-reconstruire <span class="math inline">\(A\)</span>. On en déduit ainsi
-une représentation d’un graphe où on place dans un tableau chaque <span
-class="math inline">\(v_+(x)\)</span> représenté par une liste chaînée.
-L’accès en lecture ou en écriture à une arête est alors en <span
+reconstruire <span class="math inline">\(A\)</span>.</p>
+<div class="ui message blue">
+<div class="header">
+Exemple
+</div>
+<p>Si on reprend le graphe précédent, on a <span class="math inline">\(S
+= \{ a,b,c,d\}\)</span> et <span class="math inline">\(A = \{ (a, b),
+(a, c), (a,d), (b,a), (b, d) , (c,d), (d, a), (d, b) \}\)</span>.</p>
+<p>Or <span class="math inline">\(v_+(a) = \{ b, c, d \}, v_+(b) = \{ a,
+d \}, v_+(c) = \{ d \}\)</span> et <span class="math inline">\(v_+(d) =
+\{ a, b \}\)</span>.</p>
+<p>Si on pose <span class="math inline">\(V_+(x) = \enscomp{ (x,y) }{ y
+\in v_+(x) }\)</span> on a directement <span class="math inline">\(A =
+\bigcup_{x \in S} V_+(x)\)</span>.</p>
+</div>
+<p>On en déduit ainsi une représentation d’un graphe où on place dans un
+tableau chaque <span class="math inline">\(v_+(x)\)</span> représenté
+par une liste chaînée ou un tableau dynamique.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Pour
+représenter <span class="math inline">\(v_+(x)\)</span> on a plusieurs
+choix : on peut utiliser directement les valeurs des sommets ou utiliser
+des indices dans une énumération. C’est le second choix qu’on fera en
+général car il est plus simple. Cependant, en cas de suppression d’un
+sommet, les indices changent, et il faut renuméroter dans les
+listes.</p>
+<p>Pour le graphe précédent, on pourra donc considérer une énumeration
+<code>[ a, b, c, d ]</code> et la représentation sous forme de liste
+d’adjacence pourra être :</p>
+<p><div class="ui top attached tabular menu code">   <a class="active item" data-tab="python">python</a>   <a class="item" data-tab="ocaml">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="python"></p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>l <span class="op">=</span> [ [ <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span> ], [ <span class="dv">0</span>, <span class="dv">3</span> ], [ <span class="dv">3</span> ], [ <span class="dv">0</span>, <span class="dv">1</span> ] ]</span></code></pre></div>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml"></p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> l = [| </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    [ <span class="dv">1</span>; <span class="dv">2</span>; <span class="dv">3</span> ]; [ <span class="dv">0</span>; <span class="dv">3</span> ]; [ <span class="dv">3</span> ]; [ <span class="dv">0</span>; <span class="dv">1</span> ]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    |]</span></code></pre></div>
+<p></div></p>
+<p></div></p>
+<p>L’accès en lecture ou en écriture à une arête est alors en <span
 class="math inline">\(O(|A|)\)</span> mais on peut parcourir les voisins
 sortant en <span class="math inline">\(O(|A|)\)</span> également. Pour
 un sommet donné, on peut même préciser <span
-class="math inline">\(O(d_+(x))\)</span>.</p>
+class="math inline">\(O(d_+(x))\)</span>. Accéder à la liste peut même
+se faire en <span class="math inline">\(O(1)\)</span>.</p>
 <p>Pour obtenir les voisins entrants, il est par contre nécessaire de
 tester la présence de <span class="math inline">\(x\)</span> dans
 chacune des autres listes, on obtient donc un algorithme en <span
 class="math inline">\(O(|S| + |A|)\)</span> : on parcourt chaque case du
 tableau des listes puis chaque maillon de listes d’adjacence.</p>
+<p>Il est possible d’améliorer cela en utilisant un structure plus
+efficace pour stocker les ensembles. Cela peut-être un dictionnaire
+reposant sur une table de hachage. L’avantage de cela est que pour
+tester l’appartenance <span class="math inline">\(y \in v_+(x)\)</span>
+on sera en <span class="math inline">\(O(1)\)</span> avec un
+dictionnaire alors qu’on sera en <span
+class="math inline">\(O(d_+(x))\)</span> avec une liste.</p>
 <h3 data-number="1.5.3" id="sec:comparaison"><span
 class="header-section-number">1.5.3</span> Comparaison</h3>
-<table style="width:64%;">
+<table style="width:86%;">
 <colgroup>
 <col style="width: 29%" />
 <col style="width: 16%" />
 <col style="width: 18%" />
+<col style="width: 22%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th>opération</th>
 <th>Matrice</th>
 <th>Listes</th>
+<th>Dictionnaire</th>
 </tr>
 </thead>
 <tbody>
@@ -598,14 +695,17 @@ class="header-section-number">1.5.3</span> Comparaison</h3>
 <td>complexité spatiale</td>
 <td><span class="math inline">\(O(|S|^2)\)</span></td>
 <td><span class="math inline">\(O(|S|+|A|)\)</span></td>
+<td><span class="math inline">\(O(|S|+|A|)\)</span></td>
 </tr>
 <tr class="even">
 <td>arête test</td>
 <td><span class="math inline">\(O(1)\)</span></td>
 <td><span class="math inline">\(O(|A|)\)</span></td>
+<td><span class="math inline">\(O(1)\)</span></td>
 </tr>
 <tr class="odd">
 <td>arête ajout</td>
+<td><span class="math inline">\(O(1)\)</span></td>
 <td><span class="math inline">\(O(1)\)</span></td>
 <td><span class="math inline">\(O(1)\)</span></td>
 </tr>
@@ -613,29 +713,37 @@ class="header-section-number">1.5.3</span> Comparaison</h3>
 <td>arête suppression</td>
 <td><span class="math inline">\(O(1)\)</span></td>
 <td><span class="math inline">\(O(|A|)\)</span></td>
+<td><span class="math inline">\(O(1)\)</span></td>
 </tr>
 <tr class="odd">
 <td>sommet ajout</td>
 <td><span class="math inline">\(O(|S|^2)\)</span></td>
+<td><span class="math inline">\(O(|S|)\)</span></td>
 <td><span class="math inline">\(O(|S|)\)</span></td>
 </tr>
 <tr class="even">
 <td>sommet suppression</td>
 <td><span class="math inline">\(O(|S|^2)\)</span></td>
 <td><span class="math inline">\(O(|S|)\)</span></td>
+<td><span class="math inline">\(O(|S|)\)</span></td>
 </tr>
 <tr class="odd">
 <td>voisins/degré +</td>
 <td><span class="math inline">\(O(|S|)\)</span></td>
-<td><span class="math inline">\(O(d_+(x))\)</span></td>
+<td><span class="math inline">\(O(1)\)</span></td>
+<td><span class="math inline">\(O(1)\)</span></td>
 </tr>
 <tr class="even">
 <td>voisins/degré -</td>
 <td><span class="math inline">\(O(|S|)\)</span></td>
 <td><span class="math inline">\(O(|S|+|A|)\)</span></td>
+<td><span class="math inline">\(O(|S|)\)</span></td>
 </tr>
 </tbody>
 </table>
+<p>Notons qu’il est possible d’améliorer certaines complexités en
+utilisant des tableaux dynamiques, notamment les ajouts et suppressions
+de sommets.</p>
 <h1 data-number="2" id="sec:graphes-non-orientés"><span
 class="header-section-number">2</span> Graphes non orientés</h1>
 <h2 data-number="2.1"
@@ -733,14 +841,21 @@ distingué un sommet, on parle d’<strong>arbre enraciné</strong>.
 </div></p>
 <h1 data-number="4" id="sec:parcours"><span
 class="header-section-number">4</span> Parcours</h1>
-<h2 data-number="4.1" id="sec:principe"><span
-class="header-section-number">4.1</span> Principe</h2>
+<h2 data-number="4.1" id="sec:principe-et-parcours-récursif"><span
+class="header-section-number">4.1</span> Principe et parcours
+récursif</h2>
 <p>On reprend le principe des parcours d’arbres : un parcours de graphe
 est une méthode qui étant donné un sommet <span
 class="math inline">\(s\)</span> de départ parcourt tous les sommets
 accessibles depuis <span class="math inline">\(s\)</span> une fois et
 une seule. A chaque visite d’un nouveau sommet on effectue un traitement
 qui dépend du problème considéré.</p>
+<p>On reprend ainsi naturellement le parcours en profondeur récursif vu
+pour les arbres :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode numberSource python numberLines"><code class="sourceCode python"></code></pre></div>
+<p></div></p>
 <p>Tous les parcours de graphe ont la même structure :</p>
 <ul>
 <li>On marque tous les sommets comme étant non visités</li>
@@ -781,22 +896,22 @@ class="math inline">\(\gO(|A|)\)</span>.</p>
 <p>Voici le code <code>OCaml</code> générique de tout parcours en
 considérant un graphe donné par listes d’adjacence :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">let</span> parcours traitement g s =</span>
-<span id="cb1-2"><a href="#cb1-2"></a>    <span class="kw">let</span> visites = <span class="dt">Array</span>.make (<span class="dt">Array</span>.length g) <span class="kw">false</span> <span class="kw">in</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a>    <span class="kw">let</span> a_visiter = cree_ensemble () <span class="kw">in</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a>    <span class="kw">let</span> <span class="kw">rec</span> ajoute_liste l = <span class="kw">match</span> l <span class="kw">with</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a>        [] -&gt; () | t::q -&gt; ajoute t a_visiter; ajoute_liste q</span>
-<span id="cb1-6"><a href="#cb1-6"></a>    <span class="kw">in</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a>    ajoute s a_visiter;</span>
-<span id="cb1-8"><a href="#cb1-8"></a>    <span class="kw">while</span> <span class="dt">not</span> (est_vide a_visiter) <span class="kw">do</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a>        <span class="kw">let</span> x = extraction a_visiter <span class="kw">in</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a>        <span class="kw">if</span> <span class="dt">not</span> (visites.(x)) <span class="kw">then</span> <span class="kw">begin</span></span>
-<span id="cb1-11"><a href="#cb1-11"></a>            visites.(x) &lt;- <span class="kw">true</span>;</span>
-<span id="cb1-12"><a href="#cb1-12"></a>            traitement x;</span>
-<span id="cb1-13"><a href="#cb1-13"></a>            ajoute_liste g.(x)</span>
-<span id="cb1-14"><a href="#cb1-14"></a>        <span class="kw">end</span></span>
-<span id="cb1-15"><a href="#cb1-15"></a>    <span class="kw">done</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">let</span> parcours traitement g s =</span>
+<span id="cb7-2"><a href="#cb7-2"></a>    <span class="kw">let</span> visites = <span class="dt">Array</span>.make (<span class="dt">Array</span>.length g) <span class="kw">false</span> <span class="kw">in</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>    <span class="kw">let</span> a_visiter = cree_ensemble () <span class="kw">in</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>    <span class="kw">let</span> <span class="kw">rec</span> ajoute_liste l = <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>        [] -&gt; () | t::q -&gt; ajoute t a_visiter; ajoute_liste q</span>
+<span id="cb7-6"><a href="#cb7-6"></a>    <span class="kw">in</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>    ajoute s a_visiter;</span>
+<span id="cb7-8"><a href="#cb7-8"></a>    <span class="kw">while</span> <span class="dt">not</span> (est_vide a_visiter) <span class="kw">do</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a>        <span class="kw">let</span> x = extraction a_visiter <span class="kw">in</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a>        <span class="kw">if</span> <span class="dt">not</span> (visites.(x)) <span class="kw">then</span> <span class="kw">begin</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a>            visites.(x) &lt;- <span class="kw">true</span>;</span>
+<span id="cb7-12"><a href="#cb7-12"></a>            traitement x;</span>
+<span id="cb7-13"><a href="#cb7-13"></a>            ajoute_liste g.(x)</span>
+<span id="cb7-14"><a href="#cb7-14"></a>        <span class="kw">end</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a>    <span class="kw">done</span></span></code></pre></div>
 <p></div></p>
 <h2 data-number="4.2" id="sec:profondeur"><span
 class="header-section-number">4.2</span> Profondeur</h2>
@@ -881,29 +996,29 @@ programmer ce parcours en Caml, on a deux options :</p>
 <code>OCaml</code> avec le code précédent en posant :</li>
 </ul>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">let</span> cree_ensemble () = <span class="dt">Stack</span>.create ()</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">let</span> est_vide pi = <span class="dt">Stack</span>.is_empty pi</span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="kw">let</span> ajoute x pi = <span class="dt">Stack</span>.push x pi</span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="kw">let</span> extraction pi = <span class="dt">Stack</span>.pop pi</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">let</span> cree_ensemble () = <span class="dt">Stack</span>.create ()</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="kw">let</span> est_vide pi = <span class="dt">Stack</span>.is_empty pi</span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="kw">let</span> ajoute x pi = <span class="dt">Stack</span>.push x pi</span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="kw">let</span> extraction pi = <span class="dt">Stack</span>.pop pi</span></code></pre></div>
 <p></div></p>
 <ul>
 <li>Tirer partie de la pile naturelle des appels récursifs :</li>
 </ul>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">let</span> parcours traitement g s =</span>
-<span id="cb3-2"><a href="#cb3-2"></a>    <span class="kw">let</span> visites = make_vect (vect_length g) <span class="kw">false</span> <span class="kw">in</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a>    <span class="kw">let</span> <span class="kw">rec</span> parcours_aux l =</span>
-<span id="cb3-4"><a href="#cb3-4"></a>        <span class="kw">match</span> l <span class="kw">with</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a>        | [] -&gt; () <span class="co">(* Plus de sommets *)</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a>        | x::q -&gt; <span class="kw">if</span> <span class="dt">not</span> (visites.(x))</span>
-<span id="cb3-7"><a href="#cb3-7"></a>                  <span class="kw">then</span> <span class="kw">begin</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a>                    visites.(x) &lt;- <span class="kw">true</span>;</span>
-<span id="cb3-9"><a href="#cb3-9"></a>                    traitement x;</span>
-<span id="cb3-10"><a href="#cb3-10"></a>                    parcours_aux (g.(x) @ q)</span>
-<span id="cb3-11"><a href="#cb3-11"></a>                  <span class="kw">end</span> <span class="kw">else</span> parcours_aux q</span>
-<span id="cb3-12"><a href="#cb3-12"></a>    <span class="kw">in</span> parcours_aux [s]</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">let</span> parcours traitement g s =</span>
+<span id="cb9-2"><a href="#cb9-2"></a>    <span class="kw">let</span> visites = make_vect (vect_length g) <span class="kw">false</span> <span class="kw">in</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>    <span class="kw">let</span> <span class="kw">rec</span> parcours_aux l =</span>
+<span id="cb9-4"><a href="#cb9-4"></a>        <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>        | [] -&gt; () <span class="co">(* Plus de sommets *)</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a>        | x::q -&gt; <span class="kw">if</span> <span class="dt">not</span> (visites.(x))</span>
+<span id="cb9-7"><a href="#cb9-7"></a>                  <span class="kw">then</span> <span class="kw">begin</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>                    visites.(x) &lt;- <span class="kw">true</span>;</span>
+<span id="cb9-9"><a href="#cb9-9"></a>                    traitement x;</span>
+<span id="cb9-10"><a href="#cb9-10"></a>                    parcours_aux (g.(x) @ q)</span>
+<span id="cb9-11"><a href="#cb9-11"></a>                  <span class="kw">end</span> <span class="kw">else</span> parcours_aux q</span>
+<span id="cb9-12"><a href="#cb9-12"></a>    <span class="kw">in</span> parcours_aux [s]</span></code></pre></div>
 <p></div></p>
 <p>Ici on remarque l’intérêt du test tardif pour savoir si on a déjà
 visité un sommet : on se contente de rajouter <strong>tous</strong> les
@@ -913,22 +1028,22 @@ concaténation.</p>
 attention il faut tout de même préserver le test pour éviter le double
 traitement.</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">let</span> parcours traitement g s =</span>
-<span id="cb4-2"><a href="#cb4-2"></a>    <span class="kw">let</span> visites = make_vect (vect_length g) <span class="kw">false</span> <span class="kw">in</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a>    <span class="kw">let</span> <span class="kw">rec</span> filtre l = <span class="kw">match</span> l <span class="kw">with</span> [] -&gt; []</span>
-<span id="cb4-4"><a href="#cb4-4"></a>        | x::q -&gt; <span class="kw">if</span> visites.(x) <span class="kw">then</span> filtre q <span class="kw">else</span> x::filtre q</span>
-<span id="cb4-5"><a href="#cb4-5"></a>    <span class="kw">in</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a>    <span class="kw">let</span> <span class="kw">rec</span> parcours_aux l =</span>
-<span id="cb4-7"><a href="#cb4-7"></a>        <span class="kw">match</span> l <span class="kw">with</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a>        | [] -&gt; () <span class="co">(* Plus de sommets *)</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a>        | x::q -&gt; <span class="kw">if</span> <span class="dt">not</span> (visites.(x))</span>
-<span id="cb4-10"><a href="#cb4-10"></a>                  <span class="kw">then</span> <span class="kw">begin</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a>                    visites.(x) &lt;- <span class="kw">true</span>;</span>
-<span id="cb4-12"><a href="#cb4-12"></a>                    traitement x;</span>
-<span id="cb4-13"><a href="#cb4-13"></a>                    parcours_aux (filtre g.(x) @ q)</span>
-<span id="cb4-14"><a href="#cb4-14"></a>                  <span class="kw">end</span> <span class="kw">else</span> parcours_aux q</span>
-<span id="cb4-15"><a href="#cb4-15"></a>    <span class="kw">in</span> parcours_aux [s];;</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">let</span> parcours traitement g s =</span>
+<span id="cb10-2"><a href="#cb10-2"></a>    <span class="kw">let</span> visites = make_vect (vect_length g) <span class="kw">false</span> <span class="kw">in</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>    <span class="kw">let</span> <span class="kw">rec</span> filtre l = <span class="kw">match</span> l <span class="kw">with</span> [] -&gt; []</span>
+<span id="cb10-4"><a href="#cb10-4"></a>        | x::q -&gt; <span class="kw">if</span> visites.(x) <span class="kw">then</span> filtre q <span class="kw">else</span> x::filtre q</span>
+<span id="cb10-5"><a href="#cb10-5"></a>    <span class="kw">in</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a>    <span class="kw">let</span> <span class="kw">rec</span> parcours_aux l =</span>
+<span id="cb10-7"><a href="#cb10-7"></a>        <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a>        | [] -&gt; () <span class="co">(* Plus de sommets *)</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a>        | x::q -&gt; <span class="kw">if</span> <span class="dt">not</span> (visites.(x))</span>
+<span id="cb10-10"><a href="#cb10-10"></a>                  <span class="kw">then</span> <span class="kw">begin</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a>                    visites.(x) &lt;- <span class="kw">true</span>;</span>
+<span id="cb10-12"><a href="#cb10-12"></a>                    traitement x;</span>
+<span id="cb10-13"><a href="#cb10-13"></a>                    parcours_aux (filtre g.(x) @ q)</span>
+<span id="cb10-14"><a href="#cb10-14"></a>                  <span class="kw">end</span> <span class="kw">else</span> parcours_aux q</span>
+<span id="cb10-15"><a href="#cb10-15"></a>    <span class="kw">in</span> parcours_aux [s];;</span></code></pre></div>
 <p></div></p>
 <p>Pour finir, une petite note sur la complexité temporelle de cette
 variante. On pourrait croire que l’ajout d’une concaténation augmente la
@@ -1049,11 +1164,11 @@ class="math inline">\(k\)</span>.</p>
 implémenter ce parcours en Caml, on utilise le type <code>Queue</code>
 des files, en posant :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">let</span> cree_ensemble () = <span class="dt">Queue</span>.create ()</span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="kw">let</span> est_vide pi = <span class="dt">Queue</span>.is_empty pi;;</span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="kw">let</span> ajoute x pi = <span class="dt">Queue</span>.add x pi;;</span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="kw">let</span> extraction pi = <span class="dt">Queue</span>.take pi;;</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">let</span> cree_ensemble () = <span class="dt">Queue</span>.create ()</span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="kw">let</span> est_vide pi = <span class="dt">Queue</span>.is_empty pi;;</span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="kw">let</span> ajoute x pi = <span class="dt">Queue</span>.add x pi;;</span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="kw">let</span> extraction pi = <span class="dt">Queue</span>.take pi;;</span></code></pre></div>
 <p></div> </div></p>
 <h1 data-number="5" id="sec:chemin-de-plus-petit-poids"><span
 class="header-section-number">5</span> Chemin de plus petit poids</h1>
@@ -1193,73 +1308,67 @@ class="math inline">\((v,w(u,v))\)</span>.</p>
 <p>Avec cette structure de file de priorité, on obtient le code OCaml
 suivant :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">let</span> infini = <span class="dt">max_int</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">let</span> dijkstra g s =</span>
-<span id="cb6-3"><a href="#cb6-3"></a>    <span class="kw">let</span> n = vect_length g <span class="kw">in</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a>    <span class="kw">let</span> <span class="dt">pred</span> = make_vect n (<span class="dv">-1</span>) <span class="kw">in</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a>    <span class="kw">let</span> dists = make_vect n infini <span class="kw">in</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a>    <span class="kw">let</span> a_visiter = cree_file () <span class="kw">in</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a>    dists.(s) &lt;- <span class="dv">0</span>;</span>
-<span id="cb6-8"><a href="#cb6-8"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
-<span id="cb6-9"><a href="#cb6-9"></a>        ajoute i dists.(i) a_visiter;</span>
-<span id="cb6-10"><a href="#cb6-10"></a>    <span class="kw">done</span>;</span>
-<span id="cb6-11"><a href="#cb6-11"></a>    <span class="kw">let</span> <span class="kw">rec</span> traite_liste x l =</span>
-<span id="cb6-12"><a href="#cb6-12"></a>        <span class="kw">match</span> l <span class="kw">with</span></span>
-<span id="cb6-13"><a href="#cb6-13"></a>        | [] -&gt; ()</span>
-<span id="cb6-14"><a href="#cb6-14"></a>        | (y,poids)::q -&gt; <span class="kw">let</span> nd = dists.(x) + poids <span class="kw">in</span></span>
-<span id="cb6-15"><a href="#cb6-15"></a>            <span class="kw">if</span> nd &lt; dists.(y)</span>
-<span id="cb6-16"><a href="#cb6-16"></a>            <span class="kw">then</span> <span class="kw">begin</span></span>
-<span id="cb6-17"><a href="#cb6-17"></a>                dists.(y) &lt;- nd;</span>
-<span id="cb6-18"><a href="#cb6-18"></a>                <span class="dt">pred</span>.(y) &lt;- x;</span>
-<span id="cb6-19"><a href="#cb6-19"></a>                diminue_priorite y nd a_visiter</span>
-<span id="cb6-20"><a href="#cb6-20"></a>            <span class="kw">end</span></span>
-<span id="cb6-21"><a href="#cb6-21"></a>    <span class="kw">in</span></span>
-<span id="cb6-22"><a href="#cb6-22"></a>    <span class="kw">while</span> <span class="dt">not</span> (est_vide a_visiter) &amp;&amp; min_priorite a_visiter &lt; infini <span class="kw">do</span></span>
-<span id="cb6-23"><a href="#cb6-23"></a>        <span class="kw">let</span> x = extrait_minimum a_visiter <span class="kw">in</span></span>
-<span id="cb6-24"><a href="#cb6-24"></a>        traite_liste x g.(x)   </span>
-<span id="cb6-25"><a href="#cb6-25"></a>    <span class="kw">done</span>;</span>
-<span id="cb6-26"><a href="#cb6-26"></a>    dists, <span class="dt">pred</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb12-1"><a href="#cb12-1"></a>    <span class="kw">let</span> dists = make_vect n infini <span class="kw">in</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>    <span class="kw">let</span> a_visiter = cree_file () <span class="kw">in</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a>    dists.(s) &lt;- <span class="dv">0</span>;</span>
+<span id="cb12-4"><a href="#cb12-4"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a>        ajoute i dists.(i) a_visiter;</span>
+<span id="cb12-6"><a href="#cb12-6"></a>    <span class="kw">done</span>;</span>
+<span id="cb12-7"><a href="#cb12-7"></a>    <span class="kw">let</span> <span class="kw">rec</span> traite_liste x l =</span>
+<span id="cb12-8"><a href="#cb12-8"></a>        <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb12-9"><a href="#cb12-9"></a>        | [] -&gt; ()</span>
+<span id="cb12-10"><a href="#cb12-10"></a>        | (y,poids)::q -&gt; <span class="kw">let</span> nd = dists.(x) + poids <span class="kw">in</span></span>
+<span id="cb12-11"><a href="#cb12-11"></a>            <span class="kw">if</span> nd &lt; dists.(y)</span>
+<span id="cb12-12"><a href="#cb12-12"></a>            <span class="kw">then</span> <span class="kw">begin</span></span>
+<span id="cb12-13"><a href="#cb12-13"></a>                dists.(y) &lt;- nd;</span>
+<span id="cb12-14"><a href="#cb12-14"></a>                <span class="dt">pred</span>.(y) &lt;- x;</span>
+<span id="cb12-15"><a href="#cb12-15"></a>                diminue_priorite y nd a_visiter</span>
+<span id="cb12-16"><a href="#cb12-16"></a>            <span class="kw">end</span></span>
+<span id="cb12-17"><a href="#cb12-17"></a>    <span class="kw">in</span></span>
+<span id="cb12-18"><a href="#cb12-18"></a>    <span class="kw">while</span> <span class="dt">not</span> (est_vide a_visiter) &amp;&amp; min_priorite a_visiter &lt; infini <span class="kw">do</span></span>
+<span id="cb12-19"><a href="#cb12-19"></a>        <span class="kw">let</span> x = extrait_minimum a_visiter <span class="kw">in</span></span>
+<span id="cb12-20"><a href="#cb12-20"></a>        traite_liste x g.(x)   </span>
+<span id="cb12-21"><a href="#cb12-21"></a>    <span class="kw">done</span>;</span>
+<span id="cb12-22"><a href="#cb12-22"></a>    dists, <span class="dt">pred</span></span>
+<span id="cb12-23"><a href="#cb12-23"></a>```</span>
+<span id="cb12-24"><a href="#cb12-24"></a></span>
+<span id="cb12-25"><a href="#cb12-25"></a>Au départ, tous les sommets sont dans la file et  à chaque étape on extrait </span>
+<span id="cb12-26"><a href="#cb12-26"></a>un sommet. Il n&#39;est donc pas nécessaire de maintenir une marque sur les</span>
+<span id="cb12-27"><a href="#cb12-27"></a>sommets visités. La condition d&#39;arrêt n&#39;est pas uniquement lié au fait que la</span>
+<span id="cb12-28"><a href="#cb12-28"></a>file soit vide car si le graphe est non connexe, des sommets avec distance</span>
+<span id="cb12-29"><a href="#cb12-29"></a>$\infty$ on été ajoutés dans la file au départ. Mais quand on extrait un sommet</span>
+<span id="cb12-30"><a href="#cb12-30"></a>avec une priorité $\infty$ c&#39;est nécessairement qu&#39;il n&#39;est pas accessible</span>
+<span id="cb12-31"><a href="#cb12-31"></a>depuis le s.</span>
+<span id="cb12-32"><a href="#cb12-32"></a></span>
+<span id="cb12-33"><a href="#cb12-33"></a>La complexité spatiale de cet algorithme est celle de la file de priorité donc</span>
+<span id="cb12-34"><a href="#cb12-34"></a>$\gO(|S|)$. Pour la complexité temporelle, on a au départ la création de la</span>
+<span id="cb12-35"><a href="#cb12-35"></a>file en $\gO(|S| \<span class="dt">log</span> |S|)$ puis $|S|$ itérations de la boucle principale avec</span>
+<span id="cb12-36"><a href="#cb12-36"></a>une extraction du minimum en $\gO(\<span class="dt">log</span> |S|)$ et au maximum $|A|$ itérations de parcours</span>
+<span id="cb12-37"><a href="#cb12-37"></a>d&#39;arêtes ayant au maximum $\gO(\<span class="dt">log</span> |S|)$ en raison de diminue minimum.</span>
+<span id="cb12-38"><a href="#cb12-38"></a>Au total, on a donc une complexité temporelle en $\gO( (|S|+|A|) \<span class="dt">log</span> |S|)$.</span>
+<span id="cb12-39"><a href="#cb12-39"></a></span>
+<span id="cb12-40"><a href="#cb12-40"></a></span>
+<span id="cb12-41"><a href="#cb12-41"></a>#### TODO Floyd-Warshall : toutes paires</span>
+<span id="cb12-42"><a href="#cb12-42"></a></span>
+<span id="cb12-43"><a href="#cb12-43"></a></span>
+<span id="cb12-44"><a href="#cb12-44"></a>On considère maintenant des poids quelconques.</span>
+<span id="cb12-45"><a href="#cb12-45"></a></span>
+<span id="cb12-46"><a href="#cb12-46"></a>Soit $M^k$ la matrice telle que $M^k_{i,j}$ contient le poids du plus court</span>
+<span id="cb12-47"><a href="#cb12-47"></a>chemin de $i$ à $j$ n&#39;utilisant que des sommets intermédiaires de  $<span class="dv">1</span>$ à $k$ </span>
+<span id="cb12-48"><a href="#cb12-48"></a>(on place $\infty$ s&#39;il n&#39;y en a pas).</span>
+<span id="cb12-49"><a href="#cb12-49"></a></span>
+<span id="cb12-50"><a href="#cb12-50"></a>On pose donc $M^<span class="dv">0_</span>{i,j} = w(i,j)$.</span>
+<span id="cb12-51"><a href="#cb12-51"></a></span>
+<span id="cb12-52"><a href="#cb12-52"></a>On a $M^k_{i,j} = <span class="dt">min</span>(M^{k<span class="dv">-1</span>}_{i,j}, M^{k<span class="dv">-1</span>}_{i,k} + M^{k<span class="dv">-1</span>}_{k,j})$.</span>
+<span id="cb12-53"><a href="#cb12-53"></a></span>
+<span id="cb12-54"><a href="#cb12-54"></a>On peut faire ce calcul en place (boucles sur k puis i, j).</span>
+<span id="cb12-55"><a href="#cb12-55"></a></span>
+<span id="cb12-56"><a href="#cb12-56"></a>Complexité en temps $O(|S|^<span class="dv">3</span>)$ et en espace $O(|E|^<span class="dv">2</span>)$.</span>
+<span id="cb12-57"><a href="#cb12-57"></a></span>
+<span id="cb12-58"><a href="#cb12-58"></a>Détection de cycle négatif : $M_{i,j} &lt; <span class="dv">0</span>$.</span>
+<span id="cb12-59"><a href="#cb12-59"></a></span></code></pre></div>
 <p></div></p>
-<p>Au départ, tous les sommets sont dans la file et à chaque étape on
-extrait un sommet. Il n’est donc pas nécessaire de maintenir une marque
-sur les sommets visités. La condition d’arrêt n’est pas uniquement lié
-au fait que la file soit vide car si le graphe est non connexe, des
-sommets avec distance <span class="math inline">\(\infty\)</span> on été
-ajoutés dans la file au départ. Mais quand on extrait un sommet avec une
-priorité <span class="math inline">\(\infty\)</span> c’est
-nécessairement qu’il n’est pas accessible depuis le s.</p>
-<p>La complexité spatiale de cet algorithme est celle de la file de
-priorité donc <span class="math inline">\(\gO(|S|)\)</span>. Pour la
-complexité temporelle, on a au départ la création de la file en <span
-class="math inline">\(\gO(|S| \log |S|)\)</span> puis <span
-class="math inline">\(|S|\)</span> itérations de la boucle principale
-avec une extraction du minimum en <span class="math inline">\(\gO(\log
-|S|)\)</span> et au maximum <span class="math inline">\(|A|\)</span>
-itérations de parcours d’arêtes ayant au maximum <span
-class="math inline">\(\gO(\log |S|)\)</span> en raison de diminue
-minimum. Au total, on a donc une complexité temporelle en <span
-class="math inline">\(\gO( (|S|+|A|) \log |S|)\)</span>.</p>
-<h2 data-number="5.3" id="sec:todo-floyd-warshall-toutes-paires"><span
-class="header-section-number">5.3</span> TODO Floyd-Warshall : toutes
-paires</h2>
-<p>On considère maintenant des poids quelconques.</p>
-<p>Soit <span class="math inline">\(M^k\)</span> la matrice telle que
-<span class="math inline">\(M^k_{i,j}\)</span> contient le poids du plus
-court chemin de <span class="math inline">\(i\)</span> à <span
-class="math inline">\(j\)</span> n’utilisant que des sommets
-intermédiaires de <span class="math inline">\(1\)</span> à <span
-class="math inline">\(k\)</span> (on place <span
-class="math inline">\(\infty\)</span> s’il n’y en a pas).</p>
-<p>On pose donc <span class="math inline">\(M^0_{i,j} =
-w(i,j)\)</span>.</p>
-<p>On a <span class="math inline">\(M^k_{i,j} = min(M^{k-1}_{i,j},
-M^{k-1}_{i,k} + M^{k-1}_{k,j})\)</span>.</p>
-<p>On peut faire ce calcul en place (boucles sur k puis i, j).</p>
-<p>Complexité en temps <span class="math inline">\(O(|S|^3)\)</span> et
-en espace <span class="math inline">\(O(|E|^2)\)</span>.</p>
-<p>Détection de cycle négatif : <span class="math inline">\(M_{i,j} &lt;
-0\)</span>.</p>
 </div>
 <!-- </div> -->
 </div>
