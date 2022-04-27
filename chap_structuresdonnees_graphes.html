@@ -308,7 +308,7 @@ table td {
     </a>
     </div>
 <!-- FIX TOC -->
-<div class="item header"> <a href="#sec:graphes-orientés"><span>1</span> Graphes orientés</a><div class="menu"><a class="item" href="#sec:définition"><div class="ui label">1.1</div> Définition</a><a class="item" href="#sec:voisins-et-degrés"><div class="ui label">1.2</div> Voisins et degrés</a><a class="item" href="#sec:chemin"><div class="ui label">1.3</div> Chemin</a><a class="item" href="#sec:sous-graphe"><div class="ui label">1.4</div> Sous-graphe</a><a class="item" href="#sec:implémentation"><div class="ui label">1.5</div> Implémentation</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:matrice-dadjacence"><i class="circle icon"></i> Matrice d’adjacence</a><a style="font-size:0.6em" class="item" href="#sec:listes-dadjacences"><i class="circle icon"></i> Listes d’adjacences</a><a style="font-size:0.6em" class="item" href="#sec:comparaison"><i class="circle icon"></i> Comparaison</a></div></div></div><div class="item header"> <a href="#sec:graphes-non-orientés"><span>2</span> Graphes non orientés</a><div class="menu"><a class="item" href="#sec:définition-et-adaptation-du-vocabulaire"><div class="ui label">2.1</div> Définition et adaptation du vocabulaire</a><a class="item" href="#sec:connexité"><div class="ui label">2.2</div> Connexité</a></div></div><div class="item header"> <a href="#sec:graphe-acyclique-connexe"><span>3</span> Graphe acyclique connexe</a><div class="menu"></div></div><div class="item header"> <a href="#sec:parcours"><span>4</span> Parcours</a><div class="menu"><a class="item" href="#sec:principe-et-parcours-récursif"><div class="ui label">4.1</div> Principe et parcours récursif</a><a class="item" href="#sec:profondeur"><div class="ui label">4.2</div> Profondeur</a><a class="item" href="#sec:largeur"><div class="ui label">4.3</div> Largeur</a></div></div><div class="item header"> <a href="#sec:chemin-de-plus-petit-poids"><span>5</span> Chemin de plus petit poids</a><div class="menu"><a class="item" href="#sec:graphe-pondéré"><div class="ui label">5.1</div> Graphe pondéré</a><a class="item" href="#sec:dijkstra-source-unique"><div class="ui label">5.2</div> Dijkstra : source unique</a></div></div><!-- FIX TOC -->
+<div class="item header"> <a href="#sec:graphes-orientés"><span>1</span> Graphes orientés</a><div class="menu"><a class="item" href="#sec:définition"><div class="ui label">1.1</div> Définition</a><a class="item" href="#sec:voisins-et-degrés"><div class="ui label">1.2</div> Voisins et degrés</a><a class="item" href="#sec:chemin"><div class="ui label">1.3</div> Chemin</a><a class="item" href="#sec:sous-graphe"><div class="ui label">1.4</div> Sous-graphe</a><a class="item" href="#sec:implémentation"><div class="ui label">1.5</div> Implémentation</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:matrice-dadjacence"><i class="circle icon"></i> Matrice d’adjacence</a><a style="font-size:0.6em" class="item" href="#sec:listes-dadjacences"><i class="circle icon"></i> Listes d’adjacences</a><a style="font-size:0.6em" class="item" href="#sec:comparaison"><i class="circle icon"></i> Comparaison</a></div></div></div><div class="item header"> <a href="#sec:graphes-non-orientés"><span>2</span> Graphes non orientés</a><div class="menu"><a class="item" href="#sec:définition-et-adaptation-du-vocabulaire"><div class="ui label">2.1</div> Définition et adaptation du vocabulaire</a><a class="item" href="#sec:connexité"><div class="ui label">2.2</div> Connexité</a><a class="item" href="#sec:graphe-acyclique-connexe"><div class="ui label">2.3</div> Graphe acyclique connexe</a><a class="item" href="#sec:graphe-biparti"><div class="ui label">2.4</div> Graphe biparti</a></div></div><div class="item header"> <a href="#sec:parcours"><span>3</span> Parcours</a><div class="menu"><a class="item" href="#sec:principe-et-parcours-récursif"><div class="ui label">3.1</div> Principe et parcours récursif</a><a class="item" href="#sec:profondeur"><div class="ui label">3.2</div> Profondeur</a><a class="item" href="#sec:largeur"><div class="ui label">3.3</div> Largeur</a></div></div><div class="item header"> <a href="#sec:chemin-de-plus-petit-poids"><span>4</span> Chemin de plus petit poids</a><div class="menu"><a class="item" href="#sec:graphe-pondéré"><div class="ui label">4.1</div> Graphe pondéré</a><a class="item" href="#sec:dijkstra-source-unique"><div class="ui label">4.2</div> Dijkstra : source unique</a><a class="item" href="#sec:todo-floyd-warshall-toutes-paires"><div class="ui label">4.3</div> TODO Floyd-Warshall : toutes paires</a></div></div><div class="item header"> <a href="#sec:travaux-pratiques"><span>5</span> Travaux Pratiques</a><div class="menu"><a class="item" href="#sec:parcours-de-graphes-en-c"><div class="ui label">5.1</div> Parcours de graphes en <code>C</code></a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:représentation"><i class="circle icon"></i> Représentation</a><a style="font-size:0.6em" class="item" href="#sec:parcours-en-profondeur-récursif"><i class="circle icon"></i> Parcours en profondeur récursif</a><a style="font-size:0.6em" class="item" href="#sec:temps-et-classification-des-arêtes"><i class="circle icon"></i> Temps et classification des arêtes</a><a style="font-size:0.6em" class="item" href="#sec:parcours-avec-une-structure"><i class="circle icon"></i> Parcours avec une structure</a></div></div></div><!-- FIX TOC -->
 </div>
 
 <div class="pusher" id="main-content">
@@ -744,6 +744,14 @@ class="header-section-number">1.5.3</span> Comparaison</h3>
 <p>Notons qu’il est possible d’améliorer certaines complexités en
 utilisant des tableaux dynamiques, notamment les ajouts et suppressions
 de sommets.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Il
+semble a priori clair qu’on devrait utiliser des dictionnaires pour
+manipuler des graphes en voyant ce tableau. Pourtant, on utilisera
+presque exclusivement des listes d’adjacence. Pourquoi ? En grande
+partie parce que les opérations rendues efficaces sont rares et ne
+justifient pas la difficulté accrue de manipulation. En effet,
+l’opération la plus importante est de pouvoir énumérer les voisins, et
+une liste chaînée le permet facilement et efficacement.</div></p>
 <h1 data-number="2" id="sec:graphes-non-orientés"><span
 class="header-section-number">2</span> Graphes non orientés</h1>
 <h2 data-number="2.1"
@@ -833,16 +841,26 @@ graphe n’ayant qu’une classe d’équivalence pour <span
 class="math inline">\(\smile^*\)</span> est dit
 <strong>connexe</strong>. Cela signifie qu’il existe un chemin entre
 toute paire de sommets. </div></p>
-<h1 data-number="3" id="sec:graphe-acyclique-connexe"><span
-class="header-section-number">3</span> Graphe acyclique connexe</h1>
+<h2 data-number="2.3" id="sec:graphe-acyclique-connexe"><span
+class="header-section-number">2.3</span> Graphe acyclique connexe</h2>
 <p><div class="ui message"><div class="header">Définition</div> On
 appelle <strong>arbre</strong> un graphe acyclique connexe. Quand on a
 distingué un sommet, on parle d’<strong>arbre enraciné</strong>.
 </div></p>
-<h1 data-number="4" id="sec:parcours"><span
-class="header-section-number">4</span> Parcours</h1>
-<h2 data-number="4.1" id="sec:principe-et-parcours-récursif"><span
-class="header-section-number">4.1</span> Principe et parcours
+<h2 data-number="2.4" id="sec:graphe-biparti"><span
+class="header-section-number">2.4</span> Graphe biparti</h2>
+<p><div class="ui message"><div class="header">Définition</div> Soit
+<span class="math inline">\(G = (S,A)\)</span> un graphe, on dit que le
+graphe est <strong>biparti</strong> lorsqu’il existe une partition <span
+class="math inline">\(S = S_1 \cup S_2\)</span> et que <span
+class="math display">\[
+\forall \{ x, y \} \in A, x \in S_1 \Rightarrow y \in S_2
+\]</span> </div></p>
+<p><div class="ui message blue"><div class="header">Note</div>dessin</div></p>
+<h1 data-number="3" id="sec:parcours"><span
+class="header-section-number">3</span> Parcours</h1>
+<h2 data-number="3.1" id="sec:principe-et-parcours-récursif"><span
+class="header-section-number">3.1</span> Principe et parcours
 récursif</h2>
 <p>On reprend le principe des parcours d’arbres : un parcours de graphe
 est une méthode qui étant donné un sommet <span
@@ -913,8 +931,8 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <span id="cb7-14"><a href="#cb7-14"></a>        <span class="kw">end</span></span>
 <span id="cb7-15"><a href="#cb7-15"></a>    <span class="kw">done</span></span></code></pre></div>
 <p></div></p>
-<h2 data-number="4.2" id="sec:profondeur"><span
-class="header-section-number">4.2</span> Profondeur</h2>
+<h2 data-number="3.2" id="sec:profondeur"><span
+class="header-section-number">3.2</span> Profondeur</h2>
 <p>Si on choisit d’implémenter l’ensemble <span
 class="math inline">\(V\)</span> par une pile, on obtient un parcours
 appelé parcours en profondeur (<em>depth-first search</em>).</p>
@@ -1091,8 +1109,8 @@ de test de la 2-connexité : <span class="math inline">\(G\)</span> est
 2-connexe si en enlevant une arête quelconque <span
 class="math inline">\(G\)</span> reste connexe.</p></li>
 </ul>
-<h2 data-number="4.3" id="sec:largeur"><span
-class="header-section-number">4.3</span> Largeur</h2>
+<h2 data-number="3.3" id="sec:largeur"><span
+class="header-section-number">3.3</span> Largeur</h2>
 <p>Si on choisit d’implémenter l’ensemble <span
 class="math inline">\(V\)</span> par une file, on obtient un parcours
 appelé parcours en largeur ().</p>
@@ -1170,10 +1188,10 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <span id="cb11-3"><a href="#cb11-3"></a><span class="kw">let</span> ajoute x pi = <span class="dt">Queue</span>.add x pi;;</span>
 <span id="cb11-4"><a href="#cb11-4"></a><span class="kw">let</span> extraction pi = <span class="dt">Queue</span>.take pi;;</span></code></pre></div>
 <p></div> </div></p>
-<h1 data-number="5" id="sec:chemin-de-plus-petit-poids"><span
-class="header-section-number">5</span> Chemin de plus petit poids</h1>
-<h2 data-number="5.1" id="sec:graphe-pondéré"><span
-class="header-section-number">5.1</span> Graphe pondéré</h2>
+<h1 data-number="4" id="sec:chemin-de-plus-petit-poids"><span
+class="header-section-number">4</span> Chemin de plus petit poids</h1>
+<h2 data-number="4.1" id="sec:graphe-pondéré"><span
+class="header-section-number">4.1</span> Graphe pondéré</h2>
 <p>On considère maintenant une pondération sur les arêtes d’un graphe.
 C’est-à-dire une fonction <span class="math inline">\(w : A \rightarrow
 \R\)</span>. On parle de graphe pondéré et <span
@@ -1193,8 +1211,8 @@ chemin de plus petit poids fini.</p>
 <p>En donnant à chaque arête le même poids <span
 class="math inline">\(1\)</span>, on retrouve naturellement la notion de
 plus court chemin dans un graphe.</p>
-<h2 data-number="5.2" id="sec:dijkstra-source-unique"><span
-class="header-section-number">5.2</span> Dijkstra : source unique</h2>
+<h2 data-number="4.2" id="sec:dijkstra-source-unique"><span
+class="header-section-number">4.2</span> Dijkstra : source unique</h2>
 <p>On considère ici des poids dans <span
 class="math inline">\(\mathbb{R}_+^*\)</span>, ainsi prolonger un chemin
 a forcément un coût.</p>
@@ -1309,66 +1327,385 @@ class="math inline">\((v,w(u,v))\)</span>.</p>
 suivant :</p>
 <p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb12"><pre
-class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb12-1"><a href="#cb12-1"></a>    <span class="kw">let</span> dists = make_vect n infini <span class="kw">in</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a>    <span class="kw">let</span> a_visiter = cree_file () <span class="kw">in</span></span>
-<span id="cb12-3"><a href="#cb12-3"></a>    dists.(s) &lt;- <span class="dv">0</span>;</span>
-<span id="cb12-4"><a href="#cb12-4"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
-<span id="cb12-5"><a href="#cb12-5"></a>        ajoute i dists.(i) a_visiter;</span>
-<span id="cb12-6"><a href="#cb12-6"></a>    <span class="kw">done</span>;</span>
-<span id="cb12-7"><a href="#cb12-7"></a>    <span class="kw">let</span> <span class="kw">rec</span> traite_liste x l =</span>
-<span id="cb12-8"><a href="#cb12-8"></a>        <span class="kw">match</span> l <span class="kw">with</span></span>
-<span id="cb12-9"><a href="#cb12-9"></a>        | [] -&gt; ()</span>
-<span id="cb12-10"><a href="#cb12-10"></a>        | (y,poids)::q -&gt; <span class="kw">let</span> nd = dists.(x) + poids <span class="kw">in</span></span>
-<span id="cb12-11"><a href="#cb12-11"></a>            <span class="kw">if</span> nd &lt; dists.(y)</span>
-<span id="cb12-12"><a href="#cb12-12"></a>            <span class="kw">then</span> <span class="kw">begin</span></span>
-<span id="cb12-13"><a href="#cb12-13"></a>                dists.(y) &lt;- nd;</span>
-<span id="cb12-14"><a href="#cb12-14"></a>                <span class="dt">pred</span>.(y) &lt;- x;</span>
-<span id="cb12-15"><a href="#cb12-15"></a>                diminue_priorite y nd a_visiter</span>
-<span id="cb12-16"><a href="#cb12-16"></a>            <span class="kw">end</span></span>
-<span id="cb12-17"><a href="#cb12-17"></a>    <span class="kw">in</span></span>
-<span id="cb12-18"><a href="#cb12-18"></a>    <span class="kw">while</span> <span class="dt">not</span> (est_vide a_visiter) &amp;&amp; min_priorite a_visiter &lt; infini <span class="kw">do</span></span>
-<span id="cb12-19"><a href="#cb12-19"></a>        <span class="kw">let</span> x = extrait_minimum a_visiter <span class="kw">in</span></span>
-<span id="cb12-20"><a href="#cb12-20"></a>        traite_liste x g.(x)   </span>
-<span id="cb12-21"><a href="#cb12-21"></a>    <span class="kw">done</span>;</span>
-<span id="cb12-22"><a href="#cb12-22"></a>    dists, <span class="dt">pred</span></span>
-<span id="cb12-23"><a href="#cb12-23"></a>```</span>
-<span id="cb12-24"><a href="#cb12-24"></a></span>
-<span id="cb12-25"><a href="#cb12-25"></a>Au départ, tous les sommets sont dans la file et  à chaque étape on extrait </span>
-<span id="cb12-26"><a href="#cb12-26"></a>un sommet. Il n&#39;est donc pas nécessaire de maintenir une marque sur les</span>
-<span id="cb12-27"><a href="#cb12-27"></a>sommets visités. La condition d&#39;arrêt n&#39;est pas uniquement lié au fait que la</span>
-<span id="cb12-28"><a href="#cb12-28"></a>file soit vide car si le graphe est non connexe, des sommets avec distance</span>
-<span id="cb12-29"><a href="#cb12-29"></a>$\infty$ on été ajoutés dans la file au départ. Mais quand on extrait un sommet</span>
-<span id="cb12-30"><a href="#cb12-30"></a>avec une priorité $\infty$ c&#39;est nécessairement qu&#39;il n&#39;est pas accessible</span>
-<span id="cb12-31"><a href="#cb12-31"></a>depuis le s.</span>
-<span id="cb12-32"><a href="#cb12-32"></a></span>
-<span id="cb12-33"><a href="#cb12-33"></a>La complexité spatiale de cet algorithme est celle de la file de priorité donc</span>
-<span id="cb12-34"><a href="#cb12-34"></a>$\gO(|S|)$. Pour la complexité temporelle, on a au départ la création de la</span>
-<span id="cb12-35"><a href="#cb12-35"></a>file en $\gO(|S| \<span class="dt">log</span> |S|)$ puis $|S|$ itérations de la boucle principale avec</span>
-<span id="cb12-36"><a href="#cb12-36"></a>une extraction du minimum en $\gO(\<span class="dt">log</span> |S|)$ et au maximum $|A|$ itérations de parcours</span>
-<span id="cb12-37"><a href="#cb12-37"></a>d&#39;arêtes ayant au maximum $\gO(\<span class="dt">log</span> |S|)$ en raison de diminue minimum.</span>
-<span id="cb12-38"><a href="#cb12-38"></a>Au total, on a donc une complexité temporelle en $\gO( (|S|+|A|) \<span class="dt">log</span> |S|)$.</span>
-<span id="cb12-39"><a href="#cb12-39"></a></span>
-<span id="cb12-40"><a href="#cb12-40"></a></span>
-<span id="cb12-41"><a href="#cb12-41"></a>#### TODO Floyd-Warshall : toutes paires</span>
-<span id="cb12-42"><a href="#cb12-42"></a></span>
-<span id="cb12-43"><a href="#cb12-43"></a></span>
-<span id="cb12-44"><a href="#cb12-44"></a>On considère maintenant des poids quelconques.</span>
-<span id="cb12-45"><a href="#cb12-45"></a></span>
-<span id="cb12-46"><a href="#cb12-46"></a>Soit $M^k$ la matrice telle que $M^k_{i,j}$ contient le poids du plus court</span>
-<span id="cb12-47"><a href="#cb12-47"></a>chemin de $i$ à $j$ n&#39;utilisant que des sommets intermédiaires de  $<span class="dv">1</span>$ à $k$ </span>
-<span id="cb12-48"><a href="#cb12-48"></a>(on place $\infty$ s&#39;il n&#39;y en a pas).</span>
-<span id="cb12-49"><a href="#cb12-49"></a></span>
-<span id="cb12-50"><a href="#cb12-50"></a>On pose donc $M^<span class="dv">0_</span>{i,j} = w(i,j)$.</span>
-<span id="cb12-51"><a href="#cb12-51"></a></span>
-<span id="cb12-52"><a href="#cb12-52"></a>On a $M^k_{i,j} = <span class="dt">min</span>(M^{k<span class="dv">-1</span>}_{i,j}, M^{k<span class="dv">-1</span>}_{i,k} + M^{k<span class="dv">-1</span>}_{k,j})$.</span>
-<span id="cb12-53"><a href="#cb12-53"></a></span>
-<span id="cb12-54"><a href="#cb12-54"></a>On peut faire ce calcul en place (boucles sur k puis i, j).</span>
-<span id="cb12-55"><a href="#cb12-55"></a></span>
-<span id="cb12-56"><a href="#cb12-56"></a>Complexité en temps $O(|S|^<span class="dv">3</span>)$ et en espace $O(|E|^<span class="dv">2</span>)$.</span>
-<span id="cb12-57"><a href="#cb12-57"></a></span>
-<span id="cb12-58"><a href="#cb12-58"></a>Détection de cycle négatif : $M_{i,j} &lt; <span class="dv">0</span>$.</span>
-<span id="cb12-59"><a href="#cb12-59"></a></span></code></pre></div>
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb12-1"><a href="#cb12-1"></a>    <span class="kw">let</span> <span class="dt">pred</span> = make_vect n (<span class="dv">-1</span>) <span class="kw">in</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>    <span class="kw">let</span> dists = make_vect n infini <span class="kw">in</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a>    <span class="kw">let</span> a_visiter = cree_file () <span class="kw">in</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a>    dists.(s) &lt;- <span class="dv">0</span>;</span>
+<span id="cb12-5"><a href="#cb12-5"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a>        ajoute i dists.(i) a_visiter;</span>
+<span id="cb12-7"><a href="#cb12-7"></a>    <span class="kw">done</span>;</span>
+<span id="cb12-8"><a href="#cb12-8"></a>    <span class="kw">let</span> <span class="kw">rec</span> traite_liste x l =</span>
+<span id="cb12-9"><a href="#cb12-9"></a>        <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb12-10"><a href="#cb12-10"></a>        | [] -&gt; ()</span>
+<span id="cb12-11"><a href="#cb12-11"></a>        | (y,poids)::q -&gt; <span class="kw">let</span> nd = dists.(x) + poids <span class="kw">in</span></span>
+<span id="cb12-12"><a href="#cb12-12"></a>            <span class="kw">if</span> nd &lt; dists.(y)</span>
+<span id="cb12-13"><a href="#cb12-13"></a>            <span class="kw">then</span> <span class="kw">begin</span></span>
+<span id="cb12-14"><a href="#cb12-14"></a>                dists.(y) &lt;- nd;</span>
+<span id="cb12-15"><a href="#cb12-15"></a>                <span class="dt">pred</span>.(y) &lt;- x;</span>
+<span id="cb12-16"><a href="#cb12-16"></a>                diminue_priorite y nd a_visiter</span>
+<span id="cb12-17"><a href="#cb12-17"></a>            <span class="kw">end</span></span>
+<span id="cb12-18"><a href="#cb12-18"></a>    <span class="kw">in</span></span>
+<span id="cb12-19"><a href="#cb12-19"></a>    <span class="kw">while</span> <span class="dt">not</span> (est_vide a_visiter) &amp;&amp; min_priorite a_visiter &lt; infini <span class="kw">do</span></span>
+<span id="cb12-20"><a href="#cb12-20"></a>        <span class="kw">let</span> x = extrait_minimum a_visiter <span class="kw">in</span></span>
+<span id="cb12-21"><a href="#cb12-21"></a>        traite_liste x g.(x)   </span>
+<span id="cb12-22"><a href="#cb12-22"></a>    <span class="kw">done</span>;</span>
+<span id="cb12-23"><a href="#cb12-23"></a>    dists, <span class="dt">pred</span></span></code></pre></div>
 <p></div></p>
+<p>Au départ, tous les sommets sont dans la file et à chaque étape on
+extrait un sommet. Il n’est donc pas nécessaire de maintenir une marque
+sur les sommets visités. La condition d’arrêt n’est pas uniquement lié
+au fait que la file soit vide car si le graphe est non connexe, des
+sommets avec distance <span class="math inline">\(\infty\)</span> on été
+ajoutés dans la file au départ. Mais quand on extrait un sommet avec une
+priorité <span class="math inline">\(\infty\)</span> c’est
+nécessairement qu’il n’est pas accessible depuis le s.</p>
+<p>La complexité spatiale de cet algorithme est celle de la file de
+priorité donc <span class="math inline">\(\gO(|S|)\)</span>. Pour la
+complexité temporelle, on a au départ la création de la file en <span
+class="math inline">\(\gO(|S| \log |S|)\)</span> puis <span
+class="math inline">\(|S|\)</span> itérations de la boucle principale
+avec une extraction du minimum en <span class="math inline">\(\gO(\log
+|S|)\)</span> et au maximum <span class="math inline">\(|A|\)</span>
+itérations de parcours d’arêtes ayant au maximum <span
+class="math inline">\(\gO(\log |S|)\)</span> en raison de diminue
+minimum. Au total, on a donc une complexité temporelle en <span
+class="math inline">\(\gO( (|S|+|A|) \log |S|)\)</span>.</p>
+<h2 data-number="4.3" id="sec:todo-floyd-warshall-toutes-paires"><span
+class="header-section-number">4.3</span> TODO Floyd-Warshall : toutes
+paires</h2>
+<p>On considère maintenant des poids quelconques.</p>
+<p>Soit <span class="math inline">\(M^k\)</span> la matrice telle que
+<span class="math inline">\(M^k_{i,j}\)</span> contient le poids du plus
+court chemin de <span class="math inline">\(i\)</span> à <span
+class="math inline">\(j\)</span> n’utilisant que des sommets
+intermédiaires de <span class="math inline">\(1\)</span> à <span
+class="math inline">\(k\)</span> (on place <span
+class="math inline">\(\infty\)</span> s’il n’y en a pas).</p>
+<p>On pose donc <span class="math inline">\(M^0_{i,j} =
+w(i,j)\)</span>.</p>
+<p>On a <span class="math inline">\(M^k_{i,j} = min(M^{k-1}_{i,j},
+M^{k-1}_{i,k} + M^{k-1}_{k,j})\)</span>.</p>
+<p>On peut faire ce calcul en place (boucles sur k puis i, j).</p>
+<p>Complexité en temps <span class="math inline">\(O(|S|^3)\)</span> et
+en espace <span class="math inline">\(O(|E|^2)\)</span>.</p>
+<p>Détection de cycle négatif : <span class="math inline">\(M_{i,j} &lt;
+0\)</span>.</p>
+<h1 data-number="5" id="sec:travaux-pratiques"><span
+class="header-section-number">5</span> Travaux Pratiques</h1>
+<h2 data-number="5.1" id="sec:parcours-de-graphes-en-c"><span
+class="header-section-number">5.1</span> Parcours de graphes en
+<code>C</code></h2>
+<h3 data-number="5.1.1" id="sec:représentation"><span
+class="header-section-number">5.1.1</span> Représentation</h3>
+<p>On va considérer le type suivant pour les graphes qui suppose qu’on
+n’aura jamais plus que <code>MAXV</code> sommets. On utilise ici une
+constante avec l’alias <code>#define</code> : partout où on écrit
+<code>MAXV</code>, il sera remplacé par la valeur 100.</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1"></a><span class="pp">#define MAXV 100 </span><span class="co">/* nombre maximum de sommets */</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="kw">struct</span> edgenode <span class="op">{</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a>    <span class="dt">int</span> y<span class="op">;</span> <span class="co">// le voisin</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a>    <span class="kw">struct</span> edgenode <span class="op">*</span>next<span class="op">;</span> <span class="co">// la suite de la liste</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="op">};</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a><span class="kw">typedef</span> <span class="kw">struct</span> edgenode edgenode<span class="op">;</span></span>
+<span id="cb13-8"><a href="#cb13-8"></a></span>
+<span id="cb13-9"><a href="#cb13-9"></a><span class="kw">struct</span> graph <span class="op">{</span></span>
+<span id="cb13-10"><a href="#cb13-10"></a>    edgenode <span class="op">*</span>edges<span class="op">[</span>MAXV<span class="op">];</span> <span class="co">// tableau de listes d&#39;adjacence</span></span>
+<span id="cb13-11"><a href="#cb13-11"></a>    <span class="dt">int</span> degree<span class="op">[</span>MAXV<span class="op">];</span> <span class="co">// le degré de chaque sommet</span></span>
+<span id="cb13-12"><a href="#cb13-12"></a>    <span class="dt">int</span> nvertices<span class="op">;</span></span>
+<span id="cb13-13"><a href="#cb13-13"></a>    <span class="dt">int</span> nedges<span class="op">;</span></span>
+<span id="cb13-14"><a href="#cb13-14"></a>    <span class="dt">bool</span> directed<span class="op">;</span> <span class="co">// indique si le graphe est orienté</span></span>
+<span id="cb13-15"><a href="#cb13-15"></a><span class="op">};</span></span>
+<span id="cb13-16"><a href="#cb13-16"></a><span class="kw">typedef</span> <span class="kw">struct</span> graph graph<span class="op">;</span></span></code></pre></div>
+<p></div></p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction <div class="ui segment code"></p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1"></a><span class="dt">void</span> initialize_graph<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">bool</span> directed<span class="op">);</span></span></code></pre></div>
+<p></div> qui initialise le graphe <code>g</code> passé par pointeur
+comme étant le graphe vide, dirigé ou non selon la valeur de
+<code>directed</code>.</p>
+</div>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction <div class="ui segment code"></p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb15-1"><a href="#cb15-1"></a><span class="dt">void</span> insert_edge<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> x<span class="op">,</span> <span class="dt">int</span> y<span class="op">,</span> <span class="dt">bool</span> directed<span class="op">)</span></span></code></pre></div>
+<p></div> qui insère une arête de x à y en considérant <code>g</code>
+comme orienté ou non selon <code>directed</code> <strong>et donc en
+ignorant</strong> <code>g-&gt;directed</code>.</p>
+<p><strong>Attention</strong> il faudra prendre garde au fait que
+<code>g</code> soit orienté ou non. Dans le second cas, on représenté
+les arêtes comme dans un graphe orienté symétrique, donc il faut en
+ajouter deux. C’est la raison pour laquelle on utilise le paramètre
+<code>directed</code> plutôt que de consulter
+<code>g-&gt;directed</code>.</p>
+</div>
+<p>Pour travailler sur des graphes, on va écrire une fonction permettant
+de lire un fichier contenant le graphe sous le format suivant :</p>
+<ul>
+<li>première ligne contenant trois entiers, le nombre de sommets n, le
+nombre d’arêtes p et 0 ou 1 selon que le graphe soit non orienté ou
+orienté</li>
+<li>ensuite p lignes contenant deux entiers i et j et indiquant qu’il y
+a une arête de i vers j</li>
+</ul>
+<p>Par exemple :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb16-1"><a href="#cb16-1"></a><span class="dv">4</span> <span class="dv">5</span> <span class="dv">1</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="dv">0</span> <span class="dv">1</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="dv">0</span> <span class="dv">2</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="dv">1</span> <span class="dv">2</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a><span class="dv">2</span> <span class="dv">3</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a><span class="dv">3</span> <span class="dv">1</span></span></code></pre></div>
+<p></div></p>
+<p>sera représenté par le graphe :
+<center><div class="ui image center"><img
+src="assets/pics/tp_c_ex_fichier.png" /></div></center></p>
+<p><div class="ui message orange"><div class="header">Remarque</div>On
+va utiliser ici l’entrée standard, c’est-à-dire l’entrée de
+l’utilisateur depuis le terminal. Cependant, il est possible de
+rédiriger cette entrée depuis un fichier. En effet, si on appelle
+<div class="ui segment code"></p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb17-1"><a href="#cb17-1"></a><span class="op">./</span>monprogramme <span class="op">&lt;</span> monfichier</span></code></pre></div>
+<p></div> Alors l’entrée standard sera le contenu de
+<code>monfichier</code>. Cela permet de ne pas avoir à se préoccuper
+d’ouvrir de fichier et d’utiliser directement <code>scanf</code>.</p>
+<p><strong>Rappel</strong> <code>scanf("%d %d", &amp;x, &amp;y);</code>
+va lire une ligne avec deux entiers et placer la valeur du premier dans
+<code>x</code> et la valeur du second dans <code>y</code>.</div></p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction <div class="ui segment code"></p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb18-1"><a href="#cb18-1"></a><span class="dt">void</span> read_graph<span class="op">(</span>graph <span class="op">*</span>g<span class="op">)</span></span></code></pre></div>
+<p></div> qui lit un graphe depuis l’entrée standard et le place dans
+<code>g</code> <strong>après l’avoir initialisé</strong>.</p>
+</div>
+<h3 data-number="5.1.2" id="sec:parcours-en-profondeur-récursif"><span
+class="header-section-number">5.1.2</span> Parcours en profondeur
+récursif</h3>
+<p>On va modifier la structure de graphe et rajouter trois nouveaux
+champs :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb19-1"><a href="#cb19-1"></a><span class="dt">bool</span> discovered<span class="op">[</span>MAXV<span class="op">];</span> <span class="co">// Quels sommets sont connus</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="dt">bool</span> processed<span class="op">[</span>MAXV<span class="op">];</span> <span class="co">// Quels sommets sont traités</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a><span class="dt">int</span> parent<span class="op">[</span>MAXV<span class="op">];</span> <span class="co">// parent[x] est le père de x dans le parcours</span></span>
+<span id="cb19-4"><a href="#cb19-4"></a>                  <span class="co">// s&#39;il n&#39;y en a pas, c&#39;est -1</span></span></code></pre></div>
+<p></div></p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction <div class="ui segment code"></p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb20-1"><a href="#cb20-1"></a><span class="dt">void</span> initialize_search<span class="op">(</span>graph <span class="op">*</span>g<span class="op">);</span></span></code></pre></div>
+<p></div> qui initialise ces tableaux pour commencer une nouvelle
+recherche.</p>
+</div>
+<p>On va définir trois fonctions qui seront appelées lors d’un parcours
+et qu’on pourra redéfinir.</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb21-1"><a href="#cb21-1"></a><span class="dt">void</span> process_vertex_early<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> v<span class="op">)</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="op">{</span></span>
+<span id="cb21-3"><a href="#cb21-3"></a>    printf<span class="op">(</span><span class="st">&quot;processing vertex %d</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> v<span class="op">);</span></span>
+<span id="cb21-4"><a href="#cb21-4"></a><span class="op">}</span></span>
+<span id="cb21-5"><a href="#cb21-5"></a></span>
+<span id="cb21-6"><a href="#cb21-6"></a><span class="dt">void</span> process_vertex_late<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> v<span class="op">)</span></span>
+<span id="cb21-7"><a href="#cb21-7"></a><span class="op">{</span></span>
+<span id="cb21-8"><a href="#cb21-8"></a><span class="op">}</span></span>
+<span id="cb21-9"><a href="#cb21-9"></a></span>
+<span id="cb21-10"><a href="#cb21-10"></a><span class="dt">void</span> process_edge<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> x<span class="op">,</span> <span class="dt">int</span> y<span class="op">)</span></span>
+<span id="cb21-11"><a href="#cb21-11"></a><span class="op">{</span></span>
+<span id="cb21-12"><a href="#cb21-12"></a>    printf<span class="op">(</span><span class="st">&quot;processed edge %d --&gt; %d</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> x<span class="op">,</span> y<span class="op">);</span></span>
+<span id="cb21-13"><a href="#cb21-13"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction récursive <div class="ui segment code"></p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb22-1"><a href="#cb22-1"></a><span class="dt">void</span> dfs<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span></code></pre></div>
+<p></div> qui effectue un parcours en profondeur en partant du sommet
+<code>x</code>.</p>
+<p>Cette fonction va appeler <code>process_vertex_early</code> au début
+du traitement de <code>x</code>, <code>process_vertex_late</code> à la
+fin et <code>process_edge</code> pour chaque arête rencontrée.</p>
+<p><strong>Attention</strong> si le graphe est non orienté et qu’on a
+rencontré <code>x -&gt; y</code> dans cet ordre, on ne fera pas de
+traitement dans le sens <code>y -&gt; x</code>.</p>
+</div>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Comme on l’a démontré, le parcours dans un graphe non orienté permet
+de traiter exactement la composante connexe du sommet de départ.</p>
+<p>Écrire une fonction <div class="ui segment code"></p>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb23-1"><a href="#cb23-1"></a><span class="dt">void</span> connected_components<span class="op">(</span>graph <span class="op">*</span>g<span class="op">)</span></span></code></pre></div>
+<p></div> qui affiche les composantes connexes sous la forme :
+<div class="ui segment code"></p>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb24-1"><a href="#cb24-1"></a>Component <span class="dv">1</span><span class="op">:</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>Component <span class="dv">2</span><span class="op">:</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span></span></code></pre></div>
+<p></div></p>
+<p>pour le graphe <center><div class="ui image center"><img
+src="assets/pics/tp_c_components.png" /></div></center></p>
+<p>Il sera nécessaire de modifier les fonctions
+<code>process_*</code>.</p>
+</div>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Adaptez le parcours pour détecter des cycles. Quand vous détectez un
+cycle, affichez les sommets qui le compose. Dans le graphe précédent il
+faut afficher : <div class="ui segment code"></p>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb25-1"><a href="#cb25-1"></a>Cycle <span class="op">:</span> <span class="dv">0</span> <span class="dv">2</span> <span class="dv">3</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>Cycle <span class="op">:</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">4</span></span>
+<span id="cb25-3"><a href="#cb25-3"></a>Cycle <span class="op">:</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span></span></code></pre></div>
+<p></div></p>
+</div>
+<h3 data-number="5.1.3"
+id="sec:temps-et-classification-des-arêtes"><span
+class="header-section-number">5.1.3</span> Temps et classification des
+arêtes</h3>
+<p>On rajoute à la structure <code>graph</code> deux tableaux et un
+entier :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb26-1"><a href="#cb26-1"></a><span class="dt">int</span> time<span class="op">;</span> <span class="co">// l&#39;horloge</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="dt">int</span> entry_time<span class="op">[</span>MAXV<span class="op">];</span></span>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="dt">int</span> exit_time<span class="op">[</span>MAXV<span class="op">];</span></span></code></pre></div>
+<p></div></p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Rajouter à <code>dfs</code> le maintien de l’horloge et des temps
+d’entrée et de sortie.</p>
+</div>
+<p>On définit des constantes :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb27-1"><a href="#cb27-1"></a><span class="pp">#define TREE 0</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a><span class="pp">#define BACK 1</span></span>
+<span id="cb27-3"><a href="#cb27-3"></a><span class="pp">#define FORWARD 2</span></span>
+<span id="cb27-4"><a href="#cb27-4"></a><span class="pp">#define CROSS 3</span></span></code></pre></div>
+<p></div></p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction : <div class="ui segment code"></p>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb28-1"><a href="#cb28-1"></a><span class="dt">int</span> edge_classification<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> x<span class="op">,</span> <span class="dt">int</span> y<span class="op">)</span></span></code></pre></div>
+<p></div> qui pourra être appelée dans <code>process_edge</code> pour
+déterminer la classe d’une arête selon les constantes précédentes. On
+renverra -1 si l’arête ne peut être déterminée (est-ce possible ?).</p>
+</div>
+<h3 data-number="5.1.4" id="sec:parcours-avec-une-structure"><span
+class="header-section-number">5.1.4</span> Parcours avec une
+structure</h3>
+<p>On va réutiliser ici des implémentations de files et de piles dans un
+tableau de taille fixe.</p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Compléter les implémentations en se basant sur ce qui a déjà été fait
+dans les TP précédents. <div class="ui segment code"></p>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb29-1"><a href="#cb29-1"></a><span class="kw">struct</span> queue <span class="op">{</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a>    <span class="dt">int</span> elts<span class="op">[</span>MAXV<span class="op">];</span></span>
+<span id="cb29-3"><a href="#cb29-3"></a>    <span class="dt">int</span> front<span class="op">;</span></span>
+<span id="cb29-4"><a href="#cb29-4"></a>    <span class="dt">int</span> back<span class="op">;</span></span>
+<span id="cb29-5"><a href="#cb29-5"></a><span class="op">};</span></span>
+<span id="cb29-6"><a href="#cb29-6"></a><span class="kw">typedef</span> <span class="kw">struct</span> queue queue<span class="op">;</span></span>
+<span id="cb29-7"><a href="#cb29-7"></a></span>
+<span id="cb29-8"><a href="#cb29-8"></a><span class="kw">struct</span> stack <span class="op">{</span></span>
+<span id="cb29-9"><a href="#cb29-9"></a>    <span class="dt">int</span> elts<span class="op">[</span>MAXV<span class="op">];</span></span>
+<span id="cb29-10"><a href="#cb29-10"></a>    <span class="dt">int</span> back<span class="op">;</span></span>
+<span id="cb29-11"><a href="#cb29-11"></a><span class="op">};</span></span>
+<span id="cb29-12"><a href="#cb29-12"></a><span class="kw">typedef</span> <span class="kw">struct</span> stack stack<span class="op">;</span></span>
+<span id="cb29-13"><a href="#cb29-13"></a></span>
+<span id="cb29-14"><a href="#cb29-14"></a><span class="dt">void</span> init_stack<span class="op">(</span>stack <span class="op">*</span>s<span class="op">)</span></span>
+<span id="cb29-15"><a href="#cb29-15"></a><span class="op">{</span></span>
+<span id="cb29-16"><a href="#cb29-16"></a>    <span class="co">// initialise la pile</span></span>
+<span id="cb29-17"><a href="#cb29-17"></a><span class="op">}</span></span>
+<span id="cb29-18"><a href="#cb29-18"></a></span>
+<span id="cb29-19"><a href="#cb29-19"></a><span class="dt">int</span> pop<span class="op">(</span>stack <span class="op">*</span>s<span class="op">)</span></span>
+<span id="cb29-20"><a href="#cb29-20"></a><span class="op">{</span></span>
+<span id="cb29-21"><a href="#cb29-21"></a>    <span class="co">// depile un élément</span></span>
+<span id="cb29-22"><a href="#cb29-22"></a><span class="op">}</span></span>
+<span id="cb29-23"><a href="#cb29-23"></a></span>
+<span id="cb29-24"><a href="#cb29-24"></a><span class="dt">void</span> push<span class="op">(</span>stack <span class="op">*</span>s<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
+<span id="cb29-25"><a href="#cb29-25"></a><span class="op">{</span></span>
+<span id="cb29-26"><a href="#cb29-26"></a>    <span class="co">// empile x sur la pile s</span></span>
+<span id="cb29-27"><a href="#cb29-27"></a><span class="op">}</span></span>
+<span id="cb29-28"><a href="#cb29-28"></a></span>
+<span id="cb29-29"><a href="#cb29-29"></a><span class="dt">void</span> init_queue<span class="op">(</span>stack <span class="op">*</span>s<span class="op">)</span></span>
+<span id="cb29-30"><a href="#cb29-30"></a><span class="op">{</span></span>
+<span id="cb29-31"><a href="#cb29-31"></a>    <span class="co">// initialise la file</span></span>
+<span id="cb29-32"><a href="#cb29-32"></a><span class="op">}</span></span>
+<span id="cb29-33"><a href="#cb29-33"></a></span>
+<span id="cb29-34"><a href="#cb29-34"></a><span class="dt">int</span> dequeue<span class="op">(</span>queue <span class="op">*</span>s<span class="op">)</span></span>
+<span id="cb29-35"><a href="#cb29-35"></a><span class="op">{</span></span>
+<span id="cb29-36"><a href="#cb29-36"></a>    <span class="co">// defile un élément</span></span>
+<span id="cb29-37"><a href="#cb29-37"></a><span class="op">}</span></span>
+<span id="cb29-38"><a href="#cb29-38"></a></span>
+<span id="cb29-39"><a href="#cb29-39"></a><span class="dt">void</span> enqueue<span class="op">(</span>stack <span class="op">*</span>s<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
+<span id="cb29-40"><a href="#cb29-40"></a><span class="op">{</span></span>
+<span id="cb29-41"><a href="#cb29-41"></a>    <span class="co">// enfile x sur la file s</span></span>
+<span id="cb29-42"><a href="#cb29-42"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+</div>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire des fonctions <div class="ui segment code"></p>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb30-1"><a href="#cb30-1"></a><span class="dt">void</span> dfs<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> src<span class="op">);</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a><span class="dt">void</span> bfs<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> src<span class="op">);</span></span></code></pre></div>
+<p></div></p>
+<p>effectuant un parcours en utilisant pour les sommets à visiter une
+pile ou une file. On ne pourra pas maintenir les temps de sortie ici car
+cela n’a plus vraiment de sens.</p>
+</div>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>A l’aide d’un parcours en largeur, le <code>bfs</code>, déterminez si
+un graphe non orienté est biparti.</p>
+</div>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>A l’aide d’un parcours en largeur, le <code>bfs</code>, déterminez
+étant donné un sommet <code>x</code> et un sommet <code>y</code> de sa
+composante connexe, le plus court chemin de <code>x</code> vers
+<code>y</code>. On l’affichera sous la forme
+<code>0 -- 3 -- 1 -- 5</code>.</p>
+</div>
 </div>
 <!-- </div> -->
 </div>
