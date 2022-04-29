@@ -93,7 +93,9 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
 
 <script>
 $(document).ready(function() {
@@ -325,30 +327,65 @@ table td {
 <div class="segment">
 <div class="ui container text">
 <p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Séquences et ses implémentations : tableaux, listes chaînées     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_programmation_imperative.jpg"> </div></p>
-<h1 data-number="1" id="sec:structure-abstraite-séquence-ou-liste"><span class="header-section-number">1</span> Structure abstraite séquence ou liste</h1>
-<p>La structure abstraite <em>liste</em>, ou également <em>séquence</em> dans des contextes, comme en <code>OCaml</code>, où le terme <code>liste</code> fait références aux listes chaînées, est la structure la plus simple pour stocker des données.</p>
-<p>Une <em>séquence</em> d’éléments de type <code>t</code> est un type <code>S(t)</code> dont les éléments représentent des valeurs du type <code>t</code> rangées séquentiellement dans un ordre, de la première à la dernière valeur. La vision logique la plus proche de cela est d’imaginer des cases ayant un indice, en commençant en général à l’indice 0, et contenant des valeurs.</p>
-<h1 data-number="2" id="sec:implémentations"><span class="header-section-number">2</span> Implémentations</h1>
-<h1 data-number="3" id="sec:implémentations-concrètes-des-listes-chaînées"><span class="header-section-number">3</span> Implémentations concrètes des Listes chaînées</h1>
-<h2 data-number="3.1" id="sec:en-c"><span class="header-section-number">3.1</span> En <code>C</code></h2>
-<h3 data-number="3.1.1" id="sec:représentation-et-type"><span class="header-section-number">3.1.1</span> Représentation et type</h3>
-<p>Il existe de nombreuses possibilités d’implémentation des listes chaînées en <code>C</code>. On présente ici les opérations autour d’une implémentation et on discutera ensuite des alternatives.</p>
-<p>Dans les limites du programme, on ne présente que des listes permettant de contenir un même type, ici des entiers.</p>
-<p>Une liste est ainsi un pointeur sur un maillon et un maillon est un couple <code>(valeur, suivant)</code> représenté dans une <code>struct</code> où <code>suivant</code> pointe vers le prochain maillon de la chaîne. Le pointeur nul, de valeur <code>NULL</code>, permet ainsi de représenter la liste vide.</p>
+<h1 data-number="1" id="sec:structure-abstraite-séquence-ou-liste"><span
+class="header-section-number">1</span> Structure abstraite séquence ou
+liste</h1>
+<p>La structure abstraite <em>liste</em>, ou également <em>séquence</em>
+dans des contextes, comme en <code>OCaml</code>, où le terme
+<code>liste</code> fait références aux listes chaînées, est la structure
+la plus simple pour stocker des données.</p>
+<p>Une <em>séquence</em> d’éléments de type <code>t</code> est un type
+<code>S(t)</code> dont les éléments représentent des valeurs du type
+<code>t</code> rangées séquentiellement dans un ordre, de la première à
+la dernière valeur. La vision logique la plus proche de cela est
+d’imaginer des cases ayant un indice, en commençant en général à
+l’indice 0, et contenant des valeurs.</p>
+<h1 data-number="2" id="sec:implémentations"><span
+class="header-section-number">2</span> Implémentations</h1>
+<h1 data-number="3"
+id="sec:implémentations-concrètes-des-listes-chaînées"><span
+class="header-section-number">3</span> Implémentations concrètes des
+Listes chaînées</h1>
+<h2 data-number="3.1" id="sec:en-c"><span
+class="header-section-number">3.1</span> En <code>C</code></h2>
+<h3 data-number="3.1.1" id="sec:représentation-et-type"><span
+class="header-section-number">3.1.1</span> Représentation et type</h3>
+<p>Il existe de nombreuses possibilités d’implémentation des listes
+chaînées en <code>C</code>. On présente ici les opérations autour d’une
+implémentation et on discutera ensuite des alternatives.</p>
+<p>Dans les limites du programme, on ne présente que des listes
+permettant de contenir un même type, ici des entiers.</p>
+<p>Une liste est ainsi un pointeur sur un maillon et un maillon est un
+couple <code>(valeur, suivant)</code> représenté dans une
+<code>struct</code> où <code>suivant</code> pointe vers le prochain
+maillon de la chaîne. Le pointeur nul, de valeur <code>NULL</code>,
+permet ainsi de représenter la liste vide.</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">struct</span> maillon <span class="op">{</span></span>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">struct</span> maillon <span class="op">{</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a>    <span class="dt">int</span> valeur<span class="op">;</span></span>
 <span id="cb1-3"><a href="#cb1-3"></a>    <span class="kw">struct</span> maillon <span class="op">*</span>suivant<span class="op">;</span></span>
 <span id="cb1-4"><a href="#cb1-4"></a><span class="op">};</span></span>
 <span id="cb1-5"><a href="#cb1-5"></a><span class="kw">typedef</span> <span class="kw">struct</span> maillon maillon<span class="op">;</span></span>
 <span id="cb1-6"><a href="#cb1-6"></a><span class="kw">typedef</span> maillon <span class="op">*</span>liste<span class="op">;</span></span></code></pre></div>
 <p></div></p>
-<p>On représentera graphiquement le pointeur nul par une croix et les maillons par des blocs contenant une valeur et un pointeur. Ainsi, le dernier maillon de la liste contient une croix. La liste <code>l</code> correspondant à la valeur qu’on pourrait noter <code>[1,2,3]</code> sera représentée ainsi :</p>
-<p><center><div class="ui image center"><img src="assets/pics/exempleliste.png" /></div></center></p>
-<h3 data-number="3.1.2" id="sec:constructeur"><span class="header-section-number">3.1.2</span> Constructeur</h3>
-<p>On parle de constructeur pour des fonctions qui permettent d’allouer et d’initialiser une valeur d’une structure de donnée. Ici, comme les listes sont des pointeurs sur des maillons, il s’agit uniquement de créer un maillon. Pour cela, on va utiliser <code>malloc</code> pour allouer dynamiquement un nouveau maillon.</p>
+<p>On représentera graphiquement le pointeur nul par une croix et les
+maillons par des blocs contenant une valeur et un pointeur. Ainsi, le
+dernier maillon de la liste contient une croix. La liste <code>l</code>
+correspondant à la valeur qu’on pourrait noter <code>[1,2,3]</code> sera
+représentée ainsi :</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/exempleliste.png" /></div></center></p>
+<h3 data-number="3.1.2" id="sec:constructeur"><span
+class="header-section-number">3.1.2</span> Constructeur</h3>
+<p>On parle de constructeur pour des fonctions qui permettent d’allouer
+et d’initialiser une valeur d’une structure de donnée. Ici, comme les
+listes sont des pointeurs sur des maillons, il s’agit uniquement de
+créer un maillon. Pour cela, on va utiliser <code>malloc</code> pour
+allouer dynamiquement un nouveau maillon.</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1"></a>maillon <span class="op">*</span>maillon_creer<span class="op">(</span><span class="dt">int</span> valeur<span class="op">,</span> maillon <span class="op">*</span>suivant<span class="op">)</span></span>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1"></a>maillon <span class="op">*</span>maillon_creer<span class="op">(</span><span class="dt">int</span> valeur<span class="op">,</span> maillon <span class="op">*</span>suivant<span class="op">)</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="op">{</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a>    maillon <span class="op">*</span>m <span class="op">=</span> malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span>maillon<span class="op">));</span></span>
 <span id="cb2-4"><a href="#cb2-4"></a>    m<span class="op">-&gt;</span>valeur <span class="op">=</span> valeur<span class="op">;</span></span>
@@ -356,9 +393,12 @@ table td {
 <span id="cb2-6"><a href="#cb2-6"></a>    <span class="cf">return</span> m<span class="op">;</span></span>
 <span id="cb2-7"><a href="#cb2-7"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
-<p>En fait, ce constructeur pourrait être découpé en deux parties : l’allocation qui va se charger de récupérer un emplacement mémoire pour le maillon et l’initialisation qui va attribuer des valeurs.</p>
+<p>En fait, ce constructeur pourrait être découpé en deux parties :
+l’allocation qui va se charger de récupérer un emplacement mémoire pour
+le maillon et l’initialisation qui va attribuer des valeurs.</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1"></a>maillon <span class="op">*</span>maillon_allouer<span class="op">()</span></span>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1"></a>maillon <span class="op">*</span>maillon_allouer<span class="op">()</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="op">{</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a>    <span class="cf">return</span> malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span>maillon<span class="op">));</span></span>
 <span id="cb3-4"><a href="#cb3-4"></a><span class="op">}</span></span>
@@ -376,34 +416,47 @@ table td {
 <span id="cb3-16"><a href="#cb3-16"></a>    <span class="cf">return</span> m<span class="op">;</span></span>
 <span id="cb3-17"><a href="#cb3-17"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
-<p>On peut alors commencer à créer des listes en enchainant les maillons :</p>
+<p>On peut alors commencer à créer des listes en enchainant les maillons
+:</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1"></a>maillon <span class="op">*</span>m1 <span class="op">=</span> creer_maillon<span class="op">(</span><span class="dv">1</span><span class="op">,</span> NULL<span class="op">);</span> <span class="co">// pas de suivant, c&#39;est le dernier maillon</span></span>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1"></a>maillon <span class="op">*</span>m1 <span class="op">=</span> creer_maillon<span class="op">(</span><span class="dv">1</span><span class="op">,</span> NULL<span class="op">);</span> <span class="co">// pas de suivant, c&#39;est le dernier maillon</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>maillon <span class="op">*</span>m2 <span class="op">=</span> creer_maillon<span class="op">(</span><span class="dv">2</span><span class="op">,</span> m1<span class="op">);</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a>maillon <span class="op">*</span>m3 <span class="op">=</span> creer_maillon<span class="op">(</span><span class="dv">3</span><span class="op">,</span> m2<span class="op">);</span></span>
 <span id="cb4-4"><a href="#cb4-4"></a>liste l <span class="op">=</span> m3<span class="op">;</span> <span class="co">// la liste pointe sur le premier maillon</span></span></code></pre></div>
 <p></div></p>
-<p><center><div class="ui image center"><img src="assets/pics/creationliste.png" /></div></center></p>
-<p>Comme le pointeur sur le premier maillon suffit ici, on aurait pu directement écrire :</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/creationliste.png" /></div></center></p>
+<p>Comme le pointeur sur le premier maillon suffit ici, on aurait pu
+directement écrire :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1"></a>liste l <span class="op">=</span> creer_maillon<span class="op">(</span><span class="dv">3</span><span class="op">,</span></span>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1"></a>liste l <span class="op">=</span> creer_maillon<span class="op">(</span><span class="dv">3</span><span class="op">,</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a>            creer_maillon<span class="op">(</span><span class="dv">2</span><span class="op">,</span></span>
 <span id="cb5-3"><a href="#cb5-3"></a>                creer_maillon<span class="op">(</span><span class="dv">1</span><span class="op">,</span> NULL<span class="op">)));</span></span></code></pre></div>
 <p></div></p>
-<h3 data-number="3.1.3" id="sec:destructeur"><span class="header-section-number">3.1.3</span> Destructeur</h3>
-<p>Pour détruire un maillon, il suffit de libérer l’espace qu’on lui a attribué.</p>
+<h3 data-number="3.1.3" id="sec:destructeur"><span
+class="header-section-number">3.1.3</span> Destructeur</h3>
+<p>Pour détruire un maillon, il suffit de libérer l’espace qu’on lui a
+attribué.</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1"></a><span class="dt">void</span> maillon_detruire<span class="op">(</span>maillon <span class="op">*</span>m<span class="op">)</span></span>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1"></a><span class="dt">void</span> maillon_detruire<span class="op">(</span>maillon <span class="op">*</span>m<span class="op">)</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="op">{</span></span>
 <span id="cb6-3"><a href="#cb6-3"></a>    free<span class="op">(</span>m<span class="op">);</span></span>
 <span id="cb6-4"><a href="#cb6-4"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
-<p>Pour détruire une liste, on va par contre avoir besoin de parcourir l’ensemble des maillons qui la constitue. Comme pour les autres parcours, on a alors deux choix :</p>
+<p>Pour détruire une liste, on va par contre avoir besoin de parcourir
+l’ensemble des maillons qui la constitue. Comme pour les autres
+parcours, on a alors deux choix :</p>
 <ul>
-<li><strong>parcours récursif</strong> on a un cas de base quand la liste est vide et dans le cas général, un éventuel appel récursif sur le pointeur <code>suivant</code>.</li>
+<li><strong>parcours récursif</strong> on a un cas de base quand la
+liste est vide et dans le cas général, un éventuel appel récursif sur le
+pointeur <code>suivant</code>.</li>
 </ul>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1"></a><span class="dt">void</span> liste_detruire<span class="op">(</span>liste l<span class="op">)</span></span>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1"></a><span class="dt">void</span> liste_detruire<span class="op">(</span>liste l<span class="op">)</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="op">{</span></span>
 <span id="cb7-3"><a href="#cb7-3"></a>    <span class="cf">if</span> <span class="op">(</span>l <span class="op">!=</span> NULL<span class="op">)</span></span>
 <span id="cb7-4"><a href="#cb7-4"></a>    <span class="op">{</span></span>
@@ -413,10 +466,13 @@ table td {
 <span id="cb7-8"><a href="#cb7-8"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
 <ul>
-<li><strong>parcours impératif</strong> on boucle tant que la liste est non nulle. On fait ici attention à ne pas accéder à <code>-&gt;suivant</code> après avoir libéré le maillon.</li>
+<li><strong>parcours impératif</strong> on boucle tant que la liste est
+non nulle. On fait ici attention à ne pas accéder à
+<code>-&gt;suivant</code> après avoir libéré le maillon.</li>
 </ul>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1"></a><span class="dt">void</span> liste_detruire<span class="op">(</span>liste l<span class="op">)</span></span>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1"></a><span class="dt">void</span> liste_detruire<span class="op">(</span>liste l<span class="op">)</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="op">{</span></span>
 <span id="cb8-3"><a href="#cb8-3"></a>    <span class="cf">while</span> <span class="op">(</span>l <span class="op">!=</span> NULL<span class="op">)</span></span>
 <span id="cb8-4"><a href="#cb8-4"></a>    <span class="op">{</span></span>
@@ -426,32 +482,48 @@ table td {
 <span id="cb8-8"><a href="#cb8-8"></a>    <span class="op">}</span></span>
 <span id="cb8-9"><a href="#cb8-9"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
-<h3 data-number="3.1.4" id="sec:ajout-et-suppression-en-tête"><span class="header-section-number">3.1.4</span> Ajout et suppression en tête</h3>
-<p>Pour ajouter ou supprimer un maillon en tête de la liste, on va avoir besoin de modifier le pointeur vers le premier maillon. Pour cela, on a deux approches possibles :</p>
+<h3 data-number="3.1.4" id="sec:ajout-et-suppression-en-tête"><span
+class="header-section-number">3.1.4</span> Ajout et suppression en
+tête</h3>
+<p>Pour ajouter ou supprimer un maillon en tête de la liste, on va avoir
+besoin de modifier le pointeur vers le premier maillon. Pour cela, on a
+deux approches possibles :</p>
 <ul>
-<li>passer un pointeur vers la liste elle-même, c’est-à-dire un pointeur sur un pointeur sur un maillon, ce qui en <code>C</code> aura le type <code>maillon **</code>, qui s’écrit aussi <code>liste *</code>. On aura alors le prototype :</li>
+<li>passer un pointeur vers la liste elle-même, c’est-à-dire un pointeur
+sur un pointeur sur un maillon, ce qui en <code>C</code> aura le type
+<code>maillon **</code>, qui s’écrit aussi <code>liste *</code>. On aura
+alors le prototype :</li>
 </ul>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1"></a><span class="dt">void</span> liste_ajout_en_tete<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1"></a><span class="dt">void</span> liste_ajout_en_tete<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">);</span></span></code></pre></div>
 <p></div></p>
 <ul>
-<li>renvoyer un pointeur vers le nouveau premier maillon. On aura alors le prototype :</li>
+<li>renvoyer un pointeur vers le nouveau premier maillon. On aura alors
+le prototype :</li>
 </ul>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1"></a>liste liste_ajout_en_tete<span class="op">(</span>liste l<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1"></a>liste liste_ajout_en_tete<span class="op">(</span>liste l<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">);</span></span></code></pre></div>
 <p></div></p>
 <p>On présente ici les versions renvoyant une nouvelle liste :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1"></a>liste liste_ajout_en_tete<span class="op">(</span>liste l<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">)</span></span>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1"></a>liste liste_ajout_en_tete<span class="op">(</span>liste l<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">)</span></span>
 <span id="cb11-2"><a href="#cb11-2"></a><span class="op">{</span></span>
 <span id="cb11-3"><a href="#cb11-3"></a>    maillon <span class="op">*</span>m <span class="op">=</span> maillon_creer<span class="op">(</span>valeur<span class="op">,</span> l<span class="op">);</span></span>
 <span id="cb11-4"><a href="#cb11-4"></a>    <span class="cf">return</span> m<span class="op">;</span></span>
 <span id="cb11-5"><a href="#cb11-5"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
-<p>Si <code>l</code> est la liste précédente contenant <code>3,2,1</code> et qu’on ajoute <code>4</code> en tête, on va donc directement créer un nouveau maillon et renvoyer un pointeur vers celui-ci.</p>
-<p><center><div class="ui image center"><img src="assets/pics/ajoutentete.png" /></div></center></p>
+<p>Si <code>l</code> est la liste précédente contenant
+<code>3,2,1</code> et qu’on ajoute <code>4</code> en tête, on va donc
+directement créer un nouveau maillon et renvoyer un pointeur vers
+celui-ci.</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/ajoutentete.png" /></div></center></p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1"></a>liste liste_suppr_en_tete<span class="op">(</span>liste l<span class="op">)</span></span>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1"></a>liste liste_suppr_en_tete<span class="op">(</span>liste l<span class="op">)</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a><span class="op">{</span></span>
 <span id="cb12-3"><a href="#cb12-3"></a>    assert<span class="op">(</span>l <span class="op">!=</span> NULL<span class="op">);</span></span>
 <span id="cb12-4"><a href="#cb12-4"></a>    liste queue <span class="op">=</span> l<span class="op">-&gt;</span>suivant<span class="op">;</span></span>
@@ -459,12 +531,20 @@ table td {
 <span id="cb12-6"><a href="#cb12-6"></a>    <span class="cf">return</span> queue<span class="op">;</span></span>
 <span id="cb12-7"><a href="#cb12-7"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
-<p>Si <code>l</code> est la liste précédente contenant <code>3,2,1</code> et qu’on supprime le maillon de tête, on va renvoyer un pointeur sur le second maillon. <strong>Attention</strong>, ici le pointeur initial <code>l</code> est devenu invalide.</p>
-<p><center><div class="ui image center"><img src="assets/pics/supprentete.png" /></div></center></p>
-<h3 data-number="3.1.5" id="sec:longueur-de-la-liste"><span class="header-section-number">3.1.5</span> Longueur de la liste</h3>
-<p>On présente ici le calcul de la longueur comme exemple de parcours de la liste. C’est encore très proche du parcours effectué dans le destructeur.</p>
+<p>Si <code>l</code> est la liste précédente contenant
+<code>3,2,1</code> et qu’on supprime le maillon de tête, on va renvoyer
+un pointeur sur le second maillon. <strong>Attention</strong>, ici le
+pointeur initial <code>l</code> est devenu invalide.</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/supprentete.png" /></div></center></p>
+<h3 data-number="3.1.5" id="sec:longueur-de-la-liste"><span
+class="header-section-number">3.1.5</span> Longueur de la liste</h3>
+<p>On présente ici le calcul de la longueur comme exemple de parcours de
+la liste. C’est encore très proche du parcours effectué dans le
+destructeur.</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1"></a><span class="dt">int</span> liste_longueur<span class="op">(</span>liste l<span class="op">)</span></span>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1"></a><span class="dt">int</span> liste_longueur<span class="op">(</span>liste l<span class="op">)</span></span>
 <span id="cb13-2"><a href="#cb13-2"></a><span class="op">{</span></span>
 <span id="cb13-3"><a href="#cb13-3"></a>    <span class="dt">int</span> longueur <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb13-4"><a href="#cb13-4"></a>    <span class="cf">while</span><span class="op">(</span>l <span class="op">!=</span> NULL<span class="op">)</span></span>
@@ -475,10 +555,14 @@ table td {
 <span id="cb13-9"><a href="#cb13-9"></a>    <span class="cf">return</span> longueur<span class="op">;</span></span>
 <span id="cb13-10"><a href="#cb13-10"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
-<h3 data-number="3.1.6" id="sec:accès-au-nième-maillon-de-la-liste"><span class="header-section-number">3.1.6</span> Accès au nième maillon de la liste</h3>
+<h3 data-number="3.1.6"
+id="sec:accès-au-nième-maillon-de-la-liste"><span
+class="header-section-number">3.1.6</span> Accès au nième maillon de la
+liste</h3>
 <p>On effectue un parcours similaire pour accéder au nième maillon.</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1"></a>maillon <span class="op">*</span>liste_nieme<span class="op">(</span>liste l<span class="op">,</span> <span class="dt">int</span> n<span class="op">)</span></span>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1"></a>maillon <span class="op">*</span>liste_nieme<span class="op">(</span>liste l<span class="op">,</span> <span class="dt">int</span> n<span class="op">)</span></span>
 <span id="cb14-2"><a href="#cb14-2"></a><span class="op">{</span></span>
 <span id="cb14-3"><a href="#cb14-3"></a>    <span class="cf">while</span><span class="op">(</span>n <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span></span>
 <span id="cb14-4"><a href="#cb14-4"></a>    <span class="op">{</span></span>
@@ -490,9 +574,11 @@ table td {
 <span id="cb14-10"><a href="#cb14-10"></a>    <span class="cf">return</span> l<span class="op">;</span></span>
 <span id="cb14-11"><a href="#cb14-11"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
-<p>Toujours avec un programme similaire, on peut chercher un maillon avec sa valeur :</p>
+<p>Toujours avec un programme similaire, on peut chercher un maillon
+avec sa valeur :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb15-1"><a href="#cb15-1"></a>maillon <span class="op">*</span>liste_recherche<span class="op">(</span>liste l<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb15-1"><a href="#cb15-1"></a>maillon <span class="op">*</span>liste_recherche<span class="op">(</span>liste l<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
 <span id="cb15-2"><a href="#cb15-2"></a><span class="op">{</span></span>
 <span id="cb15-3"><a href="#cb15-3"></a>    <span class="cf">while</span><span class="op">(</span>l <span class="op">!=</span> NULL <span class="op">&amp;&amp;</span> l<span class="op">-&gt;</span>valeur <span class="op">!=</span> x<span class="op">)</span></span>
 <span id="cb15-4"><a href="#cb15-4"></a>    <span class="op">{</span></span>
@@ -501,21 +587,33 @@ table td {
 <span id="cb15-7"><a href="#cb15-7"></a>    <span class="cf">return</span> l<span class="op">;</span></span>
 <span id="cb15-8"><a href="#cb15-8"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
-<p>Ici, pas besoin d’asserts, en cas d’échec de la recherche, on renvoie un pointeur nul.</p>
-<h3 data-number="3.1.7" id="sec:ajoutsuppression-ailleurs-quen-tête"><span class="header-section-number">3.1.7</span> Ajout/Suppression ailleurs qu’en tête</h3>
-<p>Pour ajouter ou supprimer ailleurs qu’en tête, il est nécessaire de pouvoir repérer précisément un maillon. Pour cela, on peut le faire :</p>
+<p>Ici, pas besoin d’asserts, en cas d’échec de la recherche, on renvoie
+un pointeur nul.</p>
+<h3 data-number="3.1.7"
+id="sec:ajoutsuppression-ailleurs-quen-tête"><span
+class="header-section-number">3.1.7</span> Ajout/Suppression ailleurs
+qu’en tête</h3>
+<p>Pour ajouter ou supprimer ailleurs qu’en tête, il est nécessaire de
+pouvoir repérer précisément un maillon. Pour cela, on peut le faire
+:</p>
 <ul>
 <li>par son indice, celui utilisé dans <code>liste_nieme</code> ;</li>
 <li>par sa valeur, avec une recherche ;</li>
 <li>ou encore directement par un pointeur sur le maillon.</li>
 </ul>
-<p>Une fois le maillon ajouté/supprimé, on peut procéder comme pour un ajout/suppression en tête, cependant il va falloir reconnecter le pointeur <code>suivant</code> du maillon précédent. Pour cela deux choix :</p>
+<p>Une fois le maillon ajouté/supprimé, on peut procéder comme pour un
+ajout/suppression en tête, cependant il va falloir reconnecter le
+pointeur <code>suivant</code> du maillon précédent. Pour cela deux choix
+:</p>
 <ul>
-<li>soit on considère qu’on ajoute après, auquel cas on dispose du precédent</li>
-<li>soit on considère qu’on ajoute avant/suprprime et pour cela on effectue une boucle pour déterminer le maillon précédent.</li>
+<li>soit on considère qu’on ajoute après, auquel cas on dispose du
+precédent</li>
+<li>soit on considère qu’on ajoute avant/suprprime et pour cela on
+effectue une boucle pour déterminer le maillon précédent.</li>
 </ul>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb16-1"><a href="#cb16-1"></a><span class="dt">void</span> liste_ajout_apres<span class="op">(</span>liste l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb16-1"><a href="#cb16-1"></a><span class="dt">void</span> liste_ajout_apres<span class="op">(</span>liste l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
 <span id="cb16-2"><a href="#cb16-2"></a><span class="op">{</span></span>
 <span id="cb16-3"><a href="#cb16-3"></a>    m<span class="op">-&gt;</span>suivant <span class="op">=</span> liste_ajout_en_tete<span class="op">(</span>m<span class="op">-&gt;</span>suivant<span class="op">,</span> x<span class="op">);</span></span>
 <span id="cb16-4"><a href="#cb16-4"></a><span class="op">}</span></span>
@@ -533,12 +631,19 @@ table td {
 <span id="cb16-16"><a href="#cb16-16"></a>    prec<span class="op">-&gt;</span>suivant <span class="op">=</span> liste_ajout_en_tete<span class="op">(</span>m<span class="op">,</span> x<span class="op">);</span></span>
 <span id="cb16-17"><a href="#cb16-17"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
-<p>Si on reprend la liste <code>l</code> contenant <code>3,2,1</code> et qu’on souhaite insérer la valeur <code>4</code> avant la valeur <code>1</code>, on va passer un pointeur <code>m</code> vers le maillon contenant <code>1</code> et effectuer un parcours jusqu’à avoir <code>prec</code> et <code>l</code> dans la configuration :</p>
-<p><center><div class="ui image center"><img src="assets/pics/ajoutloin1.png" /></div></center></p>
+<p>Si on reprend la liste <code>l</code> contenant <code>3,2,1</code> et
+qu’on souhaite insérer la valeur <code>4</code> avant la valeur
+<code>1</code>, on va passer un pointeur <code>m</code> vers le maillon
+contenant <code>1</code> et effectuer un parcours jusqu’à avoir
+<code>prec</code> et <code>l</code> dans la configuration :</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/ajoutloin1.png" /></div></center></p>
 <p>On dispose alors des pointeurs permettant de réaliser l’ajout :</p>
-<p><center><div class="ui image center"><img src="assets/pics/ajoutloin2.png" /></div></center></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/ajoutloin2.png" /></div></center></p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb17-1"><a href="#cb17-1"></a><span class="dt">void</span> liste_suppr_non_en_tete<span class="op">(</span>liste l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">)</span></span>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb17-1"><a href="#cb17-1"></a><span class="dt">void</span> liste_suppr_non_en_tete<span class="op">(</span>liste l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">)</span></span>
 <span id="cb17-2"><a href="#cb17-2"></a><span class="op">{</span></span>
 <span id="cb17-3"><a href="#cb17-3"></a>    liste prec <span class="op">=</span> NULL<span class="op">;</span></span>
 <span id="cb17-4"><a href="#cb17-4"></a></span>
@@ -551,16 +656,27 @@ table td {
 <span id="cb17-11"><a href="#cb17-11"></a>    prec<span class="op">-&gt;</span>suivant <span class="op">=</span> liste_suppr_en_tete<span class="op">(</span>m<span class="op">);</span></span>
 <span id="cb17-12"><a href="#cb17-12"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
-<p>En fait, lorsqu’on regarde le parcours précédent, on remarque deux points :</p>
+<p>En fait, lorsqu’on regarde le parcours précédent, on remarque deux
+points :</p>
 <ul>
-<li>comme on a donné le maillon concerné, le parcours a uniquement pour but de repérer le maillon qui le précède ;</li>
-<li>on pourrait se contenter d’utiliser uniquement un pointeur sur le maillon précédent lors du parcours car le maillon qui le suit est accessible avec <code>-&gt;suivant</code>.</li>
+<li>comme on a donné le maillon concerné, le parcours a uniquement pour
+but de repérer le maillon qui le précède ;</li>
+<li>on pourrait se contenter d’utiliser uniquement un pointeur sur le
+maillon précédent lors du parcours car le maillon qui le suit est
+accessible avec <code>-&gt;suivant</code>.</li>
 </ul>
-<h3 data-number="3.1.8" id="sec:autres-implémentations"><span class="header-section-number">3.1.8</span> Autres implémentations</h3>
-<p>Une autre implémentation standard consiste à <em>cacher</em> le pointeur sur le premier maillon, ce qui permet de donner également un pointeur sur le dernier maillon. En effet, le pointeur sur le dernier maillon permet de réaliser un ajout en fin de liste en <span class="math inline">\(O(1)\)</span> car il n’y a pas besoin de parcourir la liste pour faire cet ajout.</p>
+<h3 data-number="3.1.8" id="sec:autres-implémentations"><span
+class="header-section-number">3.1.8</span> Autres implémentations</h3>
+<p>Une autre implémentation standard consiste à <em>cacher</em> le
+pointeur sur le premier maillon, ce qui permet de donner également un
+pointeur sur le dernier maillon. En effet, le pointeur sur le dernier
+maillon permet de réaliser un ajout en fin de liste en <span
+class="math inline">\(O(1)\)</span> car il n’y a pas besoin de parcourir
+la liste pour faire cet ajout.</p>
 <p>On obtient alors un type comme :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">struct</span> maillon <span class="op">{</span></span>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">struct</span> maillon <span class="op">{</span></span>
 <span id="cb18-2"><a href="#cb18-2"></a>    <span class="dt">int</span> valeur<span class="op">;</span></span>
 <span id="cb18-3"><a href="#cb18-3"></a>    <span class="kw">struct</span> maillon <span class="op">*</span>suivant<span class="op">;</span></span>
 <span id="cb18-4"><a href="#cb18-4"></a><span class="op">};</span></span>
@@ -572,67 +688,119 @@ table td {
 <span id="cb18-10"><a href="#cb18-10"></a><span class="op">};</span></span>
 <span id="cb18-11"><a href="#cb18-11"></a><span class="kw">typedef</span> <span class="kw">struct</span> liste liste<span class="op">;</span></span></code></pre></div>
 <p></div></p>
-<p>Cette implémentation est l’occasion de se poser la question sur la répartition entre pile et tas pour les données. On peut légitimement penser que les listes ici ne sont que des couples de pointeurs, et qu’ainsi les passer par copie est léger comparativement à la complexité induite par une allocation sur le tas.</p>
-<h2 data-number="3.2" id="sec:en-ocaml"><span class="header-section-number">3.2</span> En <code>OCaml</code></h2>
-<h3 data-number="3.2.1" id="sec:cas-des-a-list"><span class="header-section-number">3.2.1</span> Cas des <code>'a list</code></h3>
+<p>Cette implémentation est l’occasion de se poser la question sur la
+répartition entre pile et tas pour les données. On peut légitimement
+penser que les listes ici ne sont que des couples de pointeurs, et
+qu’ainsi les passer par copie est léger comparativement à la complexité
+induite par une allocation sur le tas.</p>
+<h2 data-number="3.2" id="sec:en-ocaml"><span
+class="header-section-number">3.2</span> En <code>OCaml</code></h2>
+<h3 data-number="3.2.1" id="sec:cas-des-a-list"><span
+class="header-section-number">3.2.1</span> Cas des
+<code>'a list</code></h3>
 <p>Tout d’abord, il faut se rendre compte que le type par défaut</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> &#39;a <span class="dt">list</span> = (::) <span class="kw">of</span> &#39;a * &#39;list | []</span></code></pre></div>
-<p>fait intervenir des maillons et des pointeurs. La différence principale avec <code>C</code> est qu’on ne peut pas changer la valeur des pointeurs.</p>
-<h3 data-number="3.2.2" id="sec:type-des-listes-chaînées"><span class="header-section-number">3.2.2</span> Type des listes chaînées</h3>
-<p>Pour retrouver la richesse du type précédent, on peut définir un type comme :</p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> &#39;a <span class="dt">list</span> = (::) <span class="kw">of</span> &#39;a * &#39;list | []</span></code></pre></div>
+<p>fait intervenir des maillons et des pointeurs. La différence
+principale avec <code>C</code> est qu’on ne peut pas changer la valeur
+des pointeurs.</p>
+<h3 data-number="3.2.2" id="sec:type-des-listes-chaînées"><span
+class="header-section-number">3.2.2</span> Type des listes chaînées</h3>
+<p>Pour retrouver la richesse du type précédent, on peut définir un type
+comme :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">type</span> &#39;a maillon = {</span>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">type</span> &#39;a maillon = {</span>
 <span id="cb20-2"><a href="#cb20-2"></a>    <span class="kw">mutable</span> valeur : &#39;a;</span>
 <span id="cb20-3"><a href="#cb20-3"></a>    <span class="kw">mutable</span> suivant : &#39;a liste</span>
 <span id="cb20-4"><a href="#cb20-4"></a>} <span class="kw">and</span> &#39;a liste = Vide | Lien <span class="kw">of</span> &#39;a maillon</span></code></pre></div>
 <p></div></p>
-<p>Ici, le type est une traduction directe du type précédent. On remarque que les types sont mutuellement récursifs car un maillon contient une liste. Le type somme <code>'a liste</code> ressemble fortement à un pointeur qui peut être nul ou pointer sur un maillon. On remarque qu’on aurait pu aussi se contenter d’écrire le type suivant :</p>
+<p>Ici, le type est une traduction directe du type précédent. On
+remarque que les types sont mutuellement récursifs car un maillon
+contient une liste. Le type somme <code>'a liste</code> ressemble
+fortement à un pointeur qui peut être nul ou pointer sur un maillon. On
+remarque qu’on aurait pu aussi se contenter d’écrire le type suivant
+:</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">type</span> &#39;a maillon = {</span>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">type</span> &#39;a maillon = {</span>
 <span id="cb21-2"><a href="#cb21-2"></a>    <span class="kw">mutable</span> valeur : &#39;a;</span>
 <span id="cb21-3"><a href="#cb21-3"></a>    <span class="kw">mutable</span> suivant : &#39;a maillon <span class="dt">option</span></span>
 <span id="cb21-4"><a href="#cb21-4"></a>}</span>
 <span id="cb21-5"><a href="#cb21-5"></a></span>
 <span id="cb21-6"><a href="#cb21-6"></a><span class="kw">type</span> &#39;a liste = &#39;a maillon <span class="dt">option</span></span></code></pre></div>
 <p></div></p>
-<p>Mais on va préférer le premier type qui a l’avantage de permettre de bien faire apparaitre la structure.</p>
-<h3 data-number="3.2.3" id="sec:ajout-et-suppression-en-tête-1"><span class="header-section-number">3.2.3</span> Ajout et suppression en tête</h3>
+<p>Mais on va préférer le premier type qui a l’avantage de permettre de
+bien faire apparaitre la structure.</p>
+<h3 data-number="3.2.3" id="sec:ajout-et-suppression-en-tête-1"><span
+class="header-section-number">3.2.3</span> Ajout et suppression en
+tête</h3>
 <p>Pour rajouter un maillon en tête, on peut écrire :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">let</span> cons x l = Lien { valeur = x; suivant = l}</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">let</span> cons x l = Lien { valeur = x; suivant = l}</span></code></pre></div>
 <p></div></p>
-<p>On remarque que la fonction est beaucoup plus simple que celle en <code>C</code> car l’allocation est automatique et l’initialisation se fait naturellement dans la syntaxe. Cette fonction renvoie une nouvelle liste, on aurait pu aussi rajouter une référence pour les listes afin de permettre de les rendre modifiables, c’est la même discussion que dans la partie précédente.</p>
-<p>La suppression en tête, cela revient à renvoyer la queue de la liste comme le fait <code>List.tl</code> :</p>
+<p>On remarque que la fonction est beaucoup plus simple que celle en
+<code>C</code> car l’allocation est automatique et l’initialisation se
+fait naturellement dans la syntaxe. Cette fonction renvoie une nouvelle
+liste, on aurait pu aussi rajouter une référence pour les listes afin de
+permettre de les rendre modifiables, c’est la même discussion que dans
+la partie précédente.</p>
+<p>La suppression en tête, cela revient à renvoyer la queue de la liste
+comme le fait <code>List.tl</code> :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw">let</span> tl l  = <span class="kw">match</span> l <span class="kw">with</span></span>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw">let</span> tl l  = <span class="kw">match</span> l <span class="kw">with</span></span>
 <span id="cb23-2"><a href="#cb23-2"></a>    | Vide -&gt; <span class="dt">failwith</span> <span class="st">&quot;Liste vide&quot;</span></span>
 <span id="cb23-3"><a href="#cb23-3"></a>    | Lien { valeur = _; suivant = q} -&gt; q</span></code></pre></div>
 <p></div></p>
-<p>On remarque le filtrage imbriqué <code>| Lien { valeur = t; suivant = q }</code> qui correspond au filtrage <code>| t :: q</code> du type <code>a list</code>.</p>
-<h3 data-number="3.2.4" id="sec:exemple-de-parcours-sans-modification-calcul-de-la-longueur"><span class="header-section-number">3.2.4</span> Exemple de parcours sans modification : calcul de la longueur</h3>
-<p>Vu les remarques précédentes, il n’est pas étonnant que le parcours d’une liste de manière récursive soit très proche de ce qu’on a déjà pu voir avec les listes de base.</p>
+<p>On remarque le filtrage imbriqué
+<code>| Lien { valeur = t; suivant = q }</code> qui correspond au
+filtrage <code>| t :: q</code> du type <code>a list</code>.</p>
+<h3 data-number="3.2.4"
+id="sec:exemple-de-parcours-sans-modification-calcul-de-la-longueur"><span
+class="header-section-number">3.2.4</span> Exemple de parcours sans
+modification : calcul de la longueur</h3>
+<p>Vu les remarques précédentes, il n’est pas étonnant que le parcours
+d’une liste de manière récursive soit très proche de ce qu’on a déjà pu
+voir avec les listes de base.</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw">let</span> <span class="kw">rec</span> longueur l = <span class="kw">match</span> l <span class="kw">with</span></span>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw">let</span> <span class="kw">rec</span> longueur l = <span class="kw">match</span> l <span class="kw">with</span></span>
 <span id="cb24-2"><a href="#cb24-2"></a>    | Vide -&gt; <span class="dv">0</span></span>
 <span id="cb24-3"><a href="#cb24-3"></a>    | Lien { valeur = _; suivant = q } -&gt; <span class="dv">1</span> + longueur q</span></code></pre></div>
 <p></div></p>
-<p>On en déduit de même une fonction renvoyant un maillon par son indice :</p>
+<p>On en déduit de même une fonction renvoyant un maillon par son indice
+:</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw">let</span> <span class="kw">rec</span> nieme l n = <span class="kw">match</span> l <span class="kw">with</span></span>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw">let</span> <span class="kw">rec</span> nieme l n = <span class="kw">match</span> l <span class="kw">with</span></span>
 <span id="cb25-2"><a href="#cb25-2"></a>    | Vide -&gt; <span class="dt">failwith</span> <span class="st">&quot;Liste vide&quot;</span></span>
 <span id="cb25-3"><a href="#cb25-3"></a>    | Lien m -&gt; <span class="kw">if</span> n = <span class="dv">0</span> <span class="kw">then</span> m <span class="kw">else</span> nieme m.suivant (n<span class="dv">-1</span>)</span></code></pre></div>
 <p></div></p>
-<p><div class="ui message orange"><div class="header">Remarque</div>Il est possible de réecrire la fonction précédente en permettant à la fois de donner un nom, ici <code>m</code>, au maillon et de faire un filtrage sur ce qu’il contient. Pour cela, on utilise le mot clé <code>as</code> en <code>OCaml</code> :</p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Il
+est possible de réecrire la fonction précédente en permettant à la fois
+de donner un nom, ici <code>m</code>, au maillon et de faire un filtrage
+sur ce qu’il contient. Pour cela, on utilise le mot clé <code>as</code>
+en <code>OCaml</code> :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw">let</span> <span class="kw">rec</span> nieme l n = <span class="kw">match</span> l <span class="kw">with</span></span>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw">let</span> <span class="kw">rec</span> nieme l n = <span class="kw">match</span> l <span class="kw">with</span></span>
 <span id="cb26-2"><a href="#cb26-2"></a>    | Vide -&gt; <span class="dt">failwith</span> <span class="st">&quot;Liste vide&quot;</span></span>
 <span id="cb26-3"><a href="#cb26-3"></a>    | Lien ({ valeur=_; suivant = q} <span class="kw">as</span> m) -&gt; </span>
 <span id="cb26-4"><a href="#cb26-4"></a>            <span class="kw">if</span> n = <span class="dv">0</span> <span class="kw">then</span> m <span class="kw">else</span> nieme q (n<span class="dv">-1</span>)</span></code></pre></div>
 <p></div> </div></p>
-<h3 data-number="3.2.5" id="sec:exemple-de-parcours-avec-modification-ajout-dune-maillon-en-fin-de-liste"><span class="header-section-number">3.2.5</span> Exemple de parcours avec modification : ajout d’une maillon en fin de liste</h3>
-<p>On va montrer un exemple de modification de liste en rajoutant un maillon en fin d’une liste non vide. Ici, on effectue un parcours jusqu’à tomber sur le dernier maillon auquel on rajoute le nouveau à la suite.</p>
+<h3 data-number="3.2.5"
+id="sec:exemple-de-parcours-avec-modification-ajout-dune-maillon-en-fin-de-liste"><span
+class="header-section-number">3.2.5</span> Exemple de parcours avec
+modification : ajout d’une maillon en fin de liste</h3>
+<p>On va montrer un exemple de modification de liste en rajoutant un
+maillon en fin d’une liste non vide. Ici, on effectue un parcours
+jusqu’à tomber sur le dernier maillon auquel on rajoute le nouveau à la
+suite.</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb27-1"><a href="#cb27-1"></a><span class="kw">let</span> <span class="kw">rec</span> ajout_fin l x =</span>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb27-1"><a href="#cb27-1"></a><span class="kw">let</span> <span class="kw">rec</span> ajout_fin l x =</span>
 <span id="cb27-2"><a href="#cb27-2"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
 <span id="cb27-3"><a href="#cb27-3"></a>    | Vide -&gt; <span class="dt">failwith</span> <span class="st">&quot;Liste vide&quot;</span></span>
 <span id="cb27-4"><a href="#cb27-4"></a>    | Lien m -&gt;</span>
@@ -640,18 +808,27 @@ table td {
 <span id="cb27-6"><a href="#cb27-6"></a>        <span class="kw">then</span> m.suivant &lt;- Lien { valeur = x; suivant = Vide }</span>
 <span id="cb27-7"><a href="#cb27-7"></a>        <span class="kw">else</span> ajout_fin m.suivant x</span></code></pre></div>
 <p></div></p>
-<h3 data-number="3.2.6" id="sec:raffinement-pour-permettre-lajout-à-la-fin-en-temps-constant"><span class="header-section-number">3.2.6</span> Raffinement pour permettre l’ajout à la fin en temps constant</h3>
+<h3 data-number="3.2.6"
+id="sec:raffinement-pour-permettre-lajout-à-la-fin-en-temps-constant"><span
+class="header-section-number">3.2.6</span> Raffinement pour permettre
+l’ajout à la fin en temps constant</h3>
 <p>Le programme précédent est à comparer au programme suivant :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb28-1"><a href="#cb28-1"></a><span class="kw">let</span> <span class="kw">rec</span> ajout_fin l x =</span>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb28-1"><a href="#cb28-1"></a><span class="kw">let</span> <span class="kw">rec</span> ajout_fin l x =</span>
 <span id="cb28-2"><a href="#cb28-2"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
 <span id="cb28-3"><a href="#cb28-3"></a>    | [] -&gt; [x]</span>
 <span id="cb28-4"><a href="#cb28-4"></a>    | t::q -&gt; t :: ajout_fin q x</span></code></pre></div>
 <p></div></p>
-<p>On n’a pas l’impression d’avoir vraiment gagné en expressivité ou en efficacité.</p>
-<p>Cependant, on peut se dire qu’en changeant le type <code>'a liste</code> on peut tirer partie des maillons pour obtenir un ajout en fin de liste en temps constant. Le programme suivant présente une interface permettant de le faire.</p>
+<p>On n’a pas l’impression d’avoir vraiment gagné en expressivité ou en
+efficacité.</p>
+<p>Cependant, on peut se dire qu’en changeant le type
+<code>'a liste</code> on peut tirer partie des maillons pour obtenir un
+ajout en fin de liste en temps constant. Le programme suivant présente
+une interface permettant de le faire.</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb29-1"><a href="#cb29-1"></a><span class="kw">type</span> &#39;a maillon = {</span>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb29-1"><a href="#cb29-1"></a><span class="kw">type</span> &#39;a maillon = {</span>
 <span id="cb29-2"><a href="#cb29-2"></a>    <span class="kw">mutable</span> valeur : &#39;a;</span>
 <span id="cb29-3"><a href="#cb29-3"></a>    <span class="kw">mutable</span> suivant : &#39;a maillon_ptr</span>
 <span id="cb29-4"><a href="#cb29-4"></a>  }</span>
@@ -685,24 +862,50 @@ table td {
 <p></div></p>
 <p>Quelques remarques sur ce programme :</p>
 <ul>
-<li>comme on change directement <code>premier</code> et <code>dernier</code>, il est nécessaire de générer une nouvelle liste vide, ce qui est assuré ici par le paramètre <code>()</code> ;</li>
-<li>les pointeurs sont représentés par des options dans des champs mutables ;</li>
-<li>afin de préserver l’intégrité des deux pointeurs, on est obligé de gérer les cas où il n’y a qu’un seul maillon ;</li>
-<li>attention à la priorité du cas de filtrage sur <code>;</code> qui oblige à mettre des parenthèses dans <code>ajout_fin</code>.</li>
+<li>comme on change directement <code>premier</code> et
+<code>dernier</code>, il est nécessaire de générer une nouvelle liste
+vide, ce qui est assuré ici par le paramètre <code>()</code> ;</li>
+<li>les pointeurs sont représentés par des options dans des champs
+mutables ;</li>
+<li>afin de préserver l’intégrité des deux pointeurs, on est obligé de
+gérer les cas où il n’y a qu’un seul maillon ;</li>
+<li>attention à la priorité du cas de filtrage sur <code>;</code> qui
+oblige à mettre des parenthèses dans <code>ajout_fin</code>.</li>
 </ul>
-<h2 data-number="3.3" id="sec:structure-de-la-mémoire"><span class="header-section-number">3.3</span> Structure de la mémoire</h2>
-<p>En mémoire, les maillons d’une liste chaînée, comme celle vue en <code>C</code>, sont sur le tas et de manière désorganisée. Cela signifie qu’il n’y a aucune raison que deux maillons proches dans une liste soient proches en mémoire.</p>
-<p><center><div class="ui image center"><img src="assets/pics/memoire.png" /></div></center></p>
-<p>Or, les processeurs optimisent la gestion de la mémoire à l’aide d’un cache qui, au lieu de n’accéder qu’à une seule valeur située à une adresse, va charger une zone mémoire autour de cette adresse. Ceci encourage une cohérence spatiale dans l’organisation de la mémoire afin de profiter au maximum de cette mise en cache.</p>
-<p>Une stratégie pour réaliser des listes chaînées efficacement peut consiste à allouer un tableau de maillons et à gérer ensuite les allocations parmi cette réserve.</p>
-<h1 data-number="4" id="sec:travaux-pratiques"><span class="header-section-number">4</span> Travaux pratiques</h1>
-<p>On présente ici deux énoncés de travaux pratiques en <code>C</code> en lien avec ce chapitre.</p>
-<h2 data-number="4.1" id="sec:tableaux-non-statiques-et-tableaux-dynamiques"><span class="header-section-number">4.1</span> Tableaux non statiques et tableaux dynamiques</h2>
-<p>On va définir ici une structure de donnée pour gérer des tableaux dont la taille ne sera connu qu’à l’exécution. Pour simplifier, ce seront des tableaux d’entiers <code>int</code> mais la méthode s’adapte naturellement pour des tableaux de n’importe quoi.</p>
-<h3 data-number="4.1.1" id="sec:type-array"><span class="header-section-number">4.1.1</span> Type <code>array</code></h3>
+<h2 data-number="3.3" id="sec:structure-de-la-mémoire"><span
+class="header-section-number">3.3</span> Structure de la mémoire</h2>
+<p>En mémoire, les maillons d’une liste chaînée, comme celle vue en
+<code>C</code>, sont sur le tas et de manière désorganisée. Cela
+signifie qu’il n’y a aucune raison que deux maillons proches dans une
+liste soient proches en mémoire.</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/memoire.png" /></div></center></p>
+<p>Or, les processeurs optimisent la gestion de la mémoire à l’aide d’un
+cache qui, au lieu de n’accéder qu’à une seule valeur située à une
+adresse, va charger une zone mémoire autour de cette adresse. Ceci
+encourage une cohérence spatiale dans l’organisation de la mémoire afin
+de profiter au maximum de cette mise en cache.</p>
+<p>Une stratégie pour réaliser des listes chaînées efficacement peut
+consiste à allouer un tableau de maillons et à gérer ensuite les
+allocations parmi cette réserve.</p>
+<h1 data-number="4" id="sec:travaux-pratiques"><span
+class="header-section-number">4</span> Travaux pratiques</h1>
+<p>On présente ici deux énoncés de travaux pratiques en <code>C</code>
+en lien avec ce chapitre.</p>
+<h2 data-number="4.1"
+id="sec:tableaux-non-statiques-et-tableaux-dynamiques"><span
+class="header-section-number">4.1</span> Tableaux non statiques et
+tableaux dynamiques</h2>
+<p>On va définir ici une structure de donnée pour gérer des tableaux
+dont la taille ne sera connu qu’à l’exécution. Pour simplifier, ce
+seront des tableaux d’entiers <code>int</code> mais la méthode s’adapte
+naturellement pour des tableaux de n’importe quoi.</p>
+<h3 data-number="4.1.1" id="sec:type-array"><span
+class="header-section-number">4.1.1</span> Type <code>array</code></h3>
 <p>On définit le type suivant :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb30-1"><a href="#cb30-1"></a><span class="kw">struct</span> array <span class="op">{</span></span>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb30-1"><a href="#cb30-1"></a><span class="kw">struct</span> array <span class="op">{</span></span>
 <span id="cb30-2"><a href="#cb30-2"></a>    <span class="dt">int</span> <span class="op">*</span>elements<span class="op">;</span></span>
 <span id="cb30-3"><a href="#cb30-3"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> size<span class="op">;</span></span>
 <span id="cb30-4"><a href="#cb30-4"></a><span class="op">};</span></span>
@@ -713,9 +916,16 @@ table td {
 <li>un pointeur vers un tableau <code>elements</code> d’entiers</li>
 <li>un entier indiquant la taille de ce tableau</li>
 </ul>
-<p><strong>Remarque importante</strong> quand on copie un pointeur, on copie uniquement un entier qui est l’adresse pointée. Ainsi, quand on copie un <code>array</code>, ce n’est finalement qu’un couple d’entiers qu’on copie. C’est pourquoi, dans la suite, on passe tous les <code>array</code> par valeur. C’est-à-dire que pour définir une fonction de recherche d’un élément dans un <code>array</code> on va écrire :</p>
+<p><strong>Remarque importante</strong> quand on copie un pointeur, on
+copie uniquement un entier qui est l’adresse pointée. Ainsi, quand on
+copie un <code>array</code>, ce n’est finalement qu’un couple d’entiers
+qu’on copie. C’est pourquoi, dans la suite, on passe tous les
+<code>array</code> par valeur. C’est-à-dire que pour définir une
+fonction de recherche d’un élément dans un <code>array</code> on va
+écrire :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb31-1"><a href="#cb31-1"></a><span class="dt">int</span> search<span class="op">(</span>array t<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb31-1"><a href="#cb31-1"></a><span class="dt">int</span> search<span class="op">(</span>array t<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
 <span id="cb31-2"><a href="#cb31-2"></a><span class="op">{</span></span>
 <span id="cb31-3"><a href="#cb31-3"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> t<span class="op">.</span>size<span class="op">;</span> i<span class="op">++)</span></span>
 <span id="cb31-4"><a href="#cb31-4"></a>    <span class="op">{</span></span>
@@ -728,9 +938,14 @@ table td {
 <span id="cb31-11"><a href="#cb31-11"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
 <span id="cb31-12"><a href="#cb31-12"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
-<p>Quand on va appeler la fonction, on va avoir une copie de l’argument, c’est-à-dire du <code>array</code>, mais le tableau <code>elements</code> lui sera toujours à la même place. L’alternative serait de passer les valeurs <code>array</code> par pointeurs comme dans la variante suivante :</p>
+<p>Quand on va appeler la fonction, on va avoir une copie de l’argument,
+c’est-à-dire du <code>array</code>, mais le tableau
+<code>elements</code> lui sera toujours à la même place. L’alternative
+serait de passer les valeurs <code>array</code> par pointeurs comme dans
+la variante suivante :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb32-1"><a href="#cb32-1"></a><span class="dt">int</span> search<span class="op">(</span>array <span class="op">*</span>t<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb32-1"><a href="#cb32-1"></a><span class="dt">int</span> search<span class="op">(</span>array <span class="op">*</span>t<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
 <span id="cb32-2"><a href="#cb32-2"></a><span class="op">{</span></span>
 <span id="cb32-3"><a href="#cb32-3"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> t<span class="op">-&gt;</span>size<span class="op">;</span> i<span class="op">++)</span></span>
 <span id="cb32-4"><a href="#cb32-4"></a>    <span class="op">{</span></span>
@@ -743,18 +958,32 @@ table td {
 <span id="cb32-11"><a href="#cb32-11"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
 <span id="cb32-12"><a href="#cb32-12"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
-<p>On n’a rien à gagner au surplus de complexité induit par cela. L’unique avantage serait de permettre de modifier les paramètres de la structure passée en argument, mais on réservera ça aux fonctions qui le nécessitent.</p>
-<h3 data-number="4.1.2" id="sec:allocation-initialisation-libération"><span class="header-section-number">4.1.2</span> Allocation, Initialisation, Libération</h3>
-<p>Pour les fonctions suivantes, on fera usage de <code>malloc</code> et <code>free</code>.</p>
+<p>On n’a rien à gagner au surplus de complexité induit par cela.
+L’unique avantage serait de permettre de modifier les paramètres de la
+structure passée en argument, mais on réservera ça aux fonctions qui le
+nécessitent.</p>
+<h3 data-number="4.1.2"
+id="sec:allocation-initialisation-libération"><span
+class="header-section-number">4.1.2</span> Allocation, Initialisation,
+Libération</h3>
+<p>Pour les fonctions suivantes, on fera usage de <code>malloc</code> et
+<code>free</code>.</p>
 <div class="ui message blue">
 <div class="header">
 Question
 </div>
-<p>Écrire une fonction de prototype <code>array array_alloc(unsigned int size)</code> qui alloue un tableau de <code>size</code> entiers avec <code>malloc</code> et renvoie le <code>array</code> pointant dessus.</p>
-<p>Conformément à ce qui est écrit au-dessus, on peut créer un <code>array</code> en variable locale et le renvoyer avec <code>return</code>, ce qui compte c’est la mémoire pointée.</p>
+<p>Écrire une fonction de prototype
+<code>array array_alloc(unsigned int size)</code> qui alloue un tableau
+de <code>size</code> entiers avec <code>malloc</code> et renvoie le
+<code>array</code> pointant dessus.</p>
+<p>Conformément à ce qui est écrit au-dessus, on peut créer un
+<code>array</code> en variable locale et le renvoyer avec
+<code>return</code>, ce qui compte c’est la mémoire pointée.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb33-1"><a href="#cb33-1"></a>array array_alloc<span class="op">(</span><span class="dt">unsigned</span> <span class="dt">int</span> size<span class="op">)</span></span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb33-1"><a href="#cb33-1"></a>array array_alloc<span class="op">(</span><span class="dt">unsigned</span> <span class="dt">int</span> size<span class="op">)</span></span>
 <span id="cb33-2"><a href="#cb33-2"></a><span class="op">{</span></span>
 <span id="cb33-3"><a href="#cb33-3"></a>    array a<span class="op">;</span></span>
 <span id="cb33-4"><a href="#cb33-4"></a>    a<span class="op">.</span>elements <span class="op">=</span> <span class="op">(</span><span class="dt">int</span> <span class="op">*)</span>malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span><span class="dt">int</span><span class="op">)</span> <span class="op">*</span> size<span class="op">);</span></span>
@@ -767,10 +996,15 @@ Question
 <div class="header">
 Question
 </div>
-<p>Écrire une fonction de prototype <code>void array_free(array t)</code> qui libère le tableau pointé par <code>t</code> avec <code>free</code>. A partir de ce moment, on ne peut plus utiliser cette adresse sans faire d’erreurs.</p>
+<p>Écrire une fonction de prototype
+<code>void array_free(array t)</code> qui libère le tableau pointé par
+<code>t</code> avec <code>free</code>. A partir de ce moment, on ne peut
+plus utiliser cette adresse sans faire d’erreurs.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb34-1"><a href="#cb34-1"></a><span class="dt">void</span> array_free<span class="op">(</span>array a<span class="op">)</span></span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb34-1"><a href="#cb34-1"></a><span class="dt">void</span> array_free<span class="op">(</span>array a<span class="op">)</span></span>
 <span id="cb34-2"><a href="#cb34-2"></a><span class="op">{</span></span>
 <span id="cb34-3"><a href="#cb34-3"></a>    free<span class="op">(</span>a<span class="op">.</span>elements<span class="op">);</span></span>
 <span id="cb34-4"><a href="#cb34-4"></a><span class="op">}</span></span></code></pre></div>
@@ -780,10 +1014,15 @@ Question
 <div class="header">
 Question
 </div>
-<p>Le tableau alloué n’est pas initialisé, écrire une fonction de prototype <code>array array_make(unsigned int size, int def)</code> qui alloue un tableau et initialise toutes les valeurs de celui-ci à <code>def</code>.</p>
+<p>Le tableau alloué n’est pas initialisé, écrire une fonction de
+prototype <code>array array_make(unsigned int size, int def)</code> qui
+alloue un tableau et initialise toutes les valeurs de celui-ci à
+<code>def</code>.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb35-1"><a href="#cb35-1"></a>array array_make<span class="op">(</span><span class="dt">unsigned</span> <span class="dt">int</span> size<span class="op">,</span> <span class="dt">int</span> def<span class="op">)</span></span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb35-1"><a href="#cb35-1"></a>array array_make<span class="op">(</span><span class="dt">unsigned</span> <span class="dt">int</span> size<span class="op">,</span> <span class="dt">int</span> def<span class="op">)</span></span>
 <span id="cb35-2"><a href="#cb35-2"></a><span class="op">{</span></span>
 <span id="cb35-3"><a href="#cb35-3"></a>    array a <span class="op">=</span> array_alloc<span class="op">(</span>size<span class="op">);</span></span>
 <span id="cb35-4"><a href="#cb35-4"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> size<span class="op">;</span> i<span class="op">++)</span></span>
@@ -798,36 +1037,57 @@ Question
 <div class="header">
 Question
 </div>
-<p>Il est possible de mesurer le temps pris par un programme à l’aide de la fonction <code>time</code> :</p>
+<p>Il est possible de mesurer le temps pris par un programme à l’aide de
+la fonction <code>time</code> :</p>
 <pre><code>$&gt; time ./main 
 ./main  0.38s user 0.00s system 99% cpu 0.379 total</code></pre>
 <p>Comparer le temps d’exécution d’un programme qui</p>
 <ul>
 <li>alloue puis libère 100 fois un tableau d’un million d’entiers</li>
-<li>alloue <em>en initialisant à 0</em> avec <code>make</code> puis libère 100 fois un tableau d’un million d’entiers.</li>
+<li>alloue <em>en initialisant à 0</em> avec <code>make</code> puis
+libère 100 fois un tableau d’un million d’entiers.</li>
 </ul>
 <p>Que peut-on en conclure ?</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> On se rend compte que l’allocation est presque instantanée alors que l’initilisation prend un temps linéaire en la taille des données. Ceci est cohérent avec le fait que la mémoire est allouée de manière paresseuse. On s’en rend d’autant plus compte en examinant l’empreinte mémoire des programmes. </div> </div></p>
-<p><div class="ui message orange"><div class="header">Remarque</div>Il existe d’autres fonctions que <code>malloc</code> comme</p>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> On se rend compte que l’allocation
+est presque instantanée alors que l’initilisation prend un temps
+linéaire en la taille des données. Ceci est cohérent avec le fait que la
+mémoire est allouée de manière paresseuse. On s’en rend d’autant plus
+compte en examinant l’empreinte mémoire des programmes.
+</div> </div></p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Il
+existe d’autres fonctions que <code>malloc</code> comme</p>
 <pre><code>void *calloc(size_t nmemb, size_t size);
 void *realloc(void *ptr, size_t size);</code></pre>
 <p>qui permettent :</p>
 <ul>
-<li>pour <code>calloc</code> d’allouer un tableau de <code>nmemb</code> membres qui sont chacun de taille <code>size</code> et <strong>d’initialiser les octets à 0</strong>. Cette fonction prend donc un temps linéaire en le nombre d’octets.</li>
-<li>pour <code>realloc</code> de déplacer en mémoire un tableau en changeant sa taille (en plus ou en moins). Si jamais il y a de la place on ne bouge pas le tableau. C’est donc forcément plus efficace que de le faire à la main.</li>
+<li>pour <code>calloc</code> d’allouer un tableau de <code>nmemb</code>
+membres qui sont chacun de taille <code>size</code> et
+<strong>d’initialiser les octets à 0</strong>. Cette fonction prend donc
+un temps linéaire en le nombre d’octets.</li>
+<li>pour <code>realloc</code> de déplacer en mémoire un tableau en
+changeant sa taille (en plus ou en moins). Si jamais il y a de la place
+on ne bouge pas le tableau. C’est donc forcément plus efficace que de le
+faire à la main.</li>
 </ul>
 <p>Ces deux fonctions sont <strong>hors programme !</strong></div></p>
-<h3 data-number="4.1.3" id="sec:affichage-copie"><span class="header-section-number">4.1.3</span> Affichage, copie</h3>
+<h3 data-number="4.1.3" id="sec:affichage-copie"><span
+class="header-section-number">4.1.3</span> Affichage, copie</h3>
 <div class="ui message blue">
 <div class="header">
 Question
 </div>
-<p>Écrire une fonction <code>void array_print(array a)</code> qui affiche <code>[a1,a2,...,an]</code> si <code>a</code> contient les éléments de <code>a1</code> à <code>an</code>.</p>
-<p><em>Remarque</em> cette fonction vous sera utile pour tester ce que vous avez fait dans la suite.</p>
+<p>Écrire une fonction <code>void array_print(array a)</code> qui
+affiche <code>[a1,a2,...,an]</code> si <code>a</code> contient les
+éléments de <code>a1</code> à <code>an</code>.</p>
+<p><em>Remarque</em> cette fonction vous sera utile pour tester ce que
+vous avez fait dans la suite.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb38-1"><a href="#cb38-1"></a><span class="dt">void</span> array_print<span class="op">(</span>array a<span class="op">)</span></span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb38-1"><a href="#cb38-1"></a><span class="dt">void</span> array_print<span class="op">(</span>array a<span class="op">)</span></span>
 <span id="cb38-2"><a href="#cb38-2"></a><span class="op">{</span></span>
 <span id="cb38-3"><a href="#cb38-3"></a>    printf<span class="op">(</span><span class="st">&quot;[&quot;</span><span class="op">);</span></span>
 <span id="cb38-4"><a href="#cb38-4"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> a<span class="op">.</span>size<span class="op">;</span> i<span class="op">++)</span></span>
@@ -845,14 +1105,21 @@ Question
 Question
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb39-1"><a href="#cb39-1"></a><span class="dt">void</span> array_blit<span class="op">(</span>array src<span class="op">,</span> <span class="dt">int</span> src_start<span class="op">,</span> </span>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb39-1"><a href="#cb39-1"></a><span class="dt">void</span> array_blit<span class="op">(</span>array src<span class="op">,</span> <span class="dt">int</span> src_start<span class="op">,</span> </span>
 <span id="cb39-2"><a href="#cb39-2"></a>    array dst<span class="op">,</span> <span class="dt">int</span> dst_start<span class="op">,</span> <span class="dt">int</span> len<span class="op">)</span></span></code></pre></div>
 <p></div></p>
-<p>qui copie <code>len</code> éléments depuis le tableau <code>src</code> à partir de l’indice <code>src_start</code> dans le tableau <code>dst</code> à partir de l’indice <code>dst_start</code>.</p>
-<p><em>Remarque</em> on a déjà écrit cette fonction en <code>OCaml</code>, vous pouvez vous en inspirer.</p>
+<p>qui copie <code>len</code> éléments depuis le tableau
+<code>src</code> à partir de l’indice <code>src_start</code> dans le
+tableau <code>dst</code> à partir de l’indice
+<code>dst_start</code>.</p>
+<p><em>Remarque</em> on a déjà écrit cette fonction en
+<code>OCaml</code>, vous pouvez vous en inspirer.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb40-1"><a href="#cb40-1"></a><span class="dt">void</span> array_blit<span class="op">(</span>array src<span class="op">,</span> <span class="dt">int</span> src_start<span class="op">,</span></span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb40-1"><a href="#cb40-1"></a><span class="dt">void</span> array_blit<span class="op">(</span>array src<span class="op">,</span> <span class="dt">int</span> src_start<span class="op">,</span></span>
 <span id="cb40-2"><a href="#cb40-2"></a>            array dst<span class="op">,</span> <span class="dt">int</span> dst_start<span class="op">,</span> <span class="dt">int</span> len<span class="op">)</span></span>
 <span id="cb40-3"><a href="#cb40-3"></a><span class="op">{</span></span>
 <span id="cb40-4"><a href="#cb40-4"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> len<span class="op">;</span> i<span class="op">++)</span></span>
@@ -861,25 +1128,40 @@ Question
 <span id="cb40-7"><a href="#cb40-7"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
 <p></div> </div></p>
-<h3 data-number="4.1.4" id="sec:implémentation-dune-pile-non-bornée"><span class="header-section-number">4.1.4</span> Implémentation d’une pile non bornée</h3>
+<h3 data-number="4.1.4"
+id="sec:implémentation-dune-pile-non-bornée"><span
+class="header-section-number">4.1.4</span> Implémentation d’une pile non
+bornée</h3>
 <div class="ui message blue">
 <div class="header">
 Question
 </div>
-<p>Écrire une fonction de prototype <code>void array_push(array *a, int x)</code> qui rajoute <code>x</code> à la fin du array <code>a</code>, c’est-à-dire :</p>
+<p>Écrire une fonction de prototype
+<code>void array_push(array *a, int x)</code> qui rajoute <code>x</code>
+à la fin du array <code>a</code>, c’est-à-dire :</p>
 <ul>
-<li>on va allouer un nouveau <code>array</code> <code>b</code> dont le tableau contient <code>a-&gt;size+1</code> éléments</li>
-<li>on va copier les anciennes valeurs de <code>*a</code> dans <code>b</code></li>
+<li>on va allouer un nouveau <code>array</code> <code>b</code> dont le
+tableau contient <code>a-&gt;size+1</code> éléments</li>
+<li>on va copier les anciennes valeurs de <code>*a</code> dans
+<code>b</code></li>
 <li>écrire <code>x</code></li>
 <li>libérer <code>*a</code></li>
 <li>remplacer avec <code>*a = b</code>.</li>
 </ul>
-<p><em>Remarque</em> On peut tout à faire écrire <code>*a = b</code> pour que <code>a</code> ait les mêmes valeurs que <code>b</code> en dehors de la fonction;</p>
-<p><em>Rappel</em> pour une <code>struct</code> par pointeurs, on utilise <code>-&gt;</code> pour accéder aux champs. Donc <code>a-&gt;elements</code> et <code>a-&gt;size</code> ici.</p>
-<p><strong>Remarque</strong> Faites des tests comme en créant un tableau de taille 0 et en empilant les entiers de 1 à 10 et en affichant le résultat. Faites les tests avec <code>-fsanitize=address</code>.</p>
+<p><em>Remarque</em> On peut tout à faire écrire <code>*a = b</code>
+pour que <code>a</code> ait les mêmes valeurs que <code>b</code> en
+dehors de la fonction;</p>
+<p><em>Rappel</em> pour une <code>struct</code> par pointeurs, on
+utilise <code>-&gt;</code> pour accéder aux champs. Donc
+<code>a-&gt;elements</code> et <code>a-&gt;size</code> ici.</p>
+<p><strong>Remarque</strong> Faites des tests comme en créant un tableau
+de taille 0 et en empilant les entiers de 1 à 10 et en affichant le
+résultat. Faites les tests avec <code>-fsanitize=address</code>.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb41-1"><a href="#cb41-1"></a><span class="dt">void</span> array_push<span class="op">(</span>array <span class="op">*</span>a<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb41-1"><a href="#cb41-1"></a><span class="dt">void</span> array_push<span class="op">(</span>array <span class="op">*</span>a<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
 <span id="cb41-2"><a href="#cb41-2"></a><span class="op">{</span></span>
 <span id="cb41-3"><a href="#cb41-3"></a>    array b <span class="op">=</span> array_alloc<span class="op">(</span>a<span class="op">-&gt;</span>size<span class="op">+</span><span class="dv">1</span><span class="op">);</span></span>
 <span id="cb41-4"><a href="#cb41-4"></a>    array_blit<span class="op">(*</span>a<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> b<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> a<span class="op">-&gt;</span>size<span class="op">);</span></span>
@@ -905,17 +1187,24 @@ Question
 <div class="header">
 Question
 </div>
-<p>Écrire une fonction <code>int array_pop(array *a)</code> qui retire le dernier élément du tableau <code>a</code> et renvoie sa valeur. Il faudra donc :</p>
+<p>Écrire une fonction <code>int array_pop(array *a)</code> qui retire
+le dernier élément du tableau <code>a</code> et renvoie sa valeur. Il
+faudra donc :</p>
 <ul>
-<li>allouer un nouveau <code>array</code> <code>b</code> dont le tableau contient <code>a-&gt;size-1</code> éléments</li>
+<li>allouer un nouveau <code>array</code> <code>b</code> dont le tableau
+contient <code>a-&gt;size-1</code> éléments</li>
 <li>copier les anciennes valeurs sauf une</li>
-<li>récupèrer dans une variable <code>x</code> la valeur de la dernière case de <code>a</code> (<em>parce qu’il n’est pas possible d’y accéder après l’étape suivante</em>)</li>
+<li>récupèrer dans une variable <code>x</code> la valeur de la dernière
+case de <code>a</code> (<em>parce qu’il n’est pas possible d’y accéder
+après l’étape suivante</em>)</li>
 <li>libérer l’ancien tableau</li>
 <li>remplacer avec <code>*a = b</code>.</li>
 </ul>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb42-1"><a href="#cb42-1"></a><span class="dt">int</span> array_pop<span class="op">(</span>array <span class="op">*</span>a<span class="op">)</span></span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb42"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb42-1"><a href="#cb42-1"></a><span class="dt">int</span> array_pop<span class="op">(</span>array <span class="op">*</span>a<span class="op">)</span></span>
 <span id="cb42-2"><a href="#cb42-2"></a><span class="op">{</span></span>
 <span id="cb42-3"><a href="#cb42-3"></a>    array b <span class="op">=</span> array_alloc<span class="op">(</span>a<span class="op">-&gt;</span>size<span class="op">-</span><span class="dv">1</span><span class="op">);</span></span>
 <span id="cb42-4"><a href="#cb42-4"></a>    array_blit<span class="op">(*</span>a<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> b<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> a<span class="op">-&gt;</span>size<span class="op">-</span><span class="dv">1</span><span class="op">);</span></span>
@@ -926,11 +1215,21 @@ Question
 <span id="cb42-9"><a href="#cb42-9"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
 <p></div> </div></p>
-<h3 data-number="4.1.5" id="sec:tableaux-dynamiques"><span class="header-section-number">4.1.5</span> Tableaux dynamiques</h3>
-<p>Reprendre toutes les questions précédentes en changeant la structure de donnée pour permettre de faire des tableaux dynamiques. Il faudra ainsi avoir deux entiers : <code>int p_size</code> qui contiendra la taille <em>physique</em> en mémoire et <code>int l_size</code> qui contiendra la taille <em>logique</em> c’est-à-dire les éléments signifiants stockés.</p>
-<p>Quand on a besoin de reallouer la mémoire, on choisira de doubler la taille physique. Le <code>pop</code> ne libérera jamais de taille physique.</p>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb43-1"><a href="#cb43-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<h3 data-number="4.1.5" id="sec:tableaux-dynamiques"><span
+class="header-section-number">4.1.5</span> Tableaux dynamiques</h3>
+<p>Reprendre toutes les questions précédentes en changeant la structure
+de donnée pour permettre de faire des tableaux dynamiques. Il faudra
+ainsi avoir deux entiers : <code>int p_size</code> qui contiendra la
+taille <em>physique</em> en mémoire et <code>int l_size</code> qui
+contiendra la taille <em>logique</em> c’est-à-dire les éléments
+signifiants stockés.</p>
+<p>Quand on a besoin de reallouer la mémoire, on choisira de doubler la
+taille physique. Le <code>pop</code> ne libérera jamais de taille
+physique.</p>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb43-1"><a href="#cb43-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
 <span id="cb43-2"><a href="#cb43-2"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
 <span id="cb43-3"><a href="#cb43-3"></a></span>
 <span id="cb43-4"><a href="#cb43-4"></a><span class="kw">struct</span> array <span class="op">{</span></span>
@@ -1023,11 +1322,16 @@ Question
 <span id="cb43-91"><a href="#cb43-91"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
 <p></div> </div></p>
-<h2 data-number="4.2" id="sec:listes-chaînées"><span class="header-section-number">4.2</span> Listes chaînées</h2>
-<h3 data-number="4.2.1" id="sec:listes-simplement-chaînées"><span class="header-section-number">4.2.1</span> Listes simplement chaînées</h3>
-<p>On va définir des fonctions sur les listes chaînées en utilisant le type suivant :</p>
+<h2 data-number="4.2" id="sec:listes-chaînées"><span
+class="header-section-number">4.2</span> Listes chaînées</h2>
+<h3 data-number="4.2.1" id="sec:listes-simplement-chaînées"><span
+class="header-section-number">4.2.1</span> Listes simplement
+chaînées</h3>
+<p>On va définir des fonctions sur les listes chaînées en utilisant le
+type suivant :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb44-1"><a href="#cb44-1"></a><span class="kw">struct</span> maillon <span class="op">{</span></span>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb44-1"><a href="#cb44-1"></a><span class="kw">struct</span> maillon <span class="op">{</span></span>
 <span id="cb44-2"><a href="#cb44-2"></a>    <span class="dt">int</span> valeur<span class="op">;</span></span>
 <span id="cb44-3"><a href="#cb44-3"></a>    <span class="kw">struct</span> maillon <span class="op">*</span>suivant<span class="op">;</span></span>
 <span id="cb44-4"><a href="#cb44-4"></a><span class="op">};</span></span>
@@ -1039,21 +1343,32 @@ Question
 <span id="cb44-10"><a href="#cb44-10"></a><span class="op">};</span></span>
 <span id="cb44-11"><a href="#cb44-11"></a><span class="kw">typedef</span> <span class="kw">struct</span> liste liste<span class="op">;</span></span></code></pre></div>
 <p></div></p>
-<p><div class="ui message orange"><div class="header">Remarque</div><strong>Invariants à maintenir</strong></p>
+<p><div class="ui message orange"><div class="header">Remarque</div><strong>Invariants
+à maintenir</strong></p>
 <ul>
-<li>Dans un maillon, <code>suivant</code> est soit <code>NULL</code> si c’est le dernier maillon de la chaîne, soit un pointeur vers le maillon qui le suit.</li>
-<li>Si la liste est vide alors <code>premier</code> et <code>dernier</code> valent <code>NULL</code>. Sinon, ils pointent respectivement sur le premier et le dernier maillon de la chaîne.</div></li>
+<li>Dans un maillon, <code>suivant</code> est soit <code>NULL</code> si
+c’est le dernier maillon de la chaîne, soit un pointeur vers le maillon
+qui le suit.</li>
+<li>Si la liste est vide alors <code>premier</code> et
+<code>dernier</code> valent <code>NULL</code>. Sinon, ils pointent
+respectivement sur le premier et le dernier maillon de la
+chaîne.</div></li>
 </ul>
 <div class="ui message blue">
 <div class="header">
 Question
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb45-1"><a href="#cb45-1"></a>liste liste_vide<span class="op">();</span></span></code></pre></div>
-<p></div> qui renvoie la liste vide. Ici, on pourrait dire <strong>une</strong> liste vide mais cela correspond à une unique valeur de la structure <code>liste</code>.</p>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb45-1"><a href="#cb45-1"></a>liste liste_vide<span class="op">();</span></span></code></pre></div>
+<p></div> qui renvoie la liste vide. Ici, on pourrait dire
+<strong>une</strong> liste vide mais cela correspond à une unique valeur
+de la structure <code>liste</code>.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb46-1"><a href="#cb46-1"></a>liste liste_vide<span class="op">()</span></span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb46-1"><a href="#cb46-1"></a>liste liste_vide<span class="op">()</span></span>
 <span id="cb46-2"><a href="#cb46-2"></a><span class="op">{</span></span>
 <span id="cb46-3"><a href="#cb46-3"></a>    liste l<span class="op">;</span></span>
 <span id="cb46-4"><a href="#cb46-4"></a>    l<span class="op">.</span>premier <span class="op">=</span> NULL<span class="op">;</span></span>
@@ -1066,11 +1381,15 @@ Question
 Question
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb47-1"><a href="#cb47-1"></a><span class="dt">void</span> liste_affiche<span class="op">(</span>liste l<span class="op">);</span></span></code></pre></div>
-<p></div> qui affiche le contenu de la liste sous la forme <code>[1,2,3]</code>.</p>
+<div class="sourceCode" id="cb47"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb47-1"><a href="#cb47-1"></a><span class="dt">void</span> liste_affiche<span class="op">(</span>liste l<span class="op">);</span></span></code></pre></div>
+<p></div> qui affiche le contenu de la liste sous la forme
+<code>[1,2,3]</code>.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb48-1"><a href="#cb48-1"></a><span class="dt">void</span> liste_affiche<span class="op">(</span>liste l<span class="op">)</span></span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb48"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb48-1"><a href="#cb48-1"></a><span class="dt">void</span> liste_affiche<span class="op">(</span>liste l<span class="op">)</span></span>
 <span id="cb48-2"><a href="#cb48-2"></a><span class="op">{</span></span>
 <span id="cb48-3"><a href="#cb48-3"></a>    putchar<span class="op">(</span><span class="ch">&#39;[&#39;</span><span class="op">);</span></span>
 <span id="cb48-4"><a href="#cb48-4"></a>    maillon <span class="op">*</span>m <span class="op">=</span> l<span class="op">.</span>premier<span class="op">;</span></span>
@@ -1090,11 +1409,14 @@ Question
 Question
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb49-1"><a href="#cb49-1"></a>maillon <span class="op">*</span>maillon_creer<span class="op">(</span><span class="dt">int</span> valeur<span class="op">,</span> maillon <span class="op">*</span>suivant<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb49-1"><a href="#cb49-1"></a>maillon <span class="op">*</span>maillon_creer<span class="op">(</span><span class="dt">int</span> valeur<span class="op">,</span> maillon <span class="op">*</span>suivant<span class="op">);</span></span></code></pre></div>
 <p></div> qui alloue et initialise un nouveau maillon.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb50-1"><a href="#cb50-1"></a>maillon <span class="op">*</span>maillon_creer<span class="op">(</span><span class="dt">int</span> valeur<span class="op">,</span> maillon <span class="op">*</span>suivant<span class="op">)</span></span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb50"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb50-1"><a href="#cb50-1"></a>maillon <span class="op">*</span>maillon_creer<span class="op">(</span><span class="dt">int</span> valeur<span class="op">,</span> maillon <span class="op">*</span>suivant<span class="op">)</span></span>
 <span id="cb50-2"><a href="#cb50-2"></a><span class="op">{</span></span>
 <span id="cb50-3"><a href="#cb50-3"></a>    maillon <span class="op">*</span>m <span class="op">=</span> malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span>maillon<span class="op">));</span></span>
 <span id="cb50-4"><a href="#cb50-4"></a>    m<span class="op">-&gt;</span>valeur <span class="op">=</span> valeur<span class="op">;</span></span>
@@ -1108,19 +1430,26 @@ Question
 </div>
 <p>Écrire une fonction de prototype</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb51-1"><a href="#cb51-1"></a><span class="dt">void</span> maillon_detruire<span class="op">(</span>maillon <span class="op">*</span>m<span class="op">);</span></span></code></pre></div>
-<p></div> qui détruit, c’est-à-dire libère, la mémoire associée à un maillon.</p>
+<div class="sourceCode" id="cb51"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb51-1"><a href="#cb51-1"></a><span class="dt">void</span> maillon_detruire<span class="op">(</span>maillon <span class="op">*</span>m<span class="op">);</span></span></code></pre></div>
+<p></div> qui détruit, c’est-à-dire libère, la mémoire associée à un
+maillon.</p>
 <p>Écrire une fonction de prototype</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb52-1"><a href="#cb52-1"></a><span class="dt">void</span> chaine_detruire<span class="op">(</span>maillon <span class="op">*</span>m<span class="op">);</span></span></code></pre></div>
-<p></div> qui détruit la chaîne de maillon accessible depuis le maillon <code>m</code>.</p>
+<div class="sourceCode" id="cb52"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb52-1"><a href="#cb52-1"></a><span class="dt">void</span> chaine_detruire<span class="op">(</span>maillon <span class="op">*</span>m<span class="op">);</span></span></code></pre></div>
+<p></div> qui détruit la chaîne de maillon accessible depuis le maillon
+<code>m</code>.</p>
 <p>En déduire une fonction de prototype</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb53-1"><a href="#cb53-1"></a><span class="dt">void</span> liste_detruire<span class="op">(</span>liste l<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb53-1"><a href="#cb53-1"></a><span class="dt">void</span> liste_detruire<span class="op">(</span>liste l<span class="op">);</span></span></code></pre></div>
 <p></div> qui détruit la chaîne pointée par une liste.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb54-1"><a href="#cb54-1"></a><span class="dt">void</span> maillon_detruire<span class="op">(</span>maillon <span class="op">*</span>m<span class="op">)</span></span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb54"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb54-1"><a href="#cb54-1"></a><span class="dt">void</span> maillon_detruire<span class="op">(</span>maillon <span class="op">*</span>m<span class="op">)</span></span>
 <span id="cb54-2"><a href="#cb54-2"></a><span class="op">{</span></span>
 <span id="cb54-3"><a href="#cb54-3"></a>    free<span class="op">(</span>m<span class="op">);</span></span>
 <span id="cb54-4"><a href="#cb54-4"></a><span class="op">}</span></span>
@@ -1145,11 +1474,14 @@ Question
 Question
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb55-1"><a href="#cb55-1"></a><span class="dt">int</span> liste_longueur<span class="op">(</span>liste l<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb55-1"><a href="#cb55-1"></a><span class="dt">int</span> liste_longueur<span class="op">(</span>liste l<span class="op">);</span></span></code></pre></div>
 <p></div> qui renvoie la longueur de la liste <code>l</code>.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb56-1"><a href="#cb56-1"></a><span class="dt">int</span> liste_longueur<span class="op">(</span>liste l<span class="op">)</span></span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb56"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb56-1"><a href="#cb56-1"></a><span class="dt">int</span> liste_longueur<span class="op">(</span>liste l<span class="op">)</span></span>
 <span id="cb56-2"><a href="#cb56-2"></a><span class="op">{</span></span>
 <span id="cb56-3"><a href="#cb56-3"></a>    <span class="dt">int</span> longueur <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb56-4"><a href="#cb56-4"></a>    maillon <span class="op">*</span>m <span class="op">=</span> l<span class="op">.</span>premier<span class="op">;</span></span>
@@ -1166,13 +1498,18 @@ Question
 Question
 </div>
 <p>Écrire des fonctions de prototype <div class="ui segment code"></p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb57-1"><a href="#cb57-1"></a><span class="dt">int</span> liste_tete<span class="op">(</span>liste l<span class="op">);</span></span>
+<div class="sourceCode" id="cb57"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb57-1"><a href="#cb57-1"></a><span class="dt">int</span> liste_tete<span class="op">(</span>liste l<span class="op">);</span></span>
 <span id="cb57-2"><a href="#cb57-2"></a>liste liste_queue<span class="op">(</span>liste l<span class="op">);</span></span></code></pre></div>
 <p></div></p>
-<p>qui renvoient respectivement la tête et la queue d’une liste. <strong>Attention</strong>, ici, contrairement au type vu plus haut, le maillon suivant n’est pas une liste.</p>
+<p>qui renvoient respectivement la tête et la queue d’une liste.
+<strong>Attention</strong>, ici, contrairement au type vu plus haut, le
+maillon suivant n’est pas une liste.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb58-1"><a href="#cb58-1"></a><span class="dt">int</span> liste_tete<span class="op">(</span>liste l<span class="op">)</span></span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb58"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb58-1"><a href="#cb58-1"></a><span class="dt">int</span> liste_tete<span class="op">(</span>liste l<span class="op">)</span></span>
 <span id="cb58-2"><a href="#cb58-2"></a><span class="op">{</span></span>
 <span id="cb58-3"><a href="#cb58-3"></a>    assert<span class="op">(</span>l<span class="op">.</span>premier <span class="op">!=</span> NULL<span class="op">);</span></span>
 <span id="cb58-4"><a href="#cb58-4"></a>    <span class="cf">return</span> l<span class="op">.</span>premier<span class="op">-&gt;</span>valeur<span class="op">;</span></span>
@@ -1192,12 +1529,22 @@ Question
 Question
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb59-1"><a href="#cb59-1"></a><span class="dt">void</span> liste_ajout_en_tete<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">);</span></span></code></pre></div>
-<p></div> qui ajoute un maillon en tête de la liste pointée par <code>l</code> en <span class="math inline">\(O(1)\)</span>. On fera attention au cas où <code>l</code> pointe la liste vide.</p>
-<p><div class="ui message blue"><div class="header">Note</div>Dans cette fonction et les suivantes, on a fait le choix de passer des pointeurs sur des listes pour permettre de modifier les valerus des pointeurs <code>premier</code> et <code>dernier</code>. Alternativement, on aurait pu faire en sorte que ces fonctions renvoient des <code>liste</code> par copie.</div></p>
+<div class="sourceCode" id="cb59"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb59-1"><a href="#cb59-1"></a><span class="dt">void</span> liste_ajout_en_tete<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">);</span></span></code></pre></div>
+<p></div> qui ajoute un maillon en tête de la liste pointée par
+<code>l</code> en <span class="math inline">\(O(1)\)</span>. On fera
+attention au cas où <code>l</code> pointe la liste vide.</p>
+<p><div class="ui message blue"><div class="header">Note</div>Dans cette
+fonction et les suivantes, on a fait le choix de passer des pointeurs
+sur des listes pour permettre de modifier les valerus des pointeurs
+<code>premier</code> et <code>dernier</code>. Alternativement, on aurait
+pu faire en sorte que ces fonctions renvoient des <code>liste</code> par
+copie.</div></p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb60-1"><a href="#cb60-1"></a><span class="dt">void</span> liste_ajout_en_tete<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">)</span></span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb60"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb60-1"><a href="#cb60-1"></a><span class="dt">void</span> liste_ajout_en_tete<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">)</span></span>
 <span id="cb60-2"><a href="#cb60-2"></a><span class="op">{</span></span>
 <span id="cb60-3"><a href="#cb60-3"></a>    l<span class="op">-&gt;</span>premier <span class="op">=</span> maillon_creer<span class="op">(</span>valeur<span class="op">,</span> l<span class="op">-&gt;</span>premier<span class="op">);</span></span>
 <span id="cb60-4"><a href="#cb60-4"></a>    <span class="cf">if</span><span class="op">(</span>l<span class="op">-&gt;</span>dernier <span class="op">==</span> NULL<span class="op">)</span> <span class="co">// la liste était vide</span></span>
@@ -1209,12 +1556,17 @@ Question
 Question
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb61-1"><a href="#cb61-1"></a><span class="dt">void</span> liste_suppr_en_tete<span class="op">(</span>liste <span class="op">*</span>l<span class="op">);</span></span></code></pre></div>
-<p></div> qui supprime un maillon en tête de la liste <code>l</code> supposée non vide en <span class="math inline">\(O(1)\)</span>.</p>
-<p>On fera attention au cas où on supprime l’unique maillon de la liste.</p>
+<div class="sourceCode" id="cb61"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb61-1"><a href="#cb61-1"></a><span class="dt">void</span> liste_suppr_en_tete<span class="op">(</span>liste <span class="op">*</span>l<span class="op">);</span></span></code></pre></div>
+<p></div> qui supprime un maillon en tête de la liste <code>l</code>
+supposée non vide en <span class="math inline">\(O(1)\)</span>.</p>
+<p>On fera attention au cas où on supprime l’unique maillon de la
+liste.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb62-1"><a href="#cb62-1"></a><span class="dt">void</span> liste_suppr_en_tete<span class="op">(</span>liste <span class="op">*</span>l<span class="op">)</span></span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb62"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb62-1"><a href="#cb62-1"></a><span class="dt">void</span> liste_suppr_en_tete<span class="op">(</span>liste <span class="op">*</span>l<span class="op">)</span></span>
 <span id="cb62-2"><a href="#cb62-2"></a><span class="op">{</span></span>
 <span id="cb62-3"><a href="#cb62-3"></a>    assert<span class="op">(</span>l<span class="op">-&gt;</span>premier <span class="op">!=</span> NULL<span class="op">);</span></span>
 <span id="cb62-4"><a href="#cb62-4"></a>    maillon <span class="op">*</span>m <span class="op">=</span> l<span class="op">-&gt;</span>premier<span class="op">;</span></span>
@@ -1229,11 +1581,15 @@ Question
 Question
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb63-1"><a href="#cb63-1"></a><span class="dt">void</span> liste_ajout_en_fin<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">);</span></span></code></pre></div>
-<p></div> qui ajoute un maillon en fin de la liste <code>l</code> en <span class="math inline">\(O(1)\)</span>.</p>
+<div class="sourceCode" id="cb63"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb63-1"><a href="#cb63-1"></a><span class="dt">void</span> liste_ajout_en_fin<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">);</span></span></code></pre></div>
+<p></div> qui ajoute un maillon en fin de la liste <code>l</code> en
+<span class="math inline">\(O(1)\)</span>.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb64-1"><a href="#cb64-1"></a><span class="dt">void</span> liste_ajout_en_fin<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">)</span></span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb64"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb64-1"><a href="#cb64-1"></a><span class="dt">void</span> liste_ajout_en_fin<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">)</span></span>
 <span id="cb64-2"><a href="#cb64-2"></a><span class="op">{</span></span>
 <span id="cb64-3"><a href="#cb64-3"></a>    maillon <span class="op">*</span>m <span class="op">=</span> l<span class="op">-&gt;</span>dernier<span class="op">;</span></span>
 <span id="cb64-4"><a href="#cb64-4"></a>    l<span class="op">-&gt;</span>dernier <span class="op">=</span> maillon_creer<span class="op">(</span>valeur<span class="op">,</span> NULL<span class="op">);</span></span>
@@ -1247,11 +1603,15 @@ Question
 Question
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb65-1"><a href="#cb65-1"></a>maillon <span class="op">*</span>liste_cherche_maillon<span class="op">(</span>liste l<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">);</span></span></code></pre></div>
-<p></div> qui renvoie un pointeur sur le premier maillon de valeur <code>valeur</code> ou renvoie <code>NULL</code> s’il n’y en a pas.</p>
+<div class="sourceCode" id="cb65"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb65-1"><a href="#cb65-1"></a>maillon <span class="op">*</span>liste_cherche_maillon<span class="op">(</span>liste l<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">);</span></span></code></pre></div>
+<p></div> qui renvoie un pointeur sur le premier maillon de valeur
+<code>valeur</code> ou renvoie <code>NULL</code> s’il n’y en a pas.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb66-1"><a href="#cb66-1"></a>maillon <span class="op">*</span>liste_cherche_maillon<span class="op">(</span>liste l<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">)</span></span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb66"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb66-1"><a href="#cb66-1"></a>maillon <span class="op">*</span>liste_cherche_maillon<span class="op">(</span>liste l<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">)</span></span>
 <span id="cb66-2"><a href="#cb66-2"></a><span class="op">{</span></span>
 <span id="cb66-3"><a href="#cb66-3"></a>    maillon <span class="op">*</span>m <span class="op">=</span> l<span class="op">.</span>premier<span class="op">;</span></span>
 <span id="cb66-4"><a href="#cb66-4"></a>    <span class="cf">while</span><span class="op">(</span>m <span class="op">!=</span> NULL <span class="op">&amp;&amp;</span> m<span class="op">-&gt;</span>valeur <span class="op">!=</span> valeur<span class="op">)</span></span>
@@ -1266,11 +1626,17 @@ Question
 Question
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb67-1"><a href="#cb67-1"></a><span class="dt">void</span> liste_ajout_maillon_apres<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">);</span></span></code></pre></div>
-<p></div> qui insère en <span class="math inline">\(O(1)\)</span> un maillon après le maillon <code>m</code>. On fera en sorte que l’insertion soit valide même si <code>m</code> est le dernier maillon de la liste.</p>
+<div class="sourceCode" id="cb67"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb67-1"><a href="#cb67-1"></a><span class="dt">void</span> liste_ajout_maillon_apres<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">);</span></span></code></pre></div>
+<p></div> qui insère en <span class="math inline">\(O(1)\)</span> un
+maillon après le maillon <code>m</code>. On fera en sorte que
+l’insertion soit valide même si <code>m</code> est le dernier maillon de
+la liste.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb68-1"><a href="#cb68-1"></a><span class="dt">void</span> liste_ajout_maillon_apres<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">)</span></span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb68"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb68-1"><a href="#cb68-1"></a><span class="dt">void</span> liste_ajout_maillon_apres<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">)</span></span>
 <span id="cb68-2"><a href="#cb68-2"></a><span class="op">{</span></span>
 <span id="cb68-3"><a href="#cb68-3"></a>    m<span class="op">-&gt;</span>suivant <span class="op">=</span> maillon_creer<span class="op">(</span>valeur<span class="op">,</span> m<span class="op">-&gt;</span>suivant<span class="op">);</span></span>
 <span id="cb68-4"><a href="#cb68-4"></a><span class="op">}</span></span></code></pre></div>
@@ -1280,11 +1646,16 @@ Question
 Question
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"></code></pre></div>
-<p></div> qui ajoute un maillon avant <code>m</code>. Dans le cas où <code>m</code> est le premier ou le dernier maillon, l’insertion sera en <span class="math inline">\(O(1)\)</span>.</p>
+<div class="sourceCode" id="cb69"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"></code></pre></div>
+<p></div> qui ajoute un maillon avant <code>m</code>. Dans le cas où
+<code>m</code> est le premier ou le dernier maillon, l’insertion sera en
+<span class="math inline">\(O(1)\)</span>.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb70-1"><a href="#cb70-1"></a><span class="dt">void</span> liste_ajout_maillon_avant<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">)</span></span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb70"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb70-1"><a href="#cb70-1"></a><span class="dt">void</span> liste_ajout_maillon_avant<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">)</span></span>
 <span id="cb70-2"><a href="#cb70-2"></a><span class="op">{</span></span>
 <span id="cb70-3"><a href="#cb70-3"></a>    <span class="cf">if</span> <span class="op">(</span>m <span class="op">==</span> l<span class="op">-&gt;</span>premier<span class="op">)</span></span>
 <span id="cb70-4"><a href="#cb70-4"></a>        liste_ajout_en_tete<span class="op">(</span>l<span class="op">,</span> valeur<span class="op">);</span></span>
@@ -1306,11 +1677,16 @@ Question
 Question
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb71-1"><a href="#cb71-1"></a><span class="dt">void</span> liste_suppr_maillon<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">);</span></span></code></pre></div>
-<p></div> qui supprime un maillon. Dans le cas où <code>m</code> est le premier maillon, la suppression sera en <span class="math inline">\(O(1)\)</span>.</p>
+<div class="sourceCode" id="cb71"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb71-1"><a href="#cb71-1"></a><span class="dt">void</span> liste_suppr_maillon<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">);</span></span></code></pre></div>
+<p></div> qui supprime un maillon. Dans le cas où <code>m</code> est le
+premier maillon, la suppression sera en <span
+class="math inline">\(O(1)\)</span>.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb72-1"><a href="#cb72-1"></a><span class="dt">void</span> liste_suppr_maillon<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">)</span></span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb72"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb72-1"><a href="#cb72-1"></a><span class="dt">void</span> liste_suppr_maillon<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">)</span></span>
 <span id="cb72-2"><a href="#cb72-2"></a><span class="op">{</span></span>
 <span id="cb72-3"><a href="#cb72-3"></a>    <span class="cf">if</span> <span class="op">(</span>m <span class="op">==</span> l<span class="op">-&gt;</span>premier<span class="op">)</span></span>
 <span id="cb72-4"><a href="#cb72-4"></a>        liste_suppr_en_tete<span class="op">(</span>l<span class="op">);</span></span>
@@ -1326,10 +1702,15 @@ Question
 <span id="cb72-14"><a href="#cb72-14"></a>    <span class="op">}</span></span>
 <span id="cb72-15"><a href="#cb72-15"></a><span class="op">}</span></span></code></pre></div>
 <p></div> </div> </div></p>
-<h3 data-number="4.2.2" id="sec:listes-doublement-chaînées"><span class="header-section-number">4.2.2</span> Listes doublement chaînées</h3>
-<p>Pour les listes doublement chaînées, on va adapter le type précédent en rajoutant juste un pointeur <code>precedent</code> dans les maillons :</p>
+<h3 data-number="4.2.2" id="sec:listes-doublement-chaînées"><span
+class="header-section-number">4.2.2</span> Listes doublement
+chaînées</h3>
+<p>Pour les listes doublement chaînées, on va adapter le type précédent
+en rajoutant juste un pointeur <code>precedent</code> dans les maillons
+:</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb73-1"><a href="#cb73-1"></a><span class="kw">struct</span> maillon <span class="op">{</span></span>
+<div class="sourceCode" id="cb73"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb73-1"><a href="#cb73-1"></a><span class="kw">struct</span> maillon <span class="op">{</span></span>
 <span id="cb73-2"><a href="#cb73-2"></a>    <span class="dt">int</span> valeur<span class="op">;</span></span>
 <span id="cb73-3"><a href="#cb73-3"></a>    <span class="kw">struct</span> maillon <span class="op">*</span>suivant<span class="op">;</span></span>
 <span id="cb73-4"><a href="#cb73-4"></a>    <span class="kw">struct</span> maillon <span class="op">*</span>precedent<span class="op">;</span></span>
@@ -1342,11 +1723,19 @@ Question
 <span id="cb73-11"><a href="#cb73-11"></a><span class="op">};</span></span>
 <span id="cb73-12"><a href="#cb73-12"></a><span class="kw">typedef</span> <span class="kw">struct</span> liste liste<span class="op">;</span></span></code></pre></div>
 <p></div></p>
-<p><div class="ui message orange"><div class="header">Remarque</div><strong>Invariants à maintenir</strong></p>
+<p><div class="ui message orange"><div class="header">Remarque</div><strong>Invariants
+à maintenir</strong></p>
 <ul>
-<li>Dans un maillon, <code>suivant</code> est soit <code>NULL</code> si c’est le dernier maillon de la chaîne, soit un pointeur vers le maillon qui le suit.</li>
-<li>Dans un maillon, <code>precedent</code> est soit <code>NULL</code> si c’est le premier maillon de la chaîne, soit un pointeur vers le maillon qui le précède.</li>
-<li>Si la liste est vide alors <code>premier</code> et <code>dernier</code> valent <code>NULL</code>. Sinon, ils pointent respectivement sur le premier et le dernier maillon de la chaîne.</div></li>
+<li>Dans un maillon, <code>suivant</code> est soit <code>NULL</code> si
+c’est le dernier maillon de la chaîne, soit un pointeur vers le maillon
+qui le suit.</li>
+<li>Dans un maillon, <code>precedent</code> est soit <code>NULL</code>
+si c’est le premier maillon de la chaîne, soit un pointeur vers le
+maillon qui le précède.</li>
+<li>Si la liste est vide alors <code>premier</code> et
+<code>dernier</code> valent <code>NULL</code>. Sinon, ils pointent
+respectivement sur le premier et le dernier maillon de la
+chaîne.</div></li>
 </ul>
 <div class="ui message blue">
 <div class="header">
@@ -1354,9 +1743,11 @@ Question
 </div>
 <p>Reprendre les questions précédentes avec ce nouveau type.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> Peu de modifications à faire.</p>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> Peu de modifications à faire.</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb74-1"><a href="#cb74-1"></a>liste liste_vide<span class="op">()</span></span>
+<div class="sourceCode" id="cb74"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb74-1"><a href="#cb74-1"></a>liste liste_vide<span class="op">()</span></span>
 <span id="cb74-2"><a href="#cb74-2"></a><span class="op">{</span></span>
 <span id="cb74-3"><a href="#cb74-3"></a>    liste l<span class="op">;</span></span>
 <span id="cb74-4"><a href="#cb74-4"></a>    l<span class="op">.</span>premier <span class="op">=</span> NULL<span class="op">;</span></span>
@@ -1483,11 +1874,15 @@ Question
 Question
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb75-1"><a href="#cb75-1"></a><span class="dt">void</span> liste_suppr_en_fin<span class="op">(</span>liste <span class="op">*</span>l<span class="op">);</span></span></code></pre></div>
-<p></div> qui supprime en <span class="math inline">\(O(1)\)</span> le dernier maillon.</p>
+<div class="sourceCode" id="cb75"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb75-1"><a href="#cb75-1"></a><span class="dt">void</span> liste_suppr_en_fin<span class="op">(</span>liste <span class="op">*</span>l<span class="op">);</span></span></code></pre></div>
+<p></div> qui supprime en <span class="math inline">\(O(1)\)</span> le
+dernier maillon.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb76-1"><a href="#cb76-1"></a><span class="dt">void</span> liste_suppr_en_fin<span class="op">(</span>liste <span class="op">*</span>l<span class="op">);</span></span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb76"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb76-1"><a href="#cb76-1"></a><span class="dt">void</span> liste_suppr_en_fin<span class="op">(</span>liste <span class="op">*</span>l<span class="op">);</span></span>
 <span id="cb76-2"><a href="#cb76-2"></a><span class="op">{</span></span>
 <span id="cb76-3"><a href="#cb76-3"></a>    maillon <span class="op">*</span>fin <span class="op">=</span> l<span class="op">-&gt;</span>dernier<span class="op">;</span></span>
 <span id="cb76-4"><a href="#cb76-4"></a>    l<span class="op">-&gt;</span>dernier <span class="op">=</span> fin<span class="op">-&gt;</span>precedent<span class="op">;</span></span>
@@ -1502,11 +1897,15 @@ Question
 Question
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb77-1"><a href="#cb77-1"></a><span class="dt">void</span> liste_ajout_maillon_avant<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">);</span></span></code></pre></div>
-<p></div> qui ajoute un maillon avant <code>m</code> en <span class="math inline">\(O(1)\)</span>.</p>
+<div class="sourceCode" id="cb77"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb77-1"><a href="#cb77-1"></a><span class="dt">void</span> liste_ajout_maillon_avant<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">);</span></span></code></pre></div>
+<p></div> qui ajoute un maillon avant <code>m</code> en <span
+class="math inline">\(O(1)\)</span>.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb78-1"><a href="#cb78-1"></a><span class="dt">void</span> liste_ajout_maillon_avant<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">)</span></span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb78"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb78-1"><a href="#cb78-1"></a><span class="dt">void</span> liste_ajout_maillon_avant<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">,</span> <span class="dt">int</span> valeur<span class="op">)</span></span>
 <span id="cb78-2"><a href="#cb78-2"></a><span class="op">{</span></span>
 <span id="cb78-3"><a href="#cb78-3"></a>    <span class="cf">if</span> <span class="op">(</span>m <span class="op">==</span> l<span class="op">-&gt;</span>premier<span class="op">)</span></span>
 <span id="cb78-4"><a href="#cb78-4"></a>        liste_ajout_en_tete<span class="op">(</span>l<span class="op">,</span> valeur<span class="op">);</span></span>
@@ -1526,11 +1925,15 @@ Question
 Question
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb79-1"><a href="#cb79-1"></a><span class="dt">void</span> liste_suppr_maillon<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">);</span></span></code></pre></div>
-<p></div> qui supprime en <span class="math inline">\(O(1)\)</span> le maillon <code>m</code>.</p>
+<div class="sourceCode" id="cb79"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb79-1"><a href="#cb79-1"></a><span class="dt">void</span> liste_suppr_maillon<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">);</span></span></code></pre></div>
+<p></div> qui supprime en <span class="math inline">\(O(1)\)</span> le
+maillon <code>m</code>.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb80-1"><a href="#cb80-1"></a><span class="dt">void</span> list_suppr_maillon<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">)</span></span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb80"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb80-1"><a href="#cb80-1"></a><span class="dt">void</span> list_suppr_maillon<span class="op">(</span>liste <span class="op">*</span>l<span class="op">,</span> maillon <span class="op">*</span>m<span class="op">)</span></span>
 <span id="cb80-2"><a href="#cb80-2"></a><span class="op">{</span></span>
 <span id="cb80-3"><a href="#cb80-3"></a>    <span class="cf">if</span> <span class="op">(</span>m <span class="op">==</span> l<span class="op">-&gt;</span>premier<span class="op">)</span></span>
 <span id="cb80-4"><a href="#cb80-4"></a>        liste_suppr_en_tete<span class="op">(</span>l<span class="op">);</span></span>

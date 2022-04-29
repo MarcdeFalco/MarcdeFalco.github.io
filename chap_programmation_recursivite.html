@@ -93,7 +93,9 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
 
 <script>
 $(document).ready(function() {
@@ -325,17 +327,25 @@ table td {
 <div class="segment">
 <div class="ui container text">
 <p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Récursivité     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_recursivite.jpeg"> </div></p>
-<p><em>Source de l’image d’en-tête : Paul Noth.</em> <strong>À changer par une image CC</strong></p>
-<p><div class="ui message blue"><div class="header">Note</div><strong>Roadmap</strong> :</p>
+<p><em>Source de l’image d’en-tête : Paul Noth.</em> <strong>À changer
+par une image CC</strong></p>
+<p><div class="ui message blue"><div class="header">Note</div><strong>Roadmap</strong>
+:</p>
 <ul>
 <li>finir l’écriture.</div></li>
 </ul>
-<h1 data-number="1" id="sec:la-récursivité"><span class="header-section-number">1</span> La récursivité</h1>
-<h2 data-number="1.1" id="sec:principe-et-exemples"><span class="header-section-number">1.1</span> Principe et exemples</h2>
-<p>On dit qu’une fonction est récursive lorsqu’elle va s’appeler elle-même lors de son exécution. Le plus souvent, cet appel sera directement visible depuis le corps de la fonction.</p>
-<p>Par exemple, la fonction <code>fact</code> suivante permettant de calculer <span class="math inline">\(n!\)</span> est récursive :</p>
+<h1 data-number="1" id="sec:la-récursivité"><span
+class="header-section-number">1</span> La récursivité</h1>
+<h2 data-number="1.1" id="sec:principe-et-exemples"><span
+class="header-section-number">1.1</span> Principe et exemples</h2>
+<p>On dit qu’une fonction est récursive lorsqu’elle va s’appeler
+elle-même lors de son exécution. Le plus souvent, cet appel sera
+directement visible depuis le corps de la fonction.</p>
+<p>Par exemple, la fonction <code>fact</code> suivante permettant de
+calculer <span class="math inline">\(n!\)</span> est récursive :</p>
 <p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-41">ocaml</a>   <a class="item" data-tab="c-41">c</a>   <a class="item" data-tab="python-41">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-41"></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> fact n =</span>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> fact n =</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> n = <span class="dv">0</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> <span class="dv">1</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> n * fact (n<span class="dv">-1</span>)</span></code></pre></div>
@@ -352,48 +362,102 @@ table td {
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="python-41"></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fact(n):</span>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fact(n):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> n <span class="op">*</span> fact(n<span class="op">-</span><span class="dv">1</span>)</span></code></pre></div>
 <p></div> </div></p>
-<p>On utilise ici un exemple mathématique pour la simplicité des fonctions écrites. En effet, on ne voit rien d’autre dans <code>fact</code> que ces appels récursifs et ils correspondent directement à la définition mathématique :</p>
+<p>On utilise ici un exemple mathématique pour la simplicité des
+fonctions écrites. En effet, on ne voit rien d’autre dans
+<code>fact</code> que ces appels récursifs et ils correspondent
+directement à la définition mathématique :</p>
 <p><span class="math display">\[
 n! = \begin{cases}
 1 &amp; \text{ si } n = 0 \\
 n \times (n-1)! &amp; \text{ sinon.}
 \end{cases}
 \]</span></p>
-<p><div class="ui message orange"><div class="header">Remarque</div>En fait, la définition mathématique se fait plutôt en posant : <span class="math display">\[
+<p><div class="ui message orange"><div class="header">Remarque</div>En
+fait, la définition mathématique se fait plutôt en posant : <span
+class="math display">\[
 0! = 1 \qquad
 (n+1)! = (n+1) \times n!
-\]</span> Donc, pour retraduire une telle définition en tant que fonction, il est souvent nécessaire de décaler les rangs.</div></p>
+\]</span> Donc, pour retraduire une telle définition en tant que
+fonction, il est souvent nécessaire de décaler les rangs.</div></p>
 <p>On remarque tout de suite deux choses :</p>
 <ul>
 <li>il y a un valeur pour laquelle on ne fait aucun appel</li>
-<li>dans les autres cas, quand on fait un appel, l’argument <span class="math inline">\(n-1\)</span> diminue strictement.</li>
+<li>dans les autres cas, quand on fait un appel, l’argument <span
+class="math inline">\(n-1\)</span> diminue strictement.</li>
 </ul>
-<p>Cela permet d’être sûr qu’on ne va pas s’arrêter indéfiniment. On verra dans la suite comment on peut s’en assurer pour des fonctions plus complexes.</p>
-<p>Quand on évalue <code>fact 5</code> on va effectuer une série d’appels :</p>
-<p><center><div class="ui image center"><img src="assets/pics/rec_appels_f5.png" /></div></center></p>
-<p>Pour calculer la valeur il faut descendre le long des appels récursifs jusqu’à tomber sur un cas de base puis remonter.</p>
-<h2 data-number="1.2" id="sec:implémentation-pratique"><span class="header-section-number">1.2</span> Implémentation pratique</h2>
-<p>Comme on vient de le voir, pour calculer une valeur avec une fonction récursive, il est nécessaire de remonter. Pour cela, on a besoin d’interrompre l’évaluation d’une fonction le temps que l’appel récursif se termine, puis de revenir dans l’évaluation là où on en était. On parle alors de contexte d’évaluation ou contexte d’exécution pour l’information qu’il faut sauvegarder afin de reprendre là où on en était. En première approximation, on peut se dire qu’un contexte est la donnée de la position de l’instruction courante, ou de la sous-expression en train d’être évaluée si on raisonne en fonctionnel, ainsi que de l’ensemble des valeurs des variables locales. Il est donc nécessaire de sauvegarder la succession des contextes tout au long des appels récursifs.</p>
-<p>On remarque que ce mécanisme est déjà présent pour n’importe quel appel de fonction. La différence principale avec la récursivité, c’est que le nombre d’appels imbriqués à tout moment du programme n’est pas borné à priori, il dépend des paramètres récursifs, et donc il ne peut être connu qu’à l’exécution. On a ainsi besoin d’un mécanisme qui permettent de stocker un nombre quelconque de contextes.</p>
-<p>Pour cela, on passe par ce qu’on appelle la pile d’appels. On verra plus tard qu’elle peut être organisée de manière très efficace pour des programmes binaires, mais pour le moment, on se contente d’imaginer que cette pile est vide au début de l’evaluation, puis, à chaque appel, on <strong>empile</strong> le contexte courant, on exécute l’appel, une fois la valeur de retour obtenue, on <strong>dépile</strong> le contexte pour reprendre l’exécution là où on en était avant l’appel mais avec cette valeur de retour calculée.</p>
-<h2 data-number="1.3" id="sec:programmer-en-récursif"><span class="header-section-number">1.3</span> Programmer en récursif</h2>
-<h2 data-number="1.4" id="sec:récursivité-croisée"><span class="header-section-number">1.4</span> Récursivité croisée</h2>
-<h1 data-number="2" id="sec:larbre-dappels"><span class="header-section-number">2</span> L’arbre d’appels</h1>
-<h2 data-number="2.1" id="sec:définition"><span class="header-section-number">2.1</span> Définition</h2>
-<h2 data-number="2.2" id="sec:complexité-en-nombre-dappels"><span class="header-section-number">2.2</span> Complexité en nombre d’appels</h2>
-<h2 data-number="2.3" id="sec:terminaison"><span class="header-section-number">2.3</span> Terminaison</h2>
-<h1 data-number="3" id="sec:récursivité-terminale"><span class="header-section-number">3</span> Récursivité terminale</h1>
-<h2 data-number="3.1" id="sec:présentation"><span class="header-section-number">3.1</span> Présentation</h2>
-<h2 data-number="3.2" id="sec:optimisation"><span class="header-section-number">3.2</span> Optimisation</h2>
-<h2 data-number="3.3" id="sec:techniques"><span class="header-section-number">3.3</span> Techniques</h2>
-<h1 data-number="4" id="sec:types-inductifs-et-induction-structurelle"><span class="header-section-number">4</span> Types inductifs et induction structurelle</h1>
-<h2 data-number="4.1" id="sec:définition-naïve-des-types-inductifs"><span class="header-section-number">4.1</span> Définition naïve des types inductifs</h2>
+<p>Cela permet d’être sûr qu’on ne va pas s’arrêter indéfiniment. On
+verra dans la suite comment on peut s’en assurer pour des fonctions plus
+complexes.</p>
+<p>Quand on évalue <code>fact 5</code> on va effectuer une série
+d’appels :</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/rec_appels_f5.png" /></div></center></p>
+<p>Pour calculer la valeur il faut descendre le long des appels
+récursifs jusqu’à tomber sur un cas de base puis remonter.</p>
+<h2 data-number="1.2" id="sec:implémentation-pratique"><span
+class="header-section-number">1.2</span> Implémentation pratique</h2>
+<p>Comme on vient de le voir, pour calculer une valeur avec une fonction
+récursive, il est nécessaire de remonter. Pour cela, on a besoin
+d’interrompre l’évaluation d’une fonction le temps que l’appel récursif
+se termine, puis de revenir dans l’évaluation là où on en était. On
+parle alors de contexte d’évaluation ou contexte d’exécution pour
+l’information qu’il faut sauvegarder afin de reprendre là où on en
+était. En première approximation, on peut se dire qu’un contexte est la
+donnée de la position de l’instruction courante, ou de la
+sous-expression en train d’être évaluée si on raisonne en fonctionnel,
+ainsi que de l’ensemble des valeurs des variables locales. Il est donc
+nécessaire de sauvegarder la succession des contextes tout au long des
+appels récursifs.</p>
+<p>On remarque que ce mécanisme est déjà présent pour n’importe quel
+appel de fonction. La différence principale avec la récursivité, c’est
+que le nombre d’appels imbriqués à tout moment du programme n’est pas
+borné à priori, il dépend des paramètres récursifs, et donc il ne peut
+être connu qu’à l’exécution. On a ainsi besoin d’un mécanisme qui
+permettent de stocker un nombre quelconque de contextes.</p>
+<p>Pour cela, on passe par ce qu’on appelle la pile d’appels. On verra
+plus tard qu’elle peut être organisée de manière très efficace pour des
+programmes binaires, mais pour le moment, on se contente d’imaginer que
+cette pile est vide au début de l’evaluation, puis, à chaque appel, on
+<strong>empile</strong> le contexte courant, on exécute l’appel, une
+fois la valeur de retour obtenue, on <strong>dépile</strong> le contexte
+pour reprendre l’exécution là où on en était avant l’appel mais avec
+cette valeur de retour calculée.</p>
+<h2 data-number="1.3" id="sec:programmer-en-récursif"><span
+class="header-section-number">1.3</span> Programmer en récursif</h2>
+<h2 data-number="1.4" id="sec:récursivité-croisée"><span
+class="header-section-number">1.4</span> Récursivité croisée</h2>
+<h1 data-number="2" id="sec:larbre-dappels"><span
+class="header-section-number">2</span> L’arbre d’appels</h1>
+<h2 data-number="2.1" id="sec:définition"><span
+class="header-section-number">2.1</span> Définition</h2>
+<h2 data-number="2.2" id="sec:complexité-en-nombre-dappels"><span
+class="header-section-number">2.2</span> Complexité en nombre
+d’appels</h2>
+<h2 data-number="2.3" id="sec:terminaison"><span
+class="header-section-number">2.3</span> Terminaison</h2>
+<h1 data-number="3" id="sec:récursivité-terminale"><span
+class="header-section-number">3</span> Récursivité terminale</h1>
+<h2 data-number="3.1" id="sec:présentation"><span
+class="header-section-number">3.1</span> Présentation</h2>
+<h2 data-number="3.2" id="sec:optimisation"><span
+class="header-section-number">3.2</span> Optimisation</h2>
+<h2 data-number="3.3" id="sec:techniques"><span
+class="header-section-number">3.3</span> Techniques</h2>
+<h1 data-number="4"
+id="sec:types-inductifs-et-induction-structurelle"><span
+class="header-section-number">4</span> Types inductifs et induction
+structurelle</h1>
+<h2 data-number="4.1"
+id="sec:définition-naïve-des-types-inductifs"><span
+class="header-section-number">4.1</span> Définition naïve des types
+inductifs</h2>
 </div>
 <!-- </div> -->
 </div>
