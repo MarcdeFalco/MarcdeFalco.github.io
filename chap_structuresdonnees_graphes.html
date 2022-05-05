@@ -1218,8 +1218,8 @@ Question
 <p>On va utiliser le type suivant permettant de représenter le graphe par listes d’adjacence :</p>
 <p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb33-1"><a href="#cb33-1"></a><span class="kw">type</span> graphe = {</span>
-<span id="cb33-2"><a href="#cb33-2"></a>    vtx : <span class="dt">string</span> <span class="dt">array</span>;</span>
-<span id="cb33-3"><a href="#cb33-3"></a>    edges : <span class="dt">int</span> <span class="dt">list</span> <span class="dt">array</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a>    sommets : <span class="dt">string</span> <span class="dt">array</span>;</span>
+<span id="cb33-3"><a href="#cb33-3"></a>    aretes : <span class="dt">int</span> <span class="dt">list</span> <span class="dt">array</span></span>
 <span id="cb33-4"><a href="#cb33-4"></a>}</span></code></pre></div>
 <p></div></p>
 <p>Pour lire le graphe depuis le fichier, le plus simple est de le rediriger sur l’entrée standard (<em>Rappel</em> <code>./monprogramme &lt; monfichier</code>) et d’utiliser les deux fonctions suivantes :</p>
@@ -1238,6 +1238,7 @@ Question
 Question
 </div>
 <p>Écrire une fonction <code>read_graphe : unit -&gt; graphe</code> qui lit un graphe dans le format précédent sur l’entrée standard et tester que vous arrivez à lire le fichier.</p>
+<p>Un graphe minimaliste de 3 sommets et 4 arêtes est donné dans le fichier <a href="assets/data/test.graph">test.graph</a> afin de vous permettre de tester votre fonction.</p>
 </div>
 <p>Si <span class="math inline">\(G = (S,A)\)</span> est un graphe dont les sommets sont énumérées <span class="math inline">\(S = \{ s_0, s_1, \dots, s_{n-1} \}\)</span>, on note, pour <span class="math inline">\(p \le n\)</span>, <span class="math inline">\(G_p\)</span> le sous-graphe induit par <span class="math inline">\(\{ s_0, \dots, s_{p-1} \}\)</span>.</p>
 <div class="ui message blue">
@@ -1322,36 +1323,40 @@ Question
 <ul>
 <li><strong><span class="math inline">\(\mathcal{G}_{500}\)</span></strong> :</li>
 </ul>
-<pre><code>degré max 3
-degré moyen 0.230000
-max_accessibles helloselyn avec 6 sommets
-Diamètre 4 réalisé par :
-helloselyn -&gt; irenecourtin -&gt; hypothesesorg -&gt; ScienceFactor -&gt; savantures</code></pre>
+<pre><code>degré max 10
+degré moyen 0.430000
+max_accessibles Mishkalashnikov avec 16 sommets
+Diamètre 7 réalisé par :
+Isaac__K -&gt; naxonlabs -&gt; faezeh_db -&gt; MooreInst -&gt; 
+    fath_gabrielle -&gt; hypothesesorg -&gt; ScienceFactor -&gt; savantures</code></pre>
 <ul>
 <li><strong><span class="math inline">\(rev(\mathcal{G}_{500})\)</span></strong> :</li>
 </ul>
-<pre><code>degré max 11
-degré moyen 0.230000
-max_accessibles savantures avec 19 sommets
-Diamètre 4 réalisé par :
-savantures -&gt; ScienceFactor -&gt; hypothesesorg -&gt; irenecourtin -&gt; helloselyn</code></pre>
+<pre><code>degré max 31
+degré moyen 0.430000
+max_accessibles savantures avec 76 sommets
+Diamètre 7 réalisé par :
+savantures -&gt; ScienceFactor -&gt; hypothesesorg -&gt; 
+    fath_gabrielle -&gt; MooreInst -&gt; faezeh_db -&gt; naxonlabs -&gt; Isaac__K</code></pre>
 <ul>
 <li><strong><span class="math inline">\(\mathcal{G}_{500}^-\)</span></strong> :</li>
 </ul>
-<pre><code>degré max 2
-degré moyen 0.080000
-max_accessibles NeoVirTech avec 3 sommets
-Diamètre 2 réalisé par :
-NeoVirTech -&gt; stphanie_e -&gt; Lucia_amurri</code></pre>
+<pre><code>degré max 4
+degré moyen 0.176000
+max_accessibles SeverineWozniak avec 8 sommets
+Diamètre 4 réalisé par :
+QLMB8mars -&gt; giu_sapio -&gt; louise_tbr -&gt; GroupeImpec -&gt; halfbloodqueenx</code></pre>
 <ul>
 <li><strong><span class="math inline">\(\mathcal{G}_{500}^+\)</span></strong> :</li>
 </ul>
-<pre><code>degré max 12
-degré moyen 0.380000
-max_accessibles helloselyn avec 20 sommets
-Diamètre 5 réalisé par :
-helloselyn -&gt; irenecourtin -&gt; hypothesesorg -&gt; louise_tbr -&gt; 
-    savantures -&gt; frvaillant1</code></pre>
+<pre><code>degré max 32
+degré moyen 0.684000
+max_accessibles helloselyn avec 98 sommets
+Diamètre 12 réalisé par :
+TsamiyahL -&gt; FES_AFNEUS -&gt; FlorestanAFNEUS -&gt; FedeAddiction -&gt; 
+    LS46151053 -&gt; hypothesesorg -&gt; Osec2022 -&gt; ardakaniz -&gt; 
+    ValRobert974 -&gt; DialloAIbrahim2 -&gt; Defense137 -&gt; KArthemis -&gt; 
+    SGF_GEOSOC</code></pre>
 <ul>
 <li><strong><span class="math inline">\(\mathcal{G}\)</span></strong> :</li>
 </ul>
