@@ -308,7 +308,7 @@ table td {
     </a>
     </div>
 <!-- FIX TOC -->
-<div class="item header"> <a href="#sec:la-récursivité"><span>1</span> La récursivité</a><div class="menu"><a class="item" href="#sec:principe-et-exemples"><div class="ui label">1.1</div> Principe et exemples</a><a class="item" href="#sec:implémentation-pratique"><div class="ui label">1.2</div> Implémentation pratique</a><a class="item" href="#sec:programmer-en-récursif"><div class="ui label">1.3</div> Programmer en récursif</a><a class="item" href="#sec:récursivité-croisée"><div class="ui label">1.4</div> Récursivité croisée</a></div></div><div class="item header"> <a href="#sec:larbre-dappels"><span>2</span> L’arbre d’appels</a><div class="menu"><a class="item" href="#sec:définition"><div class="ui label">2.1</div> Définition</a><a class="item" href="#sec:complexité-en-nombre-dappels"><div class="ui label">2.2</div> Complexité en nombre d’appels</a><a class="item" href="#sec:terminaison"><div class="ui label">2.3</div> Terminaison</a></div></div><div class="item header"> <a href="#sec:récursivité-terminale"><span>3</span> Récursivité terminale</a><div class="menu"><a class="item" href="#sec:présentation"><div class="ui label">3.1</div> Présentation</a><a class="item" href="#sec:optimisation"><div class="ui label">3.2</div> Optimisation</a><a class="item" href="#sec:techniques"><div class="ui label">3.3</div> Techniques</a></div></div><div class="item header"> <a href="#sec:types-inductifs-et-induction-structurelle"><span>4</span> Types inductifs et induction structurelle</a><div class="menu"><a class="item" href="#sec:définition-naïve-des-types-inductifs"><div class="ui label">4.1</div> Définition naïve des types inductifs</a></div></div><!-- FIX TOC -->
+<div class="item header"> <a href="#sec:la-récursivité"><span>1</span> La récursivité</a><div class="menu"><a class="item" href="#sec:principe-et-exemples"><div class="ui label">1.1</div> Principe et exemples</a><a class="item" href="#sec:implémentation-pratique"><div class="ui label">1.2</div> Implémentation pratique</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:que-se-passe-t-il-quand-on-appelle-une-fonction"><i class="circle icon"></i> Que se passe-t-il quand on appelle une fonction ?</a><a style="font-size:0.6em" class="item" href="#sec:un-exemple"><i class="circle icon"></i> Un exemple</a><a style="font-size:0.6em" class="item" href="#sec:pour-une-fonction-récursive"><i class="circle icon"></i> Pour une fonction récursive</a></div><a class="item" href="#sec:programmer-en-récursif"><div class="ui label">1.3</div> Programmer en récursif</a><a class="item" href="#sec:récursivité-croisée"><div class="ui label">1.4</div> Récursivité croisée</a></div></div><div class="item header"> <a href="#sec:larbre-dappels"><span>2</span> L’arbre d’appels</a><div class="menu"><a class="item" href="#sec:définition"><div class="ui label">2.1</div> Définition</a><a class="item" href="#sec:complexité-en-nombre-dappels"><div class="ui label">2.2</div> Complexité en nombre d’appels</a><a class="item" href="#sec:terminaison"><div class="ui label">2.3</div> Terminaison</a></div></div><div class="item header"> <a href="#sec:récursivité-terminale"><span>3</span> Récursivité terminale</a><div class="menu"><a class="item" href="#sec:présentation"><div class="ui label">3.1</div> Présentation</a><a class="item" href="#sec:optimisation"><div class="ui label">3.2</div> Optimisation</a><a class="item" href="#sec:techniques"><div class="ui label">3.3</div> Techniques</a></div></div><div class="item header"> <a href="#sec:types-inductifs-et-induction-structurelle"><span>4</span> Types inductifs et induction structurelle</a><div class="menu"><a class="item" href="#sec:définition-naïve-des-types-inductifs"><div class="ui label">4.1</div> Définition naïve des types inductifs</a></div></div><!-- FIX TOC -->
 </div>
 
 <div class="pusher" id="main-content">
@@ -343,13 +343,13 @@ elle-même lors de son exécution. Le plus souvent, cet appel sera
 directement visible depuis le corps de la fonction.</p>
 <p>Par exemple, la fonction <code>fact</code> suivante permettant de
 calculer <span class="math inline">\(n!\)</span> est récursive :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-41">ocaml</a>   <a class="item" data-tab="c-41">c</a>   <a class="item" data-tab="python-41">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-41"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-49">ocaml</a>   <a class="item" data-tab="c-49">c</a>   <a class="item" data-tab="python-49">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-49"></p>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> fact n =</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> n = <span class="dv">0</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> <span class="dv">1</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> n * fact (n<span class="dv">-1</span>)</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-41"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-49"></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> fact<span class="op">(</span><span class="dt">int</span> n<span class="op">)</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>n <span class="op">==</span> <span class="dv">0</span><span class="op">)</span></span>
@@ -361,7 +361,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> n <span class="op">*</span> fact<span class="op">(</span>n<span class="op">-</span><span class="dv">1</span><span class="op">);</span></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-41"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-49"></p>
 <div class="sourceCode" id="cb3"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fact(n):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
@@ -403,32 +403,148 @@ src="assets/pics/rec_appels_f5.png" /></div></center></p>
 récursifs jusqu’à tomber sur un cas de base puis remonter.</p>
 <h2 data-number="1.2" id="sec:implémentation-pratique"><span
 class="header-section-number">1.2</span> Implémentation pratique</h2>
-<p>Comme on vient de le voir, pour calculer une valeur avec une fonction
-récursive, il est nécessaire de remonter. Pour cela, on a besoin
-d’interrompre l’évaluation d’une fonction le temps que l’appel récursif
-se termine, puis de revenir dans l’évaluation là où on en était. On
-parle alors de contexte d’évaluation ou contexte d’exécution pour
-l’information qu’il faut sauvegarder afin de reprendre là où on en
-était. En première approximation, on peut se dire qu’un contexte est la
-donnée de la position de l’instruction courante, ou de la
-sous-expression en train d’être évaluée si on raisonne en fonctionnel,
-ainsi que de l’ensemble des valeurs des variables locales. Il est donc
-nécessaire de sauvegarder la succession des contextes tout au long des
-appels récursifs.</p>
-<p>On remarque que ce mécanisme est déjà présent pour n’importe quel
-appel de fonction. La différence principale avec la récursivité, c’est
-que le nombre d’appels imbriqués à tout moment du programme n’est pas
-borné à priori, il dépend des paramètres récursifs, et donc il ne peut
-être connu qu’à l’exécution. On a ainsi besoin d’un mécanisme qui
-permettent de stocker un nombre quelconque de contextes.</p>
-<p>Pour cela, on passe par ce qu’on appelle la pile d’appels. On verra
-plus tard qu’elle peut être organisée de manière très efficace pour des
-programmes binaires, mais pour le moment, on se contente d’imaginer que
-cette pile est vide au début de l’evaluation, puis, à chaque appel, on
-<strong>empile</strong> le contexte courant, on exécute l’appel, une
-fois la valeur de retour obtenue, on <strong>dépile</strong> le contexte
-pour reprendre l’exécution là où on en était avant l’appel mais avec
-cette valeur de retour calculée.</p>
+<h3 data-number="1.2.1"
+id="sec:que-se-passe-t-il-quand-on-appelle-une-fonction"><span
+class="header-section-number">1.2.1</span> Que se passe-t-il quand on
+appelle une fonction ?</h3>
+<p>Le principe de définition et d’appels de fonctions est à la base de
+la programmation structurée : au lieu d’avoir une longue succession
+d’instructions ou d’expressions, on les regroupe au sein de fonction
+pour s’organiser. Cela permet également de <em>factoriser</em> du code :
+au lieu de dupliquer, on regroupe le même code au sein d’une
+fonction.</p>
+<p>La question qu’on se pose ici est celle du mécanisme permettant une
+telle exécution du code. On pourrait naïvement penser qu’appeler une
+fonction serait absolument équivalent à copier son corps :</p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">def</span> f(x):</span>
+<span id="cb4-2"><a href="#cb4-2"></a>    y <span class="op">=</span> x <span class="op">*</span> x</span>
+<span id="cb4-3"><a href="#cb4-3"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a>a <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>b <span class="op">=</span> f(a)</span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="bu">print</span>(b)</span></code></pre></div>
+<p></div></p>
+<p></div><div class="eight wide column"></p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>a <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="co"># Début de f</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>x <span class="op">=</span> a</span>
+<span id="cb5-4"><a href="#cb5-4"></a>y <span class="op">=</span> x <span class="op">*</span> x</span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co"># Fin de f et valeur de retour</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>b <span class="op">=</span> x <span class="op">+</span> y</span></code></pre></div>
+<p></div></p>
+<p></div></div></div></p>
+<p>Au début de l’informatique, c’était effectivement la manière dont on
+appelait les fonctions. Mais on peut se rendre compte facilement du
+problème en changeant noms de variables :</p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">def</span> f(x):</span>
+<span id="cb6-2"><a href="#cb6-2"></a>    a <span class="op">=</span> x <span class="op">*</span> x</span>
+<span id="cb6-3"><a href="#cb6-3"></a>    <span class="cf">return</span> x <span class="op">+</span> a</span>
+<span id="cb6-4"><a href="#cb6-4"></a></span>
+<span id="cb6-5"><a href="#cb6-5"></a>a <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>b <span class="op">=</span> f(a)</span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="bu">print</span>(b)</span></code></pre></div>
+<p></div></p>
+<p></div><div class="eight wide column"></p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>a <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="co"># Début de f</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>x <span class="op">=</span> a</span>
+<span id="cb7-4"><a href="#cb7-4"></a>a <span class="op">=</span> x <span class="op">*</span> x</span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="co"># Fin de f et valeur de retour</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>b <span class="op">=</span> x <span class="op">+</span> a</span></code></pre></div>
+<p></div></p>
+<p></div></div></div></p>
+<p>Ici, l’appel de la fonction a changé la valeur de <code>a</code> car
+<code>a</code> était aussi une variable définie dans <code>f</code>. Il
+est nécessaire d’avoir un mécanisme sophistiqué permettant de
+sauvegarder le contexte d’exécution d’une fonction et de le restaurer
+quand l’appel à une fonction est terminé.</p>
+<p>Comme les fonctions vont elles-mêmes appelés d’autres fonctions, on
+ne peut pas se contenter de ne garder qu’un seul contexte. La bonne
+solution est d’utiliser ce qu’on appelle une <strong>pile
+d’exécution</strong>. Avant d’évaluer une fonction, on empile son
+contexte sur la pile, quand elle a terminé, on le dépile. On reverra
+plus tard la structure de donnée <strong>pile</strong> mais, pour le
+moment, on peut se l’imaginer comme une pile d’assiettes à laver : au
+départ, elle est vide. Chaque fois qu’on empile une assiette, elle
+grandit. Quand on veut laver une assiette, on prend nécessairement la
+dernière assiette empilée.</p>
+<h3 data-number="1.2.2" id="sec:un-exemple"><span
+class="header-section-number">1.2.2</span> Un exemple</h3>
+<p>Si on considère le programme :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">def</span> f():</span>
+<span id="cb8-2"><a href="#cb8-2"></a>    <span class="cf">return</span> <span class="dv">4</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="kw">def</span> g(x):</span>
+<span id="cb8-5"><a href="#cb8-5"></a>    v <span class="op">=</span> x<span class="op">+</span>f()</span>
+<span id="cb8-6"><a href="#cb8-6"></a>    <span class="cf">return</span> v</span>
+<span id="cb8-7"><a href="#cb8-7"></a></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="kw">def</span> h(x):</span>
+<span id="cb8-9"><a href="#cb8-9"></a>    v <span class="op">=</span> g(x<span class="op">+</span><span class="dv">1</span>) <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a>    <span class="cf">return</span> v</span>
+<span id="cb8-11"><a href="#cb8-11"></a></span>
+<span id="cb8-12"><a href="#cb8-12"></a>h(<span class="dv">3</span>)</span></code></pre></div>
+<p></div></p>
+<p>Il va s’exécuter ainsi :</p>
+<ul>
+<li><p>Au départ le pile d’exécution est vide :
+<center><div class="ui image center"><img
+src="assets/pics/pile_ex1.png" /></div></center></p></li>
+<li><p>Ligne 12 : on appelle <code>h</code>, on crée donc sur la pile
+une entrée pour <code>h</code>.
+<center><div class="ui image center"><img
+src="assets/pics/pile_ex2.png" /></div></center></p></li>
+<li><p>Ligne 9 : on appelle <code>g</code> depuis <code>h</code>, on
+crée donc sur la pile une entrée pour <code>g</code>. On remarque
+notamment que <span class="math inline">\(x\)</span> n’aura pas le même
+sens et la même valeur dans <code>g</code> que dans <code>h</code>.
+<center><div class="ui image center"><img
+src="assets/pics/pile_ex3.png" /></div></center></p></li>
+<li><p>Ligne 5 : on appelle <code>f</code>, on crée donc sur la pile une
+entrée pour <code>f</code>. <center><div class="ui image center"><img
+src="assets/pics/pile_ex4.png" /></div></center></p></li>
+<li><p>Ligne 2 : on sort de <code>f</code> en renvoyant la valeur 4. On
+dépile ainsi l’environnement de <code>f</code>.
+<center><div class="ui image center"><img
+src="assets/pics/pile_ex5.png" /></div></center></p></li>
+<li><p>Ligne 5 : l’environnement de <code>g</code> est modifié par la
+valeur de retour de <code>f</code> qui introduit une variable
+<code>v</code>. <center><div class="ui image center"><img
+src="assets/pics/pile_ex6.png" /></div></center></p></li>
+<li><p>Ligne 6 : on sort de <code>g</code> en renvoyant la valeur 8. On
+dépile ainsi l’environnement de <code>g</code>.
+<center><div class="ui image center"><img
+src="assets/pics/pile_ex7.png" /></div></center></p></li>
+<li><p>Ligne 9 : on définit une variable <code>v</code> locale à
+<code>h</code> avec la valeur de retour de <code>g</code> :
+<center><div class="ui image center"><img
+src="assets/pics/pile_ex8.png" /></div></center></p></li>
+<li><p>Ligne 10 : l’appel de <code>h</code> est fini, on le
+dépile.</p></li>
+<li><p>Ligne 12 : on a recupéré la valeur de retour 64, on l’affiche
+avec un appel à <code>print</code> (qui sera aussi empilé).</p></li>
+</ul>
+<h3 data-number="1.2.3" id="sec:pour-une-fonction-récursive"><span
+class="header-section-number">1.2.3</span> Pour une fonction
+récursive</h3>
+<p>Le mécanisme mis en place est suffisament robuste pour permettre à
+une fonction de s’appeler elle-même. En effet, le fait d’avoir bien
+separé les environnements d’exécution assure qu’il n’y aura pas de
+problèmes.</p>
+<p>Si on reprend l’exemple vu au dessus de l’évaluation de <span
+class="math inline">\(5!\)</span>, on remarque que lorsqu’on descend le
+long des appels, on empile, et lorsqu’on remonte, on dépile.</p>
 <h2 data-number="1.3" id="sec:programmer-en-récursif"><span
 class="header-section-number">1.3</span> Programmer en récursif</h2>
 <h2 data-number="1.4" id="sec:récursivité-croisée"><span
