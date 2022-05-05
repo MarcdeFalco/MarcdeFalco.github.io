@@ -1218,8 +1218,8 @@ Question
 <p>On va utiliser le type suivant permettant de représenter le graphe par listes d’adjacence :</p>
 <p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb33-1"><a href="#cb33-1"></a><span class="kw">type</span> graphe = {</span>
-<span id="cb33-2"><a href="#cb33-2"></a>    vtx = <span class="dt">string</span> <span class="dt">array</span>;</span>
-<span id="cb33-3"><a href="#cb33-3"></a>    edges = <span class="dt">int</span> <span class="dt">list</span> <span class="dt">array</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a>    vtx : <span class="dt">string</span> <span class="dt">array</span>;</span>
+<span id="cb33-3"><a href="#cb33-3"></a>    edges : <span class="dt">int</span> <span class="dt">list</span> <span class="dt">array</span></span>
 <span id="cb33-4"><a href="#cb33-4"></a>}</span></code></pre></div>
 <p></div></p>
 <p>Pour lire le graphe depuis le fichier, le plus simple est de le rediriger sur l’entrée standard (<em>Rappel</em> <code>./monprogramme &lt; monfichier</code>) et d’utiliser les deux fonctions suivantes :</p>
