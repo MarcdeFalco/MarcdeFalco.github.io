@@ -449,14 +449,14 @@ Exemple
 \]</span></p>
 </div>
 <p>On en déduit ainsi une implémentation directe d’un graphe en représentant la matrice d’adjacence comme l’a fait pour des images.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="python-88">python</a>   <a class="item" data-tab="c-88">c</a>   <a class="item" data-tab="ocaml-88">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="python-88"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="python-89">python</a>   <a class="item" data-tab="c-89">c</a>   <a class="item" data-tab="ocaml-89">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="python-89"></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> [ [ <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span> ],</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>      [ <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span> ],</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>      [ <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span> ],</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      [ <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span> ] ]</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-88"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-89"></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-88"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-89"></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> m = [| [| <span class="dv">0</span>; <span class="dv">1</span>; <span class="dv">1</span>; <span class="dv">1</span> |];</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>           [| <span class="dv">1</span>; <span class="dv">0</span>; <span class="dv">0</span>; <span class="dv">1</span> |];</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>           [| <span class="dv">0</span>; <span class="dv">0</span>; <span class="dv">0</span>; <span class="dv">1</span> |];</span>
@@ -1229,7 +1229,7 @@ Question
 </ul>
 <p>Alternativement, on peut lire le graphe depuis un fichier avec :</p>
 <ul>
-<li><code>open_int : string -&gt; in_channel</code> qui crée un descripteur de fichier en lecture pour le nom de fichier passé en paramètre</li>
+<li><code>open_in : string -&gt; in_channel</code> qui crée un descripteur de fichier en lecture pour le nom de fichier passé en paramètre</li>
 <li><code>input_line : in_channel -&gt; string</code> qui lit une ligne dans le descripteur et la renvoie sans le saut de ligne</li>
 <li><code>int_of_string : string -&gt; int</code> qui convertit une chaîne contenant un entier en entier.</li>
 </ul>
