@@ -464,7 +464,8 @@ Exemple
 <p></div> </div></p>
 <p><div class="ui message orange"><div class="header">Remarque</div>Il y a le même lien entre les différentes matrices d’adjacence d’un graphe donnée et la matrice d’un endomorphisme dans les différentes permutations d’une même base, à chaque fois on obtient la nouvelle matrice en permutant de même ses lignes et ses colonnes.</div></p>
 <p>Cette représentation permet d’accéder, en lecture comme en écriture, à une arête en temps constant. Cependant, pour récupérer les voisins d’un sommet, il est nécessaire de parcourir toute la ligne correspondante, donc en <span class="math inline">\(O(|S|)\)</span>.</p>
-<p><div class="ui message orange"><div class="header">Remarque</div>Dans la majorité des cas, <span class="math inline">\(A\)</span> est petit par rapport à <span class="math inline">\(|S|^2\)</span>. Ainsi, la matrice contient très peu de 1 et beaucoup de 0, on dit qu’elle est <em>creuse</em>. Une telle matrice <em>creuse</em> peut-être efficacement représenté par l’ensemble fini des arêtes <span class="math inline">\((i,j)\)</span>. Par exemple, avec une table de hachage. Cependant, dans le cas des graphes, il est possible d’avoir une structure creuse plus efficace.</div></p>
+<p><div class="ui message orange"><div class="header">Remarque</div>Dans la majorité des cas, <span class="math inline">\(A\)</span> est petit par rapport à <span class="math inline">\(|S|^2\)</span>. Ainsi, la matrice contient très peu de 1 et beaucoup de 0, on dit qu’elle est <em>creuse</em>. Une telle matrice <em>creuse</em> peut-être efficacement représenté par l’ensemble fini des arêtes <span class="math inline">\((i,j)\)</span>. Par exemple, avec une table de hachage. Cependant, dans le cas des graphes, il est possible d’avoir une structure creuse plus efficace.</p>
+<p>A titre d’exemple, un graphe issu d’un réseau social est présenté plus bas, il contient <span class="math inline">\(300 000\)</span> arêtes pour <span class="math inline">\(8 000\)</span> sommets. Donc le rapport <span class="math inline">\(|A|/|S|^2\)</span> est de 4 pour 1000 !</div></p>
 <h3 data-number="1.5.3" id="sec:listes-dadjacences"><span class="header-section-number">1.5.3</span> Listes d’adjacences</h3>
 <p>La donnée de <span class="math inline">\(v_+(x)\)</span> pour chaque sommet <span class="math inline">\(x \in S\)</span> suffit à reconstruire <span class="math inline">\(A\)</span>.</p>
 <div class="ui message blue">
@@ -885,6 +886,19 @@ Entrée(s)
 </ul>
 <p><div class="ui message"><div class="header">Définition</div> Un sac avec une stratégie LIFO est appelé une <strong>pile</strong>.</p>
 <p>Un sac avec une stratégie FIFO est appelé une <strong>file</strong>. </div></p>
+<div class="ui message blue">
+<div class="header">
+Exemple
+</div>
+<p>Si on considère le graphe suivant :</p>
+<p><center><div class="ui image center"><img src="assets/pics/quelex.png" /></div></center></p>
+<p>En effectuant un parcours quelconque issu de <span class="math inline">\(a\)</span> :</p>
+<ul>
+<li>en stratégie LIFO, on va voir les sommets dans l’ordre <span class="math inline">\(a, b, e, c, f, d, g\)</span>.</li>
+<li>en stratégie FIFO, on va voir les sommets dans l’ordre <span class="math inline">\(a, b, c, d, e, f, g\)</span></li>
+<li>en stratégie aléatoire, on pourrait avoir <span class="math inline">\(a, b, c, e, d, f, g\)</span></li>
+</ul>
+</div>
 <p>Une manière de <em>voir</em> ces trois différentes stratégies est de considérer une grille et de colorer les sommets marqués avec une couleur changeant à chaque marquage. On peut voir dans l’ordre LIFO, FIFO, aléatoire l’effet de ces trois stratégies en partant du même point sur l’animation suivante :</p>
 <p><img src="assets/pics/flood_fill_sac3.gif" /></p>
 <p><div class="ui message orange"><div class="header">Remarque</div>La stratégie LIFO semble <em>bornée</em> : elle choisit un cap et elle s’y tient tant que c’est possible. La stratégie FIFO va elle s’étendre comme une onde partant du point de départ. De manière assez étonnante, la stratégie aléatoire semble être une bonne approximation de la stratégie FIFO, ce qui montre le caractère exceptionnel du LIFO.</div></p>
@@ -919,8 +933,7 @@ Entrée(s)
 <li>les voisins des voisins de <span class="math inline">\(src\)</span></li>
 <li><span class="math inline">\(\dots\)</span></li>
 </ul>
-<p>On remarque donc que les chemins qu’on peut en déduire sont de longueur minimale. Mais pour pouvoir parler de chemins, il est nécessaire d’introduire une notion de parenté. Pour cela, on modifie le parcours <em>quelconque</em><br />
-pour un déduire un parcours quelconque qui a l’air a priori d’être <em>optimisé</em>.</p>
+<p>Pour pouvoir parler de chemins, il est nécessaire d’introduire une notion de parenté. Pour cela, on modifie le parcours <em>quelconque</em> pour en déduire un parcours quelconque qui a l’air a priori d’être <em>optimisé</em>.</p>
 <div class="ui message gray">
 <div class="header">
 Algorithme - parcours quelconque <em>optimisé</em>
@@ -953,6 +966,18 @@ Entrée(s)
 </ul></li>
 </ul>
 </div>
+<div class="ui message blue">
+<div class="header">
+Exemple
+</div>
+<p>On va reprendre l’exemple précédent</p>
+<p><img src="assets/pics/quelex.png" /></p>
+<p>On obtient avec un parcours en largeur le schéma suivant :</p>
+<p><center><div class="ui image center"><img src="assets/pics/quelexlargeur.png" /></div></center></p>
+<p>où on a noté les arêtes de parenté ainsi que d’une même couleur les éléments à égale distance de <span class="math inline">\(a\)</span> dans le parcours en largeur.</p>
+<p>On remarque qu’on a obtenu le chemin <span class="math inline">\(a \rightarrow c \rightarrow f\)</span> là où un parcours en profondeur aurait pu donner le chemin plus long <span class="math inline">\(a \rightarrow d \rightarrow g \rightarrow f\)</span>.</p>
+</div>
+<p>Comme semble le suggérer l’exemple précédent, on peut démontrer le théorème suivant :</p>
 <div class="ui message olive">
 <div class="header">
 Théorème
