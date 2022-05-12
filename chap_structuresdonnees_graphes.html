@@ -2445,6 +2445,7 @@ GabrielMarseres -&gt; caroched -&gt; MarieMoroso -&gt; L3vironaute -&gt; najatvb
 <div class="sourceCode" id="cb80"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb80-1"><a href="#cb80-1"></a><span class="kw">type</span> graph = (<span class="dt">int</span> * <span class="dt">int</span>) <span class="dt">list</span> <span class="dt">array</span></span></code></pre></div>
 <p></div></p>
 <p>Pour un sommet <span class="math inline">\(x\)</span> on a donc une liste de couples <span class="math inline">\((y,w)\)</span> où pour chaque arête <span class="math inline">\(x \rightarrow y\)</span> avec <span class="math inline">\(\pi(x \rightarrow y) = w\)</span>.</p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
 <p>Ainsi, le graphe du premier exemple est donné par la valeur :</p>
 <p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb81"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb81-1"><a href="#cb81-1"></a><span class="kw">let</span> g = [|</span>
@@ -2456,6 +2457,10 @@ GabrielMarseres -&gt; caroched -&gt; MarieMoroso -&gt; L3vironaute -&gt; najatvb
 <span id="cb81-7"><a href="#cb81-7"></a>    [ (<span class="dv">0</span>, <span class="dv">14</span>); (<span class="dv">2</span>, <span class="dv">2</span>); (<span class="dv">4</span>, <span class="dv">9</span>) ]</span>
 <span id="cb81-8"><a href="#cb81-8"></a>|];</span></code></pre></div>
 <p></div></p>
+<p></div><div class="eight wide column"></p>
+<p>en renumérotant les sommets ainsi :</p>
+<p><img src="assets/pics/dijkstra_ex1_a0.png" /></p>
+<p></div></div></div></p>
 <h3 data-number="7.3.2" id="sec:réalisation-dune-file-de-min-priorité"><span class="header-section-number">7.3.2</span> Réalisation d’une file de min-priorité</h3>
 <p>Reprendre l’implémentation des files de priorité donnée dans le corrigé du TP18 (cliquez sur les liens dans les titres de parties) en faisant en sorte de gérer des couples <span class="math inline">\((sommet, distance)\)</span> et en faisant attention au fait que <em>distance</em> peut être <span class="math inline">\(\infty\)</span>. On pourra définir un <code>type poids = I | N of int</code>.</p>
 <p><strong>Attention</strong> il s’agit ici de file de priorité minimale !</p>
