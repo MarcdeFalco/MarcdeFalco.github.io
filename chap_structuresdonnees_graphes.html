@@ -2440,9 +2440,21 @@ GabrielMarseres -&gt; caroched -&gt; MarieMoroso -&gt; L3vironaute -&gt; najatvb
 <p>Si vous êtes courageux, foncez sans lire la suite ;-)</p>
 <h3 data-number="7.3.1" id="sec:écriture-naïve-de-dijkstra"><span class="header-section-number">7.3.1</span> Écriture naïve de Dijkstra</h3>
 <p>Écrire une implémentation de Dijkstra reposant sur une file de priorité inefficace, comme une liste de couples, pour effectuer la recherche du sommet de plus petite priorité.</p>
-<p>On considérera, comme pour les autres parcours que le graphe est donné sous la forme de listes d’adjacence mais cette fois, les listes devront comporter les poids. En supposant que <span class="math inline">\(S = \{ 0, 1, \dots, n-1 \}\)</span> on utilisera directement le type suivant :</p>
+<p>On considérera, comme pour les autres parcours que le graphe est donné sous la forme de listes d’adjacence mais cette fois, les listes devront comporter les poids. En supposant que <span class="math inline">\(S = \{ 0, 1, \dots, n-1 \}\)</span> on utilisera directement le type suivant en supposant des poids entiers :</p>
 <p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb80"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb80-1"><a href="#cb80-1"></a><span class="kw">type</span> graph = (<span class="dt">int</span> * <span class="dt">int</span>) <span class="dt">list</span> <span class="dt">array</span></span></code></pre></div>
+<p></div></p>
+<p>Pour un sommet <span class="math inline">\(x\)</span> on a donc une liste de couples <span class="math inline">\((y,w)\)</span> où pour chaque arête <span class="math inline">\(x \rightarrow y\)</span> avec <span class="math inline">\(\pi(x \rightarrow y) = w\)</span>.</p>
+<p>Ainsi, le graphe du premier exemple est donné par la valeur :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb81-1"><a href="#cb81-1"></a><span class="kw">let</span> g = [|</span>
+<span id="cb81-2"><a href="#cb81-2"></a>    [ (<span class="dv">1</span>, <span class="dv">7</span>); (<span class="dv">2</span>, <span class="dv">9</span>); (<span class="dv">5</span>, <span class="dv">14</span>) ];</span>
+<span id="cb81-3"><a href="#cb81-3"></a>    [ (<span class="dv">0</span>, <span class="dv">7</span>); (<span class="dv">2</span>, <span class="dv">10</span>); (<span class="dv">3</span>, <span class="dv">15</span>) ];</span>
+<span id="cb81-4"><a href="#cb81-4"></a>    [ (<span class="dv">0</span>, <span class="dv">9</span>); (<span class="dv">1</span>, <span class="dv">10</span>); (<span class="dv">3</span>, <span class="dv">11</span>); (<span class="dv">5</span>, <span class="dv">2</span>) ];</span>
+<span id="cb81-5"><a href="#cb81-5"></a>    [ (<span class="dv">1</span>, <span class="dv">15</span>); (<span class="dv">2</span>, <span class="dv">11</span>); (<span class="dv">4</span>, <span class="dv">6</span>) ];</span>
+<span id="cb81-6"><a href="#cb81-6"></a>    [ (<span class="dv">3</span>, <span class="dv">6</span>); (<span class="dv">5</span>, <span class="dv">9</span>) ];</span>
+<span id="cb81-7"><a href="#cb81-7"></a>    [ (<span class="dv">0</span>, <span class="dv">14</span>); (<span class="dv">2</span>, <span class="dv">2</span>); (<span class="dv">4</span>, <span class="dv">9</span>) ]</span>
+<span id="cb81-8"><a href="#cb81-8"></a>|];</span></code></pre></div>
 <p></div></p>
 <h3 data-number="7.3.2" id="sec:réalisation-dune-file-de-min-priorité"><span class="header-section-number">7.3.2</span> Réalisation d’une file de min-priorité</h3>
 <p>Reprendre l’implémentation des files de priorité donnée dans le corrigé du TP18 (cliquez sur les liens dans les titres de parties) en faisant en sorte de gérer des couples <span class="math inline">\((sommet, distance)\)</span> et en faisant attention au fait que <em>distance</em> peut être <span class="math inline">\(\infty\)</span>. On pourra définir un <code>type poids = I | N of int</code>.</p>
@@ -2454,8 +2466,8 @@ GabrielMarseres -&gt; caroched -&gt; MarieMoroso -&gt; L3vironaute -&gt; najatvb
 <h3 data-number="7.3.5" id="sec:problèmes"><span class="header-section-number">7.3.5</span> Problèmes</h3>
 <p>Résoudre les problèmes donnés au dessus. On pourra utiliser la fonction suivante en <code>OCaml</code> pour lire des entiers séparés par des espaces sur une ligne :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb81-1"><a href="#cb81-1"></a><span class="kw">let</span> read_int_list () =</span>
-<span id="cb81-2"><a href="#cb81-2"></a>    <span class="dt">List</span>.map <span class="dt">int_of_string</span> (<span class="dt">String</span>.split_on_char <span class="ch">&#39; &#39;</span> (<span class="dt">read_line</span> ()))</span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb82-1"><a href="#cb82-1"></a><span class="kw">let</span> read_int_list () =</span>
+<span id="cb82-2"><a href="#cb82-2"></a>    <span class="dt">List</span>.map <span class="dt">int_of_string</span> (<span class="dt">String</span>.split_on_char <span class="ch">&#39; &#39;</span> (<span class="dt">read_line</span> ()))</span></code></pre></div>
 <p></div></p>
 </div>
 <!-- </div> -->
