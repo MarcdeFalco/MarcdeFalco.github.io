@@ -2440,7 +2440,10 @@ GabrielMarseres -&gt; caroched -&gt; MarieMoroso -&gt; L3vironaute -&gt; najatvb
 <p>Si vous êtes courageux, foncez sans lire la suite ;-)</p>
 <h3 data-number="7.3.1" id="sec:écriture-naïve-de-dijkstra"><span class="header-section-number">7.3.1</span> Écriture naïve de Dijkstra</h3>
 <p>Écrire une implémentation de Dijkstra reposant sur une file de priorité inefficace, comme une liste de couples, pour effectuer la recherche du sommet de plus petite priorité.</p>
-<p>On considérera, comme pour les autres parcours que le graphe est donné sous la forme de listes d’adjacence.</p>
+<p>On considérera, comme pour les autres parcours que le graphe est donné sous la forme de listes d’adjacence mais cette fois, les listes devront comporter les poids. En supposant que <span class="math inline">\(S = \{ 0, 1, \dots, n-1 \}\)</span> on utilisera directement le type suivant :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb80-1"><a href="#cb80-1"></a><span class="kw">type</span> graph = (<span class="dt">int</span> * <span class="dt">int</span>) <span class="dt">list</span> <span class="dt">array</span></span></code></pre></div>
+<p></div></p>
 <h3 data-number="7.3.2" id="sec:réalisation-dune-file-de-min-priorité"><span class="header-section-number">7.3.2</span> Réalisation d’une file de min-priorité</h3>
 <p>Reprendre l’implémentation des files de priorité donnée dans le corrigé du TP18 (cliquez sur les liens dans les titres de parties) en faisant en sorte de gérer des couples <span class="math inline">\((sommet, distance)\)</span> et en faisant attention au fait que <em>distance</em> peut être <span class="math inline">\(\infty\)</span>. On pourra définir un <code>type poids = I | N of int</code>.</p>
 <p><strong>Attention</strong> il s’agit ici de file de priorité minimale !</p>
@@ -2451,8 +2454,8 @@ GabrielMarseres -&gt; caroched -&gt; MarieMoroso -&gt; L3vironaute -&gt; najatvb
 <h3 data-number="7.3.5" id="sec:problèmes"><span class="header-section-number">7.3.5</span> Problèmes</h3>
 <p>Résoudre les problèmes donnés au dessus. On pourra utiliser la fonction suivante en <code>OCaml</code> pour lire des entiers séparés par des espaces sur une ligne :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb80-1"><a href="#cb80-1"></a><span class="kw">let</span> read_int_list () =</span>
-<span id="cb80-2"><a href="#cb80-2"></a>    <span class="dt">List</span>.map <span class="dt">int_of_string</span> (<span class="dt">String</span>.split_on_char <span class="ch">&#39; &#39;</span> (<span class="dt">read_line</span> ()))</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb81-1"><a href="#cb81-1"></a><span class="kw">let</span> read_int_list () =</span>
+<span id="cb81-2"><a href="#cb81-2"></a>    <span class="dt">List</span>.map <span class="dt">int_of_string</span> (<span class="dt">String</span>.split_on_char <span class="ch">&#39; &#39;</span> (<span class="dt">read_line</span> ()))</span></code></pre></div>
 <p></div></p>
 </div>
 <!-- </div> -->
