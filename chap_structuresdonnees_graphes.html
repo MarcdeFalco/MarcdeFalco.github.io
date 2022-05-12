@@ -2511,7 +2511,7 @@ GabrielMarseres -&gt; caroched -&gt; MarieMoroso -&gt; L3vironaute -&gt; najatvb
 <p>Si vous êtes courageux, foncez sans lire la suite ;-)</p>
 <h3 data-number="7.3.1" id="sec:écriture-naïve-de-dijkstra"><span class="header-section-number">7.3.1</span> Écriture naïve de Dijkstra</h3>
 <p>Écrire une implémentation de Dijkstra reposant sur une référence sur une liste de sommets pour effectuer la recherche du sommet de plus petite priorité. On pourra s’inspirer du programme Python ci-dessus.</p>
-<p>On considérera, comme pour les autres parcours que le graphe est donné sous la forme de listes d’adjacence mais cette fois, les listes devront comporter les poids. En supposant que <span class="math inline">\(S = \{ 0, 1, \dots, n-1 \}\)</span> on utilisera directement le type suivant en supposant des poids entiers :</p>
+<p>On considérera, comme pour les autres parcours que le graphe est donné sous la forme de listes d’adjacence mais cette fois, les listes devront comporter les poids. En supposant que <span class="math inline">\(S = \{ 0, 1, \dots, n-1 \}\)</span> on utilisera directement le type suivant en supposant des poids entiers positifs :</p>
 <p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb81"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb81-1"><a href="#cb81-1"></a><span class="kw">type</span> graph = (<span class="dt">int</span> * <span class="dt">int</span>) <span class="dt">list</span> <span class="dt">array</span></span></code></pre></div>
 <p></div></p>
@@ -2532,8 +2532,9 @@ GabrielMarseres -&gt; caroched -&gt; MarieMoroso -&gt; L3vironaute -&gt; najatvb
 <p>en renumérotant les sommets ainsi :</p>
 <p><img src="assets/pics/dijkstra_ex1_a0.png" /></p>
 <p></div></div></div></p>
+<p>Pour le tableau des distances, on pourra définir un <code>type poids = I | N of int</code> ou considérer pour l’infini un entier plus grand que tous les poids de chemins, comme la somme des poids de toutes les arêtes plus 1.</p>
 <h3 data-number="7.3.2" id="sec:réalisation-dune-file-de-min-priorité"><span class="header-section-number">7.3.2</span> Réalisation d’une file de min-priorité</h3>
-<p>Reprendre l’implémentation des files de priorité donnée dans le corrigé du TP18 (cliquez sur les liens dans les titres de parties) en faisant en sorte de gérer des couples <span class="math inline">\((sommet, distance)\)</span> et en faisant attention au fait que <em>distance</em> peut être <span class="math inline">\(\infty\)</span>. On pourra définir un <code>type poids = I | N of int</code>.</p>
+<p>Reprendre l’implémentation des files de priorité donnée dans le corrigé du TP18 (cliquez sur les liens dans les titres de parties) en faisant en sorte de gérer des couples <span class="math inline">\((sommet, distance)\)</span> et en faisant attention au fait que <em>distance</em> peut être <span class="math inline">\(\infty\)</span>.</p>
 <p><strong>Attention</strong> il s’agit ici de file de priorité minimale !</p>
 <h3 data-number="7.3.3" id="sec:écriture-de-dijkstra-efficace"><span class="header-section-number">7.3.3</span> Écriture de Dijkstra efficace</h3>
 <p>Utiliser la file de priorité pour en déduire une implémentation efficace.</p>
