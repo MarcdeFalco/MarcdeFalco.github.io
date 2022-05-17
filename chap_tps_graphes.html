@@ -1594,7 +1594,40 @@ poids de toutes les arêtes plus 1.</p>
 <p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
 Preuve </div> <div class="content"> <div class="ui segment code"></p>
 <div class="sourceCode" id="cb63"><pre
-class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb63-1"><a href="#cb63-1"></a>ERROR: src/tps/DIJKSTRANAIF does <span class="dt">not</span> exist(../../snippets/structures/dijkstra.ml)</span></code></pre></div>
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb63-1"><a href="#cb63-1"></a><span class="kw">let</span> <span class="kw">rec</span> extrait_plus_petit l d =</span>
+<span id="cb63-2"><a href="#cb63-2"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb63-3"><a href="#cb63-3"></a>    | [] -&gt; <span class="dt">failwith</span> <span class="st">&quot;impossible&quot;</span></span>
+<span id="cb63-4"><a href="#cb63-4"></a>    | [x] -&gt; (x, [])</span>
+<span id="cb63-5"><a href="#cb63-5"></a>    | x::q -&gt;</span>
+<span id="cb63-6"><a href="#cb63-6"></a>        <span class="kw">let</span> (y, q&#39;) = extrait_plus_petit q d <span class="kw">in</span></span>
+<span id="cb63-7"><a href="#cb63-7"></a>        <span class="kw">if</span> d.(y) &lt; d.(x)</span>
+<span id="cb63-8"><a href="#cb63-8"></a>        <span class="kw">then</span> (y, x :: q&#39;)</span>
+<span id="cb63-9"><a href="#cb63-9"></a>        <span class="kw">else</span> (x, q)</span>
+<span id="cb63-10"><a href="#cb63-10"></a></span>
+<span id="cb63-11"><a href="#cb63-11"></a><span class="kw">let</span> dijkstra g src =</span>
+<span id="cb63-12"><a href="#cb63-12"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length g <span class="kw">in</span></span>
+<span id="cb63-13"><a href="#cb63-13"></a>    <span class="kw">let</span> inf = <span class="dt">max_int</span> <span class="kw">in</span></span>
+<span id="cb63-14"><a href="#cb63-14"></a>    <span class="kw">let</span> d = <span class="dt">Array</span>.make n inf <span class="kw">in</span></span>
+<span id="cb63-15"><a href="#cb63-15"></a>    d.(src) &lt;- <span class="dv">0</span>;</span>
+<span id="cb63-16"><a href="#cb63-16"></a>    <span class="kw">let</span> marques = <span class="dt">Array</span>.make n <span class="kw">false</span> <span class="kw">in</span></span>
+<span id="cb63-17"><a href="#cb63-17"></a>    <span class="kw">let</span> a_traiter = <span class="dt">ref</span> [ src ] <span class="kw">in</span></span>
+<span id="cb63-18"><a href="#cb63-18"></a>    <span class="kw">while</span> !a_traiter &lt;&gt; [] <span class="kw">do</span></span>
+<span id="cb63-19"><a href="#cb63-19"></a>        <span class="kw">let</span> x, q = extrait_plus_petit !a_traiter d <span class="kw">in</span></span>
+<span id="cb63-20"><a href="#cb63-20"></a>        a_traiter := q;</span>
+<span id="cb63-21"><a href="#cb63-21"></a>        <span class="kw">if</span> <span class="dt">not</span> marques.(x)</span>
+<span id="cb63-22"><a href="#cb63-22"></a>        <span class="kw">then</span> <span class="kw">begin</span></span>
+<span id="cb63-23"><a href="#cb63-23"></a>            marques.(x) &lt;- <span class="kw">true</span>;</span>
+<span id="cb63-24"><a href="#cb63-24"></a>            <span class="dt">List</span>.iter (<span class="kw">fun</span> (y, poids) -&gt;</span>
+<span id="cb63-25"><a href="#cb63-25"></a>                <span class="kw">let</span> n_d = d.(x) + poids <span class="kw">in</span></span>
+<span id="cb63-26"><a href="#cb63-26"></a>                <span class="kw">if</span> n_d &lt; d.(y)</span>
+<span id="cb63-27"><a href="#cb63-27"></a>                <span class="kw">then</span> <span class="kw">begin</span></span>
+<span id="cb63-28"><a href="#cb63-28"></a>                    d.(y) &lt;- n_d;</span>
+<span id="cb63-29"><a href="#cb63-29"></a>                    a_traiter := y :: !a_traiter</span>
+<span id="cb63-30"><a href="#cb63-30"></a>                <span class="kw">end</span></span>
+<span id="cb63-31"><a href="#cb63-31"></a>            ) g.(x)</span>
+<span id="cb63-32"><a href="#cb63-32"></a>        <span class="kw">end</span></span>
+<span id="cb63-33"><a href="#cb63-33"></a>    <span class="kw">done</span>;</span>
+<span id="cb63-34"><a href="#cb63-34"></a>    d</span></code></pre></div>
 <p></div> </div> </div></p>
 <h2 data-number="3.2"
 id="sec:réalisation-dune-file-de-min-priorité"><span
@@ -1620,7 +1653,40 @@ efficace.</p>
 <p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
 Preuve </div> <div class="content"> <div class="ui segment code"></p>
 <div class="sourceCode" id="cb64"><pre
-class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb64-1"><a href="#cb64-1"></a>ERROR: src/tps/DIJKSTRA does <span class="dt">not</span> exist(../../snippets/structures/dijkstra.ml)</span></code></pre></div>
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb64-1"><a href="#cb64-1"></a><span class="kw">let</span> <span class="kw">rec</span> extrait_plus_petit l d =</span>
+<span id="cb64-2"><a href="#cb64-2"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
+<span id="cb64-3"><a href="#cb64-3"></a>    | [] -&gt; <span class="dt">failwith</span> <span class="st">&quot;impossible&quot;</span></span>
+<span id="cb64-4"><a href="#cb64-4"></a>    | [x] -&gt; (x, [])</span>
+<span id="cb64-5"><a href="#cb64-5"></a>    | x::q -&gt;</span>
+<span id="cb64-6"><a href="#cb64-6"></a>        <span class="kw">let</span> (y, q&#39;) = extrait_plus_petit q d <span class="kw">in</span></span>
+<span id="cb64-7"><a href="#cb64-7"></a>        <span class="kw">if</span> d.(y) &lt; d.(x)</span>
+<span id="cb64-8"><a href="#cb64-8"></a>        <span class="kw">then</span> (y, x :: q&#39;)</span>
+<span id="cb64-9"><a href="#cb64-9"></a>        <span class="kw">else</span> (x, q)</span>
+<span id="cb64-10"><a href="#cb64-10"></a></span>
+<span id="cb64-11"><a href="#cb64-11"></a><span class="kw">let</span> dijkstra g src =</span>
+<span id="cb64-12"><a href="#cb64-12"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length g <span class="kw">in</span></span>
+<span id="cb64-13"><a href="#cb64-13"></a>    <span class="kw">let</span> inf = <span class="dt">max_int</span> <span class="kw">in</span></span>
+<span id="cb64-14"><a href="#cb64-14"></a>    <span class="kw">let</span> d = <span class="dt">Array</span>.make n inf <span class="kw">in</span></span>
+<span id="cb64-15"><a href="#cb64-15"></a>    d.(src) &lt;- <span class="dv">0</span>;</span>
+<span id="cb64-16"><a href="#cb64-16"></a>    <span class="kw">let</span> marques = <span class="dt">Array</span>.make n <span class="kw">false</span> <span class="kw">in</span></span>
+<span id="cb64-17"><a href="#cb64-17"></a>    <span class="kw">let</span> a_traiter = <span class="dt">ref</span> [ src ] <span class="kw">in</span></span>
+<span id="cb64-18"><a href="#cb64-18"></a>    <span class="kw">while</span> !a_traiter &lt;&gt; [] <span class="kw">do</span></span>
+<span id="cb64-19"><a href="#cb64-19"></a>        <span class="kw">let</span> x, q = extrait_plus_petit !a_traiter d <span class="kw">in</span></span>
+<span id="cb64-20"><a href="#cb64-20"></a>        a_traiter := q;</span>
+<span id="cb64-21"><a href="#cb64-21"></a>        <span class="kw">if</span> <span class="dt">not</span> marques.(x)</span>
+<span id="cb64-22"><a href="#cb64-22"></a>        <span class="kw">then</span> <span class="kw">begin</span></span>
+<span id="cb64-23"><a href="#cb64-23"></a>            marques.(x) &lt;- <span class="kw">true</span>;</span>
+<span id="cb64-24"><a href="#cb64-24"></a>            <span class="dt">List</span>.iter (<span class="kw">fun</span> (y, poids) -&gt;</span>
+<span id="cb64-25"><a href="#cb64-25"></a>                <span class="kw">let</span> n_d = d.(x) + poids <span class="kw">in</span></span>
+<span id="cb64-26"><a href="#cb64-26"></a>                <span class="kw">if</span> n_d &lt; d.(y)</span>
+<span id="cb64-27"><a href="#cb64-27"></a>                <span class="kw">then</span> <span class="kw">begin</span></span>
+<span id="cb64-28"><a href="#cb64-28"></a>                    d.(y) &lt;- n_d;</span>
+<span id="cb64-29"><a href="#cb64-29"></a>                    a_traiter := y :: !a_traiter</span>
+<span id="cb64-30"><a href="#cb64-30"></a>                <span class="kw">end</span></span>
+<span id="cb64-31"><a href="#cb64-31"></a>            ) g.(x)</span>
+<span id="cb64-32"><a href="#cb64-32"></a>        <span class="kw">end</span></span>
+<span id="cb64-33"><a href="#cb64-33"></a>    <span class="kw">done</span>;</span>
+<span id="cb64-34"><a href="#cb64-34"></a>    d</span></code></pre></div>
 <p></div> </div> </div></p>
 <h2 data-number="3.4" id="sec:floyd-warshall"><span
 class="header-section-number">3.4</span> Floyd-Warshall</h2>
