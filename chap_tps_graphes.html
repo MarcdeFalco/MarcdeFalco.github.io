@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="generator" content="pandoc">
+    <meta name="description" content="">
+    <meta name="author" content="Marc de Falco">
+
+    <title>Travaux Pratiques - Graphes</title>
+
+    <link rel="stylesheet" type="text/css" href="assets/semantic.min.css">
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-PHZQE2FC4W"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-PHZQE2FC4W');
+	</script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="assets/semantic.min.js"></script>
+
+    <style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    </style>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+
+<script>
+$(document).ready(function() {
+    
+    $("#toc").sidebar("setting", "dimPage", false);
+    $("#toc").sidebar("setting", "delaySetup", true);
+
+   $('.ui.accordion').accordion();
+    if (matchMedia) {
+        var mq = window.matchMedia("(max-width: 900px)");
+        mq.addListener(big_or_small);
+        big_or_small(mq);
+    }
+
+    $("[href^='#']").click(
+        () => {
+            if (! $("#main").hasClass('shrink')) {
+	            $("#toc").sidebar("hide");
+            }
+        })
+
+    function big_or_small(mq) {
+        // The sidebar *pushes* the pusher, the main content, so we
+        // add a class that reduces the pusher's width so the edge
+        // content isn't cut off.
+        if (mq.matches) {
+	        $("#toc").sidebar("hide");
+            $("#main").removeClass("shrink")
+        } else {
+            $("#toc").sidebar("show");
+            $("#main").addClass("shrink");
+        }
+    }
+
+    $("#sidebar-menu-button").click(function() {
+        $("#toc").sidebar("show");
+    }).end();
+
+    $('.tabular.menu .item').tab({
+            context: 'parent'
+        });
+
+})
+
+function setLang(l) {
+    $('.tabular.menu .item').removeClass("active")
+    $('.tabular.menu .item[data-tab^="'+l+'"]').addClass("active")
+    $('.code').removeClass("active")
+    $('.code[data-tab^="'+l+'"]').addClass("active")
+}
+</script>
+
+  <style type="text/css">
+
+  .ui.sidebar {
+    font-size: 15px;
+  }
+
+  body {
+    background-color: #FFFFFF;
+    font-size: 20px;
+  }
+  .ui.segment {
+    font-size: 20px;
+  }
+  .wireframe {
+    //margin-top: 2em;
+  }
+  .ui.footer.segment {
+    //margin: 5em 0em 0em;
+    //padding: 5em 0em;
+  }
+  #top-menu {
+    display: none;
+    }
+
+    .message {
+        color: #000 !important;
+    }
+
+.shrink {
+    width: 60%;
+}
+
+.code {
+    font-size: 0.8em !important;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 24px;
+    border-spacing: 0;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+}
+
+table tr {
+    display: table-row !important;
+}
+
+table th {
+    padding: 3px 10px;
+    background-color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid black;
+}
+table td {
+    padding: 3px 10px;
+    border-top: none;
+    border-left: none;
+    border-bottom: none;
+    border-right: none;
+}
+
+.ui.styled.accordion {
+    width: 100% !important;
+    font-size: 1rem !important;
+}
+
+  .menu .item {
+      padding: .5em 1em !important;
+  }
+
+@media only screen and (max-width: 900px) {
+    .ui.image, .ui.image img {
+        display: block;
+        //width: 100%;
+        width: auto;
+        height: auto;
+    }
+
+    #top-menu {
+        display: block !important;
+    }
+}
+  </style>
+
+  </head>
+  <body class="pushable class="pushable"">
+<div style="display: none;">
+\(
+\def\N{{\mathbb{N}}}
+\def\R{{\mathbb{R}}}
+\def\D{{\mathbb{D}}}
+\def\C{{\mathbb{C}}}
+\def\Z{{\mathbb{Z}}}
+\def\Q{{\mathbb{Q}}}
+\def\K{{\mathbb{K}}}
+\def\KX{{\mathbb{K}}[X]}
+\def\U{{\mathbb{U}}}
+\def\B{{\mathcal{B}}}
+\newcommand\ensfonctions[2]{\mathcal{F}(#1,#2)}
+\newcommand\classeck[3]{\mathcal{C}^{#1}(#2,#3)}
+\newcommand\range[2]{[| #1,#2 |]}
+\newcommand\mod[0]{\mathop{mod}}
+\newcommand\land[0]{\mathop{land}}
+\newcommand\matrices[3]{\mathcal{M}_{#1,#2}(#3)}
+\newcommand\matricescarres[2]{\mathcal{M}_{#1}(#2)}
+\newcommand\gln[2]{\mbox{GL}_{#1}(#2)}
+\newcommand\Support[1]{\mbox{Supp}(#1)}
+\newcommand\dom[0]{\mbox{dom}}
+\newcommand\uniondisjointe{\sqcup}
+\def\lt{<}
+\def\rR{\mathcal{R}}
+\newcommand\parties[1]{\mathcal{P}(#1)}
+\newcommand\entiere[1]{\left\lfloor #1 \right\rfloor}
+\newcommand\congru[3]{#1 = #2\ [#3]}
+\newcommand\enscomp[2]{\left\{\left.\ #1\ \right|\ #2\ \right\}}
+\newcommand\classe[1]{\overline{#1}}
+\newcommand\classemod[2]{\overline{#1}^{[#2]}}
+\newcommand\quotient[2]{#1 / #2}
+\newcommand\ZnZ[1]{\quotient{\Z}{#1 \Z}}
+\newcommand\card[1]{\text{Card}\ #1}
+\newcommand\indic{\mathbbm{1}}
+\newcommand\id{\mbox{id}}
+\newcommand\gO{\mathcal{O}}
+\newcommand\Perm[1]{\mathfrak{S}_#1}
+\newcommand\comb[2]{\binom{#1}{#2}}
+\newcommand\tend[2]{\xrightarrow[#1 \rightarrow #2]{}}
+\newcommand\limite[2]{\lim_{#1 \rightarrow #2}}
+\newcommand\application[5]{\begin{array}{rcccc}
+#1 & : & #2 & \mapsto & #3 \\ 
+& & #4 & \mapsto & #5
+\end{array}}
+\)
+</div>
+
+
+
+<div class="ui vertical inverted visible fixed sidebar menu" id="toc">
+    <div class="item">
+    <a href="/">
+        <i class="icon home"></i> Informatique en CPGE
+    </a>
+    </div>
+    <div class="item">
+        <div class="ui buttons compact">
+            <button onClick="setLang('ocaml')" class="ui button compact">OCaml</button>
+            <button onClick="setLang('c')" class="ui button compact">C</button>
+            <button onClick="setLang('python')" class="ui button compact">Python</button>
+        </div>
+        <div>Langage des exemples</div>
+    </div>
+    <div class="item">
+    <a href="#">
+        Travaux Pratiques - Graphes
+    </a>
+    </div>
+<!-- FIX TOC -->
+<div class="item header"> <a href="#sec:parcours-de-graphes-en-c"><span>1</span> Parcours de graphes en <code>C</code></a><div class="menu"><a class="item" href="#sec:représentation"><div class="ui label">1.1</div> Représentation</a><a class="item" href="#sec:parcours-en-profondeur-récursif"><div class="ui label">1.2</div> Parcours en profondeur récursif</a><a class="item" href="#sec:temps-et-classification-des-arêtes"><div class="ui label">1.3</div> Temps et classification des arêtes</a><a class="item" href="#sec:parcours-avec-une-structure"><div class="ui label">1.4</div> Parcours avec une structure</a></div></div><div class="item header"> <a href="#sec:étude-dun-graphe-issu-dun-réseau-social"><span>2</span> Étude d’un graphe issu d’un réseau social</a><div class="menu"><a class="item" href="#sec:définition-et-lecture-du-graphe"><div class="ui label">2.1</div> Définition et lecture du graphe</a><a class="item" href="#sec:statistiques-sur-les-degrés"><div class="ui label">2.2</div> Statistiques sur les degrés</a><a class="item" href="#sec:parcours-en-largeur"><div class="ui label">2.3</div> Parcours en largeur</a><a class="item" href="#sec:plus-long-chemin-et-diametre"><div class="ui label">2.4</div> Plus long chemin et diametre</a><a class="item" href="#sec:table-de-résultats"><div class="ui label">2.5</div> Table de résultats</a><a class="item" href="#sec:aller-plus-loin"><div class="ui label">2.6</div> Aller plus loin</a></div></div><div class="item header"> <a href="#sec:plus-courts-chemins-en-ocaml"><span>3</span> Plus courts chemins en <code>OCaml</code></a><div class="menu"><a class="item" href="#sec:écriture-naïve-de-dijkstra"><div class="ui label">3.1</div> Écriture naïve de Dijkstra</a><a class="item" href="#sec:réalisation-dune-file-de-min-priorité"><div class="ui label">3.2</div> Réalisation d’une file de min-priorité</a><a class="item" href="#sec:écriture-de-dijkstra-efficace"><div class="ui label">3.3</div> Écriture de Dijkstra efficace</a><a class="item" href="#sec:floyd-warshall"><div class="ui label">3.4</div> Floyd-Warshall</a><a class="item" href="#sec:problèmes"><div class="ui label">3.5</div> Problèmes</a></div></div><!-- FIX TOC -->
+</div>
+
+<div class="pusher" id="main-content">
+    <div class="ui inverted top menu" id="top-menu">
+        <div class="ui container">
+	  <a class="launch icon item" id="sidebar-menu-button">
+	    <i class="angle double left icon"></i>
+	  </a>
+	  <div class="item">
+          Travaux Pratiques - Graphes
+	  </div>
+        </div>
+      </div>
+      <div class="ui padded basic segment shrink" id="main">
+          <!-- <div class="masthead"> -->
+<div class="segment">
+<div class="ui container text">
+<p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Travaux Pratiques - Graphes     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_graphe.jpg"> </div></p>
+<h1 data-number="1" id="sec:parcours-de-graphes-en-c"><span
+class="header-section-number">1</span> Parcours de graphes en
+<code>C</code></h1>
+<h2 data-number="1.1" id="sec:représentation"><span
+class="header-section-number">1.1</span> Représentation</h2>
+<p>On va considérer le type suivant pour les graphes qui suppose qu’on
+n’aura jamais plus que <code>MAXV</code> sommets. On utilise ici une
+constante avec l’alias <code>#define</code> : partout où on écrit
+<code>MAXV</code>, il sera remplacé par la valeur 100.</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1"></a><span class="pp">#define MAXV 100 </span><span class="co">/* nombre maximum de sommets */</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">struct</span> edgenode <span class="op">{</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>    <span class="dt">int</span> y<span class="op">;</span> <span class="co">// le voisin</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>    <span class="kw">struct</span> edgenode <span class="op">*</span>next<span class="op">;</span> <span class="co">// la suite de la liste</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="op">};</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="kw">typedef</span> <span class="kw">struct</span> edgenode edgenode<span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="kw">struct</span> graph <span class="op">{</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>    edgenode <span class="op">*</span>edges<span class="op">[</span>MAXV<span class="op">];</span> <span class="co">// tableau de listes d&#39;adjacence</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>    <span class="dt">int</span> degree<span class="op">[</span>MAXV<span class="op">];</span> <span class="co">// le degré de chaque sommet</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>    <span class="dt">int</span> nvertices<span class="op">;</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>    <span class="dt">int</span> nedges<span class="op">;</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a>    <span class="dt">bool</span> directed<span class="op">;</span> <span class="co">// indique si le graphe est orienté</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="op">};</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="kw">typedef</span> <span class="kw">struct</span> graph graph<span class="op">;</span></span></code></pre></div>
+<p></div></p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction <div class="ui segment code"></p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1"></a><span class="dt">void</span> initialize_graph<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">bool</span> directed<span class="op">);</span></span></code></pre></div>
+<p></div> qui initialise le graphe <code>g</code> passé par pointeur
+comme étant le graphe vide, dirigé ou non selon la valeur de
+<code>directed</code>.</p>
+<p><strong>Attention</strong> vous êtes libres d’initialiser les listes
+d’adjancence à la liste vide ou de considérer que sera fait dans la
+fonction <code>read_graph</code> ci-dessous.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1"></a><span class="dt">void</span> initialize_graph<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">bool</span> directed<span class="op">)</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="op">{</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>    g<span class="op">-&gt;</span>directed <span class="op">=</span> directed<span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>    g<span class="op">-&gt;</span>nvertices <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>    g<span class="op">-&gt;</span>nedges <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> MAXV<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>    <span class="op">{</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>        g<span class="op">-&gt;</span>edges<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> NULL<span class="op">;</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>        g<span class="op">-&gt;</span>degree<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a>    <span class="op">}</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="op">}</span></span></code></pre></div>
+<p></div> </div> </div></p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction <div class="ui segment code"></p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1"></a><span class="dt">void</span> insert_edge<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> x<span class="op">,</span> <span class="dt">int</span> y<span class="op">,</span> <span class="dt">bool</span> directed<span class="op">)</span></span></code></pre></div>
+<p></div> qui insère une arête de x à y en considérant <code>g</code>
+comme orienté ou non selon <code>directed</code> <strong>et donc en
+ignorant</strong> <code>g-&gt;directed</code>.</p>
+<p><strong>Attention</strong> il faudra prendre garde au fait que
+<code>g</code> soit orienté ou non. Dans le second cas, on représenté
+les arêtes comme dans un graphe orienté symétrique, donc il faut en
+ajouter deux. C’est la raison pour laquelle on utilise le paramètre
+<code>directed</code> plutôt que de consulter
+<code>g-&gt;directed</code>.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1"></a><span class="dt">void</span> insert_edge<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> x<span class="op">,</span> <span class="dt">int</span> y<span class="op">,</span> <span class="dt">bool</span> directed<span class="op">)</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="op">{</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>    edgenode <span class="op">*</span>edge <span class="op">=</span> malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span>edgenode<span class="op">));</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>    edge<span class="op">-&gt;</span>y <span class="op">=</span> y<span class="op">;</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>    edge<span class="op">-&gt;</span>next <span class="op">=</span> g<span class="op">-&gt;</span>edges<span class="op">[</span>x<span class="op">];</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>    g<span class="op">-&gt;</span>edges<span class="op">[</span>x<span class="op">]</span> <span class="op">=</span> edge<span class="op">;</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a>    <span class="cf">if</span> <span class="op">(!</span>directed<span class="op">)</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a>        insert_edge<span class="op">(</span>g<span class="op">,</span> y<span class="op">,</span> x<span class="op">,</span> true<span class="op">);</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="op">}</span></span></code></pre></div>
+<p></div> </div> </div></p>
+<p>Pour travailler sur des graphes, on va écrire une fonction permettant
+de lire un fichier contenant le graphe sous le format suivant :</p>
+<ul>
+<li>première ligne contenant trois entiers, le nombre de sommets n, le
+nombre d’arêtes p et 0 ou 1 selon que le graphe soit non orienté ou
+orienté</li>
+<li>ensuite p lignes contenant deux entiers i et j et indiquant qu’il y
+a une arête de i vers j</li>
+</ul>
+<p>Par exemple :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1"></a><span class="dv">4</span> <span class="dv">5</span> <span class="dv">1</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="dv">0</span> <span class="dv">1</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="dv">0</span> <span class="dv">2</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="dv">1</span> <span class="dv">2</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="dv">2</span> <span class="dv">3</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="dv">3</span> <span class="dv">1</span></span></code></pre></div>
+<p></div> sera représenté par le graphe : <img
+src="assets/pics/tp_c_ex_fichier.png" />
+<div class="ui message orange"><div class="header">Remarque</div></p>
+<p>On va utiliser ici l’entrée standard, c’est-à-dire l’entrée de
+l’utilisateur depuis le terminal. Cependant, il est possible de
+rédiriger cette entrée depuis un fichier. En effet, si on appelle
+<div class="ui segment code"></p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1"></a><span class="op">./</span>monprogramme <span class="op">&lt;</span> monfichier</span></code></pre></div>
+<p></div> Alors l’entrée standard sera le contenu de
+<code>monfichier</code>. Cela permet de ne pas avoir à se préoccuper
+d’ouvrir de fichier et d’utiliser directement <code>scanf</code>.</p>
+<p><strong>Rappel</strong> <code>scanf("%d %d", &amp;x, &amp;y);</code>
+va lire une ligne avec deux entiers et placer la valeur du premier dans
+<code>x</code> et la valeur du second dans <code>y</code>.</p>
+<p></div></p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction <div class="ui segment code"></p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1"></a><span class="dt">void</span> read_graph<span class="op">(</span>graph <span class="op">*</span>g<span class="op">)</span></span></code></pre></div>
+<p></div> qui lit un graphe depuis l’entrée standard et le place dans
+<code>g</code> <strong>après l’avoir initialisé</strong>.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1"></a><span class="dt">void</span> read_graph<span class="op">(</span>graph <span class="op">*</span>g<span class="op">)</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="op">{</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>    <span class="dt">int</span> directed<span class="op">;</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>    initialize_graph<span class="op">(</span>g<span class="op">,</span> false<span class="op">);</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>    scanf<span class="op">(</span><span class="st">&quot;%d %d %d&quot;</span><span class="op">,</span> <span class="op">&amp;</span>g<span class="op">-&gt;</span>nvertices<span class="op">,</span> <span class="op">&amp;</span>g<span class="op">-&gt;</span>nedges<span class="op">,</span> <span class="op">&amp;</span>directed<span class="op">);</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a>    g<span class="op">-&gt;</span>directed <span class="op">=</span> directed <span class="op">==</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> g<span class="op">-&gt;</span>nedges<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>    <span class="op">{</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a>        <span class="dt">int</span> x<span class="op">,</span> y<span class="op">;</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a>        scanf<span class="op">(</span><span class="st">&quot;%d %d&quot;</span><span class="op">,</span> <span class="op">&amp;</span>x<span class="op">,</span> <span class="op">&amp;</span>y<span class="op">);</span></span>
+<span id="cb9-11"><a href="#cb9-11"></a>        insert_edge<span class="op">(</span>g<span class="op">,</span> x<span class="op">,</span> y<span class="op">,</span> g<span class="op">-&gt;</span>directed<span class="op">);</span></span>
+<span id="cb9-12"><a href="#cb9-12"></a>    <span class="op">}</span></span>
+<span id="cb9-13"><a href="#cb9-13"></a><span class="op">}</span></span></code></pre></div>
+<p></div> </div> </div></p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction <div class="ui segment code"></p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1"></a><span class="dt">void</span> free_edges<span class="op">(</span>graph <span class="op">*</span>g<span class="op">)</span></span></code></pre></div>
+<p></div> qui libère les listes d’adjacence.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1"></a><span class="dt">void</span> free_edges<span class="op">(</span>graph <span class="op">*</span>g<span class="op">)</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="op">{</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> g<span class="op">-&gt;</span>nvertices<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a>    <span class="op">{</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a>        edgenode <span class="op">*</span>n <span class="op">=</span> g<span class="op">-&gt;</span>edges<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a>        <span class="cf">while</span><span class="op">(</span>n <span class="op">!=</span> NULL<span class="op">)</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a>        <span class="op">{</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a>            edgenode <span class="op">*</span>temp <span class="op">=</span> n<span class="op">-&gt;</span>next<span class="op">;</span></span>
+<span id="cb11-9"><a href="#cb11-9"></a>            free<span class="op">(</span>n<span class="op">);</span></span>
+<span id="cb11-10"><a href="#cb11-10"></a>            n <span class="op">=</span> temp<span class="op">;</span></span>
+<span id="cb11-11"><a href="#cb11-11"></a>        <span class="op">}</span></span>
+<span id="cb11-12"><a href="#cb11-12"></a>    <span class="op">}</span></span>
+<span id="cb11-13"><a href="#cb11-13"></a><span class="op">}</span></span></code></pre></div>
+<p></div> </div> </div></p>
+<h2 data-number="1.2" id="sec:parcours-en-profondeur-récursif"><span
+class="header-section-number">1.2</span> Parcours en profondeur
+récursif</h2>
+<p>On va modifier la structure de graphe et rajouter trois nouveaux
+champs :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1"></a><span class="dt">bool</span> discovered<span class="op">[</span>MAXV<span class="op">];</span> <span class="co">// Quels sommets sont connus</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="dt">bool</span> processed<span class="op">[</span>MAXV<span class="op">];</span> <span class="co">// Quels sommets sont traités</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="dt">int</span> parent<span class="op">[</span>MAXV<span class="op">];</span> <span class="co">// parent[x] est le père de x dans le parcours</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a>                  <span class="co">// s&#39;il n&#39;y en a pas, c&#39;est -1</span></span></code></pre></div>
+<p></div></p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction <div class="ui segment code"></p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1"></a><span class="dt">void</span> initialize_search<span class="op">(</span>graph <span class="op">*</span>g<span class="op">);</span></span></code></pre></div>
+<p></div> qui initialise ces tableaux pour commencer une nouvelle
+recherche.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1"></a><span class="dt">void</span> initialize_search<span class="op">(</span>graph <span class="op">*</span>g<span class="op">)</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="op">{</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> g<span class="op">-&gt;</span>nvertices<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a>    <span class="op">{</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a>        g<span class="op">-&gt;</span>discovered<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> false<span class="op">;</span></span>
+<span id="cb14-6"><a href="#cb14-6"></a>        g<span class="op">-&gt;</span>processed<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> false<span class="op">;</span></span>
+<span id="cb14-7"><a href="#cb14-7"></a>        g<span class="op">-&gt;</span>parent<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb14-8"><a href="#cb14-8"></a>    <span class="op">}</span></span>
+<span id="cb14-9"><a href="#cb14-9"></a><span class="op">}</span></span></code></pre></div>
+<p></div> </div> </div></p>
+<p>On va définir trois fonctions qui seront appelées lors d’un parcours
+et qu’on pourra redéfinir.</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb15-1"><a href="#cb15-1"></a><span class="dt">void</span> process_vertex_early<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> v<span class="op">)</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="op">{</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a>    printf<span class="op">(</span><span class="st">&quot;processing vertex %d</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> v<span class="op">);</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="op">}</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a></span>
+<span id="cb15-6"><a href="#cb15-6"></a><span class="dt">void</span> process_vertex_late<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> v<span class="op">)</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a><span class="op">{</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a><span class="op">}</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a></span>
+<span id="cb15-10"><a href="#cb15-10"></a><span class="dt">void</span> process_edge<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> x<span class="op">,</span> <span class="dt">int</span> y<span class="op">)</span></span>
+<span id="cb15-11"><a href="#cb15-11"></a><span class="op">{</span></span>
+<span id="cb15-12"><a href="#cb15-12"></a>    printf<span class="op">(</span><span class="st">&quot;processed edge %d --&gt; %d</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> x<span class="op">,</span> y<span class="op">);</span></span>
+<span id="cb15-13"><a href="#cb15-13"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction récursive <div class="ui segment code"></p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb16-1"><a href="#cb16-1"></a><span class="dt">void</span> dfs<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span></code></pre></div>
+<p></div> qui effectue un parcours en profondeur en partant du sommet
+<code>x</code>.</p>
+<p>Cette fonction va appeler <code>process_vertex_early</code> au début
+du traitement de <code>x</code>, <code>process_vertex_late</code> à la
+fin et <code>process_edge</code> pour chaque arête rencontrée.</p>
+<p><strong>Attention</strong> si le graphe est non orienté et qu’on a
+rencontré <code>x -&gt; y</code> dans cet ordre, on ne fera pas de
+traitement dans le sens <code>y -&gt; x</code>.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb17-1"><a href="#cb17-1"></a><span class="dt">void</span> dfs<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="op">{</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a>    <span class="co">// important uniquement pour le premier</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a>    g<span class="op">-&gt;</span>discovered<span class="op">[</span>x<span class="op">]</span> <span class="op">=</span> true<span class="op">;</span></span>
+<span id="cb17-5"><a href="#cb17-5"></a>    process_vertex_early<span class="op">(</span>g<span class="op">,</span> x<span class="op">);</span></span>
+<span id="cb17-6"><a href="#cb17-6"></a></span>
+<span id="cb17-7"><a href="#cb17-7"></a>    edgenode <span class="op">*</span>n <span class="op">=</span> g<span class="op">-&gt;</span>edges<span class="op">[</span>x<span class="op">];</span></span>
+<span id="cb17-8"><a href="#cb17-8"></a>    <span class="cf">while</span><span class="op">(</span>n <span class="op">!=</span> NULL<span class="op">)</span></span>
+<span id="cb17-9"><a href="#cb17-9"></a>    <span class="op">{</span></span>
+<span id="cb17-10"><a href="#cb17-10"></a>        process_edge<span class="op">(</span>g<span class="op">,</span> x<span class="op">,</span> n<span class="op">-&gt;</span>y<span class="op">);</span></span>
+<span id="cb17-11"><a href="#cb17-11"></a>        <span class="cf">if</span> <span class="op">(!</span>g<span class="op">-&gt;</span>discovered<span class="op">[</span>n<span class="op">-&gt;</span>y<span class="op">])</span></span>
+<span id="cb17-12"><a href="#cb17-12"></a>        <span class="op">{</span></span>
+<span id="cb17-13"><a href="#cb17-13"></a>            g<span class="op">-&gt;</span>discovered<span class="op">[</span>n<span class="op">-&gt;</span>y<span class="op">]</span> <span class="op">=</span> true<span class="op">;</span></span>
+<span id="cb17-14"><a href="#cb17-14"></a>            g<span class="op">-&gt;</span>parent<span class="op">[</span>n<span class="op">-&gt;</span>y<span class="op">]</span> <span class="op">=</span> x<span class="op">;</span></span>
+<span id="cb17-15"><a href="#cb17-15"></a>            g<span class="op">-&gt;</span>color<span class="op">[</span>n<span class="op">-&gt;</span>y<span class="op">]</span> <span class="op">=</span> <span class="op">!</span>g<span class="op">-&gt;</span>color<span class="op">[</span>x<span class="op">];</span></span>
+<span id="cb17-16"><a href="#cb17-16"></a>            dfs<span class="op">(</span>g<span class="op">,</span> n<span class="op">-&gt;</span>y<span class="op">);</span></span>
+<span id="cb17-17"><a href="#cb17-17"></a>        <span class="op">}</span></span>
+<span id="cb17-18"><a href="#cb17-18"></a>        n <span class="op">=</span> n<span class="op">-&gt;</span>next<span class="op">;</span></span>
+<span id="cb17-19"><a href="#cb17-19"></a>    <span class="op">}</span></span>
+<span id="cb17-20"><a href="#cb17-20"></a></span>
+<span id="cb17-21"><a href="#cb17-21"></a>    process_vertex_late<span class="op">(</span>g<span class="op">,</span> x<span class="op">);</span></span>
+<span id="cb17-22"><a href="#cb17-22"></a>    g<span class="op">-&gt;</span>processed<span class="op">[</span>x<span class="op">]</span> <span class="op">=</span> true<span class="op">;</span></span>
+<span id="cb17-23"><a href="#cb17-23"></a><span class="op">}</span></span></code></pre></div>
+<p></div> </div> </div></p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Comme on l’a démontré, le parcours dans un graphe non orienté permet
+de traiter exactement la composante connexe du sommet de départ.</p>
+<p>Écrire une fonction <div class="ui segment code"></p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb18-1"><a href="#cb18-1"></a><span class="dt">void</span> connected_components<span class="op">(</span>graph <span class="op">*</span>g<span class="op">)</span></span></code></pre></div>
+<p></div> qui affiche les composantes connexes sous la forme :
+<div class="ui segment code"></p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb19-1"><a href="#cb19-1"></a>Component <span class="dv">1</span><span class="op">:</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>Component <span class="dv">2</span><span class="op">:</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span></span></code></pre></div>
+<p></div> pour le graphe <img
+src="assets/pics/tp_c_components.png" /></p>
+<p>Il sera nécessaire de modifier les fonctions
+<code>process_*</code>.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> On remplace les fonctions par :
+<div class="ui segment code"></p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb20-1"><a href="#cb20-1"></a><span class="dt">void</span> process_vertex_early<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> v<span class="op">)</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="op">{</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a>    printf<span class="op">(</span><span class="st">&quot; %d&quot;</span><span class="op">,</span> v<span class="op">);</span></span>
+<span id="cb20-4"><a href="#cb20-4"></a><span class="op">}</span></span>
+<span id="cb20-5"><a href="#cb20-5"></a></span>
+<span id="cb20-6"><a href="#cb20-6"></a><span class="dt">void</span> process_vertex_late<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> v<span class="op">)</span></span>
+<span id="cb20-7"><a href="#cb20-7"></a><span class="op">{</span></span>
+<span id="cb20-8"><a href="#cb20-8"></a><span class="op">}</span></span>
+<span id="cb20-9"><a href="#cb20-9"></a></span>
+<span id="cb20-10"><a href="#cb20-10"></a><span class="dt">void</span> process_edge<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> x<span class="op">,</span> <span class="dt">int</span> y<span class="op">)</span></span>
+<span id="cb20-11"><a href="#cb20-11"></a><span class="op">{</span></span>
+<span id="cb20-12"><a href="#cb20-12"></a><span class="op">}</span></span></code></pre></div>
+<p></div> et on définit : <div class="ui segment code"></p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb21-1"><a href="#cb21-1"></a><span class="dt">void</span> connected_components<span class="op">(</span>graph <span class="op">*</span>g<span class="op">)</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="op">{</span></span>
+<span id="cb21-3"><a href="#cb21-3"></a>    initialize_search<span class="op">(</span>g<span class="op">);</span></span>
+<span id="cb21-4"><a href="#cb21-4"></a>    <span class="dt">int</span> comp <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb21-5"><a href="#cb21-5"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> g<span class="op">-&gt;</span>nvertices<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb21-6"><a href="#cb21-6"></a>    <span class="op">{</span></span>
+<span id="cb21-7"><a href="#cb21-7"></a>        <span class="cf">if</span><span class="op">(!</span>g<span class="op">-&gt;</span>processed<span class="op">[</span>i<span class="op">])</span></span>
+<span id="cb21-8"><a href="#cb21-8"></a>        <span class="op">{</span></span>
+<span id="cb21-9"><a href="#cb21-9"></a>            comp <span class="op">=</span> comp<span class="op">+</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb21-10"><a href="#cb21-10"></a>            printf<span class="op">(</span><span class="st">&quot;Component %d:&quot;</span><span class="op">,</span> comp<span class="op">);</span></span>
+<span id="cb21-11"><a href="#cb21-11"></a>            dfs<span class="op">(</span>g<span class="op">,</span> i<span class="op">);</span></span>
+<span id="cb21-12"><a href="#cb21-12"></a>            printf<span class="op">(</span><span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb21-13"><a href="#cb21-13"></a>        <span class="op">}</span></span>
+<span id="cb21-14"><a href="#cb21-14"></a>    <span class="op">}</span></span>
+<span id="cb21-15"><a href="#cb21-15"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+<p>On relance ainsi le parcours en repartant d’un sommet non traité.
+</div> </div></p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Adaptez le parcours pour détecter des cycles. Quand vous détectez un
+cycle, affichez les sommets qui le compose. Dans le graphe précédent il
+faut afficher : <div class="ui segment code"></p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb22-1"><a href="#cb22-1"></a>Cycle <span class="op">:</span> <span class="dv">0</span> <span class="dv">2</span> <span class="dv">3</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a>Cycle <span class="op">:</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">4</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a>Cycle <span class="op">:</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span></span></code></pre></div>
+<p></div></p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> Il suffit de changer
+<code>process_edge</code> dans le parcours de toutes les composantes
+pour détecter les arêtes arrières : <div class="ui segment code"></p>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb23-1"><a href="#cb23-1"></a><span class="dt">void</span> process_edge<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> x<span class="op">,</span> <span class="dt">int</span> y<span class="op">)</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="op">{</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a>    <span class="co">// Teste si on a une arête arrière</span></span>
+<span id="cb23-4"><a href="#cb23-4"></a>    <span class="cf">if</span> <span class="op">(</span>g<span class="op">-&gt;</span>discovered<span class="op">[</span>y<span class="op">]</span> </span>
+<span id="cb23-5"><a href="#cb23-5"></a>            <span class="op">&amp;&amp;</span> <span class="op">!</span>g<span class="op">-&gt;</span>processed<span class="op">[</span>y<span class="op">]</span> </span>
+<span id="cb23-6"><a href="#cb23-6"></a>            <span class="op">&amp;&amp;</span> <span class="op">(</span>g<span class="op">-&gt;</span>directed <span class="op">||</span> g<span class="op">-&gt;</span>parent<span class="op">[</span>x<span class="op">]</span> <span class="op">!=</span> y<span class="op">))</span></span>
+<span id="cb23-7"><a href="#cb23-7"></a>    <span class="op">{</span></span>
+<span id="cb23-8"><a href="#cb23-8"></a>        printf<span class="op">(</span><span class="st">&quot;Cycle : %d&quot;</span><span class="op">,</span> y<span class="op">);</span></span>
+<span id="cb23-9"><a href="#cb23-9"></a>        <span class="dt">int</span> cur <span class="op">=</span> x<span class="op">;</span></span>
+<span id="cb23-10"><a href="#cb23-10"></a>        <span class="cf">while</span><span class="op">(</span>cur <span class="op">!=</span> y <span class="op">&amp;</span> cur <span class="op">&gt;</span> <span class="op">-</span><span class="dv">1</span><span class="op">)</span></span>
+<span id="cb23-11"><a href="#cb23-11"></a>        <span class="op">{</span></span>
+<span id="cb23-12"><a href="#cb23-12"></a>            printf<span class="op">(</span><span class="st">&quot; %d&quot;</span><span class="op">,</span> cur<span class="op">);</span></span>
+<span id="cb23-13"><a href="#cb23-13"></a>            cur <span class="op">=</span> g<span class="op">-&gt;</span>parent<span class="op">[</span>cur<span class="op">];</span></span>
+<span id="cb23-14"><a href="#cb23-14"></a>        <span class="op">}</span></span>
+<span id="cb23-15"><a href="#cb23-15"></a>        printf<span class="op">(</span><span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb23-16"><a href="#cb23-16"></a>    <span class="op">}</span></span>
+<span id="cb23-17"><a href="#cb23-17"></a><span class="op">}</span></span></code></pre></div>
+<p></div> </div> </div></p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>A l’aide d’un parcours, déterminez si un graphe non orienté est
+biparti.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> On rajoute des champs
+<div class="ui segment code"></p>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb24-1"><a href="#cb24-1"></a><span class="dt">bool</span> colors<span class="op">[</span>MAXV<span class="op">];</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="dt">bool</span> bipartite<span class="op">;</span></span></code></pre></div>
+<p></div> dans <code>graph</code> et on commence en donnant la couleur
+<code>true</code> au sommet de départ du DFS. Ensuite, il suffit de
+colorer avec la couleur différente de <span
+class="math inline">\(x\)</span> quand on voit une arête <span
+class="math inline">\(x \rightarrow y\)</span> puis de vérifier à chaque
+arête qu’elle relie des sommets de couleur différente.</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"></code></pre></div>
+<p></div> </div> </div></p>
+<h2 data-number="1.3" id="sec:temps-et-classification-des-arêtes"><span
+class="header-section-number">1.3</span> Temps et classification des
+arêtes</h2>
+<p>On rajoute à la structure <code>graph</code> deux tableaux et un
+entier :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb26-1"><a href="#cb26-1"></a><span class="dt">int</span> time<span class="op">;</span> <span class="co">// l&#39;horloge</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="dt">int</span> entry_time<span class="op">[</span>MAXV<span class="op">];</span></span>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="dt">int</span> exit_time<span class="op">[</span>MAXV<span class="op">];</span></span></code></pre></div>
+<p></div></p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Rajouter à <code>dfs</code> le maintien de l’horloge et des temps
+d’entrée et de sortie.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> Il suffit de modifier les
+traitements de sommets : <div class="ui segment code"></p>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb27-1"><a href="#cb27-1"></a><span class="dt">void</span> process_vertex_early<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> v<span class="op">)</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a><span class="op">{</span></span>
+<span id="cb27-3"><a href="#cb27-3"></a>    g<span class="op">-&gt;</span>entry_time<span class="op">[</span>v<span class="op">]</span> <span class="op">=</span> g<span class="op">-&gt;</span>time<span class="op">;</span></span>
+<span id="cb27-4"><a href="#cb27-4"></a>    g<span class="op">-&gt;</span>time <span class="op">=</span> g<span class="op">-&gt;</span>time <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb27-5"><a href="#cb27-5"></a>    printf<span class="op">(</span><span class="st">&quot;%d</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> v<span class="op">);</span></span>
+<span id="cb27-6"><a href="#cb27-6"></a><span class="op">}</span></span>
+<span id="cb27-7"><a href="#cb27-7"></a></span>
+<span id="cb27-8"><a href="#cb27-8"></a><span class="dt">void</span> process_vertex_late<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> v<span class="op">)</span></span>
+<span id="cb27-9"><a href="#cb27-9"></a><span class="op">{</span></span>
+<span id="cb27-10"><a href="#cb27-10"></a>    g<span class="op">-&gt;</span>exit_time<span class="op">[</span>v<span class="op">]</span> <span class="op">=</span> g<span class="op">-&gt;</span>time<span class="op">;</span></span>
+<span id="cb27-11"><a href="#cb27-11"></a>    g<span class="op">-&gt;</span>time <span class="op">=</span> g<span class="op">-&gt;</span>time <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb27-12"><a href="#cb27-12"></a><span class="op">}</span></span></code></pre></div>
+<p></div> </div> </div></p>
+<p>On définit des constantes :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb28-1"><a href="#cb28-1"></a><span class="pp">#define TREE 0</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="pp">#define BACK 1</span></span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="pp">#define FORWARD 2</span></span>
+<span id="cb28-4"><a href="#cb28-4"></a><span class="pp">#define CROSS 3</span></span></code></pre></div>
+<p></div></p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction : <div class="ui segment code"></p>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb29-1"><a href="#cb29-1"></a><span class="dt">int</span> edge_classification<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> x<span class="op">,</span> <span class="dt">int</span> y<span class="op">)</span></span></code></pre></div>
+<p></div> qui pourra être appelée dans <code>process_edge</code> pour
+déterminer la classe d’une arête selon les constantes précédentes. On
+renverra -1 si l’arête ne peut être déterminée (est-ce possible ?).</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb30-1"><a href="#cb30-1"></a><span class="dt">int</span> edge_classification<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> x<span class="op">,</span> <span class="dt">int</span> y<span class="op">)</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a><span class="op">{</span></span>
+<span id="cb30-3"><a href="#cb30-3"></a>    <span class="cf">if</span> <span class="op">(!</span>g<span class="op">-&gt;</span>discovered<span class="op">[</span>y<span class="op">])</span></span>
+<span id="cb30-4"><a href="#cb30-4"></a>        <span class="cf">return</span> TREE<span class="op">;</span></span>
+<span id="cb30-5"><a href="#cb30-5"></a>    <span class="cf">if</span> <span class="op">(!</span>g<span class="op">-&gt;</span>processed<span class="op">[</span>y<span class="op">])</span></span>
+<span id="cb30-6"><a href="#cb30-6"></a>        <span class="cf">return</span> BACK<span class="op">;</span></span>
+<span id="cb30-7"><a href="#cb30-7"></a>    <span class="cf">if</span> <span class="op">(</span>g<span class="op">-&gt;</span>entry_time<span class="op">[</span>x<span class="op">]</span> <span class="op">&lt;</span> g<span class="op">-&gt;</span>entry_time<span class="op">[</span>y<span class="op">])</span></span>
+<span id="cb30-8"><a href="#cb30-8"></a>        <span class="cf">return</span> FORWARD<span class="op">;</span></span>
+<span id="cb30-9"><a href="#cb30-9"></a>    <span class="cf">return</span> CROSS<span class="op">;</span></span>
+<span id="cb30-10"><a href="#cb30-10"></a><span class="op">}</span></span></code></pre></div>
+<p></div> </div> </div></p>
+<h2 data-number="1.4" id="sec:parcours-avec-une-structure"><span
+class="header-section-number">1.4</span> Parcours avec une
+structure</h2>
+<p>On va réutiliser ici des implémentations de files et de piles dans un
+tableau de taille fixe.</p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Compléter les implémentations en se basant sur ce qui a déjà été fait
+dans les TP précédents. <div class="ui segment code"></p>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb31-1"><a href="#cb31-1"></a><span class="kw">struct</span> queue <span class="op">{</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a>    <span class="dt">int</span> elts<span class="op">[</span>MAXV<span class="op">];</span></span>
+<span id="cb31-3"><a href="#cb31-3"></a>    <span class="dt">int</span> front<span class="op">;</span></span>
+<span id="cb31-4"><a href="#cb31-4"></a>    <span class="dt">int</span> back<span class="op">;</span></span>
+<span id="cb31-5"><a href="#cb31-5"></a><span class="op">};</span></span>
+<span id="cb31-6"><a href="#cb31-6"></a><span class="kw">typedef</span> <span class="kw">struct</span> queue queue<span class="op">;</span></span>
+<span id="cb31-7"><a href="#cb31-7"></a></span>
+<span id="cb31-8"><a href="#cb31-8"></a><span class="kw">struct</span> stack <span class="op">{</span></span>
+<span id="cb31-9"><a href="#cb31-9"></a>    <span class="dt">int</span> elts<span class="op">[</span>MAXV<span class="op">];</span></span>
+<span id="cb31-10"><a href="#cb31-10"></a>    <span class="dt">int</span> back<span class="op">;</span></span>
+<span id="cb31-11"><a href="#cb31-11"></a><span class="op">};</span></span>
+<span id="cb31-12"><a href="#cb31-12"></a><span class="kw">typedef</span> <span class="kw">struct</span> stack stack<span class="op">;</span></span>
+<span id="cb31-13"><a href="#cb31-13"></a></span>
+<span id="cb31-14"><a href="#cb31-14"></a><span class="dt">void</span> init_stack<span class="op">(</span>stack <span class="op">*</span>s<span class="op">)</span></span>
+<span id="cb31-15"><a href="#cb31-15"></a><span class="op">{</span></span>
+<span id="cb31-16"><a href="#cb31-16"></a>    <span class="co">// initialise la pile</span></span>
+<span id="cb31-17"><a href="#cb31-17"></a><span class="op">}</span></span>
+<span id="cb31-18"><a href="#cb31-18"></a></span>
+<span id="cb31-19"><a href="#cb31-19"></a><span class="dt">int</span> pop<span class="op">(</span>stack <span class="op">*</span>s<span class="op">)</span></span>
+<span id="cb31-20"><a href="#cb31-20"></a><span class="op">{</span></span>
+<span id="cb31-21"><a href="#cb31-21"></a>    <span class="co">// depile un élément</span></span>
+<span id="cb31-22"><a href="#cb31-22"></a><span class="op">}</span></span>
+<span id="cb31-23"><a href="#cb31-23"></a></span>
+<span id="cb31-24"><a href="#cb31-24"></a><span class="dt">void</span> push<span class="op">(</span>stack <span class="op">*</span>s<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
+<span id="cb31-25"><a href="#cb31-25"></a><span class="op">{</span></span>
+<span id="cb31-26"><a href="#cb31-26"></a>    <span class="co">// empile x sur la pile s</span></span>
+<span id="cb31-27"><a href="#cb31-27"></a><span class="op">}</span></span>
+<span id="cb31-28"><a href="#cb31-28"></a></span>
+<span id="cb31-29"><a href="#cb31-29"></a><span class="dt">void</span> init_queue<span class="op">(</span>queue <span class="op">*</span>s<span class="op">)</span></span>
+<span id="cb31-30"><a href="#cb31-30"></a><span class="op">{</span></span>
+<span id="cb31-31"><a href="#cb31-31"></a>    <span class="co">// initialise la file</span></span>
+<span id="cb31-32"><a href="#cb31-32"></a><span class="op">}</span></span>
+<span id="cb31-33"><a href="#cb31-33"></a></span>
+<span id="cb31-34"><a href="#cb31-34"></a><span class="dt">int</span> dequeue<span class="op">(</span>queue <span class="op">*</span>s<span class="op">)</span></span>
+<span id="cb31-35"><a href="#cb31-35"></a><span class="op">{</span></span>
+<span id="cb31-36"><a href="#cb31-36"></a>    <span class="co">// defile un élément</span></span>
+<span id="cb31-37"><a href="#cb31-37"></a><span class="op">}</span></span>
+<span id="cb31-38"><a href="#cb31-38"></a></span>
+<span id="cb31-39"><a href="#cb31-39"></a><span class="dt">void</span> enqueue<span class="op">(</span>queue <span class="op">*</span>s<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
+<span id="cb31-40"><a href="#cb31-40"></a><span class="op">{</span></span>
+<span id="cb31-41"><a href="#cb31-41"></a>    <span class="co">// enfile x sur la file s</span></span>
+<span id="cb31-42"><a href="#cb31-42"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb32-1"><a href="#cb32-1"></a><span class="dt">void</span> init_stack<span class="op">(</span>stack <span class="op">*</span>s<span class="op">)</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a><span class="op">{</span></span>
+<span id="cb32-3"><a href="#cb32-3"></a>    s<span class="op">-&gt;</span>back <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb32-4"><a href="#cb32-4"></a><span class="op">}</span></span>
+<span id="cb32-5"><a href="#cb32-5"></a></span>
+<span id="cb32-6"><a href="#cb32-6"></a><span class="dt">int</span> pop<span class="op">(</span>stack <span class="op">*</span>s<span class="op">)</span></span>
+<span id="cb32-7"><a href="#cb32-7"></a><span class="op">{</span></span>
+<span id="cb32-8"><a href="#cb32-8"></a>    assert<span class="op">(</span>s<span class="op">-&gt;</span>back <span class="op">&gt;</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb32-9"><a href="#cb32-9"></a>    s<span class="op">-&gt;</span>back <span class="op">=</span> s<span class="op">-&gt;</span>back<span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb32-10"><a href="#cb32-10"></a>    <span class="cf">return</span> s<span class="op">-&gt;</span>elts<span class="op">[</span>s<span class="op">-&gt;</span>back<span class="op">];</span></span>
+<span id="cb32-11"><a href="#cb32-11"></a><span class="op">}</span></span>
+<span id="cb32-12"><a href="#cb32-12"></a></span>
+<span id="cb32-13"><a href="#cb32-13"></a><span class="dt">void</span> push<span class="op">(</span>stack <span class="op">*</span>s<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
+<span id="cb32-14"><a href="#cb32-14"></a><span class="op">{</span></span>
+<span id="cb32-15"><a href="#cb32-15"></a>    assert<span class="op">(</span>s<span class="op">-&gt;</span>back <span class="op">&lt;</span> MAXV<span class="op">-</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb32-16"><a href="#cb32-16"></a>    s<span class="op">-&gt;</span>elts<span class="op">[</span>s<span class="op">-&gt;</span>back<span class="op">]</span> <span class="op">=</span> x<span class="op">;</span></span>
+<span id="cb32-17"><a href="#cb32-17"></a>    s<span class="op">-&gt;</span>back <span class="op">=</span> s<span class="op">-&gt;</span>back<span class="op">+</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb32-18"><a href="#cb32-18"></a><span class="op">}</span></span>
+<span id="cb32-19"><a href="#cb32-19"></a></span>
+<span id="cb32-20"><a href="#cb32-20"></a><span class="dt">bool</span> empty_stack<span class="op">(</span>stack <span class="op">*</span>s<span class="op">)</span></span>
+<span id="cb32-21"><a href="#cb32-21"></a><span class="op">{</span></span>
+<span id="cb32-22"><a href="#cb32-22"></a>    <span class="cf">return</span> s<span class="op">-&gt;</span>back <span class="op">==</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb32-23"><a href="#cb32-23"></a><span class="op">}</span></span>
+<span id="cb32-24"><a href="#cb32-24"></a></span>
+<span id="cb32-25"><a href="#cb32-25"></a><span class="dt">void</span> init_queue<span class="op">(</span>queue <span class="op">*</span>s<span class="op">)</span></span>
+<span id="cb32-26"><a href="#cb32-26"></a><span class="op">{</span></span>
+<span id="cb32-27"><a href="#cb32-27"></a>    s<span class="op">-&gt;</span>front <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb32-28"><a href="#cb32-28"></a>    s<span class="op">-&gt;</span>back <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb32-29"><a href="#cb32-29"></a><span class="op">}</span></span>
+<span id="cb32-30"><a href="#cb32-30"></a></span>
+<span id="cb32-31"><a href="#cb32-31"></a><span class="dt">int</span> dequeue<span class="op">(</span>queue <span class="op">*</span>s<span class="op">)</span></span>
+<span id="cb32-32"><a href="#cb32-32"></a><span class="op">{</span></span>
+<span id="cb32-33"><a href="#cb32-33"></a>    <span class="dt">int</span> x <span class="op">=</span> s<span class="op">-&gt;</span>elts<span class="op">[</span>s<span class="op">-&gt;</span>front<span class="op">];</span></span>
+<span id="cb32-34"><a href="#cb32-34"></a>    s<span class="op">-&gt;</span>front <span class="op">=</span> <span class="op">(</span>s<span class="op">-&gt;</span>front <span class="op">+</span> <span class="dv">1</span><span class="op">)</span> <span class="op">%</span> MAXV<span class="op">;</span></span>
+<span id="cb32-35"><a href="#cb32-35"></a>    <span class="cf">return</span> x<span class="op">;</span></span>
+<span id="cb32-36"><a href="#cb32-36"></a><span class="op">}</span></span>
+<span id="cb32-37"><a href="#cb32-37"></a></span>
+<span id="cb32-38"><a href="#cb32-38"></a><span class="dt">void</span> enqueue<span class="op">(</span>queue <span class="op">*</span>s<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
+<span id="cb32-39"><a href="#cb32-39"></a><span class="op">{</span></span>
+<span id="cb32-40"><a href="#cb32-40"></a>    s<span class="op">-&gt;</span>elts<span class="op">[</span>s<span class="op">-&gt;</span>back<span class="op">]</span> <span class="op">=</span> x<span class="op">;</span></span>
+<span id="cb32-41"><a href="#cb32-41"></a>    s<span class="op">-&gt;</span>back <span class="op">=</span> <span class="op">(</span>s<span class="op">-&gt;</span>back <span class="op">+</span> <span class="dv">1</span><span class="op">)</span> <span class="op">%</span> MAXV<span class="op">;</span></span>
+<span id="cb32-42"><a href="#cb32-42"></a><span class="op">}</span></span>
+<span id="cb32-43"><a href="#cb32-43"></a></span>
+<span id="cb32-44"><a href="#cb32-44"></a><span class="dt">bool</span> empty_queue<span class="op">(</span>queue <span class="op">*</span>s<span class="op">)</span></span>
+<span id="cb32-45"><a href="#cb32-45"></a><span class="op">{</span></span>
+<span id="cb32-46"><a href="#cb32-46"></a>    <span class="cf">return</span> s<span class="op">-&gt;</span>front <span class="op">==</span> s<span class="op">-&gt;</span>back<span class="op">;</span></span>
+<span id="cb32-47"><a href="#cb32-47"></a><span class="op">}</span></span></code></pre></div>
+<p></div> </div> </div></p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire des fonctions <div class="ui segment code"></p>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb33-1"><a href="#cb33-1"></a><span class="dt">void</span> dfs<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> src<span class="op">);</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a><span class="dt">void</span> bfs<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> src<span class="op">);</span></span></code></pre></div>
+<p></div> effectuant un parcours en utilisant pour les sommets à visiter
+une pile ou une file. On ne pourra pas maintenir les temps de sortie ici
+car cela n’a plus vraiment de sens.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb34-1"><a href="#cb34-1"></a><span class="dt">void</span> dfs<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> src<span class="op">)</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a><span class="op">{</span></span>
+<span id="cb34-3"><a href="#cb34-3"></a>    stack s<span class="op">;</span></span>
+<span id="cb34-4"><a href="#cb34-4"></a>    init_stack<span class="op">(&amp;</span>s<span class="op">);</span></span>
+<span id="cb34-5"><a href="#cb34-5"></a>    push<span class="op">(&amp;</span>s<span class="op">,</span> src<span class="op">);</span></span>
+<span id="cb34-6"><a href="#cb34-6"></a>    <span class="cf">while</span><span class="op">(!</span>empty_stack<span class="op">(&amp;</span>s<span class="op">))</span></span>
+<span id="cb34-7"><a href="#cb34-7"></a>    <span class="op">{</span></span>
+<span id="cb34-8"><a href="#cb34-8"></a>        <span class="dt">int</span> x <span class="op">=</span> pop<span class="op">(&amp;</span>s<span class="op">);</span></span>
+<span id="cb34-9"><a href="#cb34-9"></a>        <span class="cf">if</span> <span class="op">(!</span>g<span class="op">-&gt;</span>processed<span class="op">[</span>x<span class="op">])</span></span>
+<span id="cb34-10"><a href="#cb34-10"></a>        <span class="op">{</span></span>
+<span id="cb34-11"><a href="#cb34-11"></a>            g<span class="op">-&gt;</span>processed<span class="op">[</span>x<span class="op">]</span> <span class="op">=</span> true<span class="op">;</span></span>
+<span id="cb34-12"><a href="#cb34-12"></a>            process_vertex_early<span class="op">(</span>g<span class="op">,</span> x<span class="op">);</span></span>
+<span id="cb34-13"><a href="#cb34-13"></a></span>
+<span id="cb34-14"><a href="#cb34-14"></a>            edgenode <span class="op">*</span>n <span class="op">=</span> g<span class="op">-&gt;</span>edges<span class="op">[</span>x<span class="op">];</span></span>
+<span id="cb34-15"><a href="#cb34-15"></a>            <span class="cf">while</span><span class="op">(</span>n <span class="op">!=</span> NULL<span class="op">)</span></span>
+<span id="cb34-16"><a href="#cb34-16"></a>            <span class="op">{</span></span>
+<span id="cb34-17"><a href="#cb34-17"></a>                push<span class="op">(&amp;</span>s<span class="op">,</span> n<span class="op">-&gt;</span>y<span class="op">);</span></span>
+<span id="cb34-18"><a href="#cb34-18"></a>                n <span class="op">=</span> n<span class="op">-&gt;</span>next<span class="op">;</span></span>
+<span id="cb34-19"><a href="#cb34-19"></a>            <span class="op">}</span></span>
+<span id="cb34-20"><a href="#cb34-20"></a>        <span class="op">}</span></span>
+<span id="cb34-21"><a href="#cb34-21"></a>    <span class="op">}</span></span>
+<span id="cb34-22"><a href="#cb34-22"></a><span class="op">}</span></span>
+<span id="cb34-23"><a href="#cb34-23"></a></span>
+<span id="cb34-24"><a href="#cb34-24"></a><span class="dt">void</span> bfs<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> src<span class="op">)</span></span>
+<span id="cb34-25"><a href="#cb34-25"></a><span class="op">{</span></span>
+<span id="cb34-26"><a href="#cb34-26"></a>    queue s<span class="op">;</span></span>
+<span id="cb34-27"><a href="#cb34-27"></a>    init_queue<span class="op">(&amp;</span>s<span class="op">);</span></span>
+<span id="cb34-28"><a href="#cb34-28"></a>    enqueue<span class="op">(&amp;</span>s<span class="op">,</span> src<span class="op">);</span></span>
+<span id="cb34-29"><a href="#cb34-29"></a>    <span class="cf">while</span><span class="op">(!</span>empty_queue<span class="op">(&amp;</span>s<span class="op">))</span></span>
+<span id="cb34-30"><a href="#cb34-30"></a>    <span class="op">{</span></span>
+<span id="cb34-31"><a href="#cb34-31"></a>        <span class="dt">int</span> x <span class="op">=</span> dequeue<span class="op">(&amp;</span>s<span class="op">);</span></span>
+<span id="cb34-32"><a href="#cb34-32"></a>        <span class="cf">if</span> <span class="op">(!</span>g<span class="op">-&gt;</span>processed<span class="op">[</span>x<span class="op">])</span></span>
+<span id="cb34-33"><a href="#cb34-33"></a>        <span class="op">{</span></span>
+<span id="cb34-34"><a href="#cb34-34"></a>            g<span class="op">-&gt;</span>processed<span class="op">[</span>x<span class="op">]</span> <span class="op">=</span> true<span class="op">;</span></span>
+<span id="cb34-35"><a href="#cb34-35"></a>            process_vertex_early<span class="op">(</span>g<span class="op">,</span> x<span class="op">);</span></span>
+<span id="cb34-36"><a href="#cb34-36"></a></span>
+<span id="cb34-37"><a href="#cb34-37"></a>            edgenode <span class="op">*</span>n <span class="op">=</span> g<span class="op">-&gt;</span>edges<span class="op">[</span>x<span class="op">];</span></span>
+<span id="cb34-38"><a href="#cb34-38"></a>            <span class="cf">while</span><span class="op">(</span>n <span class="op">!=</span> NULL<span class="op">)</span></span>
+<span id="cb34-39"><a href="#cb34-39"></a>            <span class="op">{</span></span>
+<span id="cb34-40"><a href="#cb34-40"></a>                enqueue<span class="op">(&amp;</span>s<span class="op">,</span> n<span class="op">-&gt;</span>y<span class="op">);</span></span>
+<span id="cb34-41"><a href="#cb34-41"></a>                n <span class="op">=</span> n<span class="op">-&gt;</span>next<span class="op">;</span></span>
+<span id="cb34-42"><a href="#cb34-42"></a>            <span class="op">}</span></span>
+<span id="cb34-43"><a href="#cb34-43"></a>        <span class="op">}</span></span>
+<span id="cb34-44"><a href="#cb34-44"></a>    <span class="op">}</span></span>
+<span id="cb34-45"><a href="#cb34-45"></a><span class="op">}</span></span></code></pre></div>
+<p></div> </div> </div></p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>A l’aide d’un parcours en largeur, le <code>bfs</code>, déterminez
+étant donné un sommet <code>x</code> et un sommet <code>y</code> de sa
+composante connexe, le plus court chemin de <code>x</code> vers
+<code>y</code>. On l’affichera sous la forme
+<code>0 -- 3 -- 1 -- 5</code>.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> On rajoute un champ comme vu dans le
+cours : <div class="ui segment code"></p>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb35-1"><a href="#cb35-1"></a><span class="dt">int</span> d<span class="op">[</span>MAXV<span class="op">];</span></span></code></pre></div>
+<p></div> on marque <code>d[x] = 0</code> et on utilise le any-search
+modifié pour tenir compte de la parenté :
+<div class="ui segment code"></p>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"></code></pre></div>
+<p></div> </div> </div></p>
+<h1 data-number="2"
+id="sec:étude-dun-graphe-issu-dun-réseau-social"><span
+class="header-section-number">2</span> Étude d’un graphe issu d’un
+réseau social</h1>
+<p>Dans ce TP on va étudier le graphe <strong>orienté</strong> des
+followers du compte Twitter <code>@ENSdeLyon</code>.</p>
+<p>Une représentation graphique de ce graphe est donné dans l’image
+suivante :</p>
+<p><img src="assets/pics/ENSdeLyon.png" /></p>
+<p>Les sommets sont les comptes donnés par leur identifiant (le
+<code>@identifiant</code> de Twitter) et une arête x <span
+class="math inline">\(\rightarrow\)</span> y indique que le compte x est
+abonné au compte y.</p>
+<p>Ce graphe est assez conséquent : il comporte 8418 sommets et 305288
+arêtes. Il nous permettra ainsi d’étudier en pratique la complexité des
+différents algorithmes étudiés. On va commencer par lire ce graphe
+depuis un fichier, ensuite, on en déduira différents graphes associés
+(sous-graphes, symétrisés par excès ou par défaut…) sur lesquels on
+pourra appliquer les algorithmes demandés. Une table de résultat est
+fourni en fin de TP pour vérifier vos résultats.</p>
+<h2 data-number="2.1" id="sec:définition-et-lecture-du-graphe"><span
+class="header-section-number">2.1</span> Définition et lecture du
+graphe</h2>
+<p>Le graphe est donné dans le fichier <a
+href="assets/data/ENSdeLyon.graph">ENSdeLyon.graph</a>. Il s’agit d’un
+fichier texte ayant la structure suivante :</p>
+<ul>
+<li>un entier <code>n_sommets</code> sur une ligne</li>
+<li>un entiers <code>n_aretes</code> sur une ligne</li>
+<li><code>n_sommets</code> lignes contenant une chaîne de caractère
+représentant l’identifiant d’un sommet</li>
+<li><code>n_aretes</code> couple de lignes comportant sur la première un
+entier <code>src</code> et sur la seconde un entier <code>tgt</code>
+indiquant une arête <code>src -&gt; tgt</code>.</li>
+</ul>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Expliquer pourquoi cela ne semble pas être une bonne idée de
+représenter ce graphe par une matrice d’adjacence.</p>
+</div>
+<p>On va utiliser le type suivant permettant de représenter le graphe
+par listes d’adjacence :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb37-1"><a href="#cb37-1"></a><span class="kw">type</span> graphe = {</span>
+<span id="cb37-2"><a href="#cb37-2"></a>    sommets : <span class="dt">string</span> <span class="dt">array</span>;</span>
+<span id="cb37-3"><a href="#cb37-3"></a>    aretes : <span class="dt">int</span> <span class="dt">list</span> <span class="dt">array</span></span>
+<span id="cb37-4"><a href="#cb37-4"></a>}</span></code></pre></div>
+<p></div></p>
+<p>Pour lire le graphe depuis le fichier, le plus simple est de le
+rediriger sur l’entrée standard (<em>Rappel</em>
+<code>./monprogramme &lt; monfichier</code>) et d’utiliser les deux
+fonctions suivantes :</p>
+<ul>
+<li><code>read_int : unit -&gt; int</code> lit une ligne composée d’un
+entier et renvoie sa valeur.</li>
+<li><code>read_line : unit -&gt; string</code> lit une ligne et la
+renvoie sans le caractère de saut de ligne, c’est-à-dire, sans le
+<code>'\n'</code>.</li>
+</ul>
+<p>Alternativement, on peut lire le graphe depuis un fichier avec :</p>
+<ul>
+<li><code>open_in : string -&gt; in_channel</code> qui crée un
+descripteur de fichier en lecture pour le nom de fichier passé en
+paramètre</li>
+<li><code>input_line : in_channel -&gt; string</code> qui lit une ligne
+dans le descripteur et la renvoie sans le saut de ligne</li>
+<li><code>int_of_string : string -&gt; int</code> qui convertit une
+chaîne contenant un entier en entier.</li>
+</ul>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction <code>read_graphe : unit -&gt; graphe</code> qui
+lit un graphe dans le format précédent sur l’entrée standard et tester
+que vous arrivez à lire le fichier.</p>
+<p>Un graphe minimaliste de 3 sommets et 4 arêtes est donné dans le
+fichier <a href="assets/data/test.graph">test.graph</a> afin de vous
+permettre de tester votre fonction.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb38-1"><a href="#cb38-1"></a><span class="kw">let</span> read_graphe () = </span>
+<span id="cb38-2"><a href="#cb38-2"></a>    <span class="kw">let</span> nb_sommets = <span class="dt">read_int</span> () <span class="kw">in</span></span>
+<span id="cb38-3"><a href="#cb38-3"></a>    <span class="kw">let</span> nb_aretes = <span class="dt">read_int</span> () <span class="kw">in</span></span>
+<span id="cb38-4"><a href="#cb38-4"></a></span>
+<span id="cb38-5"><a href="#cb38-5"></a>    <span class="kw">let</span> sommets = <span class="dt">Array</span>.init nb_sommets</span>
+<span id="cb38-6"><a href="#cb38-6"></a>        (<span class="kw">fun</span> _ -&gt; <span class="dt">read_line</span> ()) <span class="kw">in</span></span>
+<span id="cb38-7"><a href="#cb38-7"></a></span>
+<span id="cb38-8"><a href="#cb38-8"></a>    <span class="kw">let</span> aretes = <span class="dt">Array</span>.make nb_sommets [] <span class="kw">in</span></span>
+<span id="cb38-9"><a href="#cb38-9"></a></span>
+<span id="cb38-10"><a href="#cb38-10"></a>    <span class="kw">for</span> _ = <span class="dv">0</span> <span class="kw">to</span> nb_aretes - <span class="dv">1</span> <span class="kw">do</span></span>
+<span id="cb38-11"><a href="#cb38-11"></a>        <span class="kw">let</span> src = <span class="dt">read_int</span> () <span class="kw">in</span></span>
+<span id="cb38-12"><a href="#cb38-12"></a>        <span class="kw">let</span> tgt = <span class="dt">read_int</span> () <span class="kw">in</span></span>
+<span id="cb38-13"><a href="#cb38-13"></a></span>
+<span id="cb38-14"><a href="#cb38-14"></a>        aretes.(src) &lt;- tgt :: aretes.(src)</span>
+<span id="cb38-15"><a href="#cb38-15"></a>    <span class="kw">done</span>;</span>
+<span id="cb38-16"><a href="#cb38-16"></a>    { sommets=sommets; aretes=aretes }</span></code></pre></div>
+<p></div> </div> </div></p>
+<p>Si <span class="math inline">\(G = (S,A)\)</span> est un graphe dont
+les sommets sont énumérées <span class="math inline">\(S = \{ s_0, s_1,
+\dots, s_{n-1} \}\)</span>, on note, pour <span class="math inline">\(p
+\le n\)</span>, <span class="math inline">\(G_p\)</span> le sous-graphe
+induit par <span class="math inline">\(\{ s_0, \dots, s_{p-1}
+\}\)</span>.</p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction
+<code>restriction : graphe -&gt; int -&gt; graphe</code> tel que
+<code>restriction g p</code> où <code>g</code> est la représentation
+d’un graphe <span class="math inline">\(G\)</span> renvoie la
+représentation du graphe <span class="math inline">\(G_p\)</span>.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> On adopte une approche proche de la
+fonction précédente : on itère sur les arêtes du graphe initial et on ne
+sélectionne que celles qui sont compatibles avec la restriction.</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb39-1"><a href="#cb39-1"></a><span class="kw">let</span> restriction g p =</span>
+<span id="cb39-2"><a href="#cb39-2"></a>    <span class="kw">let</span> sommets = <span class="dt">Array</span>.sub g.sommets <span class="dv">0</span> p <span class="kw">in</span></span>
+<span id="cb39-3"><a href="#cb39-3"></a>    <span class="kw">let</span> aretes = <span class="dt">Array</span>.make p [] <span class="kw">in</span></span>
+<span id="cb39-4"><a href="#cb39-4"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> p - <span class="dv">1</span> <span class="kw">do</span></span>
+<span id="cb39-5"><a href="#cb39-5"></a>        <span class="dt">List</span>.iter (<span class="kw">fun</span> j -&gt;</span>
+<span id="cb39-6"><a href="#cb39-6"></a>            <span class="kw">if</span> j &lt; p <span class="kw">then</span> aretes.(i) &lt;- j :: aretes.(i))</span>
+<span id="cb39-7"><a href="#cb39-7"></a>            g.aretes.(i)</span>
+<span id="cb39-8"><a href="#cb39-8"></a>    <span class="kw">done</span>;</span>
+<span id="cb39-9"><a href="#cb39-9"></a>    { sommets = sommets; aretes = aretes }</span></code></pre></div>
+<p></div></p>
+<p>Notons ici qu’on aurait pu avoir une approche plus fonctionnelle pour
+sélectionner les bonnes arêtes :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb40-1"><a href="#cb40-1"></a><span class="kw">let</span> restriction g p =</span>
+<span id="cb40-2"><a href="#cb40-2"></a>    <span class="kw">let</span> sommets = <span class="dt">Array</span>.sub g.sommets <span class="dv">0</span> p <span class="kw">in</span></span>
+<span id="cb40-3"><a href="#cb40-3"></a>    <span class="kw">let</span> aretes = <span class="dt">Array</span>.map (<span class="dt">List</span>.filter ((&gt;)p))</span>
+<span id="cb40-4"><a href="#cb40-4"></a>        (<span class="dt">Array</span>.sub g.aretes <span class="dv">0</span> p) <span class="kw">in</span></span>
+<span id="cb40-5"><a href="#cb40-5"></a>    { sommets = sommets; aretes = aretes }</span></code></pre></div>
+<p></div></p>
+<p></div> </div></p>
+<p>Si <span class="math inline">\(G = (S,A)\)</span> est un graphe
+orienté, on a vu au paragraphe <a
+href="chap_structuresdonnees_graphes%20(Copie%20en%20conflit%20de%20spectre%202022-05-17).html#sec:graphes_symetrises">Graphes
+non orientés</a> les graphes non orientés par défaut et par excès, <span
+class="math inline">\(G^-\)</span> et <span
+class="math inline">\(G^+\)</span> qui lui sont associés.</p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire des fonctions <code>par_defaut : graphe -&gt; graphe</code> et
+<code>par_exces : graphe -&gt; graphe</code> qui, étant donné un graphe
+<span class="math inline">\(G\)</span>, renvoie les graphes <span
+class="math inline">\(G^-\)</span> et <span
+class="math inline">\(G^+\)</span> représentés en tant que graphes
+orientés symétriques.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> On adopte encore l’approche de
+création par remplissage. <div class="ui segment code"></p>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb41-1"><a href="#cb41-1"></a><span class="kw">let</span> defaut g =</span>
+<span id="cb41-2"><a href="#cb41-2"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length g.sommets <span class="kw">in</span></span>
+<span id="cb41-3"><a href="#cb41-3"></a>    <span class="kw">let</span> sommets = <span class="dt">Array</span>.copy g.sommets <span class="kw">in</span></span>
+<span id="cb41-4"><a href="#cb41-4"></a>    <span class="kw">let</span> aretes = <span class="dt">Array</span>.make n [] <span class="kw">in</span></span>
+<span id="cb41-5"><a href="#cb41-5"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n - <span class="dv">1</span> <span class="kw">do</span></span>
+<span id="cb41-6"><a href="#cb41-6"></a>        <span class="dt">List</span>.iter (<span class="kw">fun</span> j -&gt;</span>
+<span id="cb41-7"><a href="#cb41-7"></a>            <span class="kw">if</span> <span class="dt">List</span>.mem i g.aretes.(j)</span>
+<span id="cb41-8"><a href="#cb41-8"></a>            <span class="kw">then</span> aretes.(i) &lt;- j :: aretes.(i))</span>
+<span id="cb41-9"><a href="#cb41-9"></a>            g.aretes.(i)</span>
+<span id="cb41-10"><a href="#cb41-10"></a>    <span class="kw">done</span>;</span>
+<span id="cb41-11"><a href="#cb41-11"></a>    { sommets = sommets; aretes = aretes }</span>
+<span id="cb41-12"><a href="#cb41-12"></a></span>
+<span id="cb41-13"><a href="#cb41-13"></a><span class="kw">let</span> exces g =</span>
+<span id="cb41-14"><a href="#cb41-14"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length g.sommets <span class="kw">in</span></span>
+<span id="cb41-15"><a href="#cb41-15"></a>    <span class="kw">let</span> sommets = <span class="dt">Array</span>.copy g.sommets <span class="kw">in</span></span>
+<span id="cb41-16"><a href="#cb41-16"></a>    <span class="co">(* on recopie les arêtes existantes *)</span></span>
+<span id="cb41-17"><a href="#cb41-17"></a>    <span class="kw">let</span> aretes = <span class="dt">Array</span>.copy g.aretes <span class="kw">in</span></span>
+<span id="cb41-18"><a href="#cb41-18"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n - <span class="dv">1</span> <span class="kw">do</span></span>
+<span id="cb41-19"><a href="#cb41-19"></a>        <span class="dt">List</span>.iter (<span class="kw">fun</span> j -&gt;</span>
+<span id="cb41-20"><a href="#cb41-20"></a>            <span class="co">(* on rajoute les retours absents *)</span></span>
+<span id="cb41-21"><a href="#cb41-21"></a>            <span class="kw">if</span> <span class="dt">not</span> (<span class="dt">List</span>.mem i g.aretes.(j))</span>
+<span id="cb41-22"><a href="#cb41-22"></a>            <span class="kw">then</span> aretes.(j) &lt;- i :: aretes.(j))</span>
+<span id="cb41-23"><a href="#cb41-23"></a>            g.aretes.(i)</span>
+<span id="cb41-24"><a href="#cb41-24"></a>    <span class="kw">done</span>;</span>
+<span id="cb41-25"><a href="#cb41-25"></a>    { sommets = sommets; aretes = aretes }</span></code></pre></div>
+<p></div> </div> </div></p>
+<p>Si <span class="math inline">\(G = (S,A)\)</span> est un graphe
+orienté, on note <span class="math inline">\(rev(G) =
+(S,A&#39;)\)</span> son miroir qui vérifie <span
+class="math inline">\((i,j) \in A \iff (j,i) \in A&#39;\)</span>,
+c’est-à-dire qui renverse toutes les arêtes.</p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction <code>miroir : graphe -&gt; graphe</code> qui
+renvoie le miroir d’un graphe.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> Cette fonction c’est en fait le
+graphe par excès sans recopier les arêtes initiales sans retour :
+<div class="ui segment code"></p>
+<div class="sourceCode" id="cb42"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb42-1"><a href="#cb42-1"></a><span class="kw">let</span> miroir g =</span>
+<span id="cb42-2"><a href="#cb42-2"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length g.sommets <span class="kw">in</span></span>
+<span id="cb42-3"><a href="#cb42-3"></a>    <span class="kw">let</span> sommets = <span class="dt">Array</span>.copy g.sommets <span class="kw">in</span></span>
+<span id="cb42-4"><a href="#cb42-4"></a>    <span class="kw">let</span> aretes = <span class="dt">Array</span>.make n [] <span class="kw">in</span></span>
+<span id="cb42-5"><a href="#cb42-5"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n - <span class="dv">1</span> <span class="kw">do</span></span>
+<span id="cb42-6"><a href="#cb42-6"></a>        <span class="dt">List</span>.iter (<span class="kw">fun</span> j -&gt; aretes.(j) &lt;- i :: aretes.(j))</span>
+<span id="cb42-7"><a href="#cb42-7"></a>            g.aretes.(i)</span>
+<span id="cb42-8"><a href="#cb42-8"></a>    <span class="kw">done</span>;</span>
+<span id="cb42-9"><a href="#cb42-9"></a>    { sommets = sommets; aretes = aretes }</span></code></pre></div>
+<p></div> </div> </div></p>
+<p>Dans la suite du sujet on note <span
+class="math inline">\(\mathcal{G}\)</span> le graphe des followers
+contenu dans le fichier. On va considérer dans la suite les graphes
+:</p>
+<p><span class="math inline">\(\mathcal{G}, rev(\mathcal{G}),
+\mathcal{G}^-, \mathcal{G}^+, \mathcal{G}_{500}, rev(\mathcal{G}_{500}),
+\mathcal{G}_{500}^-\)</span> et <span
+class="math inline">\(\mathcal{G}_{500}^+\)</span>.</p>
+<h2 data-number="2.2" id="sec:statistiques-sur-les-degrés"><span
+class="header-section-number">2.2</span> Statistiques sur les
+degrés</h2>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction
+<code>stat_degre : graphe -&gt; int * float</code> qui renvoie un couple
+<span class="math inline">\((d_{max}, d_{moy})\)</span> où <span
+class="math inline">\(d_max\)</span> est le plus grand des degrés du
+graphe et <span class="math inline">\(d_{moy}\)</span> est le degré
+moyen donné par un nombre flottant.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> On itère directement sur les sommets
+: <div class="ui segment code"></p>
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb43-1"><a href="#cb43-1"></a><span class="kw">let</span> stat_degre g = </span>
+<span id="cb43-2"><a href="#cb43-2"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length g.sommets <span class="kw">in</span></span>
+<span id="cb43-3"><a href="#cb43-3"></a>    <span class="kw">let</span> sum_d, max_d = <span class="dt">ref</span> <span class="dv">0</span>, <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb43-4"><a href="#cb43-4"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
+<span id="cb43-5"><a href="#cb43-5"></a>        <span class="kw">let</span> d = <span class="dt">List</span>.length g.aretes.(i) <span class="kw">in</span></span>
+<span id="cb43-6"><a href="#cb43-6"></a>        max_d := <span class="dt">max</span> !max_d d;</span>
+<span id="cb43-7"><a href="#cb43-7"></a>        sum_d := !sum_d + d</span>
+<span id="cb43-8"><a href="#cb43-8"></a>    <span class="kw">done</span>;</span>
+<span id="cb43-9"><a href="#cb43-9"></a>    !max_d, <span class="dt">float_of_int</span> !sum_d /. <span class="dt">float_of_int</span> n</span></code></pre></div>
+<p></div></p>
+<p>Notons qu’on peut, ici aussi, écrire une fonction utilisant la
+bibliothèque standard efficacement : <div class="ui segment code"></p>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb44-1"><a href="#cb44-1"></a><span class="kw">let</span> stat_degre g = </span>
+<span id="cb44-2"><a href="#cb44-2"></a>    <span class="kw">let</span> a = <span class="dt">Array</span>.map <span class="dt">List</span>.length g.aretes <span class="kw">in</span></span>
+<span id="cb44-3"><a href="#cb44-3"></a>    <span class="kw">let</span> fold = <span class="dt">Array</span>.fold_left <span class="kw">in</span></span>
+<span id="cb44-4"><a href="#cb44-4"></a>    <span class="kw">let</span> foi = <span class="dt">float_of_int</span> <span class="kw">in</span></span>
+<span id="cb44-5"><a href="#cb44-5"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length g.aretes <span class="kw">in</span></span>
+<span id="cb44-6"><a href="#cb44-6"></a>    fold <span class="dt">max</span> <span class="dv">0</span> a, foi (fold (+) <span class="dv">0</span> a) /. foi n</span></code></pre></div>
+<p></div> </div> </div></p>
+<h2 data-number="2.3" id="sec:parcours-en-largeur"><span
+class="header-section-number">2.3</span> Parcours en largeur</h2>
+<p>On va réaliser ici un parcours en largeur qui sera amené à être
+modifié et enrichi dans les questions suivantes. On vous laisse libre
+d’enrichir ce parcours en utilisant des fonctionnelles pour les
+traitements ou de modifier le code du parcours directement.</p>
+<p>Pour utiliser une file, on va utiliser le module <a
+href="https://v2.ocaml.org/api/Queue.html">Queue</a>. Dans le parcours
+on va calculer la fonction de distance <code>d</code> et pour gérer les
+cas où <span class="math inline">\(d(x) = \infty\)</span>, on va la
+représenter par un <code>int option array</code>. Si
+<code>d.(x) = None</code> c’est que <code>x</code> est inconnu, on peut
+donc se servir de ce tableau pour avoir l’état d’un sommet.</p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction
+<code>bfs : graphe -&gt; int -&gt; int option array * int option array</code>
+telle que <code>bfs g x</code> renvoie un couple <code>(d,parent)</code>
+où <code>d.(y)</code> est la distance minimale de <span
+class="math inline">\(x\)</span> à <span
+class="math inline">\(y\)</span> et <code>parent.(y)</code> est l’indice
+du prédécesseur de <code>y</code> dans un tel chemin de <span
+class="math inline">\(x\)</span> à <span
+class="math inline">\(y\)</span>.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> On implémente directement le
+parcours en largeur vu dans le cours.</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb45-1"><a href="#cb45-1"></a><span class="kw">let</span> bfs g x =</span>
+<span id="cb45-2"><a href="#cb45-2"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length g.sommets <span class="kw">in</span></span>
+<span id="cb45-3"><a href="#cb45-3"></a>    <span class="kw">let</span> p = <span class="dt">Array</span>.make n <span class="dt">None</span> <span class="kw">in</span></span>
+<span id="cb45-4"><a href="#cb45-4"></a>    <span class="kw">let</span> d = <span class="dt">Array</span>.make n <span class="dt">None</span> <span class="kw">in</span></span>
+<span id="cb45-5"><a href="#cb45-5"></a>    <span class="kw">let</span> a_traiter = <span class="dt">Queue</span>.create () <span class="kw">in</span></span>
+<span id="cb45-6"><a href="#cb45-6"></a>    <span class="dt">Queue</span>.add x a_traiter;</span>
+<span id="cb45-7"><a href="#cb45-7"></a>    d.(x) &lt;- <span class="dt">Some</span> <span class="dv">0</span>;</span>
+<span id="cb45-8"><a href="#cb45-8"></a>    <span class="kw">while</span> <span class="dt">not</span> (<span class="dt">Queue</span>.is_empty a_traiter) <span class="kw">do</span></span>
+<span id="cb45-9"><a href="#cb45-9"></a>        <span class="kw">let</span> x = <span class="dt">Queue</span>.take a_traiter <span class="kw">in</span></span>
+<span id="cb45-10"><a href="#cb45-10"></a>        <span class="dt">List</span>.iter (<span class="kw">fun</span> y -&gt;</span>
+<span id="cb45-11"><a href="#cb45-11"></a>                 <span class="dt">Queue</span>.add y a_traiter;</span>
+<span id="cb45-12"><a href="#cb45-12"></a>                 p.(y) &lt;- <span class="dt">Some</span> x;</span>
+<span id="cb45-13"><a href="#cb45-13"></a>                 d.(y) &lt;- <span class="dt">Some</span> (Option.get d.(x) + <span class="dv">1</span>))</span>
+<span id="cb45-14"><a href="#cb45-14"></a>            (<span class="dt">List</span>.filter (<span class="kw">fun</span> y -&gt; d.(y) = <span class="dt">None</span>) </span>
+<span id="cb45-15"><a href="#cb45-15"></a>                g.aretes.(x))</span>
+<span id="cb45-16"><a href="#cb45-16"></a>    <span class="kw">done</span>;</span>
+<span id="cb45-17"><a href="#cb45-17"></a>    d, p</span></code></pre></div>
+<p></div> </div> </div></p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction
+<code>chemin : graphe -&gt; int option array -&gt; int -&gt; int list</code>
+tel que <code>chemin g parent y</code> renvoie les sommets présents dans
+un chemin de <code>x</code> à <code>y</code>.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> On utilise ici la récusivité
+terminale pour remettre le chemin dans l’ordre.</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb46-1"><a href="#cb46-1"></a><span class="kw">let</span> chemin g p y =</span>
+<span id="cb46-2"><a href="#cb46-2"></a>    <span class="kw">let</span> <span class="kw">rec</span> aux y l =</span>
+<span id="cb46-3"><a href="#cb46-3"></a>        <span class="kw">match</span> p.(y) <span class="kw">with</span></span>
+<span id="cb46-4"><a href="#cb46-4"></a>        | <span class="dt">None</span> -&gt; y :: l</span>
+<span id="cb46-5"><a href="#cb46-5"></a>        | <span class="dt">Some</span> x -&gt; aux x (y :: l)</span>
+<span id="cb46-6"><a href="#cb46-6"></a>    <span class="kw">in</span> aux y []</span></code></pre></div>
+<p></div> </div> </div></p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction
+<code>affiche_chemin : graphe -&gt; int list -&gt; unit</code> qui prend
+un graphe et un chemin donné par la fonction précédente et l’affiche
+avec le format :</p>
+<pre><code>compte1 -&gt; compte1 -&gt; ... -&gt; compten</code></pre>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb48"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb48-1"><a href="#cb48-1"></a><span class="kw">let</span> affiche_chemin g p = </span>
+<span id="cb48-2"><a href="#cb48-2"></a>    <span class="dt">Printf</span>.printf <span class="st">&quot;%s</span><span class="ch">\n</span><span class="st">&quot;</span></span>
+<span id="cb48-3"><a href="#cb48-3"></a>        (<span class="dt">String</span>.concat <span class="st">&quot; -&gt; &quot;</span></span>
+<span id="cb48-4"><a href="#cb48-4"></a>            (<span class="dt">List</span>.map (<span class="kw">fun</span> i -&gt; g.sommets.(i)) p))</span></code></pre></div>
+<p></div> </div> </div></p>
+<p>Si <span class="math inline">\(x \in S\)</span>, on note <span
+class="math inline">\(\underline{x} = \enscomp{y \in S}{x \leadsto
+y}\)</span>.</p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction
+<code>accessibles : graphe -&gt; int -&gt; int</code> qui calcule le
+cardinal de <span class="math inline">\(\underline{x}\)</span> étant
+donné un graphe <span class="math inline">\(G\)</span> et un sommet
+<span class="math inline">\(x\)</span> donné par son indice.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb49-1"><a href="#cb49-1"></a><span class="kw">let</span> accessibles g x =</span>
+<span id="cb49-2"><a href="#cb49-2"></a>    <span class="kw">let</span> d, p = bfs g x <span class="kw">in</span></span>
+<span id="cb49-3"><a href="#cb49-3"></a>    <span class="dt">Array</span>.fold_left (+) <span class="dv">0</span></span>
+<span id="cb49-4"><a href="#cb49-4"></a>        (<span class="dt">Array</span>.map </span>
+<span id="cb49-5"><a href="#cb49-5"></a>            (<span class="kw">fun</span> v -&gt; <span class="kw">if</span> v = <span class="dt">None</span> <span class="kw">then</span> <span class="dv">0</span> <span class="kw">else</span> <span class="dv">1</span>) d)</span></code></pre></div>
+<p></div> </div> </div></p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction
+<code>max_accesibles : graphe -&gt; int * int</code> qui renvoie un
+couple <span class="math inline">\((x, |\underline{x}|)\)</span> où
+<span class="math inline">\(x\)</span> est un sommet pour lequel <span
+class="math inline">\(|\underline{x}|\)</span> est maximal.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb50"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb50-1"><a href="#cb50-1"></a><span class="kw">let</span> max_accessibles g =</span>
+<span id="cb50-2"><a href="#cb50-2"></a>    <span class="kw">let</span> m, v = <span class="dt">ref</span> <span class="dv">0</span>, <span class="dt">ref</span> (accessibles g <span class="dv">0</span>) <span class="kw">in</span></span>
+<span id="cb50-3"><a href="#cb50-3"></a>    <span class="kw">for</span> i = <span class="dv">1</span> <span class="kw">to</span> <span class="dt">Array</span>.length g.sommets - <span class="dv">1</span> <span class="kw">do</span></span>
+<span id="cb50-4"><a href="#cb50-4"></a>        <span class="kw">let</span> v&#39; = accessibles g i <span class="kw">in</span></span>
+<span id="cb50-5"><a href="#cb50-5"></a>        <span class="kw">if</span> v&#39; &gt; !v</span>
+<span id="cb50-6"><a href="#cb50-6"></a>        <span class="kw">then</span> ( v := v&#39;; m := i )</span>
+<span id="cb50-7"><a href="#cb50-7"></a>    <span class="kw">done</span>;</span>
+<span id="cb50-8"><a href="#cb50-8"></a>    !m, !v</span></code></pre></div>
+<p></div> </div> </div></p>
+<h2 data-number="2.4" id="sec:plus-long-chemin-et-diametre"><span
+class="header-section-number">2.4</span> Plus long chemin et
+diametre</h2>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction
+<code>plus_loin : graphe -&gt; int -&gt; int list</code> telle que
+<code>plus_long_chemin g x</code> renvoie le chemin de <code>x</code> au
+sommet <code>y</code> qui lui est le plus éloigné.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb51"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb51-1"><a href="#cb51-1"></a><span class="kw">let</span> plus_loin g x =</span>
+<span id="cb51-2"><a href="#cb51-2"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length g.sommets <span class="kw">in</span></span>
+<span id="cb51-3"><a href="#cb51-3"></a>    <span class="kw">let</span> d, p = bfs g x <span class="kw">in</span></span>
+<span id="cb51-4"><a href="#cb51-4"></a>    <span class="kw">let</span> i = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb51-5"><a href="#cb51-5"></a>    <span class="kw">while</span> d.(!i) = <span class="dt">None</span> <span class="kw">do</span></span>
+<span id="cb51-6"><a href="#cb51-6"></a>        <span class="dt">incr</span> i</span>
+<span id="cb51-7"><a href="#cb51-7"></a>    <span class="kw">done</span>;</span>
+<span id="cb51-8"><a href="#cb51-8"></a>    <span class="kw">let</span> m = <span class="dt">ref</span> (!i) <span class="kw">in</span></span>
+<span id="cb51-9"><a href="#cb51-9"></a>    <span class="kw">for</span> j = !i+<span class="dv">1</span> <span class="kw">to</span> n - <span class="dv">1</span> <span class="kw">do</span></span>
+<span id="cb51-10"><a href="#cb51-10"></a>        <span class="kw">match</span> d.(j) <span class="kw">with</span></span>
+<span id="cb51-11"><a href="#cb51-11"></a>        | <span class="dt">Some</span> v -&gt; <span class="kw">if</span> v &gt; Option.get d.(!m) <span class="kw">then</span> m := j</span>
+<span id="cb51-12"><a href="#cb51-12"></a>        | <span class="dt">None</span> -&gt; ()</span>
+<span id="cb51-13"><a href="#cb51-13"></a>    <span class="kw">done</span>;</span>
+<span id="cb51-14"><a href="#cb51-14"></a>    <span class="kw">let</span> v = Option.get d.(!m) <span class="kw">in</span></span>
+<span id="cb51-15"><a href="#cb51-15"></a>    !m, v, chemin g p !m</span></code></pre></div>
+</div> </div> </div>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Écrire une fonction <code>diametre : graphe -&gt; int list</code> qui
+renvoie un chemin réalisant le diamètre d’un graphe.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb52"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb52-1"><a href="#cb52-1"></a><span class="kw">let</span> diametre g = </span>
+<span id="cb52-2"><a href="#cb52-2"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length g.sommets <span class="kw">in</span></span>
+<span id="cb52-3"><a href="#cb52-3"></a>    <span class="kw">let</span> v, p = <span class="dt">ref</span> <span class="dv">0</span>, <span class="dt">ref</span> [] <span class="kw">in</span></span>
+<span id="cb52-4"><a href="#cb52-4"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
+<span id="cb52-5"><a href="#cb52-5"></a>        <span class="kw">let</span> j, v&#39;, chemin = plus_loin g i <span class="kw">in</span></span>
+<span id="cb52-6"><a href="#cb52-6"></a>        <span class="kw">if</span> !v &lt; v&#39;</span>
+<span id="cb52-7"><a href="#cb52-7"></a>        <span class="kw">then</span> <span class="kw">begin</span></span>
+<span id="cb52-8"><a href="#cb52-8"></a>            v := v&#39;;</span>
+<span id="cb52-9"><a href="#cb52-9"></a>            p := chemin</span>
+<span id="cb52-10"><a href="#cb52-10"></a>        <span class="kw">end</span></span>
+<span id="cb52-11"><a href="#cb52-11"></a>    <span class="kw">done</span>;</span>
+<span id="cb52-12"><a href="#cb52-12"></a>    !p</span></code></pre></div>
+<p></div> </div> </div></p>
+<h2 data-number="2.5" id="sec:table-de-résultats"><span
+class="header-section-number">2.5</span> Table de résultats</h2>
+<p><strong>Attention</strong> : s’il faut peu de temps pour obtenir les
+résultats pour le sous-graphe de 500 sommets, c’est beaucoup plus long
+sur le graphe en entier.</p>
+<ul>
+<li><strong><span
+class="math inline">\(\mathcal{G}_{500}\)</span></strong> :</li>
+</ul>
+<pre><code>degré max 10
+degré moyen 0.430000
+max_accessibles Mishkalashnikov avec 16 sommets
+Diamètre 7 réalisé par :
+Isaac__K -&gt; naxonlabs -&gt; faezeh_db -&gt; MooreInst -&gt; 
+    fath_gabrielle -&gt; hypothesesorg -&gt; ScienceFactor -&gt; savantures</code></pre>
+<ul>
+<li><strong><span
+class="math inline">\(rev(\mathcal{G}_{500})\)</span></strong> :</li>
+</ul>
+<pre><code>degré max 31
+degré moyen 0.430000
+max_accessibles savantures avec 76 sommets
+Diamètre 7 réalisé par :
+savantures -&gt; ScienceFactor -&gt; hypothesesorg -&gt; 
+    fath_gabrielle -&gt; MooreInst -&gt; faezeh_db -&gt; naxonlabs -&gt; Isaac__K</code></pre>
+<ul>
+<li><strong><span
+class="math inline">\(\mathcal{G}_{500}^-\)</span></strong> :</li>
+</ul>
+<pre><code>degré max 4
+degré moyen 0.176000
+max_accessibles SeverineWozniak avec 8 sommets
+Diamètre 4 réalisé par :
+QLMB8mars -&gt; giu_sapio -&gt; louise_tbr -&gt; GroupeImpec -&gt; halfbloodqueenx</code></pre>
+<ul>
+<li><strong><span
+class="math inline">\(\mathcal{G}_{500}^+\)</span></strong> :</li>
+</ul>
+<pre><code>degré max 32
+degré moyen 0.684000
+max_accessibles helloselyn avec 98 sommets
+Diamètre 12 réalisé par :
+TsamiyahL -&gt; FES_AFNEUS -&gt; FlorestanAFNEUS -&gt; FedeAddiction -&gt; 
+    LS46151053 -&gt; hypothesesorg -&gt; Osec2022 -&gt; ardakaniz -&gt; 
+    ValRobert974 -&gt; DialloAIbrahim2 -&gt; Defense137 -&gt; KArthemis -&gt; 
+    SGF_GEOSOC</code></pre>
+<ul>
+<li><strong><span class="math inline">\(\mathcal{G}\)</span></strong>
+:</li>
+</ul>
+<pre><code>degré max 950
+degré moyen 36.266096
+max_accessibles Boris_Brana avec 6049 sommets
+Diamètre 9 réalisé par :
+MonaEmara10 -&gt; SambitPhD -&gt; MIT_CSAIL -&gt; MehdiKaytoue -&gt; gromuald -&gt; 
+    ECHARDE_ENSL -&gt; cerseilia_ -&gt; dadoyeldado -&gt; Deccefunjoogu -&gt; stoicsalik</code></pre>
+<ul>
+<li><strong><span
+class="math inline">\(rev(\mathcal{G})\)</span></strong> :</li>
+</ul>
+<pre><code>degré max 3655
+degré moyen 36.266096
+max_accessibles JustVonBraun avec 7532 sommets
+Diamètre 9 réalisé par :
+Bonusbasci -&gt; TCebere -&gt; Miruna_Rosca -&gt; h2020prometheus -&gt; 
+    barENdSonLyon -&gt; INP_CNRS -&gt; ThierryCoulhon -&gt; Phil_Baty -&gt; 
+    HigherEdFutures -&gt; HEMobilities</code></pre>
+<ul>
+<li><strong><span class="math inline">\(\mathcal{G}^-\)</span></strong>
+:</li>
+</ul>
+<pre><code>degré max 610
+degré moyen 12.069850
+max_accessibles augabcoh avec 5352 sommets
+Diamètre 10 réalisé par :
+LeaLescouzeres -&gt; Gauthier_tls -&gt; MorganeBoulch -&gt; CSNB14 -&gt; 
+    leo_chapuis -&gt; CCILYONMETRO -&gt; IsabelleHuault -&gt; Phil_Baty -&gt; 
+    UNIKEhighered -&gt; HigherEdFutures -&gt; HEMobilities</code></pre>
+<ul>
+<li><strong><span class="math inline">\(\mathcal{G}^+\)</span></strong>
+:</li>
+</ul>
+<pre><code>degré max 3655
+degré moyen 60.462343
+max_accessibles augabcoh avec 7854 sommets
+Diamètre 7 réalisé par :
+GabrielMarseres -&gt; caroched -&gt; MarieMoroso -&gt; L3vironaute -&gt; najatvb -&gt; 
+    LeankonCarotte -&gt; JustVonBraun -&gt; Sardine49160063</code></pre>
+<h2 data-number="2.6" id="sec:aller-plus-loin"><span
+class="header-section-number">2.6</span> Aller plus loin</h2>
+<p>On propose ici plusieurs pistes de réflexions pour prolonger le TP
+:</p>
+<ul>
+<li>On a vu des algorithmes de dessin de graphes adaptés à des petits
+graphes. La présence de l’interaction sommet-sommet semble leur donner
+une complexité en <span class="math inline">\(O(n^2)\)</span> qui est
+rédhibitoire ici. Cependant, des sommets éloignés ont peu de chance
+d’interagir, comment pourrait-on modifier l’algorithme pour ignorer les
+interactions de répulsions entre sommets éloignés ? On remarque que la
+distance n’est pas un critère valide car les sommets peuvent être tous
+être superposés. Une manière de traiter cela efficacement est de
+découper le plan en région par des droites successives. Allez voir la
+page <a
+href="https://en.wikipedia.org/wiki/Binary_space_partitioning">Binary
+Space Partionning</a> et en déduire un algorithme effectif de dessin de
+graphe adapté.</li>
+<li>Pour estimer l’importance d’un compte, on ne peut pas se fier à son
+degré. En effet, celui-ci peut être augmenté artificiellement. Une
+manière fiable de mesurer l’importance est d’imaginer quelqu’un
+naviguant aléatoirement sur des comptes en suivant des liens
+d’abonnement et de mesurer la probabilité qu’il se retrouve sur un
+compte donné. C’est le principe qui est à la base de l’algorithme <a
+href="https://en.wikipedia.org/wiki/PageRank">PageRank</a> utilisé par
+Google. Implémenter cet algorithme et en déduire les comptes les plus
+importants dans cet exemple.</li>
+</ul>
+<h1 data-number="3" id="sec:plus-courts-chemins-en-ocaml"><span
+class="header-section-number">3</span> Plus courts chemins en
+<code>OCaml</code></h1>
+<p>Ce TP vous demande plus d’autonomie que les TP précédents. Il s’agit
+de mobiliser des connaissances plus anciennes et d’implémenter
+effectivement des algorithmes que l’on comprend bien en pseudo-code.</p>
+<p>L’objectif est de pouvoir résoudre des problèmes comme :</p>
+<ul>
+<li><a href="https://www.spoj.com/problems/HIGHWAYS/">HIGHWAYS</a></li>
+<li><a href="https://www.spoj.com/problems/MICEMAZE/">MICEMAZE</a></li>
+<li><a href="https://www.spoj.com/problems/TRAFFICN/">TRAFFICN</a></li>
+<li><a href="https://www.spoj.com/problems/SAMER08A/">SAMER08A</a></li>
+</ul>
+<p>Si vous êtes courageux, foncez sans lire la suite ;-)</p>
+<h2 data-number="3.1" id="sec:écriture-naïve-de-dijkstra"><span
+class="header-section-number">3.1</span> Écriture naïve de Dijkstra</h2>
+<p>Écrire une implémentation de Dijkstra reposant sur une référence sur
+une liste de sommets pour effectuer la recherche du sommet de plus
+petite priorité. On pourra s’inspirer du programme Python ci-dessus.</p>
+<p>On considérera, comme pour les autres parcours que le graphe est
+donné sous la forme de listes d’adjacence mais cette fois, les listes
+devront comporter les poids. En supposant que <span
+class="math inline">\(S = \{ 0, 1, \dots, n-1 \}\)</span> on utilisera
+directement le type suivant en supposant des poids entiers positifs
+:</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb61"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb61-1"><a href="#cb61-1"></a><span class="kw">type</span> graph = (<span class="dt">int</span> * <span class="dt">int</span>) <span class="dt">list</span> <span class="dt">array</span></span></code></pre></div>
+<p></div></p>
+<p>Pour un sommet <span class="math inline">\(x\)</span> on a donc une
+liste de couples <span class="math inline">\((y,w)\)</span> où pour
+chaque arête <span class="math inline">\(x \rightarrow y\)</span> avec
+<span class="math inline">\(\pi(x \rightarrow y) = w\)</span>.</p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
+<p>Ainsi, le graphe du premier exemple est donné par la valeur :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb62"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb62-1"><a href="#cb62-1"></a><span class="kw">let</span> g = [|</span>
+<span id="cb62-2"><a href="#cb62-2"></a>    [ (<span class="dv">1</span>, <span class="dv">7</span>); (<span class="dv">2</span>, <span class="dv">9</span>); (<span class="dv">5</span>, <span class="dv">14</span>) ];</span>
+<span id="cb62-3"><a href="#cb62-3"></a>    [ (<span class="dv">0</span>, <span class="dv">7</span>); (<span class="dv">2</span>, <span class="dv">10</span>); (<span class="dv">3</span>, <span class="dv">15</span>) ];</span>
+<span id="cb62-4"><a href="#cb62-4"></a>    [ (<span class="dv">0</span>, <span class="dv">9</span>); (<span class="dv">1</span>, <span class="dv">10</span>); (<span class="dv">3</span>, <span class="dv">11</span>); (<span class="dv">5</span>, <span class="dv">2</span>) ];</span>
+<span id="cb62-5"><a href="#cb62-5"></a>    [ (<span class="dv">1</span>, <span class="dv">15</span>); (<span class="dv">2</span>, <span class="dv">11</span>); (<span class="dv">4</span>, <span class="dv">6</span>) ];</span>
+<span id="cb62-6"><a href="#cb62-6"></a>    [ (<span class="dv">3</span>, <span class="dv">6</span>); (<span class="dv">5</span>, <span class="dv">9</span>) ];</span>
+<span id="cb62-7"><a href="#cb62-7"></a>    [ (<span class="dv">0</span>, <span class="dv">14</span>); (<span class="dv">2</span>, <span class="dv">2</span>); (<span class="dv">4</span>, <span class="dv">9</span>) ]</span>
+<span id="cb62-8"><a href="#cb62-8"></a>|]</span></code></pre></div>
+<p></div></p>
+<p></div><div class="eight wide column"></p>
+<p>en renumérotant les sommets ainsi :</p>
+<p><img src="assets/pics/dijkstra_ex1_a0.png" /></p>
+<p></div></div></div></p>
+<p>Pour le tableau des distances, on pourra définir un
+<code>type poids = I | N of int</code> ou considérer pour l’infini un
+entier plus grand que tous les poids de chemins, comme la somme des
+poids de toutes les arêtes plus 1.</p>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb63"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb63-1"><a href="#cb63-1"></a>ERROR: src/tps/DIJKSTRANAIF does <span class="dt">not</span> exist(../../snippets/structures/dijkstra.ml)</span></code></pre></div>
+<p></div> </div> </div></p>
+<h2 data-number="3.2"
+id="sec:réalisation-dune-file-de-min-priorité"><span
+class="header-section-number">3.2</span> Réalisation d’une file de
+min-priorité</h2>
+<p>Reprendre l’implémentation des files de priorité donnée dans le
+corrigé du TP18 (cliquez sur les liens dans les titres de parties) en
+faisant en sorte de gérer des couples <span
+class="math inline">\((sommet, distance)\)</span> et en faisant
+attention au fait que <em>distance</em> peut être <span
+class="math inline">\(\infty\)</span>.</p>
+<p><strong>Attention</strong> il s’agit ici de file de priorité minimale
+!</p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>Ici, on peut aussi considérer directement la file de priorité
+maximale et ajouter des opposés.</p>
+<p></div></p>
+<h2 data-number="3.3" id="sec:écriture-de-dijkstra-efficace"><span
+class="header-section-number">3.3</span> Écriture de Dijkstra
+efficace</h2>
+<p>Utiliser la file de priorité pour en déduire une implémentation
+efficace.</p>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb64"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb64-1"><a href="#cb64-1"></a>ERROR: src/tps/DIJKSTRA does <span class="dt">not</span> exist(../../snippets/structures/dijkstra.ml)</span></code></pre></div>
+<p></div> </div> </div></p>
+<h2 data-number="3.4" id="sec:floyd-warshall"><span
+class="header-section-number">3.4</span> Floyd-Warshall</h2>
+<p>Lire et implémenter l’algorithme de Floyd-Warshall au-dessus.</p>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb65"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb65-1"><a href="#cb65-1"></a><span class="kw">let</span> (+$) a b =</span>
+<span id="cb65-2"><a href="#cb65-2"></a>    <span class="co">(* une addition pour avoir max_int + * = max_int *)</span></span>
+<span id="cb65-3"><a href="#cb65-3"></a>    <span class="kw">if</span> a = <span class="dt">max_int</span> || b = <span class="dt">max_int</span></span>
+<span id="cb65-4"><a href="#cb65-4"></a>    <span class="kw">then</span> <span class="dt">max_int</span></span>
+<span id="cb65-5"><a href="#cb65-5"></a>    <span class="kw">else</span> a+b</span>
+<span id="cb65-6"><a href="#cb65-6"></a></span>
+<span id="cb65-7"><a href="#cb65-7"></a><span class="kw">let</span> floyd_warshall poids =</span>
+<span id="cb65-8"><a href="#cb65-8"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length poids <span class="kw">in</span></span>
+<span id="cb65-9"><a href="#cb65-9"></a>    <span class="kw">let</span> m = <span class="dt">Array</span>.make_matrix n n <span class="dt">max_int</span> <span class="kw">in</span></span>
+<span id="cb65-10"><a href="#cb65-10"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
+<span id="cb65-11"><a href="#cb65-11"></a>        <span class="kw">for</span> j = <span class="dv">0</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
+<span id="cb65-12"><a href="#cb65-12"></a>            <span class="kw">if</span> i = j</span>
+<span id="cb65-13"><a href="#cb65-13"></a>            <span class="kw">then</span> m.(i).(i) &lt;- <span class="dv">0</span></span>
+<span id="cb65-14"><a href="#cb65-14"></a>            <span class="kw">else</span> m.(i).(j) &lt;- poids.(i).(j)</span>
+<span id="cb65-15"><a href="#cb65-15"></a>        <span class="kw">done</span></span>
+<span id="cb65-16"><a href="#cb65-16"></a>    <span class="kw">done</span>;</span>
+<span id="cb65-17"><a href="#cb65-17"></a>    <span class="kw">for</span> k = <span class="dv">0</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
+<span id="cb65-18"><a href="#cb65-18"></a>        <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
+<span id="cb65-19"><a href="#cb65-19"></a>            <span class="kw">for</span> j = <span class="dv">0</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
+<span id="cb65-20"><a href="#cb65-20"></a>                m.(i).(j) &lt;- </span>
+<span id="cb65-21"><a href="#cb65-21"></a>                    <span class="dt">min</span> m.(i).(j) (m.(i).(k) +$ m.(k).(j))</span>
+<span id="cb65-22"><a href="#cb65-22"></a>            <span class="kw">done</span></span>
+<span id="cb65-23"><a href="#cb65-23"></a>        <span class="kw">done</span></span>
+<span id="cb65-24"><a href="#cb65-24"></a>    <span class="kw">done</span>;</span>
+<span id="cb65-25"><a href="#cb65-25"></a>    m</span></code></pre></div>
+<p></div> qu’on peut raffiner pour avoir les liens de parentés en :
+<div class="ui segment code"></p>
+<div class="sourceCode" id="cb66"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb66-1"><a href="#cb66-1"></a><span class="kw">let</span> floyd_warshall poids =</span>
+<span id="cb66-2"><a href="#cb66-2"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length poids <span class="kw">in</span></span>
+<span id="cb66-3"><a href="#cb66-3"></a>    <span class="kw">let</span> m = <span class="dt">Array</span>.make_matrix n n <span class="dt">max_int</span> <span class="kw">in</span></span>
+<span id="cb66-4"><a href="#cb66-4"></a>    <span class="kw">let</span> parent = <span class="dt">Array</span>.make_matrix n n <span class="dt">None</span> <span class="kw">in</span></span>
+<span id="cb66-5"><a href="#cb66-5"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
+<span id="cb66-6"><a href="#cb66-6"></a>        <span class="kw">for</span> j = <span class="dv">0</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
+<span id="cb66-7"><a href="#cb66-7"></a>            <span class="kw">if</span> i = j</span>
+<span id="cb66-8"><a href="#cb66-8"></a>            <span class="kw">then</span> m.(i).(i) &lt;- <span class="dv">0</span></span>
+<span id="cb66-9"><a href="#cb66-9"></a>            <span class="kw">else</span> <span class="kw">begin</span></span>
+<span id="cb66-10"><a href="#cb66-10"></a>                m.(i).(j) &lt;- poids.(i).(j);</span>
+<span id="cb66-11"><a href="#cb66-11"></a>                parent.(i).(j) &lt;- i</span>
+<span id="cb66-12"><a href="#cb66-12"></a>            <span class="kw">end</span></span>
+<span id="cb66-13"><a href="#cb66-13"></a>        <span class="kw">done</span></span>
+<span id="cb66-14"><a href="#cb66-14"></a>    <span class="kw">done</span>;</span>
+<span id="cb66-15"><a href="#cb66-15"></a>    <span class="kw">for</span> k = <span class="dv">0</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
+<span id="cb66-16"><a href="#cb66-16"></a>        <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
+<span id="cb66-17"><a href="#cb66-17"></a>            <span class="kw">for</span> j = <span class="dv">0</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
+<span id="cb66-18"><a href="#cb66-18"></a>                <span class="kw">let</span> par_k = m.(i).(k) +$ m.(k).(j) <span class="kw">in</span></span>
+<span id="cb66-19"><a href="#cb66-19"></a>                <span class="kw">if</span> par_k &lt; m.(i).(j)</span>
+<span id="cb66-20"><a href="#cb66-20"></a>                <span class="kw">then</span> <span class="kw">begin</span></span>
+<span id="cb66-21"><a href="#cb66-21"></a>                    m.(i).(j) &lt;- par_k;</span>
+<span id="cb66-22"><a href="#cb66-22"></a>                    parent.(i).(j) &lt;- parent.(k).(j)</span>
+<span id="cb66-23"><a href="#cb66-23"></a>                <span class="kw">end</span></span>
+<span id="cb66-24"><a href="#cb66-24"></a>            <span class="kw">done</span></span>
+<span id="cb66-25"><a href="#cb66-25"></a>        <span class="kw">done</span></span>
+<span id="cb66-26"><a href="#cb66-26"></a>    <span class="kw">done</span>;</span>
+<span id="cb66-27"><a href="#cb66-27"></a>    m, parent</span></code></pre></div>
+<p></div> </div> </div></p>
+<h2 data-number="3.5" id="sec:problèmes"><span
+class="header-section-number">3.5</span> Problèmes</h2>
+<p>Résoudre les problèmes donnés au dessus. On pourra utiliser la
+fonction suivante en <code>OCaml</code> pour lire des entiers séparés
+par des espaces sur une ligne :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb67"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb67-1"><a href="#cb67-1"></a><span class="kw">let</span> read_int_list () =</span>
+<span id="cb67-2"><a href="#cb67-2"></a>    <span class="dt">List</span>.map <span class="dt">int_of_string</span> (<span class="dt">String</span>.split_on_char <span class="ch">&#39; &#39;</span> (<span class="dt">read_line</span> ()))</span></code></pre></div>
+<p></div></p>
+</div>
+<!-- </div> -->
+</div>
+
+<div class="ui inverted vertical footer segment">
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+Marc de Falco
+</div>
+  </body>
+</html>
