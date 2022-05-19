@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="generator" content="pandoc">
+    <meta name="description" content="">
+    <meta name="author" content="Marc de Falco">
+
+    <title>Programmation dynamique</title>
+
+    <link rel="stylesheet" type="text/css" href="assets/semantic.min.css">
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-PHZQE2FC4W"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-PHZQE2FC4W');
+	</script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="assets/semantic.min.js"></script>
+
+    <style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    </style>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+
+<script>
+$(document).ready(function() {
+    
+    $("#toc").sidebar("setting", "dimPage", false);
+    $("#toc").sidebar("setting", "delaySetup", true);
+
+   $('.ui.accordion').accordion();
+    if (matchMedia) {
+        var mq = window.matchMedia("(max-width: 900px)");
+        mq.addListener(big_or_small);
+        big_or_small(mq);
+    }
+
+    $("[href^='#']").click(
+        () => {
+            if (! $("#main").hasClass('shrink')) {
+	            $("#toc").sidebar("hide");
+            }
+        })
+
+    function big_or_small(mq) {
+        // The sidebar *pushes* the pusher, the main content, so we
+        // add a class that reduces the pusher's width so the edge
+        // content isn't cut off.
+        if (mq.matches) {
+	        $("#toc").sidebar("hide");
+            $("#main").removeClass("shrink")
+        } else {
+            $("#toc").sidebar("show");
+            $("#main").addClass("shrink");
+        }
+    }
+
+    $("#sidebar-menu-button").click(function() {
+        $("#toc").sidebar("show");
+    }).end();
+
+    $('.tabular.menu .item').tab({
+            context: 'parent'
+        });
+
+})
+
+function setLang(l) {
+    $('.tabular.menu .item').removeClass("active")
+    $('.tabular.menu .item[data-tab^="'+l+'"]').addClass("active")
+    $('.code').removeClass("active")
+    $('.code[data-tab^="'+l+'"]').addClass("active")
+}
+</script>
+
+  <style type="text/css">
+
+  .ui.sidebar {
+    font-size: 15px;
+  }
+
+  body {
+    background-color: #FFFFFF;
+    font-size: 20px;
+  }
+  .ui.segment {
+    font-size: 20px;
+  }
+  .wireframe {
+    //margin-top: 2em;
+  }
+  .ui.footer.segment {
+    //margin: 5em 0em 0em;
+    //padding: 5em 0em;
+  }
+  #top-menu {
+    display: none;
+    }
+
+    .message {
+        color: #000 !important;
+    }
+
+.shrink {
+    width: 60%;
+}
+
+.code {
+    font-size: 0.8em !important;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 24px;
+    border-spacing: 0;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+}
+
+table tr {
+    display: table-row !important;
+}
+
+table th {
+    padding: 3px 10px;
+    background-color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid black;
+}
+table td {
+    padding: 3px 10px;
+    border-top: none;
+    border-left: none;
+    border-bottom: none;
+    border-right: none;
+}
+
+.ui.styled.accordion {
+    width: 100% !important;
+    font-size: 1rem !important;
+}
+
+  .menu .item {
+      padding: .5em 1em !important;
+  }
+
+@media only screen and (max-width: 900px) {
+    .ui.image, .ui.image img {
+        display: block;
+        //width: 100%;
+        width: auto;
+        height: auto;
+    }
+
+    #top-menu {
+        display: block !important;
+    }
+}
+  </style>
+
+  </head>
+  <body class="pushable class="pushable"">
+<div style="display: none;">
+\(
+\def\N{{\mathbb{N}}}
+\def\R{{\mathbb{R}}}
+\def\D{{\mathbb{D}}}
+\def\C{{\mathbb{C}}}
+\def\Z{{\mathbb{Z}}}
+\def\Q{{\mathbb{Q}}}
+\def\K{{\mathbb{K}}}
+\def\KX{{\mathbb{K}}[X]}
+\def\U{{\mathbb{U}}}
+\def\B{{\mathcal{B}}}
+\newcommand\ensfonctions[2]{\mathcal{F}(#1,#2)}
+\newcommand\classeck[3]{\mathcal{C}^{#1}(#2,#3)}
+\newcommand\range[2]{[| #1,#2 |]}
+\newcommand\mod[0]{\mathop{mod}}
+\newcommand\land[0]{\mathop{land}}
+\newcommand\matrices[3]{\mathcal{M}_{#1,#2}(#3)}
+\newcommand\matricescarres[2]{\mathcal{M}_{#1}(#2)}
+\newcommand\gln[2]{\mbox{GL}_{#1}(#2)}
+\newcommand\Support[1]{\mbox{Supp}(#1)}
+\newcommand\dom[0]{\mbox{dom}}
+\newcommand\uniondisjointe{\sqcup}
+\def\lt{<}
+\def\rR{\mathcal{R}}
+\newcommand\parties[1]{\mathcal{P}(#1)}
+\newcommand\entiere[1]{\left\lfloor #1 \right\rfloor}
+\newcommand\congru[3]{#1 = #2\ [#3]}
+\newcommand\enscomp[2]{\left\{\left.\ #1\ \right|\ #2\ \right\}}
+\newcommand\classe[1]{\overline{#1}}
+\newcommand\classemod[2]{\overline{#1}^{[#2]}}
+\newcommand\quotient[2]{#1 / #2}
+\newcommand\ZnZ[1]{\quotient{\Z}{#1 \Z}}
+\newcommand\card[1]{\text{Card}\ #1}
+\newcommand\indic{\mathbbm{1}}
+\newcommand\id{\mbox{id}}
+\newcommand\gO{\mathcal{O}}
+\newcommand\Perm[1]{\mathfrak{S}_#1}
+\newcommand\comb[2]{\binom{#1}{#2}}
+\newcommand\tend[2]{\xrightarrow[#1 \rightarrow #2]{}}
+\newcommand\limite[2]{\lim_{#1 \rightarrow #2}}
+\newcommand\application[5]{\begin{array}{rcccc}
+#1 & : & #2 & \mapsto & #3 \\ 
+& & #4 & \mapsto & #5
+\end{array}}
+\)
+</div>
+
+
+
+<div class="ui vertical inverted visible fixed sidebar menu" id="toc">
+    <div class="item">
+    <a href="/">
+        <i class="icon home"></i> Informatique en CPGE
+    </a>
+    </div>
+    <div class="item">
+        <div class="ui buttons compact">
+            <button onClick="setLang('ocaml')" class="ui button compact">OCaml</button>
+            <button onClick="setLang('c')" class="ui button compact">C</button>
+            <button onClick="setLang('python')" class="ui button compact">Python</button>
+        </div>
+        <div>Langage des exemples</div>
+    </div>
+    <div class="item">
+    <a href="#">
+        Programmation dynamique
+    </a>
+    </div>
+<!-- FIX TOC -->
+<div class="item header"> <a href="#sec:exemple-fondateur-plus-court-chemin-dans-un-graphe-orienté-acyclique"><span>1</span> Exemple fondateur : plus court chemin dans un graphe orienté acyclique</a><div class="menu"></div></div><div class="item header"> <a href="#sec:principe-de-la-programmation-dynamique"><span>2</span> Principe de la programmation dynamique</a><div class="menu"><a class="item" href="#sec:problème-et-équation-de-bellman"><div class="ui label">2.1</div> Problème et équation de Bellman</a><a class="item" href="#sec:résolution-par-récurrence-naïve"><div class="ui label">2.2</div> Résolution par récurrence naïve</a><a class="item" href="#sec:mémoïsation-et-cache-dynamique"><div class="ui label">2.3</div> Mémoïsation et cache dynamique</a><a class="item" href="#sec:graphe-de-dépendances-et-tabulation"><div class="ui label">2.4</div> Graphe de dépendances et tabulation</a><a class="item" href="#sec:reconstruction"><div class="ui label">2.5</div> Reconstruction</a><a class="item" href="#sec:dimensionnalité-réelle"><div class="ui label">2.6</div> Dimensionnalité réelle</a><a class="item" href="#sec:complexité"><div class="ui label">2.7</div> Complexité</a></div></div><div class="item header"> <a href="#sec:exemples"><span>3</span> Exemples</a><div class="menu"><a class="item" href="#sec:sous-séquence-contigüe-maximale"><div class="ui label">3.1</div> Sous-séquence contigüe maximale</a><a class="item" href="#sec:chemins-monotones"><div class="ui label">3.2</div> Chemins monotones</a><a class="item" href="#sec:produit-de-matrices"><div class="ui label">3.3</div> Produit de matrices</a><a class="item" href="#sec:plus-longue-sous-séquence-croissante"><div class="ui label">3.4</div> Plus longue sous-séquence croissante</a><a class="item" href="#sec:distance-dédition"><div class="ui label">3.5</div> Distance d’édition</a><a class="item" href="#sec:plus-longue-sous-séquence-palindromique"><div class="ui label">3.6</div> Plus longue sous-séquence palindromique</a></div></div><!-- FIX TOC -->
+</div>
+
+<div class="pusher" id="main-content">
+    <div class="ui inverted top menu" id="top-menu">
+        <div class="ui container">
+	  <a class="launch icon item" id="sidebar-menu-button">
+	    <i class="angle double left icon"></i>
+	  </a>
+	  <div class="item">
+          Programmation dynamique
+	  </div>
+        </div>
+      </div>
+      <div class="ui padded basic segment shrink" id="main">
+          <!-- <div class="masthead"> -->
+<div class="segment">
+<div class="ui container text">
+<p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Programmation dynamique     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_algo_exacte.png"> </div></p>
+<h1 data-number="1"
+id="sec:exemple-fondateur-plus-court-chemin-dans-un-graphe-orienté-acyclique"><span
+class="header-section-number">1</span> Exemple fondateur : plus court
+chemin dans un graphe orienté acyclique</h1>
+<h1 data-number="2"
+id="sec:principe-de-la-programmation-dynamique"><span
+class="header-section-number">2</span> Principe de la programmation
+dynamique</h1>
+<h2 data-number="2.1" id="sec:problème-et-équation-de-bellman"><span
+class="header-section-number">2.1</span> Problème et équation de
+Bellman</h2>
+<p>On considère ici un cadre assez large où on cherche à calculer une
+fonction <span class="math inline">\(f : E \rightarrow \R\)</span> où
+est le domaine d’entrée et où on dispose :</p>
+<ul>
+<li>de valeurs connus pour <span class="math inline">\(E_0 \subset
+E\)</span></li>
+<li>d’une équation pour <span class="math inline">\(x \in E \backslash
+E_0\)</span> permettant d’exprimer <span
+class="math inline">\(f(x)\)</span> en fonction de <span
+class="math inline">\(f(y)\)</span> pour <span class="math inline">\(y
+\in \mathop{dep}(x)\)</span> où <span class="math inline">\(\mathop{dep}
+: E \rightarrow \mathcal{P}(E)\)</span> est telle que toute chaîne de
+<span class="math inline">\((a_1, a_2, ...,)\)</span> où <span
+class="math inline">\(a_{i+1} \in \mathop{dep}(a_i)\)</span> est finie
+et où pour toute chaîne de longueur maximale, le dernier élément <span
+class="math inline">\(a_p \in E_0\)</span>.</li>
+</ul>
+<p>En fait, cela signifie que <span
+class="math inline">\(\mathop{dep}\)</span> induit un graphe orienté
+acyclique sur les sommets <span class="math inline">\(E\)</span> où
+<span class="math inline">\(v_{-}(x) = \mathop{dep}(x)\)</span>.</p>
+<p>Il s’agit donc d’une équation de récurrence dans le sens où on
+exprime <span class="math inline">\(f(x)\)</span> en fonction d’autres
+appels à <span class="math inline">\(f\)</span>. On parle de
+sous-problèmes.</p>
+<div class="ui message blue">
+<div class="header">
+Exemple
+</div>
+<ul>
+<li>Fibonacci. Ici, c’est un exemple <em>jouet</em> uniquement présent
+pour se concentrer sur l’équation. On a donc <span
+class="math inline">\(F_0 = 0, F_1 = 1\)</span> et pour <span
+class="math inline">\(n &gt; 1\)</span>, <span class="math inline">\(F_n
+= F_{n-1} + F_{n-2}\)</span>.</li>
+<li>Rendu de monnaie. On cherche à calculer <span
+class="math inline">\(f(n)\)</span> le plus petit nombre de pièce pour
+rendre la monnaie dans le système monétaire <span
+class="math inline">\(S\)</span>. On a <span class="math inline">\(f(0)
+= 0\)</span> et l’équation <span class="math display">\[
+f(n) = 1 + \min \enscomp{ f(n-p) }{ p \in S, p \le n }
+\]</span></li>
+</ul>
+</div>
+<h2 data-number="2.2" id="sec:résolution-par-récurrence-naïve"><span
+class="header-section-number">2.2</span> Résolution par récurrence
+naïve</h2>
+<p>On peut résoudre l’équation de récurrence naïvement par une fonction
+récursive.</p>
+<p>Comme on a pu le voir, par exemple avec Fibonacci, les récurrences
+font rapidement apparaitre des arbres d’appels de taille
+exponentielle.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>On peut se poser la question de la différence avec la méthode diviser
+pour régner. Dans diviser pour régner, les sous-problèmes ont un arbre
+récursif d’appel sans partage possible.</p>
+<p></div></p>
+<div class="ui message blue">
+<div class="header">
+Exemple
+</div>
+<ul>
+<li>Fibonacci. On a</li>
+</ul>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">let</span> <span class="kw">rec</span> fibo n =</span>
+<span id="cb1-2"><a href="#cb1-2"></a>    <span class="kw">if</span> n &lt;= <span class="dv">1</span> <span class="kw">then</span> n</span>
+<span id="cb1-3"><a href="#cb1-3"></a>    <span class="kw">else</span> fibo (n<span class="dv">-1</span>) + fibo (n<span class="dv">-2</span>)</span></code></pre></div>
+<p></div></p>
+<ul>
+<li>Rendu de monnaie. On peut directement écrire :</li>
+</ul>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">let</span> <span class="kw">rec</span> rendu s n =</span>
+<span id="cb2-2"><a href="#cb2-2"></a>    <span class="kw">if</span> n = <span class="dv">0</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>    <span class="kw">then</span> <span class="dv">0</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>    <span class="kw">else</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>        <span class="kw">let</span> m = <span class="dt">ref</span> n <span class="kw">in</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>        <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> <span class="dt">Array</span>.length s - <span class="dv">1</span> <span class="kw">do</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>            <span class="kw">if</span> s.(i) &lt;= n</span>
+<span id="cb2-8"><a href="#cb2-8"></a>            <span class="kw">then</span> m := <span class="dt">min</span> !m (rendu s (n - s.(i)))</span>
+<span id="cb2-9"><a href="#cb2-9"></a>        <span class="kw">done</span>;</span>
+<span id="cb2-10"><a href="#cb2-10"></a>        <span class="dv">1</span> + !m</span></code></pre></div>
+<p></div></p>
+</div>
+<h2 data-number="2.3" id="sec:mémoïsation-et-cache-dynamique"><span
+class="header-section-number">2.3</span> Mémoïsation et cache
+dynamique</h2>
+<p>Une manière d’améliorer la résolution par récurrence est d’utiliser
+un cache d’appel, c’est-à-dire un dictionnaire dont les clés sont dans
+<span class="math inline">\(E\)</span> et les valeurs dans <span
+class="math inline">\(\R\)</span> : pour calculer <span
+class="math inline">\(f(x)\)</span> on regarde si on a déjà une
+correspondance dans le cache, auquel cas on renvoie cette valeur, sinon,
+on calcule <span class="math inline">\(f(x)\)</span> avec la récurrence
+(qui utilisera donc le cache), puis on rajoute une entrée dans le cache
+pour <span class="math inline">\(x\)</span>.</p>
+<p>On dit qu’on a <strong>mémoïsé</strong> la fonction <span
+class="math inline">\(f\)</span>.</p>
+<p>En procédant ainsi, on a linéarisé la récurrence et on effectue
+uniquement les calculs nécessaires une seule fois.</p>
+<p>Pour définir ce cache, on peut utiliser une table de hachage comme
+celle fournit par le module <code>Hashtbl</code> en
+<code>OCaml</code>.</p>
+<div class="ui message blue">
+<div class="header">
+Exemple
+</div>
+<ul>
+<li>Fibonacci.</li>
+</ul>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">let</span> fibo n =</span>
+<span id="cb3-2"><a href="#cb3-2"></a>    <span class="kw">let</span> cache = <span class="dt">Hashtbl</span>.create (n+<span class="dv">1</span>) <span class="kw">in</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>    <span class="kw">let</span> <span class="kw">rec</span> fibo_aux n = </span>
+<span id="cb3-4"><a href="#cb3-4"></a>        <span class="kw">try</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>            <span class="dt">Hashtbl</span>.find cache n</span>
+<span id="cb3-6"><a href="#cb3-6"></a>        <span class="kw">with</span> <span class="dt">Not_found</span> -&gt;</span>
+<span id="cb3-7"><a href="#cb3-7"></a>            <span class="kw">let</span> v =</span>
+<span id="cb3-8"><a href="#cb3-8"></a>                <span class="kw">if</span> n &lt;= <span class="dv">1</span> <span class="kw">then</span> n</span>
+<span id="cb3-9"><a href="#cb3-9"></a>                <span class="kw">else</span> fibo_aux (n<span class="dv">-1</span>) + fibo_aux (n<span class="dv">-2</span>)</span>
+<span id="cb3-10"><a href="#cb3-10"></a>            <span class="kw">in</span> <span class="dt">Hashtbl</span>.add cache n v;</span>
+<span id="cb3-11"><a href="#cb3-11"></a>            v</span>
+<span id="cb3-12"><a href="#cb3-12"></a>    <span class="kw">in</span> fibo_aux n</span></code></pre></div>
+<p></div></p>
+<ul>
+<li>Rendu de monnaie.</li>
+</ul>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">let</span> rendu s n =</span>
+<span id="cb4-2"><a href="#cb4-2"></a>    <span class="kw">let</span> cache = <span class="dt">Hashtbl</span>.create (n+<span class="dv">1</span>) <span class="kw">in</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>    <span class="kw">let</span> <span class="kw">rec</span> rendu_aux n = </span>
+<span id="cb4-4"><a href="#cb4-4"></a>        <span class="kw">try</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>            <span class="dt">Hashtbl</span>.find cache n</span>
+<span id="cb4-6"><a href="#cb4-6"></a>        <span class="kw">with</span> <span class="dt">Not_found</span> -&gt;</span>
+<span id="cb4-7"><a href="#cb4-7"></a>            <span class="kw">let</span> v =</span>
+<span id="cb4-8"><a href="#cb4-8"></a>                <span class="kw">if</span> n = <span class="dv">0</span> <span class="kw">then</span> <span class="dv">0</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a>                <span class="kw">else</span> <span class="kw">let</span> m = <span class="dt">ref</span> n <span class="kw">in</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a>                    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> <span class="dt">Array</span>.length s - <span class="dv">1</span> <span class="kw">do</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a>                        <span class="kw">if</span> s.(i) &lt;= n</span>
+<span id="cb4-12"><a href="#cb4-12"></a>                        <span class="kw">then</span> m := <span class="dt">min</span> !m (rendu s (n - s.(i)))</span>
+<span id="cb4-13"><a href="#cb4-13"></a>                    <span class="kw">done</span>;</span>
+<span id="cb4-14"><a href="#cb4-14"></a>                    <span class="dv">1</span> + !m</span>
+<span id="cb4-15"><a href="#cb4-15"></a>            <span class="kw">in</span> <span class="dt">Hashtbl</span>.add cache n v;</span>
+<span id="cb4-16"><a href="#cb4-16"></a>            v</span>
+<span id="cb4-17"><a href="#cb4-17"></a>    <span class="kw">in</span> rendu_aux n</span></code></pre></div>
+<p></div></p>
+</div>
+<p>On remarque que le code a toujours la même structure on part de</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">let</span> <span class="kw">rec</span> f x = expr</span></code></pre></div>
+<p></div></p>
+<p>et on passe à :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">let</span> f x =</span>
+<span id="cb6-2"><a href="#cb6-2"></a>    <span class="co">(* ici n doit etre proche du nombre d&#39;appels *)</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>    <span class="kw">let</span> cache = <span class="dt">Hashtbl</span>.create n <span class="kw">in</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>    <span class="kw">let</span> <span class="kw">rec</span> f_aux x = </span>
+<span id="cb6-5"><a href="#cb6-5"></a>        <span class="kw">try</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>            <span class="dt">Hashtbl</span>.find cache x</span>
+<span id="cb6-7"><a href="#cb6-7"></a>        <span class="kw">with</span> <span class="dt">Not_found</span> -&gt;</span>
+<span id="cb6-8"><a href="#cb6-8"></a>            <span class="kw">let</span> v = expr&#39; <span class="kw">in</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a>            <span class="dt">Hashtbl</span>.add cache x v;</span>
+<span id="cb6-10"><a href="#cb6-10"></a>            v</span>
+<span id="cb6-11"><a href="#cb6-11"></a>    <span class="kw">in</span> f_aux x</span></code></pre></div>
+<p></div></p>
+<p>où <code>expr'</code> se déduit de <code>expr</code> en remplaçant
+chaque appel à <code>f</code> par un appel à <code>f_aux</code>.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>Il n’est pas possible d’effectuer cette transformation d’expression
+directement depuis <code>OCaml</code> puisqu’il serait nécessaire
+d’aller modifier le code de l’expression.</p>
+<p></div></p>
+<h2 data-number="2.4" id="sec:graphe-de-dépendances-et-tabulation"><span
+class="header-section-number">2.4</span> Graphe de dépendances et
+tabulation</h2>
+<p>Comme on a un graphe de dépendance entre sous-problèmes qui est
+acyclique, on peut en déduire une tri topologique <span
+class="math inline">\(x_0 &lt; x_1 &lt; \dots &lt; x_{n-1}\)</span> qui
+garantit que si <span class="math inline">\(f(x_i)\)</span> a besoin
+dans son calcul de la valeur <span
+class="math inline">\(f(y_j)\)</span>, alors <span
+class="math inline">\(j &lt; i\)</span>.</p>
+<p>On peut alors créer un tableau de <span
+class="math inline">\(n\)</span> cases où on place à la case <span
+class="math inline">\(i\)</span> la valeur de <span
+class="math inline">\(f(x_i)\)</span>.</p>
+<p>Ce tableau peut se calculer par un remplissage par indice croissant.
+On dit qu’on a <strong>tabuler</strong> le problème.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>Il s’agit ici d’une politique agressive de remplissage du cache de
+memoïsation où on remplit le cache sans même savoir si on va utiliser
+une valeur. Ce qu’on semble perdre en calculant <em>trop</em>, on le
+regagne dans la simplicité de la gestion d’un tableau plutôt qu’une
+table. Comme souvent, la question va être celle du compromis entre le
+nombre de valeurs utiles pour le calcul de <span
+class="math inline">\(f(x)\)</span> et le nombre de valeurs avant <span
+class="math inline">\(x\)</span> dans le tri topologique considéré.</p>
+<p></div></p>
+<div class="ui message blue">
+<div class="header">
+Exemple
+</div>
+<ul>
+<li>Fibonacci. Ici, on a directement l’ordre des entiers qui est un tri
+topologique.</li>
+</ul>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">let</span> fibo n =</span>
+<span id="cb7-2"><a href="#cb7-2"></a>    <span class="kw">if</span> n = <span class="dv">0</span> <span class="kw">then</span> <span class="dv">0</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>    <span class="kw">else</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>        <span class="kw">let</span> t = <span class="dt">Array</span>.make (n+<span class="dv">1</span>) <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>        t.(<span class="dv">1</span>) &lt;- <span class="dv">1</span>;</span>
+<span id="cb7-6"><a href="#cb7-6"></a>        <span class="kw">for</span> i = <span class="dv">2</span> <span class="kw">to</span> n <span class="kw">do</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>            t.(i) &lt;- t.(i<span class="dv">-1</span>) + t.(i<span class="dv">-2</span>)</span>
+<span id="cb7-8"><a href="#cb7-8"></a>        <span class="kw">done</span>;</span>
+<span id="cb7-9"><a href="#cb7-9"></a>        t.(n)</span></code></pre></div>
+<p></div></p>
+<ul>
+<li>Rendu de monnaie.</li>
+</ul>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">let</span> rendu s n =</span>
+<span id="cb8-2"><a href="#cb8-2"></a>    <span class="kw">if</span> n = <span class="dv">0</span> <span class="kw">then</span> <span class="dv">0</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>    <span class="kw">else</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>        <span class="kw">let</span> t = <span class="dt">Array</span>.make (n+<span class="dv">1</span>) <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>        <span class="kw">for</span> i = <span class="dv">1</span> <span class="kw">to</span> n <span class="kw">do</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>            <span class="kw">let</span> m = <span class="dt">ref</span> i <span class="kw">in</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>            <span class="kw">for</span> j = <span class="dv">0</span> <span class="kw">to</span> <span class="dt">Array</span>.length s - <span class="dv">1</span> <span class="kw">do</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>                <span class="kw">let</span> p = s.(j) <span class="kw">in</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a>                <span class="kw">if</span> p &lt;= i</span>
+<span id="cb8-10"><a href="#cb8-10"></a>                <span class="kw">then</span> m := <span class="dt">min</span> !m t.(i - p)</span>
+<span id="cb8-11"><a href="#cb8-11"></a>            <span class="kw">done</span>;</span>
+<span id="cb8-12"><a href="#cb8-12"></a>            t.(i) &lt;- <span class="dv">1</span> + !m</span>
+<span id="cb8-13"><a href="#cb8-13"></a>        <span class="kw">done</span>;</span>
+<span id="cb8-14"><a href="#cb8-14"></a>        t.(n)</span></code></pre></div>
+<p></div></p>
+</div>
+<h2 data-number="2.5" id="sec:reconstruction"><span
+class="header-section-number">2.5</span> Reconstruction</h2>
+<p>La plupart des problèmes ne sont pas juste des problèmes de calcul
+d’une valeur <span class="math inline">\(f(x)\)</span> mais des
+problèmes où on considère un ensemble <span
+class="math inline">\(F\)</span> de valeurs à construire avec une
+fonction <span class="math inline">\(\Phi : E \rightarrow F\)</span> et
+une fonction d’objectif <span class="math inline">\(\varphi : F
+\rightarrow \R\)</span> et où <span class="math inline">\(f(x) =
+\varphi(\Phi(x))\)</span>.</p>
+<p>L’exemple principale est celui d’associer à tout <span
+class="math inline">\(x \in E\)</span> un ensemble de solutions <span
+class="math inline">\(\mathop{sol}(x) \subset F\)</span> et à chercher
+la solution minimisant (ou maximisant) l’objectif :</p>
+<p><span class="math display">\[
+\Phi(x) = \mathop{argmin} \enscomp{ \varphi(y) }{ y \in \mathop{sol}(x)
+}
+\]</span></p>
+<p><div class="ui message blue"><div class="header">Note</div></p>
+<p>Unifier avec la présentation des gloutons</p>
+<p></div></p>
+<p>On a alors deux stratégies pour obtenir <span
+class="math inline">\(\Phi(x)\)</span> quand on a trouvé comment
+calculer <span class="math inline">\(f(x)\)</span>. La première consiste
+à calculer <span class="math inline">\(\Phi\)</span> et <span
+class="math inline">\(f\)</span> ensemble. Par exemple, dans le rendu de
+monnaie, on sait qu’on calcule le minimum la pièce qui le réalise :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">let</span> rendu s n =</span>
+<span id="cb9-2"><a href="#cb9-2"></a>    <span class="kw">if</span> n = <span class="dv">0</span> <span class="kw">then</span> []</span>
+<span id="cb9-3"><a href="#cb9-3"></a>    <span class="kw">else</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>        <span class="kw">let</span> t = <span class="dt">Array</span>.make (n+<span class="dv">1</span>) <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>        <span class="kw">let</span> util = <span class="dt">Array</span>.make (n+<span class="dv">1</span>) (<span class="dv">-1</span>) <span class="kw">in</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a>        <span class="kw">for</span> i = <span class="dv">1</span> <span class="kw">to</span> n <span class="kw">do</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a>            <span class="kw">let</span> m = <span class="dt">ref</span> i <span class="kw">in</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>            <span class="kw">for</span> j = <span class="dv">0</span> <span class="kw">to</span> <span class="dt">Array</span>.length s - <span class="dv">1</span> <span class="kw">do</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a>                <span class="kw">let</span> p = s.(j) <span class="kw">in</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a>                <span class="kw">if</span> p &lt;= i &amp;&amp; t.(i-p) &lt; !m</span>
+<span id="cb9-11"><a href="#cb9-11"></a>                <span class="kw">then</span> <span class="kw">begin</span></span>
+<span id="cb9-12"><a href="#cb9-12"></a>                    util.(i) &lt;- p; </span>
+<span id="cb9-13"><a href="#cb9-13"></a>                    m := t.(i - p)</span>
+<span id="cb9-14"><a href="#cb9-14"></a>                <span class="kw">end</span></span>
+<span id="cb9-15"><a href="#cb9-15"></a>            <span class="kw">done</span>;</span>
+<span id="cb9-16"><a href="#cb9-16"></a>            t.(i) &lt;- <span class="dv">1</span> + !m</span>
+<span id="cb9-17"><a href="#cb9-17"></a>        <span class="kw">done</span>;</span>
+<span id="cb9-18"><a href="#cb9-18"></a>        <span class="kw">let</span> <span class="kw">rec</span> rendu_expl n =</span>
+<span id="cb9-19"><a href="#cb9-19"></a>            <span class="kw">if</span> n = <span class="dv">0</span> </span>
+<span id="cb9-20"><a href="#cb9-20"></a>            <span class="kw">then</span> []</span>
+<span id="cb9-21"><a href="#cb9-21"></a>            <span class="kw">else</span> <span class="kw">let</span> p = util.(n) <span class="kw">in</span></span>
+<span id="cb9-22"><a href="#cb9-22"></a>                p :: rendu_expl (n-p)</span>
+<span id="cb9-23"><a href="#cb9-23"></a>        <span class="kw">in</span> rendu_expl n</span></code></pre></div>
+<p></div></p>
+<p>Cependant, si on connait le tableau <code>t</code> complet, il est
+facile de constater qu’on peut retrouver une pièce ayant réalisé le
+minimum en cherchant <span class="math inline">\(p \le x\)</span> tel
+que <span class="math inline">\(t.(x) = 1 + t.(x-p)\)</span>. On en
+déduit une reconstruction de la solution uniquement avec les
+valeurs.</p>
+<p>Il est en général intéressant de faire cela, même si ce n’est pas
+forcément efficace.</p>
+<h2 data-number="2.6" id="sec:dimensionnalité-réelle"><span
+class="header-section-number">2.6</span> Dimensionnalité réelle</h2>
+<p>Dans de nombreux cas, le problème n’est pas exprimé sur l’entrée
+<span class="math inline">\(E\)</span> mais sur un autre ensemble plus
+petit. Par exemple, on peut chercher une valeur particulière à calculer
+depuis un tableau et penser que l’entrée est donnée par la taille du
+tableau, par exemple en raisonnant sur les préfixes, et, en fait, il est
+nécessaire de considérer tous les sous-tableaux pour calculer la
+solution. Ainsi, <span class="math inline">\(E\)</span> est alors les
+couples d’indices <span class="math inline">\((i,j)\)</span> et on
+retrouve le problème initial en considérant <span
+class="math inline">\((0,n-1)\)</span> où <span
+class="math inline">\(n\)</span> est la longueur du tableau.</p>
+<p>Il n’est ainsi par rare d’avoir un problème portant sur un objet de
+taille <span class="math inline">\(n\)</span> mais faisant apparaitre
+des <span class="math inline">\(d\)</span>-uplets et donc avec une
+taille réelle en <span class="math inline">\(n^d\)</span>.</p>
+<h2 data-number="2.7" id="sec:complexité"><span
+class="header-section-number">2.7</span> Complexité</h2>
+<p>Une fois identifié la vraie entrée <span
+class="math inline">\(E\)</span>, la complexité est en <span
+class="math inline">\(O(|avant(x)|)\)</span> où <span
+class="math inline">\(avant(x) = \enscomp{y \in E}{ y \le x}\)</span>
+dans le tri topologique considéré.</p>
+<p>Comme vu dans la partie précédente, on est le plus souvent en <span
+class="math inline">\(O(n^d)\)</span> où <span
+class="math inline">\(d\)</span> est la dimensionnalité réelle du
+problème.</p>
+<h1 data-number="3" id="sec:exemples"><span
+class="header-section-number">3</span> Exemples</h1>
+<p>Pour chacun de ces exemples, on cherchera à mettre en place une
+solution par mémoïsation puis par tabulation, avec une reconstruction
+directe ou indirecte.</p>
+<h2 data-number="3.1" id="sec:sous-séquence-contigüe-maximale"><span
+class="header-section-number">3.1</span> Sous-séquence contigüe
+maximale</h2>
+<p>On considère un tableau <span class="math inline">\(t\)</span> de
+taille <span class="math inline">\(n\)</span> contenant des entiers et
+on demande de trouver le couple <span
+class="math inline">\((i,l)\)</span> tel que la somme [ t[i] + + t[i+l]
+] soit la plus grande possible.</p>
+<h2 data-number="3.2" id="sec:chemins-monotones"><span
+class="header-section-number">3.2</span> Chemins monotones</h2>
+<p><a href="https://projecteuler.net/problem=18">Project Euler 18</a> et
+<a href="https://projecteuler.net/problem=67">Project Euler 67</a></p>
+<h2 data-number="3.3" id="sec:produit-de-matrices"><span
+class="header-section-number">3.3</span> Produit de matrices</h2>
+<p>On souhaite calculer un produit <span class="math inline">\(A_1 \dots
+A_n\)</span> de matrices. Pour cela, on aimerait découper le calcul en
+produit de deux matrices, cela revient à placer des parenthèses.</p>
+<p>Le problème est qu’une multiplication matriciel effectue un nombre
+d’opérations de l’ordre de <span class="math inline">\(m n p\)</span>
+quand on multiplie une matrice <span
+class="math inline">\((m,n)\)</span> et une matrice <span
+class="math inline">\((n,p)\)</span>.</p>
+<h2 data-number="3.4"
+id="sec:plus-longue-sous-séquence-croissante"><span
+class="header-section-number">3.4</span> Plus longue sous-séquence
+croissante</h2>
+<p>On se donne un tableau <span class="math inline">\(t\)</span> de
+<span class="math inline">\(n\)</span> nombres entiers et on demande de
+déterminer un <span class="math inline">\(p\)</span>-uplet <span
+class="math inline">\((i_1,\dots,i_p)\)</span>, où <span
+class="math inline">\(t(i_1) &lt; t(i_2) &lt; \dots &lt;
+t(i_p)\)</span>, pour lequel <span class="math inline">\(p\)</span> est
+maximal.</p>
+<h2 data-number="3.5" id="sec:distance-dédition"><span
+class="header-section-number">3.5</span> Distance d’édition</h2>
+<p>Étant donné deux chaînes de caractères (on pourra considérer des pour
+simplifier) <span class="math inline">\(A\)</span> et <span
+class="math inline">\(B\)</span> de longueurs respectives <span
+class="math inline">\(n\)</span> et <span
+class="math inline">\(m\)</span>, on veut transformer la chaîne <span
+class="math inline">\(A\)</span> en la chaîne <span
+class="math inline">\(B\)</span> en effectuant un minimum d’opérations
+parmi celles-ci :</p>
+<ul>
+<li>supprimer un caractère n’importe où</li>
+<li>insérer un nouveau caractère n’importe où</li>
+<li>changer un caractère en n’importe quel autre.</li>
+</ul>
+<p>Ce nombre d’opération est appelée la distance d’édition de <span
+class="math inline">\(A\)</span> à <span
+class="math inline">\(B\)</span>. Écrire un algorithme permettant de la
+calculer.</p>
+<p>Par exemple : chien <span class="math inline">\(\rightarrow\)</span>
+chen <span class="math inline">\(\rightarrow\)</span> chan <span
+class="math inline">\(\rightarrow\)</span> chat</p>
+<h2 data-number="3.6"
+id="sec:plus-longue-sous-séquence-palindromique"><span
+class="header-section-number">3.6</span> Plus longue sous-séquence
+palindromique</h2>
+<p>On se donne une chaine de caractère et on cherche la plus longue
+chaine extraite qui soit un palindrome.</p>
+<p>Par exemple, dans <code>abracadabra</code> il y a
+<code>aradara</code> comme plus long palindrome extrait.</p>
+<p>Déterminer une plus longue sous-séquence palindromique d’une chaine
+de caractères.</p>
+</div>
+<!-- </div> -->
+</div>
+
+<div class="ui inverted vertical footer segment">
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+Marc de Falco
+</div>
+  </body>
+</html>
