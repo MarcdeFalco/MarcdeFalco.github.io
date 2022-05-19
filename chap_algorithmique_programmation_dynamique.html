@@ -306,7 +306,7 @@ table td {
     </a>
     </div>
 <!-- FIX TOC -->
-<div class="item header"> <a href="#sec:exemple-fondateur-plus-court-chemin-dans-un-graphe-orienté-acyclique"><span>1</span> Exemple fondateur : plus court chemin dans un graphe orienté acyclique</a><div class="menu"></div></div><div class="item header"> <a href="#sec:principe-de-la-programmation-dynamique"><span>2</span> Principe de la programmation dynamique</a><div class="menu"><a class="item" href="#sec:problème-et-équation-de-bellman"><div class="ui label">2.1</div> Problème et équation de Bellman</a><a class="item" href="#sec:résolution-par-récurrence-naïve"><div class="ui label">2.2</div> Résolution par récurrence naïve</a><a class="item" href="#sec:mémoïsation-et-cache-dynamique"><div class="ui label">2.3</div> Mémoïsation et cache dynamique</a><a class="item" href="#sec:graphe-de-dépendances-et-tabulation"><div class="ui label">2.4</div> Graphe de dépendances et tabulation</a><a class="item" href="#sec:reconstruction"><div class="ui label">2.5</div> Reconstruction</a><a class="item" href="#sec:dimensionnalité-réelle"><div class="ui label">2.6</div> Dimensionnalité réelle</a><a class="item" href="#sec:complexité"><div class="ui label">2.7</div> Complexité</a><a class="item" href="#sec:déterminer-un-tri-topologique"><div class="ui label">2.8</div> Déterminer un tri topologique</a></div></div><div class="item header"> <a href="#sec:exemples"><span>3</span> Exemples</a><div class="menu"><a class="item" href="#sec:sous-séquence-contigüe-maximale"><div class="ui label">3.1</div> Sous-séquence contigüe maximale</a><a class="item" href="#sec:chemins-monotones"><div class="ui label">3.2</div> Chemins monotones</a><a class="item" href="#sec:produit-de-matrices"><div class="ui label">3.3</div> Produit de matrices</a><a class="item" href="#sec:plus-longue-sous-séquence-croissante"><div class="ui label">3.4</div> Plus longue sous-séquence croissante</a><a class="item" href="#sec:distance-dédition"><div class="ui label">3.5</div> Distance d’édition</a><a class="item" href="#sec:plus-longue-sous-séquence-palindromique"><div class="ui label">3.6</div> Plus longue sous-séquence palindromique</a></div></div><!-- FIX TOC -->
+<div class="item header"> <a href="#sec:exemple-fondateur-plus-court-chemin-dans-un-graphe-orienté-acyclique"><span>1</span> Exemple fondateur : plus court chemin dans un graphe orienté acyclique</a><div class="menu"></div></div><div class="item header"> <a href="#sec:principe-de-la-programmation-dynamique"><span>2</span> Principe de la programmation dynamique</a><div class="menu"><a class="item" href="#sec:problème-et-équation-de-bellman"><div class="ui label">2.1</div> Problème et équation de Bellman</a><a class="item" href="#sec:résolution-par-récurrence-naïve"><div class="ui label">2.2</div> Résolution par récurrence naïve</a><a class="item" href="#sec:mémoïsation-et-cache-dynamique"><div class="ui label">2.3</div> Mémoïsation et cache dynamique</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:ocaml-cacher-le-cacher-dans-une-cloture"><i class="circle icon"></i> <code>OCaml</code>: Cacher le cacher dans une cloture</a></div><a class="item" href="#sec:graphe-de-dépendances-et-tabulation"><div class="ui label">2.4</div> Graphe de dépendances et tabulation</a><a class="item" href="#sec:reconstruction"><div class="ui label">2.5</div> Reconstruction</a><a class="item" href="#sec:dimensionnalité-réelle"><div class="ui label">2.6</div> Dimensionnalité réelle</a><a class="item" href="#sec:complexité"><div class="ui label">2.7</div> Complexité</a><a class="item" href="#sec:déterminer-un-tri-topologique"><div class="ui label">2.8</div> Déterminer un tri topologique</a></div></div><div class="item header"> <a href="#sec:exemples"><span>3</span> Exemples</a><div class="menu"><a class="item" href="#sec:sous-séquence-contigüe-maximale"><div class="ui label">3.1</div> Sous-séquence contigüe maximale</a><a class="item" href="#sec:chemins-monotones"><div class="ui label">3.2</div> Chemins monotones</a><a class="item" href="#sec:produit-de-matrices"><div class="ui label">3.3</div> Produit de matrices</a><a class="item" href="#sec:plus-longue-sous-séquence-croissante"><div class="ui label">3.4</div> Plus longue sous-séquence croissante</a><a class="item" href="#sec:distance-dédition"><div class="ui label">3.5</div> Distance d’édition</a><a class="item" href="#sec:plus-longue-sous-séquence-palindromique"><div class="ui label">3.6</div> Plus longue sous-séquence palindromique</a></div></div><!-- FIX TOC -->
 </div>
 
 <div class="pusher" id="main-content">
@@ -451,6 +451,38 @@ Exemple
 <p><div class="ui message orange"><div class="header">Remarque</div></p>
 <p>Il n’est pas possible d’effectuer cette transformation d’expression directement depuis <code>OCaml</code> puisqu’il serait nécessaire d’aller modifier le code de l’expression.</p>
 <p></div></p>
+<h3 data-number="2.3.1" id="sec:ocaml-cacher-le-cacher-dans-une-cloture"><span class="header-section-number">2.3.1</span> <code>OCaml</code> : Cacher le cacher dans une cloture</h3>
+<p>De la manière dont on a codé le cache, on va créer un nouveau cache à chaque calcul de <span class="math inline">\(f(x)\)</span> et jeter l’ancien. Il peut-être intéressant de conserver un cache entre plusieurs appels. Pour cela, on peut utiliser la notion de cloture : une <em>cloture</em> est la donnée d’une fonction et des valeurs connues au moment de sa définition.</p>
+<p>Ainsi, en écrivant plutôt :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">let</span> f =</span>
+<span id="cb7-2"><a href="#cb7-2"></a>    <span class="kw">let</span> cache = <span class="dt">Hashtbl</span>.create n <span class="kw">in</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>    <span class="kw">let</span> <span class="kw">rec</span> f_aux x = </span>
+<span id="cb7-4"><a href="#cb7-4"></a>        <span class="kw">try</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>            <span class="dt">Hashtbl</span>.find cache x</span>
+<span id="cb7-6"><a href="#cb7-6"></a>        <span class="kw">with</span> <span class="dt">Not_found</span> -&gt;</span>
+<span id="cb7-7"><a href="#cb7-7"></a>            <span class="kw">let</span> v = expr&#39; <span class="kw">in</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a>            <span class="dt">Hashtbl</span>.add cache x v;</span>
+<span id="cb7-9"><a href="#cb7-9"></a>            v</span>
+<span id="cb7-10"><a href="#cb7-10"></a>    <span class="kw">in</span> f_aux</span></code></pre></div>
+<p></div></p>
+<p>On crée une fonction <code>f_aux</code> qui connait le <code>cache</code> et peut l’utiliser et ce sera la valeur de <code>f</code>. Quand on appelle <code>f x</code> puis <code>f y</code>, on va en fait appeler <code>f_aux x</code> et <code>f_aux y</code> qui connaissent et manipulent le même <code>cache</code>.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>On peut expliciter le fonction avec un <code>fun</code> :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">let</span> f =</span>
+<span id="cb8-2"><a href="#cb8-2"></a>    <span class="kw">let</span> cache = <span class="dt">Hashtbl</span>.create n <span class="kw">in</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>    <span class="kw">let</span> <span class="kw">rec</span> f_aux x = </span>
+<span id="cb8-4"><a href="#cb8-4"></a>        <span class="kw">try</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>            <span class="dt">Hashtbl</span>.find cache x</span>
+<span id="cb8-6"><a href="#cb8-6"></a>        <span class="kw">with</span> <span class="dt">Not_found</span> -&gt;</span>
+<span id="cb8-7"><a href="#cb8-7"></a>            <span class="kw">let</span> v = expr&#39; <span class="kw">in</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>            <span class="dt">Hashtbl</span>.add cache x v;</span>
+<span id="cb8-9"><a href="#cb8-9"></a>            v</span>
+<span id="cb8-10"><a href="#cb8-10"></a>    <span class="kw">in</span> </span>
+<span id="cb8-11"><a href="#cb8-11"></a>    <span class="kw">fun</span> x -&gt; f_aux x</span></code></pre></div>
+<p></div></p>
+<p></div></p>
 <h2 data-number="2.4" id="sec:graphe-de-dépendances-et-tabulation"><span class="header-section-number">2.4</span> Graphe de dépendances et tabulation</h2>
 <p>Comme on a un graphe de dépendance entre sous-problèmes qui est acyclique, on peut en déduire une tri topologique <span class="math inline">\(x_0 &lt; x_1 &lt; \dots &lt; x_{n-1}\)</span> qui garantit que si <span class="math inline">\(f(x_i)\)</span> a besoin dans son calcul de la valeur <span class="math inline">\(f(x_j)\)</span>, alors <span class="math inline">\(j &lt; i\)</span>.</p>
 <p>On peut alors créer un tableau de <span class="math inline">\(n\)</span> cases où on place à la case <span class="math inline">\(i\)</span> la valeur de <span class="math inline">\(f(x_i)\)</span>.</p>
@@ -466,34 +498,34 @@ Exemple
 <li>Fibonacci. Ici, on a directement l’ordre des entiers qui est un tri topologique.</li>
 </ul>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">let</span> fibo n =</span>
-<span id="cb7-2"><a href="#cb7-2"></a>    <span class="kw">if</span> n = <span class="dv">0</span> <span class="kw">then</span> <span class="dv">0</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a>    <span class="kw">else</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a>        <span class="kw">let</span> t = <span class="dt">Array</span>.make (n+<span class="dv">1</span>) <span class="dv">0</span> <span class="kw">in</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a>        t.(<span class="dv">1</span>) &lt;- <span class="dv">1</span>;</span>
-<span id="cb7-6"><a href="#cb7-6"></a>        <span class="kw">for</span> i = <span class="dv">2</span> <span class="kw">to</span> n <span class="kw">do</span></span>
-<span id="cb7-7"><a href="#cb7-7"></a>            t.(i) &lt;- t.(i<span class="dv">-1</span>) + t.(i<span class="dv">-2</span>)</span>
-<span id="cb7-8"><a href="#cb7-8"></a>        <span class="kw">done</span>;</span>
-<span id="cb7-9"><a href="#cb7-9"></a>        t.(n)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">let</span> fibo n =</span>
+<span id="cb9-2"><a href="#cb9-2"></a>    <span class="kw">if</span> n = <span class="dv">0</span> <span class="kw">then</span> <span class="dv">0</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>    <span class="kw">else</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>        <span class="kw">let</span> t = <span class="dt">Array</span>.make (n+<span class="dv">1</span>) <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>        t.(<span class="dv">1</span>) &lt;- <span class="dv">1</span>;</span>
+<span id="cb9-6"><a href="#cb9-6"></a>        <span class="kw">for</span> i = <span class="dv">2</span> <span class="kw">to</span> n <span class="kw">do</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a>            t.(i) &lt;- t.(i<span class="dv">-1</span>) + t.(i<span class="dv">-2</span>)</span>
+<span id="cb9-8"><a href="#cb9-8"></a>        <span class="kw">done</span>;</span>
+<span id="cb9-9"><a href="#cb9-9"></a>        t.(n)</span></code></pre></div>
 <p></div></p>
 <ul>
 <li>Rendu de monnaie.</li>
 </ul>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">let</span> rendu s n =</span>
-<span id="cb8-2"><a href="#cb8-2"></a>    <span class="kw">if</span> n = <span class="dv">0</span> <span class="kw">then</span> <span class="dv">0</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a>    <span class="kw">else</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a>        <span class="kw">let</span> t = <span class="dt">Array</span>.make (n+<span class="dv">1</span>) <span class="dv">0</span> <span class="kw">in</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a>        <span class="kw">for</span> i = <span class="dv">1</span> <span class="kw">to</span> n <span class="kw">do</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a>            <span class="kw">let</span> m = <span class="dt">ref</span> i <span class="kw">in</span></span>
-<span id="cb8-7"><a href="#cb8-7"></a>            <span class="kw">for</span> j = <span class="dv">0</span> <span class="kw">to</span> <span class="dt">Array</span>.length s - <span class="dv">1</span> <span class="kw">do</span></span>
-<span id="cb8-8"><a href="#cb8-8"></a>                <span class="kw">let</span> p = s.(j) <span class="kw">in</span></span>
-<span id="cb8-9"><a href="#cb8-9"></a>                <span class="kw">if</span> p &lt;= i</span>
-<span id="cb8-10"><a href="#cb8-10"></a>                <span class="kw">then</span> m := <span class="dt">min</span> !m t.(i - p)</span>
-<span id="cb8-11"><a href="#cb8-11"></a>            <span class="kw">done</span>;</span>
-<span id="cb8-12"><a href="#cb8-12"></a>            t.(i) &lt;- <span class="dv">1</span> + !m</span>
-<span id="cb8-13"><a href="#cb8-13"></a>        <span class="kw">done</span>;</span>
-<span id="cb8-14"><a href="#cb8-14"></a>        t.(n)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">let</span> rendu s n =</span>
+<span id="cb10-2"><a href="#cb10-2"></a>    <span class="kw">if</span> n = <span class="dv">0</span> <span class="kw">then</span> <span class="dv">0</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>    <span class="kw">else</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a>        <span class="kw">let</span> t = <span class="dt">Array</span>.make (n+<span class="dv">1</span>) <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>        <span class="kw">for</span> i = <span class="dv">1</span> <span class="kw">to</span> n <span class="kw">do</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a>            <span class="kw">let</span> m = <span class="dt">ref</span> i <span class="kw">in</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a>            <span class="kw">for</span> j = <span class="dv">0</span> <span class="kw">to</span> <span class="dt">Array</span>.length s - <span class="dv">1</span> <span class="kw">do</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a>                <span class="kw">let</span> p = s.(j) <span class="kw">in</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a>                <span class="kw">if</span> p &lt;= i</span>
+<span id="cb10-10"><a href="#cb10-10"></a>                <span class="kw">then</span> m := <span class="dt">min</span> !m t.(i - p)</span>
+<span id="cb10-11"><a href="#cb10-11"></a>            <span class="kw">done</span>;</span>
+<span id="cb10-12"><a href="#cb10-12"></a>            t.(i) &lt;- <span class="dv">1</span> + !m</span>
+<span id="cb10-13"><a href="#cb10-13"></a>        <span class="kw">done</span>;</span>
+<span id="cb10-14"><a href="#cb10-14"></a>        t.(n)</span></code></pre></div>
 <p></div></p>
 </div>
 <h2 data-number="2.5" id="sec:reconstruction"><span class="header-section-number">2.5</span> Reconstruction</h2>
@@ -507,29 +539,29 @@ Exemple
 <p></div></p>
 <p>On a alors deux stratégies pour obtenir <span class="math inline">\(\Phi(x)\)</span> quand on a trouvé comment calculer <span class="math inline">\(f(x)\)</span>. La première consiste à calculer <span class="math inline">\(\Phi\)</span> et <span class="math inline">\(f\)</span> ensemble. Par exemple, dans le rendu de monnaie, on sait qu’on calcule le minimum la pièce qui le réalise :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">let</span> rendu s n =</span>
-<span id="cb9-2"><a href="#cb9-2"></a>    <span class="kw">if</span> n = <span class="dv">0</span> <span class="kw">then</span> []</span>
-<span id="cb9-3"><a href="#cb9-3"></a>    <span class="kw">else</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a>        <span class="kw">let</span> t = <span class="dt">Array</span>.make (n+<span class="dv">1</span>) <span class="dv">0</span> <span class="kw">in</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a>        <span class="kw">let</span> util = <span class="dt">Array</span>.make (n+<span class="dv">1</span>) (<span class="dv">-1</span>) <span class="kw">in</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a>        <span class="kw">for</span> i = <span class="dv">1</span> <span class="kw">to</span> n <span class="kw">do</span></span>
-<span id="cb9-7"><a href="#cb9-7"></a>            <span class="kw">let</span> m = <span class="dt">ref</span> i <span class="kw">in</span></span>
-<span id="cb9-8"><a href="#cb9-8"></a>            <span class="kw">for</span> j = <span class="dv">0</span> <span class="kw">to</span> <span class="dt">Array</span>.length s - <span class="dv">1</span> <span class="kw">do</span></span>
-<span id="cb9-9"><a href="#cb9-9"></a>                <span class="kw">let</span> p = s.(j) <span class="kw">in</span></span>
-<span id="cb9-10"><a href="#cb9-10"></a>                <span class="kw">if</span> p &lt;= i &amp;&amp; t.(i-p) &lt; !m</span>
-<span id="cb9-11"><a href="#cb9-11"></a>                <span class="kw">then</span> <span class="kw">begin</span></span>
-<span id="cb9-12"><a href="#cb9-12"></a>                    util.(i) &lt;- p; </span>
-<span id="cb9-13"><a href="#cb9-13"></a>                    m := t.(i - p)</span>
-<span id="cb9-14"><a href="#cb9-14"></a>                <span class="kw">end</span></span>
-<span id="cb9-15"><a href="#cb9-15"></a>            <span class="kw">done</span>;</span>
-<span id="cb9-16"><a href="#cb9-16"></a>            t.(i) &lt;- <span class="dv">1</span> + !m</span>
-<span id="cb9-17"><a href="#cb9-17"></a>        <span class="kw">done</span>;</span>
-<span id="cb9-18"><a href="#cb9-18"></a>        <span class="kw">let</span> <span class="kw">rec</span> rendu_expl n =</span>
-<span id="cb9-19"><a href="#cb9-19"></a>            <span class="kw">if</span> n = <span class="dv">0</span> </span>
-<span id="cb9-20"><a href="#cb9-20"></a>            <span class="kw">then</span> []</span>
-<span id="cb9-21"><a href="#cb9-21"></a>            <span class="kw">else</span> <span class="kw">let</span> p = util.(n) <span class="kw">in</span></span>
-<span id="cb9-22"><a href="#cb9-22"></a>                p :: rendu_expl (n-p)</span>
-<span id="cb9-23"><a href="#cb9-23"></a>        <span class="kw">in</span> rendu_expl n</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">let</span> rendu s n =</span>
+<span id="cb11-2"><a href="#cb11-2"></a>    <span class="kw">if</span> n = <span class="dv">0</span> <span class="kw">then</span> []</span>
+<span id="cb11-3"><a href="#cb11-3"></a>    <span class="kw">else</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a>        <span class="kw">let</span> t = <span class="dt">Array</span>.make (n+<span class="dv">1</span>) <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a>        <span class="kw">let</span> util = <span class="dt">Array</span>.make (n+<span class="dv">1</span>) (<span class="dv">-1</span>) <span class="kw">in</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a>        <span class="kw">for</span> i = <span class="dv">1</span> <span class="kw">to</span> n <span class="kw">do</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a>            <span class="kw">let</span> m = <span class="dt">ref</span> i <span class="kw">in</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a>            <span class="kw">for</span> j = <span class="dv">0</span> <span class="kw">to</span> <span class="dt">Array</span>.length s - <span class="dv">1</span> <span class="kw">do</span></span>
+<span id="cb11-9"><a href="#cb11-9"></a>                <span class="kw">let</span> p = s.(j) <span class="kw">in</span></span>
+<span id="cb11-10"><a href="#cb11-10"></a>                <span class="kw">if</span> p &lt;= i &amp;&amp; t.(i-p) &lt; !m</span>
+<span id="cb11-11"><a href="#cb11-11"></a>                <span class="kw">then</span> <span class="kw">begin</span></span>
+<span id="cb11-12"><a href="#cb11-12"></a>                    util.(i) &lt;- p; </span>
+<span id="cb11-13"><a href="#cb11-13"></a>                    m := t.(i - p)</span>
+<span id="cb11-14"><a href="#cb11-14"></a>                <span class="kw">end</span></span>
+<span id="cb11-15"><a href="#cb11-15"></a>            <span class="kw">done</span>;</span>
+<span id="cb11-16"><a href="#cb11-16"></a>            t.(i) &lt;- <span class="dv">1</span> + !m</span>
+<span id="cb11-17"><a href="#cb11-17"></a>        <span class="kw">done</span>;</span>
+<span id="cb11-18"><a href="#cb11-18"></a>        <span class="kw">let</span> <span class="kw">rec</span> rendu_expl n =</span>
+<span id="cb11-19"><a href="#cb11-19"></a>            <span class="kw">if</span> n = <span class="dv">0</span> </span>
+<span id="cb11-20"><a href="#cb11-20"></a>            <span class="kw">then</span> []</span>
+<span id="cb11-21"><a href="#cb11-21"></a>            <span class="kw">else</span> <span class="kw">let</span> p = util.(n) <span class="kw">in</span></span>
+<span id="cb11-22"><a href="#cb11-22"></a>                p :: rendu_expl (n-p)</span>
+<span id="cb11-23"><a href="#cb11-23"></a>        <span class="kw">in</span> rendu_expl n</span></code></pre></div>
 <p></div></p>
 <p>Cependant, si on connait le tableau <code>t</code> complet, il est facile de constater qu’on peut retrouver une pièce ayant réalisé le minimum en cherchant <span class="math inline">\(p \le x\)</span> tel que <span class="math inline">\(t.(x) = 1 + t.(x-p)\)</span>. On en déduit une reconstruction de la solution uniquement avec les valeurs.</p>
 <p>Il est en général intéressant de faire cela, même si ce n’est pas forcément efficace.</p>
