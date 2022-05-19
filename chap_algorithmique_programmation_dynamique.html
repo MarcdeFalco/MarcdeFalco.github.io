@@ -93,9 +93,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style>
-  <script
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
-  type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script>
 $(document).ready(function() {
@@ -327,73 +325,32 @@ table td {
 <div class="segment">
 <div class="ui container text">
 <p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Programmation dynamique     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_algo_exacte.png"> </div></p>
-<h1 data-number="1"
-id="sec:exemple-fondateur-plus-court-chemin-dans-un-graphe-orienté-acyclique"><span
-class="header-section-number">1</span> Exemple fondateur : plus court
-chemin dans un graphe orienté acyclique</h1>
-<h1 data-number="2"
-id="sec:principe-de-la-programmation-dynamique"><span
-class="header-section-number">2</span> Principe de la programmation
-dynamique</h1>
-<h2 data-number="2.1" id="sec:problème-et-équation-de-bellman"><span
-class="header-section-number">2.1</span> Problème et équation de
-Bellman</h2>
-<p>On considère ici un cadre assez large où on cherche à calculer une
-fonction <span class="math inline">\(f : E \rightarrow \R\)</span> où
-est le domaine d’entrée et où on dispose :</p>
+<h1 data-number="1" id="sec:exemple-fondateur-plus-court-chemin-dans-un-graphe-orienté-acyclique"><span class="header-section-number">1</span> Exemple fondateur : plus court chemin dans un graphe orienté acyclique</h1>
+<h1 data-number="2" id="sec:principe-de-la-programmation-dynamique"><span class="header-section-number">2</span> Principe de la programmation dynamique</h1>
+<h2 data-number="2.1" id="sec:problème-et-équation-de-bellman"><span class="header-section-number">2.1</span> Problème et équation de Bellman</h2>
+<p>On considère ici un cadre assez large où on cherche à calculer une fonction <span class="math inline">\(f : E \rightarrow \R\)</span> où est le domaine d’entrée et où on dispose :</p>
 <ul>
-<li>de valeurs connus pour <span class="math inline">\(E_0 \subset
-E\)</span></li>
-<li>d’une équation pour <span class="math inline">\(x \in E \backslash
-E_0\)</span> permettant d’exprimer <span
-class="math inline">\(f(x)\)</span> en fonction de <span
-class="math inline">\(f(y)\)</span> pour <span class="math inline">\(y
-\in \mathop{dep}(x)\)</span> où <span class="math inline">\(\mathop{dep}
-: E \rightarrow \mathcal{P}(E)\)</span> est telle que toute chaîne de
-<span class="math inline">\((a_1, a_2, ...,)\)</span> où <span
-class="math inline">\(a_{i+1} \in \mathop{dep}(a_i)\)</span> est finie
-et où pour toute chaîne de longueur maximale, le dernier élément <span
-class="math inline">\(a_p \in E_0\)</span>.</li>
+<li>de valeurs connus pour <span class="math inline">\(E_0 \subset E\)</span></li>
+<li>d’une équation pour <span class="math inline">\(x \in E \backslash E_0\)</span> permettant d’exprimer <span class="math inline">\(f(x)\)</span> en fonction de <span class="math inline">\(f(y)\)</span> pour <span class="math inline">\(y \in \mathop{dep}(x)\)</span> où <span class="math inline">\(\mathop{dep} : E \rightarrow \mathcal{P}(E)\)</span> est telle que toute chaîne de <span class="math inline">\((a_1, a_2, ...,)\)</span> où <span class="math inline">\(a_{i+1} \in \mathop{dep}(a_i)\)</span> est finie et où pour toute chaîne de longueur maximale, le dernier élément <span class="math inline">\(a_p \in E_0\)</span>.</li>
 </ul>
-<p>En fait, cela signifie que <span
-class="math inline">\(\mathop{dep}\)</span> induit un graphe orienté
-acyclique sur les sommets <span class="math inline">\(E\)</span> où
-<span class="math inline">\(v_{-}(x) = \mathop{dep}(x)\)</span>.</p>
-<p>Il s’agit donc d’une équation de récurrence dans le sens où on
-exprime <span class="math inline">\(f(x)\)</span> en fonction d’autres
-appels à <span class="math inline">\(f\)</span>. On parle de
-sous-problèmes.</p>
+<p>En fait, cela signifie que <span class="math inline">\(\mathop{dep}\)</span> induit un graphe orienté acyclique sur les sommets <span class="math inline">\(E\)</span> où <span class="math inline">\(v_{-}(x) = \mathop{dep}(x)\)</span>.</p>
+<p>Il s’agit donc d’une équation de récurrence dans le sens où on exprime <span class="math inline">\(f(x)\)</span> en fonction d’autres appels à <span class="math inline">\(f\)</span>. On parle de sous-problèmes.</p>
 <div class="ui message blue">
 <div class="header">
 Exemple
 </div>
 <ul>
-<li>Fibonacci. Ici, c’est un exemple <em>jouet</em> uniquement présent
-pour se concentrer sur l’équation. On a donc <span
-class="math inline">\(F_0 = 0, F_1 = 1\)</span> et pour <span
-class="math inline">\(n &gt; 1\)</span>, <span class="math inline">\(F_n
-= F_{n-1} + F_{n-2}\)</span>.</li>
-<li>Rendu de monnaie. On cherche à calculer <span
-class="math inline">\(f(n)\)</span> le plus petit nombre de pièce pour
-rendre la monnaie dans le système monétaire <span
-class="math inline">\(S\)</span>. On a <span class="math inline">\(f(0)
-= 0\)</span> et l’équation <span class="math display">\[
+<li>Fibonacci. Ici, c’est un exemple <em>jouet</em> uniquement présent pour se concentrer sur l’équation. On a donc <span class="math inline">\(F_0 = 0, F_1 = 1\)</span> et pour <span class="math inline">\(n &gt; 1\)</span>, <span class="math inline">\(F_n = F_{n-1} + F_{n-2}\)</span>.</li>
+<li>Rendu de monnaie. On cherche à calculer <span class="math inline">\(f(n)\)</span> le plus petit nombre de pièce pour rendre la monnaie dans le système monétaire <span class="math inline">\(S\)</span>. On a <span class="math inline">\(f(0) = 0\)</span> et l’équation <span class="math display">\[
 f(n) = 1 + \min \enscomp{ f(n-p) }{ p \in S, p \le n }
 \]</span></li>
 </ul>
 </div>
-<h2 data-number="2.2" id="sec:résolution-par-récurrence-naïve"><span
-class="header-section-number">2.2</span> Résolution par récurrence
-naïve</h2>
-<p>On peut résoudre l’équation de récurrence naïvement par une fonction
-récursive.</p>
-<p>Comme on a pu le voir, par exemple avec Fibonacci, les récurrences
-font rapidement apparaitre des arbres d’appels de taille
-exponentielle.</p>
+<h2 data-number="2.2" id="sec:résolution-par-récurrence-naïve"><span class="header-section-number">2.2</span> Résolution par récurrence naïve</h2>
+<p>On peut résoudre l’équation de récurrence naïvement par une fonction récursive.</p>
+<p>Comme on a pu le voir, par exemple avec Fibonacci, les récurrences font rapidement apparaitre des arbres d’appels de taille exponentielle.</p>
 <p><div class="ui message orange"><div class="header">Remarque</div></p>
-<p>On peut se poser la question de la différence avec la méthode diviser
-pour régner. Dans diviser pour régner, les sous-problèmes ont un arbre
-récursif d’appel sans partage possible.</p>
+<p>On peut se poser la question de la différence avec la méthode diviser pour régner. Dans diviser pour régner, les sous-problèmes ont un arbre récursif d’appel sans partage possible.</p>
 <p></div></p>
 <div class="ui message blue">
 <div class="header">
@@ -403,8 +360,7 @@ Exemple
 <li>Fibonacci. On a</li>
 </ul>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">let</span> <span class="kw">rec</span> fibo n =</span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">let</span> <span class="kw">rec</span> fibo n =</span>
 <span id="cb1-2"><a href="#cb1-2"></a>    <span class="kw">if</span> n &lt;= <span class="dv">1</span> <span class="kw">then</span> n</span>
 <span id="cb1-3"><a href="#cb1-3"></a>    <span class="kw">else</span> fibo (n<span class="dv">-1</span>) + fibo (n<span class="dv">-2</span>)</span></code></pre></div>
 <p></div></p>
@@ -412,8 +368,7 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <li>Rendu de monnaie. On peut directement écrire :</li>
 </ul>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">let</span> <span class="kw">rec</span> rendu s n =</span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">let</span> <span class="kw">rec</span> rendu s n =</span>
 <span id="cb2-2"><a href="#cb2-2"></a>    <span class="kw">if</span> n = <span class="dv">0</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a>    <span class="kw">then</span> <span class="dv">0</span></span>
 <span id="cb2-4"><a href="#cb2-4"></a>    <span class="kw">else</span></span>
@@ -425,25 +380,11 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <span id="cb2-10"><a href="#cb2-10"></a>        <span class="dv">1</span> + !m</span></code></pre></div>
 <p></div></p>
 </div>
-<h2 data-number="2.3" id="sec:mémoïsation-et-cache-dynamique"><span
-class="header-section-number">2.3</span> Mémoïsation et cache
-dynamique</h2>
-<p>Une manière d’améliorer la résolution par récurrence est d’utiliser
-un cache d’appel, c’est-à-dire un dictionnaire dont les clés sont dans
-<span class="math inline">\(E\)</span> et les valeurs dans <span
-class="math inline">\(\R\)</span> : pour calculer <span
-class="math inline">\(f(x)\)</span> on regarde si on a déjà une
-correspondance dans le cache, auquel cas on renvoie cette valeur, sinon,
-on calcule <span class="math inline">\(f(x)\)</span> avec la récurrence
-(qui utilisera donc le cache), puis on rajoute une entrée dans le cache
-pour <span class="math inline">\(x\)</span>.</p>
-<p>On dit qu’on a <strong>mémoïsé</strong> la fonction <span
-class="math inline">\(f\)</span>.</p>
-<p>En procédant ainsi, on a linéarisé la récurrence et on effectue
-uniquement les calculs nécessaires une seule fois.</p>
-<p>Pour définir ce cache, on peut utiliser une table de hachage comme
-celle fournit par le module <code>Hashtbl</code> en
-<code>OCaml</code>.</p>
+<h2 data-number="2.3" id="sec:mémoïsation-et-cache-dynamique"><span class="header-section-number">2.3</span> Mémoïsation et cache dynamique</h2>
+<p>Une manière d’améliorer la résolution par récurrence est d’utiliser un cache d’appel, c’est-à-dire un dictionnaire dont les clés sont dans <span class="math inline">\(E\)</span> et les valeurs dans <span class="math inline">\(\R\)</span> : pour calculer <span class="math inline">\(f(x)\)</span> on regarde si on a déjà une correspondance dans le cache, auquel cas on renvoie cette valeur, sinon, on calcule <span class="math inline">\(f(x)\)</span> avec la récurrence (qui utilisera donc le cache), puis on rajoute une entrée dans le cache pour <span class="math inline">\(x\)</span>.</p>
+<p>On dit qu’on a <strong>mémoïsé</strong> la fonction <span class="math inline">\(f\)</span>.</p>
+<p>En procédant ainsi, on a linéarisé la récurrence et on effectue uniquement les calculs nécessaires une seule fois.</p>
+<p>Pour définir ce cache, on peut utiliser une table de hachage comme celle fournit par le module <code>Hashtbl</code> en <code>OCaml</code>.</p>
 <div class="ui message blue">
 <div class="header">
 Exemple
@@ -452,8 +393,7 @@ Exemple
 <li>Fibonacci.</li>
 </ul>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">let</span> fibo n =</span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">let</span> fibo n =</span>
 <span id="cb3-2"><a href="#cb3-2"></a>    <span class="kw">let</span> cache = <span class="dt">Hashtbl</span>.create (n+<span class="dv">1</span>) <span class="kw">in</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a>    <span class="kw">let</span> <span class="kw">rec</span> fibo_aux n = </span>
 <span id="cb3-4"><a href="#cb3-4"></a>        <span class="kw">try</span></span>
@@ -470,8 +410,7 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <li>Rendu de monnaie.</li>
 </ul>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">let</span> rendu s n =</span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">let</span> rendu s n =</span>
 <span id="cb4-2"><a href="#cb4-2"></a>    <span class="kw">let</span> cache = <span class="dt">Hashtbl</span>.create (n+<span class="dv">1</span>) <span class="kw">in</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a>    <span class="kw">let</span> <span class="kw">rec</span> rendu_aux n = </span>
 <span id="cb4-4"><a href="#cb4-4"></a>        <span class="kw">try</span></span>
@@ -492,13 +431,11 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 </div>
 <p>On remarque que le code a toujours la même structure on part de</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">let</span> <span class="kw">rec</span> f x = expr</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">let</span> <span class="kw">rec</span> f x = expr</span></code></pre></div>
 <p></div></p>
 <p>et on passe à :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">let</span> f x =</span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">let</span> f x =</span>
 <span id="cb6-2"><a href="#cb6-2"></a>    <span class="co">(* ici n doit etre proche du nombre d&#39;appels *)</span></span>
 <span id="cb6-3"><a href="#cb6-3"></a>    <span class="kw">let</span> cache = <span class="dt">Hashtbl</span>.create n <span class="kw">in</span></span>
 <span id="cb6-4"><a href="#cb6-4"></a>    <span class="kw">let</span> <span class="kw">rec</span> f_aux x = </span>
@@ -510,50 +447,26 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <span id="cb6-10"><a href="#cb6-10"></a>            v</span>
 <span id="cb6-11"><a href="#cb6-11"></a>    <span class="kw">in</span> f_aux x</span></code></pre></div>
 <p></div></p>
-<p>où <code>expr'</code> se déduit de <code>expr</code> en remplaçant
-chaque appel à <code>f</code> par un appel à <code>f_aux</code>.</p>
+<p>où <code>expr'</code> se déduit de <code>expr</code> en remplaçant chaque appel à <code>f</code> par un appel à <code>f_aux</code>.</p>
 <p><div class="ui message orange"><div class="header">Remarque</div></p>
-<p>Il n’est pas possible d’effectuer cette transformation d’expression
-directement depuis <code>OCaml</code> puisqu’il serait nécessaire
-d’aller modifier le code de l’expression.</p>
+<p>Il n’est pas possible d’effectuer cette transformation d’expression directement depuis <code>OCaml</code> puisqu’il serait nécessaire d’aller modifier le code de l’expression.</p>
 <p></div></p>
-<h2 data-number="2.4" id="sec:graphe-de-dépendances-et-tabulation"><span
-class="header-section-number">2.4</span> Graphe de dépendances et
-tabulation</h2>
-<p>Comme on a un graphe de dépendance entre sous-problèmes qui est
-acyclique, on peut en déduire une tri topologique <span
-class="math inline">\(x_0 &lt; x_1 &lt; \dots &lt; x_{n-1}\)</span> qui
-garantit que si <span class="math inline">\(f(x_i)\)</span> a besoin
-dans son calcul de la valeur <span
-class="math inline">\(f(y_j)\)</span>, alors <span
-class="math inline">\(j &lt; i\)</span>.</p>
-<p>On peut alors créer un tableau de <span
-class="math inline">\(n\)</span> cases où on place à la case <span
-class="math inline">\(i\)</span> la valeur de <span
-class="math inline">\(f(x_i)\)</span>.</p>
-<p>Ce tableau peut se calculer par un remplissage par indice croissant.
-On dit qu’on a <strong>tabuler</strong> le problème.</p>
+<h2 data-number="2.4" id="sec:graphe-de-dépendances-et-tabulation"><span class="header-section-number">2.4</span> Graphe de dépendances et tabulation</h2>
+<p>Comme on a un graphe de dépendance entre sous-problèmes qui est acyclique, on peut en déduire une tri topologique <span class="math inline">\(x_0 &lt; x_1 &lt; \dots &lt; x_{n-1}\)</span> qui garantit que si <span class="math inline">\(f(x_i)\)</span> a besoin dans son calcul de la valeur <span class="math inline">\(f(x_j)\)</span>, alors <span class="math inline">\(j &lt; i\)</span>.</p>
+<p>On peut alors créer un tableau de <span class="math inline">\(n\)</span> cases où on place à la case <span class="math inline">\(i\)</span> la valeur de <span class="math inline">\(f(x_i)\)</span>.</p>
+<p>Ce tableau peut se calculer par un remplissage par indice croissant. On dit qu’on a <strong>tabuler</strong> le problème.</p>
 <p><div class="ui message orange"><div class="header">Remarque</div></p>
-<p>Il s’agit ici d’une politique agressive de remplissage du cache de
-memoïsation où on remplit le cache sans même savoir si on va utiliser
-une valeur. Ce qu’on semble perdre en calculant <em>trop</em>, on le
-regagne dans la simplicité de la gestion d’un tableau plutôt qu’une
-table. Comme souvent, la question va être celle du compromis entre le
-nombre de valeurs utiles pour le calcul de <span
-class="math inline">\(f(x)\)</span> et le nombre de valeurs avant <span
-class="math inline">\(x\)</span> dans le tri topologique considéré.</p>
+<p>Il s’agit ici d’une politique agressive de remplissage du cache de memoïsation où on remplit le cache sans même savoir si on va utiliser une valeur. Ce qu’on semble perdre en calculant <em>trop</em>, on le regagne dans la simplicité de la gestion d’un tableau plutôt qu’une table. Comme souvent, la question va être celle du compromis entre le nombre de valeurs utiles pour le calcul de <span class="math inline">\(f(x)\)</span> et le nombre de valeurs avant <span class="math inline">\(x\)</span> dans le tri topologique considéré.</p>
 <p></div></p>
 <div class="ui message blue">
 <div class="header">
 Exemple
 </div>
 <ul>
-<li>Fibonacci. Ici, on a directement l’ordre des entiers qui est un tri
-topologique.</li>
+<li>Fibonacci. Ici, on a directement l’ordre des entiers qui est un tri topologique.</li>
 </ul>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb7"><pre
-class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">let</span> fibo n =</span>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">let</span> fibo n =</span>
 <span id="cb7-2"><a href="#cb7-2"></a>    <span class="kw">if</span> n = <span class="dv">0</span> <span class="kw">then</span> <span class="dv">0</span></span>
 <span id="cb7-3"><a href="#cb7-3"></a>    <span class="kw">else</span></span>
 <span id="cb7-4"><a href="#cb7-4"></a>        <span class="kw">let</span> t = <span class="dt">Array</span>.make (n+<span class="dv">1</span>) <span class="dv">0</span> <span class="kw">in</span></span>
@@ -567,8 +480,7 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <li>Rendu de monnaie.</li>
 </ul>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb8"><pre
-class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">let</span> rendu s n =</span>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">let</span> rendu s n =</span>
 <span id="cb8-2"><a href="#cb8-2"></a>    <span class="kw">if</span> n = <span class="dv">0</span> <span class="kw">then</span> <span class="dv">0</span></span>
 <span id="cb8-3"><a href="#cb8-3"></a>    <span class="kw">else</span></span>
 <span id="cb8-4"><a href="#cb8-4"></a>        <span class="kw">let</span> t = <span class="dt">Array</span>.make (n+<span class="dv">1</span>) <span class="dv">0</span> <span class="kw">in</span></span>
@@ -584,36 +496,18 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <span id="cb8-14"><a href="#cb8-14"></a>        t.(n)</span></code></pre></div>
 <p></div></p>
 </div>
-<h2 data-number="2.5" id="sec:reconstruction"><span
-class="header-section-number">2.5</span> Reconstruction</h2>
-<p>La plupart des problèmes ne sont pas juste des problèmes de calcul
-d’une valeur <span class="math inline">\(f(x)\)</span> mais des
-problèmes où on considère un ensemble <span
-class="math inline">\(F\)</span> de valeurs à construire avec une
-fonction <span class="math inline">\(\Phi : E \rightarrow F\)</span> et
-une fonction d’objectif <span class="math inline">\(\varphi : F
-\rightarrow \R\)</span> et où <span class="math inline">\(f(x) =
-\varphi(\Phi(x))\)</span>.</p>
-<p>L’exemple principale est celui d’associer à tout <span
-class="math inline">\(x \in E\)</span> un ensemble de solutions <span
-class="math inline">\(\mathop{sol}(x) \subset F\)</span> et à chercher
-la solution minimisant (ou maximisant) l’objectif :</p>
+<h2 data-number="2.5" id="sec:reconstruction"><span class="header-section-number">2.5</span> Reconstruction</h2>
+<p>La plupart des problèmes ne sont pas juste des problèmes de calcul d’une valeur <span class="math inline">\(f(x)\)</span> mais des problèmes où on considère un ensemble <span class="math inline">\(F\)</span> de valeurs à construire avec une fonction <span class="math inline">\(\Phi : E \rightarrow F\)</span> et une fonction d’objectif <span class="math inline">\(\varphi : F \rightarrow \R\)</span> et où <span class="math inline">\(f(x) = \varphi(\Phi(x))\)</span>.</p>
+<p>L’exemple principale est celui d’associer à tout <span class="math inline">\(x \in E\)</span> un ensemble de solutions <span class="math inline">\(\mathop{sol}(x) \subset F\)</span> et à chercher la solution minimisant (ou maximisant) l’objectif :</p>
 <p><span class="math display">\[
-\Phi(x) = \mathop{argmin} \enscomp{ \varphi(y) }{ y \in \mathop{sol}(x)
-}
+\Phi(x) = \mathop{argmin} \enscomp{ \varphi(y) }{ y \in \mathop{sol}(x) }
 \]</span></p>
 <p><div class="ui message blue"><div class="header">Note</div></p>
 <p>Unifier avec la présentation des gloutons</p>
 <p></div></p>
-<p>On a alors deux stratégies pour obtenir <span
-class="math inline">\(\Phi(x)\)</span> quand on a trouvé comment
-calculer <span class="math inline">\(f(x)\)</span>. La première consiste
-à calculer <span class="math inline">\(\Phi\)</span> et <span
-class="math inline">\(f\)</span> ensemble. Par exemple, dans le rendu de
-monnaie, on sait qu’on calcule le minimum la pièce qui le réalise :</p>
+<p>On a alors deux stratégies pour obtenir <span class="math inline">\(\Phi(x)\)</span> quand on a trouvé comment calculer <span class="math inline">\(f(x)\)</span>. La première consiste à calculer <span class="math inline">\(\Phi\)</span> et <span class="math inline">\(f\)</span> ensemble. Par exemple, dans le rendu de monnaie, on sait qu’on calcule le minimum la pièce qui le réalise :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb9"><pre
-class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">let</span> rendu s n =</span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">let</span> rendu s n =</span>
 <span id="cb9-2"><a href="#cb9-2"></a>    <span class="kw">if</span> n = <span class="dv">0</span> <span class="kw">then</span> []</span>
 <span id="cb9-3"><a href="#cb9-3"></a>    <span class="kw">else</span></span>
 <span id="cb9-4"><a href="#cb9-4"></a>        <span class="kw">let</span> t = <span class="dt">Array</span>.make (n+<span class="dv">1</span>) <span class="dv">0</span> <span class="kw">in</span></span>
@@ -637,124 +531,43 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <span id="cb9-22"><a href="#cb9-22"></a>                p :: rendu_expl (n-p)</span>
 <span id="cb9-23"><a href="#cb9-23"></a>        <span class="kw">in</span> rendu_expl n</span></code></pre></div>
 <p></div></p>
-<p>Cependant, si on connait le tableau <code>t</code> complet, il est
-facile de constater qu’on peut retrouver une pièce ayant réalisé le
-minimum en cherchant <span class="math inline">\(p \le x\)</span> tel
-que <span class="math inline">\(t.(x) = 1 + t.(x-p)\)</span>. On en
-déduit une reconstruction de la solution uniquement avec les
-valeurs.</p>
-<p>Il est en général intéressant de faire cela, même si ce n’est pas
-forcément efficace.</p>
-<h2 data-number="2.6" id="sec:dimensionnalité-réelle"><span
-class="header-section-number">2.6</span> Dimensionnalité réelle</h2>
-<p>Dans de nombreux cas, le problème n’est pas exprimé sur l’entrée
-<span class="math inline">\(E\)</span> mais sur un autre ensemble plus
-petit. Par exemple, on peut chercher une valeur particulière à calculer
-depuis un tableau et penser que l’entrée est donnée par la taille du
-tableau, par exemple en raisonnant sur les préfixes, et, en fait, il est
-nécessaire de considérer tous les sous-tableaux pour calculer la
-solution. Ainsi, <span class="math inline">\(E\)</span> est alors les
-couples d’indices <span class="math inline">\((i,j)\)</span> et on
-retrouve le problème initial en considérant <span
-class="math inline">\((0,n-1)\)</span> où <span
-class="math inline">\(n\)</span> est la longueur du tableau.</p>
-<p>Il n’est ainsi par rare d’avoir un problème portant sur un objet de
-taille <span class="math inline">\(n\)</span> mais faisant apparaitre
-des <span class="math inline">\(d\)</span>-uplets et donc avec une
-taille réelle en <span class="math inline">\(n^d\)</span>.</p>
-<h2 data-number="2.7" id="sec:complexité"><span
-class="header-section-number">2.7</span> Complexité</h2>
-<p>Une fois identifié la vraie entrée <span
-class="math inline">\(E\)</span>, la complexité est en <span
-class="math inline">\(O(|avant(x)|)\)</span> où <span
-class="math inline">\(avant(x) = \enscomp{y \in E}{ y \le x}\)</span>
-dans le tri topologique considéré.</p>
-<p>Comme vu dans la partie précédente, on est le plus souvent en <span
-class="math inline">\(O(n^d)\)</span> où <span
-class="math inline">\(d\)</span> est la dimensionnalité réelle du
-problème.</p>
-<h2 data-number="2.8" id="sec:déterminer-un-tri-topologique"><span
-class="header-section-number">2.8</span> Déterminer un tri
-topologique</h2>
-<p>Le plus souvent, on va tabuler le problème sur des tableaux à <span
-class="math inline">\(d\)</span> dimensions. La question du tri
-topologique revient alors à déterminer <span
-class="math inline">\(d\)</span> boucles <code>for</code> pour remplir
-dans le bon ordre.</p>
-<p>Il peut être intéressant de réaliser un schéma pour visualiser les
-dépendances et déterminer un ordre de remplissage.
-<center><div class="ui image center"><img
-src="assets/pics/remplissage.png" /></div></center></p>
-<h1 data-number="3" id="sec:exemples"><span
-class="header-section-number">3</span> Exemples</h1>
-<p>Pour chacun de ces exemples, on cherchera à mettre en place une
-solution par mémoïsation puis par tabulation, avec une reconstruction
-directe ou indirecte.</p>
-<h2 data-number="3.1" id="sec:sous-séquence-contigüe-maximale"><span
-class="header-section-number">3.1</span> Sous-séquence contigüe
-maximale</h2>
-<p>On considère un tableau <span class="math inline">\(t\)</span> de
-taille <span class="math inline">\(n\)</span> contenant des entiers et
-on demande de trouver le couple <span
-class="math inline">\((i,l)\)</span> tel que la somme [ t[i] + + t[i+l]
-] soit la plus grande possible.</p>
-<h2 data-number="3.2" id="sec:chemins-monotones"><span
-class="header-section-number">3.2</span> Chemins monotones</h2>
-<p><a href="https://projecteuler.net/problem=18">Project Euler 18</a> et
-<a href="https://projecteuler.net/problem=67">Project Euler 67</a></p>
-<h2 data-number="3.3" id="sec:produit-de-matrices"><span
-class="header-section-number">3.3</span> Produit de matrices</h2>
-<p>On souhaite calculer un produit <span class="math inline">\(A_1 \dots
-A_n\)</span> de matrices. Pour cela, on aimerait découper le calcul en
-produit de deux matrices, cela revient à placer des parenthèses.</p>
-<p>Le problème est qu’une multiplication matriciel effectue un nombre
-d’opérations de l’ordre de <span class="math inline">\(m n p\)</span>
-quand on multiplie une matrice <span
-class="math inline">\((m,n)\)</span> et une matrice <span
-class="math inline">\((n,p)\)</span>.</p>
-<h2 data-number="3.4"
-id="sec:plus-longue-sous-séquence-croissante"><span
-class="header-section-number">3.4</span> Plus longue sous-séquence
-croissante</h2>
-<p>On se donne un tableau <span class="math inline">\(t\)</span> de
-<span class="math inline">\(n\)</span> nombres entiers et on demande de
-déterminer un <span class="math inline">\(p\)</span>-uplet <span
-class="math inline">\((i_1,\dots,i_p)\)</span>, où <span
-class="math inline">\(t(i_1) &lt; t(i_2) &lt; \dots &lt;
-t(i_p)\)</span>, pour lequel <span class="math inline">\(p\)</span> est
-maximal.</p>
-<h2 data-number="3.5" id="sec:distance-dédition"><span
-class="header-section-number">3.5</span> Distance d’édition</h2>
-<p>Étant donné deux chaînes de caractères (on pourra considérer des pour
-simplifier) <span class="math inline">\(A\)</span> et <span
-class="math inline">\(B\)</span> de longueurs respectives <span
-class="math inline">\(n\)</span> et <span
-class="math inline">\(m\)</span>, on veut transformer la chaîne <span
-class="math inline">\(A\)</span> en la chaîne <span
-class="math inline">\(B\)</span> en effectuant un minimum d’opérations
-parmi celles-ci :</p>
+<p>Cependant, si on connait le tableau <code>t</code> complet, il est facile de constater qu’on peut retrouver une pièce ayant réalisé le minimum en cherchant <span class="math inline">\(p \le x\)</span> tel que <span class="math inline">\(t.(x) = 1 + t.(x-p)\)</span>. On en déduit une reconstruction de la solution uniquement avec les valeurs.</p>
+<p>Il est en général intéressant de faire cela, même si ce n’est pas forcément efficace.</p>
+<h2 data-number="2.6" id="sec:dimensionnalité-réelle"><span class="header-section-number">2.6</span> Dimensionnalité réelle</h2>
+<p>Dans de nombreux cas, le problème n’est pas exprimé sur l’entrée <span class="math inline">\(E\)</span> mais sur un autre ensemble plus petit. Par exemple, on peut chercher une valeur particulière à calculer depuis un tableau et penser que l’entrée est donnée par la taille du tableau, par exemple en raisonnant sur les préfixes, et, en fait, il est nécessaire de considérer tous les sous-tableaux pour calculer la solution. Ainsi, <span class="math inline">\(E\)</span> est alors les couples d’indices <span class="math inline">\((i,j)\)</span> et on retrouve le problème initial en considérant <span class="math inline">\((0,n-1)\)</span> où <span class="math inline">\(n\)</span> est la longueur du tableau.</p>
+<p>Il n’est ainsi par rare d’avoir un problème portant sur un objet de taille <span class="math inline">\(n\)</span> mais faisant apparaitre des <span class="math inline">\(d\)</span>-uplets et donc avec une taille réelle en <span class="math inline">\(n^d\)</span>.</p>
+<h2 data-number="2.7" id="sec:complexité"><span class="header-section-number">2.7</span> Complexité</h2>
+<p>Une fois identifié la vraie entrée <span class="math inline">\(E\)</span>, la complexité est en <span class="math inline">\(O(|avant(x)|)\)</span> où <span class="math inline">\(avant(x) = \enscomp{y \in E}{ y \le x}\)</span> dans le tri topologique considéré.</p>
+<p>Comme vu dans la partie précédente, on est le plus souvent en <span class="math inline">\(O(n^d)\)</span> où <span class="math inline">\(d\)</span> est la dimensionnalité réelle du problème.</p>
+<h2 data-number="2.8" id="sec:déterminer-un-tri-topologique"><span class="header-section-number">2.8</span> Déterminer un tri topologique</h2>
+<p>Le plus souvent, on va tabuler le problème sur des tableaux à <span class="math inline">\(d\)</span> dimensions. La question du tri topologique revient alors à déterminer <span class="math inline">\(d\)</span> boucles <code>for</code> pour remplir dans le bon ordre.</p>
+<p>Il peut être intéressant de réaliser un schéma pour visualiser les dépendances et déterminer un ordre de remplissage. <center><div class="ui image center"><img src="assets/pics/remplissage.png" /></div></center></p>
+<h1 data-number="3" id="sec:exemples"><span class="header-section-number">3</span> Exemples</h1>
+<p>Pour chacun de ces exemples, on cherchera à mettre en place une solution par mémoïsation puis par tabulation, avec une reconstruction directe ou indirecte.</p>
+<h2 data-number="3.1" id="sec:sous-séquence-contigüe-maximale"><span class="header-section-number">3.1</span> Sous-séquence contigüe maximale</h2>
+<p>On considère un tableau <span class="math inline">\(t\)</span> de taille <span class="math inline">\(n\)</span> contenant des entiers et on demande de trouver le couple <span class="math inline">\((i,l)\)</span> tel que la somme <span class="math display">\[
+t[i] + \dots + t[i+l]
+\]</span> soit la plus grande possible.</p>
+<h2 data-number="3.2" id="sec:chemins-monotones"><span class="header-section-number">3.2</span> Chemins monotones</h2>
+<p><a href="https://projecteuler.net/problem=18">Project Euler 18</a> et <a href="https://projecteuler.net/problem=67">Project Euler 67</a></p>
+<h2 data-number="3.3" id="sec:produit-de-matrices"><span class="header-section-number">3.3</span> Produit de matrices</h2>
+<p>On souhaite calculer un produit <span class="math inline">\(A_1 \dots A_n\)</span> de matrices. Pour cela, on aimerait découper le calcul en produit de deux matrices, cela revient à placer des parenthèses.</p>
+<p>Le problème est qu’une multiplication matriciel effectue un nombre d’opérations de l’ordre de <span class="math inline">\(m n p\)</span> quand on multiplie une matrice <span class="math inline">\((m,n)\)</span> et une matrice <span class="math inline">\((n,p)\)</span>.</p>
+<h2 data-number="3.4" id="sec:plus-longue-sous-séquence-croissante"><span class="header-section-number">3.4</span> Plus longue sous-séquence croissante</h2>
+<p>On se donne un tableau <span class="math inline">\(t\)</span> de <span class="math inline">\(n\)</span> nombres entiers et on demande de déterminer un <span class="math inline">\(p\)</span>-uplet <span class="math inline">\((i_1,\dots,i_p)\)</span>, où <span class="math inline">\(t(i_1) &lt; t(i_2) &lt; \dots &lt; t(i_p)\)</span>, pour lequel <span class="math inline">\(p\)</span> est maximal.</p>
+<h2 data-number="3.5" id="sec:distance-dédition"><span class="header-section-number">3.5</span> Distance d’édition</h2>
+<p>Étant donné deux chaînes de caractères (on pourra considérer des  pour simplifier) <span class="math inline">\(A\)</span> et <span class="math inline">\(B\)</span> de longueurs respectives <span class="math inline">\(n\)</span> et <span class="math inline">\(m\)</span>, on veut transformer la chaîne <span class="math inline">\(A\)</span> en la chaîne <span class="math inline">\(B\)</span> en effectuant un minimum d’opérations parmi celles-ci :</p>
 <ul>
 <li>supprimer un caractère n’importe où</li>
 <li>insérer un nouveau caractère n’importe où</li>
 <li>changer un caractère en n’importe quel autre.</li>
 </ul>
-<p>Ce nombre d’opération est appelée la distance d’édition de <span
-class="math inline">\(A\)</span> à <span
-class="math inline">\(B\)</span>. Écrire un algorithme permettant de la
-calculer.</p>
-<p>Par exemple : chien <span class="math inline">\(\rightarrow\)</span>
-chen <span class="math inline">\(\rightarrow\)</span> chan <span
-class="math inline">\(\rightarrow\)</span> chat</p>
-<h2 data-number="3.6"
-id="sec:plus-longue-sous-séquence-palindromique"><span
-class="header-section-number">3.6</span> Plus longue sous-séquence
-palindromique</h2>
-<p>On se donne une chaine de caractère et on cherche la plus longue
-chaine extraite qui soit un palindrome.</p>
-<p>Par exemple, dans <code>abracadabra</code> il y a
-<code>aradara</code> comme plus long palindrome extrait.</p>
-<p>Déterminer une plus longue sous-séquence palindromique d’une chaine
-de caractères.</p>
+<p>Ce nombre d’opération est appelée la distance d’édition de <span class="math inline">\(A\)</span> à <span class="math inline">\(B\)</span>. Écrire un algorithme permettant de la calculer.</p>
+<p>Par exemple : chien <span class="math inline">\(\rightarrow\)</span> chen <span class="math inline">\(\rightarrow\)</span> chan <span class="math inline">\(\rightarrow\)</span> chat</p>
+<h2 data-number="3.6" id="sec:plus-longue-sous-séquence-palindromique"><span class="header-section-number">3.6</span> Plus longue sous-séquence palindromique</h2>
+<p>On se donne une chaine de caractère et on cherche la plus longue chaine extraite qui soit un palindrome.</p>
+<p>Par exemple, dans <code>abracadabra</code> il y a <code>aradara</code> comme plus long palindrome extrait.</p>
+<p>Déterminer une plus longue sous-séquence palindromique d’une chaine de caractères.</p>
 </div>
 <!-- </div> -->
 </div>
