@@ -308,7 +308,7 @@ table td {
     </a>
     </div>
 <!-- FIX TOC -->
-<div class="item header"> <a href="#sec:exemple-fondateur-plus-court-chemin-dans-un-graphe-orienté-acyclique"><span>1</span> Exemple fondateur : plus court chemin dans un graphe orienté acyclique</a><div class="menu"></div></div><div class="item header"> <a href="#sec:principe-de-la-programmation-dynamique"><span>2</span> Principe de la programmation dynamique</a><div class="menu"><a class="item" href="#sec:problème-et-équation-de-bellman"><div class="ui label">2.1</div> Problème et équation de Bellman</a><a class="item" href="#sec:résolution-par-récurrence-naïve"><div class="ui label">2.2</div> Résolution par récurrence naïve</a><a class="item" href="#sec:mémoïsation-et-cache-dynamique"><div class="ui label">2.3</div> Mémoïsation et cache dynamique</a><a class="item" href="#sec:graphe-de-dépendances-et-tabulation"><div class="ui label">2.4</div> Graphe de dépendances et tabulation</a><a class="item" href="#sec:reconstruction"><div class="ui label">2.5</div> Reconstruction</a><a class="item" href="#sec:dimensionnalité-réelle"><div class="ui label">2.6</div> Dimensionnalité réelle</a><a class="item" href="#sec:complexité"><div class="ui label">2.7</div> Complexité</a></div></div><div class="item header"> <a href="#sec:exemples"><span>3</span> Exemples</a><div class="menu"><a class="item" href="#sec:sous-séquence-contigüe-maximale"><div class="ui label">3.1</div> Sous-séquence contigüe maximale</a><a class="item" href="#sec:chemins-monotones"><div class="ui label">3.2</div> Chemins monotones</a><a class="item" href="#sec:produit-de-matrices"><div class="ui label">3.3</div> Produit de matrices</a><a class="item" href="#sec:plus-longue-sous-séquence-croissante"><div class="ui label">3.4</div> Plus longue sous-séquence croissante</a><a class="item" href="#sec:distance-dédition"><div class="ui label">3.5</div> Distance d’édition</a><a class="item" href="#sec:plus-longue-sous-séquence-palindromique"><div class="ui label">3.6</div> Plus longue sous-séquence palindromique</a></div></div><!-- FIX TOC -->
+<div class="item header"> <a href="#sec:exemple-fondateur-plus-court-chemin-dans-un-graphe-orienté-acyclique"><span>1</span> Exemple fondateur : plus court chemin dans un graphe orienté acyclique</a><div class="menu"></div></div><div class="item header"> <a href="#sec:principe-de-la-programmation-dynamique"><span>2</span> Principe de la programmation dynamique</a><div class="menu"><a class="item" href="#sec:problème-et-équation-de-bellman"><div class="ui label">2.1</div> Problème et équation de Bellman</a><a class="item" href="#sec:résolution-par-récurrence-naïve"><div class="ui label">2.2</div> Résolution par récurrence naïve</a><a class="item" href="#sec:mémoïsation-et-cache-dynamique"><div class="ui label">2.3</div> Mémoïsation et cache dynamique</a><a class="item" href="#sec:graphe-de-dépendances-et-tabulation"><div class="ui label">2.4</div> Graphe de dépendances et tabulation</a><a class="item" href="#sec:reconstruction"><div class="ui label">2.5</div> Reconstruction</a><a class="item" href="#sec:dimensionnalité-réelle"><div class="ui label">2.6</div> Dimensionnalité réelle</a><a class="item" href="#sec:complexité"><div class="ui label">2.7</div> Complexité</a><a class="item" href="#sec:déterminer-un-tri-topologique"><div class="ui label">2.8</div> Déterminer un tri topologique</a></div></div><div class="item header"> <a href="#sec:exemples"><span>3</span> Exemples</a><div class="menu"><a class="item" href="#sec:sous-séquence-contigüe-maximale"><div class="ui label">3.1</div> Sous-séquence contigüe maximale</a><a class="item" href="#sec:chemins-monotones"><div class="ui label">3.2</div> Chemins monotones</a><a class="item" href="#sec:produit-de-matrices"><div class="ui label">3.3</div> Produit de matrices</a><a class="item" href="#sec:plus-longue-sous-séquence-croissante"><div class="ui label">3.4</div> Plus longue sous-séquence croissante</a><a class="item" href="#sec:distance-dédition"><div class="ui label">3.5</div> Distance d’édition</a><a class="item" href="#sec:plus-longue-sous-séquence-palindromique"><div class="ui label">3.6</div> Plus longue sous-séquence palindromique</a></div></div><!-- FIX TOC -->
 </div>
 
 <div class="pusher" id="main-content">
@@ -673,6 +673,18 @@ dans le tri topologique considéré.</p>
 class="math inline">\(O(n^d)\)</span> où <span
 class="math inline">\(d\)</span> est la dimensionnalité réelle du
 problème.</p>
+<h2 data-number="2.8" id="sec:déterminer-un-tri-topologique"><span
+class="header-section-number">2.8</span> Déterminer un tri
+topologique</h2>
+<p>Le plus souvent, on va tabuler le problème sur des tableaux à <span
+class="math inline">\(d\)</span> dimensions. La question du tri
+topologique revient alors à déterminer <span
+class="math inline">\(d\)</span> boucles <code>for</code> pour remplir
+dans le bon ordre.</p>
+<p>Il peut être intéressant de réaliser un schéma pour visualiser les
+dépendances et déterminer un ordre de remplissage.
+<center><div class="ui image center"><img
+src="assets/pics/remplissage.png" /></div></center></p>
 <h1 data-number="3" id="sec:exemples"><span
 class="header-section-number">3</span> Exemples</h1>
 <p>Pour chacun de ces exemples, on cherchera à mettre en place une
