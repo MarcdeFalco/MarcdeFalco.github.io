@@ -1666,8 +1666,58 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <p></div></p>
 <h3 data-number="3.4.3" id="sec:tabulation-3"><span
 class="header-section-number">3.4.3</span> Tabulation</h3>
+<p>On reprend ici aussi le même principe que pour la tabulation de la
+sous-séquence maximale, c’est-à-dire qu’on va remplir de droite à
+gauche.</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb32-1"><a href="#cb32-1"></a><span class="kw">let</span> croissante t =</span>
+<span id="cb32-2"><a href="#cb32-2"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length t <span class="kw">in</span></span>
+<span id="cb32-3"><a href="#cb32-3"></a>    <span class="kw">let</span> f = <span class="dt">Array</span>.make n <span class="dv">1</span> <span class="kw">in</span></span>
+<span id="cb32-4"><a href="#cb32-4"></a>    <span class="kw">for</span> i = n<span class="dv">-2</span> <span class="kw">downto</span> <span class="dv">0</span> <span class="kw">do</span></span>
+<span id="cb32-5"><a href="#cb32-5"></a>        <span class="kw">for</span> j = i+<span class="dv">1</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
+<span id="cb32-6"><a href="#cb32-6"></a>            <span class="kw">if</span> t.(j) &gt; t.(i)</span>
+<span id="cb32-7"><a href="#cb32-7"></a>            <span class="kw">then</span> f.(i) &lt;- <span class="dv">1</span> + f.(j)</span>
+<span id="cb32-8"><a href="#cb32-8"></a>        <span class="kw">done</span></span>
+<span id="cb32-9"><a href="#cb32-9"></a>    <span class="kw">done</span>;</span>
+<span id="cb32-10"><a href="#cb32-10"></a>    f</span></code></pre></div>
+<p></div></p>
 <h3 data-number="3.4.4" id="sec:reconstruction-4"><span
 class="header-section-number">3.4.4</span> Reconstruction</h3>
+<p>On va conserver dans un tableau le suivant potentiel d’un indice dans
+une plus grande sous-séquence croissante commençant par lui.</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb33-1"><a href="#cb33-1"></a><span class="kw">let</span> croissante t =</span>
+<span id="cb33-2"><a href="#cb33-2"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length t <span class="kw">in</span></span>
+<span id="cb33-3"><a href="#cb33-3"></a>    <span class="kw">let</span> f = <span class="dt">Array</span>.make n <span class="dv">1</span> <span class="kw">in</span></span>
+<span id="cb33-4"><a href="#cb33-4"></a>    <span class="kw">let</span> suivant = <span class="dt">Array</span>.make n <span class="dt">None</span> <span class="kw">in</span></span>
+<span id="cb33-5"><a href="#cb33-5"></a>    <span class="kw">for</span> i = n<span class="dv">-2</span> <span class="kw">downto</span> <span class="dv">0</span> <span class="kw">do</span></span>
+<span id="cb33-6"><a href="#cb33-6"></a>        <span class="kw">for</span> j = i+<span class="dv">1</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
+<span id="cb33-7"><a href="#cb33-7"></a>            <span class="kw">if</span> t.(j) &gt; t.(i) &amp;&amp; f.(i) &lt; <span class="dv">1</span> + f.(j)</span>
+<span id="cb33-8"><a href="#cb33-8"></a>            <span class="kw">then</span> <span class="kw">begin</span></span>
+<span id="cb33-9"><a href="#cb33-9"></a>                f.(i) &lt;- <span class="dv">1</span> + f.(j);</span>
+<span id="cb33-10"><a href="#cb33-10"></a>                suivant.(i) &lt;- <span class="dt">Some</span> j</span>
+<span id="cb33-11"><a href="#cb33-11"></a>            <span class="kw">end</span></span>
+<span id="cb33-12"><a href="#cb33-12"></a>        <span class="kw">done</span>;</span>
+<span id="cb33-13"><a href="#cb33-13"></a>    <span class="kw">done</span>;</span>
+<span id="cb33-14"><a href="#cb33-14"></a>    f, suivant</span>
+<span id="cb33-15"><a href="#cb33-15"></a></span>
+<span id="cb33-16"><a href="#cb33-16"></a><span class="kw">let</span> sous_sequence_croissante t =</span>
+<span id="cb33-17"><a href="#cb33-17"></a>    <span class="kw">let</span> f, suivant = croissante t <span class="kw">in</span></span>
+<span id="cb33-18"><a href="#cb33-18"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length t <span class="kw">in</span></span>
+<span id="cb33-19"><a href="#cb33-19"></a>    <span class="kw">let</span> mi = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
+<span id="cb33-20"><a href="#cb33-20"></a>    <span class="kw">for</span> i = <span class="dv">1</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
+<span id="cb33-21"><a href="#cb33-21"></a>        <span class="kw">if</span> f.(i) &gt; f.(!mi)</span>
+<span id="cb33-22"><a href="#cb33-22"></a>        <span class="kw">then</span> mi := i</span>
+<span id="cb33-23"><a href="#cb33-23"></a>    <span class="kw">done</span>;</span>
+<span id="cb33-24"><a href="#cb33-24"></a>    <span class="kw">let</span> seq = <span class="dt">ref</span> [ !mi ] <span class="kw">in</span></span>
+<span id="cb33-25"><a href="#cb33-25"></a>    <span class="kw">while</span> suivant.(!mi) &lt;&gt; <span class="dt">None</span> <span class="kw">do</span></span>
+<span id="cb33-26"><a href="#cb33-26"></a>        mi := Option.get suivant.(!mi);</span>
+<span id="cb33-27"><a href="#cb33-27"></a>        seq := !mi :: !seq</span>
+<span id="cb33-28"><a href="#cb33-28"></a>    <span class="kw">done</span>;</span>
+<span id="cb33-29"><a href="#cb33-29"></a>    <span class="dt">List</span>.rev !seq</span></code></pre></div>
+<p></div></p>
 <h2 data-number="3.5" id="sec:distance-dédition"><span
 class="header-section-number">3.5</span> Distance d’édition</h2>
 <p>Étant donné deux chaînes de caractères (on pourra considérer des pour
