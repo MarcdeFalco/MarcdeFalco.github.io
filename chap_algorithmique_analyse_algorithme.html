@@ -93,7 +93,9 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
 
 <script>
 $(document).ready(function() {
@@ -325,24 +327,43 @@ table td {
 <div class="segment">
 <div class="ui container text">
 <p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Introduction à l'analyse des algorithmes     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_analyse_algo.png"> </div></p>
-<p><em>Source de l’image d’en-tête <a href="https://xkcd.com/1667/">XKCD #1667</a></em></p>
-<p><div class="ui message blue"><div class="header">Note</div><strong>Roadmap</strong> :</p>
+<p><em>Source de l’image d’en-tête <a href="https://xkcd.com/1667/">XKCD
+#1667</a></em></p>
+<p><div class="ui message blue"><div class="header">Note</div></p>
+<p><strong>Roadmap</strong> :</p>
 <ul>
 <li>reprendre les exemples dans les trois langages.</li>
-<li>rajouter plus exercices.</div></li>
+<li>rajouter plus exercices.</li>
 </ul>
-<p><div class="ui message orange"><div class="header">Remarque</div>Ce chapitre présente les trois grands principes qui nous serviront de guide pour analyser les algorithmes et les programmes :</p>
+<p></div></p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>Ce chapitre présente les trois grands principes qui nous serviront de
+guide pour analyser les algorithmes et les programmes :</p>
 <ul>
-<li>La <strong>terminaison</strong> : l’algorithme termine-t-il au bout d’un nombre fini d’étapes quelle que soit l’entrée ?</li>
-<li>La <strong>correction</strong> : le résultat rendu est-il celui qui était attendu ?</li>
-<li>La <strong>complexité</strong> : combien de temps prend le programme selon la taille de l’entrée ? Combien d’espace mémoire occupe-t-il ?</li>
+<li>La <strong>terminaison</strong> : l’algorithme termine-t-il au bout
+d’un nombre fini d’étapes quelle que soit l’entrée ?</li>
+<li>La <strong>correction</strong> : le résultat rendu est-il celui qui
+était attendu ?</li>
+<li>La <strong>complexité</strong> : combien de temps prend le programme
+selon la taille de l’entrée ? Combien d’espace mémoire occupe-t-il
+?</li>
 </ul>
-<p>Savoir répondre à ces questions, c’est pouvoir prédire, avant d’avoir écrit la moindre ligne de code, ce qui va se passer.</div></p>
-<h1 data-number="1" id="sec:état-dun-programme"><span class="header-section-number">1</span> État d’un programme</h1>
-<p>Avant de commencer à raisonner sur les algorithmes, il est nécessaire de préciser la notion d’état qui correspond à un instantané de l’environnement d’exécution d’un programme lorsque son exécution est interrompue. Bien entendu, la description complète d’un tel état ne serait pas forcément pertinent, car cela prendrait en compte l’ensemble de la mémoire. Le plus souvent, on considère uniquement ce qui est important pour ce qu’on étudie.</p>
+<p>Savoir répondre à ces questions, c’est pouvoir prédire, avant d’avoir
+écrit la moindre ligne de code, ce qui va se passer.</p>
+<p></div></p>
+<h1 data-number="1" id="sec:état-dun-programme"><span
+class="header-section-number">1</span> État d’un programme</h1>
+<p>Avant de commencer à raisonner sur les algorithmes, il est nécessaire
+de préciser la notion d’état qui correspond à un instantané de
+l’environnement d’exécution d’un programme lorsque son exécution est
+interrompue. Bien entendu, la description complète d’un tel état ne
+serait pas forcément pertinent, car cela prendrait en compte l’ensemble
+de la mémoire. Le plus souvent, on considère uniquement ce qui est
+important pour ce qu’on étudie.</p>
 <p>Ainsi, si on considère le programme suivant :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource c numberLines numberLines"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1"></a><span class="dt">int</span> a <span class="op">=</span> <span class="dv">3</span><span class="op">;</span></span>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode numberSource c numberLines numberLines"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1"></a><span class="dt">int</span> a <span class="op">=</span> <span class="dv">3</span><span class="op">;</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="dt">int</span> b <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
 <span id="cb1-3"><a href="#cb1-3"></a></span>
 <span id="cb1-4"><a href="#cb1-4"></a>a <span class="op">=</span> b<span class="op">;</span></span></code></pre></div>
@@ -385,15 +406,34 @@ table td {
 </tr>
 </tbody>
 </table>
-<p>Parfois, on aura besoin de plus d’information dans l’état comme la position en mémoire de certaines données. Mais assez souvent, pour les algorithmes qui nous intéressent, on pourra adopter un point de vue assez abstrait de l’état d’un algorithme comme étant une fonction partielle des noms vers les valeurs.</p>
-<p>Pour la terminaison et la correction, on va considérer des propriétés logiques dépendant de l’état. Par exemple <span class="math inline">\(a \ge 0 \wedge b \ge a\)</span>.</p>
-<h1 data-number="2" id="sec:terminaison"><span class="header-section-number">2</span> Terminaison</h1>
-<p><div class="ui message"><div class="header">Définition</div> On dit qu’un algorithme <strong>termine</strong> quand il n’exécute qu’un nombre fini d’étapes sur toute entrée. </div></p>
-<p><div class="ui message orange"><div class="header">Remarque</div>Cela n’empêche pas que ce nombre d’étapes puisse être arbitrairement grand en fonction des entrées.</div></p>
-<p>Un algorithme qui n’utilise ni boucles inconditionnelles ni récursivité termine toujours. Ainsi, la question de la terminaison n’est à considérer que dans ces deux cas.</p>
-<p>Considérons par exemple l’algorithme suivant qui, étant donné un entier naturel <span class="math inline">\(n\)</span> strictement positif, inférieur à <span class="math inline">\(2^{30}\)</span>, détermine le plus petit entier <span class="math inline">\(k\)</span> tel que <span class="math inline">\(n \le 2^k\)</span> :</p>
+<p>Parfois, on aura besoin de plus d’information dans l’état comme la
+position en mémoire de certaines données. Mais assez souvent, pour les
+algorithmes qui nous intéressent, on pourra adopter un point de vue
+assez abstrait de l’état d’un algorithme comme étant une fonction
+partielle des noms vers les valeurs.</p>
+<p>Pour la terminaison et la correction, on va considérer des propriétés
+logiques dépendant de l’état. Par exemple <span class="math inline">\(a
+\ge 0 \wedge b \ge a\)</span>.</p>
+<h1 data-number="2" id="sec:terminaison"><span
+class="header-section-number">2</span> Terminaison</h1>
+<p><div class="ui message"><div class="header">Définition</div> On dit
+qu’un algorithme <strong>termine</strong> quand il n’exécute qu’un
+nombre fini d’étapes sur toute entrée. </div></p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>Cela n’empêche pas que ce nombre d’étapes puisse être arbitrairement
+grand en fonction des entrées.</p>
+<p></div></p>
+<p>Un algorithme qui n’utilise ni boucles inconditionnelles ni
+récursivité termine toujours. Ainsi, la question de la terminaison n’est
+à considérer que dans ces deux cas.</p>
+<p>Considérons par exemple l’algorithme suivant qui, étant donné un
+entier naturel <span class="math inline">\(n\)</span> strictement
+positif, inférieur à <span class="math inline">\(2^{30}\)</span>,
+détermine le plus petit entier <span class="math inline">\(k\)</span>
+tel que <span class="math inline">\(n \le 2^k\)</span> :</p>
 <p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-58">ocaml</a>   <a class="item" data-tab="c-58">c</a>   <a class="item" data-tab="python-58">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-58"></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> plus_grande_puissance2 n =</span>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> plus_grande_puissance2 n =</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> k = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> p = <span class="dt">ref</span> <span class="dv">1</span> <span class="kw">in</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">while</span> !p &lt; n <span class="kw">do</span></span>
@@ -416,7 +456,8 @@ table td {
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> k<span class="op">;</span></span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="python-58"></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plus_grande_puissance2(n):</span>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plus_grande_puissance2(n):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    k <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -426,10 +467,17 @@ table td {
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> k</span></code></pre></div>
 <p></div> </div></p>
-<p>On remarque que <code>p</code> prend successivement pour valeurs toutes les puissances de 2 jusqu’à une éventuelle sortie de boucle. Or, il existe une puissance de 2 supérieure ou égale à <code>n</code>, donc, une fois atteinte, la condition de la boucle <code>while</code> n’est plus remplie et l’algorithme termine.</p>
-<p><div class="ui message orange"><div class="header">Remarque</div>Prouver la terminaison n’est pas une question facile, elle peut-même être insoluble. Par exemple, si on considère le programme suivant :</p>
+<p>On remarque que <code>p</code> prend successivement pour valeurs
+toutes les puissances de 2 jusqu’à une éventuelle sortie de boucle. Or,
+il existe une puissance de 2 supérieure ou égale à <code>n</code>, donc,
+une fois atteinte, la condition de la boucle <code>while</code> n’est
+plus remplie et l’algorithme termine.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>Prouver la terminaison n’est pas une question facile, elle peut-même
+être insoluble. Par exemple, si on considère le programme suivant :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">def</span> temps_de_vol(a):</span>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">def</span> temps_de_vol(a):</span>
 <span id="cb5-2"><a href="#cb5-2"></a>    u <span class="op">=</span> a</span>
 <span id="cb5-3"><a href="#cb5-3"></a>    n <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb5-4"><a href="#cb5-4"></a>    <span class="cf">while</span> u <span class="op">!=</span> <span class="dv">1</span>:</span>
@@ -440,45 +488,95 @@ table td {
 <span id="cb5-9"><a href="#cb5-9"></a>        n <span class="op">=</span> n<span class="op">+</span><span class="dv">1</span></span>
 <span id="cb5-10"><a href="#cb5-10"></a>    <span class="cf">return</span> n</span></code></pre></div>
 <p></div></p>
-<p>être capable de prouver sa terminaison revient à prouver la conjecture de Collatz (encore dite de Syracuse).</p>
+<p>être capable de prouver sa terminaison revient à prouver la
+conjecture de Collatz (encore dite de Syracuse).</p>
 <p>On peut aussi considérer le tri suivant :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">def</span> bogo(t):</span>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">def</span> bogo(t):</span>
 <span id="cb6-2"><a href="#cb6-2"></a>    <span class="cf">while</span> <span class="kw">not</span> est_trie(t):</span>
 <span id="cb6-3"><a href="#cb6-3"></a>        melange(t)</span></code></pre></div>
 <p></div></p>
-<p>Il semble très improbable que cet algorithme ne termine pas, d’ailleurs on peut prouver qu’il termine avec probabilité <span class="math inline">\(1\)</span>, mais on ne peut pas exclure le cas où il mélange indéfiniment.</div></p>
-<h2 data-number="2.1" id="sec:variant-de-boucle"><span class="header-section-number">2.1</span> Variant de boucle</h2>
-<p>Pour prouver la terminaison d’une boucle conditionnelle, on utilise un <strong>variant</strong> de boucle.</p>
-<p><div class="ui message"><div class="header">Définition</div> Un <strong>variant de boucle</strong> est une quantité entière <strong>positive</strong> à l’entrée de chaque itération de la boucle et qui diminue <strong>strictement</strong> à chaque itération. </div></p>
-<p>Dans l’exemple précédent, la quantité <span class="math inline">\(n-p\)</span> est un variant de boucle :</p>
+<p>Il semble très improbable que cet algorithme ne termine pas,
+d’ailleurs on peut prouver qu’il termine avec probabilité <span
+class="math inline">\(1\)</span>, mais on ne peut pas exclure le cas où
+il mélange indéfiniment.</p>
+<p></div></p>
+<h2 data-number="2.1" id="sec:variant-de-boucle"><span
+class="header-section-number">2.1</span> Variant de boucle</h2>
+<p>Pour prouver la terminaison d’une boucle conditionnelle, on utilise
+un <strong>variant</strong> de boucle.</p>
+<p><div class="ui message"><div class="header">Définition</div> Un
+<strong>variant de boucle</strong> est une quantité entière
+<strong>positive</strong> à l’entrée de chaque itération de la boucle et
+qui diminue <strong>strictement</strong> à chaque itération. </div></p>
+<p>Dans l’exemple précédent, la quantité <span
+class="math inline">\(n-p\)</span> est un variant de boucle :</p>
 <ul>
-<li>Au départ, <span class="math inline">\(n &gt; 0\)</span> et <span class="math inline">\(p=1\)</span> donc <span class="math inline">\(n-p \ge 0\)</span></li>
-<li>Comme il s’agit d’une différence de deux entiers, c’est un entier. Et tant que la condition de boucle est vérifiée <span class="math inline">\(p &lt; n\)</span> donc <span class="math inline">\(n-p &gt; 0\)</span>.</li>
-<li>Lorsqu’on passe d’une itération à la suivante, la quantité passe de <span class="math inline">\(n-p\)</span> à <span class="math inline">\(n-2p\)</span> or <span class="math inline">\(2p-p &gt; 0\)</span> car <span class="math inline">\(p \ge 1\)</span>. Il y a bien une stricte diminution.</li>
+<li>Au départ, <span class="math inline">\(n &gt; 0\)</span> et <span
+class="math inline">\(p=1\)</span> donc <span class="math inline">\(n-p
+\ge 0\)</span></li>
+<li>Comme il s’agit d’une différence de deux entiers, c’est un entier.
+Et tant que la condition de boucle est vérifiée <span
+class="math inline">\(p &lt; n\)</span> donc <span
+class="math inline">\(n-p &gt; 0\)</span>.</li>
+<li>Lorsqu’on passe d’une itération à la suivante, la quantité passe de
+<span class="math inline">\(n-p\)</span> à <span
+class="math inline">\(n-2p\)</span> or <span class="math inline">\(2p-p
+&gt; 0\)</span> car <span class="math inline">\(p \ge 1\)</span>. Il y a
+bien une stricte diminution.</li>
 </ul>
-<p><div class="ui message orange"><div class="header">Remarque</div>Ici, en sortie de boucle, <span class="math inline">\(n-p \le 0\)</span>. On fait donc bien attention de préciser que la quantité est positive tant que la condition de boucle est vérifiée.</div></p>
-<p>Si on a un variant de boucle qui vaut initialement <span class="math inline">\(n\)</span> avant d’entrer dans la boucle, celle-ci effectue au plus <span class="math inline">\(n\)</span> itérations car le variant diminue au moins de 1 à chaque étape.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>Ici, en sortie de boucle, <span class="math inline">\(n-p \le
+0\)</span>. On fait donc bien attention de préciser que la quantité est
+positive tant que la condition de boucle est vérifiée.</p>
+<p></div></p>
+<p>Si on a un variant de boucle qui vaut initialement <span
+class="math inline">\(n\)</span> avant d’entrer dans la boucle, celle-ci
+effectue au plus <span class="math inline">\(n\)</span> itérations car
+le variant diminue au moins de 1 à chaque étape.</p>
 <div class="ui message olive">
 <div class="header">
 Théorème
 </div>
 <p>Si une boucle admet un variant de boucle, elle termine.</p>
 </div>
-<h2 data-number="2.2" id="sec:exemple-de-la-recherche-dichotomique"><span class="header-section-number">2.2</span> Exemple de la recherche dichotomique</h2>
-<p>On considère ici la recherche dichotomique dans un tableau trié d’entiers. Étant donné un tableau <span class="math inline">\(t\)</span> de taille <span class="math inline">\(n &gt; 0\)</span> et un entier <span class="math inline">\(x\)</span> dont on cherche à déterminer sa présence dans le tableau entre les indices <span class="math inline">\(i\)</span> et <span class="math inline">\(j\)</span>, on considère l’algorithme suivant :</p>
+<h2 data-number="2.2"
+id="sec:exemple-de-la-recherche-dichotomique"><span
+class="header-section-number">2.2</span> Exemple de la recherche
+dichotomique</h2>
+<p>On considère ici la recherche dichotomique dans un tableau trié
+d’entiers. Étant donné un tableau <span class="math inline">\(t\)</span>
+de taille <span class="math inline">\(n &gt; 0\)</span> et un entier
+<span class="math inline">\(x\)</span> dont on cherche à déterminer sa
+présence dans le tableau entre les indices <span
+class="math inline">\(i\)</span> et <span
+class="math inline">\(j\)</span>, on considère l’algorithme suivant
+:</p>
 <ul>
-<li>Si <span class="math inline">\(i&gt;j\)</span>, alors il n’y a pas de sous-tableau et on renvoie <code>false</code>.</li>
-<li>Sinon, soit <span class="math inline">\(m\)</span> l’élément d’indice <span class="math inline">\(p = \left\lfloor \frac{i+j}{2} \right\rfloor\)</span>.
+<li>Si <span class="math inline">\(i&gt;j\)</span>, alors il n’y a pas
+de sous-tableau et on renvoie <code>false</code>.</li>
+<li>Sinon, soit <span class="math inline">\(m\)</span> l’élément
+d’indice <span class="math inline">\(p = \left\lfloor \frac{i+j}{2}
+\right\rfloor\)</span>.
 <ul>
-<li>Si <span class="math inline">\(x = m\)</span>, on renvoie <code>true</code></li>
-<li>Si <span class="math inline">\(x &lt; m\)</span>, on continue la recherche dans le sous-tableau des indices <span class="math inline">\(i\)</span> à <span class="math inline">\(p-1\)</span>.</li>
-<li>Si <span class="math inline">\(x &gt; m\)</span>, on continue la recherche dans le sous-tableau des indices <span class="math inline">\(p+1\)</span> à <span class="math inline">\(j\)</span>.</li>
+<li>Si <span class="math inline">\(x = m\)</span>, on renvoie
+<code>true</code></li>
+<li>Si <span class="math inline">\(x &lt; m\)</span>, on continue la
+recherche dans le sous-tableau des indices <span
+class="math inline">\(i\)</span> à <span
+class="math inline">\(p-1\)</span>.</li>
+<li>Si <span class="math inline">\(x &gt; m\)</span>, on continue la
+recherche dans le sous-tableau des indices <span
+class="math inline">\(p+1\)</span> à <span
+class="math inline">\(j\)</span>.</li>
 </ul></li>
 </ul>
-<p>Le programme suivant présente une implémentation de cet algorithme en C.</p>
+<p>Le programme suivant présente une implémentation de cet algorithme en
+C.</p>
 <p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-69">ocaml</a>   <a class="item" data-tab="c-69">c</a>   <a class="item" data-tab="python-69">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-69"></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">exception</span> Trouve <span class="kw">of</span> <span class="dt">int</span></span>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">exception</span> Trouve <span class="kw">of</span> <span class="dt">int</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> rech_dicho t x =</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> i = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
@@ -527,7 +625,8 @@ Théorème
 <span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
 <span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="python-69"></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rech_dicho(t, x):</span>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rech_dicho(t, x):</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    i <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    j <span class="op">=</span> <span class="bu">len</span>(t) <span class="op">-</span> <span class="dv">1</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -543,20 +642,42 @@ Théorème
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">None</span></span></code></pre></div>
 <p></div> </div></p>
-<p><div class="ui message orange"><div class="header">Remarque</div>On aurait pu écrire <code>i+(j-i)/2</code> et non <code>(i+j)/2</code> afin d’éviter des erreurs de dépassement dans le calcul de <code>i+j</code>.</div></p>
-<p>Ici, la terminaison n’est pas immédiate, on va la prouver à l’aide d’un variant de boucle. On considère ainsi la quantité <span class="math inline">\(d(i,j) = j-i\)</span>.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>On aurait pu écrire <code>i+(j-i)/2</code> et non
+<code>(i+j)/2</code> afin d’éviter des erreurs de dépassement dans le
+calcul de <code>i+j</code>.</p>
+<p></div></p>
+<p>Ici, la terminaison n’est pas immédiate, on va la prouver à l’aide
+d’un variant de boucle. On considère ainsi la quantité <span
+class="math inline">\(d(i,j) = j-i\)</span>.</p>
 <ul>
-<li>Comme le tableau est non vide, <span class="math inline">\(d(0,n-1) \ge 0\)</span>. Ensuite, la condition de boucle est équivalente à <span class="math inline">\(d(i,j) \ge 0\)</span>, donc cette quantité est bien entière et positive à l’entrée de chaque itération.</li>
+<li>Comme le tableau est non vide, <span class="math inline">\(d(0,n-1)
+\ge 0\)</span>. Ensuite, la condition de boucle est équivalente à <span
+class="math inline">\(d(i,j) \ge 0\)</span>, donc cette quantité est
+bien entière et positive à l’entrée de chaque itération.</li>
 <li>Quand on passe à l’itération suivante, on passe
 <ul>
-<li>soit de <span class="math inline">\(d(i,j)\)</span> à <span class="math inline">\(d(i,p-1)\)</span>. Or <span class="math inline">\(d(i,p-1) = p-1-i = \left\lfloor \frac{i+j}{2} \right\rfloor -1 -i &lt; \frac{i+j}{2} - i \le j - i = d(i,j)\)</span>.</li>
-<li>soit de <span class="math inline">\(d(i,j)\)</span> à <span class="math inline">\(d(p+1,j)\)</span>. Or <span class="math inline">\(d(p+1,j) = j-p-1 = j-\left\lfloor \frac{i+j}{2} \right\rfloor -1 &lt; j - \frac{i+j}{2} \le j - i = d(i,j)\)</span>.</li>
+<li>soit de <span class="math inline">\(d(i,j)\)</span> à <span
+class="math inline">\(d(i,p-1)\)</span>. Or <span
+class="math inline">\(d(i,p-1) = p-1-i = \left\lfloor \frac{i+j}{2}
+\right\rfloor -1 -i &lt; \frac{i+j}{2} - i \le j - i =
+d(i,j)\)</span>.</li>
+<li>soit de <span class="math inline">\(d(i,j)\)</span> à <span
+class="math inline">\(d(p+1,j)\)</span>. Or <span
+class="math inline">\(d(p+1,j) = j-p-1 = j-\left\lfloor \frac{i+j}{2}
+\right\rfloor -1 &lt; j - \frac{i+j}{2} \le j - i =
+d(i,j)\)</span>.</li>
 </ul>
-Dans tous les cas, <span class="math inline">\(d(i,j)\)</span> diminue strictement.</li>
+Dans tous les cas, <span class="math inline">\(d(i,j)\)</span> diminue
+strictement.</li>
 </ul>
 <p>Ainsi, il s’agit d’un variant de boucle et l’algorithme termine.</p>
-<p><div class="ui message orange"><div class="header">Remarque</div>On remarque que le programme récursif suivant réalise également cet algorithme. <div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-72">ocaml</a>   <a class="item" data-tab="c-72">c</a>   <a class="item" data-tab="python-72">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-72"></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">(* rech_dicho : int array -&gt; int -&gt; int -&gt; int -&gt; int option *)</span></span>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>On remarque que le programme récursif suivant réalise également cet
+algorithme.
+<div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-72">ocaml</a>   <a class="item" data-tab="c-72">c</a>   <a class="item" data-tab="python-72">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-72"></p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">(* rech_dicho : int array -&gt; int -&gt; int -&gt; int -&gt; int option *)</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> rech_dicho t i j x =</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> i &lt;= j</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> <span class="kw">let</span> p = (i+j)/<span class="dv">2</span> <span class="kw">in</span></span>
@@ -570,7 +691,8 @@ Dans tous les cas, <span class="math inline">\(d(i,j)\)</span> diminue stricteme
 <p></div> <div class="ui bottom attached tab segment code" data-tab="c-72"></p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="python-72"></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rech_dicho(t, i, j, x):</span>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rech_dicho(t, i, j, x):</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">&lt;=</span> j:</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> (i<span class="op">+</span>j)<span class="op">//</span><span class="dv">2</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> t[p]</span>
@@ -589,12 +711,25 @@ recherche sur tout le tableau.</code></pre>
 <pre><code></code></pre>
 <pre><code>Il suffit alors d&#39;appeler `rech_dicho(t, 0, len(t)-1, x)` pour faire une
 recherche sur tout le tableau.</code></pre>
-<p>Ici, il n’y a pas explicitement de boucle, mais le même principe peut être mis en place pour prouver que le nombre d’appels récursifs est majoré, et donc que toute exécution termine. En effet, la quantité <span class="math inline">\(d(i,j) = j-i\)</span> diminue pour les mêmes raisons à chaque appel récursif et reste entière positive.</div></p>
-<h2 data-number="2.3" id="sec:exemple-du-tri-à-bulle"><span class="header-section-number">2.3</span> Exemple du tri à bulle</h2>
-<p>On considère le tri à bulles dans une implémentation naïve. On effectue ainsi une série de balayages d’un tableau : on parcourt le tableau de gauche à droite et si deux éléments consécutifs sont dans le désordre, on les permute. À l’issu d’un tel balayage, si on a effectué au moins un échange, on recommence, sinon on s’arrête, car c’est le signe que le tableau est trié qu’on le prouvera à la fin de ce paragraphe.</p>
+<p>Ici, il n’y a pas explicitement de boucle, mais le même principe peut
+être mis en place pour prouver que le nombre d’appels récursifs est
+majoré, et donc que toute exécution termine. En effet, la quantité <span
+class="math inline">\(d(i,j) = j-i\)</span> diminue pour les mêmes
+raisons à chaque appel récursif et reste entière positive.</p>
+<p></div></p>
+<h2 data-number="2.3" id="sec:exemple-du-tri-à-bulle"><span
+class="header-section-number">2.3</span> Exemple du tri à bulle</h2>
+<p>On considère le tri à bulles dans une implémentation naïve. On
+effectue ainsi une série de balayages d’un tableau : on parcourt le
+tableau de gauche à droite et si deux éléments consécutifs sont dans le
+désordre, on les permute. À l’issu d’un tel balayage, si on a effectué
+au moins un échange, on recommence, sinon on s’arrête, car c’est le
+signe que le tableau est trié qu’on le prouvera à la fin de ce
+paragraphe.</p>
 <p>On obtient alors le code suivant :</p>
 <p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-76">ocaml</a>   <a class="item" data-tab="c-76">c</a>   <a class="item" data-tab="python-76">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-76"></p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"></code></pre></div>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="c-76"></p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> swap<span class="op">(</span><span class="dt">int</span> t<span class="op">[],</span> <span class="dt">int</span> i<span class="op">,</span> <span class="dt">int</span> j<span class="op">)</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
@@ -620,7 +755,8 @@ recherche sur tout le tableau.</code></pre>
 <span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="python-76"></p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> swap(t, i, j):</span>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> swap(t, i, j):</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">=</span> t[i]</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    t[i] <span class="op">=</span> t[j]</span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    t[j] <span class="op">=</span> temp</span>
@@ -634,82 +770,188 @@ recherche sur tout le tableau.</code></pre>
 <span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>                echange <span class="op">=</span> <span class="va">True</span></span>
 <span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>                swapo(t, i, i<span class="op">+</span><span class="dv">1</span>)</span></code></pre></div>
 <p></div> </div></p>
-<p>Si la question de la terminaison de la boucle <code>for</code> ne se pose pas, celle de la boucle <code>while</code> mérite de s’y attarder pour deux raisons :</p>
+<p>Si la question de la terminaison de la boucle <code>for</code> ne se
+pose pas, celle de la boucle <code>while</code> mérite de s’y attarder
+pour deux raisons :</p>
 <ul>
 <li>premièrement pour la terminaison elle-même</li>
-<li>deuxième pour savoir si on peut majorer le nombre d’itérations, une question qu’on reverra avec la question de la complexité.</li>
+<li>deuxième pour savoir si on peut majorer le nombre d’itérations, une
+question qu’on reverra avec la question de la complexité.</li>
 </ul>
-<p>On va prouver la terminaison pour un type d’algorithme de tri qui généralise le tri à bulle. Pour cela, on commence par définir la notion d’inversion pour un tableau <span class="math inline">\(t\)</span> de <span class="math inline">\(|t|\)</span> éléments :</p>
-<p><div class="ui message"><div class="header">Définition</div> On dit qu’un couple <span class="math inline">\((i,j) \in \range{0,|t|-1}^2\)</span> est une <strong>inversion</strong> pour <span class="math inline">\(t\)</span> si <span class="math inline">\(i &lt; j\)</span> et <span class="math inline">\(t[i] &gt; t[j]\)</span>.</p>
-<p>On note <span class="math inline">\(Inv(t)\)</span> l’ensemble des inversions de <span class="math inline">\(t\)</span> et <span class="math inline">\(inv(t) = |Inv(t)|\)</span> le nombre d’inversions.</p>
-<p>On dira qu’une inversion de la forme <span class="math inline">\((i,i+1)\)</span> est une <strong>inversion directe</strong>. </div></p>
-<p>On considère donc un algorithme qui résout une inversion directe dès qu’il y en a au moins une.</p>
+<p>On va prouver la terminaison pour un type d’algorithme de tri qui
+généralise le tri à bulle. Pour cela, on commence par définir la notion
+d’inversion pour un tableau <span class="math inline">\(t\)</span> de
+<span class="math inline">\(|t|\)</span> éléments :</p>
+<p><div class="ui message"><div class="header">Définition</div> On dit
+qu’un couple <span class="math inline">\((i,j) \in
+\range{0,|t|-1}^2\)</span> est une <strong>inversion</strong> pour <span
+class="math inline">\(t\)</span> si <span class="math inline">\(i &lt;
+j\)</span> et <span class="math inline">\(t[i] &gt; t[j]\)</span>.</p>
+<p>On note <span class="math inline">\(Inv(t)\)</span> l’ensemble des
+inversions de <span class="math inline">\(t\)</span> et <span
+class="math inline">\(inv(t) = |Inv(t)|\)</span> le nombre
+d’inversions.</p>
+<p>On dira qu’une inversion de la forme <span
+class="math inline">\((i,i+1)\)</span> est une <strong>inversion
+directe</strong>. </div></p>
+<p>On considère donc un algorithme qui résout une inversion directe dès
+qu’il y en a au moins une.</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">def</span> tri(t):</span>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">def</span> tri(t):</span>
 <span id="cb19-2"><a href="#cb19-2"></a>    <span class="cf">while</span> existe_inversion_directe(t):</span>
 <span id="cb19-3"><a href="#cb19-3"></a>        i <span class="op">=</span> debut_d_une_inversion_directe(t)</span>
 <span id="cb19-4"><a href="#cb19-4"></a>        echange(t, i, i<span class="op">+</span><span class="dv">1</span>)</span></code></pre></div>
 <p></div></p>
-<p>Le tri à bulles est alors une manière de réaliser l’algorithme précédent en effectuant des inversions alors qu’on avance dans le tableau.</p>
+<p>Le tri à bulles est alors une manière de réaliser l’algorithme
+précédent en effectuant des inversions alors qu’on avance dans le
+tableau.</p>
 <div class="ui message olive">
 <div class="header">
 Théorème
 </div>
-<p>Pour un tableau <span class="math inline">\(t\)</span> les propositions suivantes sont équivalentes :</p>
+<p>Pour un tableau <span class="math inline">\(t\)</span> les
+propositions suivantes sont équivalentes :</p>
 <ol type="1">
-<li><span class="math inline">\(t\)</span> est trié dans l’ordre croissant</li>
+<li><span class="math inline">\(t\)</span> est trié dans l’ordre
+croissant</li>
 <li><span class="math inline">\(t\)</span> n’a pas d’inversions</li>
-<li><span class="math inline">\(t\)</span> n’a pas d’inversions directes</li>
+<li><span class="math inline">\(t\)</span> n’a pas d’inversions
+directes</li>
 </ol>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> * <span class="math inline">\(1) \rightarrow 3)\)</span> naturellement si <span class="math inline">\(t\)</span> es trié dans l’ordre croissant, <span class="math inline">\(i &lt;  i+1\)</span> entraine <span class="math inline">\(t[i] \le t[i+1]\)</span>, donc il ne peut il y avoir d’inversions directes. * <span class="math inline">\(2) \rightarrow 1)\)</span> si <span class="math inline">\(i &lt; j\)</span>, comme <span class="math inline">\(t\)</span> n’a pas d’inversions, on a <span class="math inline">\(t[i]  \not&gt; t[j]\)</span>, c’est-à-dire <span class="math inline">\(t[i] \le t[j]\)</span>. Ainsi, le tableau est bien trié dans l’ordre croissant. * <span class="math inline">\(3) \rightarrow 2)\)</span> pour tout <span class="math inline">\(i &lt; |t|-1\)</span> on a <span class="math inline">\(t[i] \le t[i+1]\)</span>. Soit <span class="math inline">\(i &lt; j\)</span>, on va raisonner par récurrence sur <span class="math inline">\(j-i\)</span> pour montrer que <span class="math inline">\(t[i]  \le t[j]\)</span>.</p>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> * <span class="math inline">\(1)
+\rightarrow 3)\)</span> naturellement si <span
+class="math inline">\(t\)</span> es trié dans l’ordre croissant, <span
+class="math inline">\(i &lt;  i+1\)</span> entraine <span
+class="math inline">\(t[i] \le t[i+1]\)</span>, donc il ne peut il y
+avoir d’inversions directes. * <span class="math inline">\(2)
+\rightarrow 1)\)</span> si <span class="math inline">\(i &lt;
+j\)</span>, comme <span class="math inline">\(t\)</span> n’a pas
+d’inversions, on a <span class="math inline">\(t[i]  \not&gt;
+t[j]\)</span>, c’est-à-dire <span class="math inline">\(t[i] \le
+t[j]\)</span>. Ainsi, le tableau est bien trié dans l’ordre croissant. *
+<span class="math inline">\(3) \rightarrow 2)\)</span> pour tout <span
+class="math inline">\(i &lt; |t|-1\)</span> on a <span
+class="math inline">\(t[i] \le t[i+1]\)</span>. Soit <span
+class="math inline">\(i &lt; j\)</span>, on va raisonner par récurrence
+sur <span class="math inline">\(j-i\)</span> pour montrer que <span
+class="math inline">\(t[i]  \le t[j]\)</span>.</p>
 <ul>
-<li>si <span class="math inline">\(j-i=1\)</span>, on n’a pas d’inversion directe donc <span class="math inline">\(t[i] \le t[j]\)</span>.</li>
-<li>si <span class="math inline">\(j-i &gt; 1\)</span> et que <span class="math inline">\(t[i] \le t[j-1]\)</span>, car <span class="math inline">\(i &lt; j-1\)</span> avec <span class="math inline">\(j-1-i = (j-i)-1\)</span>, alors <span class="math inline">\(t[i] \le t[j-1] \le t[j]\)</span> car <span class="math inline">\((j-1,j)\)</span> n’est pas une inversion.</li>
+<li>si <span class="math inline">\(j-i=1\)</span>, on n’a pas
+d’inversion directe donc <span class="math inline">\(t[i] \le
+t[j]\)</span>.</li>
+<li>si <span class="math inline">\(j-i &gt; 1\)</span> et que <span
+class="math inline">\(t[i] \le t[j-1]\)</span>, car <span
+class="math inline">\(i &lt; j-1\)</span> avec <span
+class="math inline">\(j-1-i = (j-i)-1\)</span>, alors <span
+class="math inline">\(t[i] \le t[j-1] \le t[j]\)</span> car <span
+class="math inline">\((j-1,j)\)</span> n’est pas une inversion.</li>
 </ul>
-<p>Ainsi, dans tous les cas on a bien <span class="math inline">\(t[i] \le t[j]\)</span>. Donc, <span class="math inline">\(t\)</span> est trié par ordre croissant. </div> </div></p>
-<h2 data-number="2.4" id="sec:lien-avec-la-récursivité"><span class="header-section-number">2.4</span> Lien avec la récursivité</h2>
-<h2 data-number="2.5" id="sec:boucles-imbriquées"><span class="header-section-number">2.5</span> Boucles imbriquées</h2>
-<h1 data-number="3" id="sec:correction"><span class="header-section-number">3</span> Correction</h1>
-<p>Pour parler de correction d’un algorithme, il est nécessaire d’identifier précisément ce qui doit être calculé par l’algorithme. Pour cela, on considère ici informellement des spécifications dépendant des entrées et du résultat de l’algorithme. On verra dans le chapitre sur la logique qu’il s’agit ici de prédicats logiques.</p>
+<p>Ainsi, dans tous les cas on a bien <span class="math inline">\(t[i]
+\le t[j]\)</span>. Donc, <span class="math inline">\(t\)</span> est trié
+par ordre croissant. </div> </div></p>
+<h2 data-number="2.4" id="sec:lien-avec-la-récursivité"><span
+class="header-section-number">2.4</span> Lien avec la récursivité</h2>
+<h2 data-number="2.5" id="sec:boucles-imbriquées"><span
+class="header-section-number">2.5</span> Boucles imbriquées</h2>
+<h1 data-number="3" id="sec:correction"><span
+class="header-section-number">3</span> Correction</h1>
+<p>Pour parler de correction d’un algorithme, il est nécessaire
+d’identifier précisément ce qui doit être calculé par l’algorithme. Pour
+cela, on considère ici informellement des spécifications dépendant des
+entrées et du résultat de l’algorithme. On verra dans le chapitre sur la
+logique qu’il s’agit ici de prédicats logiques.</p>
 <p>Voici des exemples de spécifications :</p>
 <ul>
-<li>le tableau <span class="math inline">\(t\)</span> en sortie est trié dans l’ordre croissant</li>
-<li>la valeur renvoyée est le plus petit indice de <span class="math inline">\(x\)</span> dans le tableau ou <span class="math inline">\(-1\)</span> s’il ne le contient pas.</li>
+<li>le tableau <span class="math inline">\(t\)</span> en sortie est trié
+dans l’ordre croissant</li>
+<li>la valeur renvoyée est le plus petit indice de <span
+class="math inline">\(x\)</span> dans le tableau ou <span
+class="math inline">\(-1\)</span> s’il ne le contient pas.</li>
 </ul>
-<p><div class="ui message"><div class="header">Définition</div> Un algorithme est <strong>correct</strong> vis-à-vis d’une spécification lorsque quelle que soit l’entrée</p>
+<p><div class="ui message"><div class="header">Définition</div> Un
+algorithme est <strong>correct</strong> vis-à-vis d’une spécification
+lorsque quelle que soit l’entrée</p>
 <ul>
 <li>il <strong>termine</strong></li>
 <li>le résultat renvoyé vérifie la spécification. </div></li>
 </ul>
-<p>On considère également la correction <strong>partielle</strong> en l’absence de terminaison :</p>
-<p><div class="ui message"><div class="header">Définition</div> Un algorithme est <strong>partiellement correct</strong> vis-à-vis d’une spécification lorsque quelle que soit l’entrée le résultat renvoyé vérifie la spécification. </div></p>
-<h2 data-number="3.1" id="sec:invariant-de-boucle"><span class="header-section-number">3.1</span> Invariant de boucle</h2>
-<p><div class="ui message"><div class="header">Définition</div> On considère ici une boucle (conditionnelle ou non).</p>
-<p>Un prédicat est appelé un <strong>invariant de boucle</strong> lorsque</p>
+<p>On considère également la correction <strong>partielle</strong> en
+l’absence de terminaison :</p>
+<p><div class="ui message"><div class="header">Définition</div> Un
+algorithme est <strong>partiellement correct</strong> vis-à-vis d’une
+spécification lorsque quelle que soit l’entrée le résultat renvoyé
+vérifie la spécification. </div></p>
+<h2 data-number="3.1" id="sec:invariant-de-boucle"><span
+class="header-section-number">3.1</span> Invariant de boucle</h2>
+<p><div class="ui message"><div class="header">Définition</div> On
+considère ici une boucle (conditionnelle ou non).</p>
+<p>Un prédicat est appelé un <strong>invariant de boucle</strong>
+lorsque</p>
 <ul>
 <li>il est vérifié avant d’entrer dans la boucle</li>
-<li>s’il est vérifié en entrée d’une itération, il est vérifié en sortie de celle-ci. </div></li>
+<li>s’il est vérifié en entrée d’une itération, il est vérifié en sortie
+de celle-ci. </div></li>
 </ul>
-<p>Quand la boucle termine, on déduit alors que l’invariant est vérifié en sortie de boucle. On cherche donc un invariant qui permette de garantir la spécification en sortie de boucle.</p>
-<p><div class="ui message orange"><div class="header">Remarque</div>Pour les boucles inconditionnelles, il y a une gestion implicite de l’indice de boucle qui va se retrouver dans l’invariant. On peut alors considérer que la sortie de boucle s’effectue après être passé à l’indice suivant.</div></p>
-<p>Dans le cas d’une boucle conditionnelle portant sur la condition P et ayant un invariant de boucle I, en sortie le prédicat <span class="math inline">\(\neg P \wedge I\)</span> (non P et I) sera vérifié.</p>
-<p>On peut illustrer cela en reprenant la fonction <code>plus_grande_puissance2</code> vue à la partie <a href="#sec:terminaison">Terminaison</a>. On considère ici le prédicat <span class="math inline">\(I(k,p) := 2^{k-1} &lt; n \text{ et } p = 2^k\)</span>.</p>
+<p>Quand la boucle termine, on déduit alors que l’invariant est vérifié
+en sortie de boucle. On cherche donc un invariant qui permette de
+garantir la spécification en sortie de boucle.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>Pour les boucles inconditionnelles, il y a une gestion implicite de
+l’indice de boucle qui va se retrouver dans l’invariant. On peut alors
+considérer que la sortie de boucle s’effectue après être passé à
+l’indice suivant.</p>
+<p></div></p>
+<p>Dans le cas d’une boucle conditionnelle portant sur la condition P et
+ayant un invariant de boucle I, en sortie le prédicat <span
+class="math inline">\(\neg P \wedge I\)</span> (non P et I) sera
+vérifié.</p>
+<p>On peut illustrer cela en reprenant la fonction
+<code>plus_grande_puissance2</code> vue à la partie <a
+href="#sec:terminaison">Terminaison</a>. On considère ici le prédicat
+<span class="math inline">\(I(k,p) := 2^{k-1} &lt; n \text{ et } p =
+2^k\)</span>.</p>
 <ul>
-<li>En entrée de boucle, on a bien <span class="math inline">\(2^{-1} &lt; n\)</span>.</li>
-<li>Si le prédicat est vérifié en entrée d’itération. On a alors <span class="math inline">\(2^{k-1} &lt; n\)</span> et comme on est entrée dans cette itération <span class="math inline">\(p = 2^k &lt; n\)</span>. Donc en sortie d’itération on aura bien <span class="math inline">\(I(k+1,2p)\)</span>, car <span class="math inline">\(2p = 2^{k+1}\)</span>.</li>
+<li>En entrée de boucle, on a bien <span class="math inline">\(2^{-1}
+&lt; n\)</span>.</li>
+<li>Si le prédicat est vérifié en entrée d’itération. On a alors <span
+class="math inline">\(2^{k-1} &lt; n\)</span> et comme on est entrée
+dans cette itération <span class="math inline">\(p = 2^k &lt;
+n\)</span>. Donc en sortie d’itération on aura bien <span
+class="math inline">\(I(k+1,2p)\)</span>, car <span
+class="math inline">\(2p = 2^{k+1}\)</span>.</li>
 </ul>
-<p>Ainsi, ce prédicat est bien un invariant et en sortie de boucle (ce qui arrive nécessairement, car l’algorithme termine), le prédicat <span class="math inline">\(I(k,p)\)</span> signifie que <span class="math inline">\(2^{k-1} &lt; n\)</span> <strong>et la condition de sortie de boucle</strong> qu’on a <span class="math inline">\(n \le 2^k\)</span>.</p>
-<p>La valeur renvoyée est bien <span class="math inline">\(k\)</span> tel que <span class="math inline">\(2^{k-1} &lt; n \le 2^k\)</span> ce qui était la spécification annoncée du programme.</p>
-<h2 data-number="3.2" id="sec:exemple-du-tri-par-sélection"><span class="header-section-number">3.2</span> Exemple du tri par sélection</h2>
-<p>Le programme suivant présente un algorithme de tri, appelé le <em>tri par sélection</em> dont on va analyser la complexité. Il s’agit d’un tri qui repose sur un principe simple, on va chercher le plus petit élément du tableau à trier et le placer à la position courante. On définit ainsi trois fonctions :</p>
+<p>Ainsi, ce prédicat est bien un invariant et en sortie de boucle (ce
+qui arrive nécessairement, car l’algorithme termine), le prédicat <span
+class="math inline">\(I(k,p)\)</span> signifie que <span
+class="math inline">\(2^{k-1} &lt; n\)</span> <strong>et la condition de
+sortie de boucle</strong> qu’on a <span class="math inline">\(n \le
+2^k\)</span>.</p>
+<p>La valeur renvoyée est bien <span class="math inline">\(k\)</span>
+tel que <span class="math inline">\(2^{k-1} &lt; n \le 2^k\)</span> ce
+qui était la spécification annoncée du programme.</p>
+<h2 data-number="3.2" id="sec:exemple-du-tri-par-sélection"><span
+class="header-section-number">3.2</span> Exemple du tri par
+sélection</h2>
+<p>Le programme suivant présente un algorithme de tri, appelé le <em>tri
+par sélection</em> dont on va analyser la complexité. Il s’agit d’un tri
+qui repose sur un principe simple, on va chercher le plus petit élément
+du tableau à trier et le placer à la position courante. On définit ainsi
+trois fonctions :</p>
 <ul>
-<li><code>echange</code> réalise l’échange de valeurs entre deux cases du tableau</li>
-<li><code>indice_minimum</code> renvoie l’indice de la plus petite valeur entre deux indices donnés</li>
-<li><code>tri_par_selection</code> réalise le tri en parcourant le tableau du premier au dernier indice et en plaçant à la position courante le minimum restant.</li>
+<li><code>echange</code> réalise l’échange de valeurs entre deux cases
+du tableau</li>
+<li><code>indice_minimum</code> renvoie l’indice de la plus petite
+valeur entre deux indices donnés</li>
+<li><code>tri_par_selection</code> réalise le tri en parcourant le
+tableau du premier au dernier indice et en plaçant à la position
+courante le minimum restant.</li>
 </ul>
 <p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-91">ocaml</a>   <a class="item" data-tab="c-91">c</a>   <a class="item" data-tab="python-91">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-91"></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"></code></pre></div>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="c-91"></p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> echange<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>tableau<span class="op">,</span> <span class="dt">int</span> i<span class="op">,</span> <span class="dt">int</span> j<span class="op">)</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
@@ -739,7 +981,8 @@ Théorème
 <span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="python-91"></p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> swap(t, i, j):</span>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> swap(t, i, j):</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">=</span> t[i]</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    t[i] <span class="op">=</span> t[j]</span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    t[j] <span class="op">=</span> temp</span>
@@ -756,46 +999,126 @@ Théorème
 <span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>        j <span class="op">=</span> indice_minimum(t, i, <span class="bu">len</span>(t)<span class="op">-</span><span class="dv">1</span>)</span>
 <span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>        swap(t, i, j)</span></code></pre></div>
 <p></div> </div></p>
-<p>Il n’y a pas de problèmes de terminaison ici, car toutes les boucles sont inconditionnelles. Pour prouver sa correction, on va considérer séparément les deux boucles.</p>
+<p>Il n’y a pas de problèmes de terminaison ici, car toutes les boucles
+sont inconditionnelles. Pour prouver sa correction, on va considérer
+séparément les deux boucles.</p>
 <ul>
-<li>Boucle dans <code>indice_minimum</code> : on va valider l’invariant <span class="math inline">\(I(i,j) := \forall k \in \range{i}{j-1}, \text{tableau}[i] \le \text{tableau}[k]\)</span>.
+<li>Boucle dans <code>indice_minimum</code> : on va valider l’invariant
+<span class="math inline">\(I(i,j) := \forall k \in \range{i}{j-1},
+\text{tableau}[i] \le \text{tableau}[k]\)</span>.
 <ul>
-<li>En entrée de boucle, on a <span class="math inline">\(I(\text{min\_indice},\text{min\_indice}+1)\)</span> vérifié directement.</li>
-<li>Si en entrée d’itération, <span class="math inline">\(I(i,j)\)</span> est vérifié, ce qui signifie que <span class="math inline">\(\text{tableau}[i]\)</span> est plus petit que les valeurs compris entre les indices <span class="math inline">\(i\)</span> et <span class="math inline">\(j-1\)</span>. Alors, on distingue deux cas :
+<li>En entrée de boucle, on a <span
+class="math inline">\(I(\text{min\_indice},\text{min\_indice}+1)\)</span>
+vérifié directement.</li>
+<li>Si en entrée d’itération, <span
+class="math inline">\(I(i,j)\)</span> est vérifié, ce qui signifie que
+<span class="math inline">\(\text{tableau}[i]\)</span> est plus petit
+que les valeurs compris entre les indices <span
+class="math inline">\(i\)</span> et <span
+class="math inline">\(j-1\)</span>. Alors, on distingue deux cas :
 <ul>
-<li>soit <span class="math inline">\(\text{tableau}[j] &lt; \text{tableau}[i]\)</span> et alors en sortie <span class="math inline">\(i\)</span> devient <span class="math inline">\(i&#39; = j\)</span>. On a alors <span class="math inline">\(\text{tableau}[i&#39;] = \text{tableau}[j] &lt; \text{tableau}[i] \le \text{tableau}[k]\)</span> pour <span class="math inline">\(k \in \range{1}{j-1}\)</span>. Donc <span class="math inline">\(I(i&#39;,j+1)\)</span> est vérifié.</li>
-<li>soit <span class="math inline">\(\text{tableau}[i] \le \text{tableau}[j]\)</span> et ainsi on a pu prolonger le prédicat à <span class="math inline">\(I(i,j+1)\)</span>.</li>
+<li>soit <span class="math inline">\(\text{tableau}[j] &lt;
+\text{tableau}[i]\)</span> et alors en sortie <span
+class="math inline">\(i\)</span> devient <span
+class="math inline">\(i&#39; = j\)</span>. On a alors <span
+class="math inline">\(\text{tableau}[i&#39;] = \text{tableau}[j] &lt;
+\text{tableau}[i] \le \text{tableau}[k]\)</span> pour <span
+class="math inline">\(k \in \range{1}{j-1}\)</span>. Donc <span
+class="math inline">\(I(i&#39;,j+1)\)</span> est vérifié.</li>
+<li>soit <span class="math inline">\(\text{tableau}[i] \le
+\text{tableau}[j]\)</span> et ainsi on a pu prolonger le prédicat à
+<span class="math inline">\(I(i,j+1)\)</span>.</li>
 </ul></li>
 </ul>
-Ce prédicat est bien un invariant. Ainsi, en sortie de boucle, et donc avant de renvoyer sa valeur, on a bien <span class="math inline">\(I(i,\text{taille})\)</span> donc <span class="math inline">\(\text{tableau}[i]\)</span> est la plus petite valeur du tableau.</li>
-<li>Boucle dans <code>tri_par_selection</code> : on va valider l’invariant <span class="math inline">\(T(i) :=\)</span> le sous-tableau <code>tableau[0..i-1]</code> des indices 0 à <span class="math inline">\(i-1\)</span> est trié et ne contient que des valeurs plus petites que celles du sous-tableau <code>tableau[i..taille-1]</code>.
+Ce prédicat est bien un invariant. Ainsi, en sortie de boucle, et donc
+avant de renvoyer sa valeur, on a bien <span
+class="math inline">\(I(i,\text{taille})\)</span> donc <span
+class="math inline">\(\text{tableau}[i]\)</span> est la plus petite
+valeur du tableau.</li>
+<li>Boucle dans <code>tri_par_selection</code> : on va valider
+l’invariant <span class="math inline">\(T(i) :=\)</span> le sous-tableau
+<code>tableau[0..i-1]</code> des indices 0 à <span
+class="math inline">\(i-1\)</span> est trié et ne contient que des
+valeurs plus petites que celles du sous-tableau
+<code>tableau[i..taille-1]</code>.
 <ul>
 <li>En entrée de boucle, le sous-tableau est vide donc trié.</li>
-<li>Si en entrée d’itération, le prédicat est vérifié. On récupère l’indice <span class="math inline">\(j\)</span> du minimum du sous-tableau <code>tableau[i..taille-1]</code> à l’aide la fonction <code>indice_minimum</code>, par hypothèse <code>tableau[j]</code> est alors supérieur ou égal à chaque élément de <code>tableau[0..i-1]</code>, en le plaçant à l’indice i, on a bien <code>tableau[0..i]</code> qui est trié et par construction la valeur de <code>tableau[i]</code> est inférieure à toutes celels de <code>tableau[i+1..taille-1]</code>. On a ainsi <span class="math inline">\(T(i+1)\)</span> vérifié en sortie d’itération.</li>
+<li>Si en entrée d’itération, le prédicat est vérifié. On récupère
+l’indice <span class="math inline">\(j\)</span> du minimum du
+sous-tableau <code>tableau[i..taille-1]</code> à l’aide la fonction
+<code>indice_minimum</code>, par hypothèse <code>tableau[j]</code> est
+alors supérieur ou égal à chaque élément de
+<code>tableau[0..i-1]</code>, en le plaçant à l’indice i, on a bien
+<code>tableau[0..i]</code> qui est trié et par construction la valeur de
+<code>tableau[i]</code> est inférieure à toutes celels de
+<code>tableau[i+1..taille-1]</code>. On a ainsi <span
+class="math inline">\(T(i+1)\)</span> vérifié en sortie
+d’itération.</li>
 </ul>
-Ce prédicat est bien un invariant. Ainsi, en sortie de boucle, <span class="math inline">\(T(\text{taille})\)</span> est vérifié : le tableau est trié.</li>
+Ce prédicat est bien un invariant. Ainsi, en sortie de boucle, <span
+class="math inline">\(T(\text{taille})\)</span> est vérifié : le tableau
+est trié.</li>
 </ul>
-<h1 data-number="4" id="sec:complexité"><span class="header-section-number">4</span> Complexité</h1>
-<h2 data-number="4.1" id="sec:complexité-dans-le-pire-des-cas"><span class="header-section-number">4.1</span> Complexité dans le pire des cas</h2>
-<p>Considérons un algorithme pour lequel on peut associer à chaque entrée une notion de taille (par exemple le nombre d’éléments d’un tableau). Pour <span class="math inline">\(n \in \N\)</span>, on note ainsi <span class="math inline">\(I_n\)</span> l’ensemble des entrées de taille <span class="math inline">\(n\)</span> pour cet algorithme. Pour une entrée <span class="math inline">\(e\)</span>, on note <span class="math inline">\(t(e)\)</span> le temps pris, par exemple en seconde, par l’algorithme sur l’entrée <span class="math inline">\(e\)</span>. De même, on note <span class="math inline">\(s(e)\)</span> l’espace mémoire maximal, par exemple en octets, occupé par l’algorithme au cours de cette exécution <strong>sans compter la taille des entrées</strong>.</p>
-<p><div class="ui message"><div class="header">Définition</div> On appelle :</p>
+<h1 data-number="4" id="sec:complexité"><span
+class="header-section-number">4</span> Complexité</h1>
+<h2 data-number="4.1" id="sec:complexité-dans-le-pire-des-cas"><span
+class="header-section-number">4.1</span> Complexité dans le pire des
+cas</h2>
+<p>Considérons un algorithme pour lequel on peut associer à chaque
+entrée une notion de taille (par exemple le nombre d’éléments d’un
+tableau). Pour <span class="math inline">\(n \in \N\)</span>, on note
+ainsi <span class="math inline">\(I_n\)</span> l’ensemble des entrées de
+taille <span class="math inline">\(n\)</span> pour cet algorithme. Pour
+une entrée <span class="math inline">\(e\)</span>, on note <span
+class="math inline">\(t(e)\)</span> le temps pris, par exemple en
+seconde, par l’algorithme sur l’entrée <span
+class="math inline">\(e\)</span>. De même, on note <span
+class="math inline">\(s(e)\)</span> l’espace mémoire maximal, par
+exemple en octets, occupé par l’algorithme au cours de cette exécution
+<strong>sans compter la taille des entrées</strong>.</p>
+<p><div class="ui message"><div class="header">Définition</div> On
+appelle :</p>
 <ul>
-<li><strong>complexité temporelle dans le pire des cas</strong>, la suite <span class="math inline">\((C^t_n)_{n \in \N}\)</span> telle que pour tout <span class="math inline">\(n \in \N\)</span>, <span class="math inline">\(C^t_n = \max_{e \in I_n} t(e)\)</span>.</li>
-<li><strong>complexité spatiale dans le pire des cas</strong>, la suite <span class="math inline">\((C^s_n)_{n \in \N}\)</span> telle que pour tout <span class="math inline">\(n \in \N\)</span>, <span class="math inline">\(C^s_n = \max_{e \in I_n} s(e)\)</span>. </div></li>
+<li><strong>complexité temporelle dans le pire des cas</strong>, la
+suite <span class="math inline">\((C^t_n)_{n \in \N}\)</span> telle que
+pour tout <span class="math inline">\(n \in \N\)</span>, <span
+class="math inline">\(C^t_n = \max_{e \in I_n} t(e)\)</span>.</li>
+<li><strong>complexité spatiale dans le pire des cas</strong>, la suite
+<span class="math inline">\((C^s_n)_{n \in \N}\)</span> telle que pour
+tout <span class="math inline">\(n \in \N\)</span>, <span
+class="math inline">\(C^s_n = \max_{e \in I_n} s(e)\)</span>.
+</div></li>
 </ul>
-<p>Comme on va le voir, calculer explicitement ces suites n’a pas beaucoup d’intérêt tant elles sont dépendantes de la manière dont on mesure le temps et l’espace. Ce qui compte ici, c’est de connaître l’<em>ordre de grandeur</em> de ces complexités en fonction de <span class="math inline">\(n\)</span>.</p>
+<p>Comme on va le voir, calculer explicitement ces suites n’a pas
+beaucoup d’intérêt tant elles sont dépendantes de la manière dont on
+mesure le temps et l’espace. Ce qui compte ici, c’est de connaître
+l’<em>ordre de grandeur</em> de ces complexités en fonction de <span
+class="math inline">\(n\)</span>.</p>
 <p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
-<p>Pour un tableau de taille <span class="math inline">\(n\)</span>, ce programme va effectuer <span class="math inline">\(n\)</span> itérations et sa complexité est ainsi de l’ordre de <span class="math inline">\(n\)</span>. Il est possible d’être très précis en considérant les temps pris</p>
+<p>Pour un tableau de taille <span class="math inline">\(n\)</span>, ce
+programme va effectuer <span class="math inline">\(n\)</span> itérations
+et sa complexité est ainsi de l’ordre de <span
+class="math inline">\(n\)</span>. Il est possible d’être très précis en
+considérant les temps pris</p>
 <ul>
-<li>pour mettre en place l’appel de fonction et le passage des arguments</li>
+<li>pour mettre en place l’appel de fonction et le passage des
+arguments</li>
 <li>par la gestion de l’indice de la boucle for</li>
 <li>pour la comparaison, puis pour l’affectation éventuelle</li>
-<li>pour mettre en place la valeur de retour afin que le résultat soit lu</li>
+<li>pour mettre en place la valeur de retour afin que le résultat soit
+lu</li>
 </ul>
-<p>On peut remarquer que la notion de pire cas dépend de la précision à laquelle on se place. Ici, si on ne s’intéresse qu’à l’ordre de grandeur, tous les tableaux de taille <span class="math inline">\(n\)</span> sont équivalents. Par contre, si on cherche avec précision le pire cas, il est atteint avec un tableau trié par ordre croissant, car c’est le cas qui effectue une affectation à chaque itération.</p>
+<p>On peut remarquer que la notion de pire cas dépend de la précision à
+laquelle on se place. Ici, si on ne s’intéresse qu’à l’ordre de
+grandeur, tous les tableaux de taille <span
+class="math inline">\(n\)</span> sont équivalents. Par contre, si on
+cherche avec précision le pire cas, il est atteint avec un tableau trié
+par ordre croissant, car c’est le cas qui effectue une affectation à
+chaque itération.</p>
 <p></div><div class="eight wide column"></p>
 <p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-95">ocaml</a>   <a class="item" data-tab="c-95">c</a>   <a class="item" data-tab="python-95">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-95"></p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"></code></pre></div>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="c-95"></p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> maximum<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>tableau<span class="op">,</span> <span class="dt">int</span> taille<span class="op">)</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
@@ -810,7 +1133,8 @@ Ce prédicat est bien un invariant. Ainsi, en sortie de boucle, <span class="mat
 <span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> M<span class="op">;</span></span>
 <span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="python-95"></p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> maximum(t):</span>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> maximum(t):</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> t[<span class="dv">0</span>]</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(t)):</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> m <span class="op">&gt;</span> t[i]:</span>
@@ -818,12 +1142,18 @@ Ce prédicat est bien un invariant. Ainsi, en sortie de boucle, <span class="mat
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> m</span></code></pre></div>
 <p></div> </div></p>
 <p></div></div></div></p>
-<h2 data-number="4.2" id="sec:comparer-des-complexités"><span class="header-section-number">4.2</span> Comparer des complexités</h2>
-<p>Avant de pouvoir comparer les complexités des algorithmes ou des programmes, il est nécessaire de mettre en place des outils pour en parler à la fois avec précision mais également sans rentrer dans des détails d’implémentation non pertinents.</p>
-<p>En effet, comparons les deux fonctions suivantes permettant de chercher un élément dans un tableau.</p>
+<h2 data-number="4.2" id="sec:comparer-des-complexités"><span
+class="header-section-number">4.2</span> Comparer des complexités</h2>
+<p>Avant de pouvoir comparer les complexités des algorithmes ou des
+programmes, il est nécessaire de mettre en place des outils pour en
+parler à la fois avec précision mais également sans rentrer dans des
+détails d’implémentation non pertinents.</p>
+<p>En effet, comparons les deux fonctions suivantes permettant de
+chercher un élément dans un tableau.</p>
 <p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
 <p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-99">ocaml</a>   <a class="item" data-tab="c-99">c</a>   <a class="item" data-tab="python-99">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-99"></p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"></code></pre></div>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="c-99"></p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> recherche<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>tab<span class="op">,</span> <span class="dt">int</span> nb<span class="op">,</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>              <span class="dt">int</span> elem<span class="op">)</span></span>
@@ -837,7 +1167,8 @@ Ce prédicat est bien un invariant. Ainsi, en sortie de boucle, <span class="mat
 <span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
 <span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="python-99"></p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> recherche(t, elem):</span>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> recherche(t, elem):</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(t)):</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> t[i] <span class="op">==</span> elem:</span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> i</span>
@@ -845,7 +1176,8 @@ Ce prédicat est bien un invariant. Ainsi, en sortie de boucle, <span class="mat
 <p></div> </div></p>
 <p></div><div class="eight wide column"></p>
 <p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-100">ocaml</a>   <a class="item" data-tab="c-100">c</a>   <a class="item" data-tab="python-100">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-100"></p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"></code></pre></div>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="c-100"></p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> recherche<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>tab<span class="op">,</span> <span class="dt">int</span> nb<span class="op">,</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>              <span class="dt">int</span> elem<span class="op">)</span></span>
@@ -861,7 +1193,8 @@ Ce prédicat est bien un invariant. Ainsi, en sortie de boucle, <span class="mat
 <span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ind<span class="op">;</span></span>
 <span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="python-100"></p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> recherche(t, elem):</span>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> recherche(t, elem):</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    ind <span class="op">=</span> <span class="va">None</span></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(t)):</span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> t[i] <span class="op">==</span> elem:</span>
@@ -869,94 +1202,279 @@ Ce prédicat est bien un invariant. Ainsi, en sortie de boucle, <span class="mat
 <span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ind</span></code></pre></div>
 <p></div> </div></p>
 <p></div></div></div></p>
-<p>La fonction de droite semble moins efficace que celle de gauche, car la seconde sort tout de suite de la fonction dès qu’on a trouvé l’élément alors que la première continue à parcourir <code>t</code>.</p>
-<p>Mais on doit se poser la question de la pertinence de cette optimisation selon le pire des cas. Ici, le pire des cas correspond à ne pas avoir <code>elem</code> dans le tableau, et à ce moment-là les deux fonctions fonctionnent de la même manière.</p>
-<p><div class="ui message orange"><div class="header">Remarque</div>En fait, la fonction de droite sera souvent à privilégier, car il est souvent plus facile d’interrompre le flot que de faire en sorte de préserver l’état à la place du <code>return</code> pour pouvoir renvoyer la bonne valeur à la fin de la fonction.</div></p>
-<p>De la même manière, il faut déterminer ce que l’on souhaite compter précisément :</p>
+<p>La fonction de droite semble moins efficace que celle de gauche, car
+la seconde sort tout de suite de la fonction dès qu’on a trouvé
+l’élément alors que la première continue à parcourir <code>t</code>.</p>
+<p>Mais on doit se poser la question de la pertinence de cette
+optimisation selon le pire des cas. Ici, le pire des cas correspond à ne
+pas avoir <code>elem</code> dans le tableau, et à ce moment-là les deux
+fonctions fonctionnent de la même manière.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>En fait, la fonction de droite sera souvent à privilégier, car il est
+souvent plus facile d’interrompre le flot que de faire en sorte de
+préserver l’état à la place du <code>return</code> pour pouvoir renvoyer
+la bonne valeur à la fin de la fonction.</p>
+<p></div></p>
+<p>De la même manière, il faut déterminer ce que l’on souhaite compter
+précisément :</p>
 <ul>
-<li>si on s’intéresse au temps mis, certaines opérations prennent moins de temps que d’autre (par exemple une addition par rapport à une multiplication) mais est-ce vraiment important à l’échelle considérée ?</li>
-<li>si on s’intéresse à l’espace mémoire, doit-on considérer la taille précise en octets ou se contenter d’une estimation plus grossière ?</li>
+<li>si on s’intéresse au temps mis, certaines opérations prennent moins
+de temps que d’autre (par exemple une addition par rapport à une
+multiplication) mais est-ce vraiment important à l’échelle considérée
+?</li>
+<li>si on s’intéresse à l’espace mémoire, doit-on considérer la taille
+précise en octets ou se contenter d’une estimation plus grossière ?</li>
 </ul>
-<p>Mis à part dans certains cadres assez spécifiques, on se contente le plus souvent d’un ordre de grandeur pour ces complexités. Pour cela, on utilise des relations de comparaisons de suites et une échelle de grandeur usuelle pour les comparer.</p>
-<h3 data-number="4.2.1" id="sec:la-notation-grand-o"><span class="header-section-number">4.2.1</span> La notation grand O</h3>
-<p><div class="ui message"><div class="header">Définition</div> Soit <span class="math inline">\((u_n)_{n\in\N}\)</span> et <span class="math inline">\((v_n)_{n \in \N}\)</span> deux suites de nombres réels non nuls, on dit que la suite <span class="math inline">\((u_n)_n\)</span> est dominée par <span class="math inline">\((v_n)_n\)</span> lorsque la suite quotient <span class="math inline">\(\left( \frac{u_n}{v_n} \right)_n\)</span> est bornée.</p>
-<p>On note alors <span class="math inline">\(u_n = O(v_n)\)</span>. </div></p>
-<p>Cette dernière notation se lit <em><span class="math inline">\(u_n\)</span> est un grand O de <span class="math inline">\(v_n\)</span></em>.</p>
-<p><div class="ui message orange"><div class="header">Remarque</div>C’est bien cette locution qu’il faut avoir en tête quand on pense aux grands O et il faut faire attention de ne pas considérer l’égalité en tant que telle sans s’assurer que ce l’on fait est licite. Quand on écrira par la suite <span class="math inline">\(O(v_n)\)</span> on signifiera <em>n’importe quelle suite qui soit un <span class="math inline">\(O(v_n)\)</span></em>.</div></p>
-<p>Si <span class="math inline">\(u_n = O(v_n)\)</span>, cela signifie qu’il existe un facteur <span class="math inline">\(M &gt; 0\)</span> tel que pour tout entier <span class="math inline">\(n\)</span>, on ait <span class="math inline">\(- M |v_n| \le u_n \le M |v_n|\)</span>. Les variations de la suite <span class="math inline">\((u_n)_n\)</span> sont ainsi entièrement contrôlées par les variations de <span class="math inline">\((v_n)_n\)</span>.</p>
-<p>En informatique, on ne considère pour la complexité que des suites positives, ce qui permet de simplifier la relation : si <span class="math inline">\((u_n)_n, (v_n)_n\)</span> sont des suites de réels strictement positifs, alors <span class="math inline">\(u_n = O(v_n) \iff \exists M &gt; 0, \forall n\in\N, u_n \le M v_n\)</span>. C’est le cadre dans lequel on se place implicitement dans la suite de ce document.</p>
+<p>Mis à part dans certains cadres assez spécifiques, on se contente le
+plus souvent d’un ordre de grandeur pour ces complexités. Pour cela, on
+utilise des relations de comparaisons de suites et une échelle de
+grandeur usuelle pour les comparer.</p>
+<h3 data-number="4.2.1" id="sec:la-notation-grand-o"><span
+class="header-section-number">4.2.1</span> La notation grand O</h3>
+<p><div class="ui message"><div class="header">Définition</div> Soit
+<span class="math inline">\((u_n)_{n\in\N}\)</span> et <span
+class="math inline">\((v_n)_{n \in \N}\)</span> deux suites de nombres
+réels non nuls, on dit que la suite <span
+class="math inline">\((u_n)_n\)</span> est dominée par <span
+class="math inline">\((v_n)_n\)</span> lorsque la suite quotient <span
+class="math inline">\(\left( \frac{u_n}{v_n} \right)_n\)</span> est
+bornée.</p>
+<p>On note alors <span class="math inline">\(u_n = O(v_n)\)</span>.
+</div></p>
+<p>Cette dernière notation se lit <em><span
+class="math inline">\(u_n\)</span> est un grand O de <span
+class="math inline">\(v_n\)</span></em>.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>C’est bien cette locution qu’il faut avoir en tête quand on pense aux
+grands O et il faut faire attention de ne pas considérer l’égalité en
+tant que telle sans s’assurer que ce l’on fait est licite. Quand on
+écrira par la suite <span class="math inline">\(O(v_n)\)</span> on
+signifiera <em>n’importe quelle suite qui soit un <span
+class="math inline">\(O(v_n)\)</span></em>.</p>
+<p></div></p>
+<p>Si <span class="math inline">\(u_n = O(v_n)\)</span>, cela signifie
+qu’il existe un facteur <span class="math inline">\(M &gt; 0\)</span>
+tel que pour tout entier <span class="math inline">\(n\)</span>, on ait
+<span class="math inline">\(- M |v_n| \le u_n \le M |v_n|\)</span>. Les
+variations de la suite <span class="math inline">\((u_n)_n\)</span> sont
+ainsi entièrement contrôlées par les variations de <span
+class="math inline">\((v_n)_n\)</span>.</p>
+<p>En informatique, on ne considère pour la complexité que des suites
+positives, ce qui permet de simplifier la relation : si <span
+class="math inline">\((u_n)_n, (v_n)_n\)</span> sont des suites de réels
+strictement positifs, alors <span class="math inline">\(u_n = O(v_n)
+\iff \exists M &gt; 0, \forall n\in\N, u_n \le M v_n\)</span>. C’est le
+cadre dans lequel on se place implicitement dans la suite de ce
+document.</p>
 <p>On peut visualiser graphiquement cette relation :</p>
 <p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
-<p><center><div class="ui image center"><img src="assets/pics/grando_ex1.png" /></div></center></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/grando_ex1.png" /></div></center></p>
 <p></div><div class="eight wide column"></p>
-<p>On a <span class="math inline">\(u_n = O(v_n)\)</span> si et seulement s’il est possible de multiplier les ordonnés de chaque point <span class="math inline">\((n,v_n)\)</span> par une constante afin que ces nouveaux points soient tous au-dessus des points <span class="math inline">\((n,u_n)\)</span>. On peut voir que la courbe déduite des <span class="math inline">\(v_n\)</span> enveloppe, à un facteur près, celle des <span class="math inline">\(u_n\)</span>.</p>
-<p><strong>Remarque:</strong> <em>On a relié ici les valeurs des suites pour mieux mettre en valeur cette notion d’enveloppe.</em></p>
+<p>On a <span class="math inline">\(u_n = O(v_n)\)</span> si et
+seulement s’il est possible de multiplier les ordonnés de chaque point
+<span class="math inline">\((n,v_n)\)</span> par une constante afin que
+ces nouveaux points soient tous au-dessus des points <span
+class="math inline">\((n,u_n)\)</span>. On peut voir que la courbe
+déduite des <span class="math inline">\(v_n\)</span> enveloppe, à un
+facteur près, celle des <span class="math inline">\(u_n\)</span>.</p>
+<p><strong>Remarque:</strong> <em>On a relié ici les valeurs des suites
+pour mieux mettre en valeur cette notion d’enveloppe.</em></p>
 <p></div></div></div></p>
-<p>Cette relation est une notion <strong>asymptotique</strong> : elle n’a d’intérêt que lorsqu’on considère des rangs au voisinage de l’infini. En effet, pour un nombre fini de termes, il est toujours possible de trouver un tel <span class="math inline">\(M\)</span>, mais pour un nombre infini, ce n’est pas le cas.</p>
+<p>Cette relation est une notion <strong>asymptotique</strong> : elle
+n’a d’intérêt que lorsqu’on considère des rangs au voisinage de
+l’infini. En effet, pour un nombre fini de termes, il est toujours
+possible de trouver un tel <span class="math inline">\(M\)</span>, mais
+pour un nombre infini, ce n’est pas le cas.</p>
 <p><div class="ui internally celled grid"><div class="row"><div class="nine wide column"></p>
-<p><center><div class="ui image center"><img src="assets/pics/grando_ex2.png" /></div></center></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/grando_ex2.png" /></div></center></p>
 <p></div><div class="six wide column"></p>
-<p>Ici, on compare asymptotiquement les suites <span class="math inline">\((u_n)_n\)</span> et <span class="math inline">\((v_n)_n\)</span> où pour <span class="math inline">\(n \in \N\)</span>, <span class="math inline">\(u_n = n + n \log_2 n\)</span> et <span class="math inline">\(v_n = n \log_2 n\)</span>. Pour simplifier la visualisation, on a tracé les fonctions correspondantes. On remarque qu’on a bien <span class="math inline">\(n + n \log_2 n = O(n \log_2 n)\)</span>.</p>
+<p>Ici, on compare asymptotiquement les suites <span
+class="math inline">\((u_n)_n\)</span> et <span
+class="math inline">\((v_n)_n\)</span> où pour <span
+class="math inline">\(n \in \N\)</span>, <span class="math inline">\(u_n
+= n + n \log_2 n\)</span> et <span class="math inline">\(v_n = n \log_2
+n\)</span>. Pour simplifier la visualisation, on a tracé les fonctions
+correspondantes. On remarque qu’on a bien <span class="math inline">\(n
++ n \log_2 n = O(n \log_2 n)\)</span>.</p>
 <p></div></div></div></p>
 <p><div class="ui internally celled grid"><div class="row"><div class="nine wide column"></p>
-<p><center><div class="ui image center"><img src="assets/pics/grando_ex3.png" /></div></center></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/grando_ex3.png" /></div></center></p>
 <p></div><div class="six wide column"></p>
-<p>Par contre, si on compare les suites <span class="math inline">\((u_n)_n\)</span> et <span class="math inline">\((v_n)_n\)</span> où pour <span class="math inline">\(n \in \N\)</span>, <span class="math inline">\(u_n = n^2\)</span> et <span class="math inline">\(v_n = n \log_2 n\)</span>, on remarque que quelle que soit la valeur choisie pour <span class="math inline">\(M\)</span>, il y aura un rang à partir duquel <span class="math inline">\(u_n &gt; M v_n\)</span>.</p>
-<p>Ici, <span class="math inline">\(n^2 \not = O(n \log_2 n)\)</span>.</p>
+<p>Par contre, si on compare les suites <span
+class="math inline">\((u_n)_n\)</span> et <span
+class="math inline">\((v_n)_n\)</span> où pour <span
+class="math inline">\(n \in \N\)</span>, <span class="math inline">\(u_n
+= n^2\)</span> et <span class="math inline">\(v_n = n \log_2 n\)</span>,
+on remarque que quelle que soit la valeur choisie pour <span
+class="math inline">\(M\)</span>, il y aura un rang à partir duquel
+<span class="math inline">\(u_n &gt; M v_n\)</span>.</p>
+<p>Ici, <span class="math inline">\(n^2 \not = O(n \log_2
+n)\)</span>.</p>
 <p></div></div></div></p>
-<p><div class="ui message orange"><div class="header">Remarque</div>On a ici utilisé le logarithme en base 2, noté <span class="math inline">\(\log_2\)</span>, qui est essentiel informatique : si <span class="math inline">\(x = \log_2(n)\)</span> alors <span class="math inline">\(n = 2^x\)</span> où <span class="math inline">\(x\)</span> est un réel. On considère aussi <span class="math inline">\(p = \lceil \log_2(n) \rceil\)</span> qui est le plus petit entier égal ou supérieur à <span class="math inline">\(\log_2(n)\)</span>. On parle de <strong>partie entière supérieure</strong> et on a alors <span class="math inline">\(2^{p-1} &lt; n \le 2^p\)</span>. Cet entier <span class="math inline">\(p\)</span> correspond alors au plus petit nombre de chiffre nécessaire pour pouvoir écrire <span class="math inline">\(n\)</span> en binaire. On a <span class="math inline">\(\lceil \log_2(n) \rceil = O(\log_2(n))\)</span> et ainsi, le plus souvent, on ne considère pas la partie entière explicitement. De la même manière, <span class="math inline">\(\log_2(n) = \frac{\ln n}{\ln 2} = O(\ln n)\)</span>.</div></p>
-<p>Un cas important de grand O est celui des <span class="math inline">\(O(1)\)</span>. Si <span class="math inline">\(u_n = O(1)\)</span>, cela signifie que <span class="math inline">\((u_n)_{n\in\N}\)</span> est une suite bornée.</p>
-<h3 data-number="4.2.2" id="sec:échelle-de-comparaison"><span class="header-section-number">4.2.2</span> Échelle de comparaison</h3>
-<p>On rappelle les limites obtenues en mathématiques que l’on nomme <strong>croissances comparées</strong> :</p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>On a ici utilisé le logarithme en base 2, noté <span
+class="math inline">\(\log_2\)</span>, qui est essentiel informatique :
+si <span class="math inline">\(x = \log_2(n)\)</span> alors <span
+class="math inline">\(n = 2^x\)</span> où <span
+class="math inline">\(x\)</span> est un réel. On considère aussi <span
+class="math inline">\(p = \lceil \log_2(n) \rceil\)</span> qui est le
+plus petit entier égal ou supérieur à <span
+class="math inline">\(\log_2(n)\)</span>. On parle de <strong>partie
+entière supérieure</strong> et on a alors <span
+class="math inline">\(2^{p-1} &lt; n \le 2^p\)</span>. Cet entier <span
+class="math inline">\(p\)</span> correspond alors au plus petit nombre
+de chiffre nécessaire pour pouvoir écrire <span
+class="math inline">\(n\)</span> en binaire. On a <span
+class="math inline">\(\lceil \log_2(n) \rceil = O(\log_2(n))\)</span> et
+ainsi, le plus souvent, on ne considère pas la partie entière
+explicitement. De la même manière, <span class="math inline">\(\log_2(n)
+= \frac{\ln n}{\ln 2} = O(\ln n)\)</span>.</p>
+<p></div></p>
+<p>Un cas important de grand O est celui des <span
+class="math inline">\(O(1)\)</span>. Si <span class="math inline">\(u_n
+= O(1)\)</span>, cela signifie que <span
+class="math inline">\((u_n)_{n\in\N}\)</span> est une suite bornée.</p>
+<h3 data-number="4.2.2" id="sec:échelle-de-comparaison"><span
+class="header-section-number">4.2.2</span> Échelle de comparaison</h3>
+<p>On rappelle les limites obtenues en mathématiques que l’on nomme
+<strong>croissances comparées</strong> :</p>
 <p><span class="math display">\[
-\forall \alpha,\beta &gt; 0, \lim_{n \rightarrow +\infty} \frac{(\ln n)^\alpha}{n^\beta} = 0 
+\forall \alpha,\beta &gt; 0, \lim_{n \rightarrow +\infty} \frac{(\ln
+n)^\alpha}{n^\beta} = 0
 \]</span> <span class="math display">\[
 \forall \alpha \in \R, \forall \beta &gt; 1,
-\lim_{n \rightarrow +\infty} \frac{n^\alpha}{\beta^n} = 0 
+\lim_{n \rightarrow +\infty} \frac{n^\alpha}{\beta^n} = 0
 \]</span></p>
-<p>Or, si <span class="math inline">\(\frac{u_n}{v_n} \tend{n}{+\infty} 0\)</span> <em>a fortiori</em> le quotient est borné et <span class="math inline">\(u_n = O(v_n)\)</span>. Ainsi, on a les relations suivantes :</p>
+<p>Or, si <span class="math inline">\(\frac{u_n}{v_n} \tend{n}{+\infty}
+0\)</span> <em>a fortiori</em> le quotient est borné et <span
+class="math inline">\(u_n = O(v_n)\)</span>. Ainsi, on a les relations
+suivantes :</p>
 <p><span class="math display">\[
-\forall \alpha,\beta &gt; 0, 
+\forall \alpha,\beta &gt; 0,
 (\log_2 n)^\alpha = O(n^\beta)
 \]</span> <span class="math display">\[
 \forall \alpha \in \R, \forall \beta &gt; 1,
 n^\alpha = O(\beta^n)
-\]</span> De plus, si <span class="math inline">\(\alpha \ge \beta &gt; 0\)</span>, <span class="math inline">\(n^\beta = O(n^\alpha)\)</span>, <span class="math inline">\((\log_2 n)^\beta = O((\log_2 n)^\alpha)\)</span> et <span class="math inline">\(\beta^n = O(\alpha^n)\)</span>.</p>
-<p>On se ramène souvent à des complexités qui sont des grand O de produits de ces suites.</p>
-<h3 data-number="4.2.3" id="sec:ordre-de-grandeur-et-relation-theta"><span class="header-section-number">4.2.3</span> Ordre de grandeur et relation <span class="math inline">\(\Theta\)</span></h3>
-<p>On vient de voir que <span class="math inline">\(\log_2 n = O(n)\)</span>, mais on a également <span class="math inline">\(\log_2 = O(n^2)\)</span>. Quand on cherche à caractériser la complexité par un grand O, on va souvent chercher le grand O le plus proche de la suite.</p>
-<p>Il est possible de définir cela précisément en considérant des suites qui sont chacune des grand O l’une de l’autre.</p>
-<p>Par exemple, on a vu que <span class="math inline">\(n \log_2 n + n = O(n \log_2 n)\)</span>, mais on a également <span class="math inline">\(n \log_2 n = O(n + n \log_2 n)\)</span>.</p>
-<p>Quand <span class="math inline">\(u_n = O(v_n)\)</span> et <span class="math inline">\(v_n = O(u_n)\)</span>, on note <span class="math inline">\(u_n = \Theta(v_n)\)</span> qui est une relation symétrique qui correspond à la notion <em>avoir le même ordre de grandeur</em>. Très souvent, lorsque l’on parle de complexité, on utilise des grand O quand, en fait, on exprime des <span class="math inline">\(\Theta\)</span>. Par exemple, l’accès à un élément dans un tableau est en <span class="math inline">\(O(1)\)</span> et il ne serait pas précis de dire que c’est en <span class="math inline">\(O(n)\)</span> <strong>même si c’est parfaitement correct</strong>.</p>
-<p>On peut visualiser cette relation <span class="math inline">\(\Theta\)</span> en considérant qu’il existe ainsi <span class="math inline">\(M,M&#39; &gt; 0\)</span> tels que <span class="math inline">\(u_n \le M v_n\)</span> et <span class="math inline">\(v_n \le M&#39; u_n\)</span>. Mais on a alors <span class="math display">\[
+\]</span> De plus, si <span class="math inline">\(\alpha \ge \beta &gt;
+0\)</span>, <span class="math inline">\(n^\beta = O(n^\alpha)\)</span>,
+<span class="math inline">\((\log_2 n)^\beta = O((\log_2
+n)^\alpha)\)</span> et <span class="math inline">\(\beta^n =
+O(\alpha^n)\)</span>.</p>
+<p>On se ramène souvent à des complexités qui sont des grand O de
+produits de ces suites.</p>
+<h3 data-number="4.2.3"
+id="sec:ordre-de-grandeur-et-relation-theta"><span
+class="header-section-number">4.2.3</span> Ordre de grandeur et relation
+<span class="math inline">\(\Theta\)</span></h3>
+<p>On vient de voir que <span class="math inline">\(\log_2 n =
+O(n)\)</span>, mais on a également <span class="math inline">\(\log_2 =
+O(n^2)\)</span>. Quand on cherche à caractériser la complexité par un
+grand O, on va souvent chercher le grand O le plus proche de la
+suite.</p>
+<p>Il est possible de définir cela précisément en considérant des suites
+qui sont chacune des grand O l’une de l’autre.</p>
+<p>Par exemple, on a vu que <span class="math inline">\(n \log_2 n + n =
+O(n \log_2 n)\)</span>, mais on a également <span
+class="math inline">\(n \log_2 n = O(n + n \log_2 n)\)</span>.</p>
+<p>Quand <span class="math inline">\(u_n = O(v_n)\)</span> et <span
+class="math inline">\(v_n = O(u_n)\)</span>, on note <span
+class="math inline">\(u_n = \Theta(v_n)\)</span> qui est une relation
+symétrique qui correspond à la notion <em>avoir le même ordre de
+grandeur</em>. Très souvent, lorsque l’on parle de complexité, on
+utilise des grand O quand, en fait, on exprime des <span
+class="math inline">\(\Theta\)</span>. Par exemple, l’accès à un élément
+dans un tableau est en <span class="math inline">\(O(1)\)</span> et il
+ne serait pas précis de dire que c’est en <span
+class="math inline">\(O(n)\)</span> <strong>même si c’est parfaitement
+correct</strong>.</p>
+<p>On peut visualiser cette relation <span
+class="math inline">\(\Theta\)</span> en considérant qu’il existe ainsi
+<span class="math inline">\(M,M&#39; &gt; 0\)</span> tels que <span
+class="math inline">\(u_n \le M v_n\)</span> et <span
+class="math inline">\(v_n \le M&#39; u_n\)</span>. Mais on a alors <span
+class="math display">\[
 1/M&#39; v_n \le u_n \le M v_n
-\]</span> Ainsi, <span class="math inline">\(u_n = \Theta(v_n)\)</span> signifie qu’on peut encadrer <span class="math inline">\((u_n)_n\)</span> entre deux multiples de <span class="math inline">\((v_n)_n\)</span>.</p>
+\]</span> Ainsi, <span class="math inline">\(u_n = \Theta(v_n)\)</span>
+signifie qu’on peut encadrer <span
+class="math inline">\((u_n)_n\)</span> entre deux multiples de <span
+class="math inline">\((v_n)_n\)</span>.</p>
 <p><div class="ui internally celled grid"><div class="row"><div class="nine wide column"></p>
-<p><center><div class="ui image center"><img src="assets/pics/grando_theta.png" /></div></center></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/grando_theta.png" /></div></center></p>
 <p></div><div class="six wide column"></p>
-<p>En reprenant la figure précédente, on observe visuellement <span class="math display">\[n \log_2 n \le n \log_2 n + n \le 2 n \log_2 n\]</span></p>
+<p>En reprenant la figure précédente, on observe visuellement <span
+class="math display">\[n \log_2 n \le n \log_2 n + n \le 2 n \log_2
+n\]</span></p>
 <p></div></div></div></p>
-<p>Avoir <span class="math inline">\(u_n = \Theta(v_n)\)</span> signifie donc que <span class="math inline">\(u_n\)</span> évolue entre deux guides suivant les variations de <span class="math inline">\(v_n\)</span>.</p>
-<h3 data-number="4.2.4" id="sec:opérations-sur-les-grands-o"><span class="header-section-number">4.2.4</span> Opérations sur les grands O</h3>
-<p>Si <span class="math inline">\(u_n = O(w_n)\)</span> et <span class="math inline">\(v_n = O(w_n)\)</span> alors <span class="math inline">\(u_n + v_n = O(w_n)\)</span>. Ainsi, des grand O de même ordre s’ajoutent.</p>
-<p><div class="ui message orange"><div class="header">Remarque</div>Comme on l’a vu précédemment, un grand O n’est pas très précis, et il est possible que par ajout on puisse obtenir un meilleur grand O. Par exemple : <span class="math inline">\(n = O(n)\)</span> et <span class="math inline">\(\log_2 n - n = O(n)\)</span> mais <span class="math inline">\(n + \log_2 n - n = \log_2 n = O(n)\)</span>. Comme on ne considère ici que des suites strictement positifs, ce phénomène de compensation n’aura pas lieu.</div></p>
-<p>Si <span class="math inline">\(u_n = O(v_n)\)</span> et <span class="math inline">\(w_n\)</span> est une autre suite de réels strictement positifs, alors <span class="math inline">\(u_n w_n = O(v_n w_n)\)</span>. On en déduit ainsi un principe qui nous sera utile par la suite <span class="math inline">\(n O(1) = O(n)\)</span>.</p>
-<h2 data-number="4.3" id="sec:complexités-en-temps-classiques"><span class="header-section-number">4.3</span> Complexités en temps classiques</h2>
-<p>On parle ici de complexité par raccourci pour parler de complexité dans le pire des cas en temps.</p>
-<h3 data-number="4.3.1" id="sec:complexité-constante"><span class="header-section-number">4.3.1</span> Complexité constante</h3>
-<p>On dit qu’un algorithme a une complexité constante quand <span class="math inline">\(C^t_n = O(1)\)</span>. Il existe ainsi une constante <span class="math inline">\(M\)</span> telle que le temps pris par l’algorithme <strong>sur une entrée quelconque</strong> soit inférieur à <span class="math inline">\(M\)</span>.</p>
-<p>De nombreuses opérations sont en temps constant sur les structures de données usuelles. Parmi celles-ci, citons-en deux essentielles :</p>
+<p>Avoir <span class="math inline">\(u_n = \Theta(v_n)\)</span> signifie
+donc que <span class="math inline">\(u_n\)</span> évolue entre deux
+guides suivant les variations de <span
+class="math inline">\(v_n\)</span>.</p>
+<h3 data-number="4.2.4" id="sec:opérations-sur-les-grands-o"><span
+class="header-section-number">4.2.4</span> Opérations sur les grands
+O</h3>
+<p>Si <span class="math inline">\(u_n = O(w_n)\)</span> et <span
+class="math inline">\(v_n = O(w_n)\)</span> alors <span
+class="math inline">\(u_n + v_n = O(w_n)\)</span>. Ainsi, des grand O de
+même ordre s’ajoutent.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>Comme on l’a vu précédemment, un grand O n’est pas très précis, et il
+est possible que par ajout on puisse obtenir un meilleur grand O. Par
+exemple : <span class="math inline">\(n = O(n)\)</span> et <span
+class="math inline">\(\log_2 n - n = O(n)\)</span> mais <span
+class="math inline">\(n + \log_2 n - n = \log_2 n = O(n)\)</span>. Comme
+on ne considère ici que des suites strictement positifs, ce phénomène de
+compensation n’aura pas lieu.</p>
+<p></div></p>
+<p>Si <span class="math inline">\(u_n = O(v_n)\)</span> et <span
+class="math inline">\(w_n\)</span> est une autre suite de réels
+strictement positifs, alors <span class="math inline">\(u_n w_n = O(v_n
+w_n)\)</span>. On en déduit ainsi un principe qui nous sera utile par la
+suite <span class="math inline">\(n O(1) = O(n)\)</span>.</p>
+<h2 data-number="4.3" id="sec:complexités-en-temps-classiques"><span
+class="header-section-number">4.3</span> Complexités en temps
+classiques</h2>
+<p>On parle ici de complexité par raccourci pour parler de complexité
+dans le pire des cas en temps.</p>
+<h3 data-number="4.3.1" id="sec:complexité-constante"><span
+class="header-section-number">4.3.1</span> Complexité constante</h3>
+<p>On dit qu’un algorithme a une complexité constante quand <span
+class="math inline">\(C^t_n = O(1)\)</span>. Il existe ainsi une
+constante <span class="math inline">\(M\)</span> telle que le temps pris
+par l’algorithme <strong>sur une entrée quelconque</strong> soit
+inférieur à <span class="math inline">\(M\)</span>.</p>
+<p>De nombreuses opérations sont en temps constant sur les structures de
+données usuelles. Parmi celles-ci, citons-en deux essentielles :</p>
 <ul>
 <li>accéder à une case d’indice quelconque dans un tableau</li>
 <li>accéder à la tête ou à la queue d’une liste chaînée</li>
 </ul>
-<p>Les algorithmes ou opérations en temps constant jouent un rôle primordiale dans l’analyse de la complexité d’algorithmes, comme on le verra dans la partie suivante, car elles permettent de se concentrer sur les répétitions de ces opérations pour déterminer la complexité : une boucle qui se répète <span class="math inline">\(n\)</span> fois et n’effectue que des opérations en temps constant dans son corps sera de complexité <span class="math inline">\(n O(1) = O(n)\)</span>.</p>
-<h3 data-number="4.3.2" id="sec:complexité-linéaire"><span class="header-section-number">4.3.2</span> Complexité linéaire</h3>
-<p>On dit qu’un algorithme a une complexité linéaire quand <span class="math inline">\(C^t_n = O(n)\)</span>.</p>
-<p>Cette complexité correspond à un traitement de temps constant sur chaque élément d’une entrée de taille <span class="math inline">\(n\)</span>. C’est le cas de la recherche d’un élément dans un tableau ou de la recherche de son maximum.</p>
-<p>Pour la recherche linéaire d’un élément, correspondant par exemple au programme ci-dessous, le pire cas correspond à ne pas avoir <code>x</code> dans <code>tableau</code> ce qui oblige à effectuer toutes les itérations. On a bien une complexité temporelle en pire cas de <span class="math inline">\(O(n)\)</span>.</p>
+<p>Les algorithmes ou opérations en temps constant jouent un rôle
+primordiale dans l’analyse de la complexité d’algorithmes, comme on le
+verra dans la partie suivante, car elles permettent de se concentrer sur
+les répétitions de ces opérations pour déterminer la complexité : une
+boucle qui se répète <span class="math inline">\(n\)</span> fois et
+n’effectue que des opérations en temps constant dans son corps sera de
+complexité <span class="math inline">\(n O(1) = O(n)\)</span>.</p>
+<h3 data-number="4.3.2" id="sec:complexité-linéaire"><span
+class="header-section-number">4.3.2</span> Complexité linéaire</h3>
+<p>On dit qu’un algorithme a une complexité linéaire quand <span
+class="math inline">\(C^t_n = O(n)\)</span>.</p>
+<p>Cette complexité correspond à un traitement de temps constant sur
+chaque élément d’une entrée de taille <span
+class="math inline">\(n\)</span>. C’est le cas de la recherche d’un
+élément dans un tableau ou de la recherche de son maximum.</p>
+<p>Pour la recherche linéaire d’un élément, correspondant par exemple au
+programme ci-dessous, le pire cas correspond à ne pas avoir
+<code>x</code> dans <code>tableau</code> ce qui oblige à effectuer
+toutes les itérations. On a bien une complexité temporelle en pire cas
+de <span class="math inline">\(O(n)\)</span>.</p>
 <p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-144">ocaml</a>   <a class="item" data-tab="c-144">c</a>   <a class="item" data-tab="python-144">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-144"></p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"></code></pre></div>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="c-144"></p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> recherche<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>tableau<span class="op">,</span> <span class="dt">int</span> taille<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
@@ -971,37 +1489,110 @@ n^\alpha = O(\beta^n)
 <span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
 <span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="python-144"></p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> recherche(t, x):</span>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> recherche(t, x):</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(t)):</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> t[i] <span class="op">==</span> x:</span>
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> i</span>
 <span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">None</span></span></code></pre></div>
 <p></div> </div></p>
-<h3 data-number="4.3.3" id="sec:complexité-quadratique-polynomiale"><span class="header-section-number">4.3.3</span> Complexité quadratique, polynomiale</h3>
-<p>On dit qu’un algorithme a une complexité quadratique quand <span class="math inline">\(C^t_n = O(n^2)\)</span>. Par extension, on dit qu’il a une complexité polynomiale quand il existe <span class="math inline">\(k \in \N\)</span> tel que <span class="math inline">\(C^t_n = O(n^k)\)</span>. Par extension, on parle parfois de complexité polynomiale pour des complexité plus précise en <span class="math inline">\(O(n^\alpha)\)</span> où <span class="math inline">\(\alpha\)</span> est un réel strictement positif.</p>
-<p>L’exemple classique d’un algorithme quadratique est celui dû à un double parcours d’un tableau. On reprend ici l’algorithme de tri par sélection vu dans la partie <a href="#sec:exemple-du-tri-par-sélection">Exemple du tri par sélection</a>.</p>
-<p>Afin d’analyser sa complexité, on procède fonction par fonction pour un tableau de taille <span class="math inline">\(n\)</span> :</p>
+<h3 data-number="4.3.3"
+id="sec:complexité-quadratique-polynomiale"><span
+class="header-section-number">4.3.3</span> Complexité quadratique,
+polynomiale</h3>
+<p>On dit qu’un algorithme a une complexité quadratique quand <span
+class="math inline">\(C^t_n = O(n^2)\)</span>. Par extension, on dit
+qu’il a une complexité polynomiale quand il existe <span
+class="math inline">\(k \in \N\)</span> tel que <span
+class="math inline">\(C^t_n = O(n^k)\)</span>. Par extension, on parle
+parfois de complexité polynomiale pour des complexité plus précise en
+<span class="math inline">\(O(n^\alpha)\)</span> où <span
+class="math inline">\(\alpha\)</span> est un réel strictement
+positif.</p>
+<p>L’exemple classique d’un algorithme quadratique est celui dû à un
+double parcours d’un tableau. On reprend ici l’algorithme de tri par
+sélection vu dans la partie <a
+href="#sec:exemple-du-tri-par-sélection">Exemple du tri par
+sélection</a>.</p>
+<p>Afin d’analyser sa complexité, on procède fonction par fonction pour
+un tableau de taille <span class="math inline">\(n\)</span> :</p>
 <ul>
-<li><code>echange</code> est en temps constant. <span class="math inline">\(O(1)\)</span></li>
-<li><code>indice_minimum</code> réalise un parcours du tableau et effectue des opérations en temps constant à chaque étape. La complexité est donc linéaire. <span class="math inline">\(O(n)\)</span></li>
-<li><code>tri_par_selection</code> réalise également un parcours du tableau mais à chaque étape, on appelle <code>indice_minimum</code> qui est en <span class="math inline">\(O(n)\)</span>, la complexité est donc en <span class="math inline">\(n O(n) = O(n^2)\)</span> : elle est quadratique.</li>
+<li><code>echange</code> est en temps constant. <span
+class="math inline">\(O(1)\)</span></li>
+<li><code>indice_minimum</code> réalise un parcours du tableau et
+effectue des opérations en temps constant à chaque étape. La complexité
+est donc linéaire. <span class="math inline">\(O(n)\)</span></li>
+<li><code>tri_par_selection</code> réalise également un parcours du
+tableau mais à chaque étape, on appelle <code>indice_minimum</code> qui
+est en <span class="math inline">\(O(n)\)</span>, la complexité est donc
+en <span class="math inline">\(n O(n) = O(n^2)\)</span> : elle est
+quadratique.</li>
 </ul>
-<h3 data-number="4.3.4" id="sec:complexité-logarithmique"><span class="header-section-number">4.3.4</span> Complexité logarithmique</h3>
-<p>On dit qu’un algorithme a une complexité logarithmique quand <span class="math inline">\(C_n^t = O(\log_2 n)\)</span>.</p>
-<p>Pour illustrer cette complexité, on reprend l’algorithme de recherche dichotomique vu dans la partie <a href="#sec:exemple-de-la-recherche-dichotomique">Exemple de la recherche dichotomique</a>.</p>
-<p>Chaque opération effectuée étant en temps constant, la complexité de cet algorithme correspond au nombre d’itérations, soit ici au nombre d’appels récursifs.</p>
-<p>Si on considère un sous-tableau de <span class="math inline">\(n = j-i+1\)</span> éléments lors de l’appel, un appel récursif se fera nécessairement sur un sous-tableau de <span class="math inline">\(\lfloor n/2 \rfloor\)</span> éléments. Ainsi, si <span class="math inline">\(2^{k-1} &lt; n \le 2^k\)</span>, l’algorithme effectue moins de <span class="math inline">\(k\)</span> itérations. En passant au logarithme, on a donc <span class="math inline">\(k-1 &lt; \log_2 n \le k\)</span>. Donc, le nombre d’itérations est en <span class="math inline">\(O(\log_2 n)\)</span> et c’est ainsi la complexité de l’algorithme.</p>
-<p><div class="ui message blue"><div class="header">Note</div>Esquisser dès maintenant le lien entre longueur d’une branche dans un arbre de décision et complexité logarithmique ?</div></p>
-<h3 data-number="4.3.5" id="sec:complexité-quasi-linéaire"><span class="header-section-number">4.3.5</span> Complexité quasi-linéaire</h3>
-<p>On dit qu’un algorithme a une complexité quasi-linéaire quand <span class="math inline">\(C^t_n = O(n \log_2 n)\)</span>. C’est le cas de la plupart des algorithmes efficaces de tri de <span class="math inline">\(n\)</span> éléments. On peut même montrer qu’il s’agit de la complexité optimale.</p>
-<p>Comme de nombreux algorithmes commencent par effectuer un tri avant d’effectuer un traitement linéaire, on retrouve des algorithmes quasi-linéaire par simple utilisation de ce tri.</p>
-<h3 data-number="4.3.6" id="sec:complexité-exponentielle"><span class="header-section-number">4.3.6</span> Complexité exponentielle</h3>
-<p>On dit qu’un algorithme a une complexité exponentielle quand <span class="math inline">\(C^t_n = O(a^n)\)</span> pour <span class="math inline">\(a &gt; 0\)</span>.</p>
-<p>Un exemple fondamental d’un tel algorithme est celui de l’énumération de données, par exemple pour chercher une solution par force brute. En effet, il y a <span class="math inline">\(2^n\)</span> entrées codées sur <span class="math inline">\(n\)</span> bits et un algorithme cherchant une solution ainsi parmi ces entrées aura une complexité en <span class="math inline">\(O(2^n)\)</span>.</p>
-<h3 data-number="4.3.7" id="sec:estimation-de-limpact-des-complexités-sur-le-temps"><span class="header-section-number">4.3.7</span> Estimation de l’impact des complexités sur le temps</h3>
-<p>Afin de mesurer l’impact d’une complexité, on va considérer un algorithme qui s’exécute en 1 seconde sur un entrée de taille <span class="math inline">\(n\)</span>, et on va calculer combien de temps prendrait ce même algorithme sur une entrée de taille <span class="math inline">\(10 n\)</span>.</p>
-<p>Pour simplifier, on considère à chaque fois que <span class="math inline">\(C^t_n\)</span> correspond exactement à l’ordre du grand O.</p>
+<h3 data-number="4.3.4" id="sec:complexité-logarithmique"><span
+class="header-section-number">4.3.4</span> Complexité logarithmique</h3>
+<p>On dit qu’un algorithme a une complexité logarithmique quand <span
+class="math inline">\(C_n^t = O(\log_2 n)\)</span>.</p>
+<p>Pour illustrer cette complexité, on reprend l’algorithme de recherche
+dichotomique vu dans la partie <a
+href="#sec:exemple-de-la-recherche-dichotomique">Exemple de la recherche
+dichotomique</a>.</p>
+<p>Chaque opération effectuée étant en temps constant, la complexité de
+cet algorithme correspond au nombre d’itérations, soit ici au nombre
+d’appels récursifs.</p>
+<p>Si on considère un sous-tableau de <span class="math inline">\(n =
+j-i+1\)</span> éléments lors de l’appel, un appel récursif se fera
+nécessairement sur un sous-tableau de <span
+class="math inline">\(\lfloor n/2 \rfloor\)</span> éléments. Ainsi, si
+<span class="math inline">\(2^{k-1} &lt; n \le 2^k\)</span>,
+l’algorithme effectue moins de <span class="math inline">\(k\)</span>
+itérations. En passant au logarithme, on a donc <span
+class="math inline">\(k-1 &lt; \log_2 n \le k\)</span>. Donc, le nombre
+d’itérations est en <span class="math inline">\(O(\log_2 n)\)</span> et
+c’est ainsi la complexité de l’algorithme.</p>
+<p><div class="ui message blue"><div class="header">Note</div></p>
+<p>Esquisser dès maintenant le lien entre longueur d’une branche dans un
+arbre de décision et complexité logarithmique ?</p>
+<p></div></p>
+<h3 data-number="4.3.5" id="sec:complexité-quasi-linéaire"><span
+class="header-section-number">4.3.5</span> Complexité
+quasi-linéaire</h3>
+<p>On dit qu’un algorithme a une complexité quasi-linéaire quand <span
+class="math inline">\(C^t_n = O(n \log_2 n)\)</span>. C’est le cas de la
+plupart des algorithmes efficaces de tri de <span
+class="math inline">\(n\)</span> éléments. On peut même montrer qu’il
+s’agit de la complexité optimale.</p>
+<p>Comme de nombreux algorithmes commencent par effectuer un tri avant
+d’effectuer un traitement linéaire, on retrouve des algorithmes
+quasi-linéaire par simple utilisation de ce tri.</p>
+<h3 data-number="4.3.6" id="sec:complexité-exponentielle"><span
+class="header-section-number">4.3.6</span> Complexité exponentielle</h3>
+<p>On dit qu’un algorithme a une complexité exponentielle quand <span
+class="math inline">\(C^t_n = O(a^n)\)</span> pour <span
+class="math inline">\(a &gt; 0\)</span>.</p>
+<p>Un exemple fondamental d’un tel algorithme est celui de l’énumération
+de données, par exemple pour chercher une solution par force brute. En
+effet, il y a <span class="math inline">\(2^n\)</span> entrées codées
+sur <span class="math inline">\(n\)</span> bits et un algorithme
+cherchant une solution ainsi parmi ces entrées aura une complexité en
+<span class="math inline">\(O(2^n)\)</span>.</p>
+<h3 data-number="4.3.7"
+id="sec:estimation-de-limpact-des-complexités-sur-le-temps"><span
+class="header-section-number">4.3.7</span> Estimation de l’impact des
+complexités sur le temps</h3>
+<p>Afin de mesurer l’impact d’une complexité, on va considérer un
+algorithme qui s’exécute en 1 seconde sur un entrée de taille <span
+class="math inline">\(n\)</span>, et on va calculer combien de temps
+prendrait ce même algorithme sur une entrée de taille <span
+class="math inline">\(10 n\)</span>.</p>
+<p>Pour simplifier, on considère à chaque fois que <span
+class="math inline">\(C^t_n\)</span> correspond exactement à l’ordre du
+grand O.</p>
 <table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 41%" />
+<col style="width: 42%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th>Complexité</th>
@@ -1042,27 +1633,87 @@ n^\alpha = O(\beta^n)
 </tr>
 </tbody>
 </table>
-<p><div class="ui message orange"><div class="header">Remarque</div>Pour déterminer ces valeurs, on a considéré une unité de mesure de 1000ms afin d’en déduire une valeur de <span class="math inline">\(n\)</span>.</p>
-<p>Ainsi, si <span class="math inline">\(\log_2 n = 1000\)</span> on a <span class="math inline">\(n = 2^{1000}\)</span>. Bien sûr, ici, ce nombre <span class="math inline">\(2^{1000}\)</span> n’est pas réaliste. Dans un contexte de mémoire finie, une complexité logarithmique est identifiable à une complexité constante. Cela justifie la terminologie quasi-linéaire.</p>
-<p>Si <span class="math inline">\(n \log_2 n = 1000\)</span> alors <span class="math inline">\(n \approx 140,2\)</span>. Or, <span class="math inline">\(1402 \log_2 1402 \approx 14700ms\)</span>.</p>
-<p>Si <span class="math inline">\(2^n = 1000\)</span>, alors <span class="math inline">\(n \approx 10\)</span>. Or <span class="math inline">\(2^{100} \approx 10^{30}\)</span>. </div></p>
-<h2 data-number="4.4" id="sec:calculer-des-complexités"><span class="header-section-number">4.4</span> Calculer des complexités</h2>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>Pour déterminer ces valeurs, on a considéré une unité de mesure de
+1000ms afin d’en déduire une valeur de <span
+class="math inline">\(n\)</span>.</p>
+<p>Ainsi, si <span class="math inline">\(\log_2 n = 1000\)</span> on a
+<span class="math inline">\(n = 2^{1000}\)</span>. Bien sûr, ici, ce
+nombre <span class="math inline">\(2^{1000}\)</span> n’est pas réaliste.
+Dans un contexte de mémoire finie, une complexité logarithmique est
+identifiable à une complexité constante. Cela justifie la terminologie
+quasi-linéaire.</p>
+<p>Si <span class="math inline">\(n \log_2 n = 1000\)</span> alors <span
+class="math inline">\(n \approx 140,2\)</span>. Or, <span
+class="math inline">\(1402 \log_2 1402 \approx 14700ms\)</span>.</p>
+<p>Si <span class="math inline">\(2^n = 1000\)</span>, alors <span
+class="math inline">\(n \approx 10\)</span>. Or <span
+class="math inline">\(2^{100} \approx 10^{30}\)</span>.</p>
+<p></div></p>
+<h2 data-number="4.4" id="sec:calculer-des-complexités"><span
+class="header-section-number">4.4</span> Calculer des complexités</h2>
 <p>Deux principes fondamentaux pour calculer des complexités :</p>
 <ul>
-<li>Si on effectue deux passes successives chacune en <span class="math inline">\(O(u_n)\)</span> alors la complexité globale est en <span class="math inline">\(O(u_n)\)</span>. Il ne s’agit que de reformuler l’addition des grand O. Quand on a deux passes de complexité différente, il suffit d’utiliser la plus grande complexité. Par exemple, un algorithme qui commence par un tri en <span class="math inline">\(O(n \log_2 n)\)</span> et qui effectue ensuite un traitement en <span class="math inline">\(O(n)\)</span> sera de complexité globale <span class="math inline">\(O(n \log_2 n)\)</span> car le traitement est également en <span class="math inline">\(O(n \log_2 n)\)</span>.</li>
-<li>Si on effectue <span class="math inline">\(u_n\)</span> itérations et que chaque itération est en <span class="math inline">\(O(v_n)\)</span> alors l’algorithme a une complexité de <span class="math inline">\(O(u_n v_n)\)</span>. Cela permet de compter le nombre de boucles imbriquées et de se contenter de regarder ce qui se passe dans le corps des boucles.</li>
+<li>Si on effectue deux passes successives chacune en <span
+class="math inline">\(O(u_n)\)</span> alors la complexité globale est en
+<span class="math inline">\(O(u_n)\)</span>. Il ne s’agit que de
+reformuler l’addition des grand O. Quand on a deux passes de complexité
+différente, il suffit d’utiliser la plus grande complexité. Par exemple,
+un algorithme qui commence par un tri en <span class="math inline">\(O(n
+\log_2 n)\)</span> et qui effectue ensuite un traitement en <span
+class="math inline">\(O(n)\)</span> sera de complexité globale <span
+class="math inline">\(O(n \log_2 n)\)</span> car le traitement est
+également en <span class="math inline">\(O(n \log_2 n)\)</span>.</li>
+<li>Si on effectue <span class="math inline">\(u_n\)</span> itérations
+et que chaque itération est en <span
+class="math inline">\(O(v_n)\)</span> alors l’algorithme a une
+complexité de <span class="math inline">\(O(u_n v_n)\)</span>. Cela
+permet de compter le nombre de boucles imbriquées et de se contenter de
+regarder ce qui se passe dans le corps des boucles.</li>
 </ul>
-<h2 data-number="4.5" id="sec:complexité-à-plusieurs-paramètres"><span class="header-section-number">4.5</span> Complexité à plusieurs paramètres</h2>
-<p>Jusqu’ici on a considéré des entrées dépendant d’un unique paramètre <span class="math inline">\(n\)</span>, mais il est possible d’avoir des données dépendant de plusieurs paramètres.</p>
-<p>On adapte directement la notation des grands O : si <span class="math inline">\((u_{n,p})\)</span> et <span class="math inline">\((v_{n,p})\)</span> sont deux suites de réels non nuls dépendant de deux paramètres, on note toujours <span class="math inline">\(u_{n,p} = O(v_{n,p})\)</span> quand le quotient est borné.</p>
-<h3 data-number="4.5.1" id="sec:données-multidimensionnelles"><span class="header-section-number">4.5.1</span> Données multidimensionnelles</h3>
-<p>Le cas le plus usuel de complexité dépendant de plusieurs paramètres est celui des données multidimensionnelle comme une image.</p>
-<p>Si on considère une opération effectuant un traitement en temps constant sur chaque pixel d’une image de <span class="math inline">\(w \times h\)</span> pixels, cette opération aura une complexité en <span class="math inline">\(O(w h)\)</span>. On ne peut plus parler de complexité linéaire ou quadratique ici car cela dépend d’une éventuelle relation entre w et h : si on ne travaille que sur des images de taille <span class="math inline">\(1 \times h\)</span> alors la complexité est <span class="math inline">\(O(h)\)</span>, mais on ne travaille que sur des images carrées, donc pour lesquelles <span class="math inline">\(w = h\)</span>, la complexité est <span class="math inline">\(O(h^2)\)</span>.</p>
-<p>Plus généralement, si on considère des données organisées dans des tableaux imbriqués, on effectuera un traitement sur chaque donnée à l’aide de boucles imbriquées non conditionnelles. La complexité sera alors celle du corps de boucles multipliée par le produit du nombre d’itérations de chaque boucle.</p>
-<h3 data-number="4.5.2" id="sec:compromis-entre-paramètres"><span class="header-section-number">4.5.2</span> Compromis entre paramètres</h3>
-<p>Dans certains cas, en particulier pour les graphes, on peut effectuer des traitements successifs dont la complexité ne s’exprime pas en fonction du même paramètre. Imaginons par exemple un programme ayant la structure suivante :</p>
+<h2 data-number="4.5" id="sec:complexité-à-plusieurs-paramètres"><span
+class="header-section-number">4.5</span> Complexité à plusieurs
+paramètres</h2>
+<p>Jusqu’ici on a considéré des entrées dépendant d’un unique paramètre
+<span class="math inline">\(n\)</span>, mais il est possible d’avoir des
+données dépendant de plusieurs paramètres.</p>
+<p>On adapte directement la notation des grands O : si <span
+class="math inline">\((u_{n,p})\)</span> et <span
+class="math inline">\((v_{n,p})\)</span> sont deux suites de réels non
+nuls dépendant de deux paramètres, on note toujours <span
+class="math inline">\(u_{n,p} = O(v_{n,p})\)</span> quand le quotient
+est borné.</p>
+<h3 data-number="4.5.1" id="sec:données-multidimensionnelles"><span
+class="header-section-number">4.5.1</span> Données
+multidimensionnelles</h3>
+<p>Le cas le plus usuel de complexité dépendant de plusieurs paramètres
+est celui des données multidimensionnelle comme une image.</p>
+<p>Si on considère une opération effectuant un traitement en temps
+constant sur chaque pixel d’une image de <span class="math inline">\(w
+\times h\)</span> pixels, cette opération aura une complexité en <span
+class="math inline">\(O(w h)\)</span>. On ne peut plus parler de
+complexité linéaire ou quadratique ici car cela dépend d’une éventuelle
+relation entre w et h : si on ne travaille que sur des images de taille
+<span class="math inline">\(1 \times h\)</span> alors la complexité est
+<span class="math inline">\(O(h)\)</span>, mais on ne travaille que sur
+des images carrées, donc pour lesquelles <span class="math inline">\(w =
+h\)</span>, la complexité est <span
+class="math inline">\(O(h^2)\)</span>.</p>
+<p>Plus généralement, si on considère des données organisées dans des
+tableaux imbriqués, on effectuera un traitement sur chaque donnée à
+l’aide de boucles imbriquées non conditionnelles. La complexité sera
+alors celle du corps de boucles multipliée par le produit du nombre
+d’itérations de chaque boucle.</p>
+<h3 data-number="4.5.2" id="sec:compromis-entre-paramètres"><span
+class="header-section-number">4.5.2</span> Compromis entre
+paramètres</h3>
+<p>Dans certains cas, en particulier pour les graphes, on peut effectuer
+des traitements successifs dont la complexité ne s’exprime pas en
+fonction du même paramètre. Imaginons par exemple un programme ayant la
+structure suivante :</p>
 <p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-158">ocaml</a>   <a class="item" data-tab="c-158">c</a>   <a class="item" data-tab="python-158">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-158"></p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"></code></pre></div>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="c-158"></p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i<span class="op">&lt;</span>n<span class="op">;</span> i<span class="op">++)</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
@@ -1074,39 +1725,124 @@ n^\alpha = O(\beta^n)
 <span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* corps de boucle en O(1) */</span></span>
 <span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="python-158"></p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># corps de boucle en O(1)</span></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(p):</span>
 <span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># corps de boucle en O(1)</span></span></code></pre></div>
 <p></div> </div></p>
-<p>La complexité de la première boucle est en <span class="math inline">\(O(n)\)</span> et celle de la deuxième en <span class="math inline">\(O(p)\)</span>. La complexité globale est en <span class="math inline">\(O(n+p)\)</span> car <span class="math inline">\(n \le n+p\)</span> et <span class="math inline">\(p \le n+p\)</span>.</p>
-<h2 data-number="4.6" id="sec:complexité-en-moyenne"><span class="header-section-number">4.6</span> Complexité en moyenne</h2>
-<p>On reprend ici les notations de la partie <a href="#sec:complexité-dans-le-pire-des-cas">Complexité dans le pire des cas</a>.</p>
-<p><div class="ui message"><div class="header">Définition</div> Lorsque pour tout <span class="math inline">\(n \in \N\)</span>, <span class="math inline">\(I_n\)</span> est fini, on appelle :</p>
+<p>La complexité de la première boucle est en <span
+class="math inline">\(O(n)\)</span> et celle de la deuxième en <span
+class="math inline">\(O(p)\)</span>. La complexité globale est en <span
+class="math inline">\(O(n+p)\)</span> car <span class="math inline">\(n
+\le n+p\)</span> et <span class="math inline">\(p \le n+p\)</span>.</p>
+<h2 data-number="4.6" id="sec:complexité-en-moyenne"><span
+class="header-section-number">4.6</span> Complexité en moyenne</h2>
+<p>On reprend ici les notations de la partie <a
+href="#sec:complexité-dans-le-pire-des-cas">Complexité dans le pire des
+cas</a>.</p>
+<p><div class="ui message"><div class="header">Définition</div> Lorsque
+pour tout <span class="math inline">\(n \in \N\)</span>, <span
+class="math inline">\(I_n\)</span> est fini, on appelle :</p>
 <ul>
-<li><strong>complexité temporelle en moyenne</strong> la suite <span class="math inline">\((C^{t,m}_n) = \frac{1}{|I_n|} \sum_{e\in I_n} t(e)\)</span>.</li>
-<li><strong>complexité spatiale en moyenne</strong> la suite <span class="math inline">\((C^{s,m}_n) = \frac{1}{|I_n|} \sum_{e\in I_n} s(e)\)</span>. </div></li>
+<li><strong>complexité temporelle en moyenne</strong> la suite <span
+class="math inline">\((C^{t,m}_n) = \frac{1}{|I_n|} \sum_{e\in I_n}
+t(e)\)</span>.</li>
+<li><strong>complexité spatiale en moyenne</strong> la suite <span
+class="math inline">\((C^{s,m}_n) = \frac{1}{|I_n|} \sum_{e\in I_n}
+s(e)\)</span>. </div></li>
 </ul>
-<p>On peut étendre cette définition à un cadre infini en considérant une distribution de probabilité sur <span class="math inline">\(I_n\)</span> et <span class="math inline">\(T_n\)</span> la variable aléatoire associée à <span class="math inline">\(t\)</span> sur <span class="math inline">\(I_n\)</span>. Si <span class="math inline">\(T_n\)</span> est d’espérance finie, on pourra parler de complexité en moyenne pour la suite des <span class="math inline">\(E(T_n)\)</span>. Concrètement, on considère alors une fonction <span class="math inline">\(p_n : I_n \rightarrow [0,1]\)</span> telle que <span class="math inline">\(\sum_{e \in I_n} p(e) = 1\)</span> et, lorsque la somme est définie, on note ainsi <span class="math display">\[C^{t,m}_n = \sum_{e \in I_n} p(e) t(e)\]</span> <span class="math display">\[C^{s,m}_n = \sum_{e \in I_n} p(e) s(e)\]</span></p>
-<p>Un exemple usuel de calcul de complexité en moyenne est celui des tris. En effet, même si les entrées de taille <span class="math inline">\(n\)</span> sont infinies, on peut considérer qu’un tableau de valeurs deux à deux distinctes est l’image par une permutation du tableau triée. Si le tableau est de taille <span class="math inline">\(n\)</span>, on aura ainsi <span class="math inline">\(n!\)</span> permutations ce qui permet, du moment que l’algorithme de tri considéré ne dépend que cette permutation, de calculer la complexité en moyenne sur l’ensemble des permutations.</p>
-<p><div class="ui message orange"><div class="header">Remarque</div>Les permutations d’un ensemble sont les applications bijectives de cet ensemble dans lui-même. Si l’ensemble contient <span class="math inline">\(n\)</span> éléments, il y a <span class="math inline">\(n!\)</span> permutations.</p>
-<p>Par exemple, les six permutations sur l’ensemble <span class="math inline">\(\{1,2,3\}\)</span> correspondent aux diagrammes sagittaires suivants :</p>
-<p><center><div class="ui image center"><img src="assets/pics/permutation_s6.png" /></div></center></p>
-<p>Ces six permutations correspondant elles-mêmes, de gauche à droite et de haut en bas, aux tableaux <code>{1,2,3}</code>, <code>{1,3,2}</code>, <code>{3,2,1}</code>, <code>{2,1,3}</code>, <code>{2,3,1}</code> et <code>{3,1,2}</code>. </div></p>
-<h3 data-number="4.6.1" id="sec:exemple-de-calcul-de-complexité-temporelle-en-moyenne"><span class="header-section-number">4.6.1</span> Exemple de calcul de complexité temporelle en moyenne</h3>
-<p>On considère la recherche linéaire vue dans la partie <a href="#sec:complexité-linéaire">Complexité linéaire</a>. L’ensemble des entrées est ici infini, on va donc supposer pour faire le calcul qu’on ne considère que des tableaux de valeurs deux à deux distinctes et qu’on recherche un élément présent dans le tableau, chaque élément étant équiprobable.</p>
-<p>Si on recherche le <span class="math inline">\(i\)</span>-ème élément du tableau, l’algorithme effectue <span class="math inline">\(i\)</span> itérations avant d’y accéder et de renvoyer son indice. Ainsi, le temps pour cet entrée est de <span class="math inline">\(i C\)</span> où <span class="math inline">\(C\)</span> est le coût d’une itération.</p>
-<p>La complexité temporelle en moyenne est alors <span class="math inline">\(C^{t,m}_n = \sum_{i=1}^{n} \frac{1}{n} i C = \frac{(n+1)C}{2} = O(n)\)</span>. On retrouve ici la même complexité que la complexité dans le pire des cas. La sortie prématurée de la boucle n’a donc aucune influence sur la complexité.</p>
-<h2 data-number="4.7" id="sec:complexité-amortie"><span class="header-section-number">4.7</span> Complexité amortie</h2>
-<p>Dans le cadre de l’étude des structures de données, il est fréquent de considérer non pas la complexité dans le pire des cas d’une opération mais celle d’une succession d’opérations divisée par le nombre d’opérations effectuées. Ainsi, on peut très bien avoir une opération ponctuellement plus coûteuse que les autres, mais en procédant ainsi on lisse le surcoût sur l’ensemble des opérations. On parle alors de <strong>complexité amortie</strong>.</p>
-<p>L’étude de la complexité amortie est traitée dans le chapitre TODO.</p>
-<h2 data-number="4.8" id="sec:pertinence-de-la-complexité-spatiale"><span class="header-section-number">4.8</span> Pertinence de la complexité spatiale</h2>
-<p>Même si la complexité temporelle est le plus souvent celle qui est importante à calculer, certains algorithmes ont une complexité temporelle faible mais en contrepartie une complexité spatiale élevée. On parle alors de compromis temps-mémoire.</p>
-<p>Un exemple classique d’un tel compromis est celui de la programmation dynamique où on passe d’une complexité temporelle exponentielle à une complexité temporelle polynomiale en stockant des valeurs intermédiaires pour ne pas les recalculer. En procédant ainsi, on passe d’une complexité spatiale constante à polynomiale.</p>
-<p>Cela est illustré dans le programme suivant qui permet de déterminer le <span class="math inline">\(n\)</span>-ième terme de la suite de Fibonacci, ce qui n’a pas d’intérêt informatique mais est caractéristique de récurrence que l’on résoudra par la programmation dynamique.</p>
+<p>On peut étendre cette définition à un cadre infini en considérant une
+distribution de probabilité sur <span class="math inline">\(I_n\)</span>
+et <span class="math inline">\(T_n\)</span> la variable aléatoire
+associée à <span class="math inline">\(t\)</span> sur <span
+class="math inline">\(I_n\)</span>. Si <span
+class="math inline">\(T_n\)</span> est d’espérance finie, on pourra
+parler de complexité en moyenne pour la suite des <span
+class="math inline">\(E(T_n)\)</span>. Concrètement, on considère alors
+une fonction <span class="math inline">\(p_n : I_n \rightarrow
+[0,1]\)</span> telle que <span class="math inline">\(\sum_{e \in I_n}
+p(e) = 1\)</span> et, lorsque la somme est définie, on note ainsi <span
+class="math display">\[C^{t,m}_n = \sum_{e \in I_n} p(e) t(e)\]</span>
+<span class="math display">\[C^{s,m}_n = \sum_{e \in I_n} p(e)
+s(e)\]</span></p>
+<p>Un exemple usuel de calcul de complexité en moyenne est celui des
+tris. En effet, même si les entrées de taille <span
+class="math inline">\(n\)</span> sont infinies, on peut considérer qu’un
+tableau de valeurs deux à deux distinctes est l’image par une
+permutation du tableau triée. Si le tableau est de taille <span
+class="math inline">\(n\)</span>, on aura ainsi <span
+class="math inline">\(n!\)</span> permutations ce qui permet, du moment
+que l’algorithme de tri considéré ne dépend que cette permutation, de
+calculer la complexité en moyenne sur l’ensemble des permutations.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>Les permutations d’un ensemble sont les applications bijectives de
+cet ensemble dans lui-même. Si l’ensemble contient <span
+class="math inline">\(n\)</span> éléments, il y a <span
+class="math inline">\(n!\)</span> permutations.</p>
+<p>Par exemple, les six permutations sur l’ensemble <span
+class="math inline">\(\{1,2,3\}\)</span> correspondent aux diagrammes
+sagittaires suivants :</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/permutation_s6.png" /></div></center></p>
+<p>Ces six permutations correspondant elles-mêmes, de gauche à droite et
+de haut en bas, aux tableaux <code>{1,2,3}</code>, <code>{1,3,2}</code>,
+<code>{3,2,1}</code>, <code>{2,1,3}</code>, <code>{2,3,1}</code> et
+<code>{3,1,2}</code>.</p>
+<p></div></p>
+<h3 data-number="4.6.1"
+id="sec:exemple-de-calcul-de-complexité-temporelle-en-moyenne"><span
+class="header-section-number">4.6.1</span> Exemple de calcul de
+complexité temporelle en moyenne</h3>
+<p>On considère la recherche linéaire vue dans la partie <a
+href="#sec:complexité-linéaire">Complexité linéaire</a>. L’ensemble des
+entrées est ici infini, on va donc supposer pour faire le calcul qu’on
+ne considère que des tableaux de valeurs deux à deux distinctes et qu’on
+recherche un élément présent dans le tableau, chaque élément étant
+équiprobable.</p>
+<p>Si on recherche le <span class="math inline">\(i\)</span>-ème élément
+du tableau, l’algorithme effectue <span class="math inline">\(i\)</span>
+itérations avant d’y accéder et de renvoyer son indice. Ainsi, le temps
+pour cet entrée est de <span class="math inline">\(i C\)</span> où <span
+class="math inline">\(C\)</span> est le coût d’une itération.</p>
+<p>La complexité temporelle en moyenne est alors <span
+class="math inline">\(C^{t,m}_n = \sum_{i=1}^{n} \frac{1}{n} i C =
+\frac{(n+1)C}{2} = O(n)\)</span>. On retrouve ici la même complexité que
+la complexité dans le pire des cas. La sortie prématurée de la boucle
+n’a donc aucune influence sur la complexité.</p>
+<h2 data-number="4.7" id="sec:complexité-amortie"><span
+class="header-section-number">4.7</span> Complexité amortie</h2>
+<p>Dans le cadre de l’étude des structures de données, il est fréquent
+de considérer non pas la complexité dans le pire des cas d’une opération
+mais celle d’une succession d’opérations divisée par le nombre
+d’opérations effectuées. Ainsi, on peut très bien avoir une opération
+ponctuellement plus coûteuse que les autres, mais en procédant ainsi on
+lisse le surcoût sur l’ensemble des opérations. On parle alors de
+<strong>complexité amortie</strong>.</p>
+<p>L’étude de la complexité amortie est traitée dans le chapitre
+TODO.</p>
+<h2 data-number="4.8"
+id="sec:pertinence-de-la-complexité-spatiale"><span
+class="header-section-number">4.8</span> Pertinence de la complexité
+spatiale</h2>
+<p>Même si la complexité temporelle est le plus souvent celle qui est
+importante à calculer, certains algorithmes ont une complexité
+temporelle faible mais en contrepartie une complexité spatiale élevée.
+On parle alors de compromis temps-mémoire.</p>
+<p>Un exemple classique d’un tel compromis est celui de la programmation
+dynamique où on passe d’une complexité temporelle exponentielle à une
+complexité temporelle polynomiale en stockant des valeurs intermédiaires
+pour ne pas les recalculer. En procédant ainsi, on passe d’une
+complexité spatiale constante à polynomiale.</p>
+<p>Cela est illustré dans le programme suivant qui permet de déterminer
+le <span class="math inline">\(n\)</span>-ième terme de la suite de
+Fibonacci, ce qui n’a pas d’intérêt informatique mais est
+caractéristique de récurrence que l’on résoudra par la programmation
+dynamique.</p>
 <p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-169">ocaml</a>   <a class="item" data-tab="c-169">c</a>   <a class="item" data-tab="python-169">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-169"></p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">(* Fibonacci exponentiel *)</span></span>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">(* Fibonacci exponentiel *)</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> fibo n =</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> n = <span class="dv">0</span></span>
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> <span class="dv">0</span></span>
@@ -1126,7 +1862,8 @@ n^\alpha = O(\beta^n)
 <p></div> <div class="ui bottom attached tab segment code" data-tab="c-169"></p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode c"><code class="sourceCode c"></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="python-169"></p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fibonacci exponentiel</span></span>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fibonacci exponentiel</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fibo(n):</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
 <span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span></span>
@@ -1143,14 +1880,16 @@ n^\alpha = O(\beta^n)
 <span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>        prec[i] <span class="op">=</span> prec[i<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> prec[i<span class="op">-</span><span class="dv">2</span>]</span>
 <span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> prec[n]</span></code></pre></div>
 <p></div> </div></p>
-<h1 data-number="5" id="sec:exercices"><span class="header-section-number">5</span> Exercices</h1>
+<h1 data-number="5" id="sec:exercices"><span
+class="header-section-number">5</span> Exercices</h1>
 <div class="ui message orange">
 <div class="header">
 Exercice
 </div>
 <p>On considère le programme suivant :</p>
 <p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-171">ocaml</a>   <a class="item" data-tab="c-171">c</a>   <a class="item" data-tab="python-171">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-171"></p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> multiplication x y c =</span>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> multiplication x y c =</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> m = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> vy = <span class="dt">ref</span> y <span class="kw">in</span></span>
 <span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> vx = <span class="dt">ref</span> x <span class="kw">in</span></span>
@@ -1173,7 +1912,8 @@ Exercice
 <span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> m<span class="op">;</span></span>
 <span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="python-171"></p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> multiplication(x, y, c):</span>
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> multiplication(x, y, c):</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> y <span class="op">!=</span> <span class="dv">0</span>:</span>
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> m <span class="op">+</span> x <span class="op">*</span> (y <span class="op">%</span> c)</span>
@@ -1184,27 +1924,53 @@ Exercice
 <p>On suppose que <span class="math inline">\(c \ge 2\)</span>.</p>
 <ol type="1">
 <li>Montrer que cet algorithme termine .</li>
-<li>Montrer que pour <span class="math inline">\(x, y \in \N\)</span>, il renvoie le produit <span class="math inline">\(xy\)</span>.</li>
-<li>Réecrire ce programme en récursif. Peut-on déduire des preuves précédentes que l’algorithme termine et qu’il est correct.</li>
+<li>Montrer que pour <span class="math inline">\(x, y \in \N\)</span>,
+il renvoie le produit <span class="math inline">\(xy\)</span>.</li>
+<li>Réecrire ce programme en récursif. Peut-on déduire des preuves
+précédentes que l’algorithme termine et qu’il est correct.</li>
 </ol>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"></p>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"></p>
 <ol type="1">
-<li><p>Comme <span class="math inline">\(c \ge 2\)</span>, on a <span class="math inline">\(y / c &lt; y\)</span> ainsi <span class="math inline">\(y\)</span> est un variant de boucle.</p></li>
-<li><p>On va commencer par noter <span class="math inline">\(x_0\)</span> et <span class="math inline">\(y_0\)</span> les valeurs initiales respectives de <span class="math inline">\(x\)</span> et de <span class="math inline">\(y\)</span>. On va également tenir compte du nombre d’itérations, ce qui revient à rajouter un compteur <code>i</code> au programme. On va également noter <span class="math inline">\(y_0 = \sum_{j=0}^n a_j c^j\)</span>.</p>
+<li><p>Comme <span class="math inline">\(c \ge 2\)</span>, on a <span
+class="math inline">\(y / c &lt; y\)</span> ainsi <span
+class="math inline">\(y\)</span> est un variant de boucle.</p></li>
+<li><p>On va commencer par noter <span
+class="math inline">\(x_0\)</span> et <span
+class="math inline">\(y_0\)</span> les valeurs initiales respectives de
+<span class="math inline">\(x\)</span> et de <span
+class="math inline">\(y\)</span>. On va également tenir compte du nombre
+d’itérations, ce qui revient à rajouter un compteur <code>i</code> au
+programme. On va également noter <span class="math inline">\(y_0 =
+\sum_{j=0}^n a_j c^j\)</span>.</p>
 <ul>
-<li><span class="math inline">\(y = \left\lfloor \frac{y_0}{c^i} \right\rfloor = \sum_{j=i}^n a_j c^{j-i}\)</span> et <span class="math inline">\(x = x_0 c^i\)</span> sont des invariants directement validés.</li>
-<li>On va maintenant prouver l’invariant <span class="math inline">\(I(i,m) := m = x_0 \sum_{j=0}^{i-1} a_j c^j\)</span>.
+<li><span class="math inline">\(y = \left\lfloor \frac{y_0}{c^i}
+\right\rfloor = \sum_{j=i}^n a_j c^{j-i}\)</span> et <span
+class="math inline">\(x = x_0 c^i\)</span> sont des invariants
+directement validés.</li>
+<li>On va maintenant prouver l’invariant <span
+class="math inline">\(I(i,m) := m = x_0 \sum_{j=0}^{i-1} a_j
+c^j\)</span>.
 <ul>
-<li><strong>Initialisation</strong> avant la première itération, on a <span class="math inline">\(I(0,0,x_0,y_0)\)</span> qui est vérifié car <span class="math inline">\(0 = 0\)</span>.</li>
-<li><strong>Hérédité</strong> si l’invariant est vérifié au début de la ième itération on a <span class="math inline">\(m + x (y \% c) = m + x_0 a_i c^i = m + x_0 \sum_{j=0}^i a_j c^j\)</span> donc <span class="math inline">\(I(i+1,m+x(y\%c))\)</span> est vérifié.</li>
+<li><strong>Initialisation</strong> avant la première itération, on a
+<span class="math inline">\(I(0,0,x_0,y_0)\)</span> qui est vérifié car
+<span class="math inline">\(0 = 0\)</span>.</li>
+<li><strong>Hérédité</strong> si l’invariant est vérifié au début de la
+ième itération on a <span class="math inline">\(m + x (y \% c) = m + x_0
+a_i c^i = m + x_0 \sum_{j=0}^i a_j c^j\)</span> donc <span
+class="math inline">\(I(i+1,m+x(y\%c))\)</span> est vérifié.</li>
 </ul></li>
 </ul>
-<p>Ainsi, en sortie de boucle, on a <span class="math inline">\(m = x_0 \sum_{j=0}^{n} a_j c^j = x_0 y_0\)</span>.</p></li>
-<li><p>En récursif, cela ne change pas la validité des preuves précédentes mais il faudrait présenter l’invariant différemment.</p></li>
+<p>Ainsi, en sortie de boucle, on a <span class="math inline">\(m = x_0
+\sum_{j=0}^{n} a_j c^j = x_0 y_0\)</span>.</p></li>
+<li><p>En récursif, cela ne change pas la validité des preuves
+précédentes mais il faudrait présenter l’invariant
+différemment.</p></li>
 </ol>
 <p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-173">ocaml</a>   <a class="item" data-tab="c-173">c</a>   <a class="item" data-tab="python-173">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-173"></p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a></span>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> multiplication x y c =</span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> y = <span class="dv">0</span></span>
 <span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> <span class="dv">0</span></span>
@@ -1216,20 +1982,26 @@ Exercice
 <span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> x <span class="op">*</span> <span class="op">(</span>y <span class="op">%</span> c<span class="op">)</span> <span class="op">+</span> multiplication<span class="op">(</span>x <span class="op">*</span> c<span class="op">,</span> y <span class="op">/</span> c<span class="op">,</span> c<span class="op">);</span></span>
 <span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="python-173"></p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> multiplication(x, y, c):</span>
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> multiplication(x, y, c):</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> y <span class="op">==</span> <span class="dv">0</span>:</span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span></span>
 <span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> (y <span class="op">%</span> c) <span class="op">+</span> multiplication(x <span class="op">*</span> c, y <span class="op">//</span> c, c)</span></code></pre></div>
-<p></div> </div></p>
-<p></div> </div></p>
+<p></div> </div> </div> </div></p>
 <div class="ui message orange">
 <div class="header">
 Exercice
 </div>
-<p>On considère un polynôme <span class="math inline">\(P=\sum_{i=0}^n c_i X^i\)</span> représenté comme un tableau de <span class="math inline">\(n+1\)</span> coefficients tel que pour tout <span class="math inline">\(i \in \range{0}{n}, P[i] = c_i\)</span>.</p>
-<p>On veut calculer <span class="math inline">\(P(a)\)</span> pour une valeur <span class="math inline">\(a\)</span>. Pour simplifier, on va considérer ici que les valeurs sont toutes entières.</p>
+<p>On considère un polynôme <span class="math inline">\(P=\sum_{i=0}^n
+c_i X^i\)</span> représenté comme un tableau de <span
+class="math inline">\(n+1\)</span> coefficients tel que pour tout <span
+class="math inline">\(i \in \range{0}{n}, P[i] = c_i\)</span>.</p>
+<p>On veut calculer <span class="math inline">\(P(a)\)</span> pour une
+valeur <span class="math inline">\(a\)</span>. Pour simplifier, on va
+considérer ici que les valeurs sont toutes entières.</p>
 <p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-175">ocaml</a>   <a class="item" data-tab="c-175">c</a>   <a class="item" data-tab="python-175">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-175"></p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> horner p a =</span>
+<div class="sourceCode" id="cb47"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> horner p a =</span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> v = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> i = <span class="dt">Array</span>.length p - <span class="dv">1</span> <span class="kw">downto</span> <span class="dv">0</span> <span class="kw">do</span></span>
 <span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>        v := a * !v + p.(i)</span>
@@ -1246,7 +2018,8 @@ Exercice
 <span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> v<span class="op">;</span></span>
 <span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="python-175"></p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="bu">int</span> horner(P, a):</span>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="bu">int</span> horner(P, a):</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>    v <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># rappel reversed(P) parcourt P </span></span>
 <span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># en sens inverse</span></span>
@@ -1257,34 +2030,66 @@ Exercice
 <ol type="1">
 <li>Montrer que ce programme est correct.</li>
 <li>Combien effectue-t-il de multiplications et d’additions ?</li>
-<li>Comparer avec l’algorithme obtenu en ajoutant chaque <span class="math inline">\(c_i a^i\)</span> pour <span class="math inline">\(i\)</span> croissant et en maintenant une variable pour <span class="math inline">\(a^i\)</span>.</li>
+<li>Comparer avec l’algorithme obtenu en ajoutant chaque <span
+class="math inline">\(c_i a^i\)</span> pour <span
+class="math inline">\(i\)</span> croissant et en maintenant une variable
+pour <span class="math inline">\(a^i\)</span>.</li>
 </ol>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> 1. On considère l’invariant <span class="math inline">\(I(v,i) := v = c_{i+1} + c_{i+2} a + \dots + c_{n} a^{n-i-1}\)</span></p>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> 1. On considère l’invariant <span
+class="math inline">\(I(v,i) := v = c_{i+1} + c_{i+2} a + \dots + c_{n}
+a^{n-i-1}\)</span></p>
 <ul>
-<li><strong>Initialisation</strong> avant la première itération on a <span class="math inline">\(I(0,n)\)</span> vérifié car <span class="math inline">\(v = 0 = c_{n+1}\)</span>.</li>
-<li><strong>Hérédité</strong> si l’invariant est vérifié en début d’itération, on passe à <span class="math inline">\(I(a v + c_i, i-1)\)</span> en fin d’itération or, si <span class="math inline">\(v = c_{i+1} + \dots  + c_n a^{n-i-1}\)</span> on a bien <span class="math inline">\(a v + c_i = c_i + c_{i+1} a + \dots  + c_n a^{n-i}\)</span> et donc l’invariant est vérifié en fin d’itération.</li>
+<li><strong>Initialisation</strong> avant la première itération on a
+<span class="math inline">\(I(0,n)\)</span> vérifié car <span
+class="math inline">\(v = 0 = c_{n+1}\)</span>.</li>
+<li><strong>Hérédité</strong> si l’invariant est vérifié en début
+d’itération, on passe à <span class="math inline">\(I(a v + c_i,
+i-1)\)</span> en fin d’itération or, si <span class="math inline">\(v =
+c_{i+1} + \dots  + c_n a^{n-i-1}\)</span> on a bien <span
+class="math inline">\(a v + c_i = c_i + c_{i+1} a + \dots  + c_n
+a^{n-i}\)</span> et donc l’invariant est vérifié en fin
+d’itération.</li>
 </ul>
-<p>En sortie de boucle, on a alors <span class="math inline">\(I(v, -1)\)</span> donc <span class="math inline">\(v = c_0 + c_1 a + \dots +  c_n a^n = P(a)\)</span>.</p>
+<p>En sortie de boucle, on a alors <span class="math inline">\(I(v,
+-1)\)</span> donc <span class="math inline">\(v = c_0 + c_1 a + \dots
++  c_n a^n = P(a)\)</span>.</p>
 <ol start="2" type="1">
-<li>On effectue <span class="math inline">\(n+1\)</span> itérations et à chaque itérations une multiplication et une addition, donc <span class="math inline">\(n+1\)</span> multiplications et <span class="math inline">\(n+1\)</span> additions.</li>
-<li>Pour cet algorithme, on devrait faire une multiplication de plus à chaque itération pour maintenir <span class="math inline">\(a^i\)</span>.</li>
+<li>On effectue <span class="math inline">\(n+1\)</span> itérations et à
+chaque itérations une multiplication et une addition, donc <span
+class="math inline">\(n+1\)</span> multiplications et <span
+class="math inline">\(n+1\)</span> additions.</li>
+<li>Pour cet algorithme, on devrait faire une multiplication de plus à
+chaque itération pour maintenir <span
+class="math inline">\(a^i\)</span>.</li>
 </ol>
 <p></div> </div></p>
 <div class="ui message orange">
 <div class="header">
 Exercice
 </div>
-<p>On considère le problème du drapeau hollandais : étant donné un tableau <span class="math inline">\(t\)</span> et un indice <span class="math inline">\(i\)</span>, on note <code>p=t[i]</code>, on cherche à permuter les éléments de <code>t</code> de sorte qu’il y ait trois zones dans le tableau : les éléments <span class="math inline">\(&lt; p\)</span>, les éléments <span class="math inline">\(= p\)</span> puis les éléments <span class="math inline">\(&gt; p\)</span>.</p>
-<p>Ainsi, si on considère <code>t = [5, 2, 3, 5, 1, 4]</code> et <code>p=t[2] =3</code> on pourra obtenir <code>[2, 1, 3, 5, 5, 4]</code> à l’issue de cet algorithme.</p>
+<p>On considère le problème du drapeau hollandais : étant donné un
+tableau <span class="math inline">\(t\)</span> et un indice <span
+class="math inline">\(i\)</span>, on note <code>p=t[i]</code>, on
+cherche à permuter les éléments de <code>t</code> de sorte qu’il y ait
+trois zones dans le tableau : les éléments <span
+class="math inline">\(&lt; p\)</span>, les éléments <span
+class="math inline">\(= p\)</span> puis les éléments <span
+class="math inline">\(&gt; p\)</span>.</p>
+<p>Ainsi, si on considère <code>t = [5, 2, 3, 5, 1, 4]</code> et
+<code>p=t[2] =3</code> on pourra obtenir <code>[2, 1, 3, 5, 5, 4]</code>
+à l’issue de cet algorithme.</p>
 <ol type="1">
 <li>Écrire un programme résolvant ce problème en temps linéaire.</li>
 <li>Prouver sa correction.</li>
 </ol>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> Le programme :</p>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> Le programme :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb50-1"><a href="#cb50-1"></a><span class="dt">void</span> echange<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>t<span class="op">,</span> <span class="dt">int</span> i<span class="op">,</span> <span class="dt">int</span> j<span class="op">)</span></span>
+<div class="sourceCode" id="cb50"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb50-1"><a href="#cb50-1"></a><span class="dt">void</span> echange<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>t<span class="op">,</span> <span class="dt">int</span> i<span class="op">,</span> <span class="dt">int</span> j<span class="op">)</span></span>
 <span id="cb50-2"><a href="#cb50-2"></a><span class="op">{</span></span>
 <span id="cb50-3"><a href="#cb50-3"></a>    <span class="dt">int</span> temp <span class="op">=</span> t<span class="op">[</span>i<span class="op">];</span></span>
 <span id="cb50-4"><a href="#cb50-4"></a>    t<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> t<span class="op">[</span>j<span class="op">];</span></span>
@@ -1320,24 +2125,59 @@ Exercice
 <span id="cb50-34"><a href="#cb50-34"></a>    <span class="op">}</span></span>
 <span id="cb50-35"><a href="#cb50-35"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
-<p>L’idée de cet algorithme est d’avoir trois indices <span class="math inline">\(l, c\)</span> et <span class="math inline">\(r\)</span> (pour <em>left</em>, <em>center</em> et <em>right</em>) qui délimitent trois zones :</p>
+<p>L’idée de cet algorithme est d’avoir trois indices <span
+class="math inline">\(l, c\)</span> et <span
+class="math inline">\(r\)</span> (pour <em>left</em>, <em>center</em> et
+<em>right</em>) qui délimitent trois zones :</p>
 <ul>
-<li>celle des indices 0 à <span class="math inline">\(l-1\)</span> qui contient des valeurs <span class="math inline">\(&lt; v\)</span></li>
-<li>celle des indices <span class="math inline">\(c+1\)</span> à <span class="math inline">\(r\)</span> qui contient des valeurs égales à <span class="math inline">\(v\)</span></li>
-<li>celle des indices <span class="math inline">\(r+1\)</span> à <span class="math inline">\(nb-1\)</span> qui contient des valeurs <span class="math inline">\(&gt; v\)</span>.</li>
+<li>celle des indices 0 à <span class="math inline">\(l-1\)</span> qui
+contient des valeurs <span class="math inline">\(&lt; v\)</span></li>
+<li>celle des indices <span class="math inline">\(c+1\)</span> à <span
+class="math inline">\(r\)</span> qui contient des valeurs égales à <span
+class="math inline">\(v\)</span></li>
+<li>celle des indices <span class="math inline">\(r+1\)</span> à <span
+class="math inline">\(nb-1\)</span> qui contient des valeurs <span
+class="math inline">\(&gt; v\)</span>.</li>
 </ul>
-<p>Au départ, ces trois zones sont triviales et au fur à mesure de l’algorithme, elles augmentent jusqu’à couvrir l’ensemble du tableau. Comme soit <span class="math inline">\(l\)</span> croit soit <span class="math inline">\(c\)</span> décroit a chaque itération, on a la distance <span class="math inline">\(c - l\)</span> qui est un variant de boucle et on effectue exactement <span class="math inline">\(|t|\)</span> itérations.</p>
-<p>On va montrer que le découpage des zones est effectivement un invariant :</p>
+<p>Au départ, ces trois zones sont triviales et au fur à mesure de
+l’algorithme, elles augmentent jusqu’à couvrir l’ensemble du tableau.
+Comme soit <span class="math inline">\(l\)</span> croit soit <span
+class="math inline">\(c\)</span> décroit a chaque itération, on a la
+distance <span class="math inline">\(c - l\)</span> qui est un variant
+de boucle et on effectue exactement <span
+class="math inline">\(|t|\)</span> itérations.</p>
+<p>On va montrer que le découpage des zones est effectivement un
+invariant :</p>
 <ul>
-<li><p><strong>Initialisation</strong> au départ, comme on l’a vu, ces trois zones sont vides donc l’invariant est trivialement vérifié</p></li>
-<li><p><strong>Hérédité</strong> si l’invariant est vrai au début d’une itération, on va faire trois cas selon la position de <code>w</code> par rapport à <code>v</code> :</p>
+<li><p><strong>Initialisation</strong> au départ, comme on l’a vu, ces
+trois zones sont vides donc l’invariant est trivialement
+vérifié</p></li>
+<li><p><strong>Hérédité</strong> si l’invariant est vrai au début d’une
+itération, on va faire trois cas selon la position de <code>w</code> par
+rapport à <code>v</code> :</p>
 <ul>
-<li>Si <code>w &lt; v</code> alors la zone des indices de <span class="math inline">\(0\)</span> à <span class="math inline">\(l\)</span> contient toujours des valeurs <span class="math inline">\(&lt; v\)</span> et les autres zones n’ont pas bougé, l’invariant est encore vérifié.</li>
-<li>Si <code>w = v</code> alors on place cette valeur <code>w</code> au début de la zone centrale en faisant l’échange puis en décalant <code>c</code> vers la gauche. Les autres zones ne sont pas touchées, donc l’invariant est encore vérifié.</li>
-<li>Si <code>w &gt; v</code> alors on veut le placer en tête de la zone de droite, mais l’élément qui s’y trouve est peut-être une valeur de la zone centrale si celle-ci est non triviale. On place alors cette valeur là en début de la zone centrale ce qui revient à la décaler d’un cran vers la gauche. La valeur <code>w</code> peut alors etre échangée. La première zone n’a pas bougé et les autres zones vérifient encore les conditions voulues, l’invariant est donc vérifié. !TODO(On devrait être plus précis ici)</li>
+<li>Si <code>w &lt; v</code> alors la zone des indices de <span
+class="math inline">\(0\)</span> à <span
+class="math inline">\(l\)</span> contient toujours des valeurs <span
+class="math inline">\(&lt; v\)</span> et les autres zones n’ont pas
+bougé, l’invariant est encore vérifié.</li>
+<li>Si <code>w = v</code> alors on place cette valeur <code>w</code> au
+début de la zone centrale en faisant l’échange puis en décalant
+<code>c</code> vers la gauche. Les autres zones ne sont pas touchées,
+donc l’invariant est encore vérifié.</li>
+<li>Si <code>w &gt; v</code> alors on veut le placer en tête de la zone
+de droite, mais l’élément qui s’y trouve est peut-être une valeur de la
+zone centrale si celle-ci est non triviale. On place alors cette valeur
+là en début de la zone centrale ce qui revient à la décaler d’un cran
+vers la gauche. La valeur <code>w</code> peut alors etre échangée. La
+première zone n’a pas bougé et les autres zones vérifient encore les
+conditions voulues, l’invariant est donc vérifié. !TODO(On devrait être
+plus précis ici)</li>
 </ul></li>
 </ul>
-<p>On a donc validé l’invariant. En sortie de boucle, on a <span class="math inline">\(x = y+1 &gt; y\)</span> et donc les trois zones couvrent l’intégralité du tableau. </div> </div></p>
+<p>On a donc validé l’invariant. En sortie de boucle, on a <span
+class="math inline">\(x = y+1 &gt; y\)</span> et donc les trois zones
+couvrent l’intégralité du tableau. </div> </div></p>
 </div>
 <!-- </div> -->
 </div>

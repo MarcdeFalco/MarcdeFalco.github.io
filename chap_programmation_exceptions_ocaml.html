@@ -93,7 +93,9 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
 
 <script>
 $(document).ready(function() {
@@ -325,86 +327,138 @@ table td {
 <div class="segment">
 <div class="ui container text">
 <p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Exceptions en OCaml     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_ocaml.png"> </div></p>
-<p>Les exceptions sont un mécanisme présent dans de nombreux langages de programmation afin de permettre à la fois d’indiquer qu’une erreur s’est produite en interrompant l’exécution d’une fonction et aussi de pouvoir, pour l’appelant <strong>rattraper</strong> cette erreur afin de poursuivre l’exécution comme il se doit.</p>
-<p>En <code>OCaml</code>, ce mécanisme va permettre, de plus, de pouvoir interrompre le flot de contrôle, notamment de retrouver des mécanismes comme <code>break</code>, <code>continue</code> et surtout <code>return</code>.</p>
-<h1 data-number="1" id="sec:syntaxe-des-exceptions"><span class="header-section-number">1</span> Syntaxe des exceptions</h1>
-<p>Les exceptions forment un type <code>exn</code> qui est extensible : il est possible de rajouter un nouveau constructeur pour ce type en écrivant :</p>
+<p>Les exceptions sont un mécanisme présent dans de nombreux langages de
+programmation afin de permettre à la fois d’indiquer qu’une erreur s’est
+produite en interrompant l’exécution d’une fonction et aussi de pouvoir,
+pour l’appelant <strong>rattraper</strong> cette erreur afin de
+poursuivre l’exécution comme il se doit.</p>
+<p>En <code>OCaml</code>, ce mécanisme va permettre, de plus, de pouvoir
+interrompre le flot de contrôle, notamment de retrouver des mécanismes
+comme <code>break</code>, <code>continue</code> et surtout
+<code>return</code>.</p>
+<h1 data-number="1" id="sec:syntaxe-des-exceptions"><span
+class="header-section-number">1</span> Syntaxe des exceptions</h1>
+<p>Les exceptions forment un type <code>exn</code> qui est extensible :
+il est possible de rajouter un nouveau constructeur pour ce type en
+écrivant :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">(* Pour une exception sans paramètre *)</span></span>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">(* Pour une exception sans paramètre *)</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="kw">exception</span> NomDeLException</span>
 <span id="cb1-3"><a href="#cb1-3"></a></span>
 <span id="cb1-4"><a href="#cb1-4"></a><span class="co">(* Pour une exception avec paramètre de type t*)</span></span>
 <span id="cb1-5"><a href="#cb1-5"></a><span class="kw">exception</span> NomDeLException <span class="kw">of</span> t</span></code></pre></div>
 <p></div></p>
-<p>On peut alors <strong>lancer</strong> cette exception à l’aide de <code>raise</code> :</p>
+<p>On peut alors <strong>lancer</strong> cette exception à l’aide de
+<code>raise</code> :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">(* Pour une exception sans paramètre *)</span></span>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">(* Pour une exception sans paramètre *)</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="dt">raise</span> NomDeLException</span>
 <span id="cb2-3"><a href="#cb2-3"></a></span>
 <span id="cb2-4"><a href="#cb2-4"></a><span class="co">(* Pour une exception avec paramètre de valeur v *)</span></span>
 <span id="cb2-5"><a href="#cb2-5"></a><span class="co">(* Attention aux parenthèses *)</span></span>
 <span id="cb2-6"><a href="#cb2-6"></a><span class="dt">raise</span> (NomDeLException v)</span></code></pre></div>
 <p></div></p>
-<p>Il est possible d’évaluer une expression en permettant d’évaluer une autre expression en cas d’exception :</p>
+<p>Il est possible d’évaluer une expression en permettant d’évaluer une
+autre expression en cas d’exception :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">try</span></span>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">try</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a>    expression</span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="kw">with</span> ExceptionsARattraper -&gt; expression&#39;</span></code></pre></div>
 <p></div></p>
-<p>En fait, ce <code>with</code> est un filtrage, un <code>match</code>, sur les valeurs du type <code>exn</code> mais sans vérification d’exhaustivité. On peut donc effectuer plusieurs cas :</p>
+<p>En fait, ce <code>with</code> est un filtrage, un <code>match</code>,
+sur les valeurs du type <code>exn</code> mais sans vérification
+d’exhaustivité. On peut donc effectuer plusieurs cas :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">try</span></span>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">try</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>    expression</span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="kw">with</span>  motif1 -&gt; expr1</span>
 <span id="cb4-4"><a href="#cb4-4"></a>    | motif2 -&gt; expr2</span>
 <span id="cb4-5"><a href="#cb4-5"></a>    | ...</span></code></pre></div>
 <p></div></p>
-<p>En cas de <code>try... with</code> imbriqués, c’est le <code>try</code> le plus proche de l’exception qui la rattrape. SI une exception n’est pas rattrapée, elle va produire une erreur qui stoppera l’exécution d’un programme. On peut très bien lancer une exception depuis un <code>with .. -&gt;</code>.</p>
-<h1 data-number="2" id="sec:exceptions-pour-la-gestion-derreurs"><span class="header-section-number">2</span> Exceptions pour la gestion d’erreurs</h1>
-<p>Il s’agit ici de l’utilisation la plus <em>logique</em> des exceptions.</p>
+<p>En cas de <code>try... with</code> imbriqués, c’est le
+<code>try</code> le plus proche de l’exception qui la rattrape. SI une
+exception n’est pas rattrapée, elle va produire une erreur qui stoppera
+l’exécution d’un programme. On peut très bien lancer une exception
+depuis un <code>with .. -&gt;</code>.</p>
+<h1 data-number="2" id="sec:exceptions-pour-la-gestion-derreurs"><span
+class="header-section-number">2</span> Exceptions pour la gestion
+d’erreurs</h1>
+<p>Il s’agit ici de l’utilisation la plus <em>logique</em> des
+exceptions.</p>
 <p>On a déjà pu rencontrer des exceptions en <code>OCaml</code> :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb5-1"><a href="#cb5-1"></a># <span class="kw">let</span> t = [|<span class="dv">1</span>;<span class="dv">2</span>|];;</span>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb5-1"><a href="#cb5-1"></a># <span class="kw">let</span> t = [|<span class="dv">1</span>;<span class="dv">2</span>|];;</span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="kw">val</span> t : <span class="dt">int</span> <span class="dt">array</span> = [|<span class="dv">1</span>; <span class="dv">2</span>|]</span>
 <span id="cb5-3"><a href="#cb5-3"></a># t.(<span class="dv">2</span>);;</span>
 <span id="cb5-4"><a href="#cb5-4"></a>Exception: <span class="dt">Invalid_argument</span> <span class="st">&quot;index out of bounds&quot;</span>.</span>
 <span id="cb5-5"><a href="#cb5-5"></a># <span class="dt">List</span>.hd [];;</span>
 <span id="cb5-6"><a href="#cb5-6"></a>Exception: <span class="dt">Failure</span> <span class="st">&quot;hd&quot;</span>.</span></code></pre></div>
 <p></div></p>
-<p>Dans les deux cas, ces exceptions sont plutôt le signe d’une erreur de programmation qu’il faut corriger qu’un comportement limite qu’il faudrait prendre en compte. Dans le cas d’une fonction comme <code>List.hd</code>, on a également vu qu’il était préférable d’utiliser un type option pour pouvoir gérer l’erreur derrière avec :</p>
+<p>Dans les deux cas, ces exceptions sont plutôt le signe d’une erreur
+de programmation qu’il faut corriger qu’un comportement limite qu’il
+faudrait prendre en compte. Dans le cas d’une fonction comme
+<code>List.hd</code>, on a également vu qu’il était préférable
+d’utiliser un type option pour pouvoir gérer l’erreur derrière avec
+:</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">let</span> hd_opt l = </span>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">let</span> hd_opt l = </span>
 <span id="cb6-2"><a href="#cb6-2"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
 <span id="cb6-3"><a href="#cb6-3"></a>    | [] -&gt; <span class="dt">None</span></span>
 <span id="cb6-4"><a href="#cb6-4"></a>    | t :: _ -&gt; <span class="dt">Some</span> t</span></code></pre></div>
 <p></div></p>
-<p>Pour autant, il y a des erreurs importantes à gérer en <code>OCaml</code>, ce sont celles qui sont inévitables quand il n’est pas possible de prévoir si un opération va réussir. Citons deux cas :</p>
+<p>Pour autant, il y a des erreurs importantes à gérer en
+<code>OCaml</code>, ce sont celles qui sont inévitables quand il n’est
+pas possible de prévoir si un opération va réussir. Citons deux cas
+:</p>
 <ul>
-<li>la lecture d’un fichier va produire une exception <code>End_of_file</code> une fois atteinte la fin de celui-ci ;</li>
-<li>des structures de données qui ne fournissent comme seul moyen efficace de savoir si elles sont vides que d’essayer d’en extraire un élément et d’échouer.</li>
+<li>la lecture d’un fichier va produire une exception
+<code>End_of_file</code> une fois atteinte la fin de celui-ci ;</li>
+<li>des structures de données qui ne fournissent comme seul moyen
+efficace de savoir si elles sont vides que d’essayer d’en extraire un
+élément et d’échouer.</li>
 </ul>
 <p>Ainsi, dans le premier cas, on pourra écrire une fonction comme :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">let</span> <span class="kw">rec</span> input_all_lines ic =</span>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">let</span> <span class="kw">rec</span> input_all_lines ic =</span>
 <span id="cb7-2"><a href="#cb7-2"></a>    <span class="kw">try</span></span>
 <span id="cb7-3"><a href="#cb7-3"></a>        <span class="kw">let</span> l = <span class="dt">input_line</span> ic <span class="kw">in</span></span>
 <span id="cb7-4"><a href="#cb7-4"></a>        l :: input_all_lines ic</span>
 <span id="cb7-5"><a href="#cb7-5"></a>    <span class="kw">with</span> <span class="dt">End_of_file</span> -&gt; []</span></code></pre></div>
 <p></div></p>
-<p>Cette fonction prend un <code>input_channel</code> et renvoie toutes les lignes qu’il contient sous la forme d’une liste. Le rattrapage d’exception est crucial, c’est lui qui permet d’avoir un cas de base pour la récurrence.</p>
-<p><div class="ui message orange"><div class="header">Remarque</div><strong>Attention</strong>, on peut être tenté d’écire :</p>
+<p>Cette fonction prend un <code>input_channel</code> et renvoie toutes
+les lignes qu’il contient sous la forme d’une liste. Le rattrapage
+d’exception est crucial, c’est lui qui permet d’avoir un cas de base
+pour la récurrence.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p><strong>Attention</strong>, on peut être tenté d’écire :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">let</span> <span class="kw">rec</span> input_all_lines ic =</span>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">let</span> <span class="kw">rec</span> input_all_lines ic =</span>
 <span id="cb8-2"><a href="#cb8-2"></a>    <span class="kw">try</span></span>
 <span id="cb8-3"><a href="#cb8-3"></a>        <span class="dt">input_line</span> ic :: input_all_lines ic</span>
 <span id="cb8-4"><a href="#cb8-4"></a>    <span class="kw">with</span> <span class="dt">End_of_file</span> -&gt; []</span></code></pre></div>
 <p></div></p>
-<p>Or, il se trouve que <code>OCaml</code> évalue tous les arguments du constructeur <code>::</code> et il le fait de la droite vers la gauche. Le code précédent va donc effectuer des appels récursifs sans jamais lire une seule ligne.</div></p>
-<h1 data-number="3" id="sec:exceptions"><span class="header-section-number">3</span> Programmer avec des exceptions</h1>
-<h2 data-number="3.1" id="sec:retour-prématuré"><span class="header-section-number">3.1</span> Retour prématuré</h2>
+<p>Or, il se trouve que <code>OCaml</code> évalue tous les arguments du
+constructeur <code>::</code> et il le fait de la droite vers la gauche.
+Le code précédent va donc effectuer des appels récursifs sans jamais
+lire une seule ligne.</p>
+<p></div></p>
+<h1 data-number="3" id="sec:exceptions"><span
+class="header-section-number">3</span> Programmer avec des
+exceptions</h1>
+<h2 data-number="3.1" id="sec:retour-prématuré"><span
+class="header-section-number">3.1</span> Retour prématuré</h2>
 <p>Si on considère le programme <code>C</code> suivant :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1"></a><span class="dt">int</span> recherche_element<span class="op">(</span><span class="dt">int</span> t<span class="op">[],</span> </span>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1"></a><span class="dt">int</span> recherche_element<span class="op">(</span><span class="dt">int</span> t<span class="op">[],</span> </span>
 <span id="cb9-2"><a href="#cb9-2"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> nb_elts<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
 <span id="cb9-3"><a href="#cb9-3"></a><span class="op">{</span></span>
 <span id="cb9-4"><a href="#cb9-4"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> nb_elts<span class="op">;</span> i<span class="op">++)</span></span>
@@ -415,7 +469,8 @@ table td {
 <p></div></p>
 <p>On peut l’écrire sous la forme suivante en <code>OCaml</code> :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">let</span> recherche_element t x =</span>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">let</span> recherche_element t x =</span>
 <span id="cb10-2"><a href="#cb10-2"></a>    <span class="kw">let</span> indice = <span class="dt">ref</span> <span class="dt">None</span> <span class="kw">in</span></span>
 <span id="cb10-3"><a href="#cb10-3"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> <span class="dt">Array</span>.length t - <span class="dv">1</span> <span class="kw">do</span></span>
 <span id="cb10-4"><a href="#cb10-4"></a>        <span class="kw">if</span> !indice = <span class="dt">None</span> &amp;&amp; t.(i) = x</span>
@@ -423,14 +478,19 @@ table td {
 <span id="cb10-6"><a href="#cb10-6"></a>    <span class="kw">done</span>;</span>
 <span id="cb10-7"><a href="#cb10-7"></a>    !indice</span></code></pre></div>
 <p></div></p>
-<p>Cela correspond à ce qu’on aurait fait en <code>C</code> pour se passer du <code>return</code> dans la boucle mais cela présente plusieurs problèmes :</p>
+<p>Cela correspond à ce qu’on aurait fait en <code>C</code> pour se
+passer du <code>return</code> dans la boucle mais cela présente
+plusieurs problèmes :</p>
 <ul>
 <li>on inhibe les itérations d’une boucle explicitement ;</li>
 <li>avec plusieurs boucles imbriquées, c’est peu lisible.</li>
 </ul>
-<p>Notons que cette interruption du flot de controle est très naturelle dans un langage utilisant beaucoup la récursivité. Le code suivant récursif suivant a la même structure que le code <code>C</code> :</p>
+<p>Notons que cette interruption du flot de controle est très naturelle
+dans un langage utilisant beaucoup la récursivité. Le code suivant
+récursif suivant a la même structure que le code <code>C</code> :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">let</span> recherche_element t x =</span>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">let</span> recherche_element t x =</span>
 <span id="cb11-2"><a href="#cb11-2"></a>    <span class="kw">let</span> <span class="kw">rec</span> rech_aux i =</span>
 <span id="cb11-3"><a href="#cb11-3"></a>        <span class="kw">if</span> i = <span class="dt">Array</span>.length t</span>
 <span id="cb11-4"><a href="#cb11-4"></a>        <span class="kw">then</span> <span class="dt">None</span></span>
@@ -438,11 +498,16 @@ table td {
 <span id="cb11-6"><a href="#cb11-6"></a>        <span class="kw">else</span> rech_aux (i+<span class="dv">1</span>)</span>
 <span id="cb11-7"><a href="#cb11-7"></a>    <span class="kw">in</span> rech_aux <span class="dv">0</span></span></code></pre></div>
 <p></div></p>
-<p>En effet, on remarque deux feuilles possibles pour l’arbre d’appels récursifs : soit <code>None</code> en fin de tableau, soit <code>Some i</code> quand on a trouvé l’élément.</p>
-<p>Traduire des programmes impératifs sous cette forme est également peu satisfaisant.</p>
-<p>À l’aide des exceptions, on peut retrouver exactement la structure du code <code>C</code> initiale ainsi :</p>
+<p>En effet, on remarque deux feuilles possibles pour l’arbre d’appels
+récursifs : soit <code>None</code> en fin de tableau, soit
+<code>Some i</code> quand on a trouvé l’élément.</p>
+<p>Traduire des programmes impératifs sous cette forme est également peu
+satisfaisant.</p>
+<p>À l’aide des exceptions, on peut retrouver exactement la structure du
+code <code>C</code> initiale ainsi :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">exception</span> Trouve <span class="kw">of</span> <span class="dt">int</span></span>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">exception</span> Trouve <span class="kw">of</span> <span class="dt">int</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a></span>
 <span id="cb12-3"><a href="#cb12-3"></a><span class="kw">let</span> recherche_element t x =</span>
 <span id="cb12-4"><a href="#cb12-4"></a>    <span class="kw">try</span></span>
@@ -453,9 +518,11 @@ table td {
 <span id="cb12-9"><a href="#cb12-9"></a>        <span class="dt">None</span></span>
 <span id="cb12-10"><a href="#cb12-10"></a>    <span class="kw">with</span> Trouve i -&gt; <span class="dt">Some</span> i</span></code></pre></div>
 <p></div></p>
-<p>Ou même, en utilisant l’exception <code>Not_found</code> prédéfinie :</p>
+<p>Ou même, en utilisant l’exception <code>Not_found</code> prédéfinie
+:</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">exception</span> Trouve <span class="kw">of</span> <span class="dt">int</span></span>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">exception</span> Trouve <span class="kw">of</span> <span class="dt">int</span></span>
 <span id="cb13-2"><a href="#cb13-2"></a></span>
 <span id="cb13-3"><a href="#cb13-3"></a><span class="kw">let</span> recherche_element t x =</span>
 <span id="cb13-4"><a href="#cb13-4"></a>    <span class="kw">try</span></span>
@@ -466,17 +533,20 @@ table td {
 <span id="cb13-9"><a href="#cb13-9"></a>        <span class="dt">raise</span> <span class="dt">Not_found</span></span>
 <span id="cb13-10"><a href="#cb13-10"></a>    <span class="kw">with</span> Trouve i -&gt; i</span></code></pre></div>
 <p></div></p>
-<p>L’expression <code>raise (Trouve i)</code> est ainsi exactement le pendant du <code>return i;</code>.</p>
+<p>L’expression <code>raise (Trouve i)</code> est ainsi exactement le
+pendant du <code>return i;</code>.</p>
 <p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
 <p>Au lieu d’écrire <div class="ui segment code"></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb14-1"><a href="#cb14-1"></a>...</span>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb14-1"><a href="#cb14-1"></a>...</span>
 <span id="cb14-2"><a href="#cb14-2"></a>return v</span>
 <span id="cb14-3"><a href="#cb14-3"></a>...</span></code></pre></div>
 <p></div></p>
 <p></div><div class="eight wide column"></p>
 <p>on écrit</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">try</span></span>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">try</span></span>
 <span id="cb15-2"><a href="#cb15-2"></a>    ....</span>
 <span id="cb15-3"><a href="#cb15-3"></a>    <span class="dt">raise</span> (Return v)</span>
 <span id="cb15-4"><a href="#cb15-4"></a>    ...</span>
@@ -484,17 +554,24 @@ table td {
 <span id="cb15-6"><a href="#cb15-6"></a><span class="kw">with</span> Return v -&gt; v</span></code></pre></div>
 <p></div></p>
 <p></div></div></div></p>
-<h3 data-number="3.1.1" id="sec:break-et-continue"><span class="header-section-number">3.1.1</span> <code>break</code> et <code>continue</code></h3>
-<p>On a déjà vu que <code>break</code> permettait de sortir d’une boucle et <code>continue</code> de passer à l’itération suivante.</p>
-<p>Retrouver ces mécanismes avec <code>OCaml</code> est plus anecdotiques mais on peut le faire. On définit tout d’abord deux exceptions :</p>
+<h3 data-number="3.1.1" id="sec:break-et-continue"><span
+class="header-section-number">3.1.1</span> <code>break</code> et
+<code>continue</code></h3>
+<p>On a déjà vu que <code>break</code> permettait de sortir d’une boucle
+et <code>continue</code> de passer à l’itération suivante.</p>
+<p>Retrouver ces mécanismes avec <code>OCaml</code> est plus
+anecdotiques mais on peut le faire. On définit tout d’abord deux
+exceptions :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">exception</span> Break</span>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">exception</span> Break</span>
 <span id="cb16-2"><a href="#cb16-2"></a><span class="kw">exception</span> Continue</span></code></pre></div>
 <p></div></p>
 <p>Pour un <code>break</code> dans une boucle</p>
 <p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
 <p>Au lieu d’écrire <div class="ui segment code"></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">for</span> ... <span class="kw">do</span></span>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">for</span> ... <span class="kw">do</span></span>
 <span id="cb17-2"><a href="#cb17-2"></a>    ...</span>
 <span id="cb17-3"><a href="#cb17-3"></a>    break</span>
 <span id="cb17-4"><a href="#cb17-4"></a>    ...</span>
@@ -503,7 +580,8 @@ table td {
 <p></div><div class="eight wide column"></p>
 <p>on écrit</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">try</span></span>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">try</span></span>
 <span id="cb18-2"><a href="#cb18-2"></a>    <span class="kw">for</span> ... <span class="kw">do</span></span>
 <span id="cb18-3"><a href="#cb18-3"></a>        ....</span>
 <span id="cb18-4"><a href="#cb18-4"></a>        <span class="dt">raise</span> Break <span class="co">(* sortie *)</span></span>
@@ -515,7 +593,8 @@ table td {
 <p>Et pour un <code>continue</code> :</p>
 <p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
 <p>Au lieu d’écrire <div class="ui segment code"></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">for</span> ... <span class="kw">do</span></span>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">for</span> ... <span class="kw">do</span></span>
 <span id="cb19-2"><a href="#cb19-2"></a>    ...</span>
 <span id="cb19-3"><a href="#cb19-3"></a>    continue</span>
 <span id="cb19-4"><a href="#cb19-4"></a>    ...</span>
@@ -524,7 +603,8 @@ table td {
 <p></div><div class="eight wide column"></p>
 <p>on écrit</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">for</span> ... <span class="kw">do</span></span>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">for</span> ... <span class="kw">do</span></span>
 <span id="cb20-2"><a href="#cb20-2"></a>    <span class="kw">try</span></span>
 <span id="cb20-3"><a href="#cb20-3"></a>        ...</span>
 <span id="cb20-4"><a href="#cb20-4"></a>        <span class="dt">raise</span> Continue </span>

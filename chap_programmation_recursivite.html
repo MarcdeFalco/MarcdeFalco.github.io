@@ -93,7 +93,9 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
 
 <script>
 $(document).ready(function() {
@@ -325,17 +327,26 @@ table td {
 <div class="segment">
 <div class="ui container text">
 <p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Récursivité     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_recursivite.jpeg"> </div></p>
-<p><em>Source de l’image d’en-tête : Paul Noth.</em> <strong>À changer par une image CC</strong></p>
-<p><div class="ui message blue"><div class="header">Note</div><strong>Roadmap</strong> :</p>
+<p><em>Source de l’image d’en-tête : Paul Noth.</em> <strong>À changer
+par une image CC</strong></p>
+<p><div class="ui message blue"><div class="header">Note</div></p>
+<p><strong>Roadmap</strong> :</p>
 <ul>
-<li>finir l’écriture.</div></li>
+<li>finir l’écriture.</li>
 </ul>
-<h1 data-number="1" id="sec:la-récursivité"><span class="header-section-number">1</span> La récursivité</h1>
-<h2 data-number="1.1" id="sec:principe-et-exemples"><span class="header-section-number">1.1</span> Principe et exemples</h2>
-<p>On dit qu’une fonction est récursive lorsqu’elle va s’appeler elle-même lors de son exécution. Le plus souvent, cet appel sera directement visible depuis le corps de la fonction.</p>
-<p>Par exemple, la fonction <code>fact</code> suivante permettant de calculer <span class="math inline">\(n!\)</span> est récursive :</p>
+<p></div></p>
+<h1 data-number="1" id="sec:la-récursivité"><span
+class="header-section-number">1</span> La récursivité</h1>
+<h2 data-number="1.1" id="sec:principe-et-exemples"><span
+class="header-section-number">1.1</span> Principe et exemples</h2>
+<p>On dit qu’une fonction est récursive lorsqu’elle va s’appeler
+elle-même lors de son exécution. Le plus souvent, cet appel sera
+directement visible depuis le corps de la fonction.</p>
+<p>Par exemple, la fonction <code>fact</code> suivante permettant de
+calculer <span class="math inline">\(n!\)</span> est récursive :</p>
 <p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-52">ocaml</a>   <a class="item" data-tab="c-52">c</a>   <a class="item" data-tab="python-52">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-52"></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> fact n =</span>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> fact n =</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> n = <span class="dv">0</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> <span class="dv">1</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> n * fact (n<span class="dv">-1</span>)</span></code></pre></div>
@@ -352,39 +363,65 @@ table td {
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p></div> <div class="ui bottom attached tab segment code" data-tab="python-52"></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fact(n):</span>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fact(n):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> n <span class="op">*</span> fact(n<span class="op">-</span><span class="dv">1</span>)</span></code></pre></div>
 <p></div> </div></p>
-<p>On utilise ici un exemple mathématique pour la simplicité des fonctions écrites. En effet, on ne voit rien d’autre dans <code>fact</code> que ces appels récursifs et ils correspondent directement à la définition mathématique :</p>
+<p>On utilise ici un exemple mathématique pour la simplicité des
+fonctions écrites. En effet, on ne voit rien d’autre dans
+<code>fact</code> que ces appels récursifs et ils correspondent
+directement à la définition mathématique :</p>
 <p><span class="math display">\[
 n! = \begin{cases}
 1 &amp; \text{ si } n = 0 \\
 n \times (n-1)! &amp; \text{ sinon.}
 \end{cases}
 \]</span></p>
-<p><div class="ui message orange"><div class="header">Remarque</div>En fait, la définition mathématique se fait plutôt en posant : <span class="math display">\[
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>En fait, la définition mathématique se fait plutôt en posant : <span
+class="math display">\[
 0! = 1 \qquad
 (n+1)! = (n+1) \times n!
-\]</span> Donc, pour retraduire une telle définition en tant que fonction, il est souvent nécessaire de décaler les rangs.</div></p>
+\]</span> Donc, pour retraduire une telle définition en tant que
+fonction, il est souvent nécessaire de décaler les rangs.</p>
+<p></div></p>
 <p>On remarque tout de suite deux choses :</p>
 <ul>
 <li>il y a un valeur pour laquelle on ne fait aucun appel</li>
-<li>dans les autres cas, quand on fait un appel, l’argument <span class="math inline">\(n-1\)</span> diminue strictement.</li>
+<li>dans les autres cas, quand on fait un appel, l’argument <span
+class="math inline">\(n-1\)</span> diminue strictement.</li>
 </ul>
-<p>Cela permet d’être sûr qu’on ne va pas s’arrêter indéfiniment. On verra dans la suite comment on peut s’en assurer pour des fonctions plus complexes.</p>
-<p>Quand on évalue <code>fact 5</code> on va effectuer une série d’appels :</p>
-<p><center><div class="ui image center"><img src="assets/pics/rec_appels_f5.png" /></div></center></p>
-<p>Pour calculer la valeur il faut descendre le long des appels récursifs jusqu’à tomber sur un cas de base puis remonter.</p>
-<h2 data-number="1.2" id="sec:implémentation-pratique"><span class="header-section-number">1.2</span> Implémentation pratique</h2>
-<h3 data-number="1.2.1" id="sec:que-se-passe-t-il-quand-on-appelle-une-fonction"><span class="header-section-number">1.2.1</span> Que se passe-t-il quand on appelle une fonction ?</h3>
-<p>Le principe de définition et d’appels de fonctions est à la base de la programmation structurée : au lieu d’avoir une longue succession d’instructions ou d’expressions, on les regroupe au sein de fonction pour s’organiser. Cela permet également de <em>factoriser</em> du code : au lieu de dupliquer, on regroupe le même code au sein d’une fonction.</p>
-<p>La question qu’on se pose ici est celle du mécanisme permettant une telle exécution du code. On pourrait naïvement penser qu’appeler une fonction serait absolument équivalent à copier son corps :</p>
+<p>Cela permet d’être sûr qu’on ne va pas s’arrêter indéfiniment. On
+verra dans la suite comment on peut s’en assurer pour des fonctions plus
+complexes.</p>
+<p>Quand on évalue <code>fact 5</code> on va effectuer une série
+d’appels :</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/rec_appels_f5.png" /></div></center></p>
+<p>Pour calculer la valeur il faut descendre le long des appels
+récursifs jusqu’à tomber sur un cas de base puis remonter.</p>
+<h2 data-number="1.2" id="sec:implémentation-pratique"><span
+class="header-section-number">1.2</span> Implémentation pratique</h2>
+<h3 data-number="1.2.1"
+id="sec:que-se-passe-t-il-quand-on-appelle-une-fonction"><span
+class="header-section-number">1.2.1</span> Que se passe-t-il quand on
+appelle une fonction ?</h3>
+<p>Le principe de définition et d’appels de fonctions est à la base de
+la programmation structurée : au lieu d’avoir une longue succession
+d’instructions ou d’expressions, on les regroupe au sein de fonction
+pour s’organiser. Cela permet également de <em>factoriser</em> du code :
+au lieu de dupliquer, on regroupe le même code au sein d’une
+fonction.</p>
+<p>La question qu’on se pose ici est celle du mécanisme permettant une
+telle exécution du code. On pourrait naïvement penser qu’appeler une
+fonction serait absolument équivalent à copier son corps :</p>
 <p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">def</span> f(x):</span>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">def</span> f(x):</span>
 <span id="cb4-2"><a href="#cb4-2"></a>    y <span class="op">=</span> x <span class="op">*</span> x</span>
 <span id="cb4-3"><a href="#cb4-3"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
 <span id="cb4-4"><a href="#cb4-4"></a></span>
@@ -394,7 +431,8 @@ n \times (n-1)! &amp; \text{ sinon.}
 <p></div></p>
 <p></div><div class="eight wide column"></p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>a <span class="op">=</span> <span class="dv">3</span></span>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>a <span class="op">=</span> <span class="dv">3</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="co"># Début de f</span></span>
 <span id="cb5-3"><a href="#cb5-3"></a>x <span class="op">=</span> a</span>
 <span id="cb5-4"><a href="#cb5-4"></a>y <span class="op">=</span> x <span class="op">*</span> x</span>
@@ -402,10 +440,13 @@ n \times (n-1)! &amp; \text{ sinon.}
 <span id="cb5-6"><a href="#cb5-6"></a>b <span class="op">=</span> x <span class="op">+</span> y</span></code></pre></div>
 <p></div></p>
 <p></div></div></div></p>
-<p>Au début de l’informatique, c’était effectivement la manière dont on appelait les fonctions. Mais on peut se rendre compte facilement du problème en changeant noms de variables :</p>
+<p>Au début de l’informatique, c’était effectivement la manière dont on
+appelait les fonctions. Mais on peut se rendre compte facilement du
+problème en changeant noms de variables :</p>
 <p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">def</span> f(x):</span>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">def</span> f(x):</span>
 <span id="cb6-2"><a href="#cb6-2"></a>    a <span class="op">=</span> x <span class="op">*</span> x</span>
 <span id="cb6-3"><a href="#cb6-3"></a>    <span class="cf">return</span> x <span class="op">+</span> a</span>
 <span id="cb6-4"><a href="#cb6-4"></a></span>
@@ -415,7 +456,8 @@ n \times (n-1)! &amp; \text{ sinon.}
 <p></div></p>
 <p></div><div class="eight wide column"></p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>a <span class="op">=</span> <span class="dv">3</span></span>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>a <span class="op">=</span> <span class="dv">3</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="co"># Début de f</span></span>
 <span id="cb7-3"><a href="#cb7-3"></a>x <span class="op">=</span> a</span>
 <span id="cb7-4"><a href="#cb7-4"></a>a <span class="op">=</span> x <span class="op">*</span> x</span>
@@ -423,12 +465,27 @@ n \times (n-1)! &amp; \text{ sinon.}
 <span id="cb7-6"><a href="#cb7-6"></a>b <span class="op">=</span> x <span class="op">+</span> a</span></code></pre></div>
 <p></div></p>
 <p></div></div></div></p>
-<p>Ici, l’appel de la fonction a changé la valeur de <code>a</code> car <code>a</code> était aussi une variable définie dans <code>f</code>. Il est nécessaire d’avoir un mécanisme sophistiqué permettant de sauvegarder le contexte d’exécution d’une fonction et de le restaurer quand l’appel à une fonction est terminé.</p>
-<p>Comme les fonctions vont elles-mêmes appelés d’autres fonctions, on ne peut pas se contenter de ne garder qu’un seul contexte. La bonne solution est d’utiliser ce qu’on appelle une <strong>pile d’exécution</strong>. Avant d’évaluer une fonction, on empile son contexte sur la pile, quand elle a terminé, on le dépile. On reverra plus tard la structure de donnée <strong>pile</strong> mais, pour le moment, on peut se l’imaginer comme une pile d’assiettes à laver : au départ, elle est vide. Chaque fois qu’on empile une assiette, elle grandit. Quand on veut laver une assiette, on prend nécessairement la dernière assiette empilée.</p>
-<h3 data-number="1.2.2" id="sec:un-exemple"><span class="header-section-number">1.2.2</span> Un exemple</h3>
+<p>Ici, l’appel de la fonction a changé la valeur de <code>a</code> car
+<code>a</code> était aussi une variable définie dans <code>f</code>. Il
+est nécessaire d’avoir un mécanisme sophistiqué permettant de
+sauvegarder le contexte d’exécution d’une fonction et de le restaurer
+quand l’appel à une fonction est terminé.</p>
+<p>Comme les fonctions vont elles-mêmes appelés d’autres fonctions, on
+ne peut pas se contenter de ne garder qu’un seul contexte. La bonne
+solution est d’utiliser ce qu’on appelle une <strong>pile
+d’exécution</strong>. Avant d’évaluer une fonction, on empile son
+contexte sur la pile, quand elle a terminé, on le dépile. On reverra
+plus tard la structure de donnée <strong>pile</strong> mais, pour le
+moment, on peut se l’imaginer comme une pile d’assiettes à laver : au
+départ, elle est vide. Chaque fois qu’on empile une assiette, elle
+grandit. Quand on veut laver une assiette, on prend nécessairement la
+dernière assiette empilée.</p>
+<h3 data-number="1.2.2" id="sec:un-exemple"><span
+class="header-section-number">1.2.2</span> Un exemple</h3>
 <p>Si on considère le programme :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">def</span> f():</span>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">def</span> f():</span>
 <span id="cb8-2"><a href="#cb8-2"></a>    <span class="cf">return</span> <span class="dv">4</span></span>
 <span id="cb8-3"><a href="#cb8-3"></a></span>
 <span id="cb8-4"><a href="#cb8-4"></a><span class="kw">def</span> g(x):</span>
@@ -443,32 +500,82 @@ n \times (n-1)! &amp; \text{ sinon.}
 <p></div></p>
 <p>Il va s’exécuter ainsi :</p>
 <ul>
-<li><p>Au départ le pile d’exécution est vide : <center><div class="ui image center"><img src="assets/pics/pile_ex1.png" /></div></center></p></li>
-<li><p>Ligne 12 : on appelle <code>h</code>, on crée donc sur la pile une entrée pour <code>h</code>. <center><div class="ui image center"><img src="assets/pics/pile_ex2.png" /></div></center></p></li>
-<li><p>Ligne 9 : on appelle <code>g</code> depuis <code>h</code>, on crée donc sur la pile une entrée pour <code>g</code>. On remarque notamment que <span class="math inline">\(x\)</span> n’aura pas le même sens et la même valeur dans <code>g</code> que dans <code>h</code>. <center><div class="ui image center"><img src="assets/pics/pile_ex3.png" /></div></center></p></li>
-<li><p>Ligne 5 : on appelle <code>f</code>, on crée donc sur la pile une entrée pour <code>f</code>. <center><div class="ui image center"><img src="assets/pics/pile_ex4.png" /></div></center></p></li>
-<li><p>Ligne 2 : on sort de <code>f</code> en renvoyant la valeur 4. On dépile ainsi l’environnement de <code>f</code>. <center><div class="ui image center"><img src="assets/pics/pile_ex5.png" /></div></center></p></li>
-<li><p>Ligne 5 : l’environnement de <code>g</code> est modifié par la valeur de retour de <code>f</code> qui introduit une variable <code>v</code>. <center><div class="ui image center"><img src="assets/pics/pile_ex6.png" /></div></center></p></li>
-<li><p>Ligne 6 : on sort de <code>g</code> en renvoyant la valeur 8. On dépile ainsi l’environnement de <code>g</code>. <center><div class="ui image center"><img src="assets/pics/pile_ex7.png" /></div></center></p></li>
-<li><p>Ligne 9 : on définit une variable <code>v</code> locale à <code>h</code> avec la valeur de retour de <code>g</code> : <center><div class="ui image center"><img src="assets/pics/pile_ex8.png" /></div></center></p></li>
-<li><p>Ligne 10 : l’appel de <code>h</code> est fini, on le dépile.</p></li>
-<li><p>Ligne 12 : on a recupéré la valeur de retour 64, on l’affiche avec un appel à <code>print</code> (qui sera aussi empilé).</p></li>
+<li><p>Au départ le pile d’exécution est vide :
+<center><div class="ui image center"><img
+src="assets/pics/pile_ex1.png" /></div></center></p></li>
+<li><p>Ligne 12 : on appelle <code>h</code>, on crée donc sur la pile
+une entrée pour <code>h</code>.
+<center><div class="ui image center"><img
+src="assets/pics/pile_ex2.png" /></div></center></p></li>
+<li><p>Ligne 9 : on appelle <code>g</code> depuis <code>h</code>, on
+crée donc sur la pile une entrée pour <code>g</code>. On remarque
+notamment que <span class="math inline">\(x\)</span> n’aura pas le même
+sens et la même valeur dans <code>g</code> que dans <code>h</code>.
+<center><div class="ui image center"><img
+src="assets/pics/pile_ex3.png" /></div></center></p></li>
+<li><p>Ligne 5 : on appelle <code>f</code>, on crée donc sur la pile une
+entrée pour <code>f</code>. <center><div class="ui image center"><img
+src="assets/pics/pile_ex4.png" /></div></center></p></li>
+<li><p>Ligne 2 : on sort de <code>f</code> en renvoyant la valeur 4. On
+dépile ainsi l’environnement de <code>f</code>.
+<center><div class="ui image center"><img
+src="assets/pics/pile_ex5.png" /></div></center></p></li>
+<li><p>Ligne 5 : l’environnement de <code>g</code> est modifié par la
+valeur de retour de <code>f</code> qui introduit une variable
+<code>v</code>. <center><div class="ui image center"><img
+src="assets/pics/pile_ex6.png" /></div></center></p></li>
+<li><p>Ligne 6 : on sort de <code>g</code> en renvoyant la valeur 8. On
+dépile ainsi l’environnement de <code>g</code>.
+<center><div class="ui image center"><img
+src="assets/pics/pile_ex7.png" /></div></center></p></li>
+<li><p>Ligne 9 : on définit une variable <code>v</code> locale à
+<code>h</code> avec la valeur de retour de <code>g</code> :
+<center><div class="ui image center"><img
+src="assets/pics/pile_ex8.png" /></div></center></p></li>
+<li><p>Ligne 10 : l’appel de <code>h</code> est fini, on le
+dépile.</p></li>
+<li><p>Ligne 12 : on a recupéré la valeur de retour 64, on l’affiche
+avec un appel à <code>print</code> (qui sera aussi empilé).</p></li>
 </ul>
-<h3 data-number="1.2.3" id="sec:pour-une-fonction-récursive"><span class="header-section-number">1.2.3</span> Pour une fonction récursive</h3>
-<p>Le mécanisme mis en place est suffisament robuste pour permettre à une fonction de s’appeler elle-même. En effet, le fait d’avoir bien separé les environnements d’exécution assure qu’il n’y aura pas de problèmes.</p>
-<p>Si on reprend l’exemple vu au dessus de l’évaluation de <span class="math inline">\(5!\)</span>, on remarque que lorsqu’on descend le long des appels, on empile, et lorsqu’on remonte, on dépile.</p>
-<h2 data-number="1.3" id="sec:programmer-en-récursif"><span class="header-section-number">1.3</span> Programmer en récursif</h2>
-<h2 data-number="1.4" id="sec:récursivité-croisée"><span class="header-section-number">1.4</span> Récursivité croisée</h2>
-<h1 data-number="2" id="sec:larbre-dappels"><span class="header-section-number">2</span> L’arbre d’appels</h1>
-<h2 data-number="2.1" id="sec:définition"><span class="header-section-number">2.1</span> Définition</h2>
-<h2 data-number="2.2" id="sec:complexité-en-nombre-dappels"><span class="header-section-number">2.2</span> Complexité en nombre d’appels</h2>
-<h2 data-number="2.3" id="sec:terminaison"><span class="header-section-number">2.3</span> Terminaison</h2>
-<h1 data-number="3" id="sec:récursivité-terminale"><span class="header-section-number">3</span> Récursivité terminale</h1>
-<h2 data-number="3.1" id="sec:présentation"><span class="header-section-number">3.1</span> Présentation</h2>
-<h2 data-number="3.2" id="sec:optimisation"><span class="header-section-number">3.2</span> Optimisation</h2>
-<h2 data-number="3.3" id="sec:techniques"><span class="header-section-number">3.3</span> Techniques</h2>
-<h1 data-number="4" id="sec:types-inductifs-et-induction-structurelle"><span class="header-section-number">4</span> Types inductifs et induction structurelle</h1>
-<h2 data-number="4.1" id="sec:définition-naïve-des-types-inductifs"><span class="header-section-number">4.1</span> Définition naïve des types inductifs</h2>
+<h3 data-number="1.2.3" id="sec:pour-une-fonction-récursive"><span
+class="header-section-number">1.2.3</span> Pour une fonction
+récursive</h3>
+<p>Le mécanisme mis en place est suffisament robuste pour permettre à
+une fonction de s’appeler elle-même. En effet, le fait d’avoir bien
+separé les environnements d’exécution assure qu’il n’y aura pas de
+problèmes.</p>
+<p>Si on reprend l’exemple vu au dessus de l’évaluation de <span
+class="math inline">\(5!\)</span>, on remarque que lorsqu’on descend le
+long des appels, on empile, et lorsqu’on remonte, on dépile.</p>
+<h2 data-number="1.3" id="sec:programmer-en-récursif"><span
+class="header-section-number">1.3</span> Programmer en récursif</h2>
+<h2 data-number="1.4" id="sec:récursivité-croisée"><span
+class="header-section-number">1.4</span> Récursivité croisée</h2>
+<h1 data-number="2" id="sec:larbre-dappels"><span
+class="header-section-number">2</span> L’arbre d’appels</h1>
+<h2 data-number="2.1" id="sec:définition"><span
+class="header-section-number">2.1</span> Définition</h2>
+<h2 data-number="2.2" id="sec:complexité-en-nombre-dappels"><span
+class="header-section-number">2.2</span> Complexité en nombre
+d’appels</h2>
+<h2 data-number="2.3" id="sec:terminaison"><span
+class="header-section-number">2.3</span> Terminaison</h2>
+<h1 data-number="3" id="sec:récursivité-terminale"><span
+class="header-section-number">3</span> Récursivité terminale</h1>
+<h2 data-number="3.1" id="sec:présentation"><span
+class="header-section-number">3.1</span> Présentation</h2>
+<h2 data-number="3.2" id="sec:optimisation"><span
+class="header-section-number">3.2</span> Optimisation</h2>
+<h2 data-number="3.3" id="sec:techniques"><span
+class="header-section-number">3.3</span> Techniques</h2>
+<h1 data-number="4"
+id="sec:types-inductifs-et-induction-structurelle"><span
+class="header-section-number">4</span> Types inductifs et induction
+structurelle</h1>
+<h2 data-number="4.1"
+id="sec:définition-naïve-des-types-inductifs"><span
+class="header-section-number">4.1</span> Définition naïve des types
+inductifs</h2>
 </div>
 <!-- </div> -->
 </div>

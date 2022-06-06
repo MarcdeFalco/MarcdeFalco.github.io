@@ -93,7 +93,9 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
 
 <script>
 $(document).ready(function() {
@@ -325,27 +327,52 @@ table td {
 <div class="segment">
 <div class="ui container text">
 <p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Recherche par Force brute     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_algo_exacte.png"> </div></p>
-<p><em>Source image : https://www.flickr.com/photos/x6e38/3440634940/</em></p>
-<h1 data-number="1" id="sec:principe"><span class="header-section-number">1</span> Principe</h1>
-<h2 data-number="1.1" id="sec:problème-de-décision-et-exploration-exhaustive"><span class="header-section-number">1.1</span> Problème de décision et exploration exhaustive</h2>
-<p>Considérons un problème du type trouver un <span class="math inline">\(x \in V\)</span> vérifiant une propriété <span class="math inline">\(P(x)\)</span>.</p>
+<p><em>Source image :
+https://www.flickr.com/photos/x6e38/3440634940/</em></p>
+<h1 data-number="1" id="sec:principe"><span
+class="header-section-number">1</span> Principe</h1>
+<h2 data-number="1.1"
+id="sec:problème-de-décision-et-exploration-exhaustive"><span
+class="header-section-number">1.1</span> Problème de décision et
+exploration exhaustive</h2>
+<p>Considérons un problème du type trouver un <span
+class="math inline">\(x \in V\)</span> vérifiant une propriété <span
+class="math inline">\(P(x)\)</span>.</p>
 <div class="ui message blue">
 <div class="header">
 Exemple
 </div>
 <ul>
-<li><span class="math inline">\(V\)</span> est l’ensemble des chaînes de caractères et <span class="math inline">\(P\)</span> vérifié si<br />
+<li><span class="math inline">\(V\)</span> est l’ensemble des chaînes de
+caractères et <span class="math inline">\(P\)</span> vérifié si<br />
 si une chaîne est un mot de passe qu’on cherche.</li>
-<li><span class="math inline">\(V\)</span> est l’ensemble des indices possibles dans un tableau <code>t</code> et <span class="math inline">\(P\)</span> vérifie si la valeur à l’indice <span class="math inline">\(i\)</span> est une valeur <span class="math inline">\(x\)</span> que l’on cherche.</li>
-<li><span class="math inline">\(V\)</span> est l’ensemble des grilles complétées d’un problème de Sudoku et <span class="math inline">\(P\)</span> vérifie si la grille est valide.</li>
-<li><span class="math inline">\(V\)</span> est l’ensemble d’assemblages de pièces d’un puzzle et <span class="math inline">\(P\)</span> vérifie si le puzzle est correcte, c’est-à-dire si deux pièces côtes à côtés ont des côtés compatibles.</li>
+<li><span class="math inline">\(V\)</span> est l’ensemble des indices
+possibles dans un tableau <code>t</code> et <span
+class="math inline">\(P\)</span> vérifie si la valeur à l’indice <span
+class="math inline">\(i\)</span> est une valeur <span
+class="math inline">\(x\)</span> que l’on cherche.</li>
+<li><span class="math inline">\(V\)</span> est l’ensemble des grilles
+complétées d’un problème de Sudoku et <span
+class="math inline">\(P\)</span> vérifie si la grille est valide.</li>
+<li><span class="math inline">\(V\)</span> est l’ensemble d’assemblages
+de pièces d’un puzzle et <span class="math inline">\(P\)</span> vérifie
+si le puzzle est correcte, c’est-à-dire si deux pièces côtes à côtés ont
+des côtés compatibles.</li>
 </ul>
 </div>
-<p>Dans certains problèmes, un tel <span class="math inline">\(x\)</span> n’est pas unique et on cherche à tous les énumérer.</p>
-<p>Une recherche par force brute ou recherche exhaustive, consiste à énumérer l’ensemble <span class="math inline">\(V\)</span> jusqu’à obtenir une solution en testant <span class="math inline">\(P\)</span> pour chaque valeur rencontrée.</p>
-<p>Des problèmes précédents, la recherche linéaire est le plus simple et le programme suivant est caractéristique d’une recherche exhaustive :</p>
+<p>Dans certains problèmes, un tel <span
+class="math inline">\(x\)</span> n’est pas unique et on cherche à tous
+les énumérer.</p>
+<p>Une recherche par force brute ou recherche exhaustive, consiste à
+énumérer l’ensemble <span class="math inline">\(V\)</span> jusqu’à
+obtenir une solution en testant <span class="math inline">\(P\)</span>
+pour chaque valeur rencontrée.</p>
+<p>Des problèmes précédents, la recherche linéaire est le plus simple et
+le programme suivant est caractéristique d’une recherche exhaustive
+:</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">exception</span> Trouve <span class="kw">of</span> <span class="dt">int</span></span>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">exception</span> Trouve <span class="kw">of</span> <span class="dt">int</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a></span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="kw">let</span> recherche t x =</span>
 <span id="cb1-4"><a href="#cb1-4"></a>    <span class="kw">try</span></span>
@@ -360,25 +387,79 @@ si une chaîne est un mot de passe qu’on cherche.</li>
 <pre><code>pour chaque v dans V
     si P(v) est vérifié
        s&#39;arrêter avec la solution v</code></pre>
-<p>On rappelle que pour pouvoir s’arrêter au cours de l’énumération en <code>OCaml</code>, si on programme en impératif, on utilise en général des exceptions comme dans le chapitre <a href="chap_programmation_exceptions_ocaml.html#sec:exceptions">Exceptions en OCaml</a>.</p>
-<p>Cela pose naturellement la question de l’énumération des éléments de <span class="math inline">\(V\)</span>. Si c’est immédiat dans l’exemple peu pertinent de la recherche dans un tableau, c’est beaucoup plus complexe pour l’énumération des assemblages de pièces d’un puzzle, par exemple.</p>
-<p>Pour la recherche du mot de passe, on pourrait commencer par énumérer les chaînes de longueur 1, puis de longueur 2, et ainsi de suite.</p>
-<p>Le plus souvent, l’ensemble <span class="math inline">\(V\)</span> est fini (pour les mots de passe, cela peut consister à limiter la longueur maximale du mot de passe). Ainsi, une recherche par force brute effectue <span class="math inline">\(O(|V|)\)</span> itérations.</p>
-<h2 data-number="1.2" id="sec:problème-doptimisation-et-exploration-exhaustive"><span class="header-section-number">1.2</span> Problème d’optimisation et exploration exhaustive</h2>
-<p>On retrouve la notion d’exploration exhaustive ou force brute pour des problèmes d’optimisation. Il s’agit de problèmes de la forme : déterminer <span class="math inline">\(x \in V\)</span> tel que <span class="math inline">\(f(x)\)</span> soit minimale ou maximale.</p>
-<p>L’exploration exhaustive consiste alors à calculer toutes les images par <span class="math inline">\(f\)</span> des éléments de <span class="math inline">\(V\)</span> afin de déterminer un extremum.</p>
-<h1 data-number="2" id="sec:recherche-par-retour-sur-trace-backtracking"><span class="header-section-number">2</span> Recherche par retour sur trace (<strong>backtracking</strong>)</h1>
-<h2 data-number="2.1" id="sec:construction-itérative-de-candidats"><span class="header-section-number">2.1</span> Construction itérative de candidats</h2>
-<p>Dans de nombreux cas, l’ensemble <span class="math inline">\(V\)</span> peut se décrire une processus itératifs de construction de ses éléments. Une manière de voir cela est de parler de positions et de mouvements, ou coups.</p>
-<p>Par exemple, considérons un puzzle comme le puzzle <a href="https://en.wikipedia.org/wiki/Eternity_II_puzzle">Eternity II</a> constitué de 256 pièces carrées. Une configuration finale du puzzle consiste à avoir placé les 256 pièces. Parmi celles-ci, les configurations valides sont celles satisfaisant les contraintes de chaque côté.</p>
-<p>Comme pour tous les puzzles, la position initiale est un plateau vide et chaque mouvement consiste à placer une pièce disponible dans un emplacement disponible. Cela correspond à la manière dont on procéderait à la main : <img src="assets/pics/Eternity_II.jpg" /></p>
-<p>Ainsi, on peut représenter la construction de <span class="math inline">\(V\)</span> sous la forme d’un arbre dont les nœuds sont les positions et les arêtes les mouvements. Les positions complètes sont les feuilles de l’arbre, elles correspondent aux éléments de <span class="math inline">\(V\)</span> et ce sont donc celles-ci qu’on va explorer pour y trouver une solution.</p>
-<p><center><div class="ui image center"><img src="assets/pics/constV.png" /></div></center></p>
-<p>L’avantage de cette représentation arborescente est qu’elle découle naturellement d’un parcours récursif des positions.</p>
-<p>Tout d’abord, il va falloir définir un type de positions partielles comme on a pu le voir dans le chapitre <a href="chap_programmation_options_ocaml.html#sec:valeurspartielles">Options en OCaml</a>.</p>
-<p>Comme indiqué dans ce chapitre, si le type d’une grille de Sudoku remplie est <code>int array array</code>, pour pouvoir représenter des grilles en cours de remplissage, on va utiliser le type <code>int option array array</code>. On rappelle que l’utilisation de la valeur <code>None</code> permettra de représenter une partie non construite comme une case vide.</p>
-<p>On considère ainsi un type <code>position</code> des positions partielles, un type <code>mouvement</code> et des fonctions <div class="ui segment code"></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">(* les mouvements accessibles depuis une position.</span></span>
+<p>On rappelle que pour pouvoir s’arrêter au cours de l’énumération en
+<code>OCaml</code>, si on programme en impératif, on utilise en général
+des exceptions comme dans le chapitre <a
+href="chap_programmation_exceptions_ocaml.html#sec:exceptions">Exceptions
+en OCaml</a>.</p>
+<p>Cela pose naturellement la question de l’énumération des éléments de
+<span class="math inline">\(V\)</span>. Si c’est immédiat dans l’exemple
+peu pertinent de la recherche dans un tableau, c’est beaucoup plus
+complexe pour l’énumération des assemblages de pièces d’un puzzle, par
+exemple.</p>
+<p>Pour la recherche du mot de passe, on pourrait commencer par énumérer
+les chaînes de longueur 1, puis de longueur 2, et ainsi de suite.</p>
+<p>Le plus souvent, l’ensemble <span class="math inline">\(V\)</span>
+est fini (pour les mots de passe, cela peut consister à limiter la
+longueur maximale du mot de passe). Ainsi, une recherche par force brute
+effectue <span class="math inline">\(O(|V|)\)</span> itérations.</p>
+<h2 data-number="1.2"
+id="sec:problème-doptimisation-et-exploration-exhaustive"><span
+class="header-section-number">1.2</span> Problème d’optimisation et
+exploration exhaustive</h2>
+<p>On retrouve la notion d’exploration exhaustive ou force brute pour
+des problèmes d’optimisation. Il s’agit de problèmes de la forme :
+déterminer <span class="math inline">\(x \in V\)</span> tel que <span
+class="math inline">\(f(x)\)</span> soit minimale ou maximale.</p>
+<p>L’exploration exhaustive consiste alors à calculer toutes les images
+par <span class="math inline">\(f\)</span> des éléments de <span
+class="math inline">\(V\)</span> afin de déterminer un extremum.</p>
+<h1 data-number="2"
+id="sec:recherche-par-retour-sur-trace-backtracking"><span
+class="header-section-number">2</span> Recherche par retour sur trace
+(<strong>backtracking</strong>)</h1>
+<h2 data-number="2.1" id="sec:construction-itérative-de-candidats"><span
+class="header-section-number">2.1</span> Construction itérative de
+candidats</h2>
+<p>Dans de nombreux cas, l’ensemble <span
+class="math inline">\(V\)</span> peut se décrire une processus itératifs
+de construction de ses éléments. Une manière de voir cela est de parler
+de positions et de mouvements, ou coups.</p>
+<p>Par exemple, considérons un puzzle comme le puzzle <a
+href="https://en.wikipedia.org/wiki/Eternity_II_puzzle">Eternity II</a>
+constitué de 256 pièces carrées. Une configuration finale du puzzle
+consiste à avoir placé les 256 pièces. Parmi celles-ci, les
+configurations valides sont celles satisfaisant les contraintes de
+chaque côté.</p>
+<p>Comme pour tous les puzzles, la position initiale est un plateau vide
+et chaque mouvement consiste à placer une pièce disponible dans un
+emplacement disponible. Cela correspond à la manière dont on procéderait
+à la main : <img src="assets/pics/Eternity_II.jpg" /></p>
+<p>Ainsi, on peut représenter la construction de <span
+class="math inline">\(V\)</span> sous la forme d’un arbre dont les nœuds
+sont les positions et les arêtes les mouvements. Les positions complètes
+sont les feuilles de l’arbre, elles correspondent aux éléments de <span
+class="math inline">\(V\)</span> et ce sont donc celles-ci qu’on va
+explorer pour y trouver une solution.</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/constV.png" /></div></center></p>
+<p>L’avantage de cette représentation arborescente est qu’elle découle
+naturellement d’un parcours récursif des positions.</p>
+<p>Tout d’abord, il va falloir définir un type de positions partielles
+comme on a pu le voir dans le chapitre <a
+href="chap_programmation_options_ocaml.html#sec:valeurspartielles">Options
+en OCaml</a>.</p>
+<p>Comme indiqué dans ce chapitre, si le type d’une grille de Sudoku
+remplie est <code>int array array</code>, pour pouvoir représenter des
+grilles en cours de remplissage, on va utiliser le type
+<code>int option array array</code>. On rappelle que l’utilisation de la
+valeur <code>None</code> permettra de représenter une partie non
+construite comme une case vide.</p>
+<p>On considère ainsi un type <code>position</code> des positions
+partielles, un type <code>mouvement</code> et des fonctions
+<div class="ui segment code"></p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">(* les mouvements accessibles depuis une position.</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="co">  [] si la position est complète *)</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="kw">val</span> mouvements : position -&gt; mouvement <span class="dt">list</span></span>
 <span id="cb3-4"><a href="#cb3-4"></a><span class="co">(* applique un mouvement *)</span></span>
@@ -388,9 +469,11 @@ si une chaîne est un mot de passe qu’on cherche.</li>
 <span id="cb3-8"><a href="#cb3-8"></a><span class="co">(* vérifie si une position complete est valide *)</span></span>
 <span id="cb3-9"><a href="#cb3-9"></a><span class="kw">val</span> valide : position -&gt; <span class="dt">bool</span></span></code></pre></div>
 <p></div></p>
-<p>Schématiquement, un algorithme d’énumération aura la structure suivante en <code>OCaml</code> :</p>
+<p>Schématiquement, un algorithme d’énumération aura la structure
+suivante en <code>OCaml</code> :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">exception</span> Solution <span class="kw">of</span> position</span>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">exception</span> Solution <span class="kw">of</span> position</span>
 <span id="cb4-2"><a href="#cb4-2"></a></span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="kw">let</span> <span class="kw">rec</span> enumere pos =</span>
 <span id="cb4-4"><a href="#cb4-4"></a>    <span class="kw">if</span> complete pos</span>
@@ -401,19 +484,33 @@ si une chaîne est un mot de passe qu’on cherche.</li>
 <span id="cb4-9"><a href="#cb4-9"></a>        <span class="dt">List</span>.iter (<span class="kw">fun</span> mouv -&gt; enumere (applique pos mouv))</span>
 <span id="cb4-10"><a href="#cb4-10"></a>            (mouvements pos)</span></code></pre></div>
 <p></div></p>
-<p><div class="ui message orange"><div class="header">Remarque</div>Ici, l’usage de <code>List.iter</code> permet de faire l’équivalent d’une boucle for mais sur une liste. Pour s’en passer, on peut écrire une fonction auxiliaire récursive ou, quand les mouvements sont en petit nombre, une conversion en <code>array</code> suivie d’une boucle <code>for</code>.</div></p>
-<p>Si la position initiale est <code>pos0</code>, on pourra résoudre le problème ainsi :</p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>Ici, l’usage de <code>List.iter</code> permet de faire l’équivalent
+d’une boucle for mais sur une liste. Pour s’en passer, on peut écrire
+une fonction auxiliaire récursive ou, quand les mouvements sont en petit
+nombre, une conversion en <code>array</code> suivie d’une boucle
+<code>for</code>.</p>
+<p></div></p>
+<p>Si la position initiale est <code>pos0</code>, on pourra résoudre le
+problème ainsi :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">let</span> resout () =</span>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">let</span> resout () =</span>
 <span id="cb5-2"><a href="#cb5-2"></a>    <span class="kw">try</span></span>
 <span id="cb5-3"><a href="#cb5-3"></a>        enumere pos0;</span>
 <span id="cb5-4"><a href="#cb5-4"></a>        <span class="dt">raise</span> <span class="dt">Not_found</span></span>
 <span id="cb5-5"><a href="#cb5-5"></a>    <span class="kw">with</span> Solution pos -&gt; pos</span></code></pre></div>
 <p></div></p>
-<p>Cet algorithme de parcours des solutions est appelé le <em>retour sur trace</em>, ou <em>backtracking</em> en anglais. Il tire partie de la récursivité pour remonter les positions après avoir essayé en vain une construction.</p>
-<p><div class="ui message orange"><div class="header">Remarque</div>Il est possible de reprendre la construction précédente avec des données mutables et une manière de <em>défaire</em> les mouvements :</p>
+<p>Cet algorithme de parcours des solutions est appelé le <em>retour sur
+trace</em>, ou <em>backtracking</em> en anglais. Il tire partie de la
+récursivité pour remonter les positions après avoir essayé en vain une
+construction.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>Il est possible de reprendre la construction précédente avec des
+données mutables et une manière de <em>défaire</em> les mouvements :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">val</span> applique : position -&gt; mouvement -&gt; <span class="dt">unit</span></span>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">val</span> applique : position -&gt; mouvement -&gt; <span class="dt">unit</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="kw">val</span> defaire : position -&gt; mouvement -&gt; <span class="dt">unit</span></span>
 <span id="cb6-3"><a href="#cb6-3"></a></span>
 <span id="cb6-4"><a href="#cb6-4"></a><span class="kw">let</span> <span class="kw">rec</span> enumere pos =</span>
@@ -429,27 +526,61 @@ si une chaîne est un mot de passe qu’on cherche.</li>
 <span id="cb6-14"><a href="#cb6-14"></a>            (mouvements pos)</span></code></pre></div>
 <p></div></p>
 <p></div></p>
-<h2 data-number="2.2" id="sec:évaluation-partielle-et-raccourcis"><span class="header-section-number">2.2</span> Évaluation partielle et raccourcis</h2>
-<p>Si on reprend la construction itérative précédente, on se rend compte qu’elle n’est pas très intelligente : faut-il remplir l’intégralité d’un puzzle avant de se rendre compte qu’il est invalide en raison des deux premières pièces ?</p>
-<p>On peut donc raffiner l’approche précédente en introduisant une notion de mouvements valides qui sont les mouvements qui préservent la correction partielle.</p>
-<p>En pratique, il suffit de remplacer la fonction <code>mouvements</code> par une fonction <code>mouvements_valides</code>.</p>
-<p>C’est un changement réduit qui peut avoir un grand impact sur l’arbre des positions. En reprenant l’illustration précédente, on peut imaginer que cela reviendrait à ne pas parcourir les mouvements rouges et les sous-arbres associés :</p>
-<p><center><div class="ui image center"><img src="assets/pics/constB.png" /></div></center></p>
-<h3 data-number="2.2.1" id="sec:problème-résolution-de-sudoku"><span class="header-section-number">2.2.1</span> Problème : résolution de Sudoku</h3>
-<p>La recherche par retour sur trace se prête très bien à la résolution de problèmes comme le Sudoku. On va ici tout simplement tenter de remplir chaque case du haut vers le bas tant qu’on satisfait les contraintes du Sudoku. Le programme sera ainsi très proche de la résolution des huit reines.</p>
+<h2 data-number="2.2" id="sec:évaluation-partielle-et-raccourcis"><span
+class="header-section-number">2.2</span> Évaluation partielle et
+raccourcis</h2>
+<p>Si on reprend la construction itérative précédente, on se rend compte
+qu’elle n’est pas très intelligente : faut-il remplir l’intégralité d’un
+puzzle avant de se rendre compte qu’il est invalide en raison des deux
+premières pièces ?</p>
+<p>On peut donc raffiner l’approche précédente en introduisant une
+notion de mouvements valides qui sont les mouvements qui préservent la
+correction partielle.</p>
+<p>En pratique, il suffit de remplacer la fonction
+<code>mouvements</code> par une fonction
+<code>mouvements_valides</code>.</p>
+<p>C’est un changement réduit qui peut avoir un grand impact sur l’arbre
+des positions. En reprenant l’illustration précédente, on peut imaginer
+que cela reviendrait à ne pas parcourir les mouvements rouges et les
+sous-arbres associés :</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/constB.png" /></div></center></p>
+<h3 data-number="2.2.1" id="sec:problème-résolution-de-sudoku"><span
+class="header-section-number">2.2.1</span> Problème : résolution de
+Sudoku</h3>
+<p>La recherche par retour sur trace se prête très bien à la résolution
+de problèmes comme le Sudoku. On va ici tout simplement tenter de
+remplir chaque case du haut vers le bas tant qu’on satisfait les
+contraintes du Sudoku. Le programme sera ainsi très proche de la
+résolution des huit reines.</p>
 <p>Commençons par rappeler le principe du Sudoku :</p>
 <ul>
-<li><p>On part d’une grille de 81 cases réparties en une grille de 3x3 sous-grilles de 3x3 cases et comportant des chiffres de 1 à 9 dans certaines cases. <center><div class="ui image center"><img src="assets/pics/sudoku_exemple.png" /></div></center></p></li>
-<li><p>L’objectif est de remplir chaque case avec un chiffre de 1 à 9 de sorte que chaque ligne, chaque colonne et chaque sous-grille 3x3 comporte une et une seule fois chaque chiffre.</p></li>
+<li><p>On part d’une grille de 81 cases réparties en une grille de 3x3
+sous-grilles de 3x3 cases et comportant des chiffres de 1 à 9 dans
+certaines cases. <center><div class="ui image center"><img
+src="assets/pics/sudoku_exemple.png" /></div></center></p></li>
+<li><p>L’objectif est de remplir chaque case avec un chiffre de 1 à 9 de
+sorte que chaque ligne, chaque colonne et chaque sous-grille 3x3
+comporte une et une seule fois chaque chiffre.</p></li>
 <li><p>Un sudoku admet une unique solution.</p></li>
 </ul>
-<p>Pour représenter une grille de Sudoku en <code>OCaml</code> on utilise un <code>(int option) array array</code>, la valeur <code>None</code> signifiant que la case est vide et la valeur <code>Some x</code> qu’elle est remplie avec la valeur <span class="math inline">\(x\)</span>.</p>
+<p>Pour représenter une grille de Sudoku en <code>OCaml</code> on
+utilise un <code>(int option) array array</code>, la valeur
+<code>None</code> signifiant que la case est vide et la valeur
+<code>Some x</code> qu’elle est remplie avec la valeur <span
+class="math inline">\(x\)</span>.</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">type</span> grille = (<span class="dt">int</span> <span class="dt">option</span>) <span class="dt">array</span> <span class="dt">array</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">type</span> grille = (<span class="dt">int</span> <span class="dt">option</span>) <span class="dt">array</span> <span class="dt">array</span></span></code></pre></div>
 <p></div></p>
-<p>On fait le choix de représenté la grille par un tableau de lignes, ce qui signiie que pour accèder à la case de coordonnée <span class="math inline">\((x,y)\)</span> dans <code>g</code> il faut écrire <code>g.(y).(x)</code>.</p>
-<p>Le problème donné précédemment est alors représenté par la valeur suivante : <div class="ui segment code"></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">let</span> probleme = [|</span>
+<p>On fait le choix de représenté la grille par un tableau de lignes, ce
+qui signiie que pour accèder à la case de coordonnée <span
+class="math inline">\((x,y)\)</span> dans <code>g</code> il faut écrire
+<code>g.(y).(x)</code>.</p>
+<p>Le problème donné précédemment est alors représenté par la valeur
+suivante : <div class="ui segment code"></p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">let</span> probleme = [|</span>
 <span id="cb8-2"><a href="#cb8-2"></a>    [| <span class="dt">Some</span> <span class="dv">1</span>; <span class="dt">None</span>; <span class="dt">None</span>;    <span class="dt">None</span>; <span class="dt">None</span>; <span class="dt">None</span>;   <span class="dt">None</span>; <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">6</span> |];</span>
 <span id="cb8-3"><a href="#cb8-3"></a>    [| <span class="dt">None</span>; <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">6</span>;    <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">2</span>; <span class="dt">None</span>;   <span class="dt">Some</span> <span class="dv">7</span>; <span class="dt">None</span>; <span class="dt">None</span> |];</span>
 <span id="cb8-4"><a href="#cb8-4"></a>    [| <span class="dt">Some</span> <span class="dv">7</span>; <span class="dt">Some</span> <span class="dv">8</span>; <span class="dt">Some</span> <span class="dv">9</span>;    <span class="dt">Some</span> <span class="dv">4</span>; <span class="dt">Some</span> <span class="dv">5</span>; <span class="dt">None</span>;   <span class="dt">Some</span> <span class="dv">1</span>; <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">3</span> |];</span>
@@ -463,13 +594,22 @@ si une chaîne est un mot de passe qu’on cherche.</li>
 <span id="cb8-12"><a href="#cb8-12"></a>    [| <span class="dt">Some</span> <span class="dv">9</span>; <span class="dt">None</span>; <span class="dt">Some</span> <span class="dv">8</span>;    <span class="dt">None</span>; <span class="dt">None</span>; <span class="dt">None</span>;   <span class="dt">None</span>; <span class="dt">None</span>; <span class="dt">None</span> |];</span>
 <span id="cb8-13"><a href="#cb8-13"></a>    |]</span></code></pre></div>
 <p></div></p>
-<p>Afin de définir la fonction de résolution, on définit une première fonction <code>suivant</code> de signature :</p>
+<p>Afin de définir la fonction de résolution, on définit une première
+fonction <code>suivant</code> de signature :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">val</span> suivant : grille -&gt; (<span class="dt">int</span> * <span class="dt">int</span>) -&gt; (<span class="dt">int</span> * <span class="dt">int</span>) <span class="dt">option</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">val</span> suivant : grille -&gt; (<span class="dt">int</span> * <span class="dt">int</span>) -&gt; (<span class="dt">int</span> * <span class="dt">int</span>) <span class="dt">option</span></span></code></pre></div>
 <p></div></p>
-<p>telle que l’appel à <code>suivant g (x,y)</code> renvoie <code>Some (xi,yi)</code> quand <span class="math inline">\((x_i,y_i)\)</span> sont les coordonnées de la prochaine case libre, dans l’ordre gauche à droite puis haut vers bas, après <span class="math inline">\((x,y)\)</span> ou <code>None</code> quand il n’existe pas de telle case libre. Cela signifie alors que la grille est entièrement remplie.</p>
+<p>telle que l’appel à <code>suivant g (x,y)</code> renvoie
+<code>Some (xi,yi)</code> quand <span
+class="math inline">\((x_i,y_i)\)</span> sont les coordonnées de la
+prochaine case libre, dans l’ordre gauche à droite puis haut vers bas,
+après <span class="math inline">\((x,y)\)</span> ou <code>None</code>
+quand il n’existe pas de telle case libre. Cela signifie alors que la
+grille est entièrement remplie.</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">let</span> <span class="kw">rec</span> suivant g (x,y) =</span>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">let</span> <span class="kw">rec</span> suivant g (x,y) =</span>
 <span id="cb10-2"><a href="#cb10-2"></a>    <span class="kw">if</span> y &gt; <span class="dv">8</span></span>
 <span id="cb10-3"><a href="#cb10-3"></a>    <span class="kw">then</span> <span class="dt">None</span></span>
 <span id="cb10-4"><a href="#cb10-4"></a>    <span class="kw">else</span> <span class="kw">if</span> g.(y).(x) = <span class="dt">None</span></span>
@@ -477,13 +617,23 @@ si une chaîne est un mot de passe qu’on cherche.</li>
 <span id="cb10-6"><a href="#cb10-6"></a>    <span class="kw">else</span> <span class="kw">if</span> x &lt; <span class="dv">8</span> <span class="kw">then</span> suivant g (x+<span class="dv">1</span>, y)</span>
 <span id="cb10-7"><a href="#cb10-7"></a>    <span class="kw">else</span> suivant g (<span class="dv">0</span>, y+<span class="dv">1</span>)</span></code></pre></div>
 <p></div></p>
-<p>On définit également une fonction <code>valide</code> de signature</p>
+<p>On définit également une fonction <code>valide</code> de
+signature</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">val</span> valide : grille -&gt; <span class="dt">int</span> -&gt; <span class="dt">int</span> -&gt; <span class="dt">bool</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">val</span> valide : grille -&gt; <span class="dt">int</span> -&gt; <span class="dt">int</span> -&gt; <span class="dt">bool</span></span></code></pre></div>
 <p></div></p>
-<p>telle que l’appel à <code>valide g x y</code> renvoie <code>true</code> si et seulement si la valeur placée en coordonnée <span class="math inline">\((x,y)\)</span> n’invalide pas la grille. Ne pas prendre cette valeur en paramètre permettant d’écrire un peu plus simplement cette fonction. La fonction est assez directe, étant donné <span class="math inline">\((x,y)\)</span> on va parcourir sa ligne, sa colonne et sa sous-grille pour vérifier qu’un nombre n’a pas été placé deux fois à l’aide d’un tableau de drapeaux :</p>
+<p>telle que l’appel à <code>valide g x y</code> renvoie
+<code>true</code> si et seulement si la valeur placée en coordonnée
+<span class="math inline">\((x,y)\)</span> n’invalide pas la grille. Ne
+pas prendre cette valeur en paramètre permettant d’écrire un peu plus
+simplement cette fonction. La fonction est assez directe, étant donné
+<span class="math inline">\((x,y)\)</span> on va parcourir sa ligne, sa
+colonne et sa sous-grille pour vérifier qu’un nombre n’a pas été placé
+deux fois à l’aide d’un tableau de drapeaux :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">let</span> valide g x y =</span>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">let</span> valide g x y =</span>
 <span id="cb12-2"><a href="#cb12-2"></a>    <span class="kw">let</span> v = <span class="dt">ref</span> <span class="kw">true</span> <span class="kw">in</span></span>
 <span id="cb12-3"><a href="#cb12-3"></a>    <span class="kw">let</span> vus_colonne = <span class="dt">Array</span>.make <span class="dv">9</span> <span class="kw">false</span> <span class="kw">in</span></span>
 <span id="cb12-4"><a href="#cb12-4"></a>    <span class="kw">for</span> y0 = <span class="dv">0</span> <span class="kw">to</span> <span class="dv">8</span> <span class="kw">do</span></span>
@@ -518,9 +668,16 @@ si une chaîne est un mot de passe qu’on cherche.</li>
 <span id="cb12-33"><a href="#cb12-33"></a>    <span class="kw">done</span>;</span>
 <span id="cb12-34"><a href="#cb12-34"></a>    !v</span></code></pre></div>
 <p></div></p>
-<p>On peut alors définir la fonction <code>resout</code> qui va résoudre le Sudoku en effectuant tous les remplissages tant qu’on a une grille valide. Dès qu’une solution est trouvée, on s’arrête. Pour cela, on utilise le mécanisme des exceptions pour permettre une sortie prématurée. On a fait le choix de travailler en place dans la grille, ainsi à la fin de l’exécution de la fonction, la grille correspond à la solution.</p>
+<p>On peut alors définir la fonction <code>resout</code> qui va résoudre
+le Sudoku en effectuant tous les remplissages tant qu’on a une grille
+valide. Dès qu’une solution est trouvée, on s’arrête. Pour cela, on
+utilise le mécanisme des exceptions pour permettre une sortie
+prématurée. On a fait le choix de travailler en place dans la grille,
+ainsi à la fin de l’exécution de la fonction, la grille correspond à la
+solution.</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">exception</span> Solution</span>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">exception</span> Solution</span>
 <span id="cb13-2"><a href="#cb13-2"></a></span>
 <span id="cb13-3"><a href="#cb13-3"></a><span class="kw">let</span> resout g =</span>
 <span id="cb13-4"><a href="#cb13-4"></a>    <span class="kw">let</span> <span class="kw">rec</span> aux xi yi = <span class="kw">match</span> suivant g (xi, yi) <span class="kw">with</span></span>
@@ -539,13 +696,19 @@ si une chaîne est un mot de passe qu’on cherche.</li>
 <span id="cb13-17"><a href="#cb13-17"></a>        aux <span class="dv">0</span> <span class="dv">0</span></span>
 <span id="cb13-18"><a href="#cb13-18"></a>    <span class="kw">with</span> Solution -&gt; ()</span></code></pre></div>
 <p></div></p>
-<p>La résolution du Sudoku donnée précédemment par ce programme est présenté dans la vidéo suivante :</p>
+<p>La résolution du Sudoku donnée précédemment par ce programme est
+présenté dans la vidéo suivante :</p>
 <p><center><video width="400" height="380" controls="controls"><source src="assets/pics/sudoku.mp4" type="video/mp4" /></video></center></p>
-<h2 data-number="2.3" id="sec:énumération-de-toutes-les-solutions"><span class="header-section-number">2.3</span> Énumération de toutes les solutions</h2>
-<p>Le problème précédent du Sudoku n’avait par définition qu’une unique solution. Cependant, il existe des problèmes pour lesquels plusieurs solutions existent et pour lesquels on souhaite les énumérer.</p>
+<h2 data-number="2.3" id="sec:énumération-de-toutes-les-solutions"><span
+class="header-section-number">2.3</span> Énumération de toutes les
+solutions</h2>
+<p>Le problème précédent du Sudoku n’avait par définition qu’une unique
+solution. Cependant, il existe des problèmes pour lesquels plusieurs
+solutions existent et pour lesquels on souhaite les énumérer.</p>
 <p>La fonction précédente pourra alors devenir :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">let</span> <span class="kw">rec</span> enumere pos =</span>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">let</span> <span class="kw">rec</span> enumere pos =</span>
 <span id="cb14-2"><a href="#cb14-2"></a>    <span class="kw">if</span> complete pos</span>
 <span id="cb14-3"><a href="#cb14-3"></a>    <span class="kw">then</span> <span class="kw">begin</span></span>
 <span id="cb14-4"><a href="#cb14-4"></a>        <span class="kw">if</span> valide pos</span>
@@ -556,33 +719,65 @@ si une chaîne est un mot de passe qu’on cherche.</li>
 <span id="cb14-9"><a href="#cb14-9"></a>            (<span class="dt">List</span>.map (<span class="kw">fun</span> mouv -&gt; enumere (applique pos mouv))</span>
 <span id="cb14-10"><a href="#cb14-10"></a>                (mouvements_valides pos))</span></code></pre></div>
 <p></div></p>
-<p><div class="ui message orange"><div class="header">Remarque</div>La fonction <code>List.concat</code> permet de concaténer une <code>'a list list</code> d’un coup comme dans :</p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>La fonction <code>List.concat</code> permet de concaténer une
+<code>'a list list</code> d’un coup comme dans :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb15-1"><a href="#cb15-1"></a># <span class="dt">List</span>.concat [ [<span class="dv">1</span>;<span class="dv">2</span>]; [<span class="dv">3</span>]; []; [<span class="dv">4</span>;<span class="dv">5</span>;<span class="dv">6</span>] ];;</span>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb15-1"><a href="#cb15-1"></a># <span class="dt">List</span>.concat [ [<span class="dv">1</span>;<span class="dv">2</span>]; [<span class="dv">3</span>]; []; [<span class="dv">4</span>;<span class="dv">5</span>;<span class="dv">6</span>] ];;</span>
 <span id="cb15-2"><a href="#cb15-2"></a>- : <span class="dt">int</span> <span class="dt">list</span> = [<span class="dv">1</span>; <span class="dv">2</span>; <span class="dv">3</span>; <span class="dv">4</span>; <span class="dv">5</span>; <span class="dv">6</span>]</span></code></pre></div>
-<p></div> </div></p>
-<h3 data-number="2.3.1" id="sec:problèmes-des-huit-reines"><span class="header-section-number">2.3.1</span> Problèmes des huit reines</h3>
-<p>L’exemple classique de ce problème est celui des huit reines : étant donné un échiquier, peut-on placer huit reines de sorte qu’aucune reine ne puisse prendre une autre reine ? Plus précisément : sur un plateau de 8x8 cases, peut-on placer huit pions tels que deux pions quelconques ne soient jamais sur la même ligne ou la même diagonale ?</p>
+<p></div></p>
+<p></div></p>
+<h3 data-number="2.3.1" id="sec:problèmes-des-huit-reines"><span
+class="header-section-number">2.3.1</span> Problèmes des huit
+reines</h3>
+<p>L’exemple classique de ce problème est celui des huit reines : étant
+donné un échiquier, peut-on placer huit reines de sorte qu’aucune reine
+ne puisse prendre une autre reine ? Plus précisément : sur un plateau de
+8x8 cases, peut-on placer huit pions tels que deux pions quelconques ne
+soient jamais sur la même ligne ou la même diagonale ?</p>
 <p>Exemple de solution :</p>
-<p><center><div class="ui image center"><img src="assets/pics/huit_reines_ex.png" /></div></center></p>
-<p>Ce problème admet effectivement des solutions partielles en ne considérant que <span class="math inline">\(k\)</span> reines à placer. Pour énumérer les solutions, on peut même se contenter de solutions partielles où les <span class="math inline">\(k\)</span> reines sont placées sur les <span class="math inline">\(k\)</span> premières rangées.</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/huit_reines_ex.png" /></div></center></p>
+<p>Ce problème admet effectivement des solutions partielles en ne
+considérant que <span class="math inline">\(k\)</span> reines à placer.
+Pour énumérer les solutions, on peut même se contenter de solutions
+partielles où les <span class="math inline">\(k\)</span> reines sont
+placées sur les <span class="math inline">\(k\)</span> premières
+rangées.</p>
 <p>Voici ainsi un algorithme pour énumérer les solutions :</p>
 <ul>
-<li><p>Supposons que <span class="math inline">\(k\)</span> reines aient été placées et qu’on dispose d’une solution partielle.</p>
+<li><p>Supposons que <span class="math inline">\(k\)</span> reines aient
+été placées et qu’on dispose d’une solution partielle.</p>
 <ul>
-<li>Si <span class="math inline">\(k = 8\)</span> alors toutes les reines sont placées et la solution est complète, on la comptabilise</li>
-<li>Sinon, on continue la recherche pour chaque position de la <span class="math inline">\(k+1\)</span> reine sur la <span class="math inline">\(k+1\)</span> rangée qui préserve le fait d’être une solution partielle.</li>
+<li>Si <span class="math inline">\(k = 8\)</span> alors toutes les
+reines sont placées et la solution est complète, on la comptabilise</li>
+<li>Sinon, on continue la recherche pour chaque position de la <span
+class="math inline">\(k+1\)</span> reine sur la <span
+class="math inline">\(k+1\)</span> rangée qui préserve le fait d’être
+une solution partielle.</li>
 </ul></li>
 </ul>
-<p>Ici, quand on dit qu’on continue la recherche, ce qu’on signifie, c’est qu’on effectue un appel récursif.</p>
-<p>Pour programmer cette méthode, on va définir une fonction récursive de signature :</p>
+<p>Ici, quand on dit qu’on continue la recherche, ce qu’on signifie,
+c’est qu’on effectue un appel récursif.</p>
+<p>Pour programmer cette méthode, on va définir une fonction récursive
+de signature :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">val</span> resout_reines : (<span class="dt">int</span> * <span class="dt">int</span>) <span class="dt">list</span> -&gt; (<span class="dt">int</span> * <span class="dt">int</span>) <span class="dt">list</span> <span class="dt">list</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">val</span> resout_reines : (<span class="dt">int</span> * <span class="dt">int</span>) <span class="dt">list</span> -&gt; (<span class="dt">int</span> * <span class="dt">int</span>) <span class="dt">list</span> <span class="dt">list</span></span></code></pre></div>
 <p></div></p>
-<p>Un appel à <code>resout_reines part</code> va ainsi renvoyer la liste des solutions complètes construites à partir de la solution partielle <code>part</code>. Les solutions sont représentées par des listes de couples de coordonnées sur l’échiquier, donc dans <span class="math inline">\([|0;7|]^2\)</span></p>
-<p>Voici une implémentation où on explore les solutions à l’aide d’une boucle impérative dans l’appel récursif. La fonction <code>valide</code> permet de tester si le placement d’une reine est possible avant d’effectuer un appel.</p>
+<p>Un appel à <code>resout_reines part</code> va ainsi renvoyer la liste
+des solutions complètes construites à partir de la solution partielle
+<code>part</code>. Les solutions sont représentées par des listes de
+couples de coordonnées sur l’échiquier, donc dans <span
+class="math inline">\([|0;7|]^2\)</span></p>
+<p>Voici une implémentation où on explore les solutions à l’aide d’une
+boucle impérative dans l’appel récursif. La fonction <code>valide</code>
+permet de tester si le placement d’une reine est possible avant
+d’effectuer un appel.</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">let</span> <span class="kw">rec</span> valide (x1,y1) l =</span>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">let</span> <span class="kw">rec</span> valide (x1,y1) l =</span>
 <span id="cb17-2"><a href="#cb17-2"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
 <span id="cb17-3"><a href="#cb17-3"></a>    | [] -&gt; <span class="kw">true</span></span>
 <span id="cb17-4"><a href="#cb17-4"></a>    | (x2,y2)::q -&gt;</span>
@@ -604,9 +799,11 @@ si une chaîne est un mot de passe qu’on cherche.</li>
 <span id="cb17-20"><a href="#cb17-20"></a>        !resultats</span>
 <span id="cb17-21"><a href="#cb17-21"></a>    <span class="kw">end</span></span></code></pre></div>
 <p></div></p>
-<p>et, ici, une autre implémentation purement récursive à l’aide d’une fonction récursive.</p>
+<p>et, ici, une autre implémentation purement récursive à l’aide d’une
+fonction récursive.</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">let</span> <span class="kw">rec</span> resout_reines part =</span>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">let</span> <span class="kw">rec</span> resout_reines part =</span>
 <span id="cb18-2"><a href="#cb18-2"></a>    <span class="kw">let</span> k = <span class="dt">List</span>.length part <span class="kw">in</span></span>
 <span id="cb18-3"><a href="#cb18-3"></a>    <span class="kw">if</span> k = <span class="dv">8</span> </span>
 <span id="cb18-4"><a href="#cb18-4"></a>    <span class="kw">then</span> [ part ]</span>
@@ -622,21 +819,43 @@ si une chaîne est un mot de passe qu’on cherche.</li>
 <span id="cb18-14"><a href="#cb18-14"></a>        <span class="kw">in</span></span>
 <span id="cb18-15"><a href="#cb18-15"></a>        aux <span class="dv">7</span> [] </span></code></pre></div>
 <p></div></p>
-<p>Une partie de l’arbre de recherche est présenté sur l’image suivante :</p>
+<p>Une partie de l’arbre de recherche est présenté sur l’image suivante
+:</p>
 <figure>
-<img src="../assets/pics/reines_arbre.png" width="1000" alt="Arbre de recherche pour les huit reines" /><figcaption aria-hidden="true">Arbre de recherche pour les huit reines</figcaption>
+<img src="../assets/pics/reines_arbre.png" width="1000"
+alt="Arbre de recherche pour les huit reines" />
+<figcaption aria-hidden="true">Arbre de recherche pour les huit
+reines</figcaption>
 </figure>
-<p>L’arbre complet comporte 2057 nœuds dont 92 feuilles correspondant aux solutions du problème. À titre de comparaison, l’arbre exhaustif correspondant à faire tous les choix de placement à raison d’une reine par ligne compterait <span class="math inline">\(8^8 = 16777216\)</span> nœuds. On voit bien que le backtracking est plus économe en exploration.</p>
-<h2 data-number="2.4" id="sec:tp-tours-du-cavalier"><span class="header-section-number">2.4</span> TP : tours du cavalier</h2>
-<h2 data-number="2.5" id="sec:tp-jeu-du-solitaire"><span class="header-section-number">2.5</span> TP : jeu du solitaire</h2>
-<p>On considère ici le jeu du solitaire. On a un plateau comportant 33 emplacements et initialement 32 pions, représenté par des ronds blancs, et un emplacement vide au centre :</p>
-<p><center><div class="ui image center"><img src="assets/pics/solitaire.png" /></div></center></p>
-<p>Les différents mouvements possibles consiste à passer d’une configuration <span class="math inline">\(\bullet \bullet \circ\)</span> à <span class="math inline">\(\circ \circ \bullet\)</span> et ainsi à diminuer d’un pion le nombre total de pions. Ces configurations peuvent être rencontrées dans les directions horizontales ou verticales.</p>
-<p>On considère que la partie est gagnée quand il n’y a plus qu’un pion sur le plateau.</p>
-<h3 data-number="2.5.1" id="sec:première-implémentation-naïve"><span class="header-section-number">2.5.1</span> Première implémentation naïve</h3>
+<p>L’arbre complet comporte 2057 nœuds dont 92 feuilles correspondant
+aux solutions du problème. À titre de comparaison, l’arbre exhaustif
+correspondant à faire tous les choix de placement à raison d’une reine
+par ligne compterait <span class="math inline">\(8^8 = 16777216\)</span>
+nœuds. On voit bien que le backtracking est plus économe en
+exploration.</p>
+<h2 data-number="2.4" id="sec:tp-tours-du-cavalier"><span
+class="header-section-number">2.4</span> TP : tours du cavalier</h2>
+<h2 data-number="2.5" id="sec:tp-jeu-du-solitaire"><span
+class="header-section-number">2.5</span> TP : jeu du solitaire</h2>
+<p>On considère ici le jeu du solitaire. On a un plateau comportant 33
+emplacements et initialement 32 pions, représenté par des ronds blancs,
+et un emplacement vide au centre :</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/solitaire.png" /></div></center></p>
+<p>Les différents mouvements possibles consiste à passer d’une
+configuration <span class="math inline">\(\bullet \bullet \circ\)</span>
+à <span class="math inline">\(\circ \circ \bullet\)</span> et ainsi à
+diminuer d’un pion le nombre total de pions. Ces configurations peuvent
+être rencontrées dans les directions horizontales ou verticales.</p>
+<p>On considère que la partie est gagnée quand il n’y a plus qu’un pion
+sur le plateau.</p>
+<h3 data-number="2.5.1" id="sec:première-implémentation-naïve"><span
+class="header-section-number">2.5.1</span> Première implémentation
+naïve</h3>
 <p>On va représenter un plateau par le type <code>OCaml</code> :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">type</span> case = Vide | Pion | Invalide</span>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">type</span> case = Vide | Pion | Invalide</span>
 <span id="cb19-2"><a href="#cb19-2"></a><span class="kw">type</span> plateau = case <span class="dt">array</span> <span class="dt">array</span></span>
 <span id="cb19-3"><a href="#cb19-3"></a><span class="kw">let</span> n = <span class="dv">7</span></span>
 <span id="cb19-4"><a href="#cb19-4"></a><span class="co">(* Un plateau est une matrice 7x7 avec des cases invalides aux coins *)</span></span></code></pre></div>
@@ -645,10 +864,13 @@ si une chaîne est un mot de passe qu’on cherche.</li>
 <div class="header">
 Question
 </div>
-<p>Définir une fonction <code>print_plateau</code> qui affiche un plateau sous un format textuel lisible.</p>
+<p>Définir une fonction <code>print_plateau</code> qui affiche un
+plateau sous un format textuel lisible.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">let</span> print_plateau p =</span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">let</span> print_plateau p =</span>
 <span id="cb20-2"><a href="#cb20-2"></a>    <span class="kw">for</span> j = <span class="dv">0</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
 <span id="cb20-3"><a href="#cb20-3"></a>        <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
 <span id="cb20-4"><a href="#cb20-4"></a>            <span class="kw">let</span> c = <span class="kw">match</span> p.(i).(j) <span class="kw">with</span></span>
@@ -660,16 +882,18 @@ Question
 <span id="cb20-10"><a href="#cb20-10"></a>        <span class="dt">print_newline</span> ()</span>
 <span id="cb20-11"><a href="#cb20-11"></a>    <span class="kw">done</span>;</span>
 <span id="cb20-12"><a href="#cb20-12"></a>    <span class="dt">print_newline</span> ()</span></code></pre></div>
-<p></div></p>
-<p></div> </div></p>
+<p></div> </div> </div></p>
 <div class="ui message blue">
 <div class="header">
 Question
 </div>
-<p>Écrire une fonction <code>plateau_initial : unit -&gt; plateau</code> qui renvoie un plateau correspondant à la configuration de départ.</p>
+<p>Écrire une fonction <code>plateau_initial : unit -&gt; plateau</code>
+qui renvoie un plateau correspondant à la configuration de départ.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">let</span> plateau_initial () =</span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">let</span> plateau_initial () =</span>
 <span id="cb21-2"><a href="#cb21-2"></a>    [|</span>
 <span id="cb21-3"><a href="#cb21-3"></a>        [| Invalide; Invalide; Pion; Pion; Pion; Invalide; Invalide |];</span>
 <span id="cb21-4"><a href="#cb21-4"></a>        [| Invalide; Invalide; Pion; Pion; Pion; Invalide; Invalide |];</span>
@@ -679,20 +903,29 @@ Question
 <span id="cb21-8"><a href="#cb21-8"></a>        [| Invalide; Invalide; Pion; Pion; Pion; Invalide; Invalide |];</span>
 <span id="cb21-9"><a href="#cb21-9"></a>        [| Invalide; Invalide; Pion; Pion; Pion; Invalide; Invalide |]</span>
 <span id="cb21-10"><a href="#cb21-10"></a>    |]</span></code></pre></div>
-<p></div></p>
-<p></div> </div></p>
-<p>Un mouvement peut être assimilé à un triplet de coordonnées décrivant, dans l’ordre <span class="math inline">\(\bullet \bullet \circ\)</span> les trois cases concernées. Il se trouve que la case centrale est toujours le milieu des deux autres, on peut donc se contenter de donner un couple de coordonnées pour décrire un mouvement.</p>
+<p></div> </div> </div></p>
+<p>Un mouvement peut être assimilé à un triplet de coordonnées
+décrivant, dans l’ordre <span class="math inline">\(\bullet \bullet
+\circ\)</span> les trois cases concernées. Il se trouve que la case
+centrale est toujours le milieu des deux autres, on peut donc se
+contenter de donner un couple de coordonnées pour décrire un
+mouvement.</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">type</span> mouvement = (<span class="dt">int</span> * <span class="dt">int</span>) * (<span class="dt">int</span> * <span class="dt">int</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">type</span> mouvement = (<span class="dt">int</span> * <span class="dt">int</span>) * (<span class="dt">int</span> * <span class="dt">int</span>)</span></code></pre></div>
 <p></div></p>
 <div class="ui message blue">
 <div class="header">
 Question
 </div>
-<p>Écrire une fonction <code>mouvements : plateau -&gt; mouvement list</code> qui renvoie la liste des mouvements possibles sur le plateau passé en paramètre.</p>
+<p>Écrire une fonction
+<code>mouvements : plateau -&gt; mouvement list</code> qui renvoie la
+liste des mouvements possibles sur le plateau passé en paramètre.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw">let</span> possible p (i1,j1) (i3,j3) =</span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw">let</span> possible p (i1,j1) (i3,j3) =</span>
 <span id="cb23-2"><a href="#cb23-2"></a>    <span class="kw">let</span> i2, j2 = (i1+i3)/<span class="dv">2</span>, (j1+j3)/<span class="dv">2</span> <span class="kw">in</span></span>
 <span id="cb23-3"><a href="#cb23-3"></a>    p.(i1).(j1) = Pion &amp;&amp; p.(i2).(j2) = Pion &amp;&amp; p.(i3).(j3) = Vide</span>
 <span id="cb23-4"><a href="#cb23-4"></a></span>
@@ -712,17 +945,20 @@ Question
 <span id="cb23-18"><a href="#cb23-18"></a>        <span class="kw">done</span></span>
 <span id="cb23-19"><a href="#cb23-19"></a>    <span class="kw">done</span>;</span>
 <span id="cb23-20"><a href="#cb23-20"></a>    !l</span></code></pre></div>
-<p></div></p>
-<p></div> </div></p>
+<p></div> </div> </div></p>
 <div class="ui message blue">
 <div class="header">
 Question
 </div>
-<p>Écrire une fonction <code>compte_pions : plateau -&gt; int</code> qui renvoie le nombre de pions sur un plateau.</p>
-<p>En déduire une fonction <code>valide : plateau -&gt; bool</code> qui indique si un plateau correspond à une partie gagnante.</p>
+<p>Écrire une fonction <code>compte_pions : plateau -&gt; int</code> qui
+renvoie le nombre de pions sur un plateau.</p>
+<p>En déduire une fonction <code>valide : plateau -&gt; bool</code> qui
+indique si un plateau correspond à une partie gagnante.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw">let</span> compte_pions p =</span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw">let</span> compte_pions p =</span>
 <span id="cb24-2"><a href="#cb24-2"></a>    <span class="kw">let</span> c = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
 <span id="cb24-3"><a href="#cb24-3"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
 <span id="cb24-4"><a href="#cb24-4"></a>        <span class="kw">for</span> j = <span class="dv">0</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
@@ -733,16 +969,19 @@ Question
 <span id="cb24-9"><a href="#cb24-9"></a>    !c</span>
 <span id="cb24-10"><a href="#cb24-10"></a></span>
 <span id="cb24-11"><a href="#cb24-11"></a><span class="kw">let</span> valide p = compte_pions p = <span class="dv">1</span></span></code></pre></div>
-<p></div></p>
-<p></div> </div></p>
+<p></div> </div> </div></p>
 <div class="ui message blue">
 <div class="header">
 Question
 </div>
-<p>Écrire deux fonctions <code>faire</code> et <code>defaire</code> de type <code>plateau -&gt; mouvement -&gt; unit</code> permettant de faire et défaire un mouvement.</p>
+<p>Écrire deux fonctions <code>faire</code> et <code>defaire</code> de
+type <code>plateau -&gt; mouvement -&gt; unit</code> permettant de faire
+et défaire un mouvement.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw">let</span> applique p mouv =</span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw">let</span> applique p mouv =</span>
 <span id="cb25-2"><a href="#cb25-2"></a>    <span class="kw">let</span> (i1,j1), (i3,j3) = mouv <span class="kw">in</span></span>
 <span id="cb25-3"><a href="#cb25-3"></a>    <span class="kw">let</span> i2, j2 = (i1+i3)/<span class="dv">2</span>, (j1+j3)/<span class="dv">2</span> <span class="kw">in</span></span>
 <span id="cb25-4"><a href="#cb25-4"></a>    p.(i1).(j1) &lt;- Vide;</span>
@@ -755,18 +994,30 @@ Question
 <span id="cb25-11"><a href="#cb25-11"></a>    p.(i1).(j1) &lt;- Pion;</span>
 <span id="cb25-12"><a href="#cb25-12"></a>    p.(i2).(j2) &lt;- Pion;</span>
 <span id="cb25-13"><a href="#cb25-13"></a>    p.(i3).(j3) &lt;- Vide</span></code></pre></div>
-<p></div></p>
-<p></div> </div></p>
+<p></div> </div> </div></p>
 <div class="ui message blue">
 <div class="header">
 Question
 </div>
-<p>Écrire une fonction <code>enumere : plateau -&gt; mouvement list -&gt; unit</code> telle que <code>enumere pos chemin</code> énumère les plateaux accessibles depuis <code>pos</code> jusqu’à obtenir une solution et sachant que <code>chemin</code> est la liste de mouvements, du plus récent au plus ancien, qui ont conduit jusqu’à <code>pos</code>.</p>
-<p>En cas de succès, on produira une exception <code>Solution of mouvement list</code> renvoyant la liste des mouvements ayant conduits à une solution.</p>
-<p>En déduire une fonction <code>resout : unit -&gt; mouvement list</code> qui renvoie une liste de mouvement permettant de résoudre le solitaire. On prendra garde à renverser le chemin obtenu pour que le premier mouvement de la liste soit le premier mouvement effectué.</p>
+<p>Écrire une fonction
+<code>enumere : plateau -&gt; mouvement list -&gt; unit</code> telle que
+<code>enumere pos chemin</code> énumère les plateaux accessibles depuis
+<code>pos</code> jusqu’à obtenir une solution et sachant que
+<code>chemin</code> est la liste de mouvements, du plus récent au plus
+ancien, qui ont conduit jusqu’à <code>pos</code>.</p>
+<p>En cas de succès, on produira une exception
+<code>Solution of mouvement list</code> renvoyant la liste des
+mouvements ayant conduits à une solution.</p>
+<p>En déduire une fonction
+<code>resout : unit -&gt; mouvement list</code> qui renvoie une liste de
+mouvement permettant de résoudre le solitaire. On prendra garde à
+renverser le chemin obtenu pour que le premier mouvement de la liste
+soit le premier mouvement effectué.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw">exception</span> Solution <span class="kw">of</span> mouvement <span class="dt">list</span></span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw">exception</span> Solution <span class="kw">of</span> mouvement <span class="dt">list</span></span>
 <span id="cb26-2"><a href="#cb26-2"></a></span>
 <span id="cb26-3"><a href="#cb26-3"></a><span class="kw">let</span> <span class="kw">rec</span> enumere pos chemin =</span>
 <span id="cb26-4"><a href="#cb26-4"></a>    <span class="kw">if</span> valide pos</span>
@@ -783,22 +1034,49 @@ Question
 <span id="cb26-15"><a href="#cb26-15"></a>        enumere pos [];</span>
 <span id="cb26-16"><a href="#cb26-16"></a>        <span class="dt">raise</span> <span class="dt">Not_found</span></span>
 <span id="cb26-17"><a href="#cb26-17"></a>    <span class="kw">with</span> Solution l -&gt; <span class="dt">List</span>.rev l</span></code></pre></div>
-<p></div></p>
-<p></div> </div></p>
-<p>Ce code ne permet pas de calculer la solution car il prend beaucoup trop de temps en raison du nombre de positions étudiées.</p>
-<h3 data-number="2.5.2" id="sec:cache-des-mauvaises-positions"><span class="header-section-number">2.5.2</span> Cache des mauvaises positions</h3>
-<p>On se rend compte que de nombreuses positions sont réetudiées alors qu’on sait déjà qu’elles ne peuvent permettre d’aboutir à une solution. En effet, il y a souvent des coups indépendants pouvant être joués au même moment, ce qui fait qu’on peut aboutir à une même position de beaucoup de manière différente, ce qui augmente exceptionnellement le nombre d’appels récursifs.</p>
-<p>Une stratégie consiste a maintenir un ensemble de configurations mauvaises. Pour réaliser un tel ensemble, on va utiliser une table de hâchage dont les clés sont les positions et les valeurs <code>unit</code>. Si une position a une valeur associée dans la table, c’est qu’elle sera mauvaise.</p>
-<p>Cela pose la question de la représentation persistante et immuable des positions. Une première stratégie peut consister à transformer le plateau en <code>case list list</code>. Cette stratégie est beaucoup trop coûteuse et elle ne permet pas de répondre instantanément. On va profiter du fait qu’il n’y est que 49 cases dans le plateau pour le représenter par un entiers sur 49 bits : <span class="math inline">\(a_{00} + a_{10} 2 + a_{20} 2^2 + ... + a_{60} 2^6 + a_{01} 2^7 + ... + a_{66} 2^{48}\)</span> où <span class="math inline">\(a_{ij}\)</span> vaut 1 lorsqu’il y a un pion sur la jième ligne et la ième colonne, c’est-à-dire quand <code>p.(i).(j) = Pion</code>.</p>
-<p><em>Indication</em> l’entier <code>1 lsl n</code> est <span class="math inline">\(2^n\)</span>. <code>lsl</code> signifie qu’on décale le chiffre <code>1</code> de <code>n</code> bits vers la droite dans son écriture binaire.</p>
+<p></div> </div> </div></p>
+<p>Ce code ne permet pas de calculer la solution car il prend beaucoup
+trop de temps en raison du nombre de positions étudiées.</p>
+<h3 data-number="2.5.2" id="sec:cache-des-mauvaises-positions"><span
+class="header-section-number">2.5.2</span> Cache des mauvaises
+positions</h3>
+<p>On se rend compte que de nombreuses positions sont réetudiées alors
+qu’on sait déjà qu’elles ne peuvent permettre d’aboutir à une solution.
+En effet, il y a souvent des coups indépendants pouvant être joués au
+même moment, ce qui fait qu’on peut aboutir à une même position de
+beaucoup de manière différente, ce qui augmente exceptionnellement le
+nombre d’appels récursifs.</p>
+<p>Une stratégie consiste a maintenir un ensemble de configurations
+mauvaises. Pour réaliser un tel ensemble, on va utiliser une table de
+hâchage dont les clés sont les positions et les valeurs
+<code>unit</code>. Si une position a une valeur associée dans la table,
+c’est qu’elle sera mauvaise.</p>
+<p>Cela pose la question de la représentation persistante et immuable
+des positions. Une première stratégie peut consister à transformer le
+plateau en <code>case list list</code>. Cette stratégie est beaucoup
+trop coûteuse et elle ne permet pas de répondre instantanément. On va
+profiter du fait qu’il n’y est que 49 cases dans le plateau pour le
+représenter par un entiers sur 49 bits : <span
+class="math inline">\(a_{00} + a_{10} 2 + a_{20} 2^2 + ... + a_{60} 2^6
++ a_{01} 2^7 + ... + a_{66} 2^{48}\)</span> où <span
+class="math inline">\(a_{ij}\)</span> vaut 1 lorsqu’il y a un pion sur
+la jième ligne et la ième colonne, c’est-à-dire quand
+<code>p.(i).(j) = Pion</code>.</p>
+<p><em>Indication</em> l’entier <code>1 lsl n</code> est <span
+class="math inline">\(2^n\)</span>. <code>lsl</code> signifie qu’on
+décale le chiffre <code>1</code> de <code>n</code> bits vers la droite
+dans son écriture binaire.</p>
 <div class="ui message blue">
 <div class="header">
 Question
 </div>
-<p>Écrire une fonction <code>code : plateau -&gt; int</code> qui renvoie le numéro associé à un plateau.</p>
+<p>Écrire une fonction <code>code : plateau -&gt; int</code> qui renvoie
+le numéro associé à un plateau.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb27-1"><a href="#cb27-1"></a><span class="kw">let</span> code p =</span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb27-1"><a href="#cb27-1"></a><span class="kw">let</span> code p =</span>
 <span id="cb27-2"><a href="#cb27-2"></a>    <span class="kw">let</span> c = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
 <span id="cb27-3"><a href="#cb27-3"></a>    <span class="kw">for</span> j = <span class="dv">0</span> <span class="kw">to</span> <span class="dv">6</span> <span class="kw">do</span></span>
 <span id="cb27-4"><a href="#cb27-4"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> <span class="dv">6</span> <span class="kw">do</span></span>
@@ -807,23 +1085,28 @@ Question
 <span id="cb27-7"><a href="#cb27-7"></a>    <span class="kw">done</span></span>
 <span id="cb27-8"><a href="#cb27-8"></a>    <span class="kw">done</span>;</span>
 <span id="cb27-9"><a href="#cb27-9"></a>    !c</span></code></pre></div>
-<p></div></p>
-<p></div> </div></p>
+<p></div> </div> </div></p>
 <p>Pour manipuler un ensemble, on va définir</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb28-1"><a href="#cb28-1"></a><span class="kw">let</span> mauvaises = <span class="dt">Hashtbl</span>.create <span class="dv">42</span></span>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb28-1"><a href="#cb28-1"></a><span class="kw">let</span> mauvaises = <span class="dt">Hashtbl</span>.create <span class="dv">42</span></span>
 <span id="cb28-2"><a href="#cb28-2"></a><span class="kw">let</span> ajoute x = <span class="dt">Hashtbl</span>.add mauvaises x ()</span>
 <span id="cb28-3"><a href="#cb28-3"></a><span class="kw">let</span> contient x = <span class="dt">Hashtbl</span>.mem mauvaises x</span></code></pre></div>
 <p></div></p>
-<p>L’appel à <code>ajoute x</code> rajoute <code>x</code> dans l’ensemble des mauvaises positions et <code>contient x</code> vérifie si <code>x</code> est dans cet ensemble.</p>
+<p>L’appel à <code>ajoute x</code> rajoute <code>x</code> dans
+l’ensemble des mauvaises positions et <code>contient x</code> vérifie si
+<code>x</code> est dans cet ensemble.</p>
 <div class="ui message blue">
 <div class="header">
 Question
 </div>
-<p>Reprendre la fonction <code>enumere</code> avec un ensemble de mauvais codes.</p>
+<p>Reprendre la fonction <code>enumere</code> avec un ensemble de
+mauvais codes.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Réponse </div> <div class="content"> <div class="ui segment code"></p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb29-1"><a href="#cb29-1"></a><span class="kw">let</span> <span class="kw">rec</span> enumere pos chemin =</span>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Réponse </div> <div class="content"> <div class="ui segment code"></p>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb29-1"><a href="#cb29-1"></a><span class="kw">let</span> <span class="kw">rec</span> enumere pos chemin =</span>
 <span id="cb29-2"><a href="#cb29-2"></a>    <span class="kw">if</span> valide pos</span>
 <span id="cb29-3"><a href="#cb29-3"></a>    <span class="kw">then</span> <span class="dt">raise</span> (Solution chemin)</span>
 <span id="cb29-4"><a href="#cb29-4"></a>    <span class="kw">else</span></span>
@@ -839,41 +1122,77 @@ Question
 <span id="cb29-14"><a href="#cb29-14"></a><span class="co">               une solution *)</span></span>
 <span id="cb29-15"><a href="#cb29-15"></a>            ajoute c</span>
 <span id="cb29-16"><a href="#cb29-16"></a>        <span class="kw">end</span></span></code></pre></div>
-<p></div></p>
-<p></div> </div></p>
-<p>Normalement, le code doit pouvoir permettre de réaliser la résolution instantanément.</p>
-<p><div class="ui message orange"><div class="header">Remarque</div>Possibles extensions :</p>
+<p></div> </div> </div></p>
+<p>Normalement, le code doit pouvoir permettre de réaliser la résolution
+instantanément.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>Possibles extensions :</p>
 <ul>
 <li>rajouter un affichage de la résolution</li>
 <li>déterminer la proportion de recalculs évités</li>
-<li>gérer les symétries des plateaux</div></li>
+<li>gérer les symétries des plateaux</li>
 </ul>
-<h1 data-number="3" id="sec:stratégies-dénumération"><span class="header-section-number">3</span> Stratégies d’énumération</h1>
-<h2 data-number="3.1" id="sec:combinatoire-élémentaire"><span class="header-section-number">3.1</span> Combinatoire élémentaire</h2>
+<p></div></p>
+<h1 data-number="3" id="sec:stratégies-dénumération"><span
+class="header-section-number">3</span> Stratégies d’énumération</h1>
+<h2 data-number="3.1" id="sec:combinatoire-élémentaire"><span
+class="header-section-number">3.1</span> Combinatoire élémentaire</h2>
 <p>produits, combinaisons, permutations</p>
-<h2 data-number="3.2" id="sec:enumération-darbres"><span class="header-section-number">3.2</span> Enumération d’arbres</h2>
-<p>Imaginons que l’on souhaite énumérer des arbres binaires non étiquettés pour trouver le premier arbre binaire à <span class="math inline">\(n\)</span> nœuds vérifiant une certaine propriété. On suppose ainsi défini un type</p>
+<h2 data-number="3.2" id="sec:enumération-darbres"><span
+class="header-section-number">3.2</span> Enumération d’arbres</h2>
+<p>Imaginons que l’on souhaite énumérer des arbres binaires non
+étiquettés pour trouver le premier arbre binaire à <span
+class="math inline">\(n\)</span> nœuds vérifiant une certaine propriété.
+On suppose ainsi défini un type</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb30-1"><a href="#cb30-1"></a><span class="kw">type</span> arbre = Nil | Noeud <span class="kw">of</span> arbre * arbre</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb30-1"><a href="#cb30-1"></a><span class="kw">type</span> arbre = Nil | Noeud <span class="kw">of</span> arbre * arbre</span></code></pre></div>
 <p></div></p>
 <p>et une fonction pour tester le prédicat :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb31-1"><a href="#cb31-1"></a><span class="kw">val</span> : valide : arbre -&gt; <span class="dt">bool</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb31-1"><a href="#cb31-1"></a><span class="kw">val</span> : valide : arbre -&gt; <span class="dt">bool</span></span></code></pre></div>
 <p></div></p>
-<p>Une première possibilité est d’effectuer un simple parcours récursif :</p>
+<p>Une première possibilité est d’effectuer un simple parcours récursif
+:</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb32-1"><a href="#cb32-1"></a><span class="kw">let</span> <span class="kw">rec</span> recherche n =</span>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb32-1"><a href="#cb32-1"></a><span class="kw">let</span> <span class="kw">rec</span> recherche n =</span>
 <span id="cb32-2"><a href="#cb32-2"></a>    <span class="kw">if</span> n = <span class="dv">0</span></span>
 <span id="cb32-3"><a href="#cb32-3"></a>    <span class="kw">then</span> </span></code></pre></div>
 <p></div></p>
 <p>normale, par passage de continuation</p>
-<h1 data-number="4" id="sec:droite-de-balayage"><span class="header-section-number">4</span> Droite de balayage</h1>
-<h2 data-number="4.1" id="sec:principe-1"><span class="header-section-number">4.1</span> Principe</h2>
-<p>Il est parfois possible d’ordonner <span class="math inline">\(V\)</span> pour tirer pour permettre de trouver une solution plus vite, voir d’ordonner des données basique pour ne pas énumérer <span class="math inline">\(V\)</span> mais énumérer un <span class="math inline">\(V&#39; \subset V\)</span> plus petit.</p>
-<p>C’est un procédé classique dans le contexte de la géométrie algorithmique dans le plan : étant donné un ensemble <span class="math inline">\(V\)</span> de candidats qu’on déduit d’un ensemble de points du plan, par exemple l’ensemble des paires de points, on va énumérer <span class="math inline">\(V\)</span> à l’aide d’un parcours des points de gauche à droite (ou tout autre direction géométrique) pour ne pas énumérer tout <span class="math inline">\(V\)</span> mais seulement une partie plus petite. Tout se passe comme si on balayait avec un droite l’ensemble des points, d’où le nom de droite de balayage.</p>
-<p>Du point de vue de la complexité temporelle, on obtient le plus souvent un algorithme en <span class="math inline">\(O(n \log n)\)</span> où <span class="math inline">\(n\)</span> est le nombre de points. Cela signifie que l’étape la plus coûteuse en temps est le tri initial.</p>
-<p>On va présenter ici deux exemples d’utilisation d’une droite de balayage. Il est assez clair qu’il sera nécessaire dans ces cas de réfléchir géométriquement. Les exemples présentés sont donc assez simples d’un point de vue informatique, mais plutôt complexes d’un point de vue mathématiques.</p>
-<h2 data-number="4.2" id="sec:plusprochepaire"><span class="header-section-number">4.2</span> Plus proche paire</h2>
+<h1 data-number="4" id="sec:droite-de-balayage"><span
+class="header-section-number">4</span> Droite de balayage</h1>
+<h2 data-number="4.1" id="sec:principe-1"><span
+class="header-section-number">4.1</span> Principe</h2>
+<p>Il est parfois possible d’ordonner <span
+class="math inline">\(V\)</span> pour tirer pour permettre de trouver
+une solution plus vite, voir d’ordonner des données basique pour ne pas
+énumérer <span class="math inline">\(V\)</span> mais énumérer un <span
+class="math inline">\(V&#39; \subset V\)</span> plus petit.</p>
+<p>C’est un procédé classique dans le contexte de la géométrie
+algorithmique dans le plan : étant donné un ensemble <span
+class="math inline">\(V\)</span> de candidats qu’on déduit d’un ensemble
+de points du plan, par exemple l’ensemble des paires de points, on va
+énumérer <span class="math inline">\(V\)</span> à l’aide d’un parcours
+des points de gauche à droite (ou tout autre direction géométrique) pour
+ne pas énumérer tout <span class="math inline">\(V\)</span> mais
+seulement une partie plus petite. Tout se passe comme si on balayait
+avec un droite l’ensemble des points, d’où le nom de droite de
+balayage.</p>
+<p>Du point de vue de la complexité temporelle, on obtient le plus
+souvent un algorithme en <span class="math inline">\(O(n \log
+n)\)</span> où <span class="math inline">\(n\)</span> est le nombre de
+points. Cela signifie que l’étape la plus coûteuse en temps est le tri
+initial.</p>
+<p>On va présenter ici deux exemples d’utilisation d’une droite de
+balayage. Il est assez clair qu’il sera nécessaire dans ces cas de
+réfléchir géométriquement. Les exemples présentés sont donc assez
+simples d’un point de vue informatique, mais plutôt complexes d’un point
+de vue mathématiques.</p>
+<h2 data-number="4.2" id="sec:plusprochepaire"><span
+class="header-section-number">4.2</span> Plus proche paire</h2>
 <p>On considère le problème</p>
 <div class="ui message gray">
 <div class="header">
@@ -882,20 +1201,33 @@ Problème - PlusProchePaire
 <ul>
 <li>
 <p>Entrée(s) :</p>
-<p>Un ensemble <span class="math inline">\(P\)</span> de <span class="math inline">\(n\)</span> points dans le plan.</p>
+<p>Un ensemble <span class="math inline">\(P\)</span> de <span
+class="math inline">\(n\)</span> points dans le plan.</p>
 </li>
 <li>
-Sortie : Une paire <span class="math inline">\(\{p,p&#39;\}\)</span> de points telle que <span class="math inline">\(dist(p,p&#39;) = ||\vec{pp&#39;}||\)</span> soit minimale.
+<p>Sortie :</p>
+<p>Une paire <span class="math inline">\(\{p,p&#39;\}\)</span> de points
+telle que <span class="math inline">\(dist(p,p&#39;) =
+||\vec{pp&#39;}||\)</span> soit minimale.</p>
 </li>
 </ul>
 </div>
-<h3 data-number="4.2.1" id="sec:recherche-exhaustive"><span class="header-section-number">4.2.1</span> Recherche exhaustive</h3>
-<p>Considérons le problème <em>PlusProchePaire</em> qui, étant donné un ensemble de <span class="math inline">\(n\)</span> points (<span class="math inline">\(n \ge 2\)</span>), détermine la paire constituée des deux points les plus proches.</p>
-<p><center><div class="ui image center"><center><div class="ui image center"><img src="assets/pics/plusprochepaire_a.png" /></div></center></p>
-<p></div></center></p>
-<p>Une implémentation naïve de la recherche par force brute consiste à énumérer les <span class="math inline">\(\frac{n(n-1)}{2}\)</span> paires et donc à effectuer <span class="math inline">\(O(n^2)\)</span> itérations.</p>
+<h3 data-number="4.2.1" id="sec:recherche-exhaustive"><span
+class="header-section-number">4.2.1</span> Recherche exhaustive</h3>
+<p>Considérons le problème <em>PlusProchePaire</em> qui, étant donné un
+ensemble de <span class="math inline">\(n\)</span> points (<span
+class="math inline">\(n \ge 2\)</span>), détermine la paire constituée
+des deux points les plus proches.</p>
+<p><center><div class="ui image center"><center><div class="ui image center"><img
+src="assets/pics/plusprochepaire_a.png" /></div></center>
+</div></center></p>
+<p>Une implémentation naïve de la recherche par force brute consiste à
+énumérer les <span class="math inline">\(\frac{n(n-1)}{2}\)</span>
+paires et donc à effectuer <span class="math inline">\(O(n^2)\)</span>
+itérations.</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb33-1"><a href="#cb33-1"></a><span class="kw">let</span> plus_proche_paire points =</span>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb33-1"><a href="#cb33-1"></a><span class="kw">let</span> plus_proche_paire points =</span>
 <span id="cb33-2"><a href="#cb33-2"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length points <span class="kw">in</span></span>
 <span id="cb33-3"><a href="#cb33-3"></a>    <span class="kw">let</span> min_paire = <span class="dt">ref</span> (distance points.(<span class="dv">0</span>) points.(<span class="dv">1</span>), (<span class="dv">0</span>, <span class="dv">1</span>)) <span class="kw">in</span></span>
 <span id="cb33-4"><a href="#cb33-4"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n - <span class="dv">1</span> <span class="kw">do</span></span>
@@ -907,48 +1239,125 @@ Sortie : Une paire <span class="math inline">\(\{p,p&#39;\}\)</span> de points t
 <span id="cb33-10"><a href="#cb33-10"></a>    <span class="kw">done</span>;</span>
 <span id="cb33-11"><a href="#cb33-11"></a>    <span class="dt">snd</span> !min_paire</span></code></pre></div>
 <p></div></p>
-<h3 data-number="4.2.2" id="sec:raffinement-droite-de-balayage"><span class="header-section-number">4.2.2</span> Raffinement : droite de balayage</h3>
-<p>Il est parfois possible d’accélérer la recherche par force brute en ordonnant le parcours des candidats pour pouvoir éviter de tester certains d’entre eux.</p>
-<p>En géométrie algorithmique, une approche classique consiste à ordonner les objets selon leur abscisse et à parcourir les objets par abscisse croissante. On parle alors de <strong>droite de balayage</strong> (en anglais, <em>sweep line</em>) car cela revient à balayer le plan par une droite verticale en ne traitant que les objets avant cette ligne.</p>
-<p>Reprenons le problème précédent, on considère que les points sont triés par abscisse croissante : <span class="math inline">\((x_0,y_0), \dots, (x_{n-1}, y_{n-1})\)</span>. On va parcourir les points dans cet ordre en maintenant un ensemble de points à gauche du point courant, appelés <em>points actifs</em>, et en ne calculant que les intersections avec les points actifs.</p>
-<p>Si on a parcouru les <span class="math inline">\(N\)</span> premiers points et qu’on a obtenu que la plus petite distance était <span class="math inline">\(d\)</span>, lorsqu’on considère le point <span class="math inline">\((x_N,y_N)\)</span>, il est inutile de tester les points qui sont forcément à distance <span class="math inline">\(&gt; d\)</span> de celui-ci. C’est-à-dire qu’on peut éliminer les points qui ne sont pas dans le rectangle <span class="math inline">\([x_N-d,x_N]\times [y_N-d,y_N+d]\)</span> du test. Les points dont l’abscisse est <span class="math inline">\(&lt; x_N -d\)</span> peuvent être éliminés définitivement vu que l’on raisonne par abscisse croissante, par contre, les points d’ordonnées invalides doivent être conservés pour les points ultérieurs.</p>
-<p>Ce rectangle est représenté sur le schéma suivant ainsi qu’une ligne imaginaire qui correspond à l’abscisse du point courant et qu’on peut imaginer parcourant le plan de gauche à droite pour traiter les points au fur et à mesure.</p>
-<p><center><div class="ui image center"><center><div class="ui image center"><img src="assets/pics/plusprochepaire_b.png" /></div></center></p>
-<p></div></center></p>
-<p>Afin de déterminer la complexité de cet algorithme, il est nécessaire de connaitre le nombre maximal de points dans le rectangle. Comme ces points ont été pris en compte précédemment, ils sont forcément à distance au moins <span class="math inline">\(d\)</span> les uns des autres. Il s’agit donc de déterminer le nombre maximum de points qu’on peut placer dans ce rectangle à distance au moins <span class="math inline">\(d\)</span>. On remarque tout d’abord qu’on peut placer six points ainsi :</p>
-<p><center><div class="ui image center"><center><div class="ui image center"><img src="assets/pics/plusprochepaire_activesize_a.png" /></div></center></p>
-<p></div></center></p>
-<p>Si jamais on avait au moins sept points, on peut voir qu’il y a forcément un des six sous-rectangles suivants qui contiendrait au moins deux points :</p>
-<p><center><div class="ui image center"><center><div class="ui image center"><img src="assets/pics/plusprochepaire_activesize_b.png" /></div></center></p>
-<p></div></center></p>
-<p>Or, ces sous-rectangles sont de longueur <span class="math inline">\(\frac{1}{2}d\)</span> et de hauteur <span class="math inline">\(\frac{2}{3}d\)</span>, donc la distance maximale entre deux de leurs points correspond à la longueur des diagonales : <span class="math inline">\(\sqrt{\frac{1}{4} + \frac{4}{9}}d = \frac{5}{6}d &lt; d\)</span>.</p>
-<p>Comme un de ces six points est le point courant, il y a toujours au plus 5 points dans l’ensemble des points actifs.</p>
+<h3 data-number="4.2.2" id="sec:raffinement-droite-de-balayage"><span
+class="header-section-number">4.2.2</span> Raffinement : droite de
+balayage</h3>
+<p>Il est parfois possible d’accélérer la recherche par force brute en
+ordonnant le parcours des candidats pour pouvoir éviter de tester
+certains d’entre eux.</p>
+<p>En géométrie algorithmique, une approche classique consiste à
+ordonner les objets selon leur abscisse et à parcourir les objets par
+abscisse croissante. On parle alors de <strong>droite de
+balayage</strong> (en anglais, <em>sweep line</em>) car cela revient à
+balayer le plan par une droite verticale en ne traitant que les objets
+avant cette ligne.</p>
+<p>Reprenons le problème précédent, on considère que les points sont
+triés par abscisse croissante : <span class="math inline">\((x_0,y_0),
+\dots, (x_{n-1}, y_{n-1})\)</span>. On va parcourir les points dans cet
+ordre en maintenant un ensemble de points à gauche du point courant,
+appelés <em>points actifs</em>, et en ne calculant que les intersections
+avec les points actifs.</p>
+<p>Si on a parcouru les <span class="math inline">\(N\)</span> premiers
+points et qu’on a obtenu que la plus petite distance était <span
+class="math inline">\(d\)</span>, lorsqu’on considère le point <span
+class="math inline">\((x_N,y_N)\)</span>, il est inutile de tester les
+points qui sont forcément à distance <span class="math inline">\(&gt;
+d\)</span> de celui-ci. C’est-à-dire qu’on peut éliminer les points qui
+ne sont pas dans le rectangle <span
+class="math inline">\([x_N-d,x_N]\times [y_N-d,y_N+d]\)</span> du test.
+Les points dont l’abscisse est <span class="math inline">\(&lt; x_N
+-d\)</span> peuvent être éliminés définitivement vu que l’on raisonne
+par abscisse croissante, par contre, les points d’ordonnées invalides
+doivent être conservés pour les points ultérieurs.</p>
+<p>Ce rectangle est représenté sur le schéma suivant ainsi qu’une ligne
+imaginaire qui correspond à l’abscisse du point courant et qu’on peut
+imaginer parcourant le plan de gauche à droite pour traiter les points
+au fur et à mesure.</p>
+<p><center><div class="ui image center"><center><div class="ui image center"><img
+src="assets/pics/plusprochepaire_b.png" /></div></center>
+</div></center></p>
+<p>Afin de déterminer la complexité de cet algorithme, il est nécessaire
+de connaitre le nombre maximal de points dans le rectangle. Comme ces
+points ont été pris en compte précédemment, ils sont forcément à
+distance au moins <span class="math inline">\(d\)</span> les uns des
+autres. Il s’agit donc de déterminer le nombre maximum de points qu’on
+peut placer dans ce rectangle à distance au moins <span
+class="math inline">\(d\)</span>. On remarque tout d’abord qu’on peut
+placer six points ainsi :</p>
+<p><center><div class="ui image center"><center><div class="ui image center"><img
+src="assets/pics/plusprochepaire_activesize_a.png" /></div></center>
+</div></center></p>
+<p>Si jamais on avait au moins sept points, on peut voir qu’il y a
+forcément un des six sous-rectangles suivants qui contiendrait au moins
+deux points :</p>
+<p><center><div class="ui image center"><center><div class="ui image center"><img
+src="assets/pics/plusprochepaire_activesize_b.png" /></div></center>
+</div></center></p>
+<p>Or, ces sous-rectangles sont de longueur <span
+class="math inline">\(\frac{1}{2}d\)</span> et de hauteur <span
+class="math inline">\(\frac{2}{3}d\)</span>, donc la distance maximale
+entre deux de leurs points correspond à la longueur des diagonales :
+<span class="math inline">\(\sqrt{\frac{1}{4} + \frac{4}{9}}d =
+\frac{5}{6}d &lt; d\)</span>.</p>
+<p>Comme un de ces six points est le point courant, il y a toujours au
+plus 5 points dans l’ensemble des points actifs.</p>
 <p>Voici le principe de l’algorithme que l’on va implémenter :</p>
 <ul>
-<li><p>On trie le tableau <code>points</code> par ordre croissant. <strong>Complexité :</strong> <span class="math inline">\(O(n \log n)\)</span></p></li>
-<li><p>On initialise la plus petite distance <code>d</code> courante à la distance entre les deux premiers points</p></li>
-<li><p>On crée un ensemble <code>actifs</code>, ordonné par les ordonnées, de points contenant initialement les deux premiers points</p></li>
-<li><p>Pour chaque point <span class="math inline">\((x,y)\)</span> en partant du deuxième :</p>
+<li><p>On trie le tableau <code>points</code> par ordre croissant.
+<strong>Complexité :</strong> <span class="math inline">\(O(n \log
+n)\)</span></p></li>
+<li><p>On initialise la plus petite distance <code>d</code> courante à
+la distance entre les deux premiers points</p></li>
+<li><p>On crée un ensemble <code>actifs</code>, ordonné par les
+ordonnées, de points contenant initialement les deux premiers
+points</p></li>
+<li><p>Pour chaque point <span class="math inline">\((x,y)\)</span> en
+partant du deuxième :</p>
 <ul>
-<li>On supprime les points <span class="math inline">\((x&#39;,y&#39;)\)</span> tels que <span class="math inline">\(x&#39; &lt; x - d\)</span> de <code>actifs</code>. <strong>Complexité :</strong> sur l’ensemble des itérations on ne pourra jamais supprimer deux fois un point, donc on effectue au maximum <span class="math inline">\(n\)</span> suppressions chacune en <span class="math inline">\(O(\log n)\)</span> donc <span class="math inline">\(O(n \log n)\)</span>.</li>
-<li>On parcourt les points de <code>actifs</code> dont les ordonnées sont comprises entre <span class="math inline">\(y-d\)</span> et <span class="math inline">\(y+d\)</span>. <strong>Complexité :</strong> pour récupérer le premier point de l’ensemble, il faut <span class="math inline">\(O(\log n)\)</span> en pire cas (tous les points actifs) et ensuite on effectue au plus 5 itérations comme on vient de le prouver.</li>
+<li>On supprime les points <span
+class="math inline">\((x&#39;,y&#39;)\)</span> tels que <span
+class="math inline">\(x&#39; &lt; x - d\)</span> de <code>actifs</code>.
+<strong>Complexité :</strong> sur l’ensemble des itérations on ne pourra
+jamais supprimer deux fois un point, donc on effectue au maximum <span
+class="math inline">\(n\)</span> suppressions chacune en <span
+class="math inline">\(O(\log n)\)</span> donc <span
+class="math inline">\(O(n \log n)\)</span>.</li>
+<li>On parcourt les points de <code>actifs</code> dont les ordonnées
+sont comprises entre <span class="math inline">\(y-d\)</span> et <span
+class="math inline">\(y+d\)</span>. <strong>Complexité :</strong> pour
+récupérer le premier point de l’ensemble, il faut <span
+class="math inline">\(O(\log n)\)</span> en pire cas (tous les points
+actifs) et ensuite on effectue au plus 5 itérations comme on vient de le
+prouver.</li>
 </ul></li>
 </ul>
-<p>L’animation suivante présente le déroulement de cet algorihtme. La bande active est indiquée en gris et le rectangle autour du point courant en gris foncé :</p>
+<p>L’animation suivante présente le déroulement de cet algorihtme. La
+bande active est indiquée en gris et le rectangle autour du point
+courant en gris foncé :</p>
 <p><img class="ui image fluid" src="assets/pics/closest_pair.gif"/></p>
-<p>On remarque ainsi que la complexité en temps et en pire cas de cet algorithme est de <span class="math inline">\(O(n \log n)\)</span>. Ici, le fait d’avoir la structure <code>actifs</code> ordonnée par les ordonnées est crucial pour garantir la complexité. Pour la réalisation d’une structure d’ensemble ordonnée ayant ces complexités, voir le chapitre FIXME.</p>
-<p>Ici, on utilise le module <code>Set</code> d’OCaml pour réaliser la structure d’ensemble, pour cela on commence par créer le module <code>PointSet</code> pour les ensembles de points :</p>
+<p>On remarque ainsi que la complexité en temps et en pire cas de cet
+algorithme est de <span class="math inline">\(O(n \log n)\)</span>. Ici,
+le fait d’avoir la structure <code>actifs</code> ordonnée par les
+ordonnées est crucial pour garantir la complexité. Pour la réalisation
+d’une structure d’ensemble ordonnée ayant ces complexités, voir le
+chapitre FIXME.</p>
+<p>Ici, on utilise le module <code>Set</code> d’OCaml pour réaliser la
+structure d’ensemble, pour cela on commence par créer le module
+<code>PointSet</code> pour les ensembles de points :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb34-1"><a href="#cb34-1"></a><span class="kw">module</span> Point = <span class="kw">struct</span></span>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb34-1"><a href="#cb34-1"></a><span class="kw">module</span> Point = <span class="kw">struct</span></span>
 <span id="cb34-2"><a href="#cb34-2"></a>    <span class="kw">type</span> t = <span class="dt">float</span> * <span class="dt">float</span></span>
 <span id="cb34-3"><a href="#cb34-3"></a>    <span class="kw">let</span> <span class="dt">compare</span> (x1,y1) (x2,y2) = Stdlib.<span class="dt">compare</span> y1 y2</span>
 <span id="cb34-4"><a href="#cb34-4"></a><span class="kw">end</span></span>
 <span id="cb34-5"><a href="#cb34-5"></a></span>
 <span id="cb34-6"><a href="#cb34-6"></a><span class="kw">module</span> PointSet = <span class="dt">Set</span>.Make(Point)</span></code></pre></div>
 <p></div></p>
-<p>Puis on définit une fonction permettant de parcourir les points entre deux ordonnées :</p>
+<p>Puis on définit une fonction permettant de parcourir les points entre
+deux ordonnées :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb35-1"><a href="#cb35-1"></a><span class="kw">let</span> set_iter_entre f set bas haut =</span>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb35-1"><a href="#cb35-1"></a><span class="kw">let</span> set_iter_entre f set bas haut =</span>
 <span id="cb35-2"><a href="#cb35-2"></a>    <span class="kw">try</span></span>
 <span id="cb35-3"><a href="#cb35-3"></a>        <span class="kw">let</span> e = PointSet.find_first (<span class="kw">fun</span> p -&gt; <span class="dt">snd</span> p &gt;= bas) set <span class="kw">in</span></span>
 <span id="cb35-4"><a href="#cb35-4"></a>        <span class="kw">let</span> seq = PointSet.to_seq_from e set <span class="kw">in</span></span>
@@ -964,9 +1373,11 @@ Sortie : Une paire <span class="math inline">\(\{p,p&#39;\}\)</span> de points t
 <span id="cb35-14"><a href="#cb35-14"></a>        <span class="kw">in</span> aux seq</span>
 <span id="cb35-15"><a href="#cb35-15"></a>    <span class="kw">with</span> <span class="dt">Not_found</span> -&gt; ()</span></code></pre></div>
 <p></div></p>
-<p>On implémente alors assez directement l’algorithme décrit précédemment :</p>
+<p>On implémente alors assez directement l’algorithme décrit
+précédemment :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb36-1"><a href="#cb36-1"></a><span class="kw">let</span> plus_proche_paire_balayage points =</span>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb36-1"><a href="#cb36-1"></a><span class="kw">let</span> plus_proche_paire_balayage points =</span>
 <span id="cb36-2"><a href="#cb36-2"></a>    <span class="kw">let</span> <span class="dt">compare</span> (x1,y1) (x2,y2) =</span>
 <span id="cb36-3"><a href="#cb36-3"></a>        <span class="kw">if</span> x1 = x2</span>
 <span id="cb36-4"><a href="#cb36-4"></a>        <span class="kw">then</span> <span class="kw">if</span> y1 &lt; y2 <span class="kw">then</span> <span class="dv">-1</span> <span class="kw">else</span> <span class="dv">1</span></span>
@@ -1001,46 +1412,110 @@ Sortie : Une paire <span class="math inline">\(\{p,p&#39;\}\)</span> de points t
 <span id="cb36-33"><a href="#cb36-33"></a>    <span class="kw">done</span>;</span>
 <span id="cb36-34"><a href="#cb36-34"></a>    !d</span></code></pre></div>
 <p></div></p>
-<h3 data-number="4.2.3" id="sec:problème-test-dintersection-pour-un-ensemble-de-segments"><span class="header-section-number">4.2.3</span> Problème : test d’intersection pour un ensemble de segments</h3>
-<p>Considérons le problème suivant <em>IntersectionEnsemble</em> : étant donné <span class="math inline">\(n\)</span> segments dans le plan, il s’agit de déterminer si au moins deux des segments s’intersectent.</p>
-<p><div class="ui message orange"><div class="header">Remarque</div>On peut considérer ici que l’on dispose d’une fonction</p>
+<h3 data-number="4.2.3"
+id="sec:problème-test-dintersection-pour-un-ensemble-de-segments"><span
+class="header-section-number">4.2.3</span> Problème : test
+d’intersection pour un ensemble de segments</h3>
+<p>Considérons le problème suivant <em>IntersectionEnsemble</em> : étant
+donné <span class="math inline">\(n\)</span> segments dans le plan, il
+s’agit de déterminer si au moins deux des segments s’intersectent.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>On peut considérer ici que l’on dispose d’une fonction</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb37-1"><a href="#cb37-1"></a>intersecte : (<span class="dt">float</span> * <span class="dt">float</span>) * (<span class="dt">float</span> * <span class="dt">float</span>) </span>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb37-1"><a href="#cb37-1"></a>intersecte : (<span class="dt">float</span> * <span class="dt">float</span>) * (<span class="dt">float</span> * <span class="dt">float</span>) </span>
 <span id="cb37-2"><a href="#cb37-2"></a>    -&gt; (<span class="dt">float</span> * <span class="dt">float</span>) * (<span class="dt">float</span> * <span class="dt">float</span>) -&gt; <span class="dt">bool</span> </span></code></pre></div>
 <p></div></p>
 <p>qui teste l’intersection entre deux segments.</p>
-<p>Cependant, il est possible d’écrire une telle fonction avec un peu de géométrie élémentaire.</p>
-<p>Si on considère que les deux segments sont <span class="math inline">\([A_1B_1]\)</span> et <span class="math inline">\([A_2B_2]\)</span>, avec <span class="math inline">\(A_1 \neq B_1\)</span> et <span class="math inline">\(A_2 \neq B_2\)</span>, alors chaque point du segment <span class="math inline">\([A_1B_1]\)</span> est de la forme <span class="math inline">\(A_1 + t \overrightarrow{A_1B_1}\)</span> où <span class="math inline">\(t \in [0,1]\)</span>. De même les points du segment <span class="math inline">\([A_2B_2]\)</span> sont de la forme <span class="math inline">\(A_2 + u \overrightarrow{A_2B_2}\)</span> où <span class="math inline">\(u \in [0,1]\)</span>.</p>
-<p>S’il y a une intersection, c’est qu’il existe <span class="math inline">\((t,u) \in [0,1]^2\)</span> tel que</p>
+<p>Cependant, il est possible d’écrire une telle fonction avec un peu de
+géométrie élémentaire.</p>
+<p>Si on considère que les deux segments sont <span
+class="math inline">\([A_1B_1]\)</span> et <span
+class="math inline">\([A_2B_2]\)</span>, avec <span
+class="math inline">\(A_1 \neq B_1\)</span> et <span
+class="math inline">\(A_2 \neq B_2\)</span>, alors chaque point du
+segment <span class="math inline">\([A_1B_1]\)</span> est de la forme
+<span class="math inline">\(A_1 + t \overrightarrow{A_1B_1}\)</span> où
+<span class="math inline">\(t \in [0,1]\)</span>. De même les points du
+segment <span class="math inline">\([A_2B_2]\)</span> sont de la forme
+<span class="math inline">\(A_2 + u \overrightarrow{A_2B_2}\)</span> où
+<span class="math inline">\(u \in [0,1]\)</span>.</p>
+<p>S’il y a une intersection, c’est qu’il existe <span
+class="math inline">\((t,u) \in [0,1]^2\)</span> tel que</p>
 <p><span class="math display">\[
 A_1 + t \overrightarrow{A_1B_1} = A_2 + u \overrightarrow{A_2B_2}
 \iff \overrightarrow{A_2 A_1} + t \overrightarrow{A_1B_1} = u
 \overrightarrow{A_2 B_2}
 \]</span></p>
-<p>L’idée est alors d’utiliser une opération appelée <strong>produit vectoriel</strong> sur les vecteurs. Comme ici, tout est plan, le produit vectoriel est uniquement déterminé par sa troisième coordonnée, celle qui sort du plan, et on peut se contenter de calculer celle-ci. On note ainsi <span class="math inline">\((x,y) \times (x&#39;,y&#39;) = x y&#39; - y x&#39;\)</span> cette coordonnée. On a donc <span class="math inline">\(u \times u = 0\)</span>.</p>
-<p>On peut alors composer l’égalité par <span class="math inline">\(\times \overrightarrow{A_2B_2}\)</span> :</p>
+<p>L’idée est alors d’utiliser une opération appelée <strong>produit
+vectoriel</strong> sur les vecteurs. Comme ici, tout est plan, le
+produit vectoriel est uniquement déterminé par sa troisième coordonnée,
+celle qui sort du plan, et on peut se contenter de calculer celle-ci. On
+note ainsi <span class="math inline">\((x,y) \times (x&#39;,y&#39;) = x
+y&#39; - y x&#39;\)</span> cette coordonnée. On a donc <span
+class="math inline">\(u \times u = 0\)</span>.</p>
+<p>On peut alors composer l’égalité par <span
+class="math inline">\(\times \overrightarrow{A_2B_2}\)</span> :</p>
 <p><span class="math display">\[
-\overrightarrow{A_2 A_1} \times \overrightarrow{A_2 B_2} + t 
-\left( \overrightarrow{A_1 B_1} \times \overrightarrow{A_2 B_2} \right) = 0
+\overrightarrow{A_2 A_1} \times \overrightarrow{A_2 B_2} + t
+\left( \overrightarrow{A_1 B_1} \times \overrightarrow{A_2 B_2} \right)
+= 0
 \]</span></p>
-<p>Notons <span class="math inline">\(\Delta = \overrightarrow{A_1 B_1} \times \overrightarrow{A_2 B_2}\)</span>, si <span class="math inline">\(\Delta \neq 0\)</span>, alors</p>
+<p>Notons <span class="math inline">\(\Delta = \overrightarrow{A_1 B_1}
+\times \overrightarrow{A_2 B_2}\)</span>, si <span
+class="math inline">\(\Delta \neq 0\)</span>, alors</p>
 <p><span class="math display">\[
-t = - \frac{\overrightarrow{A_2 A_1} \times \overrightarrow{A_2 B_2}}{\Delta}
-= \frac{\overrightarrow{A_1 A_2} \times \overrightarrow{A_2 B_2}}{\Delta}
+t = - \frac{\overrightarrow{A_2 A_1} \times \overrightarrow{A_2
+B_2}}{\Delta}
+= \frac{\overrightarrow{A_1 A_2} \times \overrightarrow{A_2
+B_2}}{\Delta}
 \]</span></p>
-<p>On procède de même avec <span class="math inline">\(\times \overrightarrow{A_1 B_1}\)</span> pour obtenir une expression de <span class="math inline">\(u\)</span> : <span class="math inline">\(\overrightarrow{A_2 A_1} \times \overrightarrow{A_1 B_1} = u \left ( \overrightarrow{A_2 B_2} \times \overrightarrow{A_1 B_1} \right) = - u \Delta\)</span> et donc</p>
+<p>On procède de même avec <span class="math inline">\(\times
+\overrightarrow{A_1 B_1}\)</span> pour obtenir une expression de <span
+class="math inline">\(u\)</span> : <span
+class="math inline">\(\overrightarrow{A_2 A_1} \times
+\overrightarrow{A_1 B_1} = u \left ( \overrightarrow{A_2 B_2} \times
+\overrightarrow{A_1 B_1} \right) = - u \Delta\)</span> et donc</p>
 <p><span class="math display">\[
-u = - \frac{\overrightarrow{A_2 A_1} \times \overrightarrow{A_1 B_1}}{\Delta}
-= \frac{\overrightarrow{A_1 A_2} \times \overrightarrow{A_1 B_1}}{\Delta}
+u = - \frac{\overrightarrow{A_2 A_1} \times \overrightarrow{A_1
+B_1}}{\Delta}
+= \frac{\overrightarrow{A_1 A_2} \times \overrightarrow{A_1
+B_1}}{\Delta}
 \]</span></p>
-<p>Si <span class="math inline">\(\Delta \neq 0\)</span>, on peut donc alors exprimer <span class="math inline">\(u\)</span> et <span class="math inline">\(t\)</span> et vérifier qu’ils sont dans <span class="math inline">\([0,1]\)</span>.</p>
-<p>Si <span class="math inline">\(\Delta = 0\)</span> c’est que les deux segments sont de directions parallèles ou confondues.</p>
+<p>Si <span class="math inline">\(\Delta \neq 0\)</span>, on peut donc
+alors exprimer <span class="math inline">\(u\)</span> et <span
+class="math inline">\(t\)</span> et vérifier qu’ils sont dans <span
+class="math inline">\([0,1]\)</span>.</p>
+<p>Si <span class="math inline">\(\Delta = 0\)</span> c’est que les deux
+segments sont de directions parallèles ou confondues.</p>
 <ul>
-<li>Si <span class="math inline">\(\overrightarrow{A_1 A_2} \times \overrightarrow{A_1 B_1} \neq 0\)</span> alors <span class="math inline">\(\overrightarrow{A_1 A_2}\)</span> et <span class="math inline">\(\overrightarrow{A_1 B_1}\)</span> sont non colinéaires donc les deux segments sont sur des droites parallèles distinctes et ne peuvent s’intersecter.</li>
-<li>Sinon, les segments reposent sur une même droite et il s’agit de vérifier leurs positions sur la droite. Pour cela, on exprime <span class="math inline">\(A_2 = A_1 + t_A \overrightarrow{A_1B_1}\)</span> de même pour <span class="math inline">\(B_2 = A_1 + t_B \overrightarrow{A_1 B_1}\)</span>. Plus précisement, on calcule <span class="math inline">\(\overrightarrow{A_1 A_2} \cdot \overrightarrow{A_1 B_1} = t_A ||\overrightarrow{A_1 B_1}||^2\)</span> à l’aide du produit scalaire et on a <span class="math inline">\(t_A = \frac{\overrightarrow{A_1 A_2} \cdot \overrightarrow{A_1 B_1}}{||\overrightarrow{A_1 B_1}||^2}\)</span>. De même, <span class="math inline">\(t_B = \frac{\overrightarrow{A_1 B_2} \cdot \overrightarrow{A_1 B_1}}{||\overrightarrow{A_1 B_1}||^2}\)</span>. On doit alors vérifier si l’intervalle <span class="math inline">\([t_A,t_B]\)</span> (ou <span class="math inline">\([t_B,t_A]\)</span> selon leur position) intersecte <span class="math inline">\([0,1]\)</span>.</li>
+<li>Si <span class="math inline">\(\overrightarrow{A_1 A_2} \times
+\overrightarrow{A_1 B_1} \neq 0\)</span> alors <span
+class="math inline">\(\overrightarrow{A_1 A_2}\)</span> et <span
+class="math inline">\(\overrightarrow{A_1 B_1}\)</span> sont non
+colinéaires donc les deux segments sont sur des droites parallèles
+distinctes et ne peuvent s’intersecter.</li>
+<li>Sinon, les segments reposent sur une même droite et il s’agit de
+vérifier leurs positions sur la droite. Pour cela, on exprime <span
+class="math inline">\(A_2 = A_1 + t_A \overrightarrow{A_1B_1}\)</span>
+de même pour <span class="math inline">\(B_2 = A_1 + t_B
+\overrightarrow{A_1 B_1}\)</span>. Plus précisement, on calcule <span
+class="math inline">\(\overrightarrow{A_1 A_2} \cdot \overrightarrow{A_1
+B_1} = t_A ||\overrightarrow{A_1 B_1}||^2\)</span> à l’aide du produit
+scalaire et on a <span class="math inline">\(t_A =
+\frac{\overrightarrow{A_1 A_2} \cdot \overrightarrow{A_1
+B_1}}{||\overrightarrow{A_1 B_1}||^2}\)</span>. De même, <span
+class="math inline">\(t_B = \frac{\overrightarrow{A_1 B_2} \cdot
+\overrightarrow{A_1 B_1}}{||\overrightarrow{A_1 B_1}||^2}\)</span>. On
+doit alors vérifier si l’intervalle <span
+class="math inline">\([t_A,t_B]\)</span> (ou <span
+class="math inline">\([t_B,t_A]\)</span> selon leur position) intersecte
+<span class="math inline">\([0,1]\)</span>.</li>
 </ul>
-<p>Voici une fonction <em>OCaml</em> qui correspond à ce raisonnement <div class="ui segment code"></p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb38-1"><a href="#cb38-1"></a><span class="kw">let</span> intersecte (a1,b1) (a2,b2) =</span>
+<p>Voici une fonction <em>OCaml</em> qui correspond à ce raisonnement
+<div class="ui segment code"></p>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb38-1"><a href="#cb38-1"></a><span class="kw">let</span> intersecte (a1,b1) (a2,b2) =</span>
 <span id="cb38-2"><a href="#cb38-2"></a>    <span class="kw">let</span> vec (x1,y1) (x2,y2) = (x2-.x1,y2-.y1) <span class="kw">in</span></span>
 <span id="cb38-3"><a href="#cb38-3"></a>    <span class="kw">let</span> cross (x1,y1) (x2,y2) = x1 *. y2 -. y1 *. x2 <span class="kw">in</span></span>
 <span id="cb38-4"><a href="#cb38-4"></a>    <span class="kw">let</span> dot (x1,y1) (x2,y2) = x1 *. x2 +. y1 *. y2 <span class="kw">in</span></span>
@@ -1066,10 +1541,18 @@ u = - \frac{\overrightarrow{A_2 A_1} \times \overrightarrow{A_1 B_1}}{\Delta}
 <span id="cb38-24"><a href="#cb38-24"></a>         t &gt;= <span class="dv">0</span>. &amp;&amp; t &lt;= <span class="dv">1</span>. &amp;&amp; u &gt;= <span class="dv">0</span>. &amp;&amp; u &lt;= <span class="dv">1</span>.</span></code></pre></div>
 <p></div></p>
 <p></div></p>
-<p><div class="ui message blue"><div class="header">Note</div>réécrire cela avec le déterminant de deux vecteurs du plan qui est au programme de mathématiques de seconde.</div></p>
-<p>La recherche par force brute va alors énumérer l’ensemble des paires de segments distincts et tester deux à deux les intersections. On peut ainsi écrire le programme suivant qui est assez simple et effectuera effectivement <span class="math inline">\(O(|v|^2)\)</span> itérations dans le pire cas, i.e. lorsqu’il n’y a pas d’intersections.</p>
+<p><div class="ui message blue"><div class="header">Note</div></p>
+<p>réécrire cela avec le déterminant de deux vecteurs du plan qui est au
+programme de mathématiques de seconde.</p>
+<p></div></p>
+<p>La recherche par force brute va alors énumérer l’ensemble des paires
+de segments distincts et tester deux à deux les intersections. On peut
+ainsi écrire le programme suivant qui est assez simple et effectuera
+effectivement <span class="math inline">\(O(|v|^2)\)</span> itérations
+dans le pire cas, i.e. lorsqu’il n’y a pas d’intersections.</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb39-1"><a href="#cb39-1"></a><span class="kw">exception</span> Trouve</span>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb39-1"><a href="#cb39-1"></a><span class="kw">exception</span> Trouve</span>
 <span id="cb39-2"><a href="#cb39-2"></a></span>
 <span id="cb39-3"><a href="#cb39-3"></a><span class="kw">let</span> intersection_ensemble (v: ((<span class="dt">float</span> * <span class="dt">float</span>) * (<span class="dt">float</span> * <span class="dt">float</span>)) <span class="dt">array</span>) : <span class="dt">bool</span> =</span>
 <span id="cb39-4"><a href="#cb39-4"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length v <span class="kw">in</span></span>
@@ -1083,7 +1566,8 @@ u = - \frac{\overrightarrow{A_2 A_1} \times \overrightarrow{A_1 B_1}}{\Delta}
 <span id="cb39-12"><a href="#cb39-12"></a>        <span class="kw">false</span></span>
 <span id="cb39-13"><a href="#cb39-13"></a>    <span class="kw">with</span> Trouve -&gt; <span class="kw">true</span></span></code></pre></div>
 <p></div></p>
-<p>TODO approche par droite de balayage : algorithme de Shamos et Hoey (1976)</p>
+<p>TODO approche par droite de balayage : algorithme de Shamos et Hoey
+(1976)</p>
 </div>
 <!-- </div> -->
 </div>

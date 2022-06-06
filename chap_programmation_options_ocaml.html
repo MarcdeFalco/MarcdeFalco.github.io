@@ -93,7 +93,9 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
 
 <script>
 $(document).ready(function() {
@@ -325,91 +327,185 @@ table td {
 <div class="segment">
 <div class="ui container text">
 <p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Type option en OCaml     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_ocaml.png"> </div></p>
-<h1 data-number="1" id="sec:principe"><span class="header-section-number">1</span> Principe</h1>
-<p>Dans de très nombreux contextes, on a besoin de pouvoir exprimer une notion de partialité en programmant. Cela apparait en général dans deux cas :</p>
+<h1 data-number="1" id="sec:principe"><span
+class="header-section-number">1</span> Principe</h1>
+<p>Dans de très nombreux contextes, on a besoin de pouvoir exprimer une
+notion de partialité en programmant. Cela apparait en général dans deux
+cas :</p>
 <ul>
-<li>On veut réaliser une fonction qui ne va pas pouvoir renvoyer une valeur dans tous les cas. Exemple : renvoyer la tête d’une liste chaînée ne fonctionne pas si on passe la liste vide. La fonction est en fait une fonction partielle au sens mathématiques</li>
-<li>On souhaite construire progressivement une donnée et il faut qu’on puisse avoir une notion de valeurs indéterminées. Exemple : on veut remplir au fur et à mesure une grille de Sudoku, à la fin, c’est une matrice de nombres, mais il faut pouvoir gérer les cases vides de manière intermédiaires.</li>
+<li>On veut réaliser une fonction qui ne va pas pouvoir renvoyer une
+valeur dans tous les cas. Exemple : renvoyer la tête d’une liste chaînée
+ne fonctionne pas si on passe la liste vide. La fonction est en fait une
+fonction partielle au sens mathématiques</li>
+<li>On souhaite construire progressivement une donnée et il faut qu’on
+puisse avoir une notion de valeurs indéterminées. Exemple : on veut
+remplir au fur et à mesure une grille de Sudoku, à la fin, c’est une
+matrice de nombres, mais il faut pouvoir gérer les cases vides de
+manière intermédiaires.</li>
 </ul>
-<p>En <code>C</code>, on résout ces questions en utilisant des valeurs comme <code>-1</code> ou le pointeur nul <code>NULL</code>. En <code>OCaml</code>, le système de types nous pousse à chercher une meilleure solution.</p>
-<h1 data-number="2" id="sec:syntaxe"><span class="header-section-number">2</span> Syntaxe</h1>
-<p>La solution en <code>OCaml</code> est très simple, mais demande de la pratique pour l’utiliser à bon escient. Il s’agit, pour tout type <code>'a</code> de définir un type <code>'a option</code> permettant de représenter, soit une valeur de type <code>'a</code>, soit une absence de valeur.</p>
+<p>En <code>C</code>, on résout ces questions en utilisant des valeurs
+comme <code>-1</code> ou le pointeur nul <code>NULL</code>. En
+<code>OCaml</code>, le système de types nous pousse à chercher une
+meilleure solution.</p>
+<h1 data-number="2" id="sec:syntaxe"><span
+class="header-section-number">2</span> Syntaxe</h1>
+<p>La solution en <code>OCaml</code> est très simple, mais demande de la
+pratique pour l’utiliser à bon escient. Il s’agit, pour tout type
+<code>'a</code> de définir un type <code>'a option</code> permettant de
+représenter, soit une valeur de type <code>'a</code>, soit une absence
+de valeur.</p>
 <p>Ce type est défini ainsi :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">type</span> &#39;a <span class="dt">option</span> = <span class="dt">None</span> | <span class="dt">Some</span> <span class="kw">of</span> &#39;a</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">type</span> &#39;a <span class="dt">option</span> = <span class="dt">None</span> | <span class="dt">Some</span> <span class="kw">of</span> &#39;a</span></code></pre></div>
 <p></div></p>
-<p>Cela signifie qu’on a remplacé les valeurs <code>b</code> par des valeurs <code>Some b</code> et que l’absence de valeur est maintenant une vraie valeur <code>None</code>.</p>
-<p>Aucune difficulté pour définir une valeur de type option, on se contente d’appeler un des deux constructeurs. Ainsi <code>Some 1</code> est un <code>int option</code> et <code>Some "test"</code> un <code>string option</code>. La valeur <code>None</code> est polymorphe dans le même sens que <code>[]</code>.</p>
-<p>Pour manipuler une valeur <code>o</code> du type <code>'a option</code>, on effectue un filtrage comme pour les autres types somme :</p>
+<p>Cela signifie qu’on a remplacé les valeurs <code>b</code> par des
+valeurs <code>Some b</code> et que l’absence de valeur est maintenant
+une vraie valeur <code>None</code>.</p>
+<p>Aucune difficulté pour définir une valeur de type option, on se
+contente d’appeler un des deux constructeurs. Ainsi <code>Some 1</code>
+est un <code>int option</code> et <code>Some "test"</code> un
+<code>string option</code>. La valeur <code>None</code> est polymorphe
+dans le même sens que <code>[]</code>.</p>
+<p>Pour manipuler une valeur <code>o</code> du type
+<code>'a option</code>, on effectue un filtrage comme pour les autres
+types somme :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">match</span> o <span class="kw">with</span></span>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">match</span> o <span class="kw">with</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>| <span class="dt">None</span> -&gt; <span class="co">(* ... *)</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a>| <span class="dt">Some</span> a -&gt; <span class="co">(* ici on peut accèder au contenu a *)</span></span></code></pre></div>
 <p></div></p>
-<p>Il est également possible de revenir sur le comportement précédent avec une fonction comme</p>
+<p>Il est également possible de revenir sur le comportement précédent
+avec une fonction comme</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">let</span> unwrap o =</span>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">let</span> unwrap o =</span>
 <span id="cb3-2"><a href="#cb3-2"></a>    <span class="kw">match</span> o <span class="kw">with</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a>    | <span class="dt">None</span> -&gt; <span class="dt">failwith</span> <span class="st">&quot;None&quot;</span></span>
 <span id="cb3-4"><a href="#cb3-4"></a>    | <span class="dt">Some</span> a -&gt; a</span></code></pre></div>
 <p></div></p>
-<p>Qui permet de déballer une valeur <code>'a option</code> en faisant l’hypothèse que ce n’est pas <code>None</code>.</p>
-<p><div class="ui message orange"><div class="header">Remarque</div>Une erreur classique avec le type option, qui est la même qu’avec le type <code>list</code>, c’est de se focaliser sur <code>None</code> en commençant par écrire :</p>
+<p>Qui permet de déballer une valeur <code>'a option</code> en faisant
+l’hypothèse que ce n’est pas <code>None</code>.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>Une erreur classique avec le type option, qui est la même qu’avec le
+type <code>list</code>, c’est de se focaliser sur <code>None</code> en
+commençant par écrire :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">if</span> o = <span class="dt">None</span></span>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">if</span> o = <span class="dt">None</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="kw">then</span> <span class="co">(* .. *)</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="kw">else</span> <span class="co">(* et ici on est bloqué, car o est emballé *)</span></span></code></pre></div>
 <p></div></p>
-<p>Donc, une règle : si on a une valeur <code>option</code>, on effectue un filtrage !</div></p>
-<h1 data-number="3" id="sec:utilisation-concrète"><span class="header-section-number">3</span> Utilisation concrète</h1>
-<h2 data-number="3.1" id="sec:définir-une-fonction-partielle"><span class="header-section-number">3.1</span> Définir une fonction partielle</h2>
-<p>Il se trouve qu’on a déjà vu un mécanisme permettant de définir une fonction qui peut échouer : les exceptions, notamment avec <code>failwith</code>. Si on considère une fonction <code>f : 'a -&gt; 'b</code> on a ainsi deux types de valeurs dans le type <code>'a</code> :</p>
+<p>Donc, une règle : si on a une valeur <code>option</code>, on effectue
+un filtrage !</p>
+<p></div></p>
+<h1 data-number="3" id="sec:utilisation-concrète"><span
+class="header-section-number">3</span> Utilisation concrète</h1>
+<h2 data-number="3.1" id="sec:définir-une-fonction-partielle"><span
+class="header-section-number">3.1</span> Définir une fonction
+partielle</h2>
+<p>Il se trouve qu’on a déjà vu un mécanisme permettant de définir une
+fonction qui peut échouer : les exceptions, notamment avec
+<code>failwith</code>. Si on considère une fonction
+<code>f : 'a -&gt; 'b</code> on a ainsi deux types de valeurs dans le
+type <code>'a</code> :</p>
 <ul>
-<li>Les valeurs <code>x</code> qui permettent d’obtenir une valeur <code>f x</code> du type <code>'b</code></li>
-<li>Les valeurs <code>y</code> pour lesquelles <code>f y</code> produit une erreur.</li>
+<li>Les valeurs <code>x</code> qui permettent d’obtenir une valeur
+<code>f x</code> du type <code>'b</code></li>
+<li>Les valeurs <code>y</code> pour lesquelles <code>f y</code> produit
+une erreur.</li>
 </ul>
-<p>Schématiquement, si note <span class="math inline">\(A\)</span> les valeurs du type <code>'a</code>, on a donc <span class="math inline">\(A = A_s \cup A_e\)</span> où l’union est disjointe et <span class="math inline">\(A_s\)</span> sont les valeurs pour lesquelles <code>f</code> ne produit par d’erreurs et <span class="math inline">\(A_e\)</span> les valeurs produisant des erreurs. Si on prend la définition usuelle de fonctions en mathématiques, <span class="math inline">\(A_s\)</span> est le domaine de <code>f</code> et on considère en fait une <strong>application</strong> de <span class="math inline">\(A_s\)</span> dans <span class="math inline">\(B\)</span> les valeurs du type <code>'b</code>.</p>
-<p>L’idée avec le type <code>option</code>, c’est de transformer toute fonction partielle <span class="math inline">\(f : A \rightarrow B\)</span> en une application <span class="math inline">\(f^\star : A \rightarrow B \cup \{ \star \}\)</span> où <span class="math inline">\(\star\)</span> est un élément spécial <span class="math inline">\(\star \not\in B\)</span> qui correspond à une <strong>valeur</strong> erreur. Cela correspond à une <em>réification</em> de l’erreur au rang de valeur. L’application <span class="math inline">\(f^\star\)</span> est ainsi définie :</p>
+<p>Schématiquement, si note <span class="math inline">\(A\)</span> les
+valeurs du type <code>'a</code>, on a donc <span class="math inline">\(A
+= A_s \cup A_e\)</span> où l’union est disjointe et <span
+class="math inline">\(A_s\)</span> sont les valeurs pour lesquelles
+<code>f</code> ne produit par d’erreurs et <span
+class="math inline">\(A_e\)</span> les valeurs produisant des erreurs.
+Si on prend la définition usuelle de fonctions en mathématiques, <span
+class="math inline">\(A_s\)</span> est le domaine de <code>f</code> et
+on considère en fait une <strong>application</strong> de <span
+class="math inline">\(A_s\)</span> dans <span
+class="math inline">\(B\)</span> les valeurs du type
+<code>'b</code>.</p>
+<p>L’idée avec le type <code>option</code>, c’est de transformer toute
+fonction partielle <span class="math inline">\(f : A \rightarrow
+B\)</span> en une application <span class="math inline">\(f^\star : A
+\rightarrow B \cup \{ \star \}\)</span> où <span
+class="math inline">\(\star\)</span> est un élément spécial <span
+class="math inline">\(\star \not\in B\)</span> qui correspond à une
+<strong>valeur</strong> erreur. Cela correspond à une
+<em>réification</em> de l’erreur au rang de valeur. L’application <span
+class="math inline">\(f^\star\)</span> est ainsi définie :</p>
 <p><span class="math display">\[
 \begin{array}{ccccc}
 f^\star &amp; : &amp; A &amp; \rightarrow &amp; B \cup \{ \star \} \\
-&amp; &amp; a&amp; \mapsto &amp; \begin{cases} f(a) &amp; \text{ si } a \in A_s \\
+&amp; &amp; a&amp; \mapsto &amp; \begin{cases} f(a) &amp; \text{ si } a
+\in A_s \\
 \star &amp; \text{ si } a \in A_e \end{cases}
 \end{array}
 \]</span></p>
-<p>La valeur <span class="math inline">\(\star\)</span> est ce qu’on appelle un <em>puit</em>, c’est ici qu’on redirige toutes les entrées invalides.</p>
-<p>Il n’y a pas de type correspondant directement à l’union <span class="math inline">\(B \cup \{ \star \}\)</span> en <code>OCaml</code> et c’est pour cela qu’on utilise le type <code>'b option</code> qui nous force à <em>emballer</em> un retour.</p>
-<p>Ainsi à chaque fois qu’on aurait renvoyé une valeur <code>b</code>, on va renvoyer plutôt une valeur <code>Some b</code>, et à la place de produire une erreur, on renvoie <code>None</code>.</p>
+<p>La valeur <span class="math inline">\(\star\)</span> est ce qu’on
+appelle un <em>puit</em>, c’est ici qu’on redirige toutes les entrées
+invalides.</p>
+<p>Il n’y a pas de type correspondant directement à l’union <span
+class="math inline">\(B \cup \{ \star \}\)</span> en <code>OCaml</code>
+et c’est pour cela qu’on utilise le type <code>'b option</code> qui nous
+force à <em>emballer</em> un retour.</p>
+<p>Ainsi à chaque fois qu’on aurait renvoyé une valeur <code>b</code>,
+on va renvoyer plutôt une valeur <code>Some b</code>, et à la place de
+produire une erreur, on renvoie <code>None</code>.</p>
 <p>Par exemple, le code suivant :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">let</span> tete l =</span>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">let</span> tete l =</span>
 <span id="cb5-2"><a href="#cb5-2"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
 <span id="cb5-3"><a href="#cb5-3"></a>    | t :: q -&gt; t</span>
 <span id="cb5-4"><a href="#cb5-4"></a>    | [] -&gt; <span class="dt">failwith</span> <span class="st">&quot;Liste vide&quot;</span></span></code></pre></div>
 <p></div></p>
 <p>va s’écrire</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">let</span> tete_opt l =</span>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">let</span> tete_opt l =</span>
 <span id="cb6-2"><a href="#cb6-2"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
 <span id="cb6-3"><a href="#cb6-3"></a>    | t :: q -&gt; <span class="dt">Some</span> t</span>
 <span id="cb6-4"><a href="#cb6-4"></a>    | [] -&gt; <span class="dt">None</span></span></code></pre></div>
 <p></div></p>
-<h2 data-number="3.2" id="sec:appeler-une-fonction-partielle"><span class="header-section-number">3.2</span> Appeler une fonction partielle</h2>
-<p>Pour appeler une fonction partielle, il n’y a pas de difficulté, il suffit de faire l’appel de fonction et de manipuler ensuite le type option comme vu plus haut. Cela signifie qu’on effectuera en général l’appel directement dans l’expression d’un filtrage :</p>
+<h2 data-number="3.2" id="sec:appeler-une-fonction-partielle"><span
+class="header-section-number">3.2</span> Appeler une fonction
+partielle</h2>
+<p>Pour appeler une fonction partielle, il n’y a pas de difficulté, il
+suffit de faire l’appel de fonction et de manipuler ensuite le type
+option comme vu plus haut. Cela signifie qu’on effectuera en général
+l’appel directement dans l’expression d’un filtrage :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">match</span> f a <span class="kw">with</span></span>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">match</span> f a <span class="kw">with</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a>| <span class="dt">None</span> -&gt; <span class="co">(* ... *)</span></span>
 <span id="cb7-3"><a href="#cb7-3"></a>| <span class="dt">Some</span> b -&gt; <span class="co">(* ... *)</span></span></code></pre></div>
 <p></div></p>
-<h2 data-number="3.3" id="sec:valeurspartielles"><span class="header-section-number">3.3</span> Données partielles</h2>
-<p>Pour tout type polymorphe <code>'a t</code> on peut en déduire un type partiel <code>'a option t</code> dans lequel les valeurs peuvent ne pas être définies. Ainsi, un <code>int option array</code> permettra pour chaque case du tableau de :</p>
+<h2 data-number="3.3" id="sec:valeurspartielles"><span
+class="header-section-number">3.3</span> Données partielles</h2>
+<p>Pour tout type polymorphe <code>'a t</code> on peut en déduire un
+type partiel <code>'a option t</code> dans lequel les valeurs peuvent ne
+pas être définies. Ainsi, un <code>int option array</code> permettra
+pour chaque case du tableau de :</p>
 <ul>
-<li>soit être définie, et ce sera alors une valeur de la forme <code>Some k</code> où <code>k</code> est un <code>int</code>,</li>
+<li>soit être définie, et ce sera alors une valeur de la forme
+<code>Some k</code> où <code>k</code> est un <code>int</code>,</li>
 <li>soit être indéfinie avec la valeur <code>None</code>.</li>
 </ul>
-<p>Ainsi, une grille de Sudoku qu’on remplirait progressivement aurait le type <code>int option array array</code>. Une case valant <code>None</code> signifiant qu’elle n’est pas encore remplie. Bien entendu, une fois la grille remplie, toutes les valeurs seraient de la forme <code>Some k</code>. On peut ainsi imaginer une transformation de <code>int option array array</code> vers <code>int array array</code> consistant à passer d’une grille pouvant être partielle, mais pleinement remplie à une grille d’entiers :</p>
+<p>Ainsi, une grille de Sudoku qu’on remplirait progressivement aurait
+le type <code>int option array array</code>. Une case valant
+<code>None</code> signifiant qu’elle n’est pas encore remplie. Bien
+entendu, une fois la grille remplie, toutes les valeurs seraient de la
+forme <code>Some k</code>. On peut ainsi imaginer une transformation de
+<code>int option array array</code> vers <code>int array array</code>
+consistant à passer d’une grille pouvant être partielle, mais pleinement
+remplie à une grille d’entiers :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">let</span> grille_complete go =</span>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">let</span> grille_complete go =</span>
 <span id="cb8-2"><a href="#cb8-2"></a>    <span class="kw">let</span> g = <span class="dt">Array</span>.make_matrix <span class="dv">9</span> <span class="dv">9</span> <span class="dv">0</span> <span class="kw">in</span></span>
 <span id="cb8-3"><a href="#cb8-3"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> <span class="dv">8</span> <span class="kw">do</span></span>
 <span id="cb8-4"><a href="#cb8-4"></a>        <span class="kw">for</span> j = <span class="dv">0</span> <span class="kw">to</span> <span class="dv">8</span> <span class="kw">do</span></span>
@@ -420,9 +516,19 @@ f^\star &amp; : &amp; A &amp; \rightarrow &amp; B \cup \{ \star \} \\
 <span id="cb8-9"><a href="#cb8-9"></a>    <span class="kw">done</span>;</span>
 <span id="cb8-10"><a href="#cb8-10"></a>    g</span></code></pre></div>
 <p></div></p>
-<h2 data-number="3.4" id="sec:chaîne-de-traitement"><span class="header-section-number">3.4</span> Chaîne de traitement</h2>
-<p>On pourrait se dire que le type <code>option</code> n’est qu’en fait une version un peu lourde de la production d’erreurs. Mais en fait, la force du type <code>option</code> est justement que c’est un type comme un autre. Cela permet d’effectuer de nombreux traitements en manipulant des fonctions partielles pour définir des données partielles et d’attendre uniquement au dernier moment pour déballer les valeurs. L’idée forte est de manipuler la partialité naturellement.</p>
-<p>Un exemple cela peut-être d’avoir une série de traitement à appliquer sur une liste, chaque traitement va possiblement faire apparaitre des <code>None</code> qu’on va traiter naturellement avec éventuellement une étape finale pour retirer les options :</p>
+<h2 data-number="3.4" id="sec:chaîne-de-traitement"><span
+class="header-section-number">3.4</span> Chaîne de traitement</h2>
+<p>On pourrait se dire que le type <code>option</code> n’est qu’en fait
+une version un peu lourde de la production d’erreurs. Mais en fait, la
+force du type <code>option</code> est justement que c’est un type comme
+un autre. Cela permet d’effectuer de nombreux traitements en manipulant
+des fonctions partielles pour définir des données partielles et
+d’attendre uniquement au dernier moment pour déballer les valeurs.
+L’idée forte est de manipuler la partialité naturellement.</p>
+<p>Un exemple cela peut-être d’avoir une série de traitement à appliquer
+sur une liste, chaque traitement va possiblement faire apparaitre des
+<code>None</code> qu’on va traiter naturellement avec éventuellement une
+étape finale pour retirer les options :</p>
 <p><span class="math display">\[
 \begin{array}{c}
 \textsf{[ a1; a2; a3; a4; a5; ... ]} \\
@@ -434,11 +540,21 @@ f^\star &amp; : &amp; A &amp; \rightarrow &amp; B \cup \{ \star \} \\
 \textsf{[ c3; c5; ... ]}
 \end{array}
 \]</span></p>
-<p>On remarque que ce style de programmation est de plus en plus privilégié par la bibliothèque standard de <code>OCaml</code> :</p>
+<p>On remarque que ce style de programmation est de plus en plus
+privilégié par la bibliothèque standard de <code>OCaml</code> :</p>
 <ul>
-<li>de nombreuses fonctions partielles <code>f : 'a -&gt; b'</code> ont une variante <code>f_opt : 'a -&gt; 'b option</code></li>
-<li>il y a des fonctions manipulant directement des <code>_opt</code> comme <code>List.filter_map</code> qui effectue un <code>map</code> avec une fonction <code>'a -&gt; 'b option</code> et filtre les <code>None</code> en sortie.</li>
-<li>Le nouveau module <code>Option</code> contient beaucoup de fonctions pour se simplifier la vie quand on programme avec les types <code>option</code>. <strong>Attention</strong>, cela correspond à une utilisation bien plus pointue de <code>OCaml</code> que dans le reste de ce cours. Notamment, cela fait beaucoup de sens en lien avec l’opérateur <code>|&gt;</code> qu’on n’utilise pas ici.</li>
+<li>de nombreuses fonctions partielles <code>f : 'a -&gt; b'</code> ont
+une variante <code>f_opt : 'a -&gt; 'b option</code></li>
+<li>il y a des fonctions manipulant directement des <code>_opt</code>
+comme <code>List.filter_map</code> qui effectue un <code>map</code> avec
+une fonction <code>'a -&gt; 'b option</code> et filtre les
+<code>None</code> en sortie.</li>
+<li>Le nouveau module <code>Option</code> contient beaucoup de fonctions
+pour se simplifier la vie quand on programme avec les types
+<code>option</code>. <strong>Attention</strong>, cela correspond à une
+utilisation bien plus pointue de <code>OCaml</code> que dans le reste de
+ce cours. Notamment, cela fait beaucoup de sens en lien avec l’opérateur
+<code>|&gt;</code> qu’on n’utilise pas ici.</li>
 </ul>
 </div>
 <!-- </div> -->

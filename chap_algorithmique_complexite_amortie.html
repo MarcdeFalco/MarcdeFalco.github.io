@@ -93,7 +93,9 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     </style>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
 
 <script>
 $(document).ready(function() {
@@ -325,27 +327,78 @@ table td {
 <div class="segment">
 <div class="ui container text">
 <p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Complexité amortie     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_analyse_algo.png"> </div></p>
-<p><em>Source de l’image d’en-tête <a href="https://xkcd.com/1667/">XKCD #1667</a></em></p>
-<h1 data-number="1" id="sec:introduction"><span class="header-section-number">1</span> Introduction</h1>
-<p>Dans le cadre de l’étude des structures de données, il est fréquent de considérer non pas la complexité dans le pire des cas d’une opération mais celle d’une succession d’opérations divisée par le nombre d’opérations effectuées. Ainsi, on peut très bien avoir une opération ponctuellement plus coûteuse que les autres, mais en procédant ainsi on lisse le surcoût sur l’ensemble des opérations. On parle alors de <strong>complexité amortie</strong>.</p>
-<p><div class="ui message orange"><div class="header">Remarque</div>Cette notion ne masque pas le fait qu’une opération puisse prendre ponctuellement plus de temps. Dans des contextes temps réel où il est important de maitriser pleinement les complexités, il est peu judicieux d’utiliser de telles complexités. Par exemple, dans une visualisation en 3D, pour maintenir un débit constant d’images par secondes, chaque image doit prendre un temps similaire. Se reposer sur une structure de donnée ayant une faible complexité amortie mais une complexité dans le pire des cas importante, c’est risquer d’avoir des saccades avec une image qui prendrait plus de temps pour être calculée.</div></p>
-<p>On va reprendre ici deux exemples simples déjà traité par ailleurs.</p>
-<h2 data-number="1.1" id="sec:implémentation-dune-file-avec-deux-piles"><span class="header-section-number">1.1</span> Implémentation d’une file avec deux piles</h2>
-<p>On considère une file réalisée avec deux piles <code>in</code> et <code>out</code> (voir le chapitre <a href="chap_structuresdonnees_pilesfiles.html#sec:filedeuxpiles">Piles et files</a>).</p>
-<p>Comme on l’a vu, on enfile en <span class="math inline">\(O(1)\)</span> en empilant sur la pile <code>in</code> et on défile :</p>
+<p><em>Source de l’image d’en-tête <a href="https://xkcd.com/1667/">XKCD
+#1667</a></em></p>
+<h1 data-number="1" id="sec:introduction"><span
+class="header-section-number">1</span> Introduction</h1>
+<p>Dans le cadre de l’étude des structures de données, il est fréquent
+de considérer non pas la complexité dans le pire des cas d’une opération
+mais celle d’une succession d’opérations divisée par le nombre
+d’opérations effectuées. Ainsi, on peut très bien avoir une opération
+ponctuellement plus coûteuse que les autres, mais en procédant ainsi on
+lisse le surcoût sur l’ensemble des opérations. On parle alors de
+<strong>complexité amortie</strong>.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>Cette notion ne masque pas le fait qu’une opération puisse prendre
+ponctuellement plus de temps. Dans des contextes temps réel où il est
+important de maitriser pleinement les complexités, il est peu judicieux
+d’utiliser de telles complexités. Par exemple, dans une visualisation en
+3D, pour maintenir un débit constant d’images par secondes, chaque image
+doit prendre un temps similaire. Se reposer sur une structure de donnée
+ayant une faible complexité amortie mais une complexité dans le pire des
+cas importante, c’est risquer d’avoir des saccades avec une image qui
+prendrait plus de temps pour être calculée.</p>
+<p></div></p>
+<p>On va reprendre ici deux exemples simples déjà traité par
+ailleurs.</p>
+<h2 data-number="1.1"
+id="sec:implémentation-dune-file-avec-deux-piles"><span
+class="header-section-number">1.1</span> Implémentation d’une file avec
+deux piles</h2>
+<p>On considère une file réalisée avec deux piles <code>in</code> et
+<code>out</code> (voir le chapitre <a
+href="chap_structuresdonnees_pilesfiles.html#sec:filedeuxpiles">Piles et
+files</a>).</p>
+<p>Comme on l’a vu, on enfile en <span
+class="math inline">\(O(1)\)</span> en empilant sur la pile
+<code>in</code> et on défile :</p>
 <ul>
-<li>soit en <span class="math inline">\(O(1)\)</span> en dépilant sur <code>out</code> si elle est non vide</li>
-<li>soit en <span class="math inline">\(O(n)\)</span> en déversant <code>in</code> dans <code>out</code> puis en se ramenant au cas précédent.</li>
+<li>soit en <span class="math inline">\(O(1)\)</span> en dépilant sur
+<code>out</code> si elle est non vide</li>
+<li>soit en <span class="math inline">\(O(n)\)</span> en déversant
+<code>in</code> dans <code>out</code> puis en se ramenant au cas
+précédent.</li>
 </ul>
-<p>Ainsi, en pire cas, on est en <span class="math inline">\(O(n)\)</span> pour l’opération <em>défiler</em> mais la bascule permettra de faire ensuite cette même opération en <span class="math inline">\(O(1)\)</span>.</p>
-<h2 data-number="1.2" id="sec:comptabdyn"><span class="header-section-number">1.2</span> Les tableaux dynamiques</h2>
-<p>Les tableaux dynamiques sont une structure de données de haut niveau pour implémenter le type abstrait des listes. La différence principale entre cette structure de données et celle des tableaux de C est qu’on peut ajouter et supprimer des éléments.</p>
-<p>Un tableau dynamique d’entiers est un triplet <code>(t,c,l)</code> où <code>t</code> est un tableau de taille <code>c</code>, appelée la capacité du tableau dynamique, et <code>l</code> est un autre entier représentant la longueur logique du tableau. A tout moment <span class="math inline">\(c \ge l\)</span>. Dans <code>t</code> il y a ainsi <span class="math inline">\(c-l\)</span> cases déjà allouées qui permettent de rajouter un élément en temps constant. Quand <span class="math inline">\(c=l\)</span>, on alloue une nouvelle zone mémoire, souvent de taille <span class="math inline">\(2c\)</span>, on déplace le tableau <code>t</code> dans cette zone et on a donc pour cet ajout prévu un certain nombre de cases d’avance.</p>
+<p>Ainsi, en pire cas, on est en <span
+class="math inline">\(O(n)\)</span> pour l’opération <em>défiler</em>
+mais la bascule permettra de faire ensuite cette même opération en <span
+class="math inline">\(O(1)\)</span>.</p>
+<h2 data-number="1.2" id="sec:comptabdyn"><span
+class="header-section-number">1.2</span> Les tableaux dynamiques</h2>
+<p>Les tableaux dynamiques sont une structure de données de haut niveau
+pour implémenter le type abstrait des listes. La différence principale
+entre cette structure de données et celle des tableaux de C est qu’on
+peut ajouter et supprimer des éléments.</p>
+<p>Un tableau dynamique d’entiers est un triplet <code>(t,c,l)</code> où
+<code>t</code> est un tableau de taille <code>c</code>, appelée la
+capacité du tableau dynamique, et <code>l</code> est un autre entier
+représentant la longueur logique du tableau. A tout moment <span
+class="math inline">\(c \ge l\)</span>. Dans <code>t</code> il y a ainsi
+<span class="math inline">\(c-l\)</span> cases déjà allouées qui
+permettent de rajouter un élément en temps constant. Quand <span
+class="math inline">\(c=l\)</span>, on alloue une nouvelle zone mémoire,
+souvent de taille <span class="math inline">\(2c\)</span>, on déplace le
+tableau <code>t</code> dans cette zone et on a donc pour cet ajout prévu
+un certain nombre de cases d’avance.</p>
 <p>La figure suivante présente une succession d’ajouts :</p>
-<p><center><div class="ui image center"><img src="assets/pics/tableau_dyn.png" /></div></center></p>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Complément </div> <div class="content"> Une implémentation de ces opérations est proposée dans le programme suivant :</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/tableau_dyn.png" /></div></center></p>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Complément </div> <div class="content"> Une implémentation de ces
+opérations est proposée dans le programme suivant :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
 <span id="cb1-3"><a href="#cb1-3"></a></span>
 <span id="cb1-4"><a href="#cb1-4"></a><span class="kw">typedef</span> <span class="kw">struct</span> <span class="op">{</span></span>
@@ -404,9 +457,11 @@ table td {
 <span id="cb1-57"><a href="#cb1-57"></a>    <span class="op">}</span></span>
 <span id="cb1-58"><a href="#cb1-58"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
-<p>Ce programme, une fois exécuté produit la sortie suivante qui permet de retrouver exactement le comportement attendu :</p>
+<p>Ce programme, une fois exécuté produit la sortie suivante qui permet
+de retrouver exactement le comportement attendu :</p>
 <p><div class="ui segment code"></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1"></a>c<span class="op">=</span><span class="dv">0</span> l<span class="op">=</span><span class="dv">0</span> <span class="op">|</span></span>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1"></a>c<span class="op">=</span><span class="dv">0</span> l<span class="op">=</span><span class="dv">0</span> <span class="op">|</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>c<span class="op">=</span><span class="dv">1</span> l<span class="op">=</span><span class="dv">1</span> <span class="op">|</span><span class="dv">1</span><span class="op">|</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a>c<span class="op">=</span><span class="dv">2</span> l<span class="op">=</span><span class="dv">2</span> <span class="op">|</span><span class="dv">1</span><span class="op">|</span><span class="dv">2</span><span class="op">|</span></span>
 <span id="cb2-4"><a href="#cb2-4"></a>c<span class="op">=</span><span class="dv">4</span> l<span class="op">=</span><span class="dv">3</span> <span class="op">|</span><span class="dv">1</span><span class="op">|</span><span class="dv">2</span><span class="op">|</span><span class="dv">3</span><span class="op">|</span> <span class="op">|</span></span>
@@ -414,161 +469,370 @@ table td {
 <span id="cb2-6"><a href="#cb2-6"></a>c<span class="op">=</span><span class="dv">8</span> l<span class="op">=</span><span class="dv">5</span> <span class="op">|</span><span class="dv">1</span><span class="op">|</span><span class="dv">2</span><span class="op">|</span><span class="dv">3</span><span class="op">|</span><span class="dv">4</span><span class="op">|</span><span class="dv">5</span><span class="op">|</span> <span class="op">|</span> <span class="op">|</span> <span class="op">|</span></span></code></pre></div>
 <p></div></p>
 <p></div> </div></p>
-<p>Avec une analyse en pire cas, l’ajout d’un élément peut entrainer un doublement de taille et une recopie, donc coûter <span class="math inline">\(O(c)\)</span> opérations où <span class="math inline">\(c\)</span> est la capacité avant doublement. Cependant, on constate que ce doublement permettra plusieurs ajouts ensuite en temps constant, ainsi, le pire cas ne semble pas le plus pertinent.</p>
-<h1 data-number="2" id="sec:techniques-de-calcul"><span class="header-section-number">2</span> Techniques de calcul</h1>
-<h2 data-number="2.1" id="sec:cadre"><span class="header-section-number">2.1</span> Cadre</h2>
-<p>On considère une structure de données, pour simplifier initialemetn vide, et une sucessions <span class="math inline">\(o_1, ..., o_n\)</span> d’opérations <strong>valides</strong> sur cette structure de donnée. En reprenant l’exemple précédent, cela peut être une succession d’ajouts ou de suppressions dans une file mais sans jamais essayer de retirer des éléments à une file vide.</p>
-<p>On considère de plus que pour chaque opération <span class="math inline">\(o_i\)</span>, on connait le coût temporel <span class="math inline">\(c_i\)</span> en terme d’opérations élémentaires. La question que l’on se pose est d’estimer <span class="math inline">\(\frac{1}{n} \sum_{i=1}^n c_i\)</span>, c’est-à-dire le coût moyen de chaque opération. L’objectif est de montrer que ce coût moyen est <span class="math inline">\(O(f(n))\)</span>, avec assez souvent <span class="math inline">\(O(1)\)</span>, c’est-à-dire que <span class="math inline">\(\sum_{i=1}^n c_i = O(n f(n))\)</span>.</p>
-<h2 data-number="2.2" id="sec:calcul-naïf"><span class="header-section-number">2.2</span> Calcul naïf</h2>
-<p>Une approche näive consiste à calculer directement la somme des coûts. Tout le problème ici est qu’on ne connait pas les opérations et l’ordre dans lequel elles ont été effectuées.</p>
-<h3 data-number="2.2.1" id="sec:exemple-de-la-file-avec-deux-piles"><span class="header-section-number">2.2.1</span> Exemple de la file avec deux piles</h3>
-<p>On va commencer par calculer <span class="math inline">\(c_i\)</span> pour les différentes opérations :</p>
+<p>Avec une analyse en pire cas, l’ajout d’un élément peut entrainer un
+doublement de taille et une recopie, donc coûter <span
+class="math inline">\(O(c)\)</span> opérations où <span
+class="math inline">\(c\)</span> est la capacité avant doublement.
+Cependant, on constate que ce doublement permettra plusieurs ajouts
+ensuite en temps constant, ainsi, le pire cas ne semble pas le plus
+pertinent.</p>
+<h1 data-number="2" id="sec:techniques-de-calcul"><span
+class="header-section-number">2</span> Techniques de calcul</h1>
+<h2 data-number="2.1" id="sec:cadre"><span
+class="header-section-number">2.1</span> Cadre</h2>
+<p>On considère une structure de données, pour simplifier initialemetn
+vide, et une sucessions <span class="math inline">\(o_1, ...,
+o_n\)</span> d’opérations <strong>valides</strong> sur cette structure
+de donnée. En reprenant l’exemple précédent, cela peut être une
+succession d’ajouts ou de suppressions dans une file mais sans jamais
+essayer de retirer des éléments à une file vide.</p>
+<p>On considère de plus que pour chaque opération <span
+class="math inline">\(o_i\)</span>, on connait le coût temporel <span
+class="math inline">\(c_i\)</span> en terme d’opérations élémentaires.
+La question que l’on se pose est d’estimer <span
+class="math inline">\(\frac{1}{n} \sum_{i=1}^n c_i\)</span>,
+c’est-à-dire le coût moyen de chaque opération. L’objectif est de
+montrer que ce coût moyen est <span
+class="math inline">\(O(f(n))\)</span>, avec assez souvent <span
+class="math inline">\(O(1)\)</span>, c’est-à-dire que <span
+class="math inline">\(\sum_{i=1}^n c_i = O(n f(n))\)</span>.</p>
+<h2 data-number="2.2" id="sec:calcul-naïf"><span
+class="header-section-number">2.2</span> Calcul naïf</h2>
+<p>Une approche näive consiste à calculer directement la somme des
+coûts. Tout le problème ici est qu’on ne connait pas les opérations et
+l’ordre dans lequel elles ont été effectuées.</p>
+<h3 data-number="2.2.1"
+id="sec:exemple-de-la-file-avec-deux-piles"><span
+class="header-section-number">2.2.1</span> Exemple de la file avec deux
+piles</h3>
+<p>On va commencer par calculer <span class="math inline">\(c_i\)</span>
+pour les différentes opérations :</p>
 <ul>
-<li>S’il s’agit d’un ajout sur <code>in</code> ou d’un dépilement sur <code>out</code>, on a <span class="math inline">\(c_i = 1\)</span></li>
-<li>Si l’opération est un dépilement nécessitant un renversement, on a <span class="math inline">\(c_i = 2 p + 1\)</span> où <span class="math inline">\(p\)</span> est la taille de <code>in</code>.</li>
+<li>S’il s’agit d’un ajout sur <code>in</code> ou d’un dépilement sur
+<code>out</code>, on a <span class="math inline">\(c_i = 1\)</span></li>
+<li>Si l’opération est un dépilement nécessitant un renversement, on a
+<span class="math inline">\(c_i = 2 p + 1\)</span> où <span
+class="math inline">\(p\)</span> est la taille de <code>in</code>.</li>
 </ul>
-<p>Le problème du calcul naïf ici est de connaitre l’ordre des opérations. On peut regrouper les opérations <span class="math inline">\(o_1,\dots,o_n\)</span> par paquet : ajouts, suppression avec renversement, ajouts ou suppressions sans reversement, suppression avec renversement… On va noter <span class="math inline">\(p_i\)</span> la taille de <code>in</code> avant le ième renversement. On a donc <span class="math inline">\(p_{i+1}\)</span> ajouts entre le ième et le (i+1)ème renversement. Ainsi, on a effectué <span class="math inline">\(p_i-1\)</span> suppressions sans renversements entre les deux.</p>
-<p>Comme cela correspond au pire cas, on peut supposer que <span class="math inline">\(o_n\)</span> est une suppression avec renversement.</p>
+<p>Le problème du calcul naïf ici est de connaitre l’ordre des
+opérations. On peut regrouper les opérations <span
+class="math inline">\(o_1,\dots,o_n\)</span> par paquet : ajouts,
+suppression avec renversement, ajouts ou suppressions sans reversement,
+suppression avec renversement… On va noter <span
+class="math inline">\(p_i\)</span> la taille de <code>in</code> avant le
+ième renversement. On a donc <span
+class="math inline">\(p_{i+1}\)</span> ajouts entre le ième et le
+(i+1)ème renversement. Ainsi, on a effectué <span
+class="math inline">\(p_i-1\)</span> suppressions sans renversements
+entre les deux.</p>
+<p>Comme cela correspond au pire cas, on peut supposer que <span
+class="math inline">\(o_n\)</span> est une suppression avec
+renversement.</p>
 <p>On obtient alors <span class="math display">\[\begin{eqnarray*}
-\sum_{i=1}^n c_i 
+\sum_{i=1}^n c_i
 &amp;=&amp; p_1 + (2 p_1 + 1) + p_2 + (p_1 - 1)
 + (2 p_2 + 1) \\
-&amp; &amp; + \dots + 
+&amp; &amp; + \dots +
 p_r + (p_{r-1} - 1) + (2 p_r + 1)
 \\
 &amp;\le &amp; 4 (p_1 + p_2 + \dots + p_r)
 \end{eqnarray*}\]</span></p>
-<p>Pour conclure, il est nécessaire de relier le nombre d’opérations aux <span class="math inline">\(p_i\)</span>. Or, on a <span class="math display">\[\begin{eqnarray*}
+<p>Pour conclure, il est nécessaire de relier le nombre d’opérations aux
+<span class="math inline">\(p_i\)</span>. Or, on a <span
+class="math display">\[\begin{eqnarray*}
 n &amp;=&amp; p_1 + 1 + p_2 + p_1 - 1 + \dots + p_r
 + p_{r-1} - 1 + 1\\
 &amp;= &amp; 2 p_1 + 2 p_2 + \dots + 2 p_{r-1} + p_r
 \ge p_1 + \dots + p_r
 \end{eqnarray*}\]</span></p>
-<p>Ainsi <span class="math inline">\(\frac{1}{n} \sum_{i=1}^n c_i \le 4\)</span>.</p>
-<p><div class="ui message orange"><div class="header">Remarque</div>Cette analyse est assez pénible à mettre en oeuvre car elle demande de compter avec précision ce qui se passe.</div></p>
-<h3 data-number="2.2.2" id="sec:exemple-du-tableau-dynamique"><span class="header-section-number">2.2.2</span> Exemple du tableau dynamique</h3>
-<p>Ici, les opérations sont toutes des ajouts d’éléments, mais certains provoquent une recopie tandis que d’autres sont en temps constant. Cependant, on a la même distribution des coûts, la suite des <span class="math inline">\(c_i\)</span> est toujours <span class="math inline">\(1, 2, 3, 1, 5, 1, 1, 1, 9, 1, 1, 1, ...\)</span>.</p>
-<p>Plus précisément, <span class="math inline">\(c_i = \begin{cases} 2^p+1 &amp; \text{si } i = 2^p+1 \\ 1 &amp; \text{sinon} \end{cases}\)</span>.</p>
-<p>Donc si <span class="math inline">\(2^{p-1} &lt; n \le 2^p\)</span> on a <span class="math inline">\(\sum_{i=1}^n c_i = n + \sum_{k=1}^{p-1} 2^k = n + 2^p \le 3n\)</span>.</p>
-<p>On en déduit que <span class="math inline">\(\frac{1}{n} \sum_{i=1}^n c_i \le 3\)</span> c’est-à-dire que c’est un <span class="math inline">\(O(1)\)</span>.</p>
-<h3 data-number="2.2.3" id="sec:améliorer-la-méthode-naïve"><span class="header-section-number">2.2.3</span> Améliorer la méthode naïve</h3>
-<p>Une amélioration de la méthode naïve va consister à considérer non pas le coût réel <span class="math inline">\(c_i\)</span> de l’opération <span class="math inline">\(o_i\)</span> mais un coût amorti <span class="math inline">\(c&#39;_i\)</span> tel qu’à la fin des opérations on ait <span class="math inline">\(\sum_{i=1}^n c_i \le \sum_{i=1}^n c&#39;_i\)</span> où cette dernière somme est facile à majorer.</p>
-<p>On fera souvent en sorte que la majoration soit valide tout au long des opérations, c’est-à-dire que <span class="math display">\[
-\forall k \in \range{1}{n}, \sum_{i=1}^k c_i 
+<p>Ainsi <span class="math inline">\(\frac{1}{n} \sum_{i=1}^n c_i \le
+4\)</span>.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>Cette analyse est assez pénible à mettre en oeuvre car elle demande
+de compter avec précision ce qui se passe.</p>
+<p></div></p>
+<h3 data-number="2.2.2" id="sec:exemple-du-tableau-dynamique"><span
+class="header-section-number">2.2.2</span> Exemple du tableau
+dynamique</h3>
+<p>Ici, les opérations sont toutes des ajouts d’éléments, mais certains
+provoquent une recopie tandis que d’autres sont en temps constant.
+Cependant, on a la même distribution des coûts, la suite des <span
+class="math inline">\(c_i\)</span> est toujours <span
+class="math inline">\(1, 2, 3, 1, 5, 1, 1, 1, 9, 1, 1, 1,
+...\)</span>.</p>
+<p>Plus précisément, <span class="math inline">\(c_i = \begin{cases}
+2^p+1 &amp; \text{si } i = 2^p+1 \\ 1 &amp; \text{sinon}
+\end{cases}\)</span>.</p>
+<p>Donc si <span class="math inline">\(2^{p-1} &lt; n \le 2^p\)</span>
+on a <span class="math inline">\(\sum_{i=1}^n c_i = n + \sum_{k=1}^{p-1}
+2^k = n + 2^p \le 3n\)</span>.</p>
+<p>On en déduit que <span class="math inline">\(\frac{1}{n} \sum_{i=1}^n
+c_i \le 3\)</span> c’est-à-dire que c’est un <span
+class="math inline">\(O(1)\)</span>.</p>
+<h3 data-number="2.2.3" id="sec:améliorer-la-méthode-naïve"><span
+class="header-section-number">2.2.3</span> Améliorer la méthode
+naïve</h3>
+<p>Une amélioration de la méthode naïve va consister à considérer non
+pas le coût réel <span class="math inline">\(c_i\)</span> de l’opération
+<span class="math inline">\(o_i\)</span> mais un coût amorti <span
+class="math inline">\(c&#39;_i\)</span> tel qu’à la fin des opérations
+on ait <span class="math inline">\(\sum_{i=1}^n c_i \le \sum_{i=1}^n
+c&#39;_i\)</span> où cette dernière somme est facile à majorer.</p>
+<p>On fera souvent en sorte que la majoration soit valide tout au long
+des opérations, c’est-à-dire que <span class="math display">\[
+\forall k \in \range{1}{n}, \sum_{i=1}^k c_i
 \le \sum_{i=1}^k c&#39;_i
 \]</span></p>
-<h2 data-number="2.3" id="sec:méthode-du-banquier"><span class="header-section-number">2.3</span> Méthode du banquier</h2>
-<p>On va imaginer maintenant que les opérations coûtent un certain nombre de crédits, comme si l’ordinateur marchait avec des pièces de monnaie.</p>
-<p>Des opérations vont alors accumuler des crédits dans une réserve et d’autres opérations vont consommer ces crédits. L’idée est de payer un peu plus pour chaque opération peu coûteues afin de couvrir les coûts des opérations coûteuses.</p>
-<p>Précisément, on considère pour chaque opération <span class="math inline">\(o_i\)</span> :</p>
+<h2 data-number="2.3" id="sec:méthode-du-banquier"><span
+class="header-section-number">2.3</span> Méthode du banquier</h2>
+<p>On va imaginer maintenant que les opérations coûtent un certain
+nombre de crédits, comme si l’ordinateur marchait avec des pièces de
+monnaie.</p>
+<p>Des opérations vont alors accumuler des crédits dans une réserve et
+d’autres opérations vont consommer ces crédits. L’idée est de payer un
+peu plus pour chaque opération peu coûteues afin de couvrir les coûts
+des opérations coûteuses.</p>
+<p>Précisément, on considère pour chaque opération <span
+class="math inline">\(o_i\)</span> :</p>
 <ul>
-<li>une quantité <span class="math inline">\(a_i\)</span> de crédits qui seront accumulés dans la réserve</li>
-<li>et une quantité <span class="math inline">\(d_i\)</span> de crédits qu’il faudra dépenser.</li>
+<li>une quantité <span class="math inline">\(a_i\)</span> de crédits qui
+seront accumulés dans la réserve</li>
+<li>et une quantité <span class="math inline">\(d_i\)</span> de crédits
+qu’il faudra dépenser.</li>
 </ul>
-<p>On pose alors <span class="math inline">\(c&#39;_i = c_i + a_i - d_i\)</span>. On s’arrange pour faire en sorte que <span class="math inline">\(c&#39;_i \le A f(n)\)</span> où <span class="math inline">\(A\)</span> est une constante. Dans le cas d’une complexité constante amortie, on s’assurera que <span class="math inline">\(c&#39;_i \le A\)</span>.</p>
-<p>On va maintenir un invariant sur les crédits qui est que <span class="math display">\[
+<p>On pose alors <span class="math inline">\(c&#39;_i = c_i + a_i -
+d_i\)</span>. On s’arrange pour faire en sorte que <span
+class="math inline">\(c&#39;_i \le A f(n)\)</span> où <span
+class="math inline">\(A\)</span> est une constante. Dans le cas d’une
+complexité constante amortie, on s’assurera que <span
+class="math inline">\(c&#39;_i \le A\)</span>.</p>
+<p>On va maintenir un invariant sur les crédits qui est que <span
+class="math display">\[
 \forall k \in \range{1}{n},
 \sum_{i=1}^k a_i \ge \sum_{i=1}^k d_i
-\]</span> Cela signifie qu’à tout moment la réserve de crédit est positive ou nulle : on ne dépense pas de crédits n’ayant pas été accumulés.</p>
-<p>On a alors directement la majoration voulu de <span class="math inline">\(\sum_i c_i\)</span> : soit <span class="math inline">\(k \in \range{1}{n}\)</span>, <span class="math display">\[
-\sum_{i=1}^k c&#39;_i = \sum_{i=1}^k c_i + 
+\]</span> Cela signifie qu’à tout moment la réserve de crédit est
+positive ou nulle : on ne dépense pas de crédits n’ayant pas été
+accumulés.</p>
+<p>On a alors directement la majoration voulu de <span
+class="math inline">\(\sum_i c_i\)</span> : soit <span
+class="math inline">\(k \in \range{1}{n}\)</span>, <span
+class="math display">\[
+\sum_{i=1}^k c&#39;_i = \sum_{i=1}^k c_i +
 \left( \sum_{i=1}^k a_i - \sum_{i=1}^k d_i \right)
 \ge \sum_{i=1}^k c_i
 \]</span></p>
-<h3 data-number="2.3.1" id="sec:exemple-de-la-file-avec-deux-piles-1"><span class="header-section-number">2.3.1</span> Exemple de la file avec deux piles</h3>
-<p>Pour chaque élément enfilé on va allouer deux crédits correspondant au futur dépilement de <code>in</code> puis empilement sur <code>out</code> qui auront lieu lors du renversement.</p>
-<p>On pose donc pour chaque opération <span class="math inline">\(o_i\)</span>, <span class="math inline">\(c&#39;_i = c_i + a_i - d_i\)</span> où :</p>
+<h3 data-number="2.3.1"
+id="sec:exemple-de-la-file-avec-deux-piles-1"><span
+class="header-section-number">2.3.1</span> Exemple de la file avec deux
+piles</h3>
+<p>Pour chaque élément enfilé on va allouer deux crédits correspondant
+au futur dépilement de <code>in</code> puis empilement sur
+<code>out</code> qui auront lieu lors du renversement.</p>
+<p>On pose donc pour chaque opération <span
+class="math inline">\(o_i\)</span>, <span class="math inline">\(c&#39;_i
+= c_i + a_i - d_i\)</span> où :</p>
 <ul>
-<li><span class="math inline">\(a_i = 2\)</span> et <span class="math inline">\(d_i = 0\)</span> si l’opération est un ajout</li>
-<li><span class="math inline">\(a_i = d_i = 0\)</span> si l’opération est un défilement ne nécessitant pas de renversement</li>
-<li><span class="math inline">\(a_i = 0\)</span> et <span class="math inline">\(d_i = 2 p\)</span> où <span class="math inline">\(p\)</span> est la taille de <code>in</code> dans le cas d’un défilement provoquant un renversement.</li>
+<li><span class="math inline">\(a_i = 2\)</span> et <span
+class="math inline">\(d_i = 0\)</span> si l’opération est un ajout</li>
+<li><span class="math inline">\(a_i = d_i = 0\)</span> si l’opération
+est un défilement ne nécessitant pas de renversement</li>
+<li><span class="math inline">\(a_i = 0\)</span> et <span
+class="math inline">\(d_i = 2 p\)</span> où <span
+class="math inline">\(p\)</span> est la taille de <code>in</code> dans
+le cas d’un défilement provoquant un renversement.</li>
 </ul>
-<p>On a donc <span class="math inline">\(\sum_{i=1}^k a_i = 2 A\)</span> où <span class="math inline">\(A\)</span> est le nombre d’ajouts effectués par les <span class="math inline">\(k\)</span> premières opérations. Si on a effectué des renversements successifs de <span class="math inline">\(p_1, p_2, \dots, p_r\)</span> éléments dans <code>in</code>, on a <span class="math display">\[\begin{eqnarray*}
+<p>On a donc <span class="math inline">\(\sum_{i=1}^k a_i = 2 A\)</span>
+où <span class="math inline">\(A\)</span> est le nombre d’ajouts
+effectués par les <span class="math inline">\(k\)</span> premières
+opérations. Si on a effectué des renversements successifs de <span
+class="math inline">\(p_1, p_2, \dots, p_r\)</span> éléments dans
+<code>in</code>, on a <span class="math display">\[\begin{eqnarray*}
 \sum_{i=1}^k d_i &amp; = &amp; 2 p_1 + \dots + 2 p_r \\
 &amp; = &amp; 2(p_1 + \dots + p_r) \\
 &amp; \le &amp; 2 A \\
 &amp; \le &amp; \sum_{i=1}^k a_i
 \end{eqnarray*}\]</span></p>
-<p>La majoration venant du fait qu’un élément n’est ajouté qu’une seule fois dans <code>in</code> et donc que la somme <span class="math inline">\(p_1+\dots+p_r\)</span> des longueurs de <code>in</code> au cours des opérations ne peut dépasser le nombre <span class="math inline">\(A\)</span> d’éléments empilés.</p>
-<p>On a ainsi vérifié l’invariant sur les crédits et on a donc la majoration <span class="math inline">\(\sum_{i=1}^k c_i \le \sum_{i=1}^k c&#39;_i\)</span>.</p>
-<p>Pour conclure, il suffit de calculer <span class="math inline">\(c&#39;_i\)</span> selon les cas :</p>
+<p>La majoration venant du fait qu’un élément n’est ajouté qu’une seule
+fois dans <code>in</code> et donc que la somme <span
+class="math inline">\(p_1+\dots+p_r\)</span> des longueurs de
+<code>in</code> au cours des opérations ne peut dépasser le nombre <span
+class="math inline">\(A\)</span> d’éléments empilés.</p>
+<p>On a ainsi vérifié l’invariant sur les crédits et on a donc la
+majoration <span class="math inline">\(\sum_{i=1}^k c_i \le \sum_{i=1}^k
+c&#39;_i\)</span>.</p>
+<p>Pour conclure, il suffit de calculer <span
+class="math inline">\(c&#39;_i\)</span> selon les cas :</p>
 <ul>
-<li>Si l’opération est un ajout, on a <span class="math inline">\(c&#39;_i = 1 + 2 - 0 = 3\)</span>.</li>
-<li>Si l’opération est une suppression sans renversement, on a <span class="math inline">\(c&#39;_i = 1\)</span></li>
-<li>Si l’opération est une suppression avec renversement, on a <span class="math inline">\(c&#39;_i = 2 p + 1 + 0 - 2p = 1\)</span></li>
+<li>Si l’opération est un ajout, on a <span
+class="math inline">\(c&#39;_i = 1 + 2 - 0 = 3\)</span>.</li>
+<li>Si l’opération est une suppression sans renversement, on a <span
+class="math inline">\(c&#39;_i = 1\)</span></li>
+<li>Si l’opération est une suppression avec renversement, on a <span
+class="math inline">\(c&#39;_i = 2 p + 1 + 0 - 2p = 1\)</span></li>
 </ul>
-<p>Dans tous les cas, on a donc <span class="math inline">\(c&#39;_i \le 3\)</span>.</p>
-<p>On en déduit la majoration <span class="math inline">\(\sum_{i=1}^n c_i \le \sum_{i=1}^n c&#39;_i \le 3 n\)</span> qui est plus fine que la majoration obtenue précédemment.</p>
-<h3 data-number="2.3.2" id="sec:exemple-du-tableau-dynamique-1"><span class="header-section-number">2.3.2</span> Exemple du tableau dynamique</h3>
-<p>On va considérer qu’on alloue 2 crédits pour chaque opération d’ajout d’un élément :</p>
+<p>Dans tous les cas, on a donc <span class="math inline">\(c&#39;_i \le
+3\)</span>.</p>
+<p>On en déduit la majoration <span class="math inline">\(\sum_{i=1}^n
+c_i \le \sum_{i=1}^n c&#39;_i \le 3 n\)</span> qui est plus fine que la
+majoration obtenue précédemment.</p>
+<h3 data-number="2.3.2" id="sec:exemple-du-tableau-dynamique-1"><span
+class="header-section-number">2.3.2</span> Exemple du tableau
+dynamique</h3>
+<p>On va considérer qu’on alloue 2 crédits pour chaque opération d’ajout
+d’un élément :</p>
 <ul>
 <li>Un crédit pour la première recopie de cet élément</li>
-<li>Un crédit pour copier l’élément qui lui est symétrique par rapport à la demi-capacité :</li>
+<li>Un crédit pour copier l’élément qui lui est symétrique par rapport à
+la demi-capacité :</li>
 </ul>
-<p><center><div class="ui image center"><img src="assets/pics/ca_tab_dyn1.png" /></div></center></p>
-<p>Ainsi, juste avant un doublement de capacité, on dispose d’un crédit pour chaque recopie :</p>
-<p><center><div class="ui image center"><img src="assets/pics/ca_tab_dyn2.png" /></div></center></p>
-<p>Plus précisément, on définit pour chaque opération <span class="math inline">\(o_i\)</span> : <span class="math inline">\(c&#39;_i = c_i + a_i - d_i\)</span> où <span class="math inline">\(a_i = \begin{cases} 1 &amp; \text{si } i = 1 \\ 2 &amp; \text{sinon}\end{cases}\)</span> et <span class="math inline">\(d_i = \begin{cases} 2^p &amp; \text{si } i = 2^p+1 \\ 0 &amp; \text{sinon} \end{cases}\)</span>.</p>
-<p>On a donc <span class="math inline">\(c&#39;_i = 3\)</span> dans tous les cas.</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/ca_tab_dyn1.png" /></div></center></p>
+<p>Ainsi, juste avant un doublement de capacité, on dispose d’un crédit
+pour chaque recopie :</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/ca_tab_dyn2.png" /></div></center></p>
+<p>Plus précisément, on définit pour chaque opération <span
+class="math inline">\(o_i\)</span> : <span
+class="math inline">\(c&#39;_i = c_i + a_i - d_i\)</span> où <span
+class="math inline">\(a_i = \begin{cases} 1 &amp; \text{si } i = 1 \\ 2
+&amp; \text{sinon}\end{cases}\)</span> et <span
+class="math inline">\(d_i = \begin{cases} 2^p &amp; \text{si } i = 2^p+1
+\\ 0 &amp; \text{sinon} \end{cases}\)</span>.</p>
+<p>On a donc <span class="math inline">\(c&#39;_i = 3\)</span> dans tous
+les cas.</p>
 <div class="ui message olive">
 <div class="header">
 Théorème
 </div>
-<p><span class="math inline">\(\forall n \in \N^*, \sum_{i=1}^n a_i \ge \sum_{i=1}^n d_i\)</span>.</p>
+<p><span class="math inline">\(\forall n \in \N^*, \sum_{i=1}^n a_i \ge
+\sum_{i=1}^n d_i\)</span>.</p>
 </div>
-<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i> Preuve </div> <div class="content"> On a <span class="math inline">\(\sum_{i=1}^n a_i = 2n - 1\)</span> et si <span class="math inline">\(2^p &lt; n \le 2^{p+1}\)</span>,</p>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> On a <span
+class="math inline">\(\sum_{i=1}^n a_i = 2n - 1\)</span> et si <span
+class="math inline">\(2^p &lt; n \le 2^{p+1}\)</span>,</p>
 <p><span class="math display">\[\begin{eqnarray*}
-\sum_{i=1}^n d_i 
+\sum_{i=1}^n d_i
 &amp; = &amp; d_2 + d_3 + d_5 + \dots + d_{2^p+1} \\
 &amp; = &amp; 1 + 2 + 2^2 + \dots + 2^p \\
 &amp; = &amp; 2^{p+1} - 1
- \le 2 n - 1
+\le 2 n - 1
 \end{eqnarray*}\]</span></p>
 <p>L’inégalité est bien vérifiée. </div> </div></p>
-<p>Ainsi, <span class="math display">\[3 n = \sum_{i=1}^n c&#39;_i = \sum_{i=1}^n c_i + 
+<p>Ainsi, <span class="math display">\[3 n = \sum_{i=1}^n c&#39;_i =
+\sum_{i=1}^n c_i +
 \left( \sum_{i=1}^n a_i - \sum_{i=1}^n d_i \right)
 \ge \sum_{i=1}^n c_i\]</span></p>
-<p>On retombe sur une complexité amortie en <span class="math inline">\(O(1)\)</span>.</p>
-<h3 data-number="2.3.3" id="sec:présentation-de-la-méthode"><span class="header-section-number">2.3.3</span> Présentation de la méthode</h3>
-<p>La présentation qui vient d’être faiter de cette méthode est assez lourde bien que précise. En général, on se contente de présenter informellement la distribution de crédits en s’assurant qu’on a couvert les opérations coûteuses.</p>
-<p>Une manière de bien s’en assurer est de <em>décorer</em> les structures de données en rendant les crédits apparents.</p>
-<p>Si on reprend les tableaux dynamiques, on va rajouter sous une case le nombre de crédits dont elle dispose. Si on reprend la séquence d’ajouts précédente on pourra la représenter ainsi :</p>
-<p><center><div class="ui image center"><img src="assets/pics/tableau_dyn_credits.png" /></div></center></p>
-<h2 data-number="2.4" id="sec:méthode-du-potentiel"><span class="header-section-number">2.4</span> Méthode du potentiel</h2>
-<p>L’idée de la méthode du potentiel est de définir une fonction sur <span class="math inline">\(\Phi\)</span> qui associe à chaque valeur de la structure de données un nombre réel. Ce réel correspond à la notion physique de potentiel : si on considère un pendule simple dans sa trajectoire son énergie potentielle est maximale au sommet quand sa vitesse, et donc son énergie cinétique est nulle. À l’inverse son énergie potentielle est nulle au point le plus bas et sa vitesse maximale.</p>
-<p><center><div class="ui image center"><img src="assets/pics/pendule.png" /></div></center></p>
-<p>L’idée ici est que le potentiel va correspondre aux gains de temps obtenus par des opérations peu coûteuses. Chaque opération va ainsi faire évoluer le potentiel. On peut prendre l’image d’un empilement de tuiles de bois, comme des Kapla, chaque ajout d’une tuile de bois augmente le potentiel jusqu’à un éventuel effondrement. On retrouve ici la dualité entre les opérations rapides et les opérations coûteuses liées à un basculement.</p>
-<p>Précisement, on va noter <span class="math inline">\(t_i\)</span> la structure obtenue à l’issue de l’opération <span class="math inline">\(o_i\)</span>. On considère que <span class="math inline">\(t_0\)</span> est la structure vide et <span class="math inline">\(\Phi(t_0) =0\)</span>. On pose <span class="math inline">\(c&#39;_i = c_i + \Phi(t_i) - \Phi(t_{i-1})\)</span> ce qui correspond à considérer la différence de potentiel.</p>
-<p>On a donc <span class="math display">\[\sum_{i=1}^k c&#39;_i 
+<p>On retombe sur une complexité amortie en <span
+class="math inline">\(O(1)\)</span>.</p>
+<h3 data-number="2.3.3" id="sec:présentation-de-la-méthode"><span
+class="header-section-number">2.3.3</span> Présentation de la
+méthode</h3>
+<p>La présentation qui vient d’être faiter de cette méthode est assez
+lourde bien que précise. En général, on se contente de présenter
+informellement la distribution de crédits en s’assurant qu’on a couvert
+les opérations coûteuses.</p>
+<p>Une manière de bien s’en assurer est de <em>décorer</em> les
+structures de données en rendant les crédits apparents.</p>
+<p>Si on reprend les tableaux dynamiques, on va rajouter sous une case
+le nombre de crédits dont elle dispose. Si on reprend la séquence
+d’ajouts précédente on pourra la représenter ainsi :</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/tableau_dyn_credits.png" /></div></center></p>
+<h2 data-number="2.4" id="sec:méthode-du-potentiel"><span
+class="header-section-number">2.4</span> Méthode du potentiel</h2>
+<p>L’idée de la méthode du potentiel est de définir une fonction sur
+<span class="math inline">\(\Phi\)</span> qui associe à chaque valeur de
+la structure de données un nombre réel. Ce réel correspond à la notion
+physique de potentiel : si on considère un pendule simple dans sa
+trajectoire son énergie potentielle est maximale au sommet quand sa
+vitesse, et donc son énergie cinétique est nulle. À l’inverse son
+énergie potentielle est nulle au point le plus bas et sa vitesse
+maximale.</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/pendule.png" /></div></center></p>
+<p>L’idée ici est que le potentiel va correspondre aux gains de temps
+obtenus par des opérations peu coûteuses. Chaque opération va ainsi
+faire évoluer le potentiel. On peut prendre l’image d’un empilement de
+tuiles de bois, comme des Kapla, chaque ajout d’une tuile de bois
+augmente le potentiel jusqu’à un éventuel effondrement. On retrouve ici
+la dualité entre les opérations rapides et les opérations coûteuses
+liées à un basculement.</p>
+<p>Précisement, on va noter <span class="math inline">\(t_i\)</span> la
+structure obtenue à l’issue de l’opération <span
+class="math inline">\(o_i\)</span>. On considère que <span
+class="math inline">\(t_0\)</span> est la structure vide et <span
+class="math inline">\(\Phi(t_0) =0\)</span>. On pose <span
+class="math inline">\(c&#39;_i = c_i + \Phi(t_i) -
+\Phi(t_{i-1})\)</span> ce qui correspond à considérer la différence de
+potentiel.</p>
+<p>On a donc <span class="math display">\[\sum_{i=1}^k c&#39;_i
 = \sum_{i=1}^k c_i + \sum_{i=1}^k \Phi(t_i) - \Phi(t_{i-1})
 = \sum_{i=1}^k c_i + \Phi(t_k)\]</span></p>
-<p>Pour conclure par une majoration de <span class="math inline">\(\sum_{i=1}^k c_i\)</span>, il suffit de s’assurer que le potentiel ne soit jamais négatif.</p>
-<h3 data-number="2.4.1" id="sec:exemple-de-la-file-avec-deux-piles-2"><span class="header-section-number">2.4.1</span> Exemple de la file avec deux piles</h3>
-<p>On va poser <span class="math inline">\(\Phi(t) = 2|\textsf{in}|\)</span> où <span class="math inline">\(|\textsf{in}|\)</span> est la taille de la pile d’entrée. Pour reprendre le parallèle physique, on peut s’imaginer que la pile <code>in</code> est au dessus de la pile <code>out</code> et que les éléments menacent de s’y deverser. Ce qui permet d’avoir l’image du potentiel comme pour le pendule au sommet de sa trajectoire.</p>
-<p><center><div class="ui image center"><img src="assets/pics/potfile.png" /></div></center></p>
-<p>On a directement la majoration car <span class="math inline">\(\Phi(t) \ge 0\)</span>.</p>
-<p>Pour conclure, il faut calculer <span class="math inline">\(c&#39;_i\)</span> dans chaque cas :</p>
+<p>Pour conclure par une majoration de <span
+class="math inline">\(\sum_{i=1}^k c_i\)</span>, il suffit de s’assurer
+que le potentiel ne soit jamais négatif.</p>
+<h3 data-number="2.4.1"
+id="sec:exemple-de-la-file-avec-deux-piles-2"><span
+class="header-section-number">2.4.1</span> Exemple de la file avec deux
+piles</h3>
+<p>On va poser <span class="math inline">\(\Phi(t) =
+2|\textsf{in}|\)</span> où <span
+class="math inline">\(|\textsf{in}|\)</span> est la taille de la pile
+d’entrée. Pour reprendre le parallèle physique, on peut s’imaginer que
+la pile <code>in</code> est au dessus de la pile <code>out</code> et que
+les éléments menacent de s’y deverser. Ce qui permet d’avoir l’image du
+potentiel comme pour le pendule au sommet de sa trajectoire.</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/potfile.png" /></div></center></p>
+<p>On a directement la majoration car <span
+class="math inline">\(\Phi(t) \ge 0\)</span>.</p>
+<p>Pour conclure, il faut calculer <span
+class="math inline">\(c&#39;_i\)</span> dans chaque cas :</p>
 <ul>
-<li>Si l’opération est un ajout, <code>in</code> augmente d’un élément et donc <span class="math inline">\(c&#39;_i = c_i + 2 = 3\)</span></li>
-<li>Si l’opération est une suppression sans renversement, le potentiel ne change pas et <span class="math inline">\(c&#39;_i = 1\)</span></li>
-<li>Si l’opération est une suppression avec renversement et que <code>in</code> contient <span class="math inline">\(p\)</span> éléments, on a <span class="math inline">\(c&#39;_i = 2 p + 1 + 0 - 2p = 1\)</span>.</li>
+<li>Si l’opération est un ajout, <code>in</code> augmente d’un élément
+et donc <span class="math inline">\(c&#39;_i = c_i + 2 = 3\)</span></li>
+<li>Si l’opération est une suppression sans renversement, le potentiel
+ne change pas et <span class="math inline">\(c&#39;_i = 1\)</span></li>
+<li>Si l’opération est une suppression avec renversement et que
+<code>in</code> contient <span class="math inline">\(p\)</span>
+éléments, on a <span class="math inline">\(c&#39;_i = 2 p + 1 + 0 - 2p =
+1\)</span>.</li>
 </ul>
-<p>On retombe exactement sur le calcul précédent avec la méthodde du banquier.</p>
-<h3 data-number="2.4.2" id="sec:exemple-du-tableau-dynamique-2"><span class="header-section-number">2.4.2</span> Exemple du tableau dynamique</h3>
-<p>On pose ici <span class="math inline">\(\Phi(t) = 2 l(t) - c(t)\)</span> où <span class="math inline">\(l(t)\)</span> est la longueur de <span class="math inline">\(t\)</span> et <span class="math inline">\(c(t)\)</span> est sa capacité.</p>
-<p>Ici, ce potentiel se comprend mieux en écrivant <span class="math inline">\(2 (l(t) - c(t)/2)\)</span> car <span class="math inline">\(l(t) - c(t)/2\)</span> correspond aux éléments ajoutés après doublement.</p>
-<p>Comme <span class="math inline">\(c(t) \ge l(t) \ge \frac{c(t)}{2}\)</span> on a <span class="math inline">\(\Phi(t) \ge 0\)</span> ce qui valide la majoration.</p>
-<p>On calcule <span class="math inline">\(c&#39;_i\)</span> dans les deux cas d’ajout :</p>
+<p>On retombe exactement sur le calcul précédent avec la méthodde du
+banquier.</p>
+<h3 data-number="2.4.2" id="sec:exemple-du-tableau-dynamique-2"><span
+class="header-section-number">2.4.2</span> Exemple du tableau
+dynamique</h3>
+<p>On pose ici <span class="math inline">\(\Phi(t) = 2 l(t) -
+c(t)\)</span> où <span class="math inline">\(l(t)\)</span> est la
+longueur de <span class="math inline">\(t\)</span> et <span
+class="math inline">\(c(t)\)</span> est sa capacité.</p>
+<p>Ici, ce potentiel se comprend mieux en écrivant <span
+class="math inline">\(2 (l(t) - c(t)/2)\)</span> car <span
+class="math inline">\(l(t) - c(t)/2\)</span> correspond aux éléments
+ajoutés après doublement.</p>
+<p>Comme <span class="math inline">\(c(t) \ge l(t) \ge
+\frac{c(t)}{2}\)</span> on a <span class="math inline">\(\Phi(t) \ge
+0\)</span> ce qui valide la majoration.</p>
+<p>On calcule <span class="math inline">\(c&#39;_i\)</span> dans les
+deux cas d’ajout :</p>
 <ul>
-<li>Si c’est un ajout sans doublement, alors <span class="math inline">\(l(t_i) = 1 + l(t_{i-1}), c(t_i) = c(t_{i-1})\)</span> et ainsi</li>
+<li>Si c’est un ajout sans doublement, alors <span
+class="math inline">\(l(t_i) = 1 + l(t_{i-1}), c(t_i) =
+c(t_{i-1})\)</span> et ainsi</li>
 </ul>
 <p><span class="math display">\[\begin{eqnarray*}
 c&#39;_i &amp;=&amp; c_i + \Phi(t_i) - \Phi(t_{i-1}) \\
-&amp;=&amp; 1 + 2 l(t_{i-1}) - c(t_{i-1}) 
-- 2 l(t_{i-1}) + c(t_{i-1}) = 1 
+&amp;=&amp; 1 + 2 l(t_{i-1}) - c(t_{i-1})
+- 2 l(t_{i-1}) + c(t_{i-1}) = 1
 \end{eqnarray*}\]</span></p>
 <ul>
-<li>Si c’est un ajout avec doublement de capacité, alors <span class="math inline">\(l(t_{i-1}) = c(t_{i-1}) = A\)</span>, <span class="math inline">\(l(t_i) = 1 + l(t_{i-1}) = 1 + A\)</span>, <span class="math inline">\(c(t_i) = 2 c(t_{i-1}) = 2A\)</span> et <span class="math inline">\(c_i = A+1\)</span>. On a donc :</li>
+<li>Si c’est un ajout avec doublement de capacité, alors <span
+class="math inline">\(l(t_{i-1}) = c(t_{i-1}) = A\)</span>, <span
+class="math inline">\(l(t_i) = 1 + l(t_{i-1}) = 1 + A\)</span>, <span
+class="math inline">\(c(t_i) = 2 c(t_{i-1}) = 2A\)</span> et <span
+class="math inline">\(c_i = A+1\)</span>. On a donc :</li>
 </ul>
 <p><span class="math display">\[\begin{eqnarray*}
 c&#39;_i &amp;=&amp; c_i + \Phi(t_i) - \Phi(t_{i-1}) \\
@@ -576,10 +840,21 @@ c&#39;_i &amp;=&amp; c_i + \Phi(t_i) - \Phi(t_{i-1}) \\
 - 2A + A  \\
 &amp; = &amp; 3
 \end{eqnarray*}\]</span></p>
-<p>Ainsi, <span class="math inline">\(3 n \ge \sum_{i=1}^n c&#39;_i \ge \sum_{i=1}^n c_i\)</span>. On retombe sur la majoration voulue.</p>
-<h3 data-number="2.4.3" id="sec:comparatif-des-méthodes"><span class="header-section-number">2.4.3</span> Comparatif des méthodes</h3>
-<p>On remarque que la méthode du potentiel et la méthode du banquier sont très proches. En fait, on peut montrer qu’elles sont équivalentes. La différence entre les deux est que la méthode du banquier demande de regarder avec précision les opérations pour lesquelles il va falloir allouer des crédits alors que pour la méthode du potentiel il suffit de trouver son expression. Cependant, trouver l’expression du potentiel est parfois plus complexe que de définir les crédits.</p>
-<p>On cherchera donc la méthode la mieux adaptée aux problèmes considérés. Dans l’exemple de la file, le potentiel est très facilement défini, dans le cas du tableau dynamique, la méthode du banquier peut paraitre plus naturelle.</p>
+<p>Ainsi, <span class="math inline">\(3 n \ge \sum_{i=1}^n c&#39;_i \ge
+\sum_{i=1}^n c_i\)</span>. On retombe sur la majoration voulue.</p>
+<h3 data-number="2.4.3" id="sec:comparatif-des-méthodes"><span
+class="header-section-number">2.4.3</span> Comparatif des méthodes</h3>
+<p>On remarque que la méthode du potentiel et la méthode du banquier
+sont très proches. En fait, on peut montrer qu’elles sont équivalentes.
+La différence entre les deux est que la méthode du banquier demande de
+regarder avec précision les opérations pour lesquelles il va falloir
+allouer des crédits alors que pour la méthode du potentiel il suffit de
+trouver son expression. Cependant, trouver l’expression du potentiel est
+parfois plus complexe que de définir les crédits.</p>
+<p>On cherchera donc la méthode la mieux adaptée aux problèmes
+considérés. Dans l’exemple de la file, le potentiel est très facilement
+défini, dans le cas du tableau dynamique, la méthode du banquier peut
+paraitre plus naturelle.</p>
 </div>
 <!-- </div> -->
 </div>

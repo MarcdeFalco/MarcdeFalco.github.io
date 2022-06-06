@@ -1026,7 +1026,7 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <span id="cb16-2"><a href="#cb16-2"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length t <span class="kw">in</span></span>
 <span id="cb16-3"><a href="#cb16-3"></a>    <span class="kw">let</span> f = <span class="dt">Array</span>.make n <span class="dv">0</span> <span class="kw">in</span></span>
 <span id="cb16-4"><a href="#cb16-4"></a>    f.(n<span class="dv">-1</span>) &lt;- t.(n<span class="dv">-1</span>);</span>
-<span id="cb16-5"><a href="#cb16-5"></a>    <span class="kw">for</span> i = n<span class="dv">-2</span> <span class="kw">to</span> <span class="dv">0</span> <span class="kw">do</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a>    <span class="kw">for</span> i = n<span class="dv">-2</span> <span class="kw">downto</span> <span class="dv">0</span> <span class="kw">do</span></span>
 <span id="cb16-6"><a href="#cb16-6"></a>        f.(i) &lt;- t.(i) + <span class="dt">max</span> <span class="dv">0</span> f.(i+<span class="dv">1</span>)</span>
 <span id="cb16-7"><a href="#cb16-7"></a>    <span class="kw">done</span>;</span>
 <span id="cb16-8"><a href="#cb16-8"></a>    <span class="kw">let</span> m = <span class="dt">ref</span> t.(<span class="dv">0</span>) <span class="kw">in</span></span>
@@ -1048,8 +1048,8 @@ class="math inline">\(t[i]\)</span>.</p>
 <span class="math inline">\(f(i) = \sum_{k = i}^{i+l(i)} t[k]\)</span>
 on a <span class="math inline">\(l(n-1) = 0\)</span> et</p>
 <p><span class="math display">\[
-\forall i &lt; n-1, l(i) = \begin{cases} 1+l(i) &amp; \text{si } f(i+1)
-&gt; 0 \\
+\forall i &lt; n-1, l(i) = \begin{cases} 1+l(i+1) &amp; \text{si }
+f(i+1) &gt; 0 \\
 0 &amp; \text{sinon} \end{cases}
 \]</span></p>
 <p>Sur l’exemple précédent on va donc calculer les valeurs suivantes
@@ -1167,7 +1167,7 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <span id="cb17-3"><a href="#cb17-3"></a>    <span class="kw">let</span> f = <span class="dt">Array</span>.make n <span class="dv">0</span> <span class="kw">in</span></span>
 <span id="cb17-4"><a href="#cb17-4"></a>    <span class="kw">let</span> l = <span class="dt">Array</span>.make n <span class="dv">0</span> <span class="kw">in</span></span>
 <span id="cb17-5"><a href="#cb17-5"></a>    f.(n<span class="dv">-1</span>) &lt;- t.(n<span class="dv">-1</span>);</span>
-<span id="cb17-6"><a href="#cb17-6"></a>    <span class="kw">for</span> i = n<span class="dv">-2</span> <span class="kw">to</span> <span class="dv">0</span> <span class="kw">do</span></span>
+<span id="cb17-6"><a href="#cb17-6"></a>    <span class="kw">for</span> i = n<span class="dv">-2</span> <span class="kw">downto</span> <span class="dv">0</span> <span class="kw">do</span></span>
 <span id="cb17-7"><a href="#cb17-7"></a>        <span class="kw">if</span> f.(i+<span class="dv">1</span>) &gt; <span class="dv">0</span></span>
 <span id="cb17-8"><a href="#cb17-8"></a>        <span class="kw">then</span> <span class="kw">begin</span></span>
 <span id="cb17-9"><a href="#cb17-9"></a>            f.(i) &lt;- t.(i) + f.(i+<span class="dv">1</span>);</span>
@@ -1461,8 +1461,9 @@ A_j)\)</span> pour <span class="math inline">\(i \le k &lt; j\)</span>.
 Il suffit d’effectuer le moins couteux :</p>
 <p><span class="math display">\[
 \forall i &lt; j,
-f(i,j) = t[i]t[k+1]t[j+1] + \min_{i \le k &lt; j}
+f(i,j) =  \min_{i \le k &lt; j}
 \left(
+t[i]t[k+1]t[j+1] +
 f(i,k) + f(k+1,j)
 \right)
 \]</span></p>
