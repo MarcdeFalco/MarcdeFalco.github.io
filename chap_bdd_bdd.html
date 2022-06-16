@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="generator" content="pandoc">
+    <meta name="description" content="">
+    <meta name="author" content="Marc de Falco">
+
+    <title>Bases de données</title>
+
+    <link rel="stylesheet" type="text/css" href="assets/semantic.min.css">
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-PHZQE2FC4W"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-PHZQE2FC4W');
+	</script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="assets/semantic.min.js"></script>
+
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+
+<script>
+$(document).ready(function() {
+    
+    $("#toc").sidebar("setting", "dimPage", false);
+    $("#toc").sidebar("setting", "delaySetup", true);
+
+   $('.ui.accordion').accordion();
+    if (matchMedia) {
+        var mq = window.matchMedia("(max-width: 900px)");
+        mq.addListener(big_or_small);
+        big_or_small(mq);
+    }
+
+    $("[href^='#']").click(
+        () => {
+            if (! $("#main").hasClass('shrink')) {
+	            $("#toc").sidebar("hide");
+            }
+        })
+
+    function big_or_small(mq) {
+        // The sidebar *pushes* the pusher, the main content, so we
+        // add a class that reduces the pusher's width so the edge
+        // content isn't cut off.
+        if (mq.matches) {
+	        $("#toc").sidebar("hide");
+            $("#main").removeClass("shrink")
+        } else {
+            $("#toc").sidebar("show");
+            $("#main").addClass("shrink");
+        }
+    }
+
+    $("#sidebar-menu-button").click(function() {
+        $("#toc").sidebar("show");
+    }).end();
+
+    $('.tabular.menu .item').tab({
+            context: 'parent'
+        });
+
+})
+
+function setLang(l) {
+    $('.tabular.menu .item').removeClass("active")
+    $('.tabular.menu .item[data-tab^="'+l+'"]').addClass("active")
+    $('.code').removeClass("active")
+    $('.code[data-tab^="'+l+'"]').addClass("active")
+}
+</script>
+
+  <style type="text/css">
+
+  .ui.sidebar {
+    font-size: 15px;
+  }
+
+  body {
+    background-color: #FFFFFF;
+    font-size: 20px;
+  }
+  .ui.segment {
+    font-size: 20px;
+  }
+  .wireframe {
+    //margin-top: 2em;
+  }
+  .ui.footer.segment {
+    //margin: 5em 0em 0em;
+    //padding: 5em 0em;
+  }
+  #top-menu {
+    display: none;
+    }
+
+    .message {
+        color: #000 !important;
+    }
+
+.shrink {
+    width: 60%;
+}
+
+.code {
+    font-size: 0.8em !important;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 24px;
+    border-spacing: 0;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+}
+
+table tr {
+    display: table-row !important;
+}
+
+table th {
+    padding: 3px 10px;
+    background-color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid black;
+}
+table td {
+    padding: 3px 10px;
+    border-top: none;
+    border-left: none;
+    border-bottom: none;
+    border-right: none;
+}
+
+.ui.styled.accordion {
+    width: 100% !important;
+    font-size: 1rem !important;
+}
+
+  .menu .item {
+      padding: .5em 1em !important;
+  }
+
+@media only screen and (max-width: 900px) {
+    .ui.image, .ui.image img {
+        display: block;
+        //width: 100%;
+        width: auto;
+        height: auto;
+    }
+
+    #top-menu {
+        display: block !important;
+    }
+}
+  </style>
+
+  </head>
+  <body class="pushable class="pushable"">
+<div style="display: none;">
+\(
+\def\N{{\mathbb{N}}}
+\def\R{{\mathbb{R}}}
+\def\D{{\mathbb{D}}}
+\def\C{{\mathbb{C}}}
+\def\Z{{\mathbb{Z}}}
+\def\Q{{\mathbb{Q}}}
+\def\K{{\mathbb{K}}}
+\def\KX{{\mathbb{K}}[X]}
+\def\U{{\mathbb{U}}}
+\def\B{{\mathcal{B}}}
+\newcommand\ensfonctions[2]{\mathcal{F}(#1,#2)}
+\newcommand\classeck[3]{\mathcal{C}^{#1}(#2,#3)}
+\newcommand\range[2]{[| #1,#2 |]}
+\newcommand\mod[0]{\mathop{mod}}
+\newcommand\land[0]{\mathop{land}}
+\newcommand\matrices[3]{\mathcal{M}_{#1,#2}(#3)}
+\newcommand\matricescarres[2]{\mathcal{M}_{#1}(#2)}
+\newcommand\gln[2]{\mbox{GL}_{#1}(#2)}
+\newcommand\Support[1]{\mbox{Supp}(#1)}
+\newcommand\dom[0]{\mbox{dom}}
+\newcommand\uniondisjointe{\sqcup}
+\def\lt{<}
+\def\rR{\mathcal{R}}
+\newcommand\parties[1]{\mathcal{P}(#1)}
+\newcommand\entiere[1]{\left\lfloor #1 \right\rfloor}
+\newcommand\congru[3]{#1 = #2\ [#3]}
+\newcommand\enscomp[2]{\left\{\left.\ #1\ \right|\ #2\ \right\}}
+\newcommand\classe[1]{\overline{#1}}
+\newcommand\classemod[2]{\overline{#1}^{[#2]}}
+\newcommand\quotient[2]{#1 / #2}
+\newcommand\ZnZ[1]{\quotient{\Z}{#1 \Z}}
+\newcommand\card[1]{\text{Card}\ #1}
+\newcommand\indic{\mathbbm{1}}
+\newcommand\id{\mbox{id}}
+\newcommand\gO{\mathcal{O}}
+\newcommand\Perm[1]{\mathfrak{S}_#1}
+\newcommand\comb[2]{\binom{#1}{#2}}
+\newcommand\tend[2]{\xrightarrow[#1 \rightarrow #2]{}}
+\newcommand\limite[2]{\lim_{#1 \rightarrow #2}}
+\newcommand\application[5]{\begin{array}{rcccc}
+#1 & : & #2 & \mapsto & #3 \\ 
+& & #4 & \mapsto & #5
+\end{array}}
+\)
+</div>
+
+
+
+<div class="ui vertical inverted visible fixed sidebar menu" id="toc">
+    <div class="item">
+    <a href="/">
+        <i class="icon home"></i> Informatique en CPGE
+    </a>
+    </div>
+    <div class="item">
+        <div class="ui buttons compact">
+            <button onClick="setLang('ocaml')" class="ui button compact">OCaml</button>
+            <button onClick="setLang('c')" class="ui button compact">C</button>
+            <button onClick="setLang('python')" class="ui button compact">Python</button>
+        </div>
+        <div>Langage des exemples</div>
+    </div>
+    <div class="item">
+    <a href="#">
+        Bases de données
+    </a>
+    </div>
+<!-- FIX TOC -->
+<div class="item header"> <a href="#sec:vocabulaire"><span>1</span> Vocabulaire</a><div class="menu"></div></div><div class="item header"> <a href="#sec:select-simple"><span>2</span> <code>SELECT</code>simple</a><div class="menu"></div></div><div class="item header"> <a href="#sec:agrégation"><span>3</span> Agrégation</a><div class="menu"></div></div><div class="item header"> <a href="#sec:tp"><span>4</span> TP</a><div class="menu"><a class="item" href="#sec:musique"><div class="ui label">4.1</div> Musique</a><a class="item" href="#sec:premières-requêtes"><div class="ui label">4.2</div> Premières requêtes</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:fonctions"><i class="circle icon"></i> Fonctions</a><a style="font-size:0.6em" class="item" href="#sec:requêtes-imbriquées"><i class="circle icon"></i> Requêtes imbriquées</a><a style="font-size:0.6em" class="item" href="#sec:agrégation-1"><i class="circle icon"></i> Agrégation</a></div><a class="item" href="#sec:films"><div class="ui label">4.3</div> Films</a></div></div><!-- FIX TOC -->
+</div>
+
+<div class="pusher" id="main-content">
+    <div class="ui inverted top menu" id="top-menu">
+        <div class="ui container">
+	  <a class="launch icon item" id="sidebar-menu-button">
+	    <i class="angle double left icon"></i>
+	  </a>
+	  <div class="item">
+          Bases de données
+	  </div>
+        </div>
+      </div>
+      <div class="ui padded basic segment shrink" id="main">
+          <!-- <div class="masthead"> -->
+<div class="segment">
+<div class="ui container text">
+<p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Bases de données     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_programmation_imperative.jpg"> </div></p>
+<h1 data-number="1" id="sec:vocabulaire"><span
+class="header-section-number">1</span> Vocabulaire</h1>
+<h1 data-number="2" id="sec:select-simple"><span
+class="header-section-number">2</span> <code>SELECT</code> simple</h1>
+<h1 data-number="3" id="sec:agrégation"><span
+class="header-section-number">3</span> Agrégation</h1>
+<h1 data-number="4" id="sec:tp"><span
+class="header-section-number">4</span> TP</h1>
+<p>Allez sur le site et identifiez vous avec le couple utilisateur/mot
+de passe suivant : mp2i/mp2i.</p>
+<h2 data-number="4.1" id="sec:musique"><span
+class="header-section-number">4.1</span> Musique</h2>
+<ul>
+<li>Sélectionnez <code>tp26_musique</code> dans la barre de navigation à
+gauche de l’écran.</li>
+<li>Cliquez sur l’onglet <code>SQL</code>. On vous demande dans la suite
+de taper des requêtes et d’appuyer sur <code>Exécuter</code> pour les
+voir s’exécuter. Après la première requête, on peut faire
+<code>Éditer en ligne</code> pour aller plus vite.</li>
+<li>On vous recommande de copier les réponses dans un fichier
+<code>tp26.sql</code> pour en garder une trace.</li>
+</ul>
+<p>La base de donnée <code>tp26_musique</code> comporte quatre tables
+dont le schéma est donné dans la figure suivante :</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/musiqueschema.png" /></div></center></p>
+<h2 data-number="4.2" id="sec:premières-requêtes"><span
+class="header-section-number">4.2</span> Premières requêtes</h2>
+<p>L’attribut <code>asin</code> de <code>album</code> est la clé
+primaire qui sert de clé étrangère <code>album</code> dans
+<code>track</code> et <code>style</code>.</p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Cherchez tous les albums de <code>'U2'</code>.</p>
+</div>
+<p>Ici, les dates sont au format texte <code>'yyyy-mm-dd'</code> qui
+permet d’effectuer des comparaisons directement avec
+<code>&lt;, &lt;=, &gt;, &gt;=</code>.</p>
+<p>Par exemple, ‘1981-08-05’ est le 5 août 1981.</p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Cherchez tous les albums parus pendant l’année 1991.</p>
+</div>
+<p>Les données sont issues d’un célebre vendeur en ligne, à un instant
+précis dans le passé, c’est en ce sens qu’il faut interpréter l’attribut
+<code>price</code> (c’est le prix en dollars) et l’attribut
+<code>rank</code> (c’est le rang dans les ventes de disques).</p>
+<p>L’attribut <code>price</code> n’est pas toujours renseigné. Dans ce
+cas là, il prend la valeur spéciale <code>NULL</code>. Pour tester si
+une valeur est <code>NULL</code> on utilise l’opérateur spécial
+<code>IS NULL</code>.</p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Cherchez tous les albums dont le prix est renseigné.</p>
+</div>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Trouvez le titre du 5 ème album le plus cher <strong>et uniquement de
+celui-ci</strong>.</p>
+</div>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Affichez une table contenant pour chaque chanson, son nom et le nom
+de l’album qui la contient.</p>
+</div>
+<p>L’attribut <code>disk</code> indique le numéro du disque sur l’album,
+la plupart contiennent un disque, et le numéro <code>posn</code> des
+pistes sur l’album.</p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Affichez une table contenant les titres des albums ayant au moins
+deux disques.</p>
+<p>On fera en sorte qu’il n’y ait pas de titres repétés.</p>
+</div>
+<p>La table <code>totp</code> contient des chansons ayant apparu dans le
+classement mensuel des meilleurs ventes. Apparement, les tables
+<code>track</code> et <code>totp</code> ne sont pas associées.</p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>A l’aide de <code>LEFT JOIN</code> déterminez s’il y a des éléments
+de <code>totp</code> dont l’attribut <code>song</code> n’est pas présent
+dans <code>track</code>. Même question en inversant les tables.</p>
+<p>Est-il pour autant possible de considérer que <code>song</code> est
+une clé primaire d’une de ces deux tables et que l’autre est une clé
+étrangère ?</p>
+</div>
+<h3 data-number="4.2.1" id="sec:fonctions"><span
+class="header-section-number">4.2.1</span> Fonctions</h3>
+<p>On peut appliquer des fonctions sur un ou plusieurs attributs, ou
+expressions, pour obtenir des valeurs. Se faisant, on va déduire une
+table à une ligne contenant les résultats.</p>
+<p>Par exemple :</p>
+<pre><code>SELECT COUNT(*) FROM album</code></pre>
+<p>va renvoyer le nombre de lignes de la table <code>album</code>.</p>
+<p>Les fonctions au programme sont :</p>
+<ul>
+<li><code>COUNT</code> qui permet de trouver la taille des résultats.
+Attention, <code>COUNT(attr)</code> ne compte pas les valeurs
+distinctes. On utilisera <code>COUNT(*)</code>.</li>
+<li><code>MAX</code> et <code>MIN</code> qui renvoie le maximum ou le
+minimum d’un attribut ou d’une expression</li>
+<li><code>SUM</code> qui fait la somme des valeurs d’un attribut ou
+d’une expression sur les lignes</li>
+<li><code>AVG</code> qui calcule la moyenne</li>
+</ul>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>En une seule requête, calculer le prix moyen d’un album et le plus
+petit rang.</p>
+</div>
+<h3 data-number="4.2.2" id="sec:requêtes-imbriquées"><span
+class="header-section-number">4.2.2</span> Requêtes imbriquées</h3>
+<p>Attention, la requête</p>
+<pre><code>SELECT title, MIN(rank) FROM album</code></pre>
+<p>n’a aucune raison de renvoyer le titre de l’album de plus petit rang.
+En fait, avec un gestionnaire peu permissif, la requête précédente est
+invalide.</p>
+<p>Une manière de réaliser cela est d’utiliser une requête imbriquée
+comme :</p>
+<pre><code>SELECT title, rank FROM album WHERE rank = (SELECT MIN(rank) FROM album)</code></pre>
+<p>Ici, comme la sous-requête <code>SELECT MIN(rank) FROM album</code>
+renvoie un nombre, on peut tester cela dans la première requête.</p>
+<p>On peut noter qu’il est possible de réaliser une telle requête avec
+une jointure externe à gauche comme</p>
+<pre><code>SELECT A1.title, A1.rank
+FROM album AS A1 LEFT JOIN album AS A2
+on A2.rank &lt; A1.rank
+WHERE A2.rank IS NULL</code></pre>
+<p>mais cette requête n’est pas très naturelle.</p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Expliquez cette requête et pourquoi elle répond à la question.</p>
+</div>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Déterminer en une requête les albums ayant le plus de pistes sur un
+de leur disque.</p>
+</div>
+<h3 data-number="4.2.3" id="sec:agrégation-1"><span
+class="header-section-number">4.2.3</span> Agrégation</h3>
+<p>Pour grouper les chansons dans la table track selon l’album qui les
+contient on peut utiliser la requête :</p>
+<pre><code>SELECT album FROM track GROUP BY album</code></pre>
+<p>On obtient alors une ligne pour chaque valeur de <code>album</code>
+présente dans la table. On parle d’agrégat ou de paquet. Cela équivaut
+ici à</p>
+<pre><code>SELECT DISTINCT album FROM track</code></pre>
+<p>Une règle importante en SQL est qu’il est interdit de projeter des
+attributs qui ne sont pas compris dans le <code>GROUP BY</code>. En
+effet, il y a ambiguité sur la valeur qu’on pourrait choisir pour ces
+attributs.</p>
+<p>Là où les <code>GROUP BY</code> sont très utiles c’est qu’on peut
+calculer des fonctions sur chaque agrégat qui elles-sont non
+ambigues.</p>
+<p>Ici la piste de numéro maximum sur un album indique le nombre de
+pistes de l’album :</p>
+<pre><code>SELECT album, MAX(posn) FROM track GROUP BY album</code></pre>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Déterminer le nombre moyen de pistes d’un album, tout disque
+compris.</p>
+</div>
+<p>Si on souhaite obtenir avec un <code>GROUP BY</code> les albums ayant
+au moins 10 pistes, on pourrait être tenté d’écrire</p>
+<pre><code>SELECT album FROM track GROUP BY album WHERE MAX(posn) &gt;= 10</code></pre>
+<p>le probléme est que le <code>WHERE</code> s’effectue avant le
+<code>GROUP BY</code> même s’il apparait après dans la requête.
+<code>SQL</code> fournit une syntaxe permettant de filtrer sur des
+conditions dans les agrégats : <code>HAVING</code>. Ainsi, on écrira
+:</p>
+<pre><code>SELECT album FROM track GROUP BY album HAVING MAX(posn) &gt;= 10</code></pre>
+<p>On aimerait aussi avoir le nom de l’album, pour cela, il y a
+plusieurs solutions, une des solutions les plus simples et d’utiliser
+<code>MAX(title)</code> sur un agrégat.</p>
+<pre><code>SELECT MAX(title) FROM track JOIN album
+ON track.album = asin
+GROUP BY track.album
+HAVING MAX(posn) &gt;= 10</code></pre>
+<p>On peut le faire avec une requête imbriquée dans un <code>JOIN</code>
+interne qui ne va donc sélectionner que les albums présents dans les
+deux tables. Ici, le renommage est obligatoire pour que la requête soit
+valide.</p>
+<pre><code>SELECT title
+FROM album 
+JOIN (SELECT album FROM track 
+    GROUP BY album HAVING MAX(posn) &gt;= 10) as T
+ON asin = T.album</code></pre>
+<p>On pourrait aussi utilser une requête imbriquée et l’opérateur
+<code>IN</code> hors programme pour tester la présence d’une valeur dans
+une table de résultat.</p>
+<pre><code>SELECT title FROM album
+WHERE asin IN (SELECT album FROM track 
+    GROUP BY album HAVING MAX(posn) &gt;= 10)</code></pre>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Trouver les noms des albums ayant au moins deux disques.</p>
+</div>
+<h2 data-number="4.3" id="sec:films"><span
+class="header-section-number">4.3</span> Films</h2>
+<p>On considère maintenant la base de données <code>tp26_film</code>.
+Ses tables sont décrites dans le diagramme :</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/filmschema.png" /></div></center></p>
+<p>Quelques précisions :</p>
+<ul>
+<li>Les clés <code>id</code> permettent d’identifier uniquement un film
+(<code>movie</code>) ou un acteur (<code>actor</code>).</li>
+<li>L’attribut <code>director</code> fait référence à un id
+d’<code>actor</code> qui est également réalisateur de ce film (un pur
+réalisateur peut ne pas être un vrai acteur mais être présent dans la
+table <code>actor</code> quand même).</li>
+<li>L’entier <code>ord</code> indique l’ordre dans lequel sont énumérés
+les acteurs dans le casting d’un film : du premier nom de valeur 1 (le
+plus important) au dernier.</li>
+<li><code>score</code> est le score des internautes sur le film.</li>
+<li><code>votes</code> est le nombre de votes</li>
+<li><code>yr</code> est un entier à quatre chiffres comme 1977.</li>
+</ul>
+<p>On va rajouter un opérateur qui est pratique pour le TP mais pas au
+programme : <code>LIKE</code> qui permet de comparer des textes avec un
+joker le caractère <code>%</code> qui signifie n’importe quoi.</p>
+<p>Ainsi,</p>
+<pre><code>SELECT title FROM movie WHERE title LIKE &#39;%, The&#39;</code></pre>
+<p>va sélectionner les films dont le nom finit par
+<code>, The</code>.</p>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Déterminer les noms des acteurs ayant joué dans des films dont le nom
+commence par Star.</p>
+</div>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Déterminer le film qui a le plus d’acteurs au casting.</p>
+</div>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Déterminer les noms des acteurs ayant tournés dans au moins 5 films
+tout en étant toujours premier au casting.</p>
+</div>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Déterminer les noms des acteurs qui n’ont tourné qu’avec un seul
+réalisateur.</p>
+</div>
+<div class="ui message blue">
+<div class="header">
+Question
+</div>
+<p>Déterminer les noms des acteurs qui n’ont tourné que dans des films
+qu’ils ont réalisés.</p>
+</div>
+</div>
+<!-- </div> -->
+</div>
+
+<div class="ui inverted vertical footer segment">
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+Marc de Falco
+</div>
+  </body>
+</html>

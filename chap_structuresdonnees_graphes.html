@@ -2106,11 +2106,13 @@ y)\)</span></li>
 <div class="header">
 Exemple
 </div>
-<p>On considère le graphe suivant pour <span class="math inline">\(s =
-1\)</span> où les sommets dans <code>a_traiter</code> sont indiqués en
-rouge, les sommets marqués sont indiqués en vert et où la valeur de
-<span class="math inline">\(d\)</span> est donné dans le cadre à côté du
-sommet :</p>
+<p>On considère le graphe suivant</p>
+<p><img src="assets/pics/dijkstra_ex1_base.png" /></p>
+<p>pour <span class="math inline">\(s = 1\)</span> où les sommets dans
+<code>a_traiter</code> sont indiqués en rouge, les sommets marqués sont
+indiqués en vert et où la valeur de <span
+class="math inline">\(d\)</span> est donné dans le cadre à côté du
+sommet : <img src="assets/pics/dijkstra_ex1_.png" /></p>
 <p><img src="assets/pics/dijkstra_ex1_.png" /></p>
 <p>On commence par retirer 1 qui est seul dans <code>a_traiter</code>
 avec <span class="math inline">\(d(1) = 0\)</span>. On peut alors
@@ -2159,7 +2161,7 @@ Théorème
 x\)</span>, <span class="math inline">\(d(x) = dist(s, x)\)</span>.</p>
 </div>
 <p>On peut implémenter directement cet algorithme :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-323">ocaml</a>   <a class="item" data-tab="c-323">c</a>   <a class="item" data-tab="python-323">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-323"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-327">ocaml</a>   <a class="item" data-tab="c-327">c</a>   <a class="item" data-tab="python-327">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-327"></p>
 <div class="sourceCode" id="cb20"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> extrait_plus_petit l d =</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">match</span> l <span class="kw">with</span></span>
@@ -2195,9 +2197,9 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb20-1"><a hre
 <span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>        <span class="kw">end</span></span>
 <span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>    d</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-323"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-327"></p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> src<span class="op">/</span>structuresdonnees<span class="op">/../../</span>snippets<span class="op">/</span>structures<span class="op">/</span>dijkstra<span class="op">.</span>c does not exist</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-323"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-327"></p>
 <div class="sourceCode" id="cb22"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extrait_plus_petit(t, d):</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> t[<span class="dv">0</span>] <span class="co"># recherche du d[x] min dans t</span></span>

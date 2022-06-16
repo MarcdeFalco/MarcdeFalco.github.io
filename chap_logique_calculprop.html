@@ -28,6 +28,71 @@
       crossorigin="anonymous"></script>
     <script src="assets/semantic.min.js"></script>
 
+    <style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    </style>
   <script
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
   type="text/javascript"></script>
@@ -243,7 +308,7 @@ table td {
     </a>
     </div>
 <!-- FIX TOC -->
-<div class="item header"> <a href="#sec:syntaxe"><span>1</span> Syntaxe</a><div class="menu"><a class="item" href="#sec:variables-propositionnelles"><div class="ui label">1.1</div> Variables propositionnelles</a><a class="item" href="#sec:formules-en-tant-quarbre"><div class="ui label">1.2</div> Formules en tant qu’arbre</a><a class="item" href="#sec:définition-inductive-des-formules"><div class="ui label">1.3</div> Définition inductive des formules</a></div></div><div class="item header"> <a href="#sec:sémantique-du-calcul-propositionnel"><span>2</span> Sémantique du calcul propositionnel</a><div class="menu"><a class="item" href="#sec:valuation-et-valeur-de-vérité-dune-formule"><div class="ui label">2.1</div> Valuation et valeur de vérité d’une formule</a><a class="item" href="#sec:table-de-vérité"><div class="ui label">2.2</div> Table de vérité</a><a class="item" href="#sec:satisfiabilité-tautologie"><div class="ui label">2.3</div> Satisfiabilité, tautologie</a><a class="item" href="#sec:équivalence-entre-deux-formules"><div class="ui label">2.4</div> Équivalence entre deux formules</a><a class="item" href="#sec:substitution-et-congruence"><div class="ui label">2.5</div> Substitution et congruence</a><a class="item" href="#sec:conséquence-logique"><div class="ui label">2.6</div> Conséquence logique</a></div></div><div class="item header"> <a href="#sec:formes-normales"><span>3</span> Formes normales</a><div class="menu"><a class="item" href="#sec:forme-normale-conjonctive"><div class="ui label">3.1</div> Forme normale conjonctive</a></div></div><!-- FIX TOC -->
+<div class="item header"> <a href="#sec:syntaxe"><span>1</span> Syntaxe</a><div class="menu"><a class="item" href="#sec:variables-propositionnelles"><div class="ui label">1.1</div> Variables propositionnelles</a><a class="item" href="#sec:formules-en-tant-quarbre"><div class="ui label">1.2</div> Formules en tant qu’arbre</a><a class="item" href="#sec:définition-inductive-des-formules"><div class="ui label">1.3</div> Définition inductive des formules</a></div></div><div class="item header"> <a href="#sec:sémantique-du-calcul-propositionnel"><span>2</span> Sémantique du calcul propositionnel</a><div class="menu"><a class="item" href="#sec:valuation-et-valeur-de-vérité-dune-formule"><div class="ui label">2.1</div> Valuation et valeur de vérité d’une formule</a><a class="item" href="#sec:table-de-vérité"><div class="ui label">2.2</div> Table de vérité</a><a class="item" href="#sec:satisfiabilité-tautologie"><div class="ui label">2.3</div> Satisfiabilité, tautologie</a><a class="item" href="#sec:équivalence-entre-deux-formules"><div class="ui label">2.4</div> Équivalence entre deux formules</a><a class="item" href="#sec:substitution-et-congruence"><div class="ui label">2.5</div> Substitution et congruence</a><a class="item" href="#sec:conséquence-logique"><div class="ui label">2.6</div> Conséquence logique</a></div></div><div class="item header"> <a href="#sec:formes-normales"><span>3</span> Formes normales</a><div class="menu"><a class="item" href="#sec:forme-normale-conjonctive-et-disjonctive"><div class="ui label">3.1</div> Forme normale conjonctive et disjonctive</a><a class="item" href="#sec:mise-sous-forme-normale-disjonctive"><div class="ui label">3.2</div> Mise sous forme normale disjonctive</a><a class="item" href="#sec:mise-sous-forme-normale-conjonctive"><div class="ui label">3.3</div> Mise sous forme normale conjonctive</a></div></div><div class="item header"> <a href="#sec:problème-sat"><span>4</span> Problème SAT</a><div class="menu"><a class="item" href="#sec:définition"><div class="ui label">4.1</div> Définition</a><a class="item" href="#sec:k-sat"><div class="ui label">4.2</div> <span class="math inline">\(k\)</span>-SAT</a><a class="item" href="#sec:sat"><div class="ui label">4.3</div> 1-SAT</a><a class="item" href="#sec:sat-1"><div class="ui label">4.4</div> 2-SAT</a><a class="item" href="#sec:sat-2"><div class="ui label">4.5</div> 3-SAT</a><a class="item" href="#sec:algorithme-de-quine"><div class="ui label">4.6</div> Algorithme de Quine</a></div></div><!-- FIX TOC -->
 </div>
 
 <div class="pusher" id="main-content">
@@ -1007,7 +1072,7 @@ on a bien <span class="math inline">\(g \models f\)</span>.
 <p>Le fait de se ramener à montrer <span class="math inline">\(\Gamma,
 \neg f \models \perp\)</span> pour prouver que <span
 class="math inline">\(\Gamma \models f\)</span> est un principe très
-important appelé la <em>résolution</em> qui a été introduite par le
+important appelé la <em>résolution</em> qui a été introduit par le
 logicien John Alan Robinson et sert de base au langage de programmation
 logique Prolog.</p>
 <p></div></p>
@@ -1032,8 +1097,16 @@ class="header-section-number">3</span> Formes normales</h1>
 <p>On a vu beaucoup d’équivalences logiques dans la partie précédente,
 elles permettent de réécrire une formule sous une forme plus pratique
 pour raisonner. On parle alors de <strong>forme normale</strong>.</p>
-<h2 data-number="3.1" id="sec:forme-normale-conjonctive"><span
-class="header-section-number">3.1</span> Forme normale conjonctive</h2>
+<p>Comme on a pu le voir, les opérateurs <span
+class="math inline">\(\rightarrow\)</span> et <span
+class="math inline">\(\leftrightarrow\)</span> peuvent s’exprimer avec
+les trois autres. On va donc considérer ici uniquement des formules avec
+les opérateurs <span class="math inline">\(\vee, \wedge,
+\neg\)</span>.</p>
+<h2 data-number="3.1"
+id="sec:forme-normale-conjonctive-et-disjonctive"><span
+class="header-section-number">3.1</span> Forme normale conjonctive et
+disjonctive</h2>
 <p><div class="ui message"><div class="header">Définition</div> Une
 formule de la forme <span class="math inline">\(X\)</span> ou <span
 class="math inline">\(\neg X\)</span> avec <span class="math inline">\(X
@@ -1055,9 +1128,309 @@ Exemple
 <ul>
 <li><span class="math inline">\(A \wedge (\neg A \vee B) \wedge
 \perp\)</span> est une FNC.</li>
-<li></li>
 </ul>
 </div>
+<p>En vertu de l’associativité des connecteurs, on note de manière
+synthétique</p>
+<p><span class="math display">\[
+\bigwedge_{i=1}^n \bigvee_{j=1}^{n_i} l_{i,j}
+\]</span></p>
+<p>une FNC, où les <span class="math inline">\(l_{i,j}\)</span> sont des
+littéraux.</p>
+<p><div class="ui message"><div class="header">Définition</div> On
+définit de même les formes normales disjonctives (FND) comme les
+disjonctions de conjonctions de littéraux.</p>
+<p>Ce sont les formules sous la forme : <span class="math display">\[
+\bigvee_{i=1}^n \bigwedge_{j=1}^{n_i} l_{i,j}
+\]</span> où les <span class="math inline">\(l_{i,j}\)</span> sont des
+littéraux. </div></p>
+<h2 data-number="3.2" id="sec:mise-sous-forme-normale-disjonctive"><span
+class="header-section-number">3.2</span> Mise sous forme normale
+disjonctive</h2>
+<p>Soit <span class="math inline">\(f \in \mathcal{F}\)</span> dont les
+variables sont <span class="math inline">\(X_1, \dots, X_n\)</span>, on
+peut passer de sa table de vérité à une FND en posant :</p>
+<p><span class="math display">\[
+\Phi(f) = \bigvee_{(b_1, \dots, b_n) \in T_f^{-1}(\{1\}) }
+\bigwedge_{i=1}^n l(X_i,b_i)
+\]</span> où <span class="math inline">\(l(X_i,V) = X_i\)</span> et
+<span class="math inline">\(l(X_i,F) = \neg X_i\)</span>.</p>
+<p>On a directement <span class="math inline">\(\Phi(f) \equiv
+f\)</span> car <span class="math inline">\(\Phi(f)\)</span> a été
+construite pour avoir la même table de vérité que <span
+class="math inline">\(f\)</span>.</p>
+<p>On remarque tout de suite que la taille de <span
+class="math inline">\(\Phi(f)\)</span> dépend du nombre de valeur à
+<span class="math inline">\(V\)</span> dans sa table de vérité. Une
+tautologie portant sur <span class="math inline">\(n\)</span> variables
+aura donc une FND de taille <span
+class="math inline">\(O(2^n)\)</span>.</p>
+<h2 data-number="3.3" id="sec:mise-sous-forme-normale-conjonctive"><span
+class="header-section-number">3.3</span> Mise sous forme normale
+conjonctive</h2>
+<p><div class="ui message"><div class="header">Définition</div> Soit
+<span class="math inline">\(f \in \mathcal{F}\)</span>, on définit la
+formule <span class="math inline">\(\varphi(f)\)</span> ainsi par
+induction structurelle :</p>
+<ul>
+<li>Si <span class="math inline">\(X \in \mathcal{V}\)</span>, <span
+class="math inline">\(\varphi(X) = X\)</span></li>
+<li>Si <span class="math inline">\(f \in \mathcal{F}\)</span>,
+<ul>
+<li>Soit <span class="math inline">\(f = X \in \mathcal{X}\)</span> et
+<span class="math inline">\(\varphi(\neg X) = \neg X\)</span></li>
+<li>Soit <span class="math inline">\(f = \neg f&#39;\)</span> et <span
+class="math inline">\(\varphi(\neg f) = \varphi(f&#39;)\)</span></li>
+<li>Soit <span class="math inline">\(f = g \wedge h\)</span> et <span
+class="math inline">\(\varphi(\neg f)  = \varphi(\neg g) \vee
+\varphi(\neg h)\)</span>.</li>
+<li>Soit <span class="math inline">\(f = g \vee h\)</span> et <span
+class="math inline">\(\varphi(\neg f)  = \varphi(\neg g) \wedge
+\varphi(\neg h)\)</span>.</li>
+</ul></li>
+<li>Si <span class="math inline">\(f, f&#39; \in \mathcal{F}\)</span>,
+<span class="math inline">\(\varphi(f \vee f&#39;) = \varphi(f) \vee
+\varphi(f&#39;)\)</span> et <span class="math inline">\(\varphi(f \wedge
+f&#39;) = \varphi(f) \wedge \varphi(f&#39;)\)</span>. </div></li>
+</ul>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p>On a <span class="math inline">\(\varphi(f) \iff f\)</span> et dans
+<span class="math inline">\(\varphi(f)\)</span> les négations
+appartiennent toutes à des littéraux.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> On démontre ce théorème rapidement
+par induction structurelle rapide.</p>
+<p>Pour l’équivalence, il s’agit d’équivalences déjà démontré (double
+négation et lois de de Morgan). </div> </div></p>
+<p>Il est possible de passer de FND à FNC à l’aide d’une négation et des
+lois de de Morgan. On en déduit donc une manière d’obtenir une FNC
+équivalente à <span class="math inline">\(f\)</span> : on met <span
+class="math inline">\(\neg \Phi(\neg f) \equiv f\)</span> sous FNC en
+éliminant la négation.</p>
+<p>Cependant, on peut obtenir une FNC plus directement par induction
+comme on peut le voir dans la définition suivante.</p>
+<p><div class="ui message"><div class="header">Définition</div> Soit
+<span class="math inline">\(f\)</span> une formule dont les négations
+appartiennent toutes à des littéraux, on définit <span
+class="math inline">\(\psi(f)\)</span> par induction structurelle :</p>
+<ul>
+<li><span class="math inline">\(\psi(l) = l\)</span> si <span
+class="math inline">\(l\)</span> est un littéral</li>
+<li><span class="math inline">\(\psi(f \wedge g) = \psi(f) \wedge
+\psi(g)\)</span></li>
+<li>Si <span class="math inline">\(\psi(f) = f_1 \wedge f_2\)</span>
+alors <span class="math inline">\(\psi(f \vee g) = \psi(f_1 \vee g)
+\wedge \psi(f_2 \vee g)\)</span>.</li>
+<li>Si <span class="math inline">\(\psi(f)\)</span> n’est pas une
+conjonction et <span class="math inline">\(\psi(g) = g_1 \wedge
+g_2\)</span> alors <span class="math inline">\(\psi(f \vee g) = \psi(f
+\vee g_1) \wedge \psi(f \vee g_2)\)</span>.</li>
+<li>Si ni <span class="math inline">\(\psi(f)\)</span> ni <span
+class="math inline">\(\psi(g)\)</span> ne sont des conjonctions alors
+<span class="math inline">\(\psi(f \vee g) = \psi(f) \vee
+\psi(g)\)</span>. </div></li>
+</ul>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p>Soit <span class="math inline">\(f \in \mathcal{F}\)</span>, <span
+class="math inline">\(\psi(\varphi(f)) \equiv f\)</span> et <span
+class="math inline">\(\psi(\varphi(f))\)</span> est en forme normale
+conjonctive.</p>
+</div>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>Il est possible d’obtenir ainsi une formule de taille
+exponentielle.</p>
+<p>L’exemple caractéristique est <span class="math display">\[
+\bigvee_{i=1}^n (X_{i,1} \wedge X_{i,2})
+\equiv \bigwedge_{a_1 \in \{1,2\}, \dots, a_n \in \{1,2\}}
+\left(
+X_{1,a_1} \wedge \dots \wedge X_{n,a_n}
+\right)
+\]</span></p>
+<p>On passe ainsi d’une formule de taille <span
+class="math inline">\(O(n)\)</span> à une formule de taille <span
+class="math inline">\(O(2^n)\)</span>.</p>
+<p></div></p>
+<p>Il est possible d’implémenter directement cette méthode :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">type</span> formula = Var <span class="kw">of</span> <span class="dt">string</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>    | And <span class="kw">of</span> formula * formula</span>
+<span id="cb21-3"><a href="#cb21-3"></a>    | Or <span class="kw">of</span> formula * formula</span>
+<span id="cb21-4"><a href="#cb21-4"></a>    | Not <span class="kw">of</span> formula</span>
+<span id="cb21-5"><a href="#cb21-5"></a></span>
+<span id="cb21-6"><a href="#cb21-6"></a><span class="kw">let</span> <span class="kw">rec</span> elim_not f = <span class="kw">match</span> f <span class="kw">with</span></span>
+<span id="cb21-7"><a href="#cb21-7"></a>    | Var s -&gt; Var s</span>
+<span id="cb21-8"><a href="#cb21-8"></a>    | Not (Var s) -&gt; Not (Var s)</span>
+<span id="cb21-9"><a href="#cb21-9"></a>    | Not (Not f) -&gt; elim_not f</span>
+<span id="cb21-10"><a href="#cb21-10"></a>    | Not (Or (f1,f2)) -&gt; And( elim_not(Not f1), elim_not(Not f2) )</span>
+<span id="cb21-11"><a href="#cb21-11"></a>    | Not (And (f1,f2)) -&gt; Or( elim_not(Not f1), elim_not(Not f2) )</span>
+<span id="cb21-12"><a href="#cb21-12"></a>    | Or(f1, f2) -&gt; Or(elim_not f1, elim_not f2)</span>
+<span id="cb21-13"><a href="#cb21-13"></a>    | And(f1, f2) -&gt; And(elim_not f1, elim_not f2)</span>
+<span id="cb21-14"><a href="#cb21-14"></a></span>
+<span id="cb21-15"><a href="#cb21-15"></a><span class="kw">let</span> <span class="kw">rec</span> distrib_or f = <span class="kw">match</span> f <span class="kw">with</span></span>
+<span id="cb21-16"><a href="#cb21-16"></a>    | Var _ -&gt; f</span>
+<span id="cb21-17"><a href="#cb21-17"></a>    | Not (Var _) -&gt; f</span>
+<span id="cb21-18"><a href="#cb21-18"></a>    | And(f1,f2) -&gt; And(distrib_or f1, distrib_or f2)</span>
+<span id="cb21-19"><a href="#cb21-19"></a>    | Or(f1,f2) -&gt; <span class="kw">begin</span></span>
+<span id="cb21-20"><a href="#cb21-20"></a>            <span class="kw">match</span> distrib_or f1 <span class="kw">with</span></span>
+<span id="cb21-21"><a href="#cb21-21"></a>            | And(f11, f12) -&gt; And(distrib_or (Or(f11,f2)), </span>
+<span id="cb21-22"><a href="#cb21-22"></a>                                   distrib_or (Or(f12,f2)))</span>
+<span id="cb21-23"><a href="#cb21-23"></a>            | f1&#39; -&gt; <span class="kw">match</span> distrib_or f2 <span class="kw">with</span></span>
+<span id="cb21-24"><a href="#cb21-24"></a>                | And (f21, f22) -&gt; And(distrib_or(Or(f1&#39;, f21)), </span>
+<span id="cb21-25"><a href="#cb21-25"></a>                                        distrib_or(Or(f1&#39;,f22)))</span>
+<span id="cb21-26"><a href="#cb21-26"></a>                | f2&#39; -&gt; Or(f1&#39;, f2&#39;)</span>
+<span id="cb21-27"><a href="#cb21-27"></a>            <span class="kw">end</span></span>
+<span id="cb21-28"><a href="#cb21-28"></a>    | _ -&gt; <span class="dt">failwith</span> <span class="st">&quot;Formule avec négation en dehors des littéraux&quot;</span></span>
+<span id="cb21-29"><a href="#cb21-29"></a></span>
+<span id="cb21-30"><a href="#cb21-30"></a><span class="kw">let</span> fnc f = distrib_or (elim_not f)</span></code></pre></div>
+<p></div></p>
+<h1 data-number="4" id="sec:problème-sat"><span
+class="header-section-number">4</span> Problème SAT</h1>
+<h2 data-number="4.1" id="sec:définition"><span
+class="header-section-number">4.1</span> Définition</h2>
+<p>Un des problèmes les plus importants en logique et plus largement en
+informatique est le problème SAT :</p>
+<div class="ui message gray">
+<div class="header">
+Problème - SAT
+</div>
+<ul>
+<li>
+<p>Entrée(s) :</p>
+<p>Une formule <span class="math inline">\(f\)</span>, le plus souvent
+en FNC.</p>
+</li>
+<li>
+<p>Sortie :</p>
+<p>Un booléen indiquant si <span class="math inline">\(f\)</span> est
+satisfiable.</p>
+</li>
+</ul>
+</div>
+<h2 data-number="4.2" id="sec:k-sat"><span
+class="header-section-number">4.2</span> <span
+class="math inline">\(k\)</span>-SAT</h2>
+<p>Le problème suivant permet un plus grand contrôle sur les
+formules.</p>
+<div class="ui message gray">
+<div class="header">
+Problème - <span class="math inline">\(k\)</span>-SAT
+</div>
+<ul>
+<li>
+<p>Entrée(s) :</p>
+<p>Une formule <span class="math inline">\(f\)</span> en FNC dont les
+clauses comportent au plus <span class="math inline">\(k\)</span>
+littéraux.</p>
+</li>
+<li>
+<p>Sortie :</p>
+<p>Un booléen indiquant si <span class="math inline">\(f\)</span> est
+satisfiable.</p>
+</li>
+</ul>
+</div>
+<p>Naturellement, si on sait résoudre <span
+class="math inline">\(k\)</span>-SAT pour tout <span
+class="math inline">\(k\)</span>, alors on sait résoudre SAT vu que les
+formules sont finies.</p>
+<h2 data-number="4.3" id="sec:sat"><span
+class="header-section-number">4.3</span> 1-SAT</h2>
+<p>Les formules à résoudre sont des conjonctions de littéraux vu que les
+clauses sont réduites à un littéral. Or, soit cette conjonction contient
+deux littéraux opposés auxquel cas <span class="math inline">\(f \equiv
+\perp\)</span>, ou alors elle est satisfiable en considérant <span
+class="math inline">\(v(X) = V\)</span> si <span
+class="math inline">\(X\)</span> apparait positivement ou <span
+class="math inline">\(v(X) = F\)</span> si elle apparait
+négativement.</p>
+<h2 data-number="4.4" id="sec:sat-1"><span
+class="header-section-number">4.4</span> 2-SAT</h2>
+<p>Pour résoudre 2-SAT on va construire un graphe en transformant les
+clauses en implications :</p>
+<p><span class="math display">\[
+X \vee Y
+\iff \neg X \rightarrow Y
+\iff \neg Y \rightarrow X
+\]</span> <span class="math display">\[
+\neg X \vee Y
+\iff X \rightarrow Y
+\iff \neg Y \rightarrow \neg X
+\]</span> <span class="math display">\[
+\neg X \vee \neg Y
+\iff X \rightarrow \neg Y
+\iff Y \rightarrow \neg X
+\]</span></p>
+<p>On peut alors construire un graphe où les sommets sont les littéraux
+apparaissant dans une formule ainsi que leur négation, et où l’on relie
+<span class="math inline">\(l\)</span> et <span
+class="math inline">\(l&#39;\)</span> quand une clause est équivalente à
+<span class="math inline">\(l \rightarrow l&#39;\)</span>.</p>
+<p>Un chemin dans ce graphe est une chaine d’implication. On peut
+montrer que <span class="math inline">\(f\)</span> est satisfiable si et
+seulement un littéral n’est jamais relié à son opposé. Or, pour
+déterminer cela, il suffit de calculer la fermeture transitive du
+graphe, par exemple avec des parcours successifs, ou avec
+Floyd-Warshall. Cela se fait donc en temps et en espace polynomial dans
+le nombre de variables.</p>
+<h2 data-number="4.5" id="sec:sat-2"><span
+class="header-section-number">4.5</span> 3-SAT</h2>
+<p>On peut montrer un théorème assurant que ce chapitre aura un nombre
+fini de paragraphes :</p>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p>Si on sait résoudre 3-SAT alors on sait résoudre <span
+class="math inline">\(k\)</span>-SAT pour tout <span
+class="math inline">\(k\)</span>.</p>
+</div>
+<p>Cependant, comme on en reparlera dans le chapitre sur la
+NP-complétude, le problème 3-SAT est <em>a priori</em> très difficile et
+on a peu d’espoir de pouvoir le résoudre de manière générale autrement
+qu’en énumérant les <span class="math inline">\(2^n\)</span>
+valuations.</p>
+<h2 data-number="4.6" id="sec:algorithme-de-quine"><span
+class="header-section-number">4.6</span> Algorithme de Quine</h2>
+<p>L’algorithme de Quine consiste à construire un arbre de décision
+associé à une formule <span class="math inline">\(f\)</span>
+inductivement ainsi :</p>
+<ul>
+<li>si <span class="math inline">\(f\)</span> est sans variable, <span
+class="math inline">\(f \equiv top\)</span> ou <span
+class="math inline">\(\perp\)</span> et on renvoie une feuille avec
+cette valeur.</li>
+<li>sinon on considère une variable <span
+class="math inline">\(X\)</span> quelconque dans <span
+class="math inline">\(f\)</span> et on renvoie l’arbre dont la racine
+est étiquetée par <span class="math inline">\(X\)</span>, a pour fils
+gauche l’arbre associé à <span class="math inline">\(f[\perp/X]\)</span>
+et pour fils droit l’arbre associé à <span
+class="math inline">\(f[\top/X]\)</span>.</li>
+</ul>
+<p>Si <span class="math inline">\(f\)</span> est satisfiable, alors cet
+arbre a une feuille de valeur de <span
+class="math inline">\(\top\)</span>. Il suffit alors de lire les
+embranchements pour retrouver le modèle correspondant.</p>
+<p>Si <span class="math inline">\(f\)</span> est une tautologie, toutes
+ses feuilles sont étiquettes par <span
+class="math inline">\(\top\)</span>.</p>
+<p>On donne ici une implémentation rapide de cet algorithme :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb22-1"><a href="#cb22-1"></a>../../snippets/logique/quine.ml</span></code></pre></div>
+<p></div></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/voisinages.png" /></div></center></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/tab2hex.png" /></div></center></p>
 </div>
 <!-- </div> -->
 </div>
