@@ -243,7 +243,7 @@ table td {
     </a>
     </div>
 <!-- FIX TOC -->
-<div class="item header"> <a href="#sec:vocabulaire"><span>1</span> Vocabulaire</a><div class="menu"></div></div><div class="item header"> <a href="#sec:select-simple"><span>2</span> <code>SELECT</code>simple</a><div class="menu"></div></div><div class="item header"> <a href="#sec:agrégation"><span>3</span> Agrégation</a><div class="menu"></div></div><div class="item header"> <a href="#sec:tp"><span>4</span> TP</a><div class="menu"><a class="item" href="#sec:musique"><div class="ui label">4.1</div> Musique</a><a class="item" href="#sec:premières-requêtes"><div class="ui label">4.2</div> Premières requêtes</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:fonctions"><i class="circle icon"></i> Fonctions</a><a style="font-size:0.6em" class="item" href="#sec:requêtes-imbriquées"><i class="circle icon"></i> Requêtes imbriquées</a><a style="font-size:0.6em" class="item" href="#sec:agrégation-1"><i class="circle icon"></i> Agrégation</a></div><a class="item" href="#sec:films"><div class="ui label">4.3</div> Films</a></div></div><!-- FIX TOC -->
+<div class="item header"> <a href="#sec:vocabulaire"><span>1</span> Vocabulaire</a><div class="menu"></div></div><div class="item header"> <a href="#sec:select"><span>2</span> <code>SELECT</code></a><div class="menu"></div></div><div class="item header"> <a href="#sec:opérateurs-ensemblistes"><span>3</span> Opérateurs ensemblistes</a><div class="menu"></div></div><div class="item header"> <a href="#sec:produit-cartésien-et-jointures"><span>4</span> Produit cartésien et jointures</a><div class="menu"></div></div><div class="item header"> <a href="#sec:fonctions-et-requêtes-imbriquées"><span>5</span> Fonctions et requêtes imbriquées</a><div class="menu"></div></div><div class="item header"> <a href="#sec:agrégation"><span>6</span> Agrégation</a><div class="menu"></div></div><div class="item header"> <a href="#sec:tp"><span>7</span> TP</a><div class="menu"><a class="item" href="#sec:musique"><div class="ui label">7.1</div> Musique</a><a class="item" href="#sec:premières-requêtes"><div class="ui label">7.2</div> Premières requêtes</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:fonctions"><i class="circle icon"></i> Fonctions</a><a style="font-size:0.6em" class="item" href="#sec:requêtes-imbriquées"><i class="circle icon"></i> Requêtes imbriquées</a><a style="font-size:0.6em" class="item" href="#sec:agrégation-1"><i class="circle icon"></i> Agrégation</a></div><a class="item" href="#sec:films"><div class="ui label">7.3</div> Films</a></div></div><!-- FIX TOC -->
 </div>
 
 <div class="pusher" id="main-content">
@@ -264,16 +264,54 @@ table td {
 <p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Bases de données     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_programmation_imperative.jpg"> </div></p>
 <h1 data-number="1" id="sec:vocabulaire"><span
 class="header-section-number">1</span> Vocabulaire</h1>
-<h1 data-number="2" id="sec:select-simple"><span
-class="header-section-number">2</span> <code>SELECT</code> simple</h1>
-<h1 data-number="3" id="sec:agrégation"><span
-class="header-section-number">3</span> Agrégation</h1>
-<h1 data-number="4" id="sec:tp"><span
-class="header-section-number">4</span> TP</h1>
+<h1 data-number="2" id="sec:select"><span
+class="header-section-number">2</span> <code>SELECT</code></h1>
+<p><center><div class="ui image center"><img
+src="assets/pics/sqlselecttout.png" /></div></center></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/sqlselectproj.png" /></div></center></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/sqlselectas.png" /></div></center></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/sqlselectwhere.png" /></div></center></p>
+<h1 data-number="3" id="sec:opérateurs-ensemblistes"><span
+class="header-section-number">3</span> Opérateurs ensemblistes</h1>
+<h1 data-number="4" id="sec:produit-cartésien-et-jointures"><span
+class="header-section-number">4</span> Produit cartésien et
+jointures</h1>
+<p><center><div class="ui image center"><img
+src="assets/pics/sqlprodcart.png" /></div></center></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/sqlprodcartwhere.png" /></div></center></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/sqlleftjoin.png" /></div></center></p>
+<h1 data-number="5" id="sec:fonctions-et-requêtes-imbriquées"><span
+class="header-section-number">5</span> Fonctions et requêtes
+imbriquées</h1>
+<p><center><div class="ui image center"><img
+src="assets/pics/sqlcount.png" /></div></center></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/sqlcountas.png" /></div></center></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/sqldeuxfonc.png" /></div></center></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/sqlsubqu.png" /></div></center></p>
+<h1 data-number="6" id="sec:agrégation"><span
+class="header-section-number">6</span> Agrégation</h1>
+<p><center><div class="ui image center"><img
+src="assets/pics/sqlgroupby.png" /></div></center></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/sqlgroupbycount.png" /></div></center></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/sqlgroupbywhere.png" /></div></center></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/sqlgroupbyhaving.png" /></div></center></p>
+<h1 data-number="7" id="sec:tp"><span
+class="header-section-number">7</span> TP</h1>
 <p>Allez sur le site et identifiez vous avec le couple utilisateur/mot
 de passe suivant : mp2i/mp2i.</p>
-<h2 data-number="4.1" id="sec:musique"><span
-class="header-section-number">4.1</span> Musique</h2>
+<h2 data-number="7.1" id="sec:musique"><span
+class="header-section-number">7.1</span> Musique</h2>
 <ul>
 <li>Sélectionnez <code>tp26_musique</code> dans la barre de navigation à
 gauche de l’écran.</li>
@@ -288,8 +326,8 @@ voir s’exécuter. Après la première requête, on peut faire
 dont le schéma est donné dans la figure suivante :</p>
 <p><center><div class="ui image center"><img
 src="assets/pics/musiqueschema.png" /></div></center></p>
-<h2 data-number="4.2" id="sec:premières-requêtes"><span
-class="header-section-number">4.2</span> Premières requêtes</h2>
+<h2 data-number="7.2" id="sec:premières-requêtes"><span
+class="header-section-number">7.2</span> Premières requêtes</h2>
 <p>L’attribut <code>asin</code> de <code>album</code> est la clé
 primaire qui sert de clé étrangère <code>album</code> dans
 <code>track</code> et <code>style</code>.</p>
@@ -362,8 +400,8 @@ dans <code>track</code>. Même question en inversant les tables.</p>
 une clé primaire d’une de ces deux tables et que l’autre est une clé
 étrangère ?</p>
 </div>
-<h3 data-number="4.2.1" id="sec:fonctions"><span
-class="header-section-number">4.2.1</span> Fonctions</h3>
+<h3 data-number="7.2.1" id="sec:fonctions"><span
+class="header-section-number">7.2.1</span> Fonctions</h3>
 <p>On peut appliquer des fonctions sur un ou plusieurs attributs, ou
 expressions, pour obtenir des valeurs. Se faisant, on va déduire une
 table à une ligne contenant les résultats.</p>
@@ -388,8 +426,8 @@ Question
 <p>En une seule requête, calculer le prix moyen d’un album et le plus
 petit rang.</p>
 </div>
-<h3 data-number="4.2.2" id="sec:requêtes-imbriquées"><span
-class="header-section-number">4.2.2</span> Requêtes imbriquées</h3>
+<h3 data-number="7.2.2" id="sec:requêtes-imbriquées"><span
+class="header-section-number">7.2.2</span> Requêtes imbriquées</h3>
 <p>Attention, la requête</p>
 <pre><code>SELECT title, MIN(rank) FROM album</code></pre>
 <p>n’a aucune raison de renvoyer le titre de l’album de plus petit rang.
@@ -420,8 +458,8 @@ Question
 <p>Déterminer en une requête les albums ayant le plus de pistes sur un
 de leur disque.</p>
 </div>
-<h3 data-number="4.2.3" id="sec:agrégation-1"><span
-class="header-section-number">4.2.3</span> Agrégation</h3>
+<h3 data-number="7.2.3" id="sec:agrégation-1"><span
+class="header-section-number">7.2.3</span> Agrégation</h3>
 <p>Pour grouper les chansons dans la table track selon l’album qui les
 contient on peut utiliser la requête :</p>
 <pre><code>SELECT album FROM track GROUP BY album</code></pre>
@@ -443,7 +481,7 @@ pistes de l’album :</p>
 <div class="header">
 Question
 </div>
-<p>Déterminer le nombre moyen de pistes d’un album, tout disque
+<p>Déterminer le numéro moyen d’une piste d’un album, tout disque
 compris.</p>
 </div>
 <p>Si on souhaite obtenir avec un <code>GROUP BY</code> les albums ayant
@@ -483,8 +521,8 @@ Question
 </div>
 <p>Trouver les noms des albums ayant au moins deux disques.</p>
 </div>
-<h2 data-number="4.3" id="sec:films"><span
-class="header-section-number">4.3</span> Films</h2>
+<h2 data-number="7.3" id="sec:films"><span
+class="header-section-number">7.3</span> Films</h2>
 <p>On considère maintenant la base de données <code>tp26_film</code>.
 Ses tables sont décrites dans le diagramme :</p>
 <p><center><div class="ui image center"><img
