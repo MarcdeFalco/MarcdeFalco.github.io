@@ -405,7 +405,7 @@ class="math inline">\(s\)</span> afin de tester si le motif est présent
 <p><center><div class="ui image center"><img
 src="assets/pics/texte_rech_naive.png" /></div></center></p>
 <p>Cela donne l’implémentation assez directe suivante :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-62">ocaml</a>   <a class="item" data-tab="c-62">c</a>   <a class="item" data-tab="python-62">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-62"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-64">ocaml</a>   <a class="item" data-tab="c-64">c</a>   <a class="item" data-tab="python-64">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-64"></p>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">exception</span> Trouve <span class="kw">of</span> <span class="dt">int</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">exception</span> PasDeMotif</span>
@@ -432,7 +432,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>;</span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        <span class="dt">None</span></span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">with</span> Trouve i -&gt; <span class="dt">Some</span> i</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-62"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-64"></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* recherche_naive(m,s) recherche le motif m dans la chaine</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * s et renvoie l&#39;indice de la première occurrence s&#39;il est présent</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * ou -1 sinon */</span></span>
@@ -455,7 +455,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-62"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-64"></p>
 <div class="sourceCode" id="cb3"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> recherche_naive(motif, chaine):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Recherche le motif dans la chaine et renvoie l&#39;indice de </span></span>
@@ -584,7 +584,7 @@ d’énumération. On peut aussi la réaliser par un dictionnaire, ce qui est
 plus économe en espace si le motif contient peu de lettres différentes.
 On a choisit ici, pour des raisons pédagogiques, de considérer la
 numérotation ASCII naturelle associées au caractère de cette table.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-77">ocaml</a>   <a class="item" data-tab="c-77">c</a>   <a class="item" data-tab="python-77">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-77"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-79">ocaml</a>   <a class="item" data-tab="c-79">c</a>   <a class="item" data-tab="python-79">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-79"></p>
 <div class="sourceCode" id="cb4"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> taille_alphabet = <span class="dv">256</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -599,7 +599,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb4-1"><a href
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">then</span> droite.(<span class="dt">Char</span>.code c) &lt;- <span class="dt">Some</span> j</span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    droite</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-77"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-79"></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> taille_alphabet <span class="op">=</span> <span class="dv">256</span><span class="op">;</span> <span class="co">// on pourrait passer par un define</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">/* Calcule le tableau droite associé au motif</span></span>
@@ -621,7 +621,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb4-1"><a href
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> droite<span class="op">;</span></span>
 <span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-77"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-79"></p>
 <div class="sourceCode" id="cb6"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>taille_alphabet <span class="op">=</span> <span class="dv">256</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calcule_droite(motif):</span>
@@ -664,7 +664,7 @@ class="math inline">\(i&#39;\)</span>, on souhaite ainsi avoir <span
 class="math inline">\(i&#39; + k = i + j\)</span> donc <span
 class="math inline">\(i &#39; = i + j - k\)</span>.</p></li>
 </ul>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-86">ocaml</a>   <a class="item" data-tab="c-86">c</a>   <a class="item" data-tab="python-86">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-86"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-88">ocaml</a>   <a class="item" data-tab="c-88">c</a>   <a class="item" data-tab="python-88">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-88"></p>
 <div class="sourceCode" id="cb7"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">exception</span> Difference</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">exception</span> Trouve <span class="kw">of</span> <span class="dt">int</span></span>
@@ -693,7 +693,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb7-1"><a href
 <span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>;</span>
 <span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>        <span class="dt">None</span></span>
 <span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">with</span> Trouve k -&gt; <span class="dt">Some</span> k</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-86"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-88"></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* cherche motif dans chaine en utilisant la table de saut précalculée</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * droite. Renvoie l&#39;indice de la première occurrence ou -1 s&#39;il n&#39;est pas</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * présent */</span></span>
@@ -726,7 +726,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb7-1"><a href
 <span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
 <span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-86"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-88"></p>
 <div class="sourceCode" id="cb9"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> recherche_BMH(motif, droite, chaine):</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Cherche motif dans chaine en utilisant la table de saut</span></span>
@@ -1101,7 +1101,7 @@ s-k\)</span>, ce qui revient à considérer qu’on a dépassé le précédent
 suffixe pouvant apporter une information. On procède donc naïvement pour
 trouver le plus grand suffixe depuis cette position.</p>
 <p>On en déduit l’implémentation suivante :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-120">ocaml</a>   <a class="item" data-tab="c-120">c</a>   <a class="item" data-tab="python-120">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-120"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-122">ocaml</a>   <a class="item" data-tab="c-122">c</a>   <a class="item" data-tab="python-122">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-122"></p>
 <div class="sourceCode" id="cb10"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> calcule_suffixe (x:<span class="dt">string</span>) : <span class="dt">int</span> <span class="dt">array</span> =</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">(* Prend en entrée un mot non vide x et renvoie son tableau de suffixe *)</span></span>
@@ -1126,7 +1126,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb10-1"><a hre
 <span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>        <span class="kw">end</span></span>
 <span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    suffixe</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-120"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-122"></p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* Calcule le tableau suffixe associé au mot x</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * le tableau renvoyé a été alloué, il devra être libéré après utilisation */</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> <span class="op">*</span>calcule_suffixe<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>x<span class="op">)</span></span>
@@ -1156,7 +1156,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb10-1"><a hre
 <span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> suffixe<span class="op">;</span></span>
 <span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-120"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-122"></p>
 <div class="sourceCode" id="cb12"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calcule_suffixe(x):</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Prend en entrée un mot non vide x et renvoie son tableau de suffixe&#39;&#39;&#39;</span></span>
@@ -1187,7 +1187,7 @@ class="math inline">\(k\)</span>, et en fusionnant deux cas qui
 reviennent à dupliquer du code.</p>
 <p>On donne ici le code maladroit qui correspond à la traduction exacte
 de la description précédente :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-125">ocaml</a>   <a class="item" data-tab="c-125">c</a>   <a class="item" data-tab="python-125">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-125"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-127">ocaml</a>   <a class="item" data-tab="c-127">c</a>   <a class="item" data-tab="python-127">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-127"></p>
 <div class="sourceCode" id="cb13"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> calcule_suffixe_rep (x:<span class="dt">string</span>) : <span class="dt">int</span> <span class="dt">array</span> =</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">(* Prend en entrée un mot non vide x et renvoie son tableau de suffixe *)</span></span>
@@ -1225,7 +1225,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb13-1"><a hre
 <span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>        <span class="kw">end</span></span>
 <span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>    suffixe</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-125"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-127"></p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* Calcule le tableau suffixe associé au mot x</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * le tableau renvoyé a été alloué, il devra être libéré après utilisation */</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> <span class="op">*</span>calcule_suffixe_rep<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>x<span class="op">)</span></span>
@@ -1267,7 +1267,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb13-1"><a hre
 <span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> suffixe<span class="op">;</span></span>
 <span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-125"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-127"></p>
 <div class="sourceCode" id="cb15"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calcule_suffixe_rep(x):</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Prend en entrée un mot non vide x et renvoie son tableau de suffixe&#39;&#39;&#39;</span></span>
@@ -1389,7 +1389,7 @@ class="math inline">\(=n\)</span>.</p>
 deux se produisent en <span class="math inline">\(i\)</span>, on
 implémente successivement les remplissages de sorte à obtenir la valeur
 minimum. On en déduit le programme suivant :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-133">ocaml</a>   <a class="item" data-tab="c-133">c</a>   <a class="item" data-tab="python-133">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-133"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-135">ocaml</a>   <a class="item" data-tab="c-135">c</a>   <a class="item" data-tab="python-135">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-135"></p>
 <div class="sourceCode" id="cb16"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> calcule_bonsuffixe (x:<span class="dt">string</span>) : <span class="dt">int</span> <span class="dt">array</span> =</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">(* Prend en entrée un mot non vide x et renvoie son tableau de suffixe *)</span></span>
@@ -1413,7 +1413,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb16-1"><a hre
 <span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>    bonsuffixe</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-133"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-135"></p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* Calcule le tableau suffixe associé au mot x</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * le tableau renvoyé a été alloué, il devra être libéré après utilisation */</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> <span class="op">*</span>calcule_bonsuffixe<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>x<span class="op">)</span></span>
@@ -1442,7 +1442,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb16-1"><a hre
 <span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> bonsuffixe<span class="op">;</span></span>
 <span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-133"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-135"></p>
 <div class="sourceCode" id="cb18"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calcule_bonsuffixe(x):</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Prend en entrée un mot non vide x et renvoie son tableau de suffixe&#39;&#39;&#39;</span></span>
@@ -1470,7 +1470,7 @@ Boyer-Moore</h4>
 <p>On incorpore naturellement la table precédente à l’algorithme de
 Boyer-Moore en choisissant le meilleur décalage entre cette table et la
 stratégie précédente.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-139">ocaml</a>   <a class="item" data-tab="c-139">c</a>   <a class="item" data-tab="python-139">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-139"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-141">ocaml</a>   <a class="item" data-tab="c-141">c</a>   <a class="item" data-tab="python-141">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-141"></p>
 <div class="sourceCode" id="cb19"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> recherche_BM (motif:<span class="dt">string</span>) </span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    (droite:<span class="dt">int</span> <span class="dt">option</span> <span class="dt">array</span>) (bonsuffixe:<span class="dt">int</span> <span class="dt">array</span>)</span>
@@ -1497,7 +1497,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb19-1"><a hre
 <span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>;</span>
 <span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>        <span class="dt">None</span></span>
 <span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">with</span> Trouve k -&gt; <span class="dt">Some</span> k</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-139"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-141"></p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* cherche motif dans chaine en utilisant les tables de saut précalculées</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * droite et bonsuffixe. Renvoie l&#39;indice de la première occurrence ou -1 s&#39;il n&#39;est pas</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * présent */</span></span>
@@ -1530,7 +1530,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb19-1"><a hre
 <span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
 <span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-139"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-141"></p>
 <div class="sourceCode" id="cb21"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> recherche_BM(motif, droite, bonsuffixe, chaine):</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Cherche motif dans chaine en utilisant les tables de sauts</span></span>
@@ -1711,7 +1711,7 @@ class="math inline">\(a_k \mod q = 0\)</span>. Il suffit donc de faire
 un masquage pour obtenir directement <span class="math inline">\(a_k
 \mod q = (a &gt;&gt; 31k) \&amp; q\)</span>.</p>
 <p>On obtient alors le programme suivant :
-<div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-148">ocaml</a>   <a class="item" data-tab="c-148">c</a>   <a class="item" data-tab="python-148">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-148"></p>
+<div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-150">ocaml</a>   <a class="item" data-tab="c-150">c</a>   <a class="item" data-tab="python-150">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-150"></p>
 <div class="sourceCode" id="cb22"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> fastmod a =</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> s = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
@@ -1726,7 +1726,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb22-1"><a hre
 <span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> <span class="kw">if</span> !s = q</span>
 <span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> <span class="dv">0</span></span>
 <span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> !s</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-148"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-150"></p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int64_t</span> fastmod<span class="op">(</span><span class="dt">int64_t</span> a<span class="op">)</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int64_t</span> s <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
@@ -1744,7 +1744,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb22-1"><a hre
 <span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s<span class="op">;</span></span>
 <span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-148"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-150"></p>
 <div class="sourceCode" id="cb24"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fastmod(a):</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> <span class="dv">0</span></span>
@@ -1763,7 +1763,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a h
 <p>Le programme suivant implémente naïvement les calculs de <span
 class="math inline">\(h\)</span> et de <span
 class="math inline">\(\delta_{a,b}\)</span> :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-151">ocaml</a>   <a class="item" data-tab="c-151">c</a>   <a class="item" data-tab="python-151">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-151"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-153">ocaml</a>   <a class="item" data-tab="c-153">c</a>   <a class="item" data-tab="python-153">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-153"></p>
 <div class="sourceCode" id="cb25"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> hash r q s =</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> p = <span class="dt">ref</span> <span class="dv">1</span> <span class="kw">in</span></span>
@@ -1776,7 +1776,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb25-1"><a hre
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> delta r q rp a b e = <span class="co">(* rp est r^(p-1) mod q *)</span></span>
 <span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    (r * (e - rp * (<span class="dt">Char</span>.code a)) + <span class="dt">Char</span>.code b) <span class="kw">mod</span> q</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-151"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-153"></p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int64_t</span> hash<span class="op">(</span><span class="dt">int64_t</span> r<span class="op">,</span> <span class="dt">int64_t</span> q<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>s<span class="op">,</span> <span class="dt">int</span> n<span class="op">)</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int64_t</span> p <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
@@ -1797,7 +1797,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb25-1"><a hre
 <span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">(</span>r <span class="op">*</span> <span class="op">(</span>e <span class="op">-</span> rp <span class="op">*</span> a<span class="op">)</span> <span class="op">+</span> b<span class="op">)</span> <span class="op">%</span> q<span class="op">;</span></span>
 <span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-151"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-153"></p>
 <div class="sourceCode" id="cb27"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="bu">hash</span>(r,q,s):</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    e <span class="op">=</span> <span class="dv">0</span></span>
@@ -1816,7 +1816,7 @@ class="header-section-number">1.4.3</span> Implémentation</h3>
 dans le programme qui suit. On se sert ici du caractère paresseux du
 <code>&amp;&amp;</code> pour n’effecuter le test coûteux d’égalité des
 chaînes qu’en cas d’égalité des empreintes.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-153">ocaml</a>   <a class="item" data-tab="c-153">c</a>   <a class="item" data-tab="python-153">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-153"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-155">ocaml</a>   <a class="item" data-tab="c-155">c</a>   <a class="item" data-tab="python-155">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-155"></p>
 <div class="sourceCode" id="cb28"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">exception</span> Trouve <span class="kw">of</span> <span class="dt">int</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1835,7 +1835,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb28-1"><a hre
 <span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>            <span class="kw">if</span> i+p &lt; n <span class="kw">then</span> e := delta r q rp s.[i] s.[i+p] !e</span>
 <span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>; <span class="dt">None</span></span>
 <span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">with</span> Trouve k -&gt; <span class="dt">Some</span> k</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-153"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-155"></p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> rabin_karp<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>m<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>s<span class="op">)</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> <span class="dt">int64_t</span> r <span class="op">=</span> <span class="dv">256</span><span class="op">;</span></span>
@@ -1854,7 +1854,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb28-1"><a hre
 <span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
 <span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-153"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-155"></p>
 <div class="sourceCode" id="cb30"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rabin_karp(m, s):</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    p, n <span class="op">=</span> <span class="bu">len</span>(m), <span class="bu">len</span>(s)</span>
@@ -1981,7 +1981,7 @@ d’occurences</h3>
 l’ensemble des valeurs d’octets entre 0 et 255. Il suffit alors de
 parcourir le fichier pour incrémenter les valeurs correspondant aux
 octets lus.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-168">ocaml</a>   <a class="item" data-tab="c-168">c</a>   <a class="item" data-tab="python-168">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-168"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-170">ocaml</a>   <a class="item" data-tab="c-170">c</a>   <a class="item" data-tab="python-170">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-170"></p>
 <div class="sourceCode" id="cb31"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> table_occurrences nomdefichier =</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> fichier = <span class="dt">open_in_bin</span> nomdefichier <span class="kw">in</span></span>
@@ -1996,9 +1996,9 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb31-1"><a hre
 <span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span>;</span>
 <span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">close_in</span> fichier;</span>
 <span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>    occurrences</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-168"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-170"></p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> src<span class="op">/</span>algorithmique<span class="op">/../../</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>huffman<span class="op">.</span>c does not exist</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-168"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-170"></p>
 <div class="sourceCode" id="cb33"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>ERROR: src<span class="op">/</span>algorithmique<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>huffman.py does <span class="kw">not</span> exist</span></code></pre></div>
 <p></div> </div></p>
@@ -2027,7 +2027,7 @@ on obtient la suite d’octets : <code>0 1 42 0 1 16 1 64</code>.</p>
 </div>
 <p>La lecture et l’écriture de la séralisation s’effectue alors
 simplement par récurrence :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-175">ocaml</a>   <a class="item" data-tab="c-175">c</a>   <a class="item" data-tab="python-175">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-175"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-177">ocaml</a>   <a class="item" data-tab="c-177">c</a>   <a class="item" data-tab="python-177">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-177"></p>
 <div class="sourceCode" id="cb34"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> output_arbre f a =</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">match</span> a <span class="kw">with</span></span>
@@ -2048,9 +2048,9 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb34-1"><a hre
 <span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> d = input_arbre f <span class="kw">in</span></span>
 <span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>        Noeud(g,d)</span>
 <span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>    | _ -&gt; Feuille (<span class="dt">input_byte</span> f)</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-175"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-177"></p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> src<span class="op">/</span>algorithmique<span class="op">/../../</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>huffman<span class="op">.</span>c does not exist</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-175"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-177"></p>
 <div class="sourceCode" id="cb36"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>ERROR: src<span class="op">/</span>algorithmique<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>huffman.py does <span class="kw">not</span> exist</span></code></pre></div>
 <p></div> </div></p>
@@ -2099,7 +2099,7 @@ l’accumulateur, on veut passer de <span class="math inline">\(acc = b_1
 \dots b_k\)</span> à <span class="math inline">\(b_1 \dots b_k b = 2 acc
 + b\)</span>.</p>
 <p>On en déduit l’implémentation assez directe suivante :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-183">ocaml</a>   <a class="item" data-tab="c-183">c</a>   <a class="item" data-tab="python-183">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-183"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-185">ocaml</a>   <a class="item" data-tab="c-185">c</a>   <a class="item" data-tab="python-185">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-185"></p>
 <div class="sourceCode" id="cb37"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> out_channel_bits = {</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    o_fichier : <span class="dt">out_channel</span>;</span>
@@ -2120,9 +2120,9 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb37-1"><a hre
 <span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> b</span>
 <span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> f.o_accumulateur &lt;- f.o_accumulateur + <span class="dv">1</span> <span class="kw">lsl</span> f.o_bits_accumules;</span>
 <span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>    f.o_bits_accumules &lt;- <span class="dv">1</span> + f.o_bits_accumules</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-183"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-185"></p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> src<span class="op">/</span>algorithmique<span class="op">/../../</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>bitpacking<span class="op">.</span>c does not exist</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-183"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-185"></p>
 <div class="sourceCode" id="cb39"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Bitpacking:</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;La classe Bitpacking se comporte comme un fichier Python</span></span>
@@ -2158,7 +2158,7 @@ nécessaire de se souvenir que ces zéros ne sont pas signifiants à la
 lecture, on rajoute un octet final contenant cette valeur <span
 class="math inline">\(k\)</span>.</p>
 <p>On obtient alors la fonction de fermeture de fichier suivante :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-188">ocaml</a>   <a class="item" data-tab="c-188">c</a>   <a class="item" data-tab="python-188">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-188"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-190">ocaml</a>   <a class="item" data-tab="c-190">c</a>   <a class="item" data-tab="python-190">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-190"></p>
 <div class="sourceCode" id="cb40"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> close_out_bits f =</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> f.o_bits_accumules = <span class="dv">0</span></span>
@@ -2169,9 +2169,9 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb40-1"><a hre
 <span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">output_byte</span> f.o_fichier padding</span>
 <span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span>;</span>
 <span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">close_out</span> f.o_fichier</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-188"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-190"></p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> src<span class="op">/</span>algorithmique<span class="op">/../../</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>bitpacking<span class="op">.</span>c does not exist</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-188"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-190"></p>
 <div class="sourceCode" id="cb42"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> close(<span class="va">self</span>):</span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> <span class="va">self</span>.<span class="bu">input</span>:</span>
@@ -2215,7 +2215,7 @@ lu est l’avant-dernier, auquel cas on lit le dernier octet et on diminue
 d’autant le nombre de bits signifiants dans l’accumulateur.</li>
 </ul>
 <p>On obtient alors le programme suivant pour la lecture :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-195">ocaml</a>   <a class="item" data-tab="c-195">c</a>   <a class="item" data-tab="python-195">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-195"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-197">ocaml</a>   <a class="item" data-tab="c-197">c</a>   <a class="item" data-tab="python-197">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-197"></p>
 <div class="sourceCode" id="cb43"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> in_channel_bits = {</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    i_fichier : <span class="dt">in_channel</span>;</span>
@@ -2246,9 +2246,9 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb43-1"><a hre
 <span id="cb43-27"><a href="#cb43-27" aria-hidden="true" tabindex="-1"></a>    bit</span>
 <span id="cb43-28"><a href="#cb43-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb43-29"><a href="#cb43-29" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> close_in_bits f = <span class="dt">close_in</span> f.i_fichier</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-195"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-197"></p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> src<span class="op">/</span>algorithmique<span class="op">/../../</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>bitpacking<span class="op">.</span>c does not exist</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-195"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-197"></p>
 <div class="sourceCode" id="cb45"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> init_input(<span class="va">self</span>):</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.<span class="bu">file</span>.seek(<span class="dv">0</span>, os.SEEK_END)</span>
@@ -2281,7 +2281,7 @@ vide sinon. On parlera de représentation plate de l’arbre de
 Huffman.</p>
 <p>Il suffit de faire un parcours exhaustif de l’arbre (FIXME référence
 aux parcours d’arbres) pour réaliser cette table :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-201">ocaml</a>   <a class="item" data-tab="c-201">c</a>   <a class="item" data-tab="python-201">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-201"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-203">ocaml</a>   <a class="item" data-tab="c-203">c</a>   <a class="item" data-tab="python-203">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-203"></p>
 <div class="sourceCode" id="cb46"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> chemins a =</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> a_plat = <span class="dt">Array</span>.make <span class="dv">256</span> [] <span class="kw">in</span></span>
@@ -2292,16 +2292,16 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb46-1"><a hre
 <span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>            parcours d (<span class="kw">true</span>::chemin)</span>
 <span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>        | Feuille c -&gt; a_plat.(c) &lt;- <span class="dt">List</span>.rev chemin</span>
 <span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">in</span> parcours a []; a_plat</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-201"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-203"></p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> src<span class="op">/</span>algorithmique<span class="op">/../../</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>huffman<span class="op">.</span>c does not exist</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-201"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-203"></p>
 <div class="sourceCode" id="cb48"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>ERROR: src<span class="op">/</span>algorithmique<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>huffman.py does <span class="kw">not</span> exist</span></code></pre></div>
 <p></div> </div></p>
 <p>Afin de compresser un octet, on va donc aller lire le chemin dans
 cette table puis écrire le mot binaire correspond grâce aux fonctions
 d’écriture bit à bit :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-206">ocaml</a>   <a class="item" data-tab="c-206">c</a>   <a class="item" data-tab="python-206">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-206"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-208">ocaml</a>   <a class="item" data-tab="c-208">c</a>   <a class="item" data-tab="python-208">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-208"></p>
 <div class="sourceCode" id="cb49"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> compresse_byte f a_plat c =</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">rec</span> output_bool_list l =</span>
@@ -2309,9 +2309,9 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb49-1"><a hre
 <span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>        | t::q -&gt; Bitpacking.output_bit f t; output_bool_list q</span>
 <span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>        | [] -&gt; ()</span>
 <span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">in</span> output_bool_list a_plat.(c)</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-206"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-208"></p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> src<span class="op">/</span>algorithmique<span class="op">/../../</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>huffman<span class="op">.</span>c does not exist</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-206"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-208"></p>
 <div class="sourceCode" id="cb51"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>ERROR: src<span class="op">/</span>algorithmique<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>huffman.py does <span class="kw">not</span> exist</span></code></pre></div>
 <p></div> </div></p>
@@ -2330,7 +2330,7 @@ on l’appel est effectué sur un noeud, on remplace <code>chemin</code>
 par la fonction qui appelle <code>chemin</code> puis écrit le bit
 correspondant au côté gauche ou droit.</p>
 <p>Cela correspond au programme suivant :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-211">ocaml</a>   <a class="item" data-tab="c-211">c</a>   <a class="item" data-tab="python-211">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-211"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-213">ocaml</a>   <a class="item" data-tab="c-213">c</a>   <a class="item" data-tab="python-213">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-213"></p>
 <div class="sourceCode" id="cb52"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> chemins_continuation a =</span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> a_plat = <span class="dt">Array</span>.make <span class="dv">256</span> (<span class="kw">fun</span> _ -&gt; ()) <span class="kw">in</span></span>
@@ -2344,9 +2344,9 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb52-1"><a hre
 <span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> compresse_byte_continuation f a_plat c =</span>
 <span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>    a_plat.(c) f</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-211"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-213"></p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> src<span class="op">/</span>algorithmique<span class="op">/../../</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>huffman<span class="op">.</span>c does not exist</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-211"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-213"></p>
 <div class="sourceCode" id="cb54"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>ERROR: src<span class="op">/</span>algorithmique<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>huffman.py does <span class="kw">not</span> exist</span></code></pre></div>
 <p></div> </div></p>
@@ -2361,16 +2361,16 @@ en lisant bit à bit le fichier compressé en descendant à gauche ou à
 droite selon que le bit lu soit 0 ou non. Dès qu’on arrive sur une
 feuille, on écrit dans le nouveau fichier le caractère
 correspondant.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-219">ocaml</a>   <a class="item" data-tab="c-219">c</a>   <a class="item" data-tab="python-219">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-219"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-221">ocaml</a>   <a class="item" data-tab="c-221">c</a>   <a class="item" data-tab="python-221">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-221"></p>
 <div class="sourceCode" id="cb55"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> decompresse_byte f a =</span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">match</span> a <span class="kw">with</span></span>
 <span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>    | Feuille c -&gt; c</span>
 <span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>    | Noeud(g,d) -&gt;</span>
 <span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>        decompresse_byte f (<span class="kw">if</span> Bitpacking.input_bit f <span class="kw">then</span> d <span class="kw">else</span> g)</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-219"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-221"></p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> src<span class="op">/</span>algorithmique<span class="op">/../../</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>huffman<span class="op">.</span>c does not exist</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-219"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-221"></p>
 <div class="sourceCode" id="cb57"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>ERROR: src<span class="op">/</span>algorithmique<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>huffman.py does <span class="kw">not</span> exist</span></code></pre></div>
 <p></div> </div></p>
@@ -2380,7 +2380,7 @@ class="header-section-number">2.2.6</span> Compression et décompression
 de fichiers</h3>
 <p>En mettant bout à bout l’ensemble des fonctions, on obtient la
 fonction suivante qui réalise la compression complète d’un fichier :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-225">ocaml</a>   <a class="item" data-tab="c-225">c</a>   <a class="item" data-tab="python-225">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-225"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-227">ocaml</a>   <a class="item" data-tab="c-227">c</a>   <a class="item" data-tab="python-227">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-227"></p>
 <div class="sourceCode" id="cb58"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> compresse_fichier nom_in nom_out =</span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> occ = table_occurrences nom_in <span class="kw">in</span></span>
@@ -2399,14 +2399,14 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb58-1"><a hre
 <span id="cb58-15"><a href="#cb58-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span>;</span>
 <span id="cb58-16"><a href="#cb58-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">close_in</span> f_in;</span>
 <span id="cb58-17"><a href="#cb58-17" aria-hidden="true" tabindex="-1"></a>    Bitpacking.close_out_bits f_out</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-225"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-227"></p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> src<span class="op">/</span>algorithmique<span class="op">/../../</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>huffman<span class="op">.</span>c does not exist</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-225"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-227"></p>
 <div class="sourceCode" id="cb60"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>ERROR: src<span class="op">/</span>algorithmique<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>huffman.py does <span class="kw">not</span> exist</span></code></pre></div>
 <p></div> </div></p>
 <p>On obtient de même la fonction de décompression suivante :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-230">ocaml</a>   <a class="item" data-tab="c-230">c</a>   <a class="item" data-tab="python-230">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-230"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-232">ocaml</a>   <a class="item" data-tab="c-232">c</a>   <a class="item" data-tab="python-232">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-232"></p>
 <div class="sourceCode" id="cb61"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> decompresse_fichier nom_in nom_out =</span>
 <span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> f_in = Bitpacking.open_in_bits nom_in <span class="kw">in</span></span>
@@ -2422,9 +2422,9 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb61-1"><a hre
 <span id="cb61-12"><a href="#cb61-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span>;</span>
 <span id="cb61-13"><a href="#cb61-13" aria-hidden="true" tabindex="-1"></a>    Bitpacking.close_in_bits f_in;</span>
 <span id="cb61-14"><a href="#cb61-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">close_out</span> f_out</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-230"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-232"></p>
 <div class="sourceCode" id="cb62"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> src<span class="op">/</span>algorithmique<span class="op">/../../</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>huffman<span class="op">.</span>c does not exist</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-230"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-232"></p>
 <div class="sourceCode" id="cb63"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>ERROR: src<span class="op">/</span>algorithmique<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>huffman.py does <span class="kw">not</span> exist</span></code></pre></div>
 <p></div> </div></p>
@@ -2721,7 +2721,7 @@ définir des fonctions de manipulation des entiers sur d bits et de
 lecture/écriture dans un fichier.</p>
 <p>Tout d’abord, on définit des fonctions d’écriture d’entiers sous
 forme codée sur d bits à l’aide des fonctions vues précédemment :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-290">ocaml</a>   <a class="item" data-tab="c-290">c</a>   <a class="item" data-tab="python-290">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-290"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-292">ocaml</a>   <a class="item" data-tab="c-292">c</a>   <a class="item" data-tab="python-292">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-292"></p>
 <div class="sourceCode" id="cb64"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> input_code f longueur_code =</span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> acc = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
@@ -2740,9 +2740,9 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb64-1"><a hre
 <span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a>        output_bit f (!acc <span class="kw">mod</span> <span class="dv">2</span> = <span class="dv">1</span>);</span>
 <span id="cb64-16"><a href="#cb64-16" aria-hidden="true" tabindex="-1"></a>        acc := !acc / <span class="dv">2</span></span>
 <span id="cb64-17"><a href="#cb64-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-290"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-292"></p>
 <div class="sourceCode" id="cb65"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> src<span class="op">/</span>algorithmique<span class="op">/../../</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>bitpacking<span class="op">.</span>c does not exist</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-290"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-292"></p>
 <div class="sourceCode" id="cb66"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> read_code(<span class="va">self</span>, longueur_code):</span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>        acc <span class="op">=</span> <span class="dv">0</span></span>
@@ -2763,7 +2763,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb66-1"><a h
 <span id="cb66-17"><a href="#cb66-17" aria-hidden="true" tabindex="-1"></a>            code <span class="op">//=</span> <span class="dv">2</span></span></code></pre></div>
 <p></div> </div></p>
 <p>On implèmente alors assez directement la compression :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-295">ocaml</a>   <a class="item" data-tab="c-295">c</a>   <a class="item" data-tab="python-295">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-295"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-297">ocaml</a>   <a class="item" data-tab="c-297">c</a>   <a class="item" data-tab="python-297">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-297"></p>
 <div class="sourceCode" id="cb67"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> table_bidir = {</span>
 <span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>    elements : <span class="dt">string</span> <span class="dt">array</span>;</span>
@@ -2818,9 +2818,9 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb67-1"><a hre
 <span id="cb67-51"><a href="#cb67-51" aria-hidden="true" tabindex="-1"></a>    Bitpacking.output_code f_out i longueur_code;</span>
 <span id="cb67-52"><a href="#cb67-52" aria-hidden="true" tabindex="-1"></a>    <span class="dt">close_in</span> f_in;</span>
 <span id="cb67-53"><a href="#cb67-53" aria-hidden="true" tabindex="-1"></a>    Bitpacking.close_out_bits f_out</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-295"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-297"></p>
 <div class="sourceCode" id="cb68"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> src<span class="op">/</span>algorithmique<span class="op">/../../</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>lzw<span class="op">.</span>c does not exist</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-295"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-297"></p>
 <div class="sourceCode" id="cb69"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compresse_(nom_in, nom_out, longueur_code<span class="op">=</span><span class="dv">12</span>):</span>
 <span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>    table <span class="op">=</span> [ <span class="bu">bytes</span>([c]) <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">256</span>) ]</span>
@@ -2845,7 +2845,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb69-1"><a h
 <span id="cb69-21"><a href="#cb69-21" aria-hidden="true" tabindex="-1"></a>        fout.write_code(indices[m], longueur_code)</span></code></pre></div>
 <p></div> </div></p>
 <p>Et on procède de même pour la décompression :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-300">ocaml</a>   <a class="item" data-tab="c-300">c</a>   <a class="item" data-tab="python-300">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-300"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-302">ocaml</a>   <a class="item" data-tab="c-302">c</a>   <a class="item" data-tab="python-302">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-302"></p>
 <div class="sourceCode" id="cb70"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> decompresse_fichier nom_in nom_out longueur_code =</span>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> table = cree_table longueur_code <span class="kw">in</span></span>
@@ -2875,9 +2875,9 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb70-1"><a hre
 <span id="cb70-26"><a href="#cb70-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span>;</span>
 <span id="cb70-27"><a href="#cb70-27" aria-hidden="true" tabindex="-1"></a>    Bitpacking.close_in_bits f_in;</span>
 <span id="cb70-28"><a href="#cb70-28" aria-hidden="true" tabindex="-1"></a>    <span class="dt">close_out</span> f_out</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-300"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-302"></p>
 <div class="sourceCode" id="cb71"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> src<span class="op">/</span>algorithmique<span class="op">/../../</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>lzw<span class="op">.</span>c does not exist</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-300"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-302"></p>
 <div class="sourceCode" id="cb72"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> decompresse_(nom_in, nom_out, longueur_code<span class="op">=</span><span class="dv">12</span>):</span>
 <span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>    table <span class="op">=</span> [ <span class="bu">bytes</span>([c]) <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">256</span>) ]</span>
