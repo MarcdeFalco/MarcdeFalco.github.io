@@ -356,7 +356,7 @@ une case voisine libre.</li>
 sans mur de taile 3x3 ne contenant aucun monstre et un seul trésor et
 qui, de plus, est bordé de murs sauf en exactement une case qui doit
 être libre.</li>
-<li>Le graphe induit par la grille avec des connections directes, mais
+<li>Le graphe induit par la grille avec des connexions directes, mais
 pas en diagonale, est connexe.</li>
 </ul>
 <p>On suppose que les grilles admettent une unique solution.</p>
@@ -368,8 +368,8 @@ src="assets/pics/problem_ex_sol.png" /></div></center></p>
 <div class="header">
 Question
 </div>
-<p>Résoudre manuellement les 9 problèmes du PDF donné en lien au
-dessus.</p>
+<p>Résoudre manuellement les 9 problèmes du PDF donné en lien
+au-dessus.</p>
 </div>
 <div class="ui message blue">
 <div class="header">
@@ -391,8 +391,7 @@ src="assets/pics/problem_ex_sol_fill.png" /></div></center></p>
 colonne</li>
 <li>vérifier que chaque trésor est dans une salle au trésor
 conforme</li>
-<li>remplir les salles au trésors et placer un monstre à leur
-entrée</li>
+<li>remplir les salles au trésor et placer un monstre à leur entrée</li>
 <li>vérifier que le graphe est un arbre dont les feuilles sont les cases
 contenant des monstres.</li>
 </ul>
@@ -422,7 +421,7 @@ colonne</li>
 <li>vérifier que les cases libres sont de degré au moins 1</li>
 <li>vérifier que chaque trésor est dans une salle au trésor
 conforme</li>
-<li>remplir les salles au trésors</li>
+<li>remplir les salles au trésor</li>
 <li>vérifier que la grille résultante ne contient pas de carré de cases
 libres</li>
 </ul>
@@ -456,7 +455,7 @@ src="assets/pics/problem_0_.png" /></div></center></p>
 correspond alors à l’entier s’écrivant en binaire <span
 class="math display">\[
 1000000000000000100000000000000010000000000001001000000000000000
-\]</span> et qui vaut 9223512776490909696 en décimal et
+\]</span> et qui vaut 9223512776490909696 en décimal ainsi que
 <code>0x8000800080048000</code> en hexadécimal.</p>
 <p>On pourra écrire en C :</p>
 <p><div class="ui segment code"></p>
@@ -469,7 +468,7 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 <span id="cb1-6"><a href="#cb1-6"></a>board monsters <span class="op">=</span> <span class="bn">0x8000800080048000</span><span class="op">;</span></span></code></pre></div>
 <p></div></p>
 <p>On pourrait considérer une représentation <em>developpée</em> sous la
-forme d’un tableau de 64 booléens. Dans ce cas là, on obtiendrait la
+forme d’un tableau de 64 booléens. Dans ce cas-là, on obtiendrait la
 valeur suivante en C :</p>
 <p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb2"><pre
@@ -520,7 +519,7 @@ Notamment, qu’elles sont réciproques l’une de l’autre.</p>
 </div>
 <h2 data-number="1.3" id="sec:représentation-du-problème"><span
 class="header-section-number">1.3</span> Représentation du problème</h2>
-<p>Pour représenter le problème on utilise le type suivant en C :</p>
+<p>Pour représenter le problème, on utilise le type suivant en C :</p>
 <p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb5"><pre
 class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">typedef</span> <span class="dt">char</span> constraint<span class="op">[</span><span class="dv">8</span><span class="op">];</span></span>
@@ -534,7 +533,8 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 <span id="cb5-9"><a href="#cb5-9"></a></span>
 <span id="cb5-10"><a href="#cb5-10"></a><span class="kw">typedef</span> <span class="kw">struct</span> problem problem<span class="op">;</span></span></code></pre></div>
 <p></div></p>
-<p>Pour définir un problème on peut le faire directement comme ici :</p>
+<p>Pour définir un problème, on peut le faire directement comme ici
+:</p>
 <p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb6"><pre
 class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1"></a>problem p <span class="op">=</span> <span class="op">{</span></span>
@@ -544,7 +544,7 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 <span id="cb6-5"><a href="#cb6-5"></a>    <span class="op">{</span> <span class="dv">1</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">7</span><span class="op">,</span><span class="dv">0</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">4</span> <span class="op">}</span></span>
 <span id="cb6-6"><a href="#cb6-6"></a><span class="op">};</span></span></code></pre></div>
 <p></div></p>
-<p>Mais par lisibilité on peut préciser les noms des champs comme ici
+<p>Mais par lisibilité, on peut préciser les noms des champs comme ici
 :</p>
 <p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb7"><pre
@@ -616,17 +616,18 @@ données par les nombres <span class="math inline">\(l_1, \dots,
 l_8\)</span> alors on obtient ainsi un arbre de backtracking ayant <span
 class="math display">\[
 \prod_{k=1}^8 \binom{8}{l_k}
-\]</span> Dans le cas où <span class="math inline">\(l_1 = \dots = l_8 =
+\]</span> feuilles.</p>
+<p>Dans le cas où <span class="math inline">\(l_1 = \dots = l_8 =
 4\)</span>, comparer ce nombre avec le nombre obtenu en effectuant des
 mouvements case par case.</p>
 </div>
 <p>Même si ce nombre est beaucoup plus petit que le précédent, cela
 reste prohibitif pour faire une recherche exhaustive.</p>
-<p>On va donc adopter une détection des nœuds pour lesquels on est
+<p>On va donc adopter une détection des nœuds pour lesquels on s’avère
 certain de ne pas pouvoir résoudre le problème.</p>
-<p>Tout d’abord, on restreint les lignes à celles qui ne placent par un
+<p>Tout d’abord, on restreint les lignes à celles qui ne placent pas un
 mur sur la même case qu’un monstre ou un trésor.</p>
-<p>Ensuite, si on un noeud correspondant à avoir rempli les k premières
+<p>Ensuite, si on un nœud correspondant à avoir rempli les k premières
 lignes, on vérifie :</p>
 <ul>
 <li>que le nombre de murs dans une colonne n’est pas strictement
@@ -643,9 +644,9 @@ programmera dans la suite pour réaliser ces tests.</p>
 class="header-section-number">2</span> Opérations bit à bit en C</h1>
 <p>Dans ce paragraphe, on notera <code>0b10101</code> une valeur en
 binaire en <code>C</code>. Cette notation, calquée sur la notation
-hexadécimale, n’est pas valide mais rendra les exemples plus lisible. De
-même, dans les formules, on notera <span
-class="math inline">\(\overline{10101}^2\)</span>.</p>
+hexadécimale, n’est pas valide, mais rendra les exemples plus lisibles.
+De même, dans les formules, on notera <span
+class="math inline">\({10101}_2\)</span> un nombre écrit en binaire.</p>
 <p>On va étudier ici des opérateurs opérant directement sur l’écriture
 binaire des entiers. Aucun de ces opérateurs n’est explicitement au
 programme, cependant, leur usage permet, selon les contextes, d’avoir
@@ -666,9 +667,9 @@ donc <code>123 &gt;&gt; 3 = 0b1111 = 15</code></li>
 <li><code>123 &lt;&lt; 2</code> vaut 492 car
 <code>123 &lt;&lt; 2 = 0b111101100 = 492</code></li>
 </ul>
-<p>Pour calculer <span class="math inline">\(2^k\)</span> on peut donc
+<p>Pour calculer <span class="math inline">\(2^k\)</span> on peut ainsi
 écrire <code>1 &lt;&lt; k</code> mais cela pose un problème pour <span
-class="math inline">\(k \ge 32\)</span> car <span
+class="math inline">\(k \ge 32\)</span> parce qeu <span
 class="math inline">\(1\)</span> est un <code>int</code> et le calcul
 fait apparaitre un dépassement de capacité qui induit une troncature à
 0. Pour <span class="math inline">\(k \le 63\)</span>, on peut régler ce
@@ -695,7 +696,7 @@ booléens en les appliquant <em>bit à bit</em>. Pour cela, on utilise
 :</p>
 <ul>
 <li><code>a &amp; b</code> pour réaliser un <em>et</em> logique entre
-chaque bit. Ainsi, en écrivant abusivement en binaire on a
+chaque bit. Ainsi, en écrivant abusivement en binaire, on a
 <code>0b10110 &amp; 0b11010</code> qui vaut <code>0b10010</code>.</li>
 <li><code>a | b</code> pour réaliser un <em>ou</em> logique entre chaque
 bit. Ainsi, on a <code>0b10110 | 0b11010</code> qui vaut
@@ -719,16 +720,16 @@ avec un <em>ou</em>.</p>
 <p>Ces opérations utilisent de simples portes logiques et sont très
 rapides à exécuter sur un processeur.</p>
 <p>Notons que le compilateur les privilégie souvent. Par exemple, pour
-tester la parité <code>x % 2 == 0</code> sera traduit par un test de non
-nullité de <code>x &amp; 1</code> et les divisions/multiplications par
-<span class="math inline">\(2^k\)</span> sont remplacées par des
+tester la parité <code>x % 2 == 0</code> sera traduit par un test de
+non-nullité de <code>x &amp; 1</code> et les divisions/multiplications
+par <span class="math inline">\(2^k\)</span> sont remplacées par des
 décalages.</p>
 <p></div></p>
 <h2 data-number="2.3" id="sec:popcount"><span
 class="header-section-number">2.3</span> Popcount</h2>
 <p>On va avoir besoin de compter les murs ou les cases libres, pour cela
 on utilise une opération appelée <code>popcount</code> (pour
-<em>population count</em>) qui permet, étant donnée un entier non signé
+<em>population count</em>) qui permet, étant donné un entier non signé
 <code>x</code> sur 64bits de renvoyer le nombre <span
 class="math inline">\(p(x) \in \range{0}{64}\)</span> de 1 dans son
 écriture binaire.</p>
@@ -838,7 +839,7 @@ class="math inline">\(\range{0}{64}\)</span>.</p>
 <div class="header">
 Question
 </div>
-<p>Combien cette fonction fait-elle d’opération élémentaires ?</p>
+<p>Combien cette fonction fait-elle d’opérations élémentaires ?</p>
 </div>
 <h3 data-number="2.3.3" id="sec:instruction-assembleur"><span
 class="header-section-number">2.3.3</span> Instruction assembleur</h3>
@@ -919,7 +920,7 @@ de <code>popcount</code>.</p>
 <div class="header">
 Question
 </div>
-<p>Dans le programme donnée, il y a une variable globale
+<p>Dans le programme donné, il y a une variable globale
 <div class="ui segment code"></p>
 <div class="sourceCode" id="cb17"><pre
 class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb17-1"><a href="#cb17-1"></a><span class="dt">int</span> enum_popcount_byte<span class="op">[</span><span class="dv">256</span><span class="op">];</span></span></code></pre></div>
@@ -939,7 +940,7 @@ vérifications</h1>
 <h2 data-number="4.1" id="sec:tests-pour-les-colonnes"><span
 class="header-section-number">4.1</span> Tests pour les colonnes</h2>
 <p>Il n’est pas nécessaire de tester si les lignes ont le bon nombre de
-murs car on a restreint le backtracking pour l’assurer.</p>
+murs, car on a restreint le backtracking pour l’assurer.</p>
 <div class="ui message blue">
 <div class="header">
 Question
@@ -1093,8 +1094,8 @@ Question
 <p>Écrire une fonction de signature <div class="ui segment code"></p>
 <div class="sourceCode" id="cb28"><pre
 class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb28-1"><a href="#cb28-1"></a><span class="dt">bool</span> test_treasure_rooms<span class="op">(</span>problem <span class="op">*</span>p<span class="op">,</span> board <span class="op">*</span>b<span class="op">);</span></span></code></pre></div>
-<p></div> qui teste si toutes les trésor sont dans des salles valides et
-les remplit par des murs à l’aide du pointeur <code>b</code>.</p>
+<p></div> qui teste si toutes les trésors sont dans des salles valides
+et les remplit par des murs à l’aide du pointeur <code>b</code>.</p>
 </div>
 <p><div class="ui message orange"><div class="header">Remarque</div></p>
 <p>Vous pouvez maintenant résoudre tous les problèmes. En tenant compte
