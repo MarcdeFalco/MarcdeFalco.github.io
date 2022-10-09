@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="generator" content="pandoc">
+    <meta name="description" content="">
+    <meta name="author" content="Marc de Falco">
+
+    <title>Langages réguliers et automates finis - Fiche</title>
+
+    <link rel="stylesheet" type="text/css" href="assets/semantic.min.css">
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-PHZQE2FC4W"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-PHZQE2FC4W');
+	</script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="assets/semantic.min.js"></script>
+
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+
+<script>
+$(document).ready(function() {
+    
+    $("#toc").sidebar("setting", "dimPage", false);
+    $("#toc").sidebar("setting", "delaySetup", true);
+
+   $('.ui.accordion').accordion();
+    if (matchMedia) {
+        var mq = window.matchMedia("(max-width: 900px)");
+        mq.addListener(big_or_small);
+        big_or_small(mq);
+    }
+
+    $("[href^='#']").click(
+        () => {
+            if (! $("#main").hasClass('shrink')) {
+	            $("#toc").sidebar("hide");
+            }
+        })
+
+    function big_or_small(mq) {
+        // The sidebar *pushes* the pusher, the main content, so we
+        // add a class that reduces the pusher's width so the edge
+        // content isn't cut off.
+        if (mq.matches) {
+	        $("#toc").sidebar("hide");
+            $("#main").removeClass("shrink")
+        } else {
+            $("#toc").sidebar("show");
+            $("#main").addClass("shrink");
+        }
+    }
+
+    $("#sidebar-menu-button").click(function() {
+        $("#toc").sidebar("show");
+    }).end();
+
+    $('.tabular.menu .item').tab({
+            context: 'parent'
+        });
+
+})
+
+function setLang(l) {
+    $('.tabular.menu .item').removeClass("active")
+    $('.tabular.menu .item[data-tab^="'+l+'"]').addClass("active")
+    $('.code').removeClass("active")
+    $('.code[data-tab^="'+l+'"]').addClass("active")
+}
+</script>
+
+  <style type="text/css">
+
+  .ui.sidebar {
+    font-size: 15px;
+  }
+
+  body {
+    background-color: #FFFFFF;
+    font-size: 20px;
+  }
+  .ui.segment {
+    font-size: 20px;
+  }
+  .wireframe {
+    //margin-top: 2em;
+  }
+  .ui.footer.segment {
+    //margin: 5em 0em 0em;
+    //padding: 5em 0em;
+  }
+  #top-menu {
+    display: none;
+    }
+
+    .message {
+        color: #000 !important;
+    }
+
+.shrink {
+    width: 60%;
+}
+
+.code {
+    font-size: 0.8em !important;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 24px;
+    border-spacing: 0;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+}
+
+table tr {
+    display: table-row !important;
+}
+
+table th {
+    padding: 3px 10px;
+    background-color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid black;
+}
+table td {
+    padding: 3px 10px;
+    border-top: none;
+    border-left: none;
+    border-bottom: none;
+    border-right: none;
+}
+
+.ui.styled.accordion {
+    width: 100% !important;
+    font-size: 1rem !important;
+}
+
+  .menu .item {
+      padding: .5em 1em !important;
+  }
+
+@media only screen and (max-width: 900px) {
+    .ui.image, .ui.image img {
+        display: block;
+        //width: 100%;
+        width: auto;
+        height: auto;
+    }
+
+    #top-menu {
+        display: block !important;
+    }
+}
+  </style>
+
+  </head>
+  <body class="pushable class="pushable"">
+<div style="display: none;">
+\(
+\def\N{{\mathbb{N}}}
+\def\R{{\mathbb{R}}}
+\def\D{{\mathbb{D}}}
+\def\C{{\mathbb{C}}}
+\def\Z{{\mathbb{Z}}}
+\def\Q{{\mathbb{Q}}}
+\def\K{{\mathbb{K}}}
+\def\KX{{\mathbb{K}}[X]}
+\def\U{{\mathbb{U}}}
+\def\B{{\mathcal{B}}}
+\newcommand\ensfonctions[2]{\mathcal{F}(#1,#2)}
+\newcommand\classeck[3]{\mathcal{C}^{#1}(#2,#3)}
+\newcommand\range[2]{[| #1,#2 |]}
+\newcommand\mod[0]{\mathop{mod}}
+\newcommand\land[0]{\mathop{land}}
+\newcommand\matrices[3]{\mathcal{M}_{#1,#2}(#3)}
+\newcommand\matricescarres[2]{\mathcal{M}_{#1}(#2)}
+\newcommand\gln[2]{\mbox{GL}_{#1}(#2)}
+\newcommand\Support[1]{\mbox{Supp}(#1)}
+\newcommand\dom[0]{\mbox{dom}}
+\newcommand\uniondisjointe{\sqcup}
+\def\lt{<}
+\def\rR{\mathcal{R}}
+\newcommand\parties[1]{\mathcal{P}(#1)}
+\newcommand\entiere[1]{\left\lfloor #1 \right\rfloor}
+\newcommand\congru[3]{#1 = #2\ [#3]}
+\newcommand\enscomp[2]{\left\{\left.\ #1\ \right|\ #2\ \right\}}
+\newcommand\classe[1]{\overline{#1}}
+\newcommand\classemod[2]{\overline{#1}^{[#2]}}
+\newcommand\quotient[2]{#1 / #2}
+\newcommand\ZnZ[1]{\quotient{\Z}{#1 \Z}}
+\newcommand\card[1]{\text{Card}\ #1}
+\newcommand\indic{\mathbbm{1}}
+\newcommand\id{\mbox{id}}
+\newcommand\gO{\mathcal{O}}
+\newcommand\Perm[1]{\mathfrak{S}_#1}
+\newcommand\comb[2]{\binom{#1}{#2}}
+\newcommand\tend[2]{\xrightarrow[#1 \rightarrow #2]{}}
+\newcommand\limite[2]{\lim_{#1 \rightarrow #2}}
+\newcommand\application[5]{\begin{array}{rcccc}
+#1 & : & #2 & \mapsto & #3 \\ 
+& & #4 & \mapsto & #5
+\end{array}}
+\)
+</div>
+
+
+
+
+<div class="pusher" id="main-content">
+    <div class="ui inverted top menu" id="top-menu">
+        <div class="ui container">
+	  <a class="launch icon item" id="sidebar-menu-button">
+	    <i class="angle double left icon"></i>
+	  </a>
+	  <div class="item">
+          Langages réguliers et automates finis - Fiche
+	  </div>
+        </div>
+      </div>
+      <div class="ui padded basic segment shrink" id="main">
+          <!-- <div class="masthead"> -->
+<div class="segment">
+<div class="ui container text">
+<p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Langages réguliers et automates finis - Fiche     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_structures_arbres.jpg"> </div></p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
+<div class="ui message blue">
+<p><center><div class="ui image center"><strong>Définition</strong></div></center></p>
+<p><strong>AFD</strong></p>
+<ul>
+<li>un seul état initial</li>
+<li>pas de choix : si <span class="math inline">\(q \xrightarrow{a}
+q&#39;\)</span> et <span class="math inline">\(q \xrightarrow{a}
+q&#39;\)</span> alors <span class="math inline">\(q&#39; =
+q&#39;&#39;\)</span></li>
+</ul>
+<p><strong>AFND</strong> : plusieurs états initiaux et choix</p>
+<p><strong>AFND<span class="math inline">\(\epsilon\)</span></strong> :
+un seul état initial, choix et transitions spontanées <span
+class="math inline">\(q \xrightarrow{\epsilon} q&#39;\)</span></p>
+<p><strong>complet</strong> : toutes les transitions <span
+class="math inline">\(\forall q \in Q, \forall a \in \Sigma,  \exists
+q&#39;, q \xrightarrow{a} q&#39;\)</span></p>
+<p><strong>émondé</strong> : <span class="math inline">\(\forall q, i
+\leadsto q \leadsto f\)</span></p>
+</div>
+<div class="ui message green">
+<p><center><div class="ui image center"><strong>AFND</strong> <span
+class="math inline">\(\Rightarrow\)</span>
+<strong>AFD</strong></div></center></p>
+<p><span class="math inline">\(A = (\Sigma,Q,\delta,I,F) \Rightarrow
+A&#39;=(\Sigma,\mathcal{P}(Q),\delta&#39;,I,F&#39;)\)</span></p>
+<p><span class="math inline">\(\delta&#39;(E,a) = \bigcup_{q \in E}
+\delta(q, a)\)</span></p>
+<p><span class="math inline">\(F&#39; = \enscomp{E \subset Q}{E \cap F
+\neq \emptyset}\)</span></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/afnd_2_afd.png" /></div></center></p>
+<p><span class="math inline">\(\scriptsize \begin{array}{rr|c|c} &amp; q
+&amp; a &amp; b \\ \hline \rightarrow * &amp; \{ 1, 2 \} = A &amp; B
+&amp; C \\ * &amp; \{2, 3 \} = B &amp; D &amp; C \\ * &amp; \{1, 3 \} =
+C &amp; B &amp; E \\ * &amp; \{ 2 \} = D &amp; \emptyset &amp; C \\ *
+&amp; \{ 3 \} = E &amp; D &amp; \emptyset \end{array}\)</span></p>
+</div>
+<div class="ui message green">
+<p><center><div class="ui image center"><strong>AFND<span
+class="math inline">\(\epsilon\)</span> Fermeture en
+avant</strong></div></center> <span class="math inline">\(\overline{q} =
+\enscomp{q&#39;}{q \xrightarrow{\epsilon} \dots \xrightarrow{\epsilon}
+q&#39;}\)</span> <center><div class="ui image center"><img
+src="assets/pics/afnde_ferm.png" /></div></center></p>
+<p><span class="math inline">\(\delta^*(q,\epsilon) = \overline{q} \quad
+\delta^*(q,wa) = \overline{\bigcup_{q&#39; \in \delta^*(q,w)}
+\delta(q&#39;,a)}\)</span></p>
+</div>
+<div class="ui message green">
+<p><center><div class="ui image center"><strong>AFND<span
+class="math inline">\(\epsilon\)</span></strong> <span
+class="math inline">\(\Rightarrow\)</span>
+<strong>AFND</strong></div></center> <span class="math inline">\(A =
+(\Sigma,Q,\delta,i,F) \Rightarrow
+A&#39;=(\Sigma,Q,\delta&#39;,\overline{i},F&#39;)\)</span></p>
+<p><span class="math inline">\(\delta&#39;(q,a) = \overline{\delta(q,a)}
+\quad q \in F&#39; \iff \overline{q} \cap F \neq \emptyset\)</span></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/afnde_2_afnd.png" /></div></center></p>
+</div>
+<div class="ui message green">
+<p><center><div class="ui image center"><strong>Contraposée du lemme de
+l’étoile</strong></div></center></p>
+<p>Soit <span class="math inline">\(L\)</span> un langage sur <span
+class="math inline">\(\Sigma\)</span>. <strong>Si</strong> pour tout
+<span class="math inline">\(n \in \N\)</span>, il existe <span
+class="math inline">\(w \in L\)</span> tel que <span
+class="math inline">\(|w| \ge n\)</span> et que pour tout <span
+class="math inline">\(x, y, z \in \Sigma^*\)</span> tels que <span
+class="math inline">\(w = x y z\)</span>, <span class="math inline">\(y
+\neq \epsilon\)</span> et <span class="math inline">\(|xy| \le
+n\)</span> il existe <span class="math inline">\(k \in \N\)</span> avec
+<span class="math inline">\(x y^k z \not\in L\)</span>,
+<strong>alors</strong> <span class="math inline">\(L\)</span> n’est pas
+régulier.</p>
+</div>
+<p></div><div class="eight wide column"></p>
+<div class="ui message orange">
+<p><center><div class="ui image center"><strong>Fonction de
+transition</strong></div></center></p>
+<p><strong>AFD</strong> <span class="math inline">\(\delta : Q \times
+\Sigma \rightarrow Q\)</span> partielle</p>
+<p><span class="math inline">\((q, a) \in \dom(\delta) \iff q
+\xrightarrow{a} \delta(q,a)\)</span></p>
+<p><strong>AFND</strong> <span class="math inline">\(\delta : Q \times
+\Sigma \rightarrow \mathcal{P}(Q)\)</span></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/afnd_transition.png" /></div></center></p>
+<p><strong>AFND<span class="math inline">\(\epsilon\)</span></strong>
+<span class="math inline">\(\delta : Q \times (\Sigma \cup \{ \epsilon
+\}) \rightarrow \mathcal{P}(Q)\)</span></p>
+<p>transition spontanée <span class="math inline">\(q
+\xrightarrow{\epsilon} q&#39;\)</span></p>
+</div>
+<div class="ui message orange">
+<p><center><div class="ui image center"><strong>Fonction de transition
+étendu</strong></div></center></p>
+<p><strong>AFD</strong> <span class="math inline">\(q_0
+\xrightarrow{a_1} q_1 \dots \xrightarrow{a_n} q_n \Rightarrow
+\delta^*(q_0,a_1\dots a_n) = q_n\)</span></p>
+<p><img src="assets/pics/afd_etendue.png" /></p>
+<p><span class="math inline">\(\delta^*(q,\epsilon) = q\qquad w \in
+\mathop{lang}(A) \iff \delta^*(i, w) \in F\)</span></p>
+<p><strong>AFND</strong> <span class="math inline">\(q_0
+\xrightarrow{a_1} q_1 \dots \xrightarrow{a_n} q_n \Rightarrow q_n \in
+\delta^*(q_0,a_1\dots a_n)\)</span></p>
+<p><span class="math inline">\(\delta^*(q,wa) = \bigcup_{q&#39; \in
+\delta^*(q,w)} \delta(q&#39;,a)\)</span></p>
+<p><span class="math inline">\(\delta^*(q,\epsilon) \{ q\}\)</span></p>
+<p><span class="math inline">\(w \in \mathop{lang}(A) \iff
+\left(\bigcup_{i \in I} \delta^*(i, w)\right) \cap F\neq
+\emptyset\)</span></p>
+</div>
+<div class="ui message blue">
+<p><center><div class="ui image center"><strong>Thompson : regexp <span
+class="math inline">\(\Rightarrow\)</span> AFND<span
+class="math inline">\(\epsilon\)</span></strong></div></center></p>
+<p><span class="math inline">\(A(\emptyset) =\)</span> <img
+src="assets/pics/fiche_thom_v.png" /> <span class="math inline">\(\quad
+A(\epsilon) =\)</span> <img src="assets/pics/fiche_thom_e.png" /></p>
+<p><span class="math inline">\(\forall a \in \Sigma, A(a) =\)</span>
+<img src="assets/pics/fiche_thom_a.png" /></p>
+<p><span class="math inline">\(A(ee&#39;) =\)</span> <img
+src="assets/pics/fiche_thom_cons.png" /></p>
+<p><span class="math inline">\(A(e|e&#39;) =\)</span> <img
+src="assets/pics/fiche_thom_or.png" /></p>
+<p><span class="math inline">\(A(e^*) =\)</span> <img
+src="assets/pics/fiche_thom_et.png" /></p>
+</div>
+<div class="ui message green">
+<p><center><div class="ui image center"><strong>Théorème de
+Kleene</strong></div></center></p>
+<p><strong>régulier</strong> dénoté par une expression régulière
+<strong>rationnel</strong> = <strong>reconnaissable par un
+AFD</strong></p>
+<p><strong>Th</strong> : Langage <strong>régulier</strong> ssi
+<strong>reconnaissable par un AFD</strong></p>
+</div>
+<div class="ui message green">
+<p><center><div class="ui image center"><strong>Stabilité des langages
+réguliers</strong></div></center> Les langages réguliers sont stables :
+par union, intersection, conplémentaire, étoile, concaténation,
+miroir.</p>
+</div>
+<p></div></div></div></p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
+<div class="ui message blue">
+<p><center><div class="ui image center"><strong>Langages
+locaux</strong></div></center></p>
+<p><span class="math inline">\(L\)</span> local ssi <span
+class="math inline">\(\exists P, S \subset \Sigma, N \subset
+\Sigma^2,\)</span></p>
+<p><span class="math inline">\(L\backslash \{\epsilon\} = (P \Sigma^*
+\cap \Sigma^* S) \backslash \Sigma^* N \Sigma^*\)</span></p>
+<p><span class="math inline">\(P = \enscomp{a \in \Sigma}{\exists w \in
+\Sigma^*, aw \in L}\)</span></p>
+<p><span class="math inline">\(S = \enscomp{a \in \Sigma}{\exists w \in
+\Sigma^*, wa \in L}\)</span></p>
+<p><span class="math inline">\(\overline{N} = \enscomp{ab \in
+\Sigma^2}{\exists w,v \in \Sigma^*, wabv \in L}\)</span></p>
+</div>
+<div class="ui message green">
+<p><center><div class="ui image center"><strong>Automates
+locaux</strong></div></center></p>
+<p>automate local: Si <span class="math inline">\(q \xrightarrow{a}
+q_1\)</span> et <span class="math inline">\(q&#39; \xrightarrow{a}
+q_2\)</span> alors <span class="math inline">\(q_1 = q_2\)</span>.</p>
+<p>langage local <span class="math inline">\(\iff\)</span> reconnu par
+automate local.</p>
+<p>Si <span class="math inline">\(P,S,N\)</span> définis <span
+class="math inline">\(A = (\Sigma, \Sigma \cup \{\epsilon\}, \delta,
+\epsilon, S&#39;)\)</span></p>
+<p><span class="math inline">\(S&#39; =\begin{cases} S &amp; \text{si }
+\epsilon \not\in L \\ S \cup \{\epsilon\}&amp; \text{sinon}
+\end{cases}\)</span></p>
+<p><span class="math inline">\(\forall a \in P, \delta(\epsilon, a) =
+a\)</span> <span class="math inline">\(\forall a, b \in \Sigma, ab
+\not\in N \Rightarrow \delta(a,b) = b\)</span></p>
+</div>
+<div class="ui message green">
+<p><center><div class="ui image center"><strong>Berry-Sethi</strong></div></center></p>
+<p>Regexp linéaire : au plus une fois chaque lettre.</p>
+<p>linéarisation : <span class="math inline">\(a(a|b)cb^*a \Rightarrow
+a_1(a_2|b_1)cb_2^*a_3\)</span></p>
+<p>Regexp linéaire <span class="math inline">\(e \Rightarrow
+\mathop{lang}(e)\)</span> local.</p>
+<div class="ui message white">
+<p><span class="math inline">\(accv(\emptyset) = \perp \quad \forall a
+\in \Sigma, accv(a) = \perp\)</span></p>
+<p><span class="math inline">\(accv(\epsilon) =\top \quad accv(e^*) =
+\top\)</span></p>
+<p><span class="math inline">\(accv(e_1|e_2) = accv(e_1) \vee
+accv(e_2)\)</span></p>
+<p><span class="math inline">\(accv(e_1 e_2) = accv(e_1) \wedge
+accv(e_2)\)</span></p>
+</div>
+<div class="ui message white">
+<p><span class="math inline">\(P(\emptyset) = \emptyset \quad \forall a
+\in \Sigma, P(a) = \{a\}\)</span></p>
+<p><span class="math inline">\(P(\epsilon) =\emptyset \quad P(e^*) =
+P(e)\)</span></p>
+<p><span class="math inline">\(P(e_1|e_2) = P(e_1) \cup
+P(e_2)\)</span></p>
+<p><span class="math inline">\(P(e_1 e_2) = \begin{cases} P(e_1) \cup
+P(e_2) &amp; \text{si } accv(e_1) \\ P(e_1) &amp; \text{sinon}
+\end{cases}\)</span></p>
+</div>
+<div class="ui message white">
+<p><span class="math inline">\(S(\emptyset) = \emptyset \quad \forall a
+\in \Sigma, S(a) = \{a\}\)</span></p>
+<p><span class="math inline">\(S(\epsilon) =\emptyset \quad S(e^*) =
+S(e)\)</span></p>
+<p><span class="math inline">\(S(e_1|e_2) = S(e_1) \cup
+S(e_2)\)</span></p>
+<p><span class="math inline">\(S(e_1 e_2) = \begin{cases} S(e_1) \cup
+S(e_2) &amp; \text{si } accv(e_2) \\ S(e_2) &amp; \text{sinon}
+\end{cases}\)</span></p>
+</div>
+<div class="ui message white">
+<p><span class="math inline">\(N(\emptyset) = N(\epsilon) = \Sigma^2
+\quad \forall a\in \Sigma, N(a) = \Sigma^2\)</span></p>
+<p><span class="math inline">\(N(e^*) = N(e) \backslash
+S(e)P(e)\)</span></p>
+<p><span class="math inline">\(N(e_1|e_2) = N(e_1) \cap
+N(e_2)\)</span></p>
+<p><span class="math inline">\(N(e_1 e_2) = (N(e_1) \cap N(e_2))
+\backslash S(e_1) P(e_2)\)</span></p>
+</div>
+</div>
+<p></div><div class="eight wide column"></p>
+<div class="ui message orange">
+<p><center><div class="ui image center"><strong>Méthode de
+Yamada-McNaughton</strong></div></center></p>
+<p><span class="math inline">\(Q = \range{1}{n}\)</span></p>
+<p><span class="math inline">\(R^{(k)}_{ij} =\)</span> expression
+régulière dénotant les étiq <span class="math inline">\(i \leadsto
+j\)</span> transitant par <span class="math inline">\(\ge
+k\)</span>.</p>
+<p><span class="math inline">\(R^{(0)}_{ii} = \epsilon\)</span> si <span
+class="math inline">\(i \not\rightarrow i \qquad R^{(0)}_{ii} = \epsilon
+| a_1 | \dots | a_p\)</span> si <span class="math inline">\(i
+\xrightarrow{a_k} i\)</span></p>
+<p><span class="math inline">\(i \neq j, R^{(0)}_{ij} =
+\emptyset\)</span> si <span class="math inline">\(i \not\rightarrow j
+\quad R^{(0)}_{ij} = a_1 | \dots | a_p\)</span> si <span
+class="math inline">\(i \xrightarrow{a_k} j\)</span></p>
+<p><img src="assets/pics/fiche_yamada.png" /></p>
+<p><span class="math inline">\(R^{(k)}_{ij} = R^{(k-1)}_{ij} |
+R^{(k-1)}_{ik} \left(R^{(k-1)}_{kk}\right)^* R^{(k-1)}_{kj}\)</span></p>
+<p>Si <span class="math inline">\(i\)</span> initial et <span
+class="math inline">\(f_1, \dots, f_p\)</span> finaux :</p>
+<p><span class="math inline">\(R^{(n)}_{i f_1} | \dots | R^{(n)}_{i
+f_p}\)</span></p>
+</div>
+<div class="ui message orange">
+<p><center><div class="ui image center"><strong>Élimination des états -
+Brzozowski-McCluskey</strong></div></center></p>
+<p>EX-AF(N)D : automates avec des expressions régulières comme
+étiquettes.</p>
+<p>Élimination de <span class="math inline">\(s\)</span>:</p>
+<p><img src="assets/pics/fiche_elim_avant.png" /></p>
+<p>On aboutit sur :</p>
+<p><img src="assets/pics/fiche_brzo_finale.png" /></p>
+<p>Expression régulière associée : <span class="math inline">\((e_i | e
+e_f^* e&#39;)^* e e_f^*\)</span></p>
+</div>
+<p><center><div class="ui image center"><strong>Schéma
+global</strong></div></center> <center><div class="ui image center"><img
+src="assets/pics/fiche_auto_schema.png" /></div></center></p>
+<p></div></div></div></p>
+</div>
+<!-- </div> -->
+</div>
+
+<div class="ui inverted vertical footer segment">
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+Marc de Falco
+</div>
+  </body>
+</html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="generator" content="pandoc">
+    <meta name="description" content="">
+    <meta name="author" content="Marc de Falco">
+
+    <title>Langages réguliers et automates finis - Fiche</title>
+
+    <link rel="stylesheet" type="text/css" href="assets/semantic.min.css">
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-PHZQE2FC4W"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-PHZQE2FC4W');
+	</script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="assets/semantic.min.js"></script>
+
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+
+<script>
+$(document).ready(function() {
+    
+    $("#toc").sidebar("setting", "dimPage", false);
+    $("#toc").sidebar("setting", "delaySetup", true);
+
+   $('.ui.accordion').accordion();
+    if (matchMedia) {
+        var mq = window.matchMedia("(max-width: 900px)");
+        mq.addListener(big_or_small);
+        big_or_small(mq);
+    }
+
+    $("[href^='#']").click(
+        () => {
+            if (! $("#main").hasClass('shrink')) {
+	            $("#toc").sidebar("hide");
+            }
+        })
+
+    function big_or_small(mq) {
+        // The sidebar *pushes* the pusher, the main content, so we
+        // add a class that reduces the pusher's width so the edge
+        // content isn't cut off.
+        if (mq.matches) {
+	        $("#toc").sidebar("hide");
+            $("#main").removeClass("shrink")
+        } else {
+            $("#toc").sidebar("show");
+            $("#main").addClass("shrink");
+        }
+    }
+
+    $("#sidebar-menu-button").click(function() {
+        $("#toc").sidebar("show");
+    }).end();
+
+    $('.tabular.menu .item').tab({
+            context: 'parent'
+        });
+
+})
+
+function setLang(l) {
+    $('.tabular.menu .item').removeClass("active")
+    $('.tabular.menu .item[data-tab^="'+l+'"]').addClass("active")
+    $('.code').removeClass("active")
+    $('.code[data-tab^="'+l+'"]').addClass("active")
+}
+</script>
+
+  <style type="text/css">
+
+  .ui.sidebar {
+    font-size: 15px;
+  }
+
+  body {
+    background-color: #FFFFFF;
+    font-size: 20px;
+  }
+  .ui.segment {
+    font-size: 20px;
+  }
+  .wireframe {
+    //margin-top: 2em;
+  }
+  .ui.footer.segment {
+    //margin: 5em 0em 0em;
+    //padding: 5em 0em;
+  }
+  #top-menu {
+    display: none;
+    }
+
+    .message {
+        color: #000 !important;
+    }
+
+.shrink {
+    width: 60%;
+}
+
+.code {
+    font-size: 0.8em !important;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 24px;
+    border-spacing: 0;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+}
+
+table tr {
+    display: table-row !important;
+}
+
+table th {
+    padding: 3px 10px;
+    background-color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid black;
+}
+table td {
+    padding: 3px 10px;
+    border-top: none;
+    border-left: none;
+    border-bottom: none;
+    border-right: none;
+}
+
+.ui.styled.accordion {
+    width: 100% !important;
+    font-size: 1rem !important;
+}
+
+  .menu .item {
+      padding: .5em 1em !important;
+  }
+
+@media only screen and (max-width: 900px) {
+    .ui.image, .ui.image img {
+        display: block;
+        //width: 100%;
+        width: auto;
+        height: auto;
+    }
+
+    #top-menu {
+        display: block !important;
+    }
+}
+  </style>
+
+  </head>
+  <body class="pushable class="pushable"">
+<div style="display: none;">
+\(
+\def\N{{\mathbb{N}}}
+\def\R{{\mathbb{R}}}
+\def\D{{\mathbb{D}}}
+\def\C{{\mathbb{C}}}
+\def\Z{{\mathbb{Z}}}
+\def\Q{{\mathbb{Q}}}
+\def\K{{\mathbb{K}}}
+\def\KX{{\mathbb{K}}[X]}
+\def\U{{\mathbb{U}}}
+\def\B{{\mathcal{B}}}
+\newcommand\ensfonctions[2]{\mathcal{F}(#1,#2)}
+\newcommand\classeck[3]{\mathcal{C}^{#1}(#2,#3)}
+\newcommand\range[2]{[| #1,#2 |]}
+\newcommand\mod[0]{\mathop{mod}}
+\newcommand\land[0]{\mathop{land}}
+\newcommand\matrices[3]{\mathcal{M}_{#1,#2}(#3)}
+\newcommand\matricescarres[2]{\mathcal{M}_{#1}(#2)}
+\newcommand\gln[2]{\mbox{GL}_{#1}(#2)}
+\newcommand\Support[1]{\mbox{Supp}(#1)}
+\newcommand\dom[0]{\mbox{dom}}
+\newcommand\uniondisjointe{\sqcup}
+\def\lt{<}
+\def\rR{\mathcal{R}}
+\newcommand\parties[1]{\mathcal{P}(#1)}
+\newcommand\entiere[1]{\left\lfloor #1 \right\rfloor}
+\newcommand\congru[3]{#1 = #2\ [#3]}
+\newcommand\enscomp[2]{\left\{\left.\ #1\ \right|\ #2\ \right\}}
+\newcommand\classe[1]{\overline{#1}}
+\newcommand\classemod[2]{\overline{#1}^{[#2]}}
+\newcommand\quotient[2]{#1 / #2}
+\newcommand\ZnZ[1]{\quotient{\Z}{#1 \Z}}
+\newcommand\card[1]{\text{Card}\ #1}
+\newcommand\indic{\mathbbm{1}}
+\newcommand\id{\mbox{id}}
+\newcommand\gO{\mathcal{O}}
+\newcommand\Perm[1]{\mathfrak{S}_#1}
+\newcommand\comb[2]{\binom{#1}{#2}}
+\newcommand\tend[2]{\xrightarrow[#1 \rightarrow #2]{}}
+\newcommand\limite[2]{\lim_{#1 \rightarrow #2}}
+\newcommand\application[5]{\begin{array}{rcccc}
+#1 & : & #2 & \mapsto & #3 \\ 
+& & #4 & \mapsto & #5
+\end{array}}
+\)
+</div>
+
+
+
+
+<div class="pusher" id="main-content">
+    <div class="ui inverted top menu" id="top-menu">
+        <div class="ui container">
+	  <a class="launch icon item" id="sidebar-menu-button">
+	    <i class="angle double left icon"></i>
+	  </a>
+	  <div class="item">
+          Langages réguliers et automates finis - Fiche
+	  </div>
+        </div>
+      </div>
+      <div class="ui padded basic segment shrink" id="main">
+          <!-- <div class="masthead"> -->
+<div class="segment">
+<div class="ui container text">
+<p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Langages réguliers et automates finis - Fiche     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_structures_arbres.jpg"> </div></p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
+<div class="ui message blue">
+<p><center><div class="ui image center"><strong>Définition</strong></div></center></p>
+<p><strong>AFD</strong></p>
+<ul>
+<li>un seul état initial</li>
+<li>pas de choix : si <span class="math inline">\(q \xrightarrow{a}
+q&#39;\)</span> et <span class="math inline">\(q \xrightarrow{a}
+q&#39;\)</span> alors <span class="math inline">\(q&#39; =
+q&#39;&#39;\)</span></li>
+</ul>
+<p><strong>AFND</strong> : plusieurs états initiaux et choix</p>
+<p><strong>AFND<span class="math inline">\(\epsilon\)</span></strong> :
+un seul état initial, choix et transitions spontanées <span
+class="math inline">\(q \xrightarrow{\epsilon} q&#39;\)</span></p>
+<p><strong>complet</strong> : toutes les transitions <span
+class="math inline">\(\forall q \in Q, \forall a \in \Sigma,  \exists
+q&#39;, q \xrightarrow{a} q&#39;\)</span></p>
+<p><strong>émondé</strong> : <span class="math inline">\(\forall q, i
+\leadsto q \leadsto f\)</span></p>
+</div>
+<div class="ui message green">
+<p><center><div class="ui image center"><strong>AFND</strong> <span
+class="math inline">\(\Rightarrow\)</span>
+<strong>AFD</strong></div></center></p>
+<p><span class="math inline">\(A = (\Sigma,Q,\delta,I,F) \Rightarrow
+A&#39;=(\Sigma,\mathcal{P}(Q),\delta&#39;,I,F&#39;)\)</span></p>
+<p><span class="math inline">\(\delta&#39;(E,a) = \bigcup_{q \in E}
+\delta(q, a)\)</span></p>
+<p><span class="math inline">\(F&#39; = \enscomp{E \subset Q}{E \cap F
+\neq \emptyset}\)</span></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/afnd_2_afd.png" /></div></center></p>
+<p><span class="math inline">\(\scriptsize \begin{array}{rr|c|c} &amp; q
+&amp; a &amp; b \\ \hline \rightarrow * &amp; \{ 1, 2 \} = A &amp; B
+&amp; C \\ * &amp; \{2, 3 \} = B &amp; D &amp; C \\ * &amp; \{1, 3 \} =
+C &amp; B &amp; E \\ * &amp; \{ 2 \} = D &amp; \emptyset &amp; C \\ *
+&amp; \{ 3 \} = E &amp; D &amp; \emptyset \end{array}\)</span></p>
+</div>
+<div class="ui message green">
+<p><center><div class="ui image center"><strong>AFND<span
+class="math inline">\(\epsilon\)</span> Fermeture en
+avant</strong></div></center> <span class="math inline">\(\overline{q} =
+\enscomp{q&#39;}{q \xrightarrow{\epsilon} \dots \xrightarrow{\epsilon}
+q&#39;}\)</span> <center><div class="ui image center"><img
+src="assets/pics/afnde_ferm.png" /></div></center></p>
+<p><span class="math inline">\(\delta^*(q,\epsilon) = \overline{q} \quad
+\delta^*(q,wa) = \overline{\bigcup_{q&#39; \in \delta^*(q,w)}
+\delta(q&#39;,a)}\)</span></p>
+</div>
+<div class="ui message green">
+<p><center><div class="ui image center"><strong>AFND<span
+class="math inline">\(\epsilon\)</span></strong> <span
+class="math inline">\(\Rightarrow\)</span>
+<strong>AFND</strong></div></center> <span class="math inline">\(A =
+(\Sigma,Q,\delta,i,F) \Rightarrow
+A&#39;=(\Sigma,Q,\delta&#39;,\overline{i},F&#39;)\)</span></p>
+<p><span class="math inline">\(\delta&#39;(q,a) = \overline{\delta(q,a)}
+\quad q \in F&#39; \iff \overline{q} \cap F \neq \emptyset\)</span></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/afnde_2_afnd.png" /></div></center></p>
+</div>
+<div class="ui message green">
+<p><center><div class="ui image center"><strong>Contraposée du lemme de
+l’étoile</strong></div></center></p>
+<p>Soit <span class="math inline">\(L\)</span> un langage sur <span
+class="math inline">\(\Sigma\)</span>. <strong>Si</strong> pour tout
+<span class="math inline">\(n \in \N\)</span>, il existe <span
+class="math inline">\(w \in L\)</span> tel que <span
+class="math inline">\(|w| \ge n\)</span> et que pour tout <span
+class="math inline">\(x, y, z \in \Sigma^*\)</span> tels que <span
+class="math inline">\(w = x y z\)</span>, <span class="math inline">\(y
+\neq \epsilon\)</span> et <span class="math inline">\(|xy| \le
+n\)</span> il existe <span class="math inline">\(k \in \N\)</span> avec
+<span class="math inline">\(x y^k z \not\in L\)</span>,
+<strong>alors</strong> <span class="math inline">\(L\)</span> n’est pas
+régulier.</p>
+</div>
+<p></div><div class="eight wide column"></p>
+<div class="ui message orange">
+<p><center><div class="ui image center"><strong>Fonction de
+transition</strong></div></center></p>
+<p><strong>AFD</strong> <span class="math inline">\(\delta : Q \times
+\Sigma \rightarrow Q\)</span> partielle</p>
+<p><span class="math inline">\((q, a) \in \dom(\delta) \iff q
+\xrightarrow{a} \delta(q,a)\)</span></p>
+<p><strong>AFND</strong> <span class="math inline">\(\delta : Q \times
+\Sigma \rightarrow \mathcal{P}(Q)\)</span></p>
+<p><center><div class="ui image center"><img
+src="assets/pics/afnd_transition.png" /></div></center></p>
+<p><strong>AFND<span class="math inline">\(\epsilon\)</span></strong>
+<span class="math inline">\(\delta : Q \times (\Sigma \cup \{ \epsilon
+\}) \rightarrow \mathcal{P}(Q)\)</span></p>
+<p>transition spontanée <span class="math inline">\(q
+\xrightarrow{\epsilon} q&#39;\)</span></p>
+</div>
+<div class="ui message orange">
+<p><center><div class="ui image center"><strong>Fonction de transition
+étendu</strong></div></center></p>
+<p><strong>AFD</strong> <span class="math inline">\(q_0
+\xrightarrow{a_1} q_1 \dots \xrightarrow{a_n} q_n \Rightarrow
+\delta^*(q_0,a_1\dots a_n) = q_n\)</span></p>
+<p><img src="assets/pics/afd_etendue.png" /></p>
+<p><span class="math inline">\(\delta^*(q,\epsilon) = q\qquad w \in
+\mathop{lang}(A) \iff \delta^*(i, w) \in F\)</span></p>
+<p><strong>AFND</strong> <span class="math inline">\(q_0
+\xrightarrow{a_1} q_1 \dots \xrightarrow{a_n} q_n \Rightarrow q_n \in
+\delta^*(q_0,a_1\dots a_n)\)</span></p>
+<p><span class="math inline">\(\delta^*(q,wa) = \bigcup_{q&#39; \in
+\delta^*(q,w)} \delta(q&#39;,a)\)</span></p>
+<p><span class="math inline">\(\delta^*(q,\epsilon) \{ q\}\)</span></p>
+<p><span class="math inline">\(w \in \mathop{lang}(A) \iff
+\left(\bigcup_{i \in I} \delta^*(i, w)\right) \cap F\neq
+\emptyset\)</span></p>
+</div>
+<div class="ui message blue">
+<p><center><div class="ui image center"><strong>Thompson : regexp <span
+class="math inline">\(\Rightarrow\)</span> AFND<span
+class="math inline">\(\epsilon\)</span></strong></div></center></p>
+<p><span class="math inline">\(A(\emptyset) =\)</span> <img
+src="assets/pics/fiche_thom_v.png" /> <span class="math inline">\(\quad
+A(\epsilon) =\)</span> <img src="assets/pics/fiche_thom_e.png" /></p>
+<p><span class="math inline">\(\forall a \in \Sigma, A(a) =\)</span>
+<img src="assets/pics/fiche_thom_a.png" /></p>
+<p><span class="math inline">\(A(ee&#39;) =\)</span> <img
+src="assets/pics/fiche_thom_cons.png" /></p>
+<p><span class="math inline">\(A(e|e&#39;) =\)</span> <img
+src="assets/pics/fiche_thom_or.png" /></p>
+<p><span class="math inline">\(A(e^*) =\)</span> <img
+src="assets/pics/fiche_thom_et.png" /></p>
+</div>
+<div class="ui message green">
+<p><center><div class="ui image center"><strong>Théorème de
+Kleene</strong></div></center></p>
+<p><strong>régulier</strong> dénoté par une expression régulière
+<strong>rationnel</strong> = <strong>reconnaissable par un
+AFD</strong></p>
+<p><strong>Th</strong> : Langage <strong>régulier</strong> ssi
+<strong>reconnaissable par un AFD</strong></p>
+</div>
+<div class="ui message green">
+<p><center><div class="ui image center"><strong>Stabilité des langages
+réguliers</strong></div></center> Les langages réguliers sont stables :
+par union, intersection, conplémentaire, étoile, concaténation,
+miroir.</p>
+</div>
+<p></div></div></div></p>
+<p><div class="ui internally celled grid"><div class="row"><div class="eight wide column"></p>
+<div class="ui message blue">
+<p><center><div class="ui image center"><strong>Langages
+locaux</strong></div></center></p>
+<p><span class="math inline">\(L\)</span> local ssi <span
+class="math inline">\(\exists P, S \subset \Sigma, N \subset
+\Sigma^2,\)</span></p>
+<p><span class="math inline">\(L\backslash \{\epsilon\} = (P \Sigma^*
+\cap \Sigma^* S) \backslash \Sigma^* N \Sigma^*\)</span></p>
+<p><span class="math inline">\(P = \enscomp{a \in \Sigma}{\exists w \in
+\Sigma^*, aw \in L}\)</span></p>
+<p><span class="math inline">\(S = \enscomp{a \in \Sigma}{\exists w \in
+\Sigma^*, wa \in L}\)</span></p>
+<p><span class="math inline">\(\overline{N} = \enscomp{ab \in
+\Sigma^2}{\exists w,v \in \Sigma^*, wabv \in L}\)</span></p>
+</div>
+<div class="ui message green">
+<p><center><div class="ui image center"><strong>Automates
+locaux</strong></div></center></p>
+<p>automate local: Si <span class="math inline">\(q \xrightarrow{a}
+q_1\)</span> et <span class="math inline">\(q&#39; \xrightarrow{a}
+q_2\)</span> alors <span class="math inline">\(q_1 = q_2\)</span>.</p>
+<p>langage local <span class="math inline">\(\iff\)</span> reconnu par
+automate local.</p>
+<p>Si <span class="math inline">\(P,S,N\)</span> définis <span
+class="math inline">\(A = (\Sigma, \Sigma \cup \{\epsilon\}, \delta,
+\epsilon, S&#39;)\)</span></p>
+<p><span class="math inline">\(S&#39; =\begin{cases} S &amp; \text{si }
+\epsilon \not\in L \\ S \cup \{\epsilon\}&amp; \text{sinon}
+\end{cases}\)</span></p>
+<p><span class="math inline">\(\forall a \in P, \delta(\epsilon, a) =
+a\)</span> <span class="math inline">\(\forall a, b \in \Sigma, ab
+\not\in N \Rightarrow \delta(a,b) = b\)</span></p>
+</div>
+<div class="ui message green">
+<p><center><div class="ui image center"><strong>Berry-Sethi</strong></div></center></p>
+<p>Regexp linéaire : au plus une fois chaque lettre.</p>
+<p>linéarisation : <span class="math inline">\(a(a|b)cb^*a \Rightarrow
+a_1(a_2|b_1)cb_2^*a_3\)</span></p>
+<p>Regexp linéaire <span class="math inline">\(e \Rightarrow
+\mathop{lang}(e)\)</span> local.</p>
+<div class="ui message white">
+<p><span class="math inline">\(accv(\emptyset) = \perp \quad \forall a
+\in \Sigma, accv(a) = \perp\)</span></p>
+<p><span class="math inline">\(accv(\epsilon) =\top \quad accv(e^*) =
+\top\)</span></p>
+<p><span class="math inline">\(accv(e_1|e_2) = accv(e_1) \vee
+accv(e_2)\)</span></p>
+<p><span class="math inline">\(accv(e_1 e_2) = accv(e_1) \wedge
+accv(e_2)\)</span></p>
+</div>
+<div class="ui message white">
+<p><span class="math inline">\(P(\emptyset) = \emptyset \quad \forall a
+\in \Sigma, P(a) = \{a\}\)</span></p>
+<p><span class="math inline">\(P(\epsilon) =\emptyset \quad P(e^*) =
+P(e)\)</span></p>
+<p><span class="math inline">\(P(e_1|e_2) = P(e_1) \cup
+P(e_2)\)</span></p>
+<p><span class="math inline">\(P(e_1 e_2) = \begin{cases} P(e_1) \cup
+P(e_2) &amp; \text{si } accv(e_1) \\ P(e_1) &amp; \text{sinon}
+\end{cases}\)</span></p>
+</div>
+<div class="ui message white">
+<p><span class="math inline">\(S(\emptyset) = \emptyset \quad \forall a
+\in \Sigma, S(a) = \{a\}\)</span></p>
+<p><span class="math inline">\(S(\epsilon) =\emptyset \quad S(e^*) =
+S(e)\)</span></p>
+<p><span class="math inline">\(S(e_1|e_2) = S(e_1) \cup
+S(e_2)\)</span></p>
+<p><span class="math inline">\(S(e_1 e_2) = \begin{cases} S(e_1) \cup
+S(e_2) &amp; \text{si } accv(e_2) \\ S(e_2) &amp; \text{sinon}
+\end{cases}\)</span></p>
+</div>
+<div class="ui message white">
+<p><span class="math inline">\(N(\emptyset) = N(\epsilon) = \Sigma^2
+\quad \forall a\in \Sigma, N(a) = \Sigma^2\)</span></p>
+<p><span class="math inline">\(N(e^*) = N(e) \backslash
+S(e)P(e)\)</span></p>
+<p><span class="math inline">\(N(e_1|e_2) = N(e_1) \cap
+N(e_2)\)</span></p>
+<p><span class="math inline">\(N(e_1 e_2) = (N(e_1) \cap N(e_2))
+\backslash S(e_1) P(e_2)\)</span></p>
+</div>
+</div>
+<p></div><div class="eight wide column"></p>
+<div class="ui message orange">
+<p><center><div class="ui image center"><strong>Méthode de
+Yamada-McNaughton</strong></div></center></p>
+<p><span class="math inline">\(Q = \range{1}{n}\)</span></p>
+<p><span class="math inline">\(R^{(k)}_{ij} =\)</span> expression
+régulière dénotant les étiq <span class="math inline">\(i \leadsto
+j\)</span> transitant par <span class="math inline">\(\ge
+k\)</span>.</p>
+<p><span class="math inline">\(R^{(0)}_{ii} = \epsilon\)</span> si <span
+class="math inline">\(i \not\rightarrow i \qquad R^{(0)}_{ii} = \epsilon
+| a_1 | \dots | a_p\)</span> si <span class="math inline">\(i
+\xrightarrow{a_k} i\)</span></p>
+<p><span class="math inline">\(i \neq j, R^{(0)}_{ij} =
+\emptyset\)</span> si <span class="math inline">\(i \not\rightarrow j
+\quad R^{(0)}_{ij} = a_1 | \dots | a_p\)</span> si <span
+class="math inline">\(i \xrightarrow{a_k} j\)</span></p>
+<p><img src="assets/pics/fiche_yamada.png" /></p>
+<p><span class="math inline">\(R^{(k)}_{ij} = R^{(k-1)}_{ij} |
+R^{(k-1)}_{ik} \left(R^{(k-1)}_{kk}\right)^* R^{(k-1)}_{kj}\)</span></p>
+<p>Si <span class="math inline">\(i\)</span> initial et <span
+class="math inline">\(f_1, \dots, f_p\)</span> finaux :</p>
+<p><span class="math inline">\(R^{(n)}_{i f_1} | \dots | R^{(n)}_{i
+f_p}\)</span></p>
+</div>
+<div class="ui message orange">
+<p><center><div class="ui image center"><strong>Élimination des états -
+Brzozowski-McCluskey</strong></div></center></p>
+<p>EX-AF(N)D : automates avec des expressions régulières comme
+étiquettes.</p>
+<p>Élimination de <span class="math inline">\(s\)</span>:</p>
+<p><img src="assets/pics/fiche_elim_avant.png" /></p>
+<p>On aboutit sur :</p>
+<p><img src="assets/pics/fiche_brzo_finale.png" /></p>
+<p>Expression régulière associée : <span class="math inline">\((e_i | e
+e_f^* e&#39;)^* e e_f^*\)</span></p>
+</div>
+<p><center><div class="ui image center"><strong>Schéma
+global</strong></div></center> <center><div class="ui image center"><img
+src="assets/pics/fiche_auto_schema.png" /></div></center></p>
+<p></div></div></div></p>
+</div>
+<!-- </div> -->
+</div>
+
+<div class="ui inverted vertical footer segment">
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+Marc de Falco
+</div>
+  </body>
+</html>

@@ -67,7 +67,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -80,7 +80,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -308,7 +308,7 @@ table td {
     </a>
     </div>
 <!-- FIX TOC -->
-<div class="item header"> <a href="#sec:présentation-du-problème-et-de-la-résolution"><span>1</span> Présentation du problème et de la résolution</a><div class="menu"><a class="item" href="#sec:dd"><div class="ui label">1.1</div> D&amp;D</a><a class="item" href="#sec:représentation-des-plateaux-en-64bit"><div class="ui label">1.2</div> Représentation des plateaux en 64bit</a><a class="item" href="#sec:représentation-du-problème"><div class="ui label">1.3</div> Représentation du problème</a><a class="item" href="#sec:choix-pour-le-backtracking"><div class="ui label">1.4</div> Choix pour le backtracking</a></div></div><div class="item header"> <a href="#sec:opérations-bit-à-bit-en-c"><span>2</span> Opérations bit à bit en C</a><div class="menu"><a class="item" href="#sec:opérateurs-de-décalage"><div class="ui label">2.1</div> Opérateurs de décalage</a><a class="item" href="#sec:opérateurs-logiques"><div class="ui label">2.2</div> Opérateurs logiques</a><a class="item" href="#sec:popcount"><div class="ui label">2.3</div> Popcount</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:calcul-naïf"><i class="circle icon"></i> Calcul naïf</a><a style="font-size:0.6em" class="item" href="#sec:calcul-par-masquage-et-additions"><i class="circle icon"></i> Calcul par masquage et additions</a><a style="font-size:0.6em" class="item" href="#sec:instruction-assembleur"><i class="circle icon"></i> Instruction assembleur</a></div></div></div><div class="item header"> <a href="#sec:squelette-du-backtracking"><span>3</span> Squelette du backtracking</a><div class="menu"></div></div><div class="item header"> <a href="#sec:implémentation-des-différentes-vérifications"><span>4</span> Implémentation des différentes vérifications</a><div class="menu"><a class="item" href="#sec:tests-pour-les-colonnes"><div class="ui label">4.1</div> Tests pour les colonnes</a><a class="item" href="#sec:impasses"><div class="ui label">4.2</div> Impasses</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:carrés-libres"><i class="circle icon"></i> Carrés libres</a><a style="font-size:0.6em" class="item" href="#sec:salles-au-trésor"><i class="circle icon"></i> Salles au trésor</a></div></div></div><div class="item header"> <a href="#sec:exemples"><span>5</span> Exemples</a><div class="menu"></div></div><!-- FIX TOC -->
+<div class="item header"> <a href="#sec:présentation-du-problème-et-de-la-résolution"><span>1</span> Présentation du problème et de la résolution</a><div class="menu"><a class="item" href="#sec:dd"><div class="ui label">1.1</div> D&amp;D</a><a class="item" href="#sec:représentation-des-plateaux-en-64bit"><div class="ui label">1.2</div> Représentation des plateaux en 64bit</a><a class="item" href="#sec:représentation-du-problème"><div class="ui label">1.3</div> Représentation du problème</a><a class="item" href="#sec:choix-pour-le-backtracking"><div class="ui label">1.4</div> Choix pour le backtracking</a></div></div><div class="item header"> <a href="#sec:opérations-bit-à-bit-en-c"><span>2</span> Opérations bit à bit en C</a><div class="menu"><a class="item" href="#sec:opérateurs-de-décalage"><div class="ui label">2.1</div> Opérateurs de décalage</a><a class="item" href="#sec:opérateurs-logiques"><div class="ui label">2.2</div> Opérateurs logiques</a><a class="item" href="#sec:popcount"><div class="ui label">2.3</div> Popcount</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:calcul-naïf"><i class="circle icon"></i> Calcul naïf</a><a style="font-size:0.6em" class="item" href="#sec:calcul-par-masquage-et-additions"><i class="circle icon"></i> Calcul par masquage et additions</a><a style="font-size:0.6em" class="item" href="#sec:instruction-assembleur"><i class="circle icon"></i> Instruction assembleur</a></div></div></div><div class="item header"> <a href="#sec:squelette-du-backtracking"><span>3</span> Squelette du backtracking</a><div class="menu"></div></div><div class="item header"> <a href="#sec:implémentation-des-différentes-vérifications"><span>4</span> Implémentation des différentes vérifications</a><div class="menu"><a class="item" href="#sec:tests-pour-les-colonnes"><div class="ui label">4.1</div> Tests pour les colonnes</a><a class="item" href="#sec:impasses"><div class="ui label">4.2</div> Impasses</a><div class="secondary menu"><a style="font-size:0.6em" class="item" href="#sec:carrés-libres"><i class="circle icon"></i> Carrés libres</a><a style="font-size:0.6em" class="item" href="#sec:salles-au-trésor"><i class="circle icon"></i> Salles au trésor</a></div></div></div><div class="item header"> <a href="#sec:exemples"><span>5</span> Exemples</a><div class="menu"><a class="item" href="#sec:solution"><div class="ui label">5.1</div> Solution</a></div></div><!-- FIX TOC -->
 </div>
 
 <div class="pusher" id="main-content">
@@ -754,13 +754,6 @@ problème vient des branchements induits par les tests de parité.</p>
 <h3 data-number="2.3.2" id="sec:calcul-par-masquage-et-additions"><span
 class="header-section-number">2.3.2</span> Calcul par masquage et
 additions</h3>
-<div class="ui message blue">
-<div class="header">
-Question
-</div>
-<p>Soient <span class="math inline">\(x, y \in
-\range{0}{2^k-1}\)</span>, montrer que</p>
-</div>
 <p>Soit <span class="math inline">\(p &gt; 0\)</span> et <span
 class="math inline">\(x,y\)</span> deux entiers tels que <span
 class="math inline">\(x, y \le p &lt; 2^p\)</span>. On a alors <span
@@ -1116,6 +1109,437 @@ src="assets/pics/problem_36.png" /></p>
 <p><img src="assets/pics/problem_35.png" /> <img
 src="assets/pics/problem_34.png" /> <img
 src="assets/pics/problem_b.png" /></p>
+<h2 data-number="5.1" id="sec:solution"><span
+class="header-section-number">5.1</span> Solution</h2>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb29-1"><a href="#cb29-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb29-3"><a href="#cb29-3"></a><span class="pp">#include </span><span class="im">&lt;stdint.h&gt;</span></span>
+<span id="cb29-4"><a href="#cb29-4"></a><span class="pp">#include </span><span class="im">&lt;stdbool.h&gt;</span></span>
+<span id="cb29-5"><a href="#cb29-5"></a></span>
+<span id="cb29-6"><a href="#cb29-6"></a><span class="kw">typedef</span> <span class="dt">uint64_t</span> board<span class="op">;</span></span>
+<span id="cb29-7"><a href="#cb29-7"></a><span class="kw">typedef</span> <span class="dt">bool</span> map<span class="op">[</span><span class="dv">64</span><span class="op">];</span></span>
+<span id="cb29-8"><a href="#cb29-8"></a><span class="kw">typedef</span> <span class="dt">char</span> constraint<span class="op">[</span><span class="dv">8</span><span class="op">];</span></span>
+<span id="cb29-9"><a href="#cb29-9"></a></span>
+<span id="cb29-10"><a href="#cb29-10"></a><span class="kw">struct</span> problem <span class="op">{</span></span>
+<span id="cb29-11"><a href="#cb29-11"></a>    board monsters<span class="op">;</span></span>
+<span id="cb29-12"><a href="#cb29-12"></a>    board treasures<span class="op">;</span></span>
+<span id="cb29-13"><a href="#cb29-13"></a>    constraint rows<span class="op">;</span></span>
+<span id="cb29-14"><a href="#cb29-14"></a>    constraint columns<span class="op">;</span></span>
+<span id="cb29-15"><a href="#cb29-15"></a><span class="op">};</span></span>
+<span id="cb29-16"><a href="#cb29-16"></a><span class="kw">typedef</span> <span class="kw">struct</span> problem problem<span class="op">;</span></span>
+<span id="cb29-17"><a href="#cb29-17"></a></span>
+<span id="cb29-18"><a href="#cb29-18"></a>problem p1 <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb29-19"><a href="#cb29-19"></a>    <span class="op">.</span>monsters <span class="op">=</span> <span class="bn">0x8400010000000020</span><span class="op">,</span></span>
+<span id="cb29-20"><a href="#cb29-20"></a>    <span class="op">.</span>treasures <span class="op">=</span> <span class="bn">0x20000</span><span class="op">,</span></span>
+<span id="cb29-21"><a href="#cb29-21"></a>    <span class="op">.</span>rows <span class="op">=</span> <span class="op">{</span> <span class="dv">7</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="dv">7</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="dv">6</span><span class="op">,</span><span class="dv">3</span> <span class="op">},</span></span>
+<span id="cb29-22"><a href="#cb29-22"></a>    <span class="op">.</span>columns <span class="op">=</span> <span class="op">{</span> <span class="dv">4</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">6</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">7</span> <span class="op">}</span></span>
+<span id="cb29-23"><a href="#cb29-23"></a><span class="op">};</span></span>
+<span id="cb29-24"><a href="#cb29-24"></a></span>
+<span id="cb29-25"><a href="#cb29-25"></a>problem p2 <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb29-26"><a href="#cb29-26"></a>    <span class="op">.</span>monsters <span class="op">=</span> <span class="bn">0xa00008000000000</span><span class="op">,</span></span>
+<span id="cb29-27"><a href="#cb29-27"></a>    <span class="op">.</span>treasures <span class="op">=</span> <span class="bn">0x2800</span><span class="op">,</span></span>
+<span id="cb29-28"><a href="#cb29-28"></a>    <span class="op">.</span>rows <span class="op">=</span> <span class="op">{</span> <span class="dv">5</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">6</span><span class="op">,</span><span class="dv">0</span><span class="op">,</span><span class="dv">6</span><span class="op">,</span><span class="dv">1</span> <span class="op">},</span></span>
+<span id="cb29-29"><a href="#cb29-29"></a>    <span class="op">.</span>columns <span class="op">=</span> <span class="op">{</span> <span class="dv">5</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">5</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">1</span> <span class="op">}</span></span>
+<span id="cb29-30"><a href="#cb29-30"></a><span class="op">};</span></span>
+<span id="cb29-31"><a href="#cb29-31"></a></span>
+<span id="cb29-32"><a href="#cb29-32"></a>problem p3 <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb29-33"><a href="#cb29-33"></a>    <span class="op">.</span>monsters <span class="op">=</span> <span class="bn">0x8000008001000081</span><span class="op">,</span></span>
+<span id="cb29-34"><a href="#cb29-34"></a>    <span class="op">.</span>treasures <span class="op">=</span> <span class="bn">0x4000000000000</span><span class="op">,</span></span>
+<span id="cb29-35"><a href="#cb29-35"></a>    <span class="op">.</span>rows <span class="op">=</span> <span class="op">{</span> <span class="dv">6</span><span class="op">,</span><span class="dv">0</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="dv">5</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">4</span> <span class="op">},</span></span>
+<span id="cb29-36"><a href="#cb29-36"></a>    <span class="op">.</span>columns <span class="op">=</span> <span class="op">{</span> <span class="dv">4</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">6</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">1</span> <span class="op">}</span></span>
+<span id="cb29-37"><a href="#cb29-37"></a><span class="op">};</span></span>
+<span id="cb29-38"><a href="#cb29-38"></a></span>
+<span id="cb29-39"><a href="#cb29-39"></a>problem p4 <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb29-40"><a href="#cb29-40"></a>    <span class="op">.</span>monsters <span class="op">=</span> <span class="bn">0x8000800000000100</span><span class="op">,</span></span>
+<span id="cb29-41"><a href="#cb29-41"></a>    <span class="op">.</span>treasures <span class="op">=</span> <span class="bn">0x2000</span><span class="op">,</span></span>
+<span id="cb29-42"><a href="#cb29-42"></a>    <span class="op">.</span>rows <span class="op">=</span> <span class="op">{</span> <span class="dv">2</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">7</span><span class="op">,</span><span class="dv">0</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">0</span> <span class="op">},</span></span>
+<span id="cb29-43"><a href="#cb29-43"></a>    <span class="op">.</span>columns <span class="op">=</span> <span class="op">{</span> <span class="dv">1</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="dv">5</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">6</span> <span class="op">}</span></span>
+<span id="cb29-44"><a href="#cb29-44"></a><span class="op">};</span></span>
+<span id="cb29-45"><a href="#cb29-45"></a></span>
+<span id="cb29-46"><a href="#cb29-46"></a>problem p5 <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb29-47"><a href="#cb29-47"></a>    <span class="op">.</span>monsters <span class="op">=</span> <span class="bn">0x20001</span><span class="op">,</span></span>
+<span id="cb29-48"><a href="#cb29-48"></a>    <span class="op">.</span>treasures <span class="op">=</span> <span class="bn">0x80000</span><span class="op">,</span></span>
+<span id="cb29-49"><a href="#cb29-49"></a>    <span class="op">.</span>rows <span class="op">=</span> <span class="op">{</span> <span class="dv">0</span><span class="op">,</span><span class="dv">7</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">5</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">5</span> <span class="op">},</span></span>
+<span id="cb29-50"><a href="#cb29-50"></a>    <span class="op">.</span>columns <span class="op">=</span> <span class="op">{</span> <span class="dv">7</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">6</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">6</span><span class="op">,</span><span class="dv">1</span> <span class="op">}</span></span>
+<span id="cb29-51"><a href="#cb29-51"></a><span class="op">};</span></span>
+<span id="cb29-52"><a href="#cb29-52"></a></span>
+<span id="cb29-53"><a href="#cb29-53"></a>problem p6 <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb29-54"><a href="#cb29-54"></a>    <span class="op">.</span>monsters <span class="op">=</span> <span class="bn">0x802080208020</span><span class="op">,</span></span>
+<span id="cb29-55"><a href="#cb29-55"></a>    <span class="op">.</span>treasures <span class="op">=</span> <span class="bn">0x40000</span><span class="op">,</span></span>
+<span id="cb29-56"><a href="#cb29-56"></a>    <span class="op">.</span>rows <span class="op">=</span> <span class="op">{</span> <span class="dv">6</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">5</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">3</span> <span class="op">},</span></span>
+<span id="cb29-57"><a href="#cb29-57"></a>    <span class="op">.</span>columns <span class="op">=</span> <span class="op">{</span> <span class="dv">5</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">6</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="dv">5</span> <span class="op">}</span></span>
+<span id="cb29-58"><a href="#cb29-58"></a><span class="op">};</span></span>
+<span id="cb29-59"><a href="#cb29-59"></a></span>
+<span id="cb29-60"><a href="#cb29-60"></a>problem p7 <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb29-61"><a href="#cb29-61"></a>    <span class="op">.</span>monsters <span class="op">=</span> <span class="bn">0x80010008</span><span class="op">,</span></span>
+<span id="cb29-62"><a href="#cb29-62"></a>    <span class="op">.</span>treasures <span class="op">=</span> <span class="bn">0x80000000000000</span><span class="op">,</span></span>
+<span id="cb29-63"><a href="#cb29-63"></a>    <span class="op">.</span>rows <span class="op">=</span> <span class="op">{</span> <span class="dv">1</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">6</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">1</span> <span class="op">},</span></span>
+<span id="cb29-64"><a href="#cb29-64"></a>    <span class="op">.</span>columns <span class="op">=</span> <span class="op">{</span> <span class="dv">1</span><span class="op">,</span><span class="dv">5</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">6</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">1</span> <span class="op">}</span></span>
+<span id="cb29-65"><a href="#cb29-65"></a><span class="op">};</span></span>
+<span id="cb29-66"><a href="#cb29-66"></a></span>
+<span id="cb29-67"><a href="#cb29-67"></a>problem p8 <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb29-68"><a href="#cb29-68"></a>    <span class="op">.</span>monsters <span class="op">=</span> <span class="bn">0x4200801000800042</span><span class="op">,</span></span>
+<span id="cb29-69"><a href="#cb29-69"></a>    <span class="op">.</span>treasures <span class="op">=</span> <span class="bn">0x0</span><span class="op">,</span></span>
+<span id="cb29-70"><a href="#cb29-70"></a>    <span class="op">.</span>rows <span class="op">=</span> <span class="op">{</span> <span class="dv">3</span><span class="op">,</span><span class="dv">6</span><span class="op">,</span><span class="dv">0</span><span class="op">,</span><span class="dv">5</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">0</span><span class="op">,</span><span class="dv">6</span><span class="op">,</span><span class="dv">3</span> <span class="op">},</span></span>
+<span id="cb29-71"><a href="#cb29-71"></a>    <span class="op">.</span>columns <span class="op">=</span> <span class="op">{</span> <span class="dv">4</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">6</span> <span class="op">}</span></span>
+<span id="cb29-72"><a href="#cb29-72"></a><span class="op">};</span></span>
+<span id="cb29-73"><a href="#cb29-73"></a></span>
+<span id="cb29-74"><a href="#cb29-74"></a>problem p9 <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb29-75"><a href="#cb29-75"></a>    <span class="op">.</span>monsters <span class="op">=</span> <span class="bn">0x40080</span><span class="op">,</span></span>
+<span id="cb29-76"><a href="#cb29-76"></a>    <span class="op">.</span>treasures <span class="op">=</span> <span class="bn">0x200000000000000</span><span class="op">,</span></span>
+<span id="cb29-77"><a href="#cb29-77"></a>    <span class="op">.</span>rows <span class="op">=</span> <span class="op">{</span> <span class="dv">4</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">6</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">2</span> <span class="op">},</span></span>
+<span id="cb29-78"><a href="#cb29-78"></a>    <span class="op">.</span>columns <span class="op">=</span> <span class="op">{</span> <span class="dv">5</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">5</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">3</span> <span class="op">}</span></span>
+<span id="cb29-79"><a href="#cb29-79"></a><span class="op">};</span></span>
+<span id="cb29-80"><a href="#cb29-80"></a></span>
+<span id="cb29-81"><a href="#cb29-81"></a><span class="dt">uint64_t</span> mask_column<span class="op">(</span><span class="dt">int</span> i<span class="op">)</span></span>
+<span id="cb29-82"><a href="#cb29-82"></a><span class="op">{</span></span>
+<span id="cb29-83"><a href="#cb29-83"></a>    <span class="cf">return</span> <span class="bn">0x0101010101010101</span> <span class="op">&lt;&lt;</span> i<span class="op">;</span></span>
+<span id="cb29-84"><a href="#cb29-84"></a><span class="op">}</span></span>
+<span id="cb29-85"><a href="#cb29-85"></a></span>
+<span id="cb29-86"><a href="#cb29-86"></a>board map_to_board<span class="op">(</span>map m<span class="op">)</span></span>
+<span id="cb29-87"><a href="#cb29-87"></a><span class="op">{</span></span>
+<span id="cb29-88"><a href="#cb29-88"></a>    board b <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb29-89"><a href="#cb29-89"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">64</span><span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb29-90"><a href="#cb29-90"></a>    <span class="op">{</span> </span>
+<span id="cb29-91"><a href="#cb29-91"></a>        b <span class="op">=</span> b <span class="op">*</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb29-92"><a href="#cb29-92"></a>        <span class="cf">if</span> <span class="op">(</span>m<span class="op">[</span>i<span class="op">])</span></span>
+<span id="cb29-93"><a href="#cb29-93"></a>            b <span class="op">=</span> b <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb29-94"><a href="#cb29-94"></a>    <span class="op">}</span></span>
+<span id="cb29-95"><a href="#cb29-95"></a>    <span class="cf">return</span> b<span class="op">;</span></span>
+<span id="cb29-96"><a href="#cb29-96"></a><span class="op">}</span></span>
+<span id="cb29-97"><a href="#cb29-97"></a></span>
+<span id="cb29-98"><a href="#cb29-98"></a><span class="dt">void</span> board_to_map<span class="op">(</span>board b<span class="op">,</span> map m<span class="op">)</span></span>
+<span id="cb29-99"><a href="#cb29-99"></a><span class="op">{</span></span>
+<span id="cb29-100"><a href="#cb29-100"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">64</span><span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb29-101"><a href="#cb29-101"></a>    <span class="op">{</span></span>
+<span id="cb29-102"><a href="#cb29-102"></a>        m<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> b <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb29-103"><a href="#cb29-103"></a>        b <span class="op">=</span> b <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb29-104"><a href="#cb29-104"></a>    <span class="op">}</span></span>
+<span id="cb29-105"><a href="#cb29-105"></a><span class="op">}</span></span>
+<span id="cb29-106"><a href="#cb29-106"></a></span>
+<span id="cb29-107"><a href="#cb29-107"></a></span>
+<span id="cb29-108"><a href="#cb29-108"></a><span class="dt">int</span> popcount_slow<span class="op">(</span><span class="dt">uint64_t</span> v<span class="op">)</span></span>
+<span id="cb29-109"><a href="#cb29-109"></a><span class="op">{</span></span>
+<span id="cb29-110"><a href="#cb29-110"></a>    <span class="dt">int</span> s <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb29-111"><a href="#cb29-111"></a>    <span class="cf">while</span><span class="op">(</span>v <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb29-112"><a href="#cb29-112"></a>    <span class="op">{</span></span>
+<span id="cb29-113"><a href="#cb29-113"></a>        <span class="cf">if</span> <span class="op">(</span>v <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb29-114"><a href="#cb29-114"></a>            s <span class="op">=</span> s<span class="op">+</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb29-115"><a href="#cb29-115"></a>        v <span class="op">=</span> v<span class="op">/</span><span class="dv">2</span><span class="op">;</span></span>
+<span id="cb29-116"><a href="#cb29-116"></a>    <span class="op">}</span></span>
+<span id="cb29-117"><a href="#cb29-117"></a>    <span class="cf">return</span> s<span class="op">;</span></span>
+<span id="cb29-118"><a href="#cb29-118"></a><span class="op">}</span></span>
+<span id="cb29-119"><a href="#cb29-119"></a></span>
+<span id="cb29-120"><a href="#cb29-120"></a><span class="dt">int</span> popcount<span class="op">(</span><span class="dt">uint64_t</span> v<span class="op">)</span></span>
+<span id="cb29-121"><a href="#cb29-121"></a><span class="op">{</span></span>
+<span id="cb29-122"><a href="#cb29-122"></a>    <span class="dt">uint64_t</span> mask_1 <span class="op">=</span> <span class="bn">0x5555555555555555</span><span class="op">;</span></span>
+<span id="cb29-123"><a href="#cb29-123"></a>    <span class="dt">uint64_t</span> mask_2 <span class="op">=</span> <span class="bn">0x3333333333333333</span><span class="op">;</span></span>
+<span id="cb29-124"><a href="#cb29-124"></a>    <span class="dt">uint64_t</span> mask_3 <span class="op">=</span> <span class="bn">0x0f0f0f0f0f0f0f0f</span><span class="op">;</span></span>
+<span id="cb29-125"><a href="#cb29-125"></a>    <span class="dt">uint64_t</span> mask_4 <span class="op">=</span> <span class="bn">0x00ff00ff00ff00ff</span><span class="op">;</span></span>
+<span id="cb29-126"><a href="#cb29-126"></a>    <span class="dt">uint64_t</span> mask_5 <span class="op">=</span> <span class="bn">0x0000ffff0000ffff</span><span class="op">;</span></span>
+<span id="cb29-127"><a href="#cb29-127"></a>    <span class="dt">uint64_t</span> mask_6 <span class="op">=</span> <span class="bn">0x00000000ffffffff</span><span class="op">;</span></span>
+<span id="cb29-128"><a href="#cb29-128"></a></span>
+<span id="cb29-129"><a href="#cb29-129"></a>    v <span class="op">=</span> <span class="op">(</span>v <span class="op">&amp;</span> mask_1<span class="op">)</span> <span class="op">+</span> <span class="op">((</span>v <span class="op">&amp;</span> <span class="op">(</span>mask_1 <span class="op">&lt;&lt;</span> <span class="dv">1</span><span class="op">))</span> <span class="op">&gt;&gt;</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb29-130"><a href="#cb29-130"></a>    v <span class="op">=</span> <span class="op">(</span>v <span class="op">&amp;</span> mask_2<span class="op">)</span> <span class="op">+</span> <span class="op">((</span>v <span class="op">&amp;</span> <span class="op">(</span>mask_2 <span class="op">&lt;&lt;</span> <span class="dv">2</span><span class="op">))</span> <span class="op">&gt;&gt;</span> <span class="dv">2</span><span class="op">);</span></span>
+<span id="cb29-131"><a href="#cb29-131"></a>    v <span class="op">=</span> <span class="op">(</span>v <span class="op">&amp;</span> mask_3<span class="op">)</span> <span class="op">+</span> <span class="op">((</span>v <span class="op">&amp;</span> <span class="op">(</span>mask_3 <span class="op">&lt;&lt;</span> <span class="dv">4</span><span class="op">))</span> <span class="op">&gt;&gt;</span> <span class="dv">4</span><span class="op">);</span></span>
+<span id="cb29-132"><a href="#cb29-132"></a>    v <span class="op">=</span> <span class="op">(</span>v <span class="op">&amp;</span> mask_4<span class="op">)</span> <span class="op">+</span> <span class="op">((</span>v <span class="op">&amp;</span> <span class="op">(</span>mask_4 <span class="op">&lt;&lt;</span> <span class="dv">8</span><span class="op">))</span> <span class="op">&gt;&gt;</span> <span class="dv">8</span><span class="op">);</span></span>
+<span id="cb29-133"><a href="#cb29-133"></a>    v <span class="op">=</span> <span class="op">(</span>v <span class="op">&amp;</span> mask_5<span class="op">)</span> <span class="op">+</span> <span class="op">((</span>v <span class="op">&amp;</span> <span class="op">(</span>mask_5 <span class="op">&lt;&lt;</span> <span class="dv">16</span><span class="op">))</span> <span class="op">&gt;&gt;</span> <span class="dv">16</span><span class="op">);</span></span>
+<span id="cb29-134"><a href="#cb29-134"></a>    v <span class="op">=</span> <span class="op">(</span>v <span class="op">&amp;</span> mask_6<span class="op">)</span> <span class="op">+</span> <span class="op">((</span>v <span class="op">&amp;</span> <span class="op">(</span>mask_6 <span class="op">&lt;&lt;</span> <span class="dv">32</span><span class="op">))</span> <span class="op">&gt;&gt;</span> <span class="dv">32</span><span class="op">);</span></span>
+<span id="cb29-135"><a href="#cb29-135"></a></span>
+<span id="cb29-136"><a href="#cb29-136"></a>    <span class="cf">return</span> v<span class="op">;</span></span>
+<span id="cb29-137"><a href="#cb29-137"></a><span class="op">}</span></span>
+<span id="cb29-138"><a href="#cb29-138"></a></span>
+<span id="cb29-139"><a href="#cb29-139"></a><span class="pp">#define popcount __builtin_popcountll</span></span>
+<span id="cb29-140"><a href="#cb29-140"></a></span>
+<span id="cb29-141"><a href="#cb29-141"></a><span class="dt">int</span> enum_popcount_byte<span class="op">[</span><span class="dv">256</span><span class="op">];</span></span>
+<span id="cb29-142"><a href="#cb29-142"></a></span>
+<span id="cb29-143"><a href="#cb29-143"></a><span class="dt">void</span> print_board<span class="op">(</span>problem <span class="op">*</span>p<span class="op">,</span> board b<span class="op">)</span></span>
+<span id="cb29-144"><a href="#cb29-144"></a><span class="op">{</span></span>
+<span id="cb29-145"><a href="#cb29-145"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">64</span><span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb29-146"><a href="#cb29-146"></a>    <span class="op">{</span></span>
+<span id="cb29-147"><a href="#cb29-147"></a>        <span class="cf">if</span> <span class="op">(((</span>b <span class="op">&gt;&gt;</span> i<span class="op">)</span> <span class="op">&amp;</span> <span class="dv">1</span><span class="op">)</span> <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb29-148"><a href="#cb29-148"></a>            putchar<span class="op">(</span><span class="ch">&#39;#&#39;</span><span class="op">);</span></span>
+<span id="cb29-149"><a href="#cb29-149"></a>        <span class="cf">else</span> <span class="cf">if</span> <span class="op">(((</span>p<span class="op">-&gt;</span>monsters <span class="op">&gt;&gt;</span> i<span class="op">)</span> <span class="op">&amp;</span> <span class="dv">1</span><span class="op">)</span> <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb29-150"><a href="#cb29-150"></a>            putchar<span class="op">(</span><span class="ch">&#39;M&#39;</span><span class="op">);</span></span>
+<span id="cb29-151"><a href="#cb29-151"></a>        <span class="cf">else</span> <span class="cf">if</span> <span class="op">(((</span>p<span class="op">-&gt;</span>treasures <span class="op">&gt;&gt;</span> i<span class="op">)</span> <span class="op">&amp;</span> <span class="dv">1</span><span class="op">)</span> <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb29-152"><a href="#cb29-152"></a>            putchar<span class="op">(</span><span class="ch">&#39;T&#39;</span><span class="op">);</span></span>
+<span id="cb29-153"><a href="#cb29-153"></a>        <span class="cf">else</span> putchar<span class="op">(</span><span class="ch">&#39;.&#39;</span><span class="op">);</span></span>
+<span id="cb29-154"><a href="#cb29-154"></a></span>
+<span id="cb29-155"><a href="#cb29-155"></a>        <span class="cf">if</span> <span class="op">(</span>i <span class="op">%</span> <span class="dv">8</span> <span class="op">==</span> <span class="dv">7</span><span class="op">)</span> printf<span class="op">(</span><span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb29-156"><a href="#cb29-156"></a>    <span class="op">}</span></span>
+<span id="cb29-157"><a href="#cb29-157"></a><span class="op">}</span></span>
+<span id="cb29-158"><a href="#cb29-158"></a></span>
+<span id="cb29-159"><a href="#cb29-159"></a><span class="dt">uint64_t</span> bit<span class="op">(</span><span class="dt">int</span> pos<span class="op">)</span></span>
+<span id="cb29-160"><a href="#cb29-160"></a><span class="op">{</span></span>
+<span id="cb29-161"><a href="#cb29-161"></a>    <span class="cf">return</span> <span class="op">(</span><span class="dt">uint64_t</span><span class="op">)</span> <span class="dv">1</span> <span class="op">&lt;&lt;</span> pos<span class="op">;</span></span>
+<span id="cb29-162"><a href="#cb29-162"></a><span class="op">}</span></span>
+<span id="cb29-163"><a href="#cb29-163"></a></span>
+<span id="cb29-164"><a href="#cb29-164"></a><span class="dt">uint64_t</span> neighbours<span class="op">(</span><span class="dt">int</span> pos<span class="op">)</span></span>
+<span id="cb29-165"><a href="#cb29-165"></a><span class="op">{</span></span>
+<span id="cb29-166"><a href="#cb29-166"></a>    <span class="dt">uint64_t</span> mask <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb29-167"><a href="#cb29-167"></a>    <span class="cf">if</span> <span class="op">(</span>pos <span class="op">%</span> <span class="dv">8</span> <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb29-168"><a href="#cb29-168"></a>        mask <span class="op">|=</span> bit<span class="op">(</span>pos <span class="op">-</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb29-169"><a href="#cb29-169"></a>    <span class="cf">if</span> <span class="op">(</span>pos <span class="op">%</span> <span class="dv">8</span> <span class="op">!=</span> <span class="dv">7</span><span class="op">)</span></span>
+<span id="cb29-170"><a href="#cb29-170"></a>        mask <span class="op">|=</span> bit<span class="op">(</span>pos <span class="op">+</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb29-171"><a href="#cb29-171"></a>    <span class="cf">if</span> <span class="op">(</span>pos <span class="op">&gt;</span> <span class="dv">7</span><span class="op">)</span></span>
+<span id="cb29-172"><a href="#cb29-172"></a>        mask <span class="op">|=</span> bit<span class="op">(</span>pos <span class="op">-</span> <span class="dv">8</span><span class="op">);</span></span>
+<span id="cb29-173"><a href="#cb29-173"></a>    <span class="cf">if</span> <span class="op">(</span>pos <span class="op">&lt;</span> <span class="dv">56</span><span class="op">)</span></span>
+<span id="cb29-174"><a href="#cb29-174"></a>        mask <span class="op">|=</span> bit<span class="op">(</span>pos <span class="op">+</span> <span class="dv">8</span><span class="op">);</span></span>
+<span id="cb29-175"><a href="#cb29-175"></a>    <span class="cf">return</span> mask<span class="op">;</span></span>
+<span id="cb29-176"><a href="#cb29-176"></a><span class="op">}</span></span>
+<span id="cb29-177"><a href="#cb29-177"></a></span>
+<span id="cb29-178"><a href="#cb29-178"></a><span class="dt">int</span> count_non_wall<span class="op">(</span>problem <span class="op">*</span>p<span class="op">,</span> board b<span class="op">,</span> <span class="dt">int</span> pos<span class="op">)</span></span>
+<span id="cb29-179"><a href="#cb29-179"></a><span class="op">{</span></span>
+<span id="cb29-180"><a href="#cb29-180"></a>    <span class="dt">int</span> count <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb29-181"><a href="#cb29-181"></a>    <span class="dt">uint64_t</span> mask <span class="op">=</span> neighbours<span class="op">(</span>pos<span class="op">);</span></span>
+<span id="cb29-182"><a href="#cb29-182"></a>    <span class="cf">return</span> popcount<span class="op">(~</span>b <span class="op">&amp;</span> mask<span class="op">);</span> </span>
+<span id="cb29-183"><a href="#cb29-183"></a><span class="op">}</span></span>
+<span id="cb29-184"><a href="#cb29-184"></a></span>
+<span id="cb29-185"><a href="#cb29-185"></a><span class="dt">bool</span> empty<span class="op">(</span>problem <span class="op">*</span>p<span class="op">,</span> board b<span class="op">,</span> <span class="dt">int</span> pos<span class="op">)</span></span>
+<span id="cb29-186"><a href="#cb29-186"></a><span class="op">{</span></span>
+<span id="cb29-187"><a href="#cb29-187"></a>    board fb <span class="op">=</span> b <span class="op">|</span> p<span class="op">-&gt;</span>monsters <span class="op">|</span> p<span class="op">-&gt;</span>treasures<span class="op">;</span></span>
+<span id="cb29-188"><a href="#cb29-188"></a></span>
+<span id="cb29-189"><a href="#cb29-189"></a>    <span class="cf">return</span> <span class="op">(</span>fb <span class="op">&amp;</span> bit<span class="op">(</span>pos<span class="op">))</span> <span class="op">==</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb29-190"><a href="#cb29-190"></a><span class="op">}</span></span>
+<span id="cb29-191"><a href="#cb29-191"></a></span>
+<span id="cb29-192"><a href="#cb29-192"></a><span class="dt">bool</span> treasure<span class="op">(</span>problem <span class="op">*</span>p<span class="op">,</span> <span class="dt">int</span> pos<span class="op">)</span></span>
+<span id="cb29-193"><a href="#cb29-193"></a><span class="op">{</span></span>
+<span id="cb29-194"><a href="#cb29-194"></a>    <span class="cf">return</span> p<span class="op">-&gt;</span>treasures <span class="op">&amp;</span> bit<span class="op">(</span>pos<span class="op">);</span></span>
+<span id="cb29-195"><a href="#cb29-195"></a><span class="op">}</span></span>
+<span id="cb29-196"><a href="#cb29-196"></a></span>
+<span id="cb29-197"><a href="#cb29-197"></a><span class="dt">bool</span> monster<span class="op">(</span>problem <span class="op">*</span>p<span class="op">,</span> <span class="dt">int</span> pos<span class="op">)</span></span>
+<span id="cb29-198"><a href="#cb29-198"></a><span class="op">{</span></span>
+<span id="cb29-199"><a href="#cb29-199"></a>    <span class="cf">return</span> p<span class="op">-&gt;</span>monsters <span class="op">&amp;</span> bit<span class="op">(</span>pos<span class="op">);</span></span>
+<span id="cb29-200"><a href="#cb29-200"></a><span class="op">}</span></span>
+<span id="cb29-201"><a href="#cb29-201"></a></span>
+<span id="cb29-202"><a href="#cb29-202"></a><span class="dt">int</span> enum_byte<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">8</span><span class="op">,</span> <span class="dv">16</span><span class="op">,</span> <span class="dv">32</span><span class="op">,</span> <span class="dv">64</span><span class="op">,</span> <span class="dv">128</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">9</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">12</span><span class="op">,</span> <span class="dv">17</span><span class="op">,</span> <span class="dv">18</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">24</span><span class="op">,</span> <span class="dv">33</span><span class="op">,</span> <span class="dv">34</span><span class="op">,</span> <span class="dv">36</span><span class="op">,</span> <span class="dv">40</span><span class="op">,</span> <span class="dv">48</span><span class="op">,</span> <span class="dv">65</span><span class="op">,</span> <span class="dv">66</span><span class="op">,</span> <span class="dv">68</span><span class="op">,</span> <span class="dv">72</span><span class="op">,</span> <span class="dv">80</span><span class="op">,</span> <span class="dv">96</span><span class="op">,</span> <span class="dv">129</span><span class="op">,</span> <span class="dv">130</span><span class="op">,</span> <span class="dv">132</span><span class="op">,</span> <span class="dv">136</span><span class="op">,</span> <span class="dv">144</span><span class="op">,</span> <span class="dv">160</span><span class="op">,</span> <span class="dv">192</span><span class="op">,</span> <span class="dv">7</span><span class="op">,</span> <span class="dv">11</span><span class="op">,</span> <span class="dv">13</span><span class="op">,</span> <span class="dv">14</span><span class="op">,</span> <span class="dv">19</span><span class="op">,</span> <span class="dv">21</span><span class="op">,</span> <span class="dv">22</span><span class="op">,</span> <span class="dv">25</span><span class="op">,</span> <span class="dv">26</span><span class="op">,</span> <span class="dv">28</span><span class="op">,</span> <span class="dv">35</span><span class="op">,</span> <span class="dv">37</span><span class="op">,</span> <span class="dv">38</span><span class="op">,</span> <span class="dv">41</span><span class="op">,</span> <span class="dv">42</span><span class="op">,</span> <span class="dv">44</span><span class="op">,</span> <span class="dv">49</span><span class="op">,</span> <span class="dv">50</span><span class="op">,</span> <span class="dv">52</span><span class="op">,</span> <span class="dv">56</span><span class="op">,</span> <span class="dv">67</span><span class="op">,</span> <span class="dv">69</span><span class="op">,</span> <span class="dv">70</span><span class="op">,</span> <span class="dv">73</span><span class="op">,</span> <span class="dv">74</span><span class="op">,</span> <span class="dv">76</span><span class="op">,</span> <span class="dv">81</span><span class="op">,</span> <span class="dv">82</span><span class="op">,</span> <span class="dv">84</span><span class="op">,</span> <span class="dv">88</span><span class="op">,</span> <span class="dv">97</span><span class="op">,</span> <span class="dv">98</span><span class="op">,</span> <span class="dv">100</span><span class="op">,</span> <span class="dv">104</span><span class="op">,</span> <span class="dv">112</span><span class="op">,</span> <span class="dv">131</span><span class="op">,</span> <span class="dv">133</span><span class="op">,</span> <span class="dv">134</span><span class="op">,</span> <span class="dv">137</span><span class="op">,</span> <span class="dv">138</span><span class="op">,</span> <span class="dv">140</span><span class="op">,</span> <span class="dv">145</span><span class="op">,</span> <span class="dv">146</span><span class="op">,</span> <span class="dv">148</span><span class="op">,</span> <span class="dv">152</span><span class="op">,</span> <span class="dv">161</span><span class="op">,</span> <span class="dv">162</span><span class="op">,</span> <span class="dv">164</span><span class="op">,</span> <span class="dv">168</span><span class="op">,</span> <span class="dv">176</span><span class="op">,</span> <span class="dv">193</span><span class="op">,</span> <span class="dv">194</span><span class="op">,</span> <span class="dv">196</span><span class="op">,</span> <span class="dv">200</span><span class="op">,</span> <span class="dv">208</span><span class="op">,</span> <span class="dv">224</span><span class="op">,</span> <span class="dv">15</span><span class="op">,</span> <span class="dv">23</span><span class="op">,</span> <span class="dv">27</span><span class="op">,</span> <span class="dv">29</span><span class="op">,</span> <span class="dv">30</span><span class="op">,</span> <span class="dv">39</span><span class="op">,</span> <span class="dv">43</span><span class="op">,</span> <span class="dv">45</span><span class="op">,</span> <span class="dv">46</span><span class="op">,</span> <span class="dv">51</span><span class="op">,</span> <span class="dv">53</span><span class="op">,</span> <span class="dv">54</span><span class="op">,</span> <span class="dv">57</span><span class="op">,</span> <span class="dv">58</span><span class="op">,</span> <span class="dv">60</span><span class="op">,</span> <span class="dv">71</span><span class="op">,</span> <span class="dv">75</span><span class="op">,</span> <span class="dv">77</span><span class="op">,</span> <span class="dv">78</span><span class="op">,</span> <span class="dv">83</span><span class="op">,</span> <span class="dv">85</span><span class="op">,</span> <span class="dv">86</span><span class="op">,</span> <span class="dv">89</span><span class="op">,</span> <span class="dv">90</span><span class="op">,</span> <span class="dv">92</span><span class="op">,</span> <span class="dv">99</span><span class="op">,</span> <span class="dv">101</span><span class="op">,</span> <span class="dv">102</span><span class="op">,</span> <span class="dv">105</span><span class="op">,</span> <span class="dv">106</span><span class="op">,</span> <span class="dv">108</span><span class="op">,</span> <span class="dv">113</span><span class="op">,</span> <span class="dv">114</span><span class="op">,</span> <span class="dv">116</span><span class="op">,</span> <span class="dv">120</span><span class="op">,</span> <span class="dv">135</span><span class="op">,</span> <span class="dv">139</span><span class="op">,</span> <span class="dv">141</span><span class="op">,</span> <span class="dv">142</span><span class="op">,</span> <span class="dv">147</span><span class="op">,</span> <span class="dv">149</span><span class="op">,</span> <span class="dv">150</span><span class="op">,</span> <span class="dv">153</span><span class="op">,</span> <span class="dv">154</span><span class="op">,</span> <span class="dv">156</span><span class="op">,</span> <span class="dv">163</span><span class="op">,</span> <span class="dv">165</span><span class="op">,</span> <span class="dv">166</span><span class="op">,</span> <span class="dv">169</span><span class="op">,</span> <span class="dv">170</span><span class="op">,</span> <span class="dv">172</span><span class="op">,</span> <span class="dv">177</span><span class="op">,</span> <span class="dv">178</span><span class="op">,</span> <span class="dv">180</span><span class="op">,</span> <span class="dv">184</span><span class="op">,</span> <span class="dv">195</span><span class="op">,</span> <span class="dv">197</span><span class="op">,</span> <span class="dv">198</span><span class="op">,</span> <span class="dv">201</span><span class="op">,</span> <span class="dv">202</span><span class="op">,</span> <span class="dv">204</span><span class="op">,</span> <span class="dv">209</span><span class="op">,</span> <span class="dv">210</span><span class="op">,</span> <span class="dv">212</span><span class="op">,</span> <span class="dv">216</span><span class="op">,</span> <span class="dv">225</span><span class="op">,</span> <span class="dv">226</span><span class="op">,</span> <span class="dv">228</span><span class="op">,</span> <span class="dv">232</span><span class="op">,</span> <span class="dv">240</span><span class="op">,</span> <span class="dv">31</span><span class="op">,</span> <span class="dv">47</span><span class="op">,</span> <span class="dv">55</span><span class="op">,</span> <span class="dv">59</span><span class="op">,</span> <span class="dv">61</span><span class="op">,</span> <span class="dv">62</span><span class="op">,</span> <span class="dv">79</span><span class="op">,</span> <span class="dv">87</span><span class="op">,</span> <span class="dv">91</span><span class="op">,</span> <span class="dv">93</span><span class="op">,</span> <span class="dv">94</span><span class="op">,</span> <span class="dv">103</span><span class="op">,</span> <span class="dv">107</span><span class="op">,</span> <span class="dv">109</span><span class="op">,</span> <span class="dv">110</span><span class="op">,</span> <span class="dv">115</span><span class="op">,</span> <span class="dv">117</span><span class="op">,</span> <span class="dv">118</span><span class="op">,</span> <span class="dv">121</span><span class="op">,</span> <span class="dv">122</span><span class="op">,</span> <span class="dv">124</span><span class="op">,</span> <span class="dv">143</span><span class="op">,</span> <span class="dv">151</span><span class="op">,</span> <span class="dv">155</span><span class="op">,</span> <span class="dv">157</span><span class="op">,</span> <span class="dv">158</span><span class="op">,</span> <span class="dv">167</span><span class="op">,</span> <span class="dv">171</span><span class="op">,</span> <span class="dv">173</span><span class="op">,</span> <span class="dv">174</span><span class="op">,</span> <span class="dv">179</span><span class="op">,</span> <span class="dv">181</span><span class="op">,</span> <span class="dv">182</span><span class="op">,</span> <span class="dv">185</span><span class="op">,</span> <span class="dv">186</span><span class="op">,</span> <span class="dv">188</span><span class="op">,</span> <span class="dv">199</span><span class="op">,</span> <span class="dv">203</span><span class="op">,</span> <span class="dv">205</span><span class="op">,</span> <span class="dv">206</span><span class="op">,</span> <span class="dv">211</span><span class="op">,</span> <span class="dv">213</span><span class="op">,</span> <span class="dv">214</span><span class="op">,</span> <span class="dv">217</span><span class="op">,</span> <span class="dv">218</span><span class="op">,</span> <span class="dv">220</span><span class="op">,</span> <span class="dv">227</span><span class="op">,</span> <span class="dv">229</span><span class="op">,</span> <span class="dv">230</span><span class="op">,</span> <span class="dv">233</span><span class="op">,</span> <span class="dv">234</span><span class="op">,</span> <span class="dv">236</span><span class="op">,</span> <span class="dv">241</span><span class="op">,</span> <span class="dv">242</span><span class="op">,</span> <span class="dv">244</span><span class="op">,</span> <span class="dv">248</span><span class="op">,</span> <span class="dv">63</span><span class="op">,</span> <span class="dv">95</span><span class="op">,</span> <span class="dv">111</span><span class="op">,</span> <span class="dv">119</span><span class="op">,</span> <span class="dv">123</span><span class="op">,</span> <span class="dv">125</span><span class="op">,</span> <span class="dv">126</span><span class="op">,</span> <span class="dv">159</span><span class="op">,</span> <span class="dv">175</span><span class="op">,</span> <span class="dv">183</span><span class="op">,</span> <span class="dv">187</span><span class="op">,</span> <span class="dv">189</span><span class="op">,</span> <span class="dv">190</span><span class="op">,</span> <span class="dv">207</span><span class="op">,</span> <span class="dv">215</span><span class="op">,</span> <span class="dv">219</span><span class="op">,</span> <span class="dv">221</span><span class="op">,</span> <span class="dv">222</span><span class="op">,</span> <span class="dv">231</span><span class="op">,</span> <span class="dv">235</span><span class="op">,</span> <span class="dv">237</span><span class="op">,</span> <span class="dv">238</span><span class="op">,</span> <span class="dv">243</span><span class="op">,</span> <span class="dv">245</span><span class="op">,</span> <span class="dv">246</span><span class="op">,</span> <span class="dv">249</span><span class="op">,</span> <span class="dv">250</span><span class="op">,</span> <span class="dv">252</span><span class="op">,</span> <span class="dv">127</span><span class="op">,</span> <span class="dv">191</span><span class="op">,</span> <span class="dv">223</span><span class="op">,</span> <span class="dv">239</span><span class="op">,</span> <span class="dv">247</span><span class="op">,</span> <span class="dv">251</span><span class="op">,</span> <span class="dv">253</span><span class="op">,</span> <span class="dv">254</span><span class="op">,</span> <span class="dv">255</span> <span class="op">};</span></span>
+<span id="cb29-203"><a href="#cb29-203"></a><span class="dt">int</span> enum_byte_idx<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">9</span><span class="op">,</span> <span class="dv">37</span><span class="op">,</span> <span class="dv">93</span><span class="op">,</span> <span class="dv">163</span><span class="op">,</span> <span class="dv">219</span><span class="op">,</span> <span class="dv">247</span><span class="op">,</span> <span class="dv">255</span><span class="op">,</span> <span class="dv">256</span> <span class="op">};</span></span>
+<span id="cb29-204"><a href="#cb29-204"></a></span>
+<span id="cb29-205"><a href="#cb29-205"></a><span class="dt">bool</span> test_columns_overload<span class="op">(</span>problem <span class="op">*</span>p<span class="op">,</span> board b<span class="op">)</span></span>
+<span id="cb29-206"><a href="#cb29-206"></a><span class="op">{</span></span>
+<span id="cb29-207"><a href="#cb29-207"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> col <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> col <span class="op">&lt;</span> <span class="dv">8</span><span class="op">;</span> col<span class="op">++)</span></span>
+<span id="cb29-208"><a href="#cb29-208"></a>        <span class="cf">if</span> <span class="op">(</span>popcount<span class="op">(</span>b <span class="op">&amp;</span> mask_column<span class="op">(</span>col<span class="op">))</span> <span class="op">&gt;</span> p<span class="op">-&gt;</span>columns<span class="op">[</span>col<span class="op">])</span></span>
+<span id="cb29-209"><a href="#cb29-209"></a>            <span class="cf">return</span> true<span class="op">;</span></span>
+<span id="cb29-210"><a href="#cb29-210"></a>    <span class="cf">return</span> false<span class="op">;</span></span>
+<span id="cb29-211"><a href="#cb29-211"></a><span class="op">}</span></span>
+<span id="cb29-212"><a href="#cb29-212"></a></span>
+<span id="cb29-213"><a href="#cb29-213"></a><span class="dt">bool</span> test_columns_underload<span class="op">(</span>problem <span class="op">*</span>p<span class="op">,</span> board b<span class="op">)</span></span>
+<span id="cb29-214"><a href="#cb29-214"></a><span class="op">{</span></span>
+<span id="cb29-215"><a href="#cb29-215"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> col <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> col <span class="op">&lt;</span> <span class="dv">8</span><span class="op">;</span> col<span class="op">++)</span></span>
+<span id="cb29-216"><a href="#cb29-216"></a>        <span class="cf">if</span> <span class="op">(</span>popcount<span class="op">(</span>b <span class="op">&amp;</span> mask_column<span class="op">(</span>col<span class="op">))</span> <span class="op">&lt;</span> p<span class="op">-&gt;</span>columns<span class="op">[</span>col<span class="op">])</span></span>
+<span id="cb29-217"><a href="#cb29-217"></a>            <span class="cf">return</span> true<span class="op">;</span></span>
+<span id="cb29-218"><a href="#cb29-218"></a>    <span class="cf">return</span> false<span class="op">;</span></span>
+<span id="cb29-219"><a href="#cb29-219"></a><span class="op">}</span></span>
+<span id="cb29-220"><a href="#cb29-220"></a></span>
+<span id="cb29-221"><a href="#cb29-221"></a><span class="dt">bool</span> test_no_deadend_upto_row<span class="op">(</span>problem <span class="op">*</span>p<span class="op">,</span> board b<span class="op">,</span> <span class="dt">int</span> row<span class="op">)</span></span>
+<span id="cb29-222"><a href="#cb29-222"></a><span class="op">{</span></span>
+<span id="cb29-223"><a href="#cb29-223"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">8</span><span class="op">*</span>row<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb29-224"><a href="#cb29-224"></a>    <span class="op">{</span></span>
+<span id="cb29-225"><a href="#cb29-225"></a>        <span class="cf">if</span> <span class="op">(</span>empty<span class="op">(</span>p<span class="op">,</span>b<span class="op">,</span>i<span class="op">)</span> <span class="op">&amp;&amp;</span> count_non_wall<span class="op">(</span>p<span class="op">,</span> b<span class="op">,</span> i<span class="op">)</span> <span class="op">&lt;=</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb29-226"><a href="#cb29-226"></a>            <span class="cf">return</span> true<span class="op">;</span></span>
+<span id="cb29-227"><a href="#cb29-227"></a>    <span class="op">}</span></span>
+<span id="cb29-228"><a href="#cb29-228"></a>    <span class="cf">return</span> false<span class="op">;</span></span>
+<span id="cb29-229"><a href="#cb29-229"></a><span class="op">}</span></span>
+<span id="cb29-230"><a href="#cb29-230"></a></span>
+<span id="cb29-231"><a href="#cb29-231"></a><span class="dt">bool</span> test_trapped_monster<span class="op">(</span>problem <span class="op">*</span>p<span class="op">,</span> board b<span class="op">)</span></span>
+<span id="cb29-232"><a href="#cb29-232"></a><span class="op">{</span></span>
+<span id="cb29-233"><a href="#cb29-233"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">64</span><span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb29-234"><a href="#cb29-234"></a>        <span class="cf">if</span> <span class="op">(</span>monster<span class="op">(</span>p<span class="op">,</span>i<span class="op">)</span> <span class="op">&amp;&amp;</span> count_non_wall<span class="op">(</span>p<span class="op">,</span> b<span class="op">,</span> i<span class="op">)</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb29-235"><a href="#cb29-235"></a>            <span class="cf">return</span> true<span class="op">;</span></span>
+<span id="cb29-236"><a href="#cb29-236"></a>    <span class="cf">return</span> false<span class="op">;</span></span>
+<span id="cb29-237"><a href="#cb29-237"></a><span class="op">}</span></span>
+<span id="cb29-238"><a href="#cb29-238"></a></span>
+<span id="cb29-239"><a href="#cb29-239"></a><span class="dt">bool</span> test_deadends<span class="op">(</span>problem <span class="op">*</span>p<span class="op">,</span> board b<span class="op">)</span></span>
+<span id="cb29-240"><a href="#cb29-240"></a><span class="op">{</span></span>
+<span id="cb29-241"><a href="#cb29-241"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">64</span><span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb29-242"><a href="#cb29-242"></a>    <span class="op">{</span></span>
+<span id="cb29-243"><a href="#cb29-243"></a>        <span class="co">// Empty cell must not be a dead-end</span></span>
+<span id="cb29-244"><a href="#cb29-244"></a>        <span class="cf">if</span> <span class="op">(</span>empty<span class="op">(</span>p<span class="op">,</span>b<span class="op">,</span>i<span class="op">)</span> <span class="op">&amp;&amp;</span> count_non_wall<span class="op">(</span>p<span class="op">,</span> b<span class="op">,</span> i<span class="op">)</span> <span class="op">&lt;=</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb29-245"><a href="#cb29-245"></a>            <span class="cf">return</span> true<span class="op">;</span></span>
+<span id="cb29-246"><a href="#cb29-246"></a>        <span class="co">// Monsters must be a dead-end</span></span>
+<span id="cb29-247"><a href="#cb29-247"></a>        <span class="cf">if</span> <span class="op">(</span>monster<span class="op">(</span>p<span class="op">,</span>i<span class="op">)</span> <span class="op">&amp;&amp;</span> count_non_wall<span class="op">(</span>p<span class="op">,</span> b<span class="op">,</span> i<span class="op">)</span> <span class="op">!=</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb29-248"><a href="#cb29-248"></a>            <span class="cf">return</span> true<span class="op">;</span></span>
+<span id="cb29-249"><a href="#cb29-249"></a>    <span class="op">}</span></span>
+<span id="cb29-250"><a href="#cb29-250"></a></span>
+<span id="cb29-251"><a href="#cb29-251"></a>    <span class="cf">return</span> false<span class="op">;</span></span>
+<span id="cb29-252"><a href="#cb29-252"></a><span class="op">}</span></span>
+<span id="cb29-253"><a href="#cb29-253"></a></span>
+<span id="cb29-254"><a href="#cb29-254"></a><span class="dt">bool</span> test_treasure_rooms<span class="op">(</span>problem <span class="op">*</span>p<span class="op">,</span> board <span class="op">*</span>b<span class="op">)</span></span>
+<span id="cb29-255"><a href="#cb29-255"></a><span class="op">{</span></span>
+<span id="cb29-256"><a href="#cb29-256"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">64</span><span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb29-257"><a href="#cb29-257"></a>    <span class="op">{</span></span>
+<span id="cb29-258"><a href="#cb29-258"></a>        <span class="cf">if</span><span class="op">(</span>treasure<span class="op">(</span>p<span class="op">,</span>i<span class="op">))</span></span>
+<span id="cb29-259"><a href="#cb29-259"></a>        <span class="op">{</span></span>
+<span id="cb29-260"><a href="#cb29-260"></a>            <span class="dt">int</span> x <span class="op">=</span> i <span class="op">%</span> <span class="dv">8</span><span class="op">;</span></span>
+<span id="cb29-261"><a href="#cb29-261"></a>            <span class="dt">int</span> y <span class="op">=</span> i <span class="op">/</span> <span class="dv">8</span><span class="op">;</span></span>
+<span id="cb29-262"><a href="#cb29-262"></a>            <span class="dt">int</span> minx <span class="op">=</span> x <span class="op">-</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb29-263"><a href="#cb29-263"></a>            <span class="cf">if</span> <span class="op">(</span>minx <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span> minx <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb29-264"><a href="#cb29-264"></a>            <span class="dt">int</span> miny <span class="op">=</span> y <span class="op">-</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb29-265"><a href="#cb29-265"></a>            <span class="cf">if</span> <span class="op">(</span>miny <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span> miny <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb29-266"><a href="#cb29-266"></a>            <span class="co">// starting point of the treasure room</span></span>
+<span id="cb29-267"><a href="#cb29-267"></a>            <span class="co">//    xxx</span></span>
+<span id="cb29-268"><a href="#cb29-268"></a>            <span class="co">//    xTx</span></span>
+<span id="cb29-269"><a href="#cb29-269"></a>            <span class="co">//    xxx</span></span>
+<span id="cb29-270"><a href="#cb29-270"></a>            <span class="dt">bool</span> found <span class="op">=</span> false<span class="op">;</span></span>
+<span id="cb29-271"><a href="#cb29-271"></a>            <span class="dt">uint64_t</span> room <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> </span>
+<span id="cb29-272"><a href="#cb29-272"></a>            <span class="dt">int</span> sx<span class="op">,</span> sy<span class="op">;</span></span>
+<span id="cb29-273"><a href="#cb29-273"></a></span>
+<span id="cb29-274"><a href="#cb29-274"></a>            <span class="cf">for</span><span class="op">(</span>sy <span class="op">=</span> miny<span class="op">;</span> sy <span class="op">&lt;=</span> y<span class="op">;</span> sy<span class="op">++)</span></span>
+<span id="cb29-275"><a href="#cb29-275"></a>            <span class="op">{</span></span>
+<span id="cb29-276"><a href="#cb29-276"></a>                <span class="cf">for</span><span class="op">(</span>sx <span class="op">=</span> minx<span class="op">;</span> sx <span class="op">&lt;=</span> x<span class="op">;</span> sx<span class="op">++)</span></span>
+<span id="cb29-277"><a href="#cb29-277"></a>                <span class="op">{</span></span>
+<span id="cb29-278"><a href="#cb29-278"></a>                    room <span class="op">=</span> <span class="op">(</span><span class="dt">uint64_t</span><span class="op">)</span><span class="bn">0x070707</span>  <span class="op">&lt;&lt;</span> <span class="op">(</span>sx <span class="op">+</span> <span class="dv">8</span><span class="op">*</span>sy<span class="op">);</span></span>
+<span id="cb29-279"><a href="#cb29-279"></a>                    <span class="cf">if</span> <span class="op">(</span>popcount<span class="op">(~(*</span>b<span class="op">)</span> <span class="op">&amp;</span> room<span class="op">)</span> <span class="op">==</span> <span class="dv">9</span><span class="op">)</span></span>
+<span id="cb29-280"><a href="#cb29-280"></a>                    <span class="op">{</span></span>
+<span id="cb29-281"><a href="#cb29-281"></a>                        found <span class="op">=</span> true<span class="op">;</span></span>
+<span id="cb29-282"><a href="#cb29-282"></a>                        <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb29-283"><a href="#cb29-283"></a>                    <span class="op">}</span></span>
+<span id="cb29-284"><a href="#cb29-284"></a>                <span class="op">}</span></span>
+<span id="cb29-285"><a href="#cb29-285"></a>                <span class="cf">if</span><span class="op">(</span>found<span class="op">)</span> <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb29-286"><a href="#cb29-286"></a>            <span class="op">}</span></span>
+<span id="cb29-287"><a href="#cb29-287"></a></span>
+<span id="cb29-288"><a href="#cb29-288"></a>            <span class="cf">if</span> <span class="op">(!</span>found<span class="op">)</span> <span class="cf">return</span> true<span class="op">;</span></span>
+<span id="cb29-289"><a href="#cb29-289"></a>            <span class="dt">uint64_t</span> border <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb29-290"><a href="#cb29-290"></a>            <span class="cf">if</span> <span class="op">(</span>sy <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb29-291"><a href="#cb29-291"></a>                border <span class="op">|=</span> <span class="op">(</span><span class="dt">uint64_t</span><span class="op">)</span><span class="bn">0x07</span> <span class="op">&lt;&lt;</span> <span class="op">(</span>sx<span class="op">+</span><span class="dv">8</span><span class="op">*(</span>sy<span class="op">-</span><span class="dv">1</span><span class="op">));</span></span>
+<span id="cb29-292"><a href="#cb29-292"></a>            <span class="cf">if</span> <span class="op">(</span>sy<span class="op">+</span><span class="dv">2</span> <span class="op">&lt;</span> <span class="dv">7</span><span class="op">)</span></span>
+<span id="cb29-293"><a href="#cb29-293"></a>                border <span class="op">|=</span> <span class="op">(</span><span class="dt">uint64_t</span><span class="op">)</span><span class="bn">0x07</span> <span class="op">&lt;&lt;</span> <span class="op">(</span>sx<span class="op">+</span><span class="dv">8</span><span class="op">*(</span>sy<span class="op">+</span><span class="dv">3</span><span class="op">));</span></span>
+<span id="cb29-294"><a href="#cb29-294"></a>            <span class="cf">if</span> <span class="op">(</span>sx <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb29-295"><a href="#cb29-295"></a>                border <span class="op">|=</span> <span class="op">(</span><span class="dt">uint64_t</span><span class="op">)</span><span class="bn">0x010101</span> <span class="op">&lt;&lt;</span> <span class="op">(</span>sx<span class="op">-</span><span class="dv">1</span><span class="op">+</span><span class="dv">8</span><span class="op">*</span>sy<span class="op">);</span></span>
+<span id="cb29-296"><a href="#cb29-296"></a>            <span class="cf">if</span> <span class="op">(</span>sx<span class="op">+</span><span class="dv">2</span> <span class="op">&lt;</span> <span class="dv">7</span><span class="op">)</span></span>
+<span id="cb29-297"><a href="#cb29-297"></a>                border <span class="op">|=</span> <span class="op">(</span><span class="dt">uint64_t</span><span class="op">)</span><span class="bn">0x010101</span> <span class="op">&lt;&lt;</span> <span class="op">(</span>sx<span class="op">+</span><span class="dv">3</span><span class="op">+</span><span class="dv">8</span><span class="op">*</span>sy<span class="op">);</span></span>
+<span id="cb29-298"><a href="#cb29-298"></a></span>
+<span id="cb29-299"><a href="#cb29-299"></a>            <span class="dt">int</span> exit <span class="op">=</span> popcount<span class="op">(~(*</span>b<span class="op">)</span> <span class="op">&amp;</span> border<span class="op">);</span></span>
+<span id="cb29-300"><a href="#cb29-300"></a>            <span class="cf">if</span> <span class="op">(</span>exit <span class="op">!=</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb29-301"><a href="#cb29-301"></a>                <span class="cf">return</span> true<span class="op">;</span></span>
+<span id="cb29-302"><a href="#cb29-302"></a></span>
+<span id="cb29-303"><a href="#cb29-303"></a>            <span class="op">*</span>b <span class="op">=</span> <span class="op">*</span>b <span class="op">|</span> room<span class="op">;</span></span>
+<span id="cb29-304"><a href="#cb29-304"></a>        <span class="op">}</span></span>
+<span id="cb29-305"><a href="#cb29-305"></a>    <span class="op">}</span></span>
+<span id="cb29-306"><a href="#cb29-306"></a></span>
+<span id="cb29-307"><a href="#cb29-307"></a>    <span class="cf">return</span> false<span class="op">;</span></span>
+<span id="cb29-308"><a href="#cb29-308"></a><span class="op">}</span></span>
+<span id="cb29-309"><a href="#cb29-309"></a></span>
+<span id="cb29-310"><a href="#cb29-310"></a><span class="dt">bool</span> test_empty_squares<span class="op">(</span>problem <span class="op">*</span>p<span class="op">,</span> board b<span class="op">)</span></span>
+<span id="cb29-311"><a href="#cb29-311"></a><span class="op">{</span></span>
+<span id="cb29-312"><a href="#cb29-312"></a>    <span class="dt">uint64_t</span> mask_square <span class="op">=</span> <span class="bn">0x0303</span><span class="op">;</span></span>
+<span id="cb29-313"><a href="#cb29-313"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">7</span><span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb29-314"><a href="#cb29-314"></a>    <span class="op">{</span></span>
+<span id="cb29-315"><a href="#cb29-315"></a>        <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> <span class="dv">7</span><span class="op">;</span> j<span class="op">++)</span></span>
+<span id="cb29-316"><a href="#cb29-316"></a>        <span class="op">{</span></span>
+<span id="cb29-317"><a href="#cb29-317"></a>            <span class="cf">if</span><span class="op">((</span>b <span class="op">&amp;</span> mask_square<span class="op">)</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb29-318"><a href="#cb29-318"></a>                <span class="cf">return</span> true<span class="op">;</span></span>
+<span id="cb29-319"><a href="#cb29-319"></a>            mask_square <span class="op">*=</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb29-320"><a href="#cb29-320"></a>        <span class="op">}</span></span>
+<span id="cb29-321"><a href="#cb29-321"></a>        mask_square <span class="op">*=</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb29-322"><a href="#cb29-322"></a>    <span class="op">}</span></span>
+<span id="cb29-323"><a href="#cb29-323"></a></span>
+<span id="cb29-324"><a href="#cb29-324"></a>    <span class="cf">return</span> false<span class="op">;</span></span>
+<span id="cb29-325"><a href="#cb29-325"></a><span class="op">}</span></span>
+<span id="cb29-326"><a href="#cb29-326"></a></span>
+<span id="cb29-327"><a href="#cb29-327"></a><span class="dt">void</span> solve<span class="op">(</span>problem <span class="op">*</span>p<span class="op">,</span> <span class="dt">int</span> row<span class="op">,</span> board b<span class="op">)</span></span>
+<span id="cb29-328"><a href="#cb29-328"></a><span class="op">{</span></span>
+<span id="cb29-329"><a href="#cb29-329"></a>    <span class="co">// Unsolvable from this board</span></span>
+<span id="cb29-330"><a href="#cb29-330"></a>    <span class="cf">if</span> <span class="op">(</span>test_columns_overload<span class="op">(</span>p<span class="op">,</span> b<span class="op">))</span></span>
+<span id="cb29-331"><a href="#cb29-331"></a>        <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb29-332"><a href="#cb29-332"></a>    <span class="cf">if</span> <span class="op">(</span>test_no_deadend_upto_row<span class="op">(</span>p<span class="op">,</span> b<span class="op">,</span> row<span class="op">))</span></span>
+<span id="cb29-333"><a href="#cb29-333"></a>        <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb29-334"><a href="#cb29-334"></a>    <span class="cf">if</span> <span class="op">(</span>test_trapped_monster<span class="op">(</span>p<span class="op">,</span> b<span class="op">))</span></span>
+<span id="cb29-335"><a href="#cb29-335"></a>        <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb29-336"><a href="#cb29-336"></a></span>
+<span id="cb29-337"><a href="#cb29-337"></a>    <span class="co">// Board is filled</span></span>
+<span id="cb29-338"><a href="#cb29-338"></a>    <span class="cf">if</span><span class="op">(</span>row <span class="op">==</span> <span class="dv">8</span><span class="op">)</span></span>
+<span id="cb29-339"><a href="#cb29-339"></a>    <span class="op">{</span></span>
+<span id="cb29-340"><a href="#cb29-340"></a>        <span class="co">// Validate columns count</span></span>
+<span id="cb29-341"><a href="#cb29-341"></a>        <span class="cf">if</span> <span class="op">(</span>test_columns_underload<span class="op">(</span>p<span class="op">,</span> b<span class="op">))</span></span>
+<span id="cb29-342"><a href="#cb29-342"></a>            <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb29-343"><a href="#cb29-343"></a></span>
+<span id="cb29-344"><a href="#cb29-344"></a>        <span class="co">// Full board with monsters</span></span>
+<span id="cb29-345"><a href="#cb29-345"></a>        board fb <span class="op">=</span> b <span class="op">|</span> p<span class="op">-&gt;</span>monsters<span class="op">;</span></span>
+<span id="cb29-346"><a href="#cb29-346"></a></span>
+<span id="cb29-347"><a href="#cb29-347"></a>        <span class="cf">if</span> <span class="op">(</span>test_treasure_rooms<span class="op">(</span>p<span class="op">,</span> <span class="op">&amp;</span>fb<span class="op">))</span></span>
+<span id="cb29-348"><a href="#cb29-348"></a>            <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb29-349"><a href="#cb29-349"></a>        <span class="co">// Every treasure room is now filled in fb</span></span>
+<span id="cb29-350"><a href="#cb29-350"></a></span>
+<span id="cb29-351"><a href="#cb29-351"></a>        <span class="cf">if</span> <span class="op">(</span>test_empty_squares<span class="op">(</span>p<span class="op">,</span> fb<span class="op">))</span></span>
+<span id="cb29-352"><a href="#cb29-352"></a>            <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb29-353"><a href="#cb29-353"></a></span>
+<span id="cb29-354"><a href="#cb29-354"></a>        printf<span class="op">(</span><span class="st">&quot;Solution %lx</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> b<span class="op">);</span> </span>
+<span id="cb29-355"><a href="#cb29-355"></a>        print_board<span class="op">(</span>p<span class="op">,</span> b<span class="op">);</span></span>
+<span id="cb29-356"><a href="#cb29-356"></a></span>
+<span id="cb29-357"><a href="#cb29-357"></a>        <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb29-358"><a href="#cb29-358"></a>    <span class="op">}</span></span>
+<span id="cb29-359"><a href="#cb29-359"></a></span>
+<span id="cb29-360"><a href="#cb29-360"></a>    <span class="co">/*</span></span>
+<span id="cb29-361"><a href="#cb29-361"></a><span class="co">    // Slower because of branching </span></span>
+<span id="cb29-362"><a href="#cb29-362"></a><span class="co">    for(int i = 0; i &lt; 256; i++)</span></span>
+<span id="cb29-363"><a href="#cb29-363"></a><span class="co">        if (enum_popcount_byte[i] == p-&gt;rows[row])</span></span>
+<span id="cb29-364"><a href="#cb29-364"></a><span class="co">        {</span></span>
+<span id="cb29-365"><a href="#cb29-365"></a><span class="co">        uint64_t move = (uint64_t)i &lt;&lt; (8*row);</span></span>
+<span id="cb29-366"><a href="#cb29-366"></a></span>
+<span id="cb29-367"><a href="#cb29-367"></a><span class="co">        // ensure there&#39;s no overlap with walls/monsters/treasures</span></span>
+<span id="cb29-368"><a href="#cb29-368"></a><span class="co">        if ((move &amp; (p-&gt;monsters | p-&gt;treasures)) != 0)</span></span>
+<span id="cb29-369"><a href="#cb29-369"></a><span class="co">            continue;</span></span>
+<span id="cb29-370"><a href="#cb29-370"></a></span>
+<span id="cb29-371"><a href="#cb29-371"></a><span class="co">        solve(p, row+1, b + move);</span></span>
+<span id="cb29-372"><a href="#cb29-372"></a></span>
+<span id="cb29-373"><a href="#cb29-373"></a><span class="co">        }</span></span>
+<span id="cb29-374"><a href="#cb29-374"></a><span class="co">    */</span></span>
+<span id="cb29-375"><a href="#cb29-375"></a></span>
+<span id="cb29-376"><a href="#cb29-376"></a>    <span class="dt">int</span> tgt <span class="op">=</span> p<span class="op">-&gt;</span>rows<span class="op">[</span>row<span class="op">];</span></span>
+<span id="cb29-377"><a href="#cb29-377"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> v <span class="op">=</span> enum_byte_idx<span class="op">[</span>tgt<span class="op">];</span> v <span class="op">&lt;</span> enum_byte_idx<span class="op">[</span>tgt<span class="op">+</span><span class="dv">1</span><span class="op">];</span> v<span class="op">++)</span></span>
+<span id="cb29-378"><a href="#cb29-378"></a>    <span class="op">{</span></span>
+<span id="cb29-379"><a href="#cb29-379"></a>        <span class="dt">uint64_t</span> move <span class="op">=</span> <span class="op">(</span><span class="dt">uint64_t</span><span class="op">)</span>enum_byte<span class="op">[</span>v<span class="op">]</span> <span class="op">&lt;&lt;</span> <span class="op">(</span><span class="dv">8</span><span class="op">*</span>row<span class="op">);</span></span>
+<span id="cb29-380"><a href="#cb29-380"></a></span>
+<span id="cb29-381"><a href="#cb29-381"></a>        <span class="co">// ensure there&#39;s no overlap with walls/monsters/treasures</span></span>
+<span id="cb29-382"><a href="#cb29-382"></a>        <span class="cf">if</span> <span class="op">((</span>move <span class="op">&amp;</span> <span class="op">(</span>p<span class="op">-&gt;</span>monsters <span class="op">|</span> p<span class="op">-&gt;</span>treasures<span class="op">))</span> <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb29-383"><a href="#cb29-383"></a>            <span class="cf">continue</span><span class="op">;</span></span>
+<span id="cb29-384"><a href="#cb29-384"></a></span>
+<span id="cb29-385"><a href="#cb29-385"></a>        solve<span class="op">(</span>p<span class="op">,</span> row<span class="op">+</span><span class="dv">1</span><span class="op">,</span> b <span class="op">+</span> move<span class="op">);</span></span>
+<span id="cb29-386"><a href="#cb29-386"></a>    <span class="op">}</span></span>
+<span id="cb29-387"><a href="#cb29-387"></a><span class="op">}</span></span>
+<span id="cb29-388"><a href="#cb29-388"></a></span>
+<span id="cb29-389"><a href="#cb29-389"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span></span>
+<span id="cb29-390"><a href="#cb29-390"></a><span class="op">{</span></span>
+<span id="cb29-391"><a href="#cb29-391"></a>    <span class="co">/*</span></span>
+<span id="cb29-392"><a href="#cb29-392"></a><span class="co">    map monsters = {</span></span>
+<span id="cb29-393"><a href="#cb29-393"></a><span class="co">        0, 0, 1, 0, 1, 0, 0, 0,</span></span>
+<span id="cb29-394"><a href="#cb29-394"></a><span class="co">        0, 0, 0, 0, 0, 0, 0, 0,</span></span>
+<span id="cb29-395"><a href="#cb29-395"></a><span class="co">        0, 0, 0, 0, 0, 0, 0, 1,</span></span>
+<span id="cb29-396"><a href="#cb29-396"></a><span class="co">        1, 0, 0, 0, 0, 0, 0, 0,</span></span>
+<span id="cb29-397"><a href="#cb29-397"></a><span class="co">        0, 0, 0, 0, 0, 0, 0, 1,</span></span>
+<span id="cb29-398"><a href="#cb29-398"></a><span class="co">        1, 0, 0, 0, 0, 0, 0, 0,</span></span>
+<span id="cb29-399"><a href="#cb29-399"></a><span class="co">        0, 0, 0, 0, 0, 0, 0, 0,</span></span>
+<span id="cb29-400"><a href="#cb29-400"></a><span class="co">        0, 0, 0, 1, 0, 1, 0, 0,</span></span>
+<span id="cb29-401"><a href="#cb29-401"></a><span class="co">    };</span></span>
+<span id="cb29-402"><a href="#cb29-402"></a><span class="co">    */</span></span>
+<span id="cb29-403"><a href="#cb29-403"></a></span>
+<span id="cb29-404"><a href="#cb29-404"></a>    map monsters <span class="op">=</span> <span class="op">{</span> <span class="op">[</span><span class="dv">5</span><span class="op">]</span> <span class="op">=</span> <span class="dv">1</span> <span class="op">};</span></span>
+<span id="cb29-405"><a href="#cb29-405"></a>    problem test <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb29-406"><a href="#cb29-406"></a>       <span class="op">.</span>rows <span class="op">=</span> <span class="op">{</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">6</span> <span class="op">},</span></span>
+<span id="cb29-407"><a href="#cb29-407"></a>       <span class="op">.</span>columns <span class="op">=</span> <span class="op">{</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">6</span> <span class="op">}</span></span>
+<span id="cb29-408"><a href="#cb29-408"></a>    <span class="op">};</span></span>
+<span id="cb29-409"><a href="#cb29-409"></a>    test<span class="op">.</span>monsters <span class="op">=</span> map_to_board<span class="op">(</span>monsters<span class="op">);</span></span>
+<span id="cb29-410"><a href="#cb29-410"></a>    </span>
+<span id="cb29-411"><a href="#cb29-411"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">256</span><span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb29-412"><a href="#cb29-412"></a>        enum_popcount_byte<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> popcount<span class="op">(</span>i<span class="op">);</span></span>
+<span id="cb29-413"><a href="#cb29-413"></a></span>
+<span id="cb29-414"><a href="#cb29-414"></a>    problem <span class="op">*</span>problems<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb29-415"><a href="#cb29-415"></a>        <span class="op">&amp;</span>p1<span class="op">,</span> <span class="op">&amp;</span>p2<span class="op">,</span> <span class="op">&amp;</span>p3<span class="op">,</span> </span>
+<span id="cb29-416"><a href="#cb29-416"></a>        <span class="op">&amp;</span>p4<span class="op">,</span> <span class="op">&amp;</span>p5<span class="op">,</span> <span class="op">&amp;</span>p6<span class="op">,</span> </span>
+<span id="cb29-417"><a href="#cb29-417"></a>        <span class="op">&amp;</span>p7<span class="op">,</span> <span class="op">&amp;</span>p8<span class="op">,</span> <span class="op">&amp;</span>p9</span>
+<span id="cb29-418"><a href="#cb29-418"></a>    <span class="op">};</span></span>
+<span id="cb29-419"><a href="#cb29-419"></a></span>
+<span id="cb29-420"><a href="#cb29-420"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">9</span><span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb29-421"><a href="#cb29-421"></a>    <span class="op">{</span></span>
+<span id="cb29-422"><a href="#cb29-422"></a>        printf<span class="op">(</span><span class="st">&quot;Solving problem %d</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> i<span class="op">);</span></span>
+<span id="cb29-423"><a href="#cb29-423"></a>        print_board<span class="op">(</span>problems<span class="op">[</span>i<span class="op">],</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb29-424"><a href="#cb29-424"></a>        solve<span class="op">(</span>problems<span class="op">[</span>i<span class="op">],</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb29-425"><a href="#cb29-425"></a>    <span class="op">}</span></span>
+<span id="cb29-426"><a href="#cb29-426"></a><span class="op">}</span></span></code></pre></div>
+<p></div></p>
 </div>
 <!-- </div> -->
 </div>

@@ -67,7 +67,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -80,7 +80,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -326,7 +326,10 @@ table td {
           <!-- <div class="masthead"> -->
 <div class="segment">
 <div class="ui container text">
-<p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Calcul propositionnel     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_programmation_imperative.jpg"> </div></p>
+<p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Calcul propositionnel     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_logique_calculprop.png"> </div></p>
+<p>Image :
+<a href="https://www.freepik.com/vectors/internet-network">Internet
+network vector created by rawpixel.com - www.freepik.com</a></p>
 <h1 data-number="1" id="sec:syntaxe"><span
 class="header-section-number">1</span> Syntaxe</h1>
 <h2 data-number="1.1" id="sec:variables-propositionnelles"><span
@@ -510,14 +513,14 @@ f&#39;]_v\)</span> en fonction de <span
 class="math inline">\([f]_v\)</span> et <span
 class="math inline">\([f&#39;]_v\)</span> selon la table suivante :</li>
 </ul>
-<table>
+<table style="width:97%;">
 <colgroup>
 <col style="width: 8%" />
 <col style="width: 9%" />
 <col style="width: 15%" />
 <col style="width: 17%" />
-<col style="width: 22%" />
-<col style="width: 25%" />
+<col style="width: 21%" />
+<col style="width: 24%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1404,7 +1407,7 @@ associé à une formule <span class="math inline">\(f\)</span>
 inductivement ainsi :</p>
 <ul>
 <li>si <span class="math inline">\(f\)</span> est sans variable, <span
-class="math inline">\(f \equiv top\)</span> ou <span
+class="math inline">\(f \equiv \top\)</span> ou <span
 class="math inline">\(\perp\)</span> et on renvoie une feuille avec
 cette valeur.</li>
 <li>sinon on considère une variable <span
@@ -1425,12 +1428,71 @@ class="math inline">\(\top\)</span>.</p>
 <p>On donne ici une implémentation rapide de cet algorithme :</p>
 <p><div class="ui segment code"></p>
 <div class="sourceCode" id="cb22"><pre
-class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb22-1"><a href="#cb22-1"></a>../../snippets/logique/quine.ml</span></code></pre></div>
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb22-1"><a href="#cb22-1"></a></span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="kw">type</span> formule = Et <span class="kw">of</span> formule * formule </span>
+<span id="cb22-3"><a href="#cb22-3"></a>   | Ou <span class="kw">of</span> formule * formule | Non <span class="kw">of</span> formule </span>
+<span id="cb22-4"><a href="#cb22-4"></a>   | Vrai | Faux | Var <span class="kw">of</span> <span class="dt">string</span></span>
+<span id="cb22-5"><a href="#cb22-5"></a></span>
+<span id="cb22-6"><a href="#cb22-6"></a><span class="kw">let</span> <span class="kw">rec</span> var f =</span>
+<span id="cb22-7"><a href="#cb22-7"></a>    <span class="kw">match</span> f <span class="kw">with</span></span>
+<span id="cb22-8"><a href="#cb22-8"></a>    | Ou(f1, f2)</span>
+<span id="cb22-9"><a href="#cb22-9"></a>    | Et(f1, f2) -&gt; var f1 @ var f2</span>
+<span id="cb22-10"><a href="#cb22-10"></a>    | Non f&#39; -&gt; var f&#39;</span>
+<span id="cb22-11"><a href="#cb22-11"></a>    | Var s -&gt; [s]</span>
+<span id="cb22-12"><a href="#cb22-12"></a>    | _ -&gt; []</span>
+<span id="cb22-13"><a href="#cb22-13"></a></span>
+<span id="cb22-14"><a href="#cb22-14"></a><span class="kw">let</span> <span class="kw">rec</span> subst f s v =</span>
+<span id="cb22-15"><a href="#cb22-15"></a>    <span class="kw">match</span> f <span class="kw">with</span></span>
+<span id="cb22-16"><a href="#cb22-16"></a>    | Ou(f1, f2) -&gt; Ou(subst f1 s v, subst f2 s v)</span>
+<span id="cb22-17"><a href="#cb22-17"></a>    | Et(f1, f2) -&gt; Et(subst f1 s v, subst f2 s v)</span>
+<span id="cb22-18"><a href="#cb22-18"></a>    | Non f&#39; -&gt; Non (subst f&#39; s v)</span>
+<span id="cb22-19"><a href="#cb22-19"></a>    | Var t <span class="kw">when</span> s = t -&gt; v</span>
+<span id="cb22-20"><a href="#cb22-20"></a>    | _ -&gt; f</span>
+<span id="cb22-21"><a href="#cb22-21"></a></span>
+<span id="cb22-22"><a href="#cb22-22"></a></span>
+<span id="cb22-23"><a href="#cb22-23"></a><span class="kw">let</span> <span class="kw">rec</span> simpl f =</span>
+<span id="cb22-24"><a href="#cb22-24"></a>    <span class="kw">match</span> f <span class="kw">with</span></span>
+<span id="cb22-25"><a href="#cb22-25"></a>    | Et(f1, f2) -&gt; <span class="kw">begin</span></span>
+<span id="cb22-26"><a href="#cb22-26"></a>            <span class="kw">match</span> simpl f1, simpl f2 <span class="kw">with</span></span>
+<span id="cb22-27"><a href="#cb22-27"></a>            | Vrai, f -&gt; f</span>
+<span id="cb22-28"><a href="#cb22-28"></a>            | f, Vrai -&gt; f</span>
+<span id="cb22-29"><a href="#cb22-29"></a>            | Faux, _ -&gt; Faux</span>
+<span id="cb22-30"><a href="#cb22-30"></a>            | _, Faux -&gt; Faux</span>
+<span id="cb22-31"><a href="#cb22-31"></a>            | f1&#39;, f2&#39; -&gt; Et(f1&#39;, f2&#39;)</span>
+<span id="cb22-32"><a href="#cb22-32"></a>            <span class="kw">end</span></span>
+<span id="cb22-33"><a href="#cb22-33"></a>    | Ou(f1, f2) -&gt; <span class="kw">begin</span></span>
+<span id="cb22-34"><a href="#cb22-34"></a>            <span class="kw">match</span> simpl f1, simpl f2 <span class="kw">with</span></span>
+<span id="cb22-35"><a href="#cb22-35"></a>            | Vrai, _ -&gt; Vrai</span>
+<span id="cb22-36"><a href="#cb22-36"></a>            | _, Vrai -&gt; Vrai</span>
+<span id="cb22-37"><a href="#cb22-37"></a>            | Faux, f -&gt; f</span>
+<span id="cb22-38"><a href="#cb22-38"></a>            | f, Faux -&gt; f</span>
+<span id="cb22-39"><a href="#cb22-39"></a>            | f1&#39;, f2&#39; -&gt; Ou(f1&#39;, f2&#39;)</span>
+<span id="cb22-40"><a href="#cb22-40"></a>             <span class="kw">end</span></span>
+<span id="cb22-41"><a href="#cb22-41"></a>    | Non f -&gt; <span class="kw">begin</span></span>
+<span id="cb22-42"><a href="#cb22-42"></a>        <span class="kw">match</span> simpl f <span class="kw">with</span></span>
+<span id="cb22-43"><a href="#cb22-43"></a>        | Vrai -&gt; Faux</span>
+<span id="cb22-44"><a href="#cb22-44"></a>        | Faux -&gt; Vrai</span>
+<span id="cb22-45"><a href="#cb22-45"></a>        | f&#39; -&gt; Non f&#39;</span>
+<span id="cb22-46"><a href="#cb22-46"></a>        <span class="kw">end</span></span>
+<span id="cb22-47"><a href="#cb22-47"></a>    | _ -&gt; f</span>
+<span id="cb22-48"><a href="#cb22-48"></a></span>
+<span id="cb22-49"><a href="#cb22-49"></a><span class="kw">type</span> quine_resultat = Valide | Invalide | Branchement <span class="kw">of</span> <span class="dt">string</span> * quine_resultat * quine_resultat</span>
+<span id="cb22-50"><a href="#cb22-50"></a></span>
+<span id="cb22-51"><a href="#cb22-51"></a><span class="kw">let</span> <span class="kw">rec</span> quine f =</span>
+<span id="cb22-52"><a href="#cb22-52"></a>    <span class="kw">match</span> simpl f <span class="kw">with</span></span>
+<span id="cb22-53"><a href="#cb22-53"></a>    | Vrai -&gt; Valide</span>
+<span id="cb22-54"><a href="#cb22-54"></a>    | Faux -&gt; Invalide</span>
+<span id="cb22-55"><a href="#cb22-55"></a>    | f&#39; -&gt; <span class="kw">let</span> s = <span class="dt">List</span>.hd (var f&#39;) <span class="kw">in</span></span>
+<span id="cb22-56"><a href="#cb22-56"></a>        Branchement(s, quine (subst f&#39; s Vrai), quine (subst f&#39; s Faux))</span>
+<span id="cb22-57"><a href="#cb22-57"></a></span>
+<span id="cb22-58"><a href="#cb22-58"></a><span class="kw">let</span> imp f1 f2 = Ou(Non f1, f2)</span>
+<span id="cb22-59"><a href="#cb22-59"></a></span>
+<span id="cb22-60"><a href="#cb22-60"></a><span class="kw">let</span> ex = imp (Et(Et(imp (Var <span class="st">&quot;s&quot;</span>) (Ou(Var <span class="st">&quot;b&quot;</span>, Var <span class="st">&quot;t&quot;</span>)), </span>
+<span id="cb22-61"><a href="#cb22-61"></a>    imp (Ou(Var <span class="st">&quot;b&quot;</span>, Var <span class="st">&quot;a&quot;</span>))  (Et(Var <span class="st">&quot;r&quot;</span>, Var <span class="st">&quot;m&quot;</span>))), Non (Var <span class="st">&quot;r&quot;</span>)))</span>
+<span id="cb22-62"><a href="#cb22-62"></a>    (imp (Var <span class="st">&quot;s&quot;</span>) (Var <span class="st">&quot;t&quot;</span>))</span>
+<span id="cb22-63"><a href="#cb22-63"></a></span>
+<span id="cb22-64"><a href="#cb22-64"></a><span class="kw">let</span> b = quine ex</span></code></pre></div>
 <p></div></p>
-<p><center><div class="ui image center"><img
-src="assets/pics/voisinages.png" /></div></center></p>
-<p><center><div class="ui image center"><img
-src="assets/pics/tab2hex.png" /></div></center></p>
 </div>
 <!-- </div> -->
 </div>

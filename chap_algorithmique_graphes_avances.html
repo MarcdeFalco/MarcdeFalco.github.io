@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="generator" content="pandoc">
+    <meta name="description" content="">
+    <meta name="author" content="Marc de Falco">
+
+    <title>Algorithmique avancée des graphes</title>
+
+    <link rel="stylesheet" type="text/css" href="assets/semantic.min.css">
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-PHZQE2FC4W"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-PHZQE2FC4W');
+	</script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="assets/semantic.min.js"></script>
+
+    <style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    </style>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+
+<script>
+$(document).ready(function() {
+    
+    $("#toc").sidebar("setting", "dimPage", false);
+    $("#toc").sidebar("setting", "delaySetup", true);
+
+   $('.ui.accordion').accordion();
+    if (matchMedia) {
+        var mq = window.matchMedia("(max-width: 900px)");
+        mq.addListener(big_or_small);
+        big_or_small(mq);
+    }
+
+    $("[href^='#']").click(
+        () => {
+            if (! $("#main").hasClass('shrink')) {
+	            $("#toc").sidebar("hide");
+            }
+        })
+
+    function big_or_small(mq) {
+        // The sidebar *pushes* the pusher, the main content, so we
+        // add a class that reduces the pusher's width so the edge
+        // content isn't cut off.
+        if (mq.matches) {
+	        $("#toc").sidebar("hide");
+            $("#main").removeClass("shrink")
+        } else {
+            $("#toc").sidebar("show");
+            $("#main").addClass("shrink");
+        }
+    }
+
+    $("#sidebar-menu-button").click(function() {
+        $("#toc").sidebar("show");
+    }).end();
+
+    $('.tabular.menu .item').tab({
+            context: 'parent'
+        });
+
+})
+
+function setLang(l) {
+    $('.tabular.menu .item').removeClass("active")
+    $('.tabular.menu .item[data-tab^="'+l+'"]').addClass("active")
+    $('.code').removeClass("active")
+    $('.code[data-tab^="'+l+'"]').addClass("active")
+}
+</script>
+
+  <style type="text/css">
+
+  .ui.sidebar {
+    font-size: 15px;
+  }
+
+  body {
+    background-color: #FFFFFF;
+    font-size: 20px;
+  }
+  .ui.segment {
+    font-size: 20px;
+  }
+  .wireframe {
+    //margin-top: 2em;
+  }
+  .ui.footer.segment {
+    //margin: 5em 0em 0em;
+    //padding: 5em 0em;
+  }
+  #top-menu {
+    display: none;
+    }
+
+    .message {
+        color: #000 !important;
+    }
+
+.shrink {
+    width: 60%;
+}
+
+.code {
+    font-size: 0.8em !important;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 24px;
+    border-spacing: 0;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+}
+
+table tr {
+    display: table-row !important;
+}
+
+table th {
+    padding: 3px 10px;
+    background-color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid black;
+}
+table td {
+    padding: 3px 10px;
+    border-top: none;
+    border-left: none;
+    border-bottom: none;
+    border-right: none;
+}
+
+.ui.styled.accordion {
+    width: 100% !important;
+    font-size: 1rem !important;
+}
+
+  .menu .item {
+      padding: .5em 1em !important;
+  }
+
+@media only screen and (max-width: 900px) {
+    .ui.image, .ui.image img {
+        display: block;
+        //width: 100%;
+        width: auto;
+        height: auto;
+    }
+
+    #top-menu {
+        display: block !important;
+    }
+}
+  </style>
+
+  </head>
+  <body class="pushable class="pushable"">
+<div style="display: none;">
+\(
+\def\N{{\mathbb{N}}}
+\def\R{{\mathbb{R}}}
+\def\D{{\mathbb{D}}}
+\def\C{{\mathbb{C}}}
+\def\Z{{\mathbb{Z}}}
+\def\Q{{\mathbb{Q}}}
+\def\K{{\mathbb{K}}}
+\def\KX{{\mathbb{K}}[X]}
+\def\U{{\mathbb{U}}}
+\def\B{{\mathcal{B}}}
+\newcommand\ensfonctions[2]{\mathcal{F}(#1,#2)}
+\newcommand\classeck[3]{\mathcal{C}^{#1}(#2,#3)}
+\newcommand\range[2]{[| #1,#2 |]}
+\newcommand\mod[0]{\mathop{mod}}
+\newcommand\land[0]{\mathop{land}}
+\newcommand\matrices[3]{\mathcal{M}_{#1,#2}(#3)}
+\newcommand\matricescarres[2]{\mathcal{M}_{#1}(#2)}
+\newcommand\gln[2]{\mbox{GL}_{#1}(#2)}
+\newcommand\Support[1]{\mbox{Supp}(#1)}
+\newcommand\dom[0]{\mbox{dom}}
+\newcommand\uniondisjointe{\sqcup}
+\def\lt{<}
+\def\rR{\mathcal{R}}
+\newcommand\parties[1]{\mathcal{P}(#1)}
+\newcommand\entiere[1]{\left\lfloor #1 \right\rfloor}
+\newcommand\congru[3]{#1 = #2\ [#3]}
+\newcommand\enscomp[2]{\left\{\left.\ #1\ \right|\ #2\ \right\}}
+\newcommand\classe[1]{\overline{#1}}
+\newcommand\classemod[2]{\overline{#1}^{[#2]}}
+\newcommand\quotient[2]{#1 / #2}
+\newcommand\ZnZ[1]{\quotient{\Z}{#1 \Z}}
+\newcommand\card[1]{\text{Card}\ #1}
+\newcommand\indic{\mathbbm{1}}
+\newcommand\id{\mbox{id}}
+\newcommand\gO{\mathcal{O}}
+\newcommand\Perm[1]{\mathfrak{S}_#1}
+\newcommand\comb[2]{\binom{#1}{#2}}
+\newcommand\tend[2]{\xrightarrow[#1 \rightarrow #2]{}}
+\newcommand\limite[2]{\lim_{#1 \rightarrow #2}}
+\newcommand\application[5]{\begin{array}{rcccc}
+#1 & : & #2 & \mapsto & #3 \\ 
+& & #4 & \mapsto & #5
+\end{array}}
+\)
+</div>
+
+
+
+<div class="ui vertical inverted visible fixed sidebar menu" id="toc">
+    <div class="item">
+    <a href="/">
+        <i class="icon home"></i> Informatique en CPGE
+    </a>
+    </div>
+    <div class="item">
+        <div class="ui buttons compact">
+            <button onClick="setLang('ocaml')" class="ui button compact">OCaml</button>
+            <button onClick="setLang('c')" class="ui button compact">C</button>
+            <button onClick="setLang('python')" class="ui button compact">Python</button>
+        </div>
+        <div>Langage des exemples</div>
+    </div>
+    <div class="item">
+    <a href="#">
+        Algorithmique avancée des graphes
+    </a>
+    </div>
+<!-- FIX TOC -->
+<div class="item header"> <a href="#sec:arbre-couvrant-minimal"><span>1</span> Arbre couvrant minimal</a><div class="menu"><a class="item" href="#sec:présentation-du-problème"><div class="ui label">1.1</div> Présentation du problème</a><a class="item" href="#sec:algorithme-de-kruskal"><div class="ui label">1.2</div> Algorithme de Kruskal</a><a class="item" href="#sec:correction-de-lalgorithme-de-krusal"><div class="ui label">1.3</div> Correction de l’algorithme de Krusal</a><a class="item" href="#sec:complexité-de-lalgorithme-de-kruskal"><div class="ui label">1.4</div> Complexité de l’algorithme de Kruskal</a><a class="item" href="#sec:prim-todo"><div class="ui label">1.5</div> Prim ? TODO</a></div></div><div class="item header"> <a href="#sec:kosaraju-et-composantes-fortement-connexes"><span>2</span> Kosaraju et composantes fortement connexes</a><div class="menu"><a class="item" href="#sec:rappel-des-définitions"><div class="ui label">2.1</div> Rappel des définitions</a><a class="item" href="#sec:exemple"><div class="ui label">2.2</div> Exemple</a><a class="item" href="#sec:rappels-sur-le-parcours-en-profondeur"><div class="ui label">2.3</div> Rappels sur le parcours en profondeur</a><a class="item" href="#sec:graphe-miroir"><div class="ui label">2.4</div> Graphe miroir</a><a class="item" href="#sec:algorithme-de-kosaraju"><div class="ui label">2.5</div> Algorithme de Kosaraju</a></div></div><div class="item header"> <a href="#sec:couplage-maximal-dans-un-graphe-bipartite"><span>3</span> Couplage maximal dans un graphe bipartite</a><div class="menu"><a class="item" href="#sec:problème"><div class="ui label">3.1</div> Problème</a><a class="item" href="#sec:chemin-augmentant"><div class="ui label">3.2</div> Chemin augmentant</a><a class="item" href="#sec:déterminer-un-chemin-augmentant-dans-un-graphe-bipartite"><div class="ui label">3.3</div> Déterminer un chemin augmentant dans un graphe bipartite</a></div></div><div class="item header"> <a href="#sec:exercices"><span>4</span> Exercices</a><div class="menu"></div></div><!-- FIX TOC -->
+</div>
+
+<div class="pusher" id="main-content">
+    <div class="ui inverted top menu" id="top-menu">
+        <div class="ui container">
+	  <a class="launch icon item" id="sidebar-menu-button">
+	    <i class="angle double left icon"></i>
+	  </a>
+	  <div class="item">
+          Algorithmique avancée des graphes
+	  </div>
+        </div>
+      </div>
+      <div class="ui padded basic segment shrink" id="main">
+          <!-- <div class="masthead"> -->
+<div class="segment">
+<div class="ui container text">
+<p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Algorithmique avancée des graphes     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_algo_texte.jpg"> </div></p>
+<p>On présente ici trois algorithmes qui complètent les notions vue sen
+première année :</p>
+<ul>
+<li>le calcul d’un arbre couvrant de poids minimal dans un graphe
+pondéré</li>
+<li>le calcul des composantes fortement connexes dans un graphe
+orienté</li>
+<li>une notion de couplages maximale qui est un cas particulier d’un
+problème plus général de flot maximal</li>
+</ul>
+<h1 data-number="1" id="sec:arbre-couvrant-minimal"><span
+class="header-section-number">1</span> Arbre couvrant minimal</h1>
+<h2 data-number="1.1" id="sec:présentation-du-problème"><span
+class="header-section-number">1.1</span> Présentation du problème</h2>
+<p>Description informelle : on a un ensemble de maisons reliées par es
+routes, on cherche à poser des cables le long des routes pour que toute
+paire de maison soit connectée. Quelle est la longueur minimale de cable
+à utiliser ?</p>
+<p>On comprend assez vite qu’il faut que les cables forment un graphe
+connexe et que pour des questions de réduction de coût, on peut supposer
+que les graphes sont acycliques. On cherche donc un arbre qui couvre
+chaque maison dont la somme des poids des arrêtes, les longueurs des
+cables, est minimale.</p>
+<p><div class="ui message"><div class="header">Définition</div> Soit
+<span class="math inline">\(G = (S, A)\)</span> un graphe non orienté
+connexe on dit que <span class="math inline">\(T \subset A\)</span> est
+un arbre couvrant de <span class="math inline">\(G\)</span> lorsque
+:</p>
+<ul>
+<li><span class="math inline">\(\forall x \in S, \exists a \in T, x \in
+a\)</span> : chaque sommet appartient à au moins une arête dans <span
+class="math inline">\(T\)</span></li>
+<li><span class="math inline">\((S, T)\)</span> est un arbre,
+c’est-à-dire que c’est un sous-graphe acyclique et connexe</li>
+</ul>
+<p>On notera ici <span class="math inline">\(\mathcal{T}(G)\)</span>
+l’ensemble des arbres couvrants de <span
+class="math inline">\(G\)</span>. </div></p>
+<div class="ui message blue">
+<div class="header">
+Exemple
+</div>
+<p>FIXME</p>
+</div>
+<p>Une manière naturelle d’obtenir un arbre couvrant est de faire un
+parcours quelconque ou de calculer les composantes connexes avec une
+structure union-find. Dans ce dernier cas, comme le graphe est connexe,
+on obtiendra directement un unique arbre dans la forêt qui est un arbre
+couvrant. C’est l’ordre de traitement des arêtes qui va aiguiller vers
+un arbre de <span class="math inline">\(\mathcal{T}(G)\)</span> ou un
+autre.</p>
+<p><div class="ui message"><div class="header">Définition</div> Soit
+<span class="math inline">\(G = (S, A, w)\)</span> un graphe non orienté
+connexe et pondéré par <span class="math inline">\(w : A \rightarrow
+\R\)</span>, on note <span class="math inline">\(w(T) = \sum_{a \in T}
+w(T)\)</span> le poids d’un arbre couvant de <span
+class="math inline">\(G\)</span>.</p>
+<p>Comme <span class="math inline">\(\mathcal{T}(G)\)</span> est fini,
+il existe, au moins, un arbre <span class="math inline">\(T_0\)</span>
+tel que <span class="math display">\[
+w(T_0) = \min_{T \in \mathcal{T}(G)} w(T)
+\]</span> On dit que <span class="math inline">\(T_0\)</span> est un
+<strong>arbre couvrant de poids minimal</strong>. </div></p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>En anglais, on parle de <em>minimum spanning tree</em>.</p>
+<p></div></p>
+<h2 data-number="1.2" id="sec:algorithme-de-kruskal"><span
+class="header-section-number">1.2</span> Algorithme de Kruskal</h2>
+<p>Pour calculer un arbre couvrant de poids minimal, on va considérer le
+calcul des composantes connexes avec une structure union-find mais en
+traitant les arêtes dans l’ordre croissant de leurs poids : c’est
+l’algorithme de Kruksal.</p>
+<div class="ui message gray">
+<div class="header">
+Algorithme - Kruskal
+</div>
+<div class="ui message gray">
+<div class="header">
+Entrée(s)
+</div>
+<p>Un graphe non orienté pondéré connexe <span class="math inline">\(G =
+(S, A, w)\)</span>.</p>
+</div>
+<ul>
+<li>Pour chaque <span class="math inline">\(x \in S\)</span>
+<ul>
+<li><code>makeset(x)</code></li>
+</ul></li>
+<li>On trie <span class="math inline">\(A\)</span> par ordre croissant
+de poids.</li>
+<li>Pour chaque <span class="math inline">\(\{x, y\} \in A\)</span> trié
+<ul>
+<li>Si <code>find(x)</code> <span class="math inline">\(\neq\)</span>
+<code>find(y)</code></li>
+<li>Alors <code>union(x,y)</code></li>
+</ul></li>
+<li>On renvoie l’unique arbre de la forêt.</li>
+</ul>
+</div>
+<h2 data-number="1.3" id="sec:correction-de-lalgorithme-de-krusal"><span
+class="header-section-number">1.3</span> Correction de l’algorithme de
+Krusal</h2>
+<p>On va montrer la correction d’une famille d’algorithme à laquelle
+Kruskal appartient.</p>
+<p><div class="ui message"><div class="header">Définition</div> On dit
+que <span class="math inline">\(T\)</span> est une forêt minimale de
+<span class="math inline">\(G\)</span> s’il existe <span
+class="math inline">\(T&#39;\)</span> arbre couvrant de poids minimal de
+<span class="math inline">\(G\)</span> tel que <span
+class="math inline">\(T \subset T&#39;\)</span>. </div></p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p><span class="math inline">\(\emptyset\)</span> est ainsi une forêt
+minimale.</p>
+<p></div></p>
+<p><div class="ui message"><div class="header">Définition</div> Soit
+<span class="math inline">\(T\)</span> une forêt minimale et <span
+class="math inline">\(a \in A\)</span>. On dit que <span
+class="math inline">\(a\)</span> est une arête <strong>sûre</strong> si
+<span class="math inline">\(T \cup \{ a\}\)</span> est encore une forêt
+minmale. </div></p>
+<div class="ui message olive">
+<div class="header">
+Lemme
+</div>
+<p>Soit <span class="math inline">\(T\)</span> une forêt minimale qui
+n’est pas un arbre couvrant, il existe une arête sûre <span
+class="math inline">\(a\)</span> telle que <span
+class="math inline">\(T\cup \{a\}\)</span> soit encore une forêt
+minimale.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> Comme <span
+class="math inline">\(T\)</span> est une forêt minimale, il existe <span
+class="math inline">\(T&#39;\)</span> arbre couvrant de poids minimal
+tel que <span class="math inline">\(T\subset T&#39;\)</span>. Comme
+<span class="math inline">\(T\)</span> lui-même n’est pas un arbre
+couvrant, il existe <span class="math inline">\(a \in T&#39; \backslash
+T\)</span>. Ona alors <span class="math inline">\(T \cup \{ a\} \subset
+T&#39;\)</span> donc <span class="math inline">\(a\)</span> est une
+arête sûre. </div> </div></p>
+<p>On en déduit un proto-algorithme de calcul d’un arbre couvrant de
+poids minimal :</p>
+<div class="ui message gray">
+<div class="header">
+Algorithme - ArbreMinQuelconque
+</div>
+<div class="ui message gray">
+<div class="header">
+Entrée(s)
+</div>
+<p>Un graphe non orienté pondéré connexe <span class="math inline">\(G =
+(S, A, w)\)</span>.</p>
+</div>
+<ul>
+<li>On pose <span class="math inline">\(T = \emptyset\)</span></li>
+<li>Tant que <span class="math inline">\(T\)</span> n’est pas un
+arbre-couvrant
+<ul>
+<li>Déterminer une arête sûre <span class="math inline">\(a \in
+E\)</span></li>
+<li><span class="math inline">\(T := T \cup \{ a\}\)</span></li>
+</ul></li>
+<li>Renvoyer <span class="math inline">\(T\)</span></li>
+</ul>
+</div>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p>Cet algorithme renvoie un arbre couvrant de poids minimal.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> Cet algorithme vérifie directement
+l’invariant suivant : <span class="math inline">\(T\)</span> est une
+forêt minimale. En effet, le choix d’une arête sûre permet de prolonger
+l’invariant.</p>
+<p>Cet algorithme termine car il n’existe qu’un nombre fini d’arêtes à
+ajouter et comme une arête sûre ne peut pas l’être une fois qu’on l’a
+rajoutée, on ne peut pas faire plus d’itérations que le nombre
+d’arêtes.</p>
+<p>L’algorithme renvoie donc un arbre couvrant de poids minimal.
+</div> </div></p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>Il s’agit d’un proto-algorithme car la partie critique est de
+déterminer une arête sûre et c’est la partie qui n’est pas explicitée
+pour le moment.</p>
+<p></div></p>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p>Si <span class="math inline">\(F\)</span> est une forêt minimale non
+couvrante et <span class="math inline">\(e\)</span> l’arête de plus
+petit poids reliant deux arbres de <span
+class="math inline">\(F\)</span>, alors <span
+class="math inline">\(e\)</span> est sûre pour <span
+class="math inline">\(F\)</span>.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> Comme <span
+class="math inline">\(F\)</span> est une forêt minimale, il existe <span
+class="math inline">\(T\)</span> arbre couvrant de poids minimal tel que
+<span class="math inline">\(F \subset T\)</span>.</p>
+<p>Soit <span class="math inline">\(e \in T\)</span>, auquel cas <span
+class="math inline">\(F \cup \{ e\} \subset T\)</span> est encore iune
+forêt minimale. Soit <span class="math inline">\(e \not \in T\)</span>
+et comme <span class="math inline">\(T\)</span> est un arbre, <span
+class="math inline">\(T \cup \{e \}\)</span> possède un cycle. On sait
+que <span class="math inline">\(F \cup \{e\}\)</span> est encore une
+forêt, donc ce cycle contient nécessairement une arête <span
+class="math inline">\(e&#39; \in T\backslash F\)</span>.</p>
+<p>Par minimalité, <span class="math inline">\(w(e&#39;) \ge
+w(e)\)</span>. Si on pose <span class="math inline">\(T&#39; = (T
+\backslash \{ e&#39;\})\cup \{ e\}\)</span> alors <span
+class="math inline">\(T&#39;\)</span> est un arbre couvrant car comme
+l’ajout de <span class="math inline">\(e\)</span> à <span
+class="math inline">\(T\)</span> induit un cycle contenant <span
+class="math inline">\(e&#39;\)</span>, les deux sommets de <span
+class="math inline">\(e&#39;\)</span> sont couverts par des arêtes dans
+ce cycle prive de <span class="math inline">\(e&#39;\)</span>. On en
+déduit de même que <span class="math inline">\(T&#39;\)</span> est
+connexe.</p>
+<p><span class="math inline">\(T&#39;\)</span> est nécessairement
+acyclique car on a cassé le seul cycle contenu dans <span
+class="math inline">\(T \cup \{ e\}\)</span> en enlevant <span
+class="math inline">\(e&#39;\)</span>.</p>
+<p>Reste que <span class="math inline">\(w(T&#39;) = w(T) - w(e&#39;)
++w(e) \le w(T)\)</span> donc <span class="math inline">\(T&#39;\)</span>
+est un arbre couvrant de poids minimal.</p>
+<p>Ainsi <span class="math inline">\(F \cup \{ e \} \subset
+T&#39;\)</span> est une forêt minimale et <span
+class="math inline">\(e\)</span> est sûre. </div> </div></p>
+<p>Comme <span class="math inline">\(\emptyset\)</span> est une forêt
+minimale, on vient de valider l’invariant pour Kruskal qui est que la
+forêt disjointe est une forêt minimale.</p>
+<div class="ui message olive">
+<div class="header">
+Corollaire
+</div>
+<p>Kruskal renvoie un arbre couvrant de poids minimal.</p>
+</div>
+<h2 data-number="1.4"
+id="sec:complexité-de-lalgorithme-de-kruskal"><span
+class="header-section-number">1.4</span> Complexité de l’algorithme de
+Kruskal</h2>
+<p>On peut décomposer l’algorithme :</p>
+<ul>
+<li>La création avec <code>makeset</code> est en <span
+class="math inline">\(O(|S|)\)</span></li>
+<li>Le tri des arêtes est en <span class="math inline">\(O(|A| \log
+|A|)\)</span>.</li>
+<li>La boucle est en <span class="math inline">\(O(|A|
+\alpha(|S|))\)</span> avec <span class="math inline">\(\alpha(|S|) =
+o(\log |A|)\)</span></li>
+</ul>
+<p>Comme <span class="math inline">\(G\)</span> est connexe, on a <span
+class="math inline">\(|A| \ge |S|-1\)</span> et ainsi <span
+class="math inline">\(|S| = O(|A|)\)</span>. Ainsi la complexité global
+est en <span class="math inline">\(O(|A|\log |A|)\)</span>.</p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>Kruskal fait partie de ces algorithmes qui sont linéaires après avoir
+fait un tri. C’est un cas que l’on a déjà vu avec les algorithmes
+gloutons. D’ailleurs, on peut dire que Kruskal est un choix glouton
+d’arête sûre.</p>
+<p></div></p>
+<h2 data-number="1.5" id="sec:prim-todo"><span
+class="header-section-number">1.5</span> Prim ? TODO</h2>
+<h1 data-number="2"
+id="sec:kosaraju-et-composantes-fortement-connexes"><span
+class="header-section-number">2</span> Kosaraju et composantes fortement
+connexes</h1>
+<h2 data-number="2.1" id="sec:rappel-des-définitions"><span
+class="header-section-number">2.1</span> Rappel des définitions</h2>
+<p>Soit <span class="math inline">\(G = (S,A)\)</span> un graphe
+<strong>orienté</strong> on note, pour <span class="math inline">\(x, y
+\in S\)</span>, <span class="math inline">\(x\leadsto y\)</span> quand
+il existe un chemin dans <span class="math inline">\(G\)</span> reliant
+<span class="math inline">\(x\)</span> à <span
+class="math inline">\(y\)</span>. On dit que <span
+class="math inline">\(y\)</span> est <em>accessible</em> depuis <span
+class="math inline">\(x\)</span>.</p>
+<p>On note <span class="math inline">\(x \leftrightarrow y \iff
+x\leadsto y \wedge y \leadsto x\)</span>. C’est la restriction
+symétrique de <span class="math inline">\(\leadsto\)</span>. Comme <span
+class="math inline">\(\leadsto\)</span> est réflexive et transitive,
+alors <span class="math inline">\(\leftrightarrow\)</span> est une
+relation d’équivalence. Les classes d’équivalences pour <span
+class="math inline">\(\leftrightarrow\)</span> sont appelées les
+<strong>composantes fortement connexes</strong> de <span
+class="math inline">\(G\)</span>. On les note <span
+class="math inline">\(CFC(G) = S / \leftrightarrow\)</span>.</p>
+<p>Par exemple, sur le graphe :</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/cfc_ex1.png" /></div></center></p>
+<p>On a les deux composantes fortement connexes <span
+class="math inline">\(\{a,b,c\}\)</span> et <span
+class="math inline">\(\{d,e\}\)</span>.</p>
+<p>On remarque une différence fondamentale avec les composantes
+connexes, c’est qu’il peut il y avoir des arrêtes entre deux composantes
+fortement connexes.</p>
+<p>On cherche ici à déterminer un algorithme pour calculer les
+composanges fortement connexes d’un graphe.</p>
+<h2 data-number="2.2" id="sec:exemple"><span
+class="header-section-number">2.2</span> Exemple</h2>
+<p>TODO voir cours</p>
+<h2 data-number="2.3"
+id="sec:rappels-sur-le-parcours-en-profondeur"><span
+class="header-section-number">2.3</span> Rappels sur le parcours en
+profondeur</h2>
+<p>Comme on vient de le voir, le parcours en profondeur et ses temps
+d’entrée et de sorties sont très importants ici. On va donc faire des
+rappels sur ces notions.</p>
+<p>On considère le programme suivant :</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">type</span> statut = Inconnu | EnTraitement | Traite</span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">type</span> etat_dfs = {</span>
+<span id="cb1-4"><a href="#cb1-4"></a>    statut : statut <span class="dt">array</span>;</span>
+<span id="cb1-5"><a href="#cb1-5"></a>    <span class="kw">mutable</span> clock : <span class="dt">int</span>;</span>
+<span id="cb1-6"><a href="#cb1-6"></a>    entree : <span class="dt">int</span> <span class="dt">array</span>;</span>
+<span id="cb1-7"><a href="#cb1-7"></a>    sortie : <span class="dt">int</span> <span class="dt">array</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>}</span>
+<span id="cb1-9"><a href="#cb1-9"></a></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="kw">let</span> tick etat =</span>
+<span id="cb1-11"><a href="#cb1-11"></a>    <span class="kw">let</span> t = etat.clock <span class="kw">in</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>    etat.clock &lt;- t+<span class="dv">1</span>;</span>
+<span id="cb1-13"><a href="#cb1-13"></a>    t</span>
+<span id="cb1-14"><a href="#cb1-14"></a></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="kw">let</span> <span class="kw">rec</span> dfs ladj etat x =</span>
+<span id="cb1-16"><a href="#cb1-16"></a>    <span class="kw">if</span> etat.statut.(x) &lt;&gt; Traite</span>
+<span id="cb1-17"><a href="#cb1-17"></a>    <span class="kw">then</span> <span class="kw">begin</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a>        etat.statut.(x) &lt;- EnTraitement;</span>
+<span id="cb1-19"><a href="#cb1-19"></a>        etat.entree.(x) &lt;- tick etat;</span>
+<span id="cb1-20"><a href="#cb1-20"></a>        <span class="dt">List</span>.iter (<span class="kw">fun</span> y -&gt;</span>
+<span id="cb1-21"><a href="#cb1-21"></a>            <span class="kw">if</span> etat.statut.(y) = Inconnu</span>
+<span id="cb1-22"><a href="#cb1-22"></a>            <span class="kw">then</span> dfs ladj etat y) ladj.(x);</span>
+<span id="cb1-23"><a href="#cb1-23"></a>        etat.sortie.(x) &lt;- tick etat;</span>
+<span id="cb1-24"><a href="#cb1-24"></a>        etat.statut.(x) &lt;- Traite</span>
+<span id="cb1-25"><a href="#cb1-25"></a>    <span class="kw">end</span></span>
+<span id="cb1-26"><a href="#cb1-26"></a></span>
+<span id="cb1-27"><a href="#cb1-27"></a><span class="kw">let</span> initialise_dfs ladj =</span>
+<span id="cb1-28"><a href="#cb1-28"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length ladj <span class="kw">in</span></span>
+<span id="cb1-29"><a href="#cb1-29"></a>    {</span>
+<span id="cb1-30"><a href="#cb1-30"></a>        statut = <span class="dt">Array</span>.make n Inconnu;</span>
+<span id="cb1-31"><a href="#cb1-31"></a>        clock = <span class="dv">1</span>;</span>
+<span id="cb1-32"><a href="#cb1-32"></a>        entree = <span class="dt">Array</span>.make n <span class="dv">0</span>;</span>
+<span id="cb1-33"><a href="#cb1-33"></a>        sortie = <span class="dt">Array</span>.make n <span class="dv">0</span></span>
+<span id="cb1-34"><a href="#cb1-34"></a>    }</span></code></pre></div>
+<p></div></p>
+<p>Le temps d’entrée est le moment où commence à traiter un sommet et
+son temps de sortie est le moment où on a fini de le traiter car on a vu
+tous ses descendants. On notera ici <span
+class="math inline">\(t_e(x)\)</span> le temps d’entrée de <span
+class="math inline">\(x\)</span> et <span
+class="math inline">\(t_s(x)\)</span> son temps de sortie.</p>
+<p><div class="ui message"><div class="header">Définition</div> On
+considère un DFS d’un graphe <span class="math inline">\(G =
+(S,A)\)</span> et <span class="math inline">\(x \in S\)</span> découvert
+par ce parcours.</p>
+<p>Soit <span class="math inline">\(y \in S\)</span>, on dit que <span
+class="math inline">\(y\)</span> est accesible par un chemin inconnu
+depuis <span class="math inline">\(x\)</span> s’il existe un chemin de
+<span class="math inline">\(x\)</span> à <span
+class="math inline">\(y\)</span> ne passant que par des sommets de
+statut <code>Inconnu</code> au moment où on lance le DFS en <span
+class="math inline">\(x\)</span>. On note <span class="math inline">\(x
+\leadsto_I y\)</span>. </div></p>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p><span class="math inline">\(x \leadsto_I y\)</span> si et seulement
+si l’appel à DFS depuis <span class="math inline">\(x\)</span> va
+appeler DFS sur <span class="math inline">\(y\)</span> avant de se
+résoudre.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> * <span
+class="math inline">\(\Rightarrow\)</span>) : On va raisonner par
+récurrence sur la longueur du chemin inconnu.</p>
+<pre><code>* Initialisation : si le chemin inconnu est vide, c&#39;est direct.
+* Hérédité : si $x \leadsto_I z \rightarrow y$ avec $y$ inconnu et l&#39;hypothèse
+  de récurrence valide pour $x \leadsto_I z$ alors au moment
+  de l&#39;appel au DFS sur $z$, on va forcément faire un appel au DFS sur $y$,
+  voisin inconnu de $z$.</code></pre>
+<ul>
+<li><span class="math inline">\(\Leftarrow\)</span>) : si on considère
+la chaîne des appels qui ont mené jusqu’à <span
+class="math inline">\(y\)</span>, vu la condition sur le statut, ce sont
+nécessairement tous des sommets inconnus et ils forment un chemin, qui
+est donc un chemin inconnu. </div> </div></li>
+</ul>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p>Soient <span class="math inline">\(x, y \in S\)</span> tels que <span
+class="math inline">\(t_e(x) &lt; t_e(y)\)</span>.</p>
+<p>Si <span class="math inline">\(x \leadsto_I y\)</span>, alors <span
+class="math inline">\(t_f(y) &lt; t_f(x)\)</span>.</p>
+<p>Sinon, <span class="math inline">\(t_f(x) &lt; t_e(y)\)</span>.</p>
+</div>
+<p>Autrement dit, soit <span class="math inline">\([t_e(y);t_f(y)]
+\subset [t_e(x);t_f(x)]\)</span>, soit <span
+class="math inline">\([t_e(y);t_f(y)] \cap [t_e(x);t_f(x)] =
+\emptyset\)</span>.</p>
+<p>On dit que les temps sont bien parenthésés. En effet, si on considère
+le mot sur <span class="math inline">\(S\)</span> avec les lettres <span
+class="math inline">\((_x\)</span> et <span
+class="math inline">\()_x\)</span> pour chaque sommet <span
+class="math inline">\(x\)</span> et tel qu’on écrive la lettre <span
+class="math inline">\((_x\)</span> quand on note le temps d’entrée et
+<span class="math inline">\()_x\)</span> quand on note le temps de
+sortie, alors ce mot est bien parenthésé.</p>
+<div class="ui message blue">
+<div class="header">
+Exemple
+</div>
+<p>Sur l’exemple du graphe précédent (TODO ref précise) on pourrait
+avoir le mot <span
+class="math inline">\((_a(_b(_c(_d(_e)_e)_d)_c)_b)_a\)</span>.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> Comme <span
+class="math inline">\(t_e(x) &lt; t_e(y)\)</span>, c’est qu’on a
+commencé le parcours en <span class="math inline">\(x\)</span> avant de
+le commencer en <span class="math inline">\(y\)</span>. i <span
+class="math inline">\(x \leadsto_I y\)</span> alors par le théorème
+précédent, on appelle le DFS sur <span class="math inline">\(y\)</span>
+depuis l’appel du DFS sur <span class="math inline">\(x\)</span>, donc
+le premier terminera avant le second et ainsi <span
+class="math inline">\(t_f(y) &lt; t_f(x)\)</span>.</p>
+<p>Sinon, il n’est pas possible de rencontrer <span
+class="math inline">\(y\)</span> en résolvant le DFS de <span
+class="math inline">\(x\)</span>, donc on aura forcément fini de traiter
+<span class="math inline">\(x\)</span> avant de commencer le parcours en
+<span class="math inline">\(y\)</span>. Donc <span
+class="math inline">\(t_f(x) &lt; t_e(y)\)</span>. </div> </div></p>
+<p><div class="ui message"><div class="header">Définition</div> Soit
+<span class="math inline">\(C \in CFC(G)\)</span>, on note</p>
+<p><span class="math display">\[
+t_e(C) = \min\enscomp{t_e(x)}{x \in C}
+\]</span> <span class="math display">\[
+t_f(C) = \max\enscomp{t_f(x)}{x \in C}
+\]</span> </div></p>
+<p>On a alors une propriété de parenthésage des temps sur les
+composantes fortement connexes elles-mêmes.</p>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p>Soient <span class="math inline">\(C, C&#39; \in CFC(G)\)</span>.</p>
+<p>S’il existe <span class="math inline">\(x \in C, y \in
+C&#39;\)</span> avec <span class="math inline">\(x \rightarrow
+y\)</span>, alors <span class="math inline">\(t_f(C&#39;) &lt;
+t_f(C)\)</span>.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> On suppose qu’il existe <span
+class="math inline">\(x \in C, y \in C&#39;\)</span> avec <span
+class="math inline">\(x \rightarrow y\)</span>.</p>
+<p>Premier cas, <span class="math inline">\(t_e(C) &lt;
+t_e(C&#39;)\)</span>. On considère <span class="math inline">\(u \in
+C\)</span> tel que <span class="math inline">\(t_e(C) = t_e(u)\)</span>.
+On a alors forcément <span class="math inline">\(u \leadsto_I v\)</span>
+pour tout <span class="math inline">\(v \in C \cup C&#39;\)</span>, en
+passant par <span class="math inline">\(x \rightarrow y\)</span>. Ainsi
+<span class="math inline">\(x\)</span> finit son DFS après tous les
+sommets dans <span class="math inline">\(C \cup C&#39;\)</span> donc
+<span class="math inline">\(t_f(C) = t_f(x)
+&gt;t_f(C&#39;)\)</span>.</p>
+<p>Second cas, <span class="math inline">\(t_e(C) &gt;
+t_e(C&#39;)\)</span> si <span class="math inline">\(u \in
+C&#39;\)</span> tel que <span class="math inline">\(t_e(u) =
+t_e(C&#39;)\)</span> alors on a visité tous les sommets de <span
+class="math inline">\(C&#39;\)</span> depuis <span
+class="math inline">\(u\)</span>, donc <span
+class="math inline">\(t_f(u) = t_f(C&#39;)\)</span> et on n’a rencontré
+aucun sommet de <span class="math inline">\(c\)</span> car <span
+class="math inline">\(x \rightarrow y\)</span> implique qu’il ne peut
+exister une arête de <span class="math inline">\(C&#39;\)</span> vers
+<span class="math inline">\(C\)</span>. On a bien <span
+class="math inline">\(t_f(C) &gt; t_f(C&#39;)\)</span>.
+</div> </div></p>
+<h2 data-number="2.4" id="sec:graphe-miroir"><span
+class="header-section-number">2.4</span> Graphe miroir</h2>
+<p><div class="ui message"><div class="header">Définition</div> Soit
+<span class="math inline">\(G = (S,A)\)</span> un graphe orienté, on
+appelle <strong>graphe miroir</strong> de <span
+class="math inline">\(G\)</span> le graphe <span
+class="math inline">\(G^R = (S,A^R)\)</span> où <span
+class="math display">\[
+\forall x, y \in S, (x,y) \in A \iff (y,x) \in A^R
+\]</span> </div></p>
+<p>Cela revient à renverser toutes les flèches du graphe <span
+class="math inline">\(G\)</span>.</p>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p><span class="math inline">\(CFC(G) = CFC(G^R)\)</span></p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> On remarque que la relation <span
+class="math inline">\(x \leftrightarrow_G y \iff x \leftrightarrow_{G^R}
+y\)</span>. Les deux relations ont donc <em>a fortiori</em> les mêmes
+classes d’équivalence. </div> </div></p>
+<h2 data-number="2.5" id="sec:algorithme-de-kosaraju"><span
+class="header-section-number">2.5</span> Algorithme de Kosaraju</h2>
+<div class="ui message gray">
+<div class="header">
+Algorithme - Kosaraju
+</div>
+<div class="ui message gray">
+<div class="header">
+Entrée(s)
+</div>
+<p>Un graphe orienté <span class="math inline">\(G = (S,A)\)</span></p>
+</div>
+<ul>
+<li>On initialise l’état d’un DFS pour <span
+class="math inline">\(G\)</span>.</li>
+<li>Tant qu’il y a des sommets inconnus, on lance un DFS depuis un
+sommet inconnu.</li>
+<li>On trie <span class="math inline">\(S\)</span> par <strong>ordre
+décroissant</strong> de temps de sortie.</li>
+<li>On initialise l’état d’un DFS pour <span
+class="math inline">\(G^R\)</span>.</li>
+<li><span class="math inline">\(Comp \leftarrow \emptyset\)</span></li>
+<li>Tant qu’il y a un sommet inconnu <span
+class="math inline">\(x\)</span>
+<ul>
+<li>On lance un DFS dans <span class="math inline">\(G^R\)</span> à
+partir de <span class="math inline">\(x\)</span> en notant les nouveaux
+sommets traités dans la liste <span
+class="math inline">\(C\)</span>.</li>
+<li><span class="math inline">\(Comp \leftarrow Comp \cup \{ C
+\}\)</span></li>
+</ul></li>
+<li>On renvoie <span class="math inline">\(Comp\)</span>.</li>
+</ul>
+</div>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p><span class="math inline">\(Comp = CFC(G)\)</span>.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> Il suffit de montrer l’invariant
+<span class="math inline">\(Comp \subset CFC(G)\)</span> pour la
+dernière boucle. Au départ, comme <span class="math inline">\(Comp =
+\emptyset\)</span> il est trivialement vérifié et à la fin, comme on
+aura traité tous les sommets, on aura nécessairement <span
+class="math inline">\(Comp = CFC(G)\)</span>.</p>
+<p>Supposons donc qu’on a <span class="math inline">\(Comp \subset
+CFC(G)\)</span> et qu’on relance un parcours dans <span
+class="math inline">\(G^R\)</span> à partir de <span
+class="math inline">\(x\)</span>. On sait que la composante <span
+class="math inline">\(\overline{x}\)</span> contenant <span
+class="math inline">\(x\)</span> est forcément dans les sommets que l’on
+va traiter : <span class="math inline">\(\overline{x} \subset
+C\)</span>. Si, par l’absurde, il existe un sommet <span
+class="math inline">\(y \in C \backslash \overline{x}\)</span>, alors
+<span class="math inline">\(y\)</span> est dans une autre composante
+<span class="math inline">\(\overline{y}\)</span>. On a traité <span
+class="math inline">\(y\)</span> depuis <span
+class="math inline">\(x\)</span>, donc <span
+class="math inline">\(t_e(x) &lt; t_e(y)\)</span>. Comme <span
+class="math inline">\(x \leadsto y\)</span>, on a par le théorème
+précédent <span class="math inline">\(t_f(y) &lt; t_f(x)\)</span>. On a
+donc traité la composante <span
+class="math inline">\(\overline{y}\)</span> dans un parcours précédent
+et donc <span class="math inline">\(y\)</span> est traité.
+Contradiction. </div> </div></p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>La complexité de cet algorithme est dominée par les deux itérations
+de DFS, on est donc en <span
+class="math inline">\(O(|S|+|A|)\)</span>.</p>
+<p></div></p>
+<h1 data-number="3"
+id="sec:couplage-maximal-dans-un-graphe-bipartite"><span
+class="header-section-number">3</span> Couplage maximal dans un graphe
+bipartite</h1>
+<h2 data-number="3.1" id="sec:problème"><span
+class="header-section-number">3.1</span> Problème</h2>
+<p><div class="ui message"><div class="header">Définition</div> Soit
+<span class="math inline">\(G= (S,A)\)</span> un graphe non orienté, on
+appelle <strong>couplage</strong> de <span
+class="math inline">\(G\)</span> une partie <span
+class="math inline">\(C \subset A\)</span> telle que <span
+class="math inline">\(\forall e, e&#39; \in C, e \cap e&#39; =
+\emptyset\)</span>.</p>
+<p>On dit qu’un couplage est <strong>maximal</strong> pour <span
+class="math inline">\(G\)</span> quand il est de cardinal maximal.
+</div></p>
+<p>Rappel :</p>
+<p><div class="ui message"><div class="header">Définition</div> Soit
+<span class="math inline">\(G= (S,A)\)</span> un graphe non orienté, on
+dit que <span class="math inline">\(G\)</span> est
+<strong>bipartite</strong> lorsqu’il existe <span
+class="math inline">\(S_1, S_2 \subset S\)</span> avec <span
+class="math inline">\(S_1 \cup S_2 = S\)</span> et <span
+class="math inline">\(S_1 \cap S_2 = \emptyset\)</span> et toutes les
+arêtes relient un sommet de <span class="math inline">\(S_1\)</span> et
+un sommet de <span class="math inline">\(S_2\)</span>. </div></p>
+<p>On se pose alors la question de déterminer un couplage maximal dans
+un graphe bipartite. C’est un problème classique d’appariement. On peut
+ainsi citer le cas où on a des élèves et des écoles. On met une arête
+entre un élève et une école quand les deux veulent de l’autre. Un
+couplage maximal est alors une manière de placer le maximum d’élèves
+dans une école.</p>
+<h2 data-number="3.2" id="sec:chemin-augmentant"><span
+class="header-section-number">3.2</span> Chemin augmentant</h2>
+<p><div class="ui message"><div class="header">Définition</div> Soit
+<span class="math inline">\(C\)</span> un couplage d’un graphe et <span
+class="math inline">\(x\)</span> un sommet. On dit que <span
+class="math inline">\(x\)</span> est libre <strong>vis-à-vis</strong> de
+<span class="math inline">\(C\)</span> si <span
+class="math inline">\(x\)</span> n’appartient pas à une arête de <span
+class="math inline">\(C\)</span>. </div></p>
+<p><div class="ui message"><div class="header">Définition</div> Soit
+<span class="math inline">\(C \subset A\)</span> un couplage d’un
+graphe.</p>
+<p>Un chemin de <span class="math inline">\(x\)</span> à <span
+class="math inline">\(y\)</span> composé des arêtes <span
+class="math inline">\((e_1,\dots,e_{2n+1})\)</span> est dit
+<strong>augmentant</strong> si les arêtes pairs <span
+class="math inline">\(e_{2i} \in C\)</span>, les arêtes impaires <span
+class="math inline">\(e_{2i+1} \not\in C\)</span> et <span
+class="math inline">\(x\)</span> et <span
+class="math inline">\(y\)</span> sont libres pour <span
+class="math inline">\(C\)</span>. </div></p>
+<div class="ui message olive">
+<div class="header">
+Lemme
+</div>
+<p>Soit <span class="math inline">\(C, C&#39;\)</span> des couplages de
+<span class="math inline">\(G = (S,A)\)</span>. On considère <span
+class="math inline">\(G&#39; = (S, C \Delta C&#39;)\)</span>.</p>
+<p>Les composantes connexes de <span
+class="math inline">\(G&#39;\)</span> sont :</p>
+<ul>
+<li>soit des sommets isolés</li>
+<li>soit des cycles <strong>de longueur paire</strong> alternant entre
+arêtes de <span class="math inline">\(C\)</span> et <span
+class="math inline">\(C&#39;\)</span></li>
+<li>soit des chemins alternant entre <span
+class="math inline">\(C\)</span> et <span
+class="math inline">\(C&#39;\)</span> ayant des extremités
+distinctes.</li>
+</ul>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> Il suffit de remarquer que les
+sommets de <span class="math inline">\(G&#39;\)</span> sont de degré au
+plus 2 car ils sont de degré au plus 1 dans <span
+class="math inline">\((S,C)\)</span> et <span
+class="math inline">\((S,C&#39;)\)</span>.</p>
+<p>De plus, comme les arêtes d’un couplage ne peuvent avoir des
+extrémités en commun un chemin devra forcément alterner entre arêtes de
+<span class="math inline">\(C\)</span> et de <span
+class="math inline">\(C&#39;\)</span>. Les cycles sont donc
+nécessairement de longueur paire. </div> </div></p>
+<div class="ui message olive">
+<div class="header">
+Théorème
+</div>
+<p>(Bergé 1957) <span class="math inline">\(C\)</span> n’a pas de chemin
+augmentant, ssi <span class="math inline">\(C\)</span> est un couplage
+maximal.</p>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"> On va montrer la contraposée : <span
+class="math inline">\(C\)</span> non maximal ssi <span
+class="math inline">\(C\)</span> a un chemin augmentant.</p>
+<p><span class="math inline">\(\Leftarrow\)</span>) Supposons que <span
+class="math inline">\(G\)</span> dispose d’un chemin augmentant <span
+class="math inline">\(\varphi\)</span>, on considère <span
+class="math inline">\(C&#39;\)</span> différence symétrique de <span
+class="math inline">\(C\)</span> et des arêtes dans <span
+class="math inline">\(\varphi\)</span>. Ainsi, <span
+class="math inline">\(C&#39;\)</span> contient les arêtes de <span
+class="math inline">\(\varphi\)</span> qui ne sont pas dans <span
+class="math inline">\(C\)</span>, comme <span
+class="math inline">\(\varphi\)</span> commence et finit avec des arêtes
+qui ne sont pas dans <span class="math inline">\(C\)</span>, <span
+class="math inline">\(C&#39;\)</span> a une arête de plus que <span
+class="math inline">\(C\)</span>.</p>
+<p>De plus, comme <span class="math inline">\(\varphi\)</span> est
+élémentaire et qu’ils relient deux sommets libres, on a l’assurance que
+<span class="math inline">\(C&#39;\)</span> est un couplage. Ainsi <span
+class="math inline">\(C\)</span> n’est pas maximal.</p>
+<p><span class="math inline">\(\Rightarrow\)</span>) Supposons que <span
+class="math inline">\(C\)</span> non maximal, il existe <span
+class="math inline">\(C&#39;\)</span> tel que <span
+class="math inline">\(|C&#39;|&gt;|C|\)</span> et si on considère <span
+class="math inline">\(G&#39; = (S, C \Delta C&#39;)\)</span>, il a une
+composante qui contient au moins une arête de plus dans <span
+class="math inline">\(C&#39;\)</span> que dans <span
+class="math inline">\(C\)</span>. Ça ne peut donc être un cycle et c’est
+un chemin qui est par construction augmentant pour <span
+class="math inline">\(C\)</span>. </div> </div></p>
+<p><div class="ui message orange"><div class="header">Remarque</div></p>
+<p>Il s’agit ici d’un cas particulier du théorème de Bergé.</p>
+<p></div></p>
+<h2 data-number="3.3"
+id="sec:déterminer-un-chemin-augmentant-dans-un-graphe-bipartite"><span
+class="header-section-number">3.3</span> Déterminer un chemin augmentant
+dans un graphe bipartite</h2>
+<p>On considère ici un graphe bipartite avec <span
+class="math inline">\(S = S_1 \cup S_2\)</span>.</p>
+<p>Pour déterminer un chemin augmentant pour <span
+class="math inline">\(C\)</span>, on considère une orientation des
+arêtes <span class="math inline">\(\{x,y\}\)</span> ainsi :</p>
+<ul>
+<li><span class="math inline">\(x \rightarrow y\)</span> si <span
+class="math inline">\(x \in S_2, y \in S_1\)</span> et <span
+class="math inline">\((x,y) \in C\)</span>.</li>
+<li><span class="math inline">\(y \rightarrow x\)</span> sinon</li>
+</ul>
+<p>On rajoute également deux sommets :</p>
+<ul>
+<li>un sommet source noté <span class="math inline">\(s\)</span> avec
+<span class="math inline">\(s \rightarrow x\)</span> pour tout sommet
+<strong>libre</strong> dans <span
+class="math inline">\(S_1\)</span></li>
+<li>un sommet but noté <span class="math inline">\(t\)</span> avec <span
+class="math inline">\(x \rightarrow t\)</span> pour tout sommet
+<strong>libre</strong> dans <span
+class="math inline">\(S_2\)</span>.</li>
+</ul>
+<p>On remarque qu’un sommet non libre <span
+class="math inline">\(y\)</span> de <span
+class="math inline">\(S_2\)</span> est nécessairement de degré 1 et avec
+une arête <span class="math inline">\(y \rightarrow x\)</span> où <span
+class="math inline">\(x\)</span> non libre et <span
+class="math inline">\(\{x,y\} \in C\)</span>.</p>
+<p>S’il existe un chemin de <span class="math inline">\(s \leadsto
+t\)</span> dans ce graphe orienté, alors il est de la forme :</p>
+<p><span class="math display">\[s \rightarrow x_1 \rightarrow y_1 \dots
+\rightarrow y_n \rightarrow t\]</span></p>
+<p>avec :</p>
+<ul>
+<li><span class="math inline">\(x_1\)</span> libre dans <span
+class="math inline">\(S_1\)</span></li>
+<li><span class="math inline">\(y_n\)</span> libre dans <span
+class="math inline">\(S_2\)</span></li>
+<li>tous les autre <span class="math inline">\(x_i\)</span> et <span
+class="math inline">\(y_j\)</span> sont non libres (ok) et deux à deux
+distincts (pas facile là !)</li>
+<li><span class="math inline">\(\{x_i,y_i\}\not \in C\)</span></li>
+<li><span class="math inline">\(\{y_i,x_{i+1}\} \in C\)</span></li>
+</ul>
+<p>Le chemin est donc augmentant</p>
+<h1 data-number="4" id="sec:exercices"><span
+class="header-section-number">4</span> Exercices</h1>
+<div class="ui message orange">
+<div class="header">
+Exercice
+</div>
+<p>On considère un chemin entre deux sommets <span
+class="math inline">\(x\)</span> et <span
+class="math inline">\(y\)</span> dans un graphe non orienté pondéré. La
+largeur de ce chemin est le plus petit poids des arêtes présentes dans
+ce chemin. Le chemin vide de <span class="math inline">\(x\)</span> à
+<span class="math inline">\(x\)</span> est de largeur <span
+class="math inline">\(+\infty\)</span>.</p>
+<p>La distance de goulot d’étranglement entre <span
+class="math inline">\(x\)</span> et <span
+class="math inline">\(y\)</span> est la largeur maximale d’un chemin de
+<span class="math inline">\(x\)</span> à <span
+class="math inline">\(y\)</span>. S’il n’en existe pas, cette distance
+est <span class="math inline">\(-\infty\)</span>.</p>
+<ol type="1">
+<li>Prouver que l’arbre couvrant de poids <strong>maximal</strong>
+contient les chemins les plus larges entre toute paire de sommets.</li>
+<li>Décrire un algorithme pour résoudre en temps <span
+class="math inline">\(O(|S|+|A|)\)</span> le problème suivant : étant
+donné un graphe non orienté pondéré <span class="math inline">\(G =
+(S,A)\)</span>, <span class="math inline">\(x, y \in S\)</span> et <span
+class="math inline">\(W \in \R\)</span>, est-ce que le distance de
+goulot d’étranglement entre <span class="math inline">\(x\)</span> et
+<span class="math inline">\(y\)</span> est inférieure ou égale à <span
+class="math inline">\(W\)</span>.</li>
+<li>On suppose que la distance de goulot d’étranglement entre <span
+class="math inline">\(x\)</span> et <span
+class="math inline">\(y\)</span> est <span
+class="math inline">\(B\)</span>.
+<ol type="1">
+<li>Prouver que la suppression d’une arête de poids inférieur à <span
+class="math inline">\(B\)</span> ne change pas cette distance.</li>
+<li>Prouver que la contraction d’une arête de poids plus grand que <span
+class="math inline">\(B\)</span> ne change pas cette distance. La
+contraction d’une arête <span class="math inline">\((u,v)\)</span>
+revient à identifier <span class="math inline">\(u\)</span> et <span
+class="math inline">\(v\)</span>, si cette contraction crée des arêtes
+parallèles, on ne conservera que l’arête de plus grand poids.</li>
+</ol></li>
+</ol>
+</div>
+<p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
+Preuve </div> <div class="content"></p>
+<ol type="1">
+<li>On considère un arbre couvrant maximal <span
+class="math inline">\(T\)</span> et deux sommets <span
+class="math inline">\(x,y\)</span>. Supposons par l’absurde que <span
+class="math inline">\(T\)</span> ne contienne pas le chemin le plus
+large de <span class="math inline">\(x\)</span> à <span
+class="math inline">\(y\)</span>. On considère alors le chemin dans
+<span class="math inline">\(T\)</span> entre <span
+class="math inline">\(x\)</span> et <span
+class="math inline">\(y\)</span>, son arête de plus petit poids est
+<span class="math inline">\(e = \{ a, b\}\)</span>. On considère <span
+class="math inline">\(T&#39; = T \backslash\{e\}\)</span> qui n’est plus
+connexe. Le chemin le plus large entre <span
+class="math inline">\(x\)</span> et <span
+class="math inline">\(y\)</span> contient ainsi forcément une arête
+<span class="math inline">\(e&#39;\not\in T&#39;\)</span> et on peut
+considérer <span class="math inline">\(T&#39; \cup \{e&#39;\} =
+T&#39;&#39;\)</span> qui est un arbre couvrant avec <span
+class="math inline">\(w(T&#39;&#39;) = w(T) + w(e&#39;) - w(e) &gt;
+w(T)\)</span> car <span class="math inline">\(w(e&#39;) \ge
+\mathop{largeur} &gt; w(e)\)</span>. Contradiction.</li>
+</ol>
+<p></div> </div></p>
+</div>
+<!-- </div> -->
+</div>
+
+<div class="ui inverted vertical footer segment">
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+Marc de Falco
+</div>
+  </body>
+</html>

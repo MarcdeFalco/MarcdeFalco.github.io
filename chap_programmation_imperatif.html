@@ -67,7 +67,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -80,7 +80,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -359,14 +359,14 @@ selon les langages certaines notions sont plus ou moins riches. Des
 paragraphes spécifiques complètent ainsi le texte et on encourage le
 lecteur à basculer d’un langage à un autre tout au long de la
 lecture.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-53">c</a>   <a class="item" data-tab="python-53">python</a>   <a class="item" data-tab="ocaml-53">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-53">
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-67">c</a>   <a class="item" data-tab="python-67">python</a>   <a class="item" data-tab="ocaml-67">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-67">
 <code>C</code> est un langage ayant peu d’expressivité directe pour les
 données. On est donc très vite réduit à devoir définir ses propres
 structures pour l’enrichir. Or, c’est plus complexe que la mise en œuvre
 des notions impératives développées ici. Le lecteur complétera alors sa
 lecture par le chapitre d’introduction aux structures de données en
 <code>C</code>.
-</div> <div class="ui bottom attached tab segment code" data-tab="python-53">
+</div> <div class="ui bottom attached tab segment code" data-tab="python-67">
 <code>Python</code> est le langage d’abord le plus aisé sur ces notions,
 mais aussi celui pour lequel il est vraiment nécessaire d’avoir une
 discipline d’utilisation afin de ne pas faire n’importe quoi. Ainsi, on
@@ -374,7 +374,7 @@ a fait le choix de faire une présentation sans artifice qui n’utilise
 pas de structures ou de mécanismes propres à <code>Python</code> et
 problématiques. Ceux-ci sont esquissés en remarque en précisant en quoi
 ils sont effectivement à manipuler avec parcimonie.
-</div> <div class="ui bottom attached tab segment code" data-tab="ocaml-53">
+</div> <div class="ui bottom attached tab segment code" data-tab="ocaml-67">
 <code>OCaml</code> est un langage qui est avant tout fonctionnel
 déclaratif. Pour autant, il possède des traits impératifs et permet
 d’écrire aussi naturellement des programmes impératifs que dans des
@@ -421,38 +421,38 @@ temps.</p>
 class="math inline">\(1+2+3+4+5\)</span>.</p>
 <p><strong>Manipuler</strong> On peut aussi les stocker directement en
 mémoire à l’aide de variable. Ainsi
-<div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-56">c</a>   <a class="item" data-tab="python-56">python</a>   <a class="item" data-tab="ocaml-56">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-56"></p>
+<div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-70">c</a>   <a class="item" data-tab="python-70">python</a>   <a class="item" data-tab="ocaml-70">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-70"></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> x <span class="op">=</span> <span class="dv">3</span><span class="op">;</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-56"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-70"></p>
 <div class="sourceCode" id="cb2"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">3</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-56"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-70"></p>
 <div class="sourceCode" id="cb3"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> x = <span class="dt">ref</span> <span class="dv">3</span></span></code></pre></div>
 <p></div> </div> permettra de définir une variable nommée <span
 class="math inline">\(x\)</span> et contenant la valeur entière <span
 class="math inline">\(3\)</span>. On peut alors manipuler cette variable
 en changeant sa valeur à l’aide des opérations :
-<div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-57">c</a>   <a class="item" data-tab="python-57">python</a>   <a class="item" data-tab="ocaml-57">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-57"></p>
+<div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-71">c</a>   <a class="item" data-tab="python-71">python</a>   <a class="item" data-tab="ocaml-71">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-71"></p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> x <span class="op">+</span> <span class="dv">2</span><span class="op">;</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-57"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-71"></p>
 <div class="sourceCode" id="cb5"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> x <span class="op">+</span> <span class="dv">2</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-57"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-71"></p>
 <div class="sourceCode" id="cb6"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x := !x + <span class="dv">2</span></span></code></pre></div>
 <p></div> </div></p>
 <p>Avec ces instructions de manipulation, on peut reprendre le calcul
 précédent de <span class="math inline">\(1+2+\dots+5\)</span> avec une
 suite d’instructions :
-<div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-58">c</a>   <a class="item" data-tab="python-58">python</a>   <a class="item" data-tab="ocaml-58">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-58"></p>
+<div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-72">c</a>   <a class="item" data-tab="python-72">python</a>   <a class="item" data-tab="ocaml-72">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-72"></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> s <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> s <span class="op">+</span> <span class="dv">1</span><span class="op">*</span><span class="dv">1</span><span class="op">;</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> s <span class="op">+</span> <span class="dv">2</span><span class="op">*</span><span class="dv">2</span><span class="op">;</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> s <span class="op">+</span> <span class="dv">3</span><span class="op">*</span><span class="dv">3</span><span class="op">;</span></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> s <span class="op">+</span> <span class="dv">4</span><span class="op">*</span><span class="dv">4</span><span class="op">;</span></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> s <span class="op">+</span> <span class="dv">5</span><span class="op">*</span><span class="dv">5</span><span class="op">;</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-58"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-72"></p>
 <div class="sourceCode" id="cb8"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> s <span class="op">+</span> <span class="dv">1</span><span class="op">*</span><span class="dv">1</span></span>
@@ -460,7 +460,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a hr
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> s <span class="op">+</span> <span class="dv">3</span><span class="op">*</span><span class="dv">3</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> s <span class="op">+</span> <span class="dv">4</span><span class="op">*</span><span class="dv">4</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> s <span class="op">+</span> <span class="dv">5</span><span class="op">*</span><span class="dv">5</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-58"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-72"></p>
 <div class="sourceCode" id="cb9"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> s = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>s := !s + <span class="dv">1</span>*<span class="dv">1</span>;</span>
@@ -477,18 +477,18 @@ permettre d’éviter cette répétition et d’écrire qu’il existe une
 variable <code>i</code> prenant ces valeurs et les instructions à
 réaliser pour chaque valeur de <code>i</code>. On pourra donc écrire
 :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-59">c</a>   <a class="item" data-tab="python-59">python</a>   <a class="item" data-tab="ocaml-59">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-59"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-73">c</a>   <a class="item" data-tab="python-73">python</a>   <a class="item" data-tab="ocaml-73">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-73"></p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> s <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> i <span class="op">&lt;=</span> <span class="dv">5</span><span class="op">;</span> i<span class="op">++)</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> s <span class="op">+</span> i<span class="op">*</span>i<span class="op">;</span></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-59"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-73"></p>
 <div class="sourceCode" id="cb11"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">5</span><span class="op">+</span><span class="dv">1</span>):</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> s <span class="op">+</span> i<span class="op">*</span>i</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-59"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-73"></p>
 <div class="sourceCode" id="cb12"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> s = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> i = <span class="dv">1</span> <span class="kw">to</span> <span class="dv">5</span> <span class="kw">do</span></span>
@@ -521,7 +521,7 @@ d’appliquer un théorème.</p>
 <p>On introduit ainsi une notion d’abstraction <em>les fonctions</em>
 qui vont nous permettre de faire un code générique de calcul en prenant
 <span class="math inline">\(n\)</span> en paramètre.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-60">c</a>   <a class="item" data-tab="python-60">python</a>   <a class="item" data-tab="ocaml-60">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-60"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-74">c</a>   <a class="item" data-tab="python-74">python</a>   <a class="item" data-tab="ocaml-74">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-74"></p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> somme_carres<span class="op">(</span><span class="dt">int</span> n<span class="op">)</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> s <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
@@ -531,14 +531,14 @@ qui vont nous permettre de faire un code générique de calcul en prenant
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s<span class="op">;</span></span>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-60"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-74"></p>
 <div class="sourceCode" id="cb14"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> somme_carres(n):</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,n<span class="op">+</span><span class="dv">1</span>):</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        s <span class="op">=</span> s <span class="op">+</span> i<span class="op">*</span>i</span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-60"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-74"></p>
 <div class="sourceCode" id="cb15"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> somme_carres n =</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> s = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
@@ -556,12 +556,12 @@ un triangle particulier et une valeur de retour qui correspond à ce que
 la fonction calcule.</p>
 <p>On peut alors, quand on a besoin de faire le calcul de <span
 class="math inline">\(\sum_{i=1}^5 i^2\)</span> juste écrire :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-61">c</a>   <a class="item" data-tab="python-61">python</a>   <a class="item" data-tab="ocaml-61">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-61"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-75">c</a>   <a class="item" data-tab="python-75">python</a>   <a class="item" data-tab="ocaml-75">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-75"></p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>somme_carres<span class="op">(</span><span class="dv">5</span><span class="op">)</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-61"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-75"></p>
 <div class="sourceCode" id="cb17"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>somme_carres(<span class="dv">5</span>)</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-61"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-75"></p>
 <div class="sourceCode" id="cb18"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>somme_carres <span class="dv">5</span></span></code></pre></div>
 <p></div> </div></p>
@@ -599,8 +599,8 @@ valeurs numériques. Elles dépendent assez souvent des langages de
 programmation, mais on retrouve toujours un type pour les booléens, un
 type pour les entiers et un type pour les nombres à virgule flottante,
 c’est-à-dire pour des représentations de certains nombres réels.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-65">c</a>   <a class="item" data-tab="python-65">python</a>   <a class="item" data-tab="ocaml-65">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-65"></p>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-65">
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-79">c</a>   <a class="item" data-tab="python-79">python</a>   <a class="item" data-tab="ocaml-79">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-79"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-79">
 On a ainsi :</p>
 <ul>
 <li>le type <code>int</code> des entiers en précision arbitraire muni
@@ -637,7 +637,7 @@ aux relations mathématiques <span class="math inline">\(= \neq &gt; \ge
 qu’une seule valeur <code>None</code> et aucune opération. Ce type
 permet de donner un sens à l’absence de valeur, comme pour une fonction
 qui ne renvoie rien.
-</div> <div class="ui bottom attached tab segment code" data-tab="ocaml-65"></li>
+</div> <div class="ui bottom attached tab segment code" data-tab="ocaml-79"></li>
 </ul>
 <p></div> </div></p>
 <h2 data-number="2.2"
@@ -658,8 +658,8 @@ permettent pas de changer les valeurs qu’elles regroupent ni leur
 structure après leur création</li>
 <li>les données <em>mutables</em> qui le permettent.</li>
 </ul>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-67">c</a>   <a class="item" data-tab="python-67">python</a>   <a class="item" data-tab="ocaml-67">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-67"></p>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-67">
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-81">c</a>   <a class="item" data-tab="python-81">python</a>   <a class="item" data-tab="ocaml-81">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-81"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-81">
 Les principaux types de données composées sont :</p>
 <ul>
 <li><p><strong>(immuable)</strong> les <code>tuples</code> qui
@@ -734,7 +734,7 @@ type <code>dict</code> et <code>cle</code> une clé présente dans
 <p>Le dictionnaire vide est <code>{}</code> et on verra dans le
 paragraphe suivant comment manipuler un dictionnaire pour ajouter ou
 supprimer des associations.
-</div> <div class="ui bottom attached tab segment code" data-tab="ocaml-67"></p></li>
+</div> <div class="ui bottom attached tab segment code" data-tab="ocaml-81"></p></li>
 </ul>
 <p></div> </div></p>
 <h1 data-number="3" id="sec:manipuler"><span
@@ -757,8 +757,8 @@ donnée, on parle de <strong>déclaration</strong></li>
 <p>Les noms de variables sont le plus souvent composés de lettres, de
 chiffres et du symbole <code>_</code>, ils doivent commencer par une
 lettre.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-71">c</a>   <a class="item" data-tab="python-71">python</a>   <a class="item" data-tab="ocaml-71">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-71"></p>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-71">
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-85">c</a>   <a class="item" data-tab="python-85">python</a>   <a class="item" data-tab="ocaml-85">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-85"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-85">
 Il n’existe pas de mécanisme spécifique pour déclarer une variable
 distinct de l’assignation. Ainsi, on écrira <code>x = 3</code> à la fois
 pour déclarer une variable nommée <code>x</code> contenant la valeur 3
@@ -775,7 +775,7 @@ class="sourceCode numberSource python numberLines"><code class="sourceCode pytho
 <span id="cb19-2"><a href="#cb19-2"></a><span class="co"># puis plus loin</span></span>
 <span id="cb19-3"><a href="#cb19-3"></a>x <span class="op">=</span> <span class="st">&#39;Bonjour&#39;</span> <span class="co"># maintenant x contient une chaîne</span></span></code></pre></div>
 <p></div>
-</div> <div class="ui bottom attached tab segment code" data-tab="ocaml-71"></p>
+</div> <div class="ui bottom attached tab segment code" data-tab="ocaml-85"></p>
 <p></div> </div></p>
 <h2 data-number="3.2" id="sec:état-dexécution"><span
 class="header-section-number">3.2</span> État d’exécution</h2>
@@ -784,23 +784,23 @@ associées à un moment de l’exécution d’un programme est un état
 d’exécution. Les instructions de déclaration et d’assignation modifient
 ainsi l’état.</p>
 <p>Suite aux instructions</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-73">c</a>   <a class="item" data-tab="python-73">python</a>   <a class="item" data-tab="ocaml-73">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-73"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-87">c</a>   <a class="item" data-tab="python-87">python</a>   <a class="item" data-tab="ocaml-87">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-87"></p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> a <span class="op">=</span> <span class="dv">3</span><span class="op">;</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> b <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-73"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-87"></p>
 <div class="sourceCode" id="cb21"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">3</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="dv">2</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-73"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-87"></p>
 <div class="sourceCode" id="cb22"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> a = <span class="dt">ref</span> <span class="dv">3</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> b = <span class="dt">ref</span> <span class="dv">2</span></span></code></pre></div>
 <p></div> </div></p>
 <p>l’état est alors</p>
-<table style="width:36%;">
+<table style="width:33%;">
 <colgroup>
 <col style="width: 18%" />
-<col style="width: 18%" />
+<col style="width: 15%" />
 </colgroup>
 <tbody>
 <tr class="odd">
@@ -818,20 +818,20 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb22-1"><a hre
 </tbody>
 </table>
 <p>Si on exécute ensuite l’instruction</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-74">c</a>   <a class="item" data-tab="python-74">python</a>   <a class="item" data-tab="ocaml-74">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-74"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-88">c</a>   <a class="item" data-tab="python-88">python</a>   <a class="item" data-tab="ocaml-88">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-88"></p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> a<span class="op">;</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-74"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-88"></p>
 <div class="sourceCode" id="cb24"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> a</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-74"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-88"></p>
 <div class="sourceCode" id="cb25"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>b := !a</span></code></pre></div>
 <p></div> </div></p>
 <p>il devient</p>
-<table style="width:36%;">
+<table style="width:33%;">
 <colgroup>
 <col style="width: 18%" />
-<col style="width: 18%" />
+<col style="width: 15%" />
 </colgroup>
 <tbody>
 <tr class="odd">
@@ -850,16 +850,16 @@ Ici, le <code>=</code> permet une notation intuitive.</p>
 class="header-section-number">3.3</span> Instructions et blocs</h2>
 <p>Les programmes qu’on va écrire vont maintenant être des suites
 d’instructions, comme</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-76">c</a>   <a class="item" data-tab="python-76">python</a>   <a class="item" data-tab="ocaml-76">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-76"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-90">c</a>   <a class="item" data-tab="python-90">python</a>   <a class="item" data-tab="ocaml-90">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-90"></p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> x <span class="op">=</span> <span class="dv">3</span><span class="op">;</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> y <span class="op">=</span> x <span class="op">+</span> <span class="dv">2</span><span class="op">;</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> y<span class="op">;</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-76"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-90"></p>
 <div class="sourceCode" id="cb27"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">3</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x <span class="op">+</span> <span class="dv">2</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> y</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-76"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-90"></p>
 <div class="sourceCode" id="cb28"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> x = <span class="dt">ref</span> <span class="dv">3</span> <span class="kw">in</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> y = <span class="dt">ref</span> (!x + <span class="dv">3</span>) <span class="kw">in</span></span>
@@ -868,7 +868,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb28-1"><a hre
 <p></div> </div></p>
 <p>Ces instructions sont regroupées ensemble sous une notion de blocs.
 Suivant les langages, ces blocs sont plus ou moins explicites.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-83">c</a>   <a class="item" data-tab="python-83">python</a>   <a class="item" data-tab="ocaml-83">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-83">
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-97">c</a>   <a class="item" data-tab="python-97">python</a>   <a class="item" data-tab="ocaml-97">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-97">
 Un bloc est délimité par des accolades. Chaque bloc définit sa propre
 notion de portée.</p>
 <p><div class="ui segment code"></p>
@@ -885,7 +885,7 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 <span id="cb29-10"><a href="#cb29-10"></a>    x <span class="op">=</span> y <span class="op">+</span> <span class="dv">2</span><span class="op">;</span> <span class="co">// ici y n&#39;est pas celui du bloc imbriqué</span></span>
 <span id="cb29-11"><a href="#cb29-11"></a><span class="op">}</span></span></code></pre></div>
 <p></div>
-</div> <div class="ui bottom attached tab segment code" data-tab="python-83">
+</div> <div class="ui bottom attached tab segment code" data-tab="python-97">
 Un bloc est un groupement d’instructions à la suite qui sont toutes
 alignées dans le texte du programme. On dispose ainsi d’une indentation
 signifiante, c’est-à-dire que cet alignement a du sens et il est
@@ -898,7 +898,7 @@ class="sourceCode numberSource python numberLines"><code class="sourceCode pytho
 <span id="cb30-2"><a href="#cb30-2"></a>   y <span class="op">=</span> x <span class="op">+</span> <span class="dv">2</span> <span class="co"># non aligné avec le reste du bloc</span></span>
 <span id="cb30-3"><a href="#cb30-3"></a>x <span class="op">=</span> y</span></code></pre></div>
 <p></div>
-</div> <div class="ui bottom attached tab segment code" data-tab="ocaml-83">
+</div> <div class="ui bottom attached tab segment code" data-tab="ocaml-97">
 En <code>OCaml</code>, il n’y a pas à proprement parler de notion de
 blocs car tout est une expression. Cependant, l’opérateur <code>;</code>
 permet d’évaluer successivement deux expressions. On pourra donc
@@ -957,22 +957,22 @@ contrôle, en rajoutant ou modifiant des wagons à chaque instruction
 présentée comme un arrêt. Cette image assez naïve permet de faire passer
 une idée très importante qui est celle de l’ordre d’évaluation et du
 contexte associé.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-86">c</a>   <a class="item" data-tab="python-86">python</a>   <a class="item" data-tab="ocaml-86">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-86"></p>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-86">
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-100">c</a>   <a class="item" data-tab="python-100">python</a>   <a class="item" data-tab="ocaml-100">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-100"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-100">
 <center><div class="ui image center"><img
 src="assets/pics/flot_train_python.png" /></div></center></p>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-86"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-100"></p>
 <p></div> </div></p>
 <p>Un exemple important est celui de l’échange du contenu de deux
 variables <code>a</code> et <code>b</code>. On ne peut pas écrire</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-87">c</a>   <a class="item" data-tab="python-87">python</a>   <a class="item" data-tab="ocaml-87">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-87"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-101">c</a>   <a class="item" data-tab="python-101">python</a>   <a class="item" data-tab="ocaml-101">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-101"></p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> a<span class="op">;</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> b<span class="op">;</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-87"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-101"></p>
 <div class="sourceCode" id="cb36"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> a</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> b</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-87"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-101"></p>
 <div class="sourceCode" id="cb37"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>b := !a;</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>a := !b</span></code></pre></div>
@@ -981,18 +981,18 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb37-1"><a hre
 perdue après la première assignation. Une solution consiste alors à
 introduire une variable temporaire qui ne va servir que de support pour
 pouvoir garder la valeur de <code>b</code>. On écrira ainsi :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-88">c</a>   <a class="item" data-tab="python-88">python</a>   <a class="item" data-tab="ocaml-88">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-88"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-102">c</a>   <a class="item" data-tab="python-102">python</a>   <a class="item" data-tab="ocaml-102">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-102"></p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">// ici, on ne peut pas le faire de manière</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co">// générique, cela dépend du type de a et b.</span></span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> temp <span class="op">=</span> b<span class="op">;</span></span>
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> a<span class="op">;</span></span>
 <span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> temp<span class="op">;</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-88"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-102"></p>
 <div class="sourceCode" id="cb39"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> b</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> a</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> temp</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-88"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-102"></p>
 <div class="sourceCode" id="cb40"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> temp = !b <span class="kw">in</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>b := !a;</span>
@@ -1005,13 +1005,13 @@ localement dans un programme. Par exemple, uniquement au sein de la
 fonction ou du bloc dans laquelle on l’a définie. On parle de portée
 d’une variable pour désigner l’ensemble des instructions dans lesquelles
 ont peut y accéder.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-90">c</a>   <a class="item" data-tab="python-90">python</a>   <a class="item" data-tab="ocaml-90">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-90"></p>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-90">
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-104">c</a>   <a class="item" data-tab="python-104">python</a>   <a class="item" data-tab="ocaml-104">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-104"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-104">
 La portée des variables est assez dynamique. On peut ainsi définir une
 variable uniquement dans certains cas comme on le verra avec une
 instruction conditionnelle. Ce qui fait que selon l’état d’un programme,
 on définira différemment la portée d’une même variable.
-</div> <div class="ui bottom attached tab segment code" data-tab="ocaml-90"></p>
+</div> <div class="ui bottom attached tab segment code" data-tab="ocaml-104"></p>
 <p></div> </div></p>
 <h2 data-number="3.5"
 id="sec:manipuler-des-données-composées-mutables"><span
@@ -1029,8 +1029,8 @@ structure de la collection elle-même, comme enlever ou rajouter des
 id="sec:modification-des-valeurs-des-éléments"><span
 class="header-section-number">3.5.1</span> Modification des valeurs des
 éléments</h3>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-96">c</a>   <a class="item" data-tab="python-96">python</a>   <a class="item" data-tab="ocaml-96">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-96"></p>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-96">
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-110">c</a>   <a class="item" data-tab="python-110">python</a>   <a class="item" data-tab="ocaml-110">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-110"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-110">
 On a vu deux types mutables : les tableaux (<code>list</code>) et les
 dictionnaires (<code>dict</code>).</p>
 <ul>
@@ -1087,7 +1087,7 @@ class="sourceCode numberSource python numberLines"><code class="sourceCode pytho
 <p>On passe de l’état <code>d={ 'a' : 2, 'test' : 3 }</code> à
 <code>d={ 'a' : 4, 'test' : 3 }</code> puis
 <code>d={ 'a' : 4, 'b' : 3, 'test' : 3 }</code>.</p>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-96"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="ocaml-110"></p>
 <p></div> </div></p>
 <h3 data-number="3.5.2"
 id="sec:partages-de-valeurs-composées-entre-plusieurs-variables"><span
@@ -1188,8 +1188,8 @@ contrôle avec des branchements. Elle permet d’orienter le flot
 d’exécution dans un bloc ou dans un autre selon qu’une condition soit
 vérifiée ou non.</p>
 <p>On écrit</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-112">c</a>   <a class="item" data-tab="python-112">python</a>   <a class="item" data-tab="ocaml-112">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-112"></p>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-112">
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="c-126">c</a>   <a class="item" data-tab="python-126">python</a>   <a class="item" data-tab="ocaml-126">ocaml</a> </div> <div class="ui bottom attached active tab segment code" data-tab="c-126"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-126">
 <div class="ui segment code"></p>
 <div class="sourceCode" id="cb48"><pre
 class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1"></a><span class="cf">if</span> condition:</span>
@@ -1200,7 +1200,7 @@ class="sourceCode numberSource python numberLines"><code class="sourceCode pytho
 <span id="cb48-6"><a href="#cb48-6"></a>    <span class="co"># condition n&#39;est pas</span></span>
 <span id="cb48-7"><a href="#cb48-7"></a>    <span class="co"># vérifiée</span></span></code></pre></div>
 <p></div>
-</div> <div class="ui bottom attached tab segment code" data-tab="ocaml-112">
+</div> <div class="ui bottom attached tab segment code" data-tab="ocaml-126">
 En <code>OCaml</code> il y a des expressions conditionnelles qui ont
 déjà été vues mais qui maintenant prennent une autre signification avec
 des expressions contenant des instructions. Dans le contexte de la
