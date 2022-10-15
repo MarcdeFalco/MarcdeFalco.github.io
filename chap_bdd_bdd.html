@@ -333,7 +333,7 @@ primaire qui sert de clé étrangère <code>album</code> dans
 <code>track</code> et <code>style</code>.</p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 1
 </div>
 <p>Cherchez tous les albums de <code>'U2'</code>.</p>
 </div>
@@ -343,7 +343,7 @@ permet d’effectuer des comparaisons directement avec
 <p>Par exemple, ‘1981-08-05’ est le 5 août 1981.</p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 2
 </div>
 <p>Cherchez tous les albums parus pendant l’année 1991.</p>
 </div>
@@ -357,20 +357,20 @@ une valeur est <code>NULL</code> on utilise l’opérateur spécial
 <code>IS NULL</code>.</p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 3
 </div>
 <p>Cherchez tous les albums dont le prix est renseigné.</p>
 </div>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 4
 </div>
 <p>Trouvez le titre du 5 ème album le plus cher <strong>et uniquement de
 celui-ci</strong>.</p>
 </div>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 5
 </div>
 <p>Affichez une table contenant pour chaque chanson, son nom et le nom
 de l’album qui la contient.</p>
@@ -380,7 +380,7 @@ la plupart contiennent un disque, et le numéro <code>posn</code> des
 pistes sur l’album.</p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 6
 </div>
 <p>Affichez une table contenant les titres des albums ayant au moins
 deux disques.</p>
@@ -391,7 +391,7 @@ classement mensuel des meilleurs ventes. Apparement, les tables
 <code>track</code> et <code>totp</code> ne sont pas associées.</p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 7
 </div>
 <p>A l’aide de <code>LEFT JOIN</code> déterminez s’il y a des éléments
 de <code>totp</code> dont l’attribut <code>song</code> n’est pas présent
@@ -421,7 +421,7 @@ d’une expression sur les lignes</li>
 </ul>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 8
 </div>
 <p>En une seule requête, calculer le prix moyen d’un album et le plus
 petit rang.</p>
@@ -447,13 +447,13 @@ WHERE A2.rank IS NULL</code></pre>
 <p>mais cette requête n’est pas très naturelle.</p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 9
 </div>
 <p>Expliquez cette requête et pourquoi elle répond à la question.</p>
 </div>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 10
 </div>
 <p>Déterminer en une requête les albums ayant le plus de pistes sur un
 de leur disque.</p>
@@ -479,7 +479,7 @@ pistes de l’album :</p>
 <pre><code>SELECT album, MAX(posn) FROM track GROUP BY album</code></pre>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 11
 </div>
 <p>Déterminer le numéro moyen d’une piste d’un album, tout disque
 compris.</p>
@@ -517,7 +517,7 @@ WHERE asin IN (SELECT album FROM track
     GROUP BY album HAVING MAX(posn) &gt;= 10)</code></pre>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 12
 </div>
 <p>Trouver les noms des albums ayant au moins deux disques.</p>
 </div>
@@ -551,34 +551,34 @@ joker le caractère <code>%</code> qui signifie n’importe quoi.</p>
 <code>, The</code>.</p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 13
 </div>
 <p>Déterminer les noms des acteurs ayant joué dans des films dont le nom
 commence par Star.</p>
 </div>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 14
 </div>
 <p>Déterminer le film qui a le plus d’acteurs au casting.</p>
 </div>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 15
 </div>
 <p>Déterminer les noms des acteurs ayant tournés dans au moins 5 films
 tout en étant toujours premier au casting.</p>
 </div>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 16
 </div>
 <p>Déterminer les noms des acteurs qui n’ont tourné qu’avec un seul
 réalisateur.</p>
 </div>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 17
 </div>
 <p>Déterminer les noms des acteurs qui n’ont tourné que dans des films
 qu’ils ont réalisés.</p>

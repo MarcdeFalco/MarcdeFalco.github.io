@@ -1719,19 +1719,19 @@ du fils droit soient rouges</li>
 </ul>
 <p><strong>Implémentation</strong></p>
 <p>On commence par définir le type des arbres rouges et noirs :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-262">ocaml</a>   <a class="item" data-tab="c-262">c</a>   <a class="item" data-tab="python-262">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-262"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-263">ocaml</a>   <a class="item" data-tab="c-263">c</a>   <a class="item" data-tab="python-263">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-263"></p>
 <div class="sourceCode" id="cb20"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> couleur = R | N</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> &#39;a arn = Nil | Noeud <span class="kw">of</span> couleur * &#39;a arn * &#39;a * &#39;a arn</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-262"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-263"></p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode c"><code class="sourceCode c"></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-262"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-263"></p>
 <div class="sourceCode" id="cb22"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>ERROR: src<span class="op">/</span>structuresdonnees<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>snippets<span class="op">/</span>structures<span class="op">/</span>arn.py does <span class="kw">not</span> exist</span></code></pre></div>
 <p></div> </div></p>
 <p>On définit ensuite des fonctions qui nous seront utiles vue la
 remarque précédente pour tester les couleurs à gauche et à droite :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-267">ocaml</a>   <a class="item" data-tab="c-267">c</a>   <a class="item" data-tab="python-267">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-267"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-268">ocaml</a>   <a class="item" data-tab="c-268">c</a>   <a class="item" data-tab="python-268">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-268"></p>
 <div class="sourceCode" id="cb23"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> gauche a = <span class="kw">match</span> a <span class="kw">with</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    | Nil -&gt; <span class="dt">failwith</span> <span class="st">&quot;Invalide&quot;</span></span>
@@ -1744,14 +1744,14 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb23-1"><a hre
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    | Noeud(c,_,_,_) -&gt; c</span>
 <span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> rouge a = couleur a = R</span>
 <span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> noir a = <span class="dt">not</span> (rouge a)</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-267"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-268"></p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode c"><code class="sourceCode c"></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-267"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-268"></p>
 <div class="sourceCode" id="cb25"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>ERROR: src<span class="op">/</span>structuresdonnees<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>snippets<span class="op">/</span>structures<span class="op">/</span>arn.py does <span class="kw">not</span> exist</span></code></pre></div>
 <p></div> </div></p>
 <p>On implémente alors les rotations et la bascule avec le filtrage.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-272">ocaml</a>   <a class="item" data-tab="c-272">c</a>   <a class="item" data-tab="python-272">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-272"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-273">ocaml</a>   <a class="item" data-tab="c-273">c</a>   <a class="item" data-tab="python-273">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-273"></p>
 <div class="sourceCode" id="cb26"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> rotation_gauche a = <span class="kw">match</span> a <span class="kw">with</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    | Noeud(c,t1,x,Noeud(R,t2,y,t3)) -&gt; </span>
@@ -1768,15 +1768,15 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb26-1"><a hre
 <span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> noircit a = <span class="kw">match</span> a <span class="kw">with</span></span>
 <span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>    | Noeud(_,g,x,d) -&gt; Noeud(N,g,x,d)</span>
 <span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>    | Nil -&gt; Nil</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-272"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-273"></p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode c"><code class="sourceCode c"></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-272"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-273"></p>
 <div class="sourceCode" id="cb28"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>ERROR: src<span class="op">/</span>structuresdonnees<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>snippets<span class="op">/</span>structures<span class="op">/</span>arn.py does <span class="kw">not</span> exist</span></code></pre></div>
 <p></div> </div></p>
 <p>Puis, les versions optionnelles qui ne s’effectuent que si c’est
 nécessaire :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-277">ocaml</a>   <a class="item" data-tab="c-277">c</a>   <a class="item" data-tab="python-277">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-277"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-278">ocaml</a>   <a class="item" data-tab="c-278">c</a>   <a class="item" data-tab="python-278">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-278"></p>
 <div class="sourceCode" id="cb29"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> essai_rotgauche a =</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> rouge (droite a) &amp;&amp; rouge (droite (droite a))</span>
@@ -1787,14 +1787,14 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb29-1"><a hre
 <span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> essai_bascule a =</span>
 <span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> rouge (gauche a) &amp;&amp; rouge (droite a)</span>
 <span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> bascule a <span class="kw">else</span> a</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-277"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-278"></p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode c"><code class="sourceCode c"></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-277"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-278"></p>
 <div class="sourceCode" id="cb31"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>ERROR: src<span class="op">/</span>structuresdonnees<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>snippets<span class="op">/</span>structures<span class="op">/</span>arn.py does <span class="kw">not</span> exist</span></code></pre></div>
 <p></div> </div></p>
 <p>On peut alors réaliser l’insertion récursivement :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-282">ocaml</a>   <a class="item" data-tab="c-282">c</a>   <a class="item" data-tab="python-282">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-282"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-283">ocaml</a>   <a class="item" data-tab="c-283">c</a>   <a class="item" data-tab="python-283">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-283"></p>
 <div class="sourceCode" id="cb32"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> insere a x =</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">rec</span> aux a =</span>
@@ -1810,9 +1810,9 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb32-1"><a hre
 <span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>                (essai_rotgauche</span>
 <span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>                    (essai_rotdroite a&#39;))</span>
 <span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">in</span> noircit (aux a)</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-282"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-283"></p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode c"><code class="sourceCode c"></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-282"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-283"></p>
 <div class="sourceCode" id="cb34"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>ERROR: src<span class="op">/</span>structuresdonnees<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>snippets<span class="op">/</span>structures<span class="op">/</span>arn.py does <span class="kw">not</span> exist</span></code></pre></div>
 <p></div> </div></p>
@@ -1917,10 +1917,10 @@ class="math inline">\(N\)</span> et que l’on sait que le tas contiendra
 au maximum <span class="math inline">\(N\)</span> valeurs. Cette
 implémentation est alors à rapprocher de celle faite pour les files ou
 les piles dans des tableaux.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-312">ocaml</a>   <a class="item" data-tab="c-312">c</a>   <a class="item" data-tab="python-312">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-312"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-313">ocaml</a>   <a class="item" data-tab="c-313">c</a>   <a class="item" data-tab="python-313">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-313"></p>
 <div class="sourceCode" id="cb35"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>ERROR: src/structuresdonnees/../../snippets/structures/tas.ml does <span class="dt">not</span> exist</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-312"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-313"></p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> tas <span class="op">{</span></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> <span class="op">*</span>elements<span class="op">;</span></span>
@@ -2020,7 +2020,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb35-1"><a hre
 <span id="cb36-97"><a href="#cb36-97" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> root<span class="op">;</span></span>
 <span id="cb36-98"><a href="#cb36-98" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb36-99"><a href="#cb36-99" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-312"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-313"></p>
 <div class="sourceCode" id="cb37"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>ERROR: src<span class="op">/</span>structuresdonnees<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>snippets<span class="op">/</span>structures<span class="op">/</span>tas.py does <span class="kw">not</span> exist</span></code></pre></div>
 <p></div> </div></p>
@@ -2036,10 +2036,10 @@ préfixe et les éléments à insérer en suffixe.</p>
 <p>Pour reconstruire le tableau trié, il suffit alors d’extraire les
 maximums et des les placer à la fin du tableau en faisant ici grossir le
 suffixe trié et réduire le tas préfixe.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-318">ocaml</a>   <a class="item" data-tab="c-318">c</a>   <a class="item" data-tab="python-318">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-318"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-319">ocaml</a>   <a class="item" data-tab="c-319">c</a>   <a class="item" data-tab="python-319">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-319"></p>
 <div class="sourceCode" id="cb38"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>ERROR: src/structuresdonnees/../../snippets/structures/tripartas.ml does <span class="dt">not</span> exist</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-318"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-319"></p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> heapify<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>t<span class="op">,</span> <span class="dt">int</span> sz<span class="op">)</span></span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
@@ -2073,7 +2073,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb38-1"><a hre
 <span id="cb39-31"><a href="#cb39-31" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb39-32"><a href="#cb39-32" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb39-33"><a href="#cb39-33" aria-hidden="true" tabindex="-1"></a></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-318"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-319"></p>
 <div class="sourceCode" id="cb40"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>ERROR: src<span class="op">/</span>structuresdonnees<span class="op">/</span>..<span class="op">/</span>..<span class="op">/</span>snippets<span class="op">/</span>structures<span class="op">/</span>tripartas.py does <span class="kw">not</span> exist</span></code></pre></div>
 <p></div> </div></p>
@@ -2100,7 +2100,7 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <p></div></p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 1
 </div>
 <p>Écrire des fonctions :</p>
 <p><div class="ui segment code"></p>
@@ -2131,7 +2131,7 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <p></div> </div> </div></p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 2
 </div>
 <p>Écrire une fonction <code>sous_arbres</code> qui renvoie la liste des
 sous-arbres non vides d’un arbre.</p>
@@ -2174,7 +2174,7 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <p></div></p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 3
 </div>
 <p>Écrire une fonction
 <code>chemin_noeud : 'a arbre -&gt; chemin -&gt; 'a option</code> qui
@@ -2208,7 +2208,7 @@ sous-arbre gauche</li>
 </ul>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 4
 </div>
 <p>Écrire des fonctions <code>affiche_avant</code>,
 <code>affiche_milieu</code> et <code>affiche_apres</code> qui parcourt
@@ -2244,7 +2244,7 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <p></div> </div> </div></p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 5
 </div>
 <p>On peut représenter une expression arithmétique comme <span
 class="math inline">\((2+3)\times 4\)</span> en tant qu’arbre avec des
@@ -2352,7 +2352,7 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <code>123</code>.</p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 6
 </div>
 <p>En déduire une fonction <div class="ui segment code"></p>
 <div class="sourceCode" id="cb52"><pre
@@ -2393,7 +2393,7 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <p></div></p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 7
 </div>
 <p>Écrire une fonction
 <code>evalue : (int, char) arbre_bin -&gt; int</code> qui évalue une
@@ -2422,7 +2422,7 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <code>('a, 'b) arbre_bin</code>.</p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 8
 </div>
 <p>Écrire ainsi deux fonctions de conversion :</p>
 <p><div class="ui segment code"></p>
@@ -2462,7 +2462,7 @@ connaitre la taille de ces sous-arbres en pixels.</p>
 href="http://pauillac.inria.fr/~remy/poly/ocaml/htmlman/libref/Graphics.html">Graphics</a></p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 9
 </div>
 <p>Écrire une fonction <code>pixels : int arbre -&gt; int * int</code>
 qui renvoie un couple <code>(largeur, racine)</code> où
@@ -2485,7 +2485,7 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <p></div> </div> </div></p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 10
 </div>
 <p>En déduire une fonction
 <code>dessine : int arbre -&gt; int -&gt; int -&gt; unit</code> tel que
@@ -2541,7 +2541,7 @@ class="math inline">\(n-k\)</span> nœuds puis à renvoyer l’arbre
 <code>Noeud(g, (), d)</code>.</p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 11
 </div>
 <p>Implémenter ce modèle avec une fonction
 <code>genere_arbre_1 : int -&gt; unit arbre</code>.</p>
@@ -2563,7 +2563,7 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 uniformément et le remplacer par un nœud.</p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 12
 </div>
 <p>Écrire une fonction
 <code>chemins_vides : 'a arbre -&gt; chemin list</code> qui étant donné
@@ -2584,7 +2584,7 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <p></div> </div> </div></p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 13
 </div>
 <p>Écrire une fonction
 <code>remplit : 'a arbre -&gt; chemin -&gt; 'a arbre</code> qui remplace
@@ -2604,7 +2604,7 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <p></div> </div> </div></p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 14
 </div>
 <p>En déduire une fonction
 <code>genere_arbres_2 : int -&gt; unit arbre</code> qui prend un entier
@@ -2675,7 +2675,7 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <p></div></p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 15
 </div>
 <p>Écrire une fonction <code>hauteur_arbre : 'a arbre -&gt; int</code>
 qui calcule la hauteur d’un arbre sur le modèle de la fonction
@@ -2694,7 +2694,7 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <p></div> </div> </div></p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 16
 </div>
 <p>A l’aide d’un parcours récursif, écrire une fonction
 <code>affiche_etiquettes : int tree -&gt; unit</code> qui affiche toutes
@@ -2727,7 +2727,7 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <p></div></p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 17
 </div>
 <p>On va commencer par écrire une fonction
 <code>peigne : 'a option arbre_bin list -&gt; 'a option arbre_bin</code>
@@ -2748,7 +2748,7 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <p></div> </div> </div></p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 18
 </div>
 <p>Écrire une fonction
 <code>convert : 'a arbre -&gt; 'a option arbre_bin</code> qui va
@@ -2795,7 +2795,7 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 class="header-section-number">6.3.1</span> Premières manipulations</h3>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 19
 </div>
 <p>Écrire une fonction <code>taille : trie -&gt; int</code> qui renvoie
 le nombre de nœuds d’un trie et une fonction
@@ -2820,7 +2820,7 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <p></div> </div> </div></p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 20
 </div>
 <p>Écrire une fonction <code>trie_apres_char</code> tel que l’appel à
 <code>trie_apres_char l c</code> va renvoyer <code>Some t'</code> si il
@@ -2839,7 +2839,7 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <p></div> </div> </div></p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 21
 </div>
 <p>En déduire une fonction
 <code>contient : trie -&gt; string -&gt; bool</code> qui teste si un mot
@@ -2859,7 +2859,7 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <p></div> </div> </div></p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 22
 </div>
 <p>Écrire une fonction <code>enumere : trie -&gt; string list</code> qui
 renvoie tous les mots contenus dans un trie par un parcours
@@ -2897,7 +2897,7 @@ trie <code>t</code> correspondant à la branche</p>
 src="assets/pics/exsuffixe.png" /></div></center></p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 23
 </div>
 <p>écrire la fonction
 <code>suffixe : int -&gt; string -&gt; trie</code></p>
@@ -2913,7 +2913,7 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <p></div> </div> </div></p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 24
 </div>
 <p>Écrire une fonction
 <code>avec_trie_pour_char : (char * trie) list -&gt; char -&gt; trie -&gt; (char * trie) list</code>
@@ -2932,7 +2932,7 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <p></div> </div> </div></p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 25
 </div>
 <p>Écrire une fonction
 <code>ajoute : trie -&gt; string -&gt; trie</code> qui renvoie le trie
@@ -2976,7 +2976,7 @@ class="sourceCode numberSource ocaml numberLines"><code class="sourceCode ocaml"
 <p></div></p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 26
 </div>
 <p>En déduire un trie permettant de représenter cette wordlist et
 comparez :</p>
@@ -3024,7 +3024,7 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 <code>NULL</code>.</p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 27
 </div>
 <p>Écrire une fonction <code>arbre cree_feuille(int x)</code> qui alloue
 et crée une feuille de valeur <code>x</code>.</p>
@@ -3042,7 +3042,7 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 <p></div> </div> </div></p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 28
 </div>
 <p>En déduire, une représentation en <code>C</code> de l’arbre :</p>
 <p><center><div class="ui image center"><img
@@ -3073,7 +3073,7 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 </div> </div> </div>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 29
 </div>
 <p>Écrire une fonction <code>int taille(arbre a)</code> qui renvoie le
 nombre de nœuds d’un arbre binaire.</p>
@@ -3090,7 +3090,7 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 </div> </div> </div>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 30
 </div>
 <p>Écrire une fonction <code>int hauteur(arbre a)</code> qui renvoie la
 hauteur d’un arbre binaire.</p>
@@ -3113,7 +3113,7 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 </div> </div> </div>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 31
 </div>
 <p>Écrire des fonctions <code>void affiche_prefixe(arbre a)</code>,
 <code>affiche_infixe</code> et <code>affiche_postfixe</code> qui affiche
@@ -3172,7 +3172,7 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 </div> </div> </div>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 32
 </div>
 <p><em>(Optionnel en première lecture)</em> À l’aide d’une file dans un
 tableau de longueur <span class="math inline">\(|a|\)</span>, réalisez
@@ -3209,7 +3209,7 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 </div> </div> </div>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 33
 </div>
 <p>Écrire une fonction <code>void libere(arbre a)</code> qui libère tous
 les nœuds de l’arbre <code>a</code>. On fera attention à l’ordre des
@@ -3236,7 +3236,7 @@ recherche</h3>
 des arbres binaires de recherche.</p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 34
 </div>
 <p>Écrire une fonction <code>arbre recherche(arbre a, int x)</code> qui
 renvoie le premier nœud rencontré d’étiquette <code>x</code> dans un ABR
@@ -3258,7 +3258,7 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 </div> </div> </div>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 35
 </div>
 <p>Écrire une fonction <code>arbre insere(arbre a, int x)</code> qui
 renvoie la racine de l’ABR obtenu en insérant une nouvelle feuille
@@ -3286,7 +3286,7 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 </div> </div> </div>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 36
 </div>
 <p>Écrire une fonction <code>arbre minimum(arbre a)</code> qui renvoie
 le nœud de valeur minimale de <code>a</code> en allant le plus à gauche
@@ -3304,7 +3304,7 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 </div> </div> </div>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 37
 </div>
 <p><em>(Optionnel en première lecture)</em> Écrire une fonction
 <code>arbre supprime(arbre a, int x)</code> qui renvoie la racine de
@@ -3363,7 +3363,7 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 nouveau programme.</p>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 38
 </div>
 <p>Reprendre <code>cree_feuille</code> pour que les feuilles soient
 rouges par défaut.</p>
@@ -3382,7 +3382,7 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 </div> </div> </div>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 39
 </div>
 <p>Écrire des fonctions <code>arbre rotation_droite(arbre a)</code>,
 <code>arbre rotation_gauche(arbre a)</code> et
@@ -3422,7 +3422,7 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 </div> </div> </div>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 40
 </div>
 <p>Écrire des fonctions utilitaires <code>bool rouge(arbre a)</code> et
 <code>bool noir(arbre a)</code> qui teste la couleur de la racine. On
@@ -3444,7 +3444,7 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 </div> </div> </div>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 41
 </div>
 <p>Écrire des fonctions <code>arbre essai_rotgauche(arbre a)</code>,
 <code>essai_rotdroite</code> et <code>essai_bascule</code> qui
@@ -3477,7 +3477,7 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 </div> </div> </div>
 <div class="ui message blue">
 <div class="header">
-Question
+Question 42
 </div>
 <p>En déduire une fonction <code>arbre insere(arbre a, int x)</code> qui
 effectue l’insertion dans un arbre rouge et noir. On pourra définir une

@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="generator" content="pandoc">
+    <meta name="description" content="">
+    <meta name="author" content="Marc de Falco">
+
+    <title>Dungeons&amp;Diagrams</title>
+
+    <link rel="stylesheet" type="text/css" href="assets/semantic.min.css">
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-PHZQE2FC4W"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-PHZQE2FC4W');
+	</script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="assets/semantic.min.js"></script>
+
+    <style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    </style>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+
+<script>
+$(document).ready(function() {
+    
+    $("#toc").sidebar("setting", "dimPage", false);
+    $("#toc").sidebar("setting", "delaySetup", true);
+
+   $('.ui.accordion').accordion();
+    if (matchMedia) {
+        var mq = window.matchMedia("(max-width: 900px)");
+        mq.addListener(big_or_small);
+        big_or_small(mq);
+    }
+
+    $("[href^='#']").click(
+        () => {
+            if (! $("#main").hasClass('shrink')) {
+	            $("#toc").sidebar("hide");
+            }
+        })
+
+    function big_or_small(mq) {
+        // The sidebar *pushes* the pusher, the main content, so we
+        // add a class that reduces the pusher's width so the edge
+        // content isn't cut off.
+        if (mq.matches) {
+	        $("#toc").sidebar("hide");
+            $("#main").removeClass("shrink")
+        } else {
+            $("#toc").sidebar("show");
+            $("#main").addClass("shrink");
+        }
+    }
+
+    $("#sidebar-menu-button").click(function() {
+        $("#toc").sidebar("show");
+    }).end();
+
+    $('.tabular.menu .item').tab({
+            context: 'parent'
+        });
+
+})
+
+function setLang(l) {
+    $('.tabular.menu .item').removeClass("active")
+    $('.tabular.menu .item[data-tab^="'+l+'"]').addClass("active")
+    $('.code').removeClass("active")
+    $('.code[data-tab^="'+l+'"]').addClass("active")
+}
+</script>
+
+  <style type="text/css">
+
+  .ui.sidebar {
+    font-size: 15px;
+  }
+
+  body {
+    background-color: #FFFFFF;
+    font-size: 20px;
+  }
+  .ui.segment {
+    font-size: 20px;
+  }
+  .wireframe {
+    //margin-top: 2em;
+  }
+  .ui.footer.segment {
+    //margin: 5em 0em 0em;
+    //padding: 5em 0em;
+  }
+  #top-menu {
+    display: none;
+    }
+
+    .message {
+        color: #000 !important;
+    }
+
+.shrink {
+    width: 60%;
+}
+
+.code {
+    font-size: 0.8em !important;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 24px;
+    border-spacing: 0;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+}
+
+table tr {
+    display: table-row !important;
+}
+
+table th {
+    padding: 3px 10px;
+    background-color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid black;
+}
+table td {
+    padding: 3px 10px;
+    border-top: none;
+    border-left: none;
+    border-bottom: none;
+    border-right: none;
+}
+
+.ui.styled.accordion {
+    width: 100% !important;
+    font-size: 1rem !important;
+}
+
+  .menu .item {
+      padding: .5em 1em !important;
+  }
+
+@media only screen and (max-width: 900px) {
+    .ui.image, .ui.image img {
+        display: block;
+        //width: 100%;
+        width: auto;
+        height: auto;
+    }
+
+    #top-menu {
+        display: block !important;
+    }
+}
+  </style>
+
+  </head>
+  <body class="pushable class="pushable"">
+<div style="display: none;">
+\(
+\def\N{{\mathbb{N}}}
+\def\R{{\mathbb{R}}}
+\def\D{{\mathbb{D}}}
+\def\C{{\mathbb{C}}}
+\def\Z{{\mathbb{Z}}}
+\def\Q{{\mathbb{Q}}}
+\def\K{{\mathbb{K}}}
+\def\KX{{\mathbb{K}}[X]}
+\def\U{{\mathbb{U}}}
+\def\B{{\mathcal{B}}}
+\newcommand\ensfonctions[2]{\mathcal{F}(#1,#2)}
+\newcommand\classeck[3]{\mathcal{C}^{#1}(#2,#3)}
+\newcommand\range[2]{[| #1,#2 |]}
+\newcommand\mod[0]{\mathop{mod}}
+\newcommand\land[0]{\mathop{land}}
+\newcommand\matrices[3]{\mathcal{M}_{#1,#2}(#3)}
+\newcommand\matricescarres[2]{\mathcal{M}_{#1}(#2)}
+\newcommand\gln[2]{\mbox{GL}_{#1}(#2)}
+\newcommand\Support[1]{\mbox{Supp}(#1)}
+\newcommand\dom[0]{\mbox{dom}}
+\newcommand\uniondisjointe{\sqcup}
+\def\lt{<}
+\def\rR{\mathcal{R}}
+\newcommand\parties[1]{\mathcal{P}(#1)}
+\newcommand\entiere[1]{\left\lfloor #1 \right\rfloor}
+\newcommand\congru[3]{#1 = #2\ [#3]}
+\newcommand\enscomp[2]{\left\{\left.\ #1\ \right|\ #2\ \right\}}
+\newcommand\classe[1]{\overline{#1}}
+\newcommand\classemod[2]{\overline{#1}^{[#2]}}
+\newcommand\quotient[2]{#1 / #2}
+\newcommand\ZnZ[1]{\quotient{\Z}{#1 \Z}}
+\newcommand\card[1]{\text{Card}\ #1}
+\newcommand\indic{\mathbbm{1}}
+\newcommand\id{\mbox{id}}
+\newcommand\gO{\mathcal{O}}
+\newcommand\Perm[1]{\mathfrak{S}_#1}
+\newcommand\comb[2]{\binom{#1}{#2}}
+\newcommand\tend[2]{\xrightarrow[#1 \rightarrow #2]{}}
+\newcommand\limite[2]{\lim_{#1 \rightarrow #2}}
+\newcommand\application[5]{\begin{array}{rcccc}
+#1 & : & #2 & \mapsto & #3 \\ 
+& & #4 & \mapsto & #5
+\end{array}}
+\)
+</div>
+
+
+
+<div class="ui vertical inverted visible fixed sidebar menu" id="toc">
+    <div class="item">
+    <a href="/">
+        <i class="icon home"></i> Informatique en CPGE
+    </a>
+    </div>
+    <div class="item">
+        <div class="ui buttons compact">
+            <button onClick="setLang('ocaml')" class="ui button compact">OCaml</button>
+            <button onClick="setLang('c')" class="ui button compact">C</button>
+            <button onClick="setLang('python')" class="ui button compact">Python</button>
+        </div>
+        <div>Langage des exemples</div>
+    </div>
+    <div class="item">
+    <a href="#">
+        Dungeons&amp;Diagrams
+    </a>
+    </div>
+<!-- FIX TOC -->
+<div class="item header"> <a href="#sec:description-of-the-problem-and-solving-method"><span>1</span> Description of the problem and solving method</a><div class="menu"><a class="item" href="#sec:dd"><div class="ui label">1.1</div> D&amp;D</a><a class="item" href="#sec:encoding-boards-in-64bit"><div class="ui label">1.2</div> Encoding boards in 64bit</a><a class="item" href="#sec:encoding-the-problem"><div class="ui label">1.3</div> Encoding the problem</a><a class="item" href="#sec:planning-the-backtracking"><div class="ui label">1.4</div> Planning the backtracking</a></div></div><div class="item header"> <a href="#sec:bitwise-operators-in-c"><span>2</span> Bitwise operators in C</a><div class="menu"></div></div><!-- FIX TOC -->
+</div>
+
+<div class="pusher" id="main-content">
+    <div class="ui inverted top menu" id="top-menu">
+        <div class="ui container">
+	  <a class="launch icon item" id="sidebar-menu-button">
+	    <i class="angle double left icon"></i>
+	  </a>
+	  <div class="item">
+          Dungeons&amp;Diagrams
+	  </div>
+        </div>
+      </div>
+      <div class="ui padded basic segment shrink" id="main">
+          <!-- <div class="masthead"> -->
+<div class="segment">
+<div class="ui container text">
+<p><div class="ui image fluid">   <div class="ui inverted active dimmer">   <div class="content">     <h1 class="ui header" style="color:black; font-size: 4rem" >     Dungeons&Diagrams     </h1>   </div>   </div>   <img class="" src="assets/pics/chap_dand.png"> </div></p>
+<p>To solve this problem, we will add code to the file <a
+href="assets/data/d_and_d.c">d_and_d.c</a>.</p>
+<h1 data-number="1"
+id="sec:description-of-the-problem-and-solving-method"><span
+class="header-section-number">1</span> Description of the problem and
+solving method</h1>
+<h2 data-number="1.1" id="sec:dd"><span
+class="header-section-number">1.1</span> D&amp;D</h2>
+<p><strong>Dungeons&amp;Diagrams</strong> (D&amp;D ) is a
+<em>Sudoku</em>-like puzzle designed by Zach Barth than can be found on
+his website in <a
+href="https://trashworldnews.com/files/advanced_dungeons_and_diagrams.pdf">a
+paper version</a> or more recently as one of many small games in
+<strong>Zachtronics</strong>’s <em>Last Call BBS</em>.</p>
+<p>A D&amp;D puzzle grid is made of a rectangular grid with monsters 👹
+and treasures 💰 and numbered hints on columns and rows. To solve it,
+you need to fill some empty cell with walls in such a way that :</p>
+<ul>
+<li>The number of wall on a row is the given hint for this row. Same
+thing with columns.</li>
+<li>Every monsters is in a deadend and every deadend contains a
+monster.</li>
+<li>Every treasure is in a <em>treasure room</em> which is a 3x3
+wall-free square bordered with wall in all but one cell : its
+entrance.</li>
+<li>The induced graph on the non-wall cell is connected. Neighborhood of
+a cell doesn’t account for diagonals.</li>
+</ul>
+<p>We suppose here that every grid admits a unique solution.</p>
+<p>Here is an example 6x6 grid and its solution:</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/problem_ex.png" /> <img
+src="assets/pics/problem_ex_sol.png" /></div></center></p>
+<div class="ui message blue">
+<div class="header">
+Question 1
+</div>
+<p>Try to solve the 9 problems given in the above PDF with pen and
+paper.</p>
+</div>
+<div class="ui message blue">
+<div class="header">
+Question 2
+</div>
+<p>What can be said about the graph of a solution for a treasure-less
+problem?</p>
+</div>
+<p>If we consider a solution satisfying the rows and columns
+constraints, we can fill a treasure room with walls and place a monster
+at its entrance to check that the graph is valid.</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/problem_ex_sol.png" /> <span
+class="math inline">\(\Rightarrow\)</span> <img
+src="assets/pics/problem_ex_sol_fill.png" /></div></center></p>
+<p>We know have a way of validating solutions:</p>
+<ul>
+<li>check that every column and row contains the right amount of
+walls</li>
+<li>verify that every treasure is inside a proper treasure room</li>
+<li>fill the treasure room with wall and place a monster at its
+entrance</li>
+<li>check that the graph of the grid is a tree whose leaves are exactly
+the cell containing monsters.</li>
+</ul>
+<p>Actually, we don’t need to check the last property with a graph
+search. For all the known puzzles, it’s sufficient to check that the
+graph is locally tree-like:</p>
+<ul>
+<li>every cell with a monster is of degree 1</li>
+<li>every free cell is of degree at least 2</li>
+<li>there’s no square of free cells</li>
+</ul>
+<div class="ui message blue">
+<div class="header">
+Question 3
+</div>
+<p>How could this be a wrong way to check for a solution?</p>
+<p><strong>Bonus</strong> Find a grid where a graph search is needed for
+checking connectedness.</p>
+</div>
+<p>Given that we already checked that treasure rooms have a unique
+entrance, we can reorder the tests to check for a solution:</p>
+<ul>
+<li>check that every column and row contains the right amount of
+walls</li>
+<li>check that every cell with a monster is of degree 1</li>
+<li>check that every free cell is of degree at least 2</li>
+<li>verify that every treasure is inside a proper treasure room</li>
+<li>fill the treasure rooms with walls</li>
+<li>check that the grid does not contain a 2x2 square of free cells</li>
+</ul>
+<h2 data-number="1.2" id="sec:encoding-boards-in-64bit"><span
+class="header-section-number">1.2</span> Encoding boards in 64bit</h2>
+<p>We are going to solve the puzzle by <em>backtracking</em> in C. All
+grids being of size 8x8, we can store a boolean data for each cell in a
+64bit unsigned integer. Every bit is linked to a cell. We fix the
+following order here:</p>
+<p><center><div class="ui image center"><img
+src="assets/pics/grille_ordre.png" /></div></center></p>
+<p>The binary word <span class="math inline">\(a_{63} ... a_0\)</span>
+on 64bits has the <span class="math inline">\(a_i\)</span> bit linked to
+the cell <span class="math inline">\(i\)</span>.</p>
+<p>We are going to associate three integers to a given puzzle:</p>
+<ul>
+<li>the board itself where we place a bit at 1 to account for a wall in
+this cell</li>
+<li>the monsters where every cell with a monster has a bit at 1</li>
+<li>the treasures where every cell with a treasure has a bit at 1</li>
+</ul>
+<p>As an example, consider the grid:
+<center><div class="ui image center"><img
+src="assets/pics/problem_0_.png" /></div></center></p>
+<p>Monsters are in cell 15, 18, 31, 47 and 64. This means the integer
+can be written <span class="math display">\[
+1000000000000000100000000000000010000000000001001000000000000000
+\]</span> in binary, which amounts to 9223512776490909696 in decimal and
+<code>0x8000800080048000</code> in hex.</p>
+<p>We can then directly write in C: <div class="ui segment code"></p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">// at start of file</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="pp">#include </span><span class="im">&lt;stdint.h&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">typedef</span> <span class="dt">uint64_t</span> board<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co">// then later</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>board monsters <span class="op">=</span> <span class="bn">0x8000800080048000</span><span class="op">;</span></span></code></pre></div>
+<p></div></p>
+<p>We could also handle an expanded view of the monsters as an array of
+64 bools. Using this representation, we would get the following value in
+C:</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">// at start of file</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="pp">#include </span><span class="im">&lt;stdbool.h&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="kw">typedef</span> <span class="dt">bool</span> map<span class="op">[</span><span class="dv">64</span><span class="op">];</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co">// then later</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>map monsters <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="op">};</span></span></code></pre></div>
+<p></div></p>
+<div class="ui message blue">
+<div class="header">
+Question 4
+</div>
+<p>Write a function of the given prototype
+<div class="ui segment code"></p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1"></a>board map_to_board<span class="op">(</span>map m<span class="op">);</span></span></code></pre></div>
+<p></div> that returns the integer encoding of the map
+<code>m</code>.</p>
+</div>
+<div class="ui message blue">
+<div class="header">
+Question 5
+</div>
+<p>Write a function of the given prototype
+<div class="ui segment code"></p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1"></a><span class="dt">void</span> board_to_map<span class="op">(</span>board b<span class="op">,</span> map m<span class="op">);</span></span></code></pre></div>
+<p></div> that takes as arguments an integer encoding <code>b</code> and
+a map <code>m</code> and place in <code>m</code> the expansion of
+<code>b</code> .</p>
+</div>
+<div class="ui message blue">
+<div class="header">
+Question 6
+</div>
+<p>Test these two functions, especially the fact that they are
+reciprocals.</p>
+</div>
+<h2 data-number="1.3" id="sec:encoding-the-problem"><span
+class="header-section-number">1.3</span> Encoding the problem</h2>
+<p>To encode a problem, we will use the following type in C:</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">typedef</span> <span class="dt">char</span> constraint<span class="op">[</span><span class="dv">8</span><span class="op">];</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="kw">struct</span> problem <span class="op">{</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>    board monsters<span class="op">;</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>    board treasures<span class="op">;</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>    constraint rows<span class="op">;</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a>    constraint columns<span class="op">;</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="op">};</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="kw">typedef</span> <span class="kw">struct</span> problem problem<span class="op">;</span></span></code></pre></div>
+<p></div></p>
+<p>To define a problem, we can do it directly like this:
+<div class="ui segment code"></p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1"></a>problem p <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>    <span class="bn">0x8000800080048000</span><span class="op">,</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>    <span class="bn">0x20000000000</span><span class="op">,</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>    <span class="op">{</span> <span class="dv">3</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">5</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">4</span> <span class="op">},</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>    <span class="op">{</span> <span class="dv">1</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">7</span><span class="op">,</span><span class="dv">0</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">4</span> <span class="op">}</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="op">};</span></span></code></pre></div>
+<p></div></p>
+<p>But, to improve clarity, we can label the fields as in:
+<div class="ui segment code"></p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1"></a>problem p <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>    <span class="op">.</span>monsters <span class="op">=</span> <span class="bn">0x8000800080048000</span><span class="op">,</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>    <span class="op">.</span>treasures <span class="op">=</span> <span class="bn">0x20000000000</span><span class="op">,</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>    <span class="op">.</span>rows <span class="op">=</span> <span class="op">{</span> <span class="dv">3</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">5</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">4</span> <span class="op">},</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>    <span class="op">.</span>columns <span class="op">=</span> <span class="op">{</span> <span class="dv">1</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">7</span><span class="op">,</span><span class="dv">0</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">4</span> <span class="op">}</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="op">};</span></span></code></pre></div>
+<p></div></p>
+<p>Moreover, this syntax allow to set every omitted fields to 0. We
+could then use the just-defined functions to like this:</p>
+<p><div class="ui segment code"></p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1"></a>problem p <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>    <span class="op">.</span>rows <span class="op">=</span> <span class="op">{</span> <span class="dv">3</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">5</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">4</span> <span class="op">},</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>    <span class="op">.</span>columns <span class="op">=</span> <span class="op">{</span> <span class="dv">1</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">7</span><span class="op">,</span><span class="dv">0</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">4</span> <span class="op">}</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="op">};</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a></span>
+<span id="cb8-6"><a href="#cb8-6"></a>map monsters <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="op">};</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a></span>
+<span id="cb8-17"><a href="#cb8-17"></a>map treasures <span class="op">=</span> <span class="op">{</span> </span>
+<span id="cb8-18"><a href="#cb8-18"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb8-19"><a href="#cb8-19"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb8-20"><a href="#cb8-20"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb8-21"><a href="#cb8-21"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb8-22"><a href="#cb8-22"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb8-23"><a href="#cb8-23"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb8-24"><a href="#cb8-24"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb8-25"><a href="#cb8-25"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb8-26"><a href="#cb8-26"></a><span class="op">};</span></span>
+<span id="cb8-27"><a href="#cb8-27"></a><span class="co">// or faster</span></span>
+<span id="cb8-28"><a href="#cb8-28"></a>map treasure <span class="op">=</span> <span class="op">{</span> <span class="op">[</span><span class="dv">41</span><span class="op">]</span> <span class="op">=</span> <span class="dv">1</span> <span class="op">};</span> <span class="co">// set the 41th bool to 1</span></span>
+<span id="cb8-29"><a href="#cb8-29"></a></span>
+<span id="cb8-30"><a href="#cb8-30"></a>p<span class="op">.</span>monsters <span class="op">=</span> map_to_board<span class="op">(</span>monsters<span class="op">);</span></span>
+<span id="cb8-31"><a href="#cb8-31"></a>p<span class="op">.</span>treasures <span class="op">=</span> map_to_board<span class="op">(</span>treasures<span class="op">);</span></span></code></pre></div>
+<p></div></p>
+<h2 data-number="1.4" id="sec:planning-the-backtracking"><span
+class="header-section-number">1.4</span> Planning the backtracking</h2>
+<p>We are going to make partial fill of the grids to solve the problem.
+We reuse the board and moves analogy to go from a grid to another along
+the backtracking tree.</p>
+<p>Most of the rules to check for a solution apply on a complete board
+so we could choose only to check for solutions on the leaves of the
+backtracking tree. But doing so would mean exploring way too much
+boards.</p>
+<p>Taking the fact to place or not a wall on a given cell as a move, we
+would get a tree with <span class="math inline">\(2^{64}\)</span>
+leaves!</p>
+<p>We will instead consider moves filling a whole row knowing it should
+hold <span class="math inline">\(k\)</span> walls.</p>
+<div class="ui message blue">
+<div class="header">
+Question 7
+</div>
+<p>If rows hints are given by the numbers <span
+class="math inline">\(l_1, \dots, l_8\)</span> show that we will get a
+backtracking tree with <span class="math display">\[
+\prod_{k=1}^8 \binom{8}{l_k}
+\]</span> leaves.</p>
+<p>When <span class="math inline">\(l_1 = \dots = l_8 = 4\)</span>,
+compare this number with <span
+class="math inline">\(2^{64}\)</span>.</p>
+</div>
+<p>Even if this new number is way less than the other one, it’s still
+impossible to do an exhaustive search in this way. Thus, we are going to
+search for nodes in the backtracking tree leading for sure to no
+solutions.</p>
+<p>First, we will restrict filling of rows that doesn’t clash with
+monsters or treasures. Then, if we are on a node having filled the first
+k rows, we check:</p>
+<ul>
+<li>that no column have strictly more walls than the hint
+(<strong>column overload</strong>)</li>
+<li>that no monster is trapped, that is does not have a free cell in its
+neighborhood (<strong>trapped monsters</strong>)</li>
+<li>that no free cell on the first k rows is of degree <span
+class="math inline">\(le 1\)</span> (<strong>no deadend upto
+row</strong>)</li>
+</ul>
+<p>We have given the short name of these tests that will be use in the
+later questions.</p>
+<h1 data-number="2" id="sec:bitwise-operators-in-c"><span
+class="header-section-number">2</span> Bitwise operators in C</h1>
+<p>For the sake of clarity, we are going to write <code>0b10101</code>
+for a binary value in <code>C</code> although it’s not directly valid.
+In formula, we will write <span
+class="math inline">\({10101}_2\)</span>.</p>
+<p>We will now study bitwise operators acting directly on the bits of an
+integer.</p>
+</div>
+<!-- </div> -->
+</div>
+
+<div class="ui inverted vertical footer segment">
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+Marc de Falco
+</div>
+  </body>
+</html>
