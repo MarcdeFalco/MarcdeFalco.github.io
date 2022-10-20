@@ -2239,7 +2239,7 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 <p></div></p>
 <div class="ui message blue">
 <div class="header">
-Question 2
+Question 1
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
 <div class="sourceCode" id="cb59"><pre
@@ -2250,7 +2250,7 @@ dont le caractère orienté est donné par le booléen
 </div>
 <div class="ui message blue">
 <div class="header">
-Question 3
+Question 2
 </div>
 <p>Écrire des fonctions de prototype <div class="ui segment code"></p>
 <div class="sourceCode" id="cb60"><pre
@@ -2260,7 +2260,7 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 </div>
 <div class="ui message blue">
 <div class="header">
-Question 4
+Question 3
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
 <div class="sourceCode" id="cb61"><pre
@@ -2270,7 +2270,7 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 </div>
 <div class="ui message blue">
 <div class="header">
-Question 5
+Question 4
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
 <div class="sourceCode" id="cb62"><pre
@@ -2281,7 +2281,7 @@ soit déjà présente.</p>
 </div>
 <div class="ui message blue">
 <div class="header">
-Question 6
+Question 5
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
 <div class="sourceCode" id="cb63"><pre
@@ -2292,7 +2292,7 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 </div>
 <div class="ui message blue">
 <div class="header">
-Question 7
+Question 6
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
 <div class="sourceCode" id="cb64"><pre
@@ -2302,7 +2302,7 @@ pour faire des vérifications.</p>
 </div>
 <div class="ui message blue">
 <div class="header">
-Question 8
+Question 7
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
 <div class="sourceCode" id="cb65"><pre
@@ -2313,7 +2313,7 @@ valant <code>src</code> pour <code>src</code>.</p>
 </div>
 <div class="ui message blue">
 <div class="header">
-Question 9
+Question 8
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
 <div class="sourceCode" id="cb66"><pre
@@ -2325,7 +2325,7 @@ découvert par le sommet <code>x</code>.</p>
 </div>
 <div class="ui message blue">
 <div class="header">
-Question 10
+Question 9
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
 <div class="sourceCode" id="cb67"><pre
@@ -2363,7 +2363,7 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 class="math inline">\(\{x,y\}\)</span> est dans le couplage.</p>
 <div class="ui message blue">
 <div class="header">
-Question 11
+Question 10
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
 <div class="sourceCode" id="cb69"><pre
@@ -2373,7 +2373,7 @@ associé au couplage du graphe biparti.</p>
 </div>
 <div class="ui message blue">
 <div class="header">
-Question 12
+Question 11
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
 <div class="sourceCode" id="cb70"><pre
@@ -2385,7 +2385,7 @@ les arêtes du chemin correspondant en utilisant le tableau
 </div>
 <div class="ui message blue">
 <div class="header">
-Question 13
+Question 12
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
 <div class="sourceCode" id="cb71"><pre
@@ -2397,7 +2397,7 @@ existe un, et <code>false</code> sinon.</p>
 </div>
 <div class="ui message blue">
 <div class="header">
-Question 14
+Question 13
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
 <div class="sourceCode" id="cb72"><pre
@@ -2434,11 +2434,23 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 <span id="cb73-9"><a href="#cb73-9"></a><span class="kw">typedef</span> <span class="kw">struct</span> edge_list edge_list<span class="op">;</span></span>
 <span id="cb73-10"><a href="#cb73-10"></a></span>
 <span id="cb73-11"><a href="#cb73-11"></a><span class="kw">struct</span> graph <span class="op">{</span></span>
-<span id="cb73-12"><a href="#cb73-12"></a>    <span class="dt">int</span> nvertices<span class="op">;</span></span>
-<span id="cb73-13"><a href="#cb73-13"></a>    edge_list <span class="op">**</span>edge_lists<span class="op">;</span></span>
-<span id="cb73-14"><a href="#cb73-14"></a><span class="op">};</span></span>
-<span id="cb73-15"><a href="#cb73-15"></a><span class="kw">typedef</span> <span class="kw">struct</span> graph graph<span class="op">;</span></span></code></pre></div>
+<span id="cb73-12"><a href="#cb73-12"></a>    <span class="dt">int</span> s<span class="op">;</span> <span class="co">/* graphe s--&gt;*--&gt;t */</span></span>
+<span id="cb73-13"><a href="#cb73-13"></a>    <span class="dt">int</span> t<span class="op">;</span></span>
+<span id="cb73-14"><a href="#cb73-14"></a>    <span class="dt">int</span> nvertices<span class="op">;</span></span>
+<span id="cb73-15"><a href="#cb73-15"></a>    edge_list <span class="op">**</span>edge_lists<span class="op">;</span></span>
+<span id="cb73-16"><a href="#cb73-16"></a><span class="op">};</span></span>
+<span id="cb73-17"><a href="#cb73-17"></a><span class="kw">typedef</span> <span class="kw">struct</span> graph graph<span class="op">;</span></span></code></pre></div>
 <p></div></p>
+<div class="ui message blue">
+<div class="header">
+Question 14
+</div>
+<p>Reprendre la fonction <code>graph_create</code> pour tenir compte de
+<code>s</code> et <code>t</code>. <div class="ui segment code"></p>
+<div class="sourceCode" id="cb74"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb74-1"><a href="#cb74-1"></a>graph <span class="op">*</span>graph_create<span class="op">(</span><span class="dt">int</span> nvertices<span class="op">,</span> <span class="dt">int</span> s<span class="op">,</span> <span class="dt">int</span> t<span class="op">);</span></span></code></pre></div>
+<p></div> Ici, le graphe est forcément orienté.</p>
+</div>
 <div class="ui message blue">
 <div class="header">
 Question 15
@@ -2446,8 +2458,8 @@ Question 15
 <p>Reprendre la fonction <code>add_edge</code> pour tenir compte de
 cela, cette fonction affectera un flot nul et une référence
 <code>NULL</code> : <div class="ui segment code"></p>
-<div class="sourceCode" id="cb74"><pre
-class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb74-1"><a href="#cb74-1"></a>edge_list <span class="op">*</span>add_edge<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> src<span class="op">,</span> <span class="dt">int</span> dst<span class="op">,</span> <span class="dt">int</span> capacity<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb75-1"><a href="#cb75-1"></a>edge_list <span class="op">*</span>add_edge<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> src<span class="op">,</span> <span class="dt">int</span> dst<span class="op">,</span> <span class="dt">int</span> capacity<span class="op">);</span></span></code></pre></div>
 <p></div></p>
 </div>
 <div class="ui message blue">
@@ -2456,8 +2468,8 @@ Question 16
 </div>
 <p>Reprendre la fonction <code>graph_print</code> pour afficher le flot
 <div class="ui segment code"></p>
-<div class="sourceCode" id="cb75"><pre
-class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb75-1"><a href="#cb75-1"></a><span class="dt">void</span> graph_print<span class="op">(</span>graph <span class="op">*</span>g<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb76-1"><a href="#cb76-1"></a><span class="dt">void</span> graph_print<span class="op">(</span>graph <span class="op">*</span>g<span class="op">);</span></span></code></pre></div>
 <p></div></p>
 </div>
 <div class="ui message blue">
@@ -2466,12 +2478,13 @@ Question 17
 </div>
 <p>Reprendre les fonctions de parcours pour qu’elles correspondent aux
 prototypes suivants : <div class="ui segment code"></p>
-<div class="sourceCode" id="cb76"><pre
-class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb76-1"><a href="#cb76-1"></a>edge_list <span class="op">**</span>dfs_init<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> src<span class="op">);</span></span>
-<span id="cb76-2"><a href="#cb76-2"></a><span class="dt">void</span> dfs<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> edge_list <span class="op">**</span>pred<span class="op">,</span> <span class="dt">int</span> src<span class="op">,</span> <span class="dt">int</span> x<span class="op">);</span></span>
-<span id="cb76-3"><a href="#cb76-3"></a>edge_list <span class="op">**</span>dfs_launch<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> src<span class="op">);</span></span></code></pre></div>
-<p></div> Ici, le tableau des prédécesseurs indique l’arête empruntée
-pour remonter. Comme la source <code>src</code> du DFS aura une valeur
+<div class="sourceCode" id="cb77"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb77-1"><a href="#cb77-1"></a>edge_list <span class="op">**</span>dfs_init<span class="op">(</span>graph <span class="op">*</span>g<span class="op">);</span></span>
+<span id="cb77-2"><a href="#cb77-2"></a><span class="dt">void</span> dfs<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> edge_list <span class="op">**</span>pred<span class="op">,</span> <span class="dt">int</span> x<span class="op">);</span></span>
+<span id="cb77-3"><a href="#cb77-3"></a>edge_list <span class="op">**</span>dfs_launch<span class="op">(</span>graph <span class="op">*</span>g<span class="op">);</span></span></code></pre></div>
+<p></div> Tous les DFS démarreront de <code>g-&gt;s</code>.</p>
+<p>Ici, le tableau des prédécesseurs indique l’arête empruntée pour
+remonter. Comme la source <code>g-&gt;s</code> du DFS aura une valeur
 <code>NULL</code> dans ce tableau, il est nécessaire de la rajouter en
 argument pour ne pas faussement la considérer comme étant non
 visitée.</p>
@@ -2481,8 +2494,8 @@ visitée.</p>
 Question 18
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
-<div class="sourceCode" id="cb77"><pre
-class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb77-1"><a href="#cb77-1"></a>graph <span class="op">*</span>residual_graph<span class="op">(</span>graph <span class="op">*</span>g<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb78-1"><a href="#cb78-1"></a>graph <span class="op">*</span>residual_graph<span class="op">(</span>graph <span class="op">*</span>g<span class="op">);</span></span></code></pre></div>
 <p></div> qui renvoie le graphe résiduel associé au flot présent sur les
 arêtes de <code>g</code>.</p>
 <p>On fera en sorte que les arêtes du graphe résiduel fassent référence
@@ -2497,8 +2510,8 @@ l’orientation inverse (retour du flot).</p>
 Question 19
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
-<div class="sourceCode" id="cb78"><pre
-class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb78-1"><a href="#cb78-1"></a><span class="dt">void</span> adjust_flow_along_path<span class="op">(</span>edge_list <span class="op">**</span>pred<span class="op">,</span> <span class="dt">int</span> x<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb79-1"><a href="#cb79-1"></a><span class="dt">void</span> adjust_flow_along_path<span class="op">(</span>edge_list <span class="op">**</span>pred<span class="op">,</span> <span class="dt">int</span> x<span class="op">);</span></span></code></pre></div>
 <p></div> qui étant donné un tableau <code>pred</code> issu d’un DFS
 depuis la source du graphe de flot et le sommet <code>t</code>
 destination <strong>visité</strong> va remonter le chemin augmentant
@@ -2511,8 +2524,8 @@ le flot.</p>
 Question 20
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
-<div class="sourceCode" id="cb79"><pre
-class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb79-1"><a href="#cb79-1"></a><span class="dt">void</span> maximal_flow<span class="op">(</span>graph <span class="op">*</span>g<span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb80-1"><a href="#cb80-1"></a><span class="dt">void</span> maximal_flow<span class="op">(</span>graph <span class="op">*</span>g<span class="op">);</span></span></code></pre></div>
 <p></div> qui calcule un flot maximal depuis un flot nul.</p>
 </div>
 <div class="ui message blue">
@@ -2521,24 +2534,24 @@ Question 21
 </div>
 <p>Testez votre fonction sur l’exemple du cours :
 <div class="ui segment code"></p>
-<div class="sourceCode" id="cb80"><pre
-class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb80-1"><a href="#cb80-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span></span>
-<span id="cb80-2"><a href="#cb80-2"></a><span class="op">{</span></span>
-<span id="cb80-3"><a href="#cb80-3"></a>    graph <span class="op">*</span>g <span class="op">=</span> graph_create<span class="op">(</span><span class="dv">6</span><span class="op">);</span></span>
-<span id="cb80-4"><a href="#cb80-4"></a>    add_edge<span class="op">(</span>g<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">20</span><span class="op">);</span></span>
-<span id="cb80-5"><a href="#cb80-5"></a>    add_edge<span class="op">(</span>g<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">10</span><span class="op">);</span></span>
-<span id="cb80-6"><a href="#cb80-6"></a>    add_edge<span class="op">(</span>g<span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">10</span><span class="op">);</span></span>
-<span id="cb80-7"><a href="#cb80-7"></a>    add_edge<span class="op">(</span>g<span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">5</span><span class="op">);</span></span>
-<span id="cb80-8"><a href="#cb80-8"></a>    add_edge<span class="op">(</span>g<span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">15</span><span class="op">);</span></span>
-<span id="cb80-9"><a href="#cb80-9"></a>    add_edge<span class="op">(</span>g<span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">10</span><span class="op">);</span></span>
-<span id="cb80-10"><a href="#cb80-10"></a>    add_edge<span class="op">(</span>g<span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">10</span><span class="op">);</span></span>
-<span id="cb80-11"><a href="#cb80-11"></a>    add_edge<span class="op">(</span>g<span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">15</span><span class="op">);</span></span>
-<span id="cb80-12"><a href="#cb80-12"></a>    add_edge<span class="op">(</span>g<span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">20</span><span class="op">);</span></span>
-<span id="cb80-13"><a href="#cb80-13"></a>    maximal_flow<span class="op">(</span>g<span class="op">);</span></span>
-<span id="cb80-14"><a href="#cb80-14"></a>    graph_print<span class="op">(</span>g<span class="op">);</span></span>
-<span id="cb80-15"><a href="#cb80-15"></a></span>
-<span id="cb80-16"><a href="#cb80-16"></a>    graph_free<span class="op">(</span>g<span class="op">);</span></span>
-<span id="cb80-17"><a href="#cb80-17"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb81-1"><a href="#cb81-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span></span>
+<span id="cb81-2"><a href="#cb81-2"></a><span class="op">{</span></span>
+<span id="cb81-3"><a href="#cb81-3"></a>    graph <span class="op">*</span>g <span class="op">=</span> graph_create<span class="op">(</span><span class="dv">6</span><span class="op">);</span></span>
+<span id="cb81-4"><a href="#cb81-4"></a>    add_edge<span class="op">(</span>g<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">20</span><span class="op">);</span></span>
+<span id="cb81-5"><a href="#cb81-5"></a>    add_edge<span class="op">(</span>g<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">10</span><span class="op">);</span></span>
+<span id="cb81-6"><a href="#cb81-6"></a>    add_edge<span class="op">(</span>g<span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">10</span><span class="op">);</span></span>
+<span id="cb81-7"><a href="#cb81-7"></a>    add_edge<span class="op">(</span>g<span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">5</span><span class="op">);</span></span>
+<span id="cb81-8"><a href="#cb81-8"></a>    add_edge<span class="op">(</span>g<span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">15</span><span class="op">);</span></span>
+<span id="cb81-9"><a href="#cb81-9"></a>    add_edge<span class="op">(</span>g<span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">10</span><span class="op">);</span></span>
+<span id="cb81-10"><a href="#cb81-10"></a>    add_edge<span class="op">(</span>g<span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">10</span><span class="op">);</span></span>
+<span id="cb81-11"><a href="#cb81-11"></a>    add_edge<span class="op">(</span>g<span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">15</span><span class="op">);</span></span>
+<span id="cb81-12"><a href="#cb81-12"></a>    add_edge<span class="op">(</span>g<span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">20</span><span class="op">);</span></span>
+<span id="cb81-13"><a href="#cb81-13"></a>    maximal_flow<span class="op">(</span>g<span class="op">);</span></span>
+<span id="cb81-14"><a href="#cb81-14"></a>    graph_print<span class="op">(</span>g<span class="op">);</span></span>
+<span id="cb81-15"><a href="#cb81-15"></a></span>
+<span id="cb81-16"><a href="#cb81-16"></a>    graph_free<span class="op">(</span>g<span class="op">);</span></span>
+<span id="cb81-17"><a href="#cb81-17"></a><span class="op">}</span></span></code></pre></div>
 <p></div></p>
 </div>
 <div class="ui message blue">
@@ -2546,6 +2559,13 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 Question 22
 </div>
 <p>Assurez-vous de n’avoir aucune fuite mémoire.</p>
+</div>
+<div class="ui message blue">
+<div class="header">
+Question 23
+</div>
+<p>Appliquez cela au cas d’un graphe biparti pour retrouver la méthode
+vue précédemment.</p>
 </div>
 </div>
 <!-- </div> -->
