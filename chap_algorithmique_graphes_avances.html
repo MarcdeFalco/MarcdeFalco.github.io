@@ -2511,7 +2511,7 @@ Question 19
 </div>
 <p>Écrire une fonction de prototype <div class="ui segment code"></p>
 <div class="sourceCode" id="cb79"><pre
-class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb79-1"><a href="#cb79-1"></a><span class="dt">void</span> adjust_flow_along_path<span class="op">(</span>edge_list <span class="op">**</span>pred<span class="op">,</span> <span class="dt">int</span> x<span class="op">);</span></span></code></pre></div>
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb79-1"><a href="#cb79-1"></a><span class="dt">void</span> adjust_flow_along_path<span class="op">(</span>edge_list <span class="op">**</span>pred<span class="op">,</span> <span class="dt">int</span> t<span class="op">);</span></span></code></pre></div>
 <p></div> qui étant donné un tableau <code>pred</code> issu d’un DFS
 depuis la source du graphe de flot et le sommet <code>t</code>
 destination <strong>visité</strong> va remonter le chemin augmentant
@@ -2537,7 +2537,7 @@ Question 21
 <div class="sourceCode" id="cb81"><pre
 class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb81-1"><a href="#cb81-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span></span>
 <span id="cb81-2"><a href="#cb81-2"></a><span class="op">{</span></span>
-<span id="cb81-3"><a href="#cb81-3"></a>    graph <span class="op">*</span>g <span class="op">=</span> graph_create<span class="op">(</span><span class="dv">6</span><span class="op">);</span></span>
+<span id="cb81-3"><a href="#cb81-3"></a>    graph <span class="op">*</span>g <span class="op">=</span> graph_create<span class="op">(</span><span class="dv">6</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">5</span><span class="op">);</span></span>
 <span id="cb81-4"><a href="#cb81-4"></a>    add_edge<span class="op">(</span>g<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">20</span><span class="op">);</span></span>
 <span id="cb81-5"><a href="#cb81-5"></a>    add_edge<span class="op">(</span>g<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">10</span><span class="op">);</span></span>
 <span id="cb81-6"><a href="#cb81-6"></a>    add_edge<span class="op">(</span>g<span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">10</span><span class="op">);</span></span>
