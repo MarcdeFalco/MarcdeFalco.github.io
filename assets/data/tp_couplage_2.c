@@ -181,7 +181,7 @@ int *maximal_matching(graph *g, bool *sources)
         if(sources[i] && matching[i] < 0)
         {
             graph *gr = residual_graph(g, sources, matching);
-            int *pred =dfs_launch(g, i);
+            int *pred =dfs_launch(gr, i);
             augment(g, sources, matching, pred);
             free(pred);
             graph_free(gr);
