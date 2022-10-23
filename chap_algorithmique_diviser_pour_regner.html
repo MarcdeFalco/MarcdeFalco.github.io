@@ -389,7 +389,7 @@ tableau</h2>
 calculer la somme <span class="math inline">\(S(t) = \sum_{i=0}^{n-1}
 t[i]\)</span>. Il est possible de faire ce calcul très aisément avec une
 simple boucle :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-70">ocaml</a>   <a class="item" data-tab="c-70">c</a>   <a class="item" data-tab="python-70">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-70"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-72">ocaml</a>   <a class="item" data-tab="c-72">c</a>   <a class="item" data-tab="python-72">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-72"></p>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> somme t =</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> s = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
@@ -397,7 +397,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        s := !s + t.(i)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    !s</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-70"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-72"></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> somme<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>t<span class="op">,</span> <span class="dt">size_t</span> nb<span class="op">)</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> s <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
@@ -407,7 +407,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s<span class="op">;</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-70"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-72"></p>
 <div class="sourceCode" id="cb3"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> somme(t):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> <span class="dv">0</span></span>
@@ -1037,7 +1037,7 @@ src="assets/pics/closest_limit8_b.png" /></div></center></p>
 <p>Cette analyse est très naïve, on peut démontrer qu’il suffit
 d’observer cinq autres points.</p>
 <p></div></p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-128">ocaml</a>   <a class="item" data-tab="c-128">c</a>   <a class="item" data-tab="python-128">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-128"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-130">ocaml</a>   <a class="item" data-tab="c-130">c</a>   <a class="item" data-tab="python-130">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-130"></p>
 <div class="sourceCode" id="cb10"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> distance (x1,y1) (x2,y2) =</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> v = (x1-.x2)*.(x1-.x2)+.(y1-.y2)*.(y1-.y2) <span class="kw">in</span></span>
@@ -1083,9 +1083,9 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb10-1"><a hre
 <span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Array</span>.sort Stdlib.<span class="dt">compare</span> points;</span>
 <span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Array</span>.sort Stdlib.<span class="dt">compare</span> p_y;</span>
 <span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>    closest_rec points p_y <span class="dv">0</span> (<span class="dt">Array</span>.length points - <span class="dv">1</span>)</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-128"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-130"></p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ERROR<span class="op">:</span> src<span class="op">/</span>algorithmique<span class="op">/../../</span>snippets<span class="op">/</span>algorithmique<span class="op">/</span>closest_div<span class="op">.</span>c does not exist</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-128"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-130"></p>
 <div class="sourceCode" id="cb12"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> distance(p1,p2):</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    x1, y1 <span class="op">=</span> p1</span>

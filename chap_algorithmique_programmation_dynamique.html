@@ -651,19 +651,19 @@ récursif d’appel sans partage possible.</p>
 Exemple
 </div>
 <p>Fibonacci. On a</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-82">ocaml</a>   <a class="item" data-tab="c-82">c</a>   <a class="item" data-tab="python-82">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-82"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-84">ocaml</a>   <a class="item" data-tab="c-84">c</a>   <a class="item" data-tab="python-84">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-84"></p>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> fibo n =</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> n &lt;= <span class="dv">1</span> <span class="kw">then</span> n</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> fibo (n<span class="dv">-1</span>) + fibo (n<span class="dv">-2</span>)</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-82"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-84"></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> fibo<span class="op">(</span><span class="dt">int</span> n<span class="op">)</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>n <span class="op">&lt;=</span> <span class="dv">1</span><span class="op">)</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> n<span class="op">;</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fibo<span class="op">(</span>n<span class="op">-</span><span class="dv">1</span><span class="op">)</span> <span class="op">+</span> fibo<span class="op">(</span>n<span class="op">-</span><span class="dv">2</span><span class="op">);</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-82"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-84"></p>
 <div class="sourceCode" id="cb3"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fibo(n):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">&lt;=</span> <span class="dv">1</span>:</span>
@@ -671,7 +671,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a hr
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fibo(n<span class="op">-</span><span class="dv">1</span>) <span class="op">+</span> fibo(n<span class="op">-</span><span class="dv">2</span>)</span></code></pre></div>
 <p></div> </div></p>
 <p>Rendu de monnaie. On peut directement écrire :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-83">ocaml</a>   <a class="item" data-tab="c-83">c</a>   <a class="item" data-tab="python-83">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-83"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-85">ocaml</a>   <a class="item" data-tab="c-85">c</a>   <a class="item" data-tab="python-85">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-85"></p>
 <div class="sourceCode" id="cb4"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> rendu s n =</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> n = <span class="dv">0</span></span>
@@ -683,7 +683,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb4-1"><a href
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>            <span class="kw">then</span> m := <span class="dt">min</span> !m (rendu s (n - s.(i)))</span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>;</span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span> + !m</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-83"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-85"></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> rendu<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>s<span class="op">,</span> <span class="dt">int</span> ls<span class="op">,</span> <span class="dt">int</span> n<span class="op">)</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>n <span class="op">==</span> <span class="dv">0</span><span class="op">)</span></span>
@@ -700,7 +700,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb4-1"><a href
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">1</span> <span class="op">+</span> m<span class="op">;</span></span>
 <span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-83"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-85"></p>
 <div class="sourceCode" id="cb6"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rendu(s, n):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
@@ -736,7 +736,7 @@ ou par les dictionnaires de <code>Python</code>.</p>
 Exemple
 </div>
 <p>Fibonacci.</p>
-<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-86">ocaml</a>   <a class="item" data-tab="python-86">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-86"></p>
+<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-88">ocaml</a>   <a class="item" data-tab="python-88">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-88"></p>
 <div class="sourceCode" id="cb7"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> fibo n =</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> cache = <span class="dt">Hashtbl</span>.create (n+<span class="dv">1</span>) <span class="kw">in</span></span>
@@ -750,7 +750,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb7-1"><a href
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>            <span class="kw">in</span> <span class="dt">Hashtbl</span>.add cache n v;</span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>            v</span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">in</span> fibo_aux n</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-86"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-88"></p>
 <div class="sourceCode" id="cb8"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>cache <span class="op">=</span> {}</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -765,7 +765,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a hr
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> v</span></code></pre></div>
 <p></div> </div></p>
 <p>Rendu de monnaie.</p>
-<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-87">ocaml</a>   <a class="item" data-tab="python-87">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-87"></p>
+<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-89">ocaml</a>   <a class="item" data-tab="python-89">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-89"></p>
 <div class="sourceCode" id="cb9"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> rendu s n =</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> cache = <span class="dt">Hashtbl</span>.create (n+<span class="dv">1</span>) <span class="kw">in</span></span>
@@ -784,7 +784,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb9-1"><a href
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>            <span class="kw">in</span> <span class="dt">Hashtbl</span>.add cache n v;</span>
 <span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>            v</span>
 <span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">in</span> rendu_aux n</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-87"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-89"></p>
 <div class="sourceCode" id="cb10"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>cache <span class="op">=</span> {}</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -805,16 +805,16 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a h
 <p></div> </div></p>
 </div>
 <p>On remarque que le code a toujours la même structure on part de</p>
-<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-89">ocaml</a>   <a class="item" data-tab="python-89">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-89"></p>
+<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-91">ocaml</a>   <a class="item" data-tab="python-91">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-91"></p>
 <div class="sourceCode" id="cb11"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> f x = expr</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-89"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-91"></p>
 <div class="sourceCode" id="cb12"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> expr</span></code></pre></div>
 <p></div> </div></p>
 <p>et on passe à :</p>
-<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-90">ocaml</a>   <a class="item" data-tab="python-90">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-90"></p>
+<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-92">ocaml</a>   <a class="item" data-tab="python-92">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-92"></p>
 <div class="sourceCode" id="cb13"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> f x =</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">(* ici n doit etre proche du nombre d&#39;appels *)</span></span>
@@ -829,7 +829,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb13-1"><a hre
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>            <span class="dt">Hashtbl</span>.add cache x v;</span>
 <span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>            v</span>
 <span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">in</span> f_aux x</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-90"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-92"></p>
 <div class="sourceCode" id="cb14"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>cache <span class="op">=</span> {}</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1002,7 +1002,7 @@ Exemple
 </div>
 <p>Fibonacci. Ici, on a directement l’ordre des entiers qui est un tri
 topologique.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-106">ocaml</a>   <a class="item" data-tab="c-106">c</a>   <a class="item" data-tab="python-106">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-106"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-108">ocaml</a>   <a class="item" data-tab="c-108">c</a>   <a class="item" data-tab="python-108">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-108"></p>
 <div class="sourceCode" id="cb21"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> fibo n =</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> n &lt;= <span class="dv">1</span> <span class="kw">then</span> n</span>
@@ -1013,7 +1013,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb21-1"><a hre
 <span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>            t.(i) &lt;- t.(i<span class="dv">-1</span>) + t.(i<span class="dv">-2</span>)</span>
 <span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>;</span>
 <span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>        t.(n)</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-106"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-108"></p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> fibo<span class="op">(</span><span class="dt">int</span> n<span class="op">)</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>n <span class="op">&lt;=</span> <span class="dv">1</span><span class="op">)</span></span>
@@ -1024,7 +1024,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb21-1"><a hre
 <span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>        t<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> t<span class="op">[</span>i<span class="op">-</span><span class="dv">1</span><span class="op">]</span> <span class="op">+</span> t<span class="op">[</span>i<span class="op">-</span><span class="dv">2</span><span class="op">];</span></span>
 <span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t<span class="op">[</span>n<span class="op">];</span></span>
 <span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-106"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-108"></p>
 <div class="sourceCode" id="cb23"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fibo(n):</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">&lt;=</span> <span class="dv">1</span>:</span>
@@ -1039,7 +1039,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a h
 <span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t[n]</span></code></pre></div>
 <p></div> </div></p>
 <p>Rendu de monnaie.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-107">ocaml</a>   <a class="item" data-tab="c-107">c</a>   <a class="item" data-tab="python-107">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-107"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-109">ocaml</a>   <a class="item" data-tab="c-109">c</a>   <a class="item" data-tab="python-109">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-109"></p>
 <div class="sourceCode" id="cb24"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> rendu s n =</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> n = <span class="dv">0</span> <span class="kw">then</span> <span class="dv">0</span></span>
@@ -1055,7 +1055,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb24-1"><a hre
 <span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>            t.(i) &lt;- <span class="dv">1</span> + !m</span>
 <span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>;</span>
 <span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>        t.(n)</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-107"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-109"></p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> rendu<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>s<span class="op">,</span> <span class="dt">int</span> ls<span class="op">,</span> <span class="dt">int</span> n<span class="op">)</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>n <span class="op">==</span> <span class="dv">0</span><span class="op">)</span></span>
@@ -1080,7 +1080,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb24-1"><a hre
 <span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t<span class="op">[</span>n<span class="op">];</span></span>
 <span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-107"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-109"></p>
 <div class="sourceCode" id="cb26"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rendu(s, n):</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
@@ -1125,7 +1125,7 @@ calculer <span class="math inline">\(f(x)\)</span>. La première consiste
 à calculer <span class="math inline">\(\Phi\)</span> et <span
 class="math inline">\(f\)</span> ensemble. Par exemple, dans le rendu de
 monnaie, on sait qu’on calcule le minimum la pièce qui le réalise :</p>
-<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-112">ocaml</a>   <a class="item" data-tab="python-112">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-112"></p>
+<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-114">ocaml</a>   <a class="item" data-tab="python-114">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-114"></p>
 <div class="sourceCode" id="cb27"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> rendu s n =</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> n = <span class="dv">0</span> <span class="kw">then</span> []</span>
@@ -1150,7 +1150,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb27-1"><a hre
 <span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>            <span class="kw">else</span> <span class="kw">let</span> p = util.(n) <span class="kw">in</span></span>
 <span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>                p :: rendu_expl (n-p)</span>
 <span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>        <span class="kw">in</span> rendu_expl n</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-112"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-114"></p>
 <div class="sourceCode" id="cb28"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rendu(s, n):</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
@@ -1438,14 +1438,14 @@ t[i] + max(f(i+1), 0)\)</span>.</p>
 class="header-section-number">3.1.2</span> Récurrence naïve et
 mémoïsation</h3>
 <p>On écrit directement le programme résolvant cette récurrence :</p>
-<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-123">ocaml</a>   <a class="item" data-tab="python-123">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-123"></p>
+<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-125">ocaml</a>   <a class="item" data-tab="python-125">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-125"></p>
 <div class="sourceCode" id="cb29"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> f t i =</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length t <span class="kw">in</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> i = n - <span class="dv">1</span></span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> t.(n<span class="dv">-1</span>)</span>
 <span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> t.(i) + <span class="dt">max</span> <span class="dv">0</span> (f t (i+<span class="dv">1</span>))</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-123"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-125"></p>
 <div class="sourceCode" id="cb30"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(t, i):</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">==</span> <span class="bu">len</span>(t) <span class="op">-</span> <span class="dv">1</span>:</span>
@@ -1453,7 +1453,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a h
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t[i] <span class="op">+</span> <span class="bu">max</span>(<span class="dv">0</span>, f(t,i<span class="op">+</span><span class="dv">1</span>))</span></code></pre></div>
 <p></div> </div></p>
 <p>On peut alors répondre au problème initial avec :</p>
-<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-124">ocaml</a>   <a class="item" data-tab="python-124">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-124"></p>
+<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-126">ocaml</a>   <a class="item" data-tab="python-126">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-126"></p>
 <div class="sourceCode" id="cb31"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> maxsubarray t =</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length t <span class="kw">in</span></span>
@@ -1462,7 +1462,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb31-1"><a hre
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>        m := <span class="dt">max</span> !m (f t i)</span>
 <span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    !m</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-124"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-126"></p>
 <div class="sourceCode" id="cb32"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> maxsubarray(t):</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> f(t, <span class="dv">0</span>)</span>
@@ -1472,7 +1472,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a h
 <p></div> </div></p>
 <p>On adapte directement le code vu précédemment pour ajouter un cache
 de mémoïsation :</p>
-<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-125">ocaml</a>   <a class="item" data-tab="python-125">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-125"></p>
+<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-127">ocaml</a>   <a class="item" data-tab="python-127">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-127"></p>
 <div class="sourceCode" id="cb33"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> cache = <span class="dt">Hashtbl</span>.create <span class="dv">42</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">(* taille quelconque ici *)</span></span>
@@ -1486,7 +1486,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb33-1"><a hre
 <span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>            <span class="kw">then</span> t.(n<span class="dv">-1</span>)</span>
 <span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>            <span class="kw">else</span> t.(i) + <span class="dt">max</span> <span class="dv">0</span> (f t (i+<span class="dv">1</span>))</span>
 <span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">in</span> <span class="dt">Hashtbl</span>.add cache i v; v</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-125"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-127"></p>
 <div class="sourceCode" id="cb34"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>cache <span class="op">=</span> {}</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1544,7 +1544,7 @@ class="header-section-number">3.1.3</span> Tabulation</h3>
 <p>On tabule <code>f</code> directement en remplissant un tableau de
 droite à gauche vu que <span class="math inline">\(f(i)\)</span> dépend
 de <span class="math inline">\(f(i+1)\)</span> :</p>
-<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-131">ocaml</a>   <a class="item" data-tab="python-131">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-131"></p>
+<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-133">ocaml</a>   <a class="item" data-tab="python-133">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-133"></p>
 <div class="sourceCode" id="cb36"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> maxsubarray t =</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length t <span class="kw">in</span></span>
@@ -1558,7 +1558,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb36-1"><a hre
 <span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>        m := <span class="dt">max</span> !m f.(i)</span>
 <span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>    !m</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-131"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-133"></p>
 <div class="sourceCode" id="cb37"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> maxsubarray(t):</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(t)</span>
@@ -1696,7 +1696,7 @@ class="math inline">\((i, l(i))\)</span> correspondant au maximum pour
 <span class="math inline">\(f\)</span>.</p>
 <p>On programme cela directement en décorant le programme précédent
 :</p>
-<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-133">ocaml</a>   <a class="item" data-tab="python-133">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-133"></p>
+<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-135">ocaml</a>   <a class="item" data-tab="python-135">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-135"></p>
 <div class="sourceCode" id="cb38"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> maxsubarray t =</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length t <span class="kw">in</span></span>
@@ -1716,7 +1716,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb38-1"><a hre
 <span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">then</span> m := i</span>
 <span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>    !m, l.(!m)</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-133"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-135"></p>
 <div class="sourceCode" id="cb39"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> maxsubarray(t):</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(t)</span>
@@ -1764,7 +1764,7 @@ href="https://projecteuler.net/problem=67">Project Euler 67</a></p>
 <p></div></p>
 <p>Tout d’abord, on va représenter le problème sous la forme d’un
 tableau de tableau, ligne par ligne, ainsi :</p>
-<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-137">ocaml</a>   <a class="item" data-tab="python-137">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-137"></p>
+<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-139">ocaml</a>   <a class="item" data-tab="python-139">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-139"></p>
 <div class="sourceCode" id="cb41"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> t = [| </span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>   [| <span class="dv">75</span> |];</span>
@@ -1772,7 +1772,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb41-1"><a hre
 <span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>   [| <span class="dv">17</span>; <span class="dv">47</span>; <span class="dv">82</span> |];</span>
 <span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>   ... </span>
 <span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>|]</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-137"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-139"></p>
 <div class="sourceCode" id="cb42"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> [</span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  [ <span class="dv">75</span> ],</span>
@@ -1814,14 +1814,14 @@ class="math inline">\(\mathop{dep}(i,j) = \{ (i+1, j), (i+1, j+1)
 class="header-section-number">3.2.2</span> Résolution naïve et
 mémoïsation</h3>
 <p>On implémente directement cette récurrence :</p>
-<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-141">ocaml</a>   <a class="item" data-tab="python-141">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-141"></p>
+<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-143">ocaml</a>   <a class="item" data-tab="python-143">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-143"></p>
 <div class="sourceCode" id="cb43"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> maxpath t i j =</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> i = <span class="dt">Array</span>.length t - <span class="dv">1</span></span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> t.(i).(j)</span>
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> t.(i).(j) + <span class="dt">max</span> (maxpath t (i+<span class="dv">1</span>) j)</span>
 <span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>                         (maxpath t (i+<span class="dv">1</span>) (j+<span class="dv">1</span>)) </span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-141"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-143"></p>
 <div class="sourceCode" id="cb44"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> maxpath(t, i, j):</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">==</span> <span class="bu">len</span>(t) <span class="op">-</span> <span class="dv">1</span>:</span>
@@ -1832,7 +1832,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a h
 <p><div class="ui message orange"><div class="header">Remarque</div></p>
 <p>Pour lire le triangle depuis un fichier, on peut utiliser la fonction
 suivante :</p>
-<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-143">ocaml</a>   <a class="item" data-tab="python-143">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-143"></p>
+<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-145">ocaml</a>   <a class="item" data-tab="python-145">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-145"></p>
 <div class="sourceCode" id="cb45"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> lit_triangle f =</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">rec</span> aux () =</span>
@@ -1844,7 +1844,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb45-1"><a hre
 <span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>            :: aux ()</span>
 <span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">with</span> <span class="dt">End_of_file</span> -&gt; []</span>
 <span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">in</span> <span class="dt">Array</span>.of_list (aux ())</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-143"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-145"></p>
 <div class="sourceCode" id="cb46"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> lit_triangle(f):</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> []</span>
@@ -1858,7 +1858,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a h
 mémoïsation. On prend garde notamment au fait que les clés sont
 maintenant des couples d’indices <span
 class="math inline">\((i,j)\)</span>.</p>
-<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-147">ocaml</a>   <a class="item" data-tab="python-147">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-147"></p>
+<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-149">ocaml</a>   <a class="item" data-tab="python-149">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-149"></p>
 <div class="sourceCode" id="cb47"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> cache = <span class="dt">Hashtbl</span>.create <span class="dv">42</span></span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1871,7 +1871,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb47-1"><a hre
 <span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>            <span class="kw">else</span> t.(i).(j) + <span class="dt">max</span> (maxpath t (i+<span class="dv">1</span>) j)</span>
 <span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>                                 (maxpath t (i+<span class="dv">1</span>) (j+<span class="dv">1</span>)) </span>
 <span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">in</span> <span class="dt">Hashtbl</span>.add cache (i,j) v; v</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-147"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-149"></p>
 <div class="sourceCode" id="cb48"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>cache <span class="op">=</span> {}</span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1918,7 +1918,7 @@ matrice par simplicité) et de remplir <code>t(i,j)</code> par
 <code>i</code> décroissant puis <code>j</code> croissant (ou
 décroissant).</p>
 <p>On en déduit alors le programme suivant :</p>
-<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-156">ocaml</a>   <a class="item" data-tab="python-156">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-156"></p>
+<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-158">ocaml</a>   <a class="item" data-tab="python-158">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-158"></p>
 <div class="sourceCode" id="cb50"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> maxpath t =</span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length t <span class="kw">in</span></span>
@@ -1933,7 +1933,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb50-1"><a hre
 <span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span></span>
 <span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>    som.(<span class="dv">0</span>).(<span class="dv">0</span>)</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-156"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-158"></p>
 <div class="sourceCode" id="cb51"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> maxpath(t):</span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(t)</span>
@@ -1954,7 +1954,7 @@ souvenir des embranchements pris en calculant le maximum. Pour cela, on
 construit de même un tableau (ou une matrice pour simplifier)
 <code>choix</code> où <code>choix(i,j)</code> indique
 <code>Gauche</code> ou <code>Droite</code>.</p>
-<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-159">ocaml</a>   <a class="item" data-tab="python-159">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-159"></p>
+<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-161">ocaml</a>   <a class="item" data-tab="python-161">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-161"></p>
 <div class="sourceCode" id="cb52"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> choix = Gauche | Droite</span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1980,7 +1980,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb52-1"><a hre
 <span id="cb52-22"><a href="#cb52-22" aria-hidden="true" tabindex="-1"></a>        | <span class="dt">Some</span> Gauche -&gt; chemin (i+<span class="dv">1</span>) j</span>
 <span id="cb52-23"><a href="#cb52-23" aria-hidden="true" tabindex="-1"></a>        | <span class="dt">Some</span> Droite -&gt; chemin (i+<span class="dv">1</span>) (j+<span class="dv">1</span>)</span>
 <span id="cb52-24"><a href="#cb52-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">in</span> chemin <span class="dv">0</span> <span class="dv">0</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-159"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-161"></p>
 <div class="sourceCode" id="cb53"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> maxpath(t):</span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(t)</span>
@@ -2111,7 +2111,7 @@ f(i,k) + f(k+1,j)
 <h3 data-number="3.3.2" id="sec:récurrence-naïve-et-mémoïsation-1"><span
 class="header-section-number">3.3.2</span> Récurrence naïve et
 mémoïsation</h3>
-<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-166">ocaml</a>   <a class="item" data-tab="python-166">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-166"></p>
+<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-168">ocaml</a>   <a class="item" data-tab="python-168">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-168"></p>
 <div class="sourceCode" id="cb54"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> matmult t i j =</span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> i = j</span>
@@ -2124,7 +2124,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb54-1"><a hre
 <span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>                    + matmult t i k + matmult t (k+<span class="dv">1</span>) j)</span>
 <span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>;</span>
 <span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>        !m</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-166"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-168"></p>
 <div class="sourceCode" id="cb55"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> matmult(t, i, j):</span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">==</span> j:</span>
@@ -2138,7 +2138,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a h
 <span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>             \ <span class="op">+</span> matmult(t, k<span class="op">+</span><span class="dv">1</span>, j))</span>
 <span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> m</span></code></pre></div>
 <p></div> </div></p>
-<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-168">ocaml</a>   <a class="item" data-tab="python-168">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-168"></p>
+<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-170">ocaml</a>   <a class="item" data-tab="python-170">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-170"></p>
 <div class="sourceCode" id="cb56"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> matmult t =</span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length t <span class="kw">in</span></span>
@@ -2161,7 +2161,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb56-1"><a hre
 <span id="cb56-19"><a href="#cb56-19" aria-hidden="true" tabindex="-1"></a>                    !m</span>
 <span id="cb56-20"><a href="#cb56-20" aria-hidden="true" tabindex="-1"></a>            <span class="kw">in</span> <span class="dt">Hashtbl</span>.add cache (i,j) v; v</span>
 <span id="cb56-21"><a href="#cb56-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">in</span> aux</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-168"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-170"></p>
 <div class="sourceCode" id="cb57"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>cache <span class="op">=</span> {}</span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -2203,7 +2203,7 @@ calculé ses dépendances :</p>
 <p><center><div class="ui image center"><img
 src="assets/pics/remplissagematordre.png" /></div></center></p>
 <p>Cela correspond au programme suivant :</p>
-<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-175">ocaml</a>   <a class="item" data-tab="python-175">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-175"></p>
+<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-177">ocaml</a>   <a class="item" data-tab="python-177">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-177"></p>
 <div class="sourceCode" id="cb58"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> matmult t =</span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length t <span class="kw">in</span></span>
@@ -2222,7 +2222,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb58-1"><a hre
 <span id="cb58-15"><a href="#cb58-15" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span></span>
 <span id="cb58-16"><a href="#cb58-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb58-17"><a href="#cb58-17" aria-hidden="true" tabindex="-1"></a>    cout.(<span class="dv">0</span>).(n<span class="dv">-2</span>)</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-175"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-177"></p>
 <div class="sourceCode" id="cb59"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> matmult(t):</span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(t)</span>
@@ -2325,7 +2325,7 @@ t[j] &gt; t[i]}\]</span></p>
 <h3 data-number="3.4.2" id="sec:récurrence-naïve-et-mémoïsation-2"><span
 class="header-section-number">3.4.2</span> Récurrence naïve et
 mémoïsation</h3>
-<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-186">ocaml</a>   <a class="item" data-tab="python-186">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-186"></p>
+<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-188">ocaml</a>   <a class="item" data-tab="python-188">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-188"></p>
 <div class="sourceCode" id="cb61"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> croissante t i =</span>
 <span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length t <span class="kw">in</span></span>
@@ -2337,7 +2337,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb61-1"><a hre
 <span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>            <span class="kw">then</span> m := <span class="dt">max</span> !m (<span class="dv">1</span> + croissante t j)</span>
 <span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>;</span>
 <span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a>        !m</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-186"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-188"></p>
 <div class="sourceCode" id="cb62"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> croissante(t, i):</span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(t)</span>
@@ -2350,7 +2350,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb62-1"><a h
 <span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a>                <span class="dv">1</span> <span class="op">+</span> croissante(t, j))</span>
 <span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> m</span></code></pre></div>
 <p></div> </div></p>
-<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-188">ocaml</a>   <a class="item" data-tab="python-188">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-188"></p>
+<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-190">ocaml</a>   <a class="item" data-tab="python-190">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-190"></p>
 <div class="sourceCode" id="cb63"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> croissante t =</span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length t <span class="kw">in</span></span>
@@ -2369,7 +2369,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb63-1"><a hre
 <span id="cb63-15"><a href="#cb63-15" aria-hidden="true" tabindex="-1"></a>                    !m</span>
 <span id="cb63-16"><a href="#cb63-16" aria-hidden="true" tabindex="-1"></a>            <span class="kw">in</span> <span class="dt">Hashtbl</span>.add cache i v; v</span>
 <span id="cb63-17"><a href="#cb63-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">in</span> aux</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-188"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-190"></p>
 <div class="sourceCode" id="cb64"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>cache <span class="op">=</span> {}</span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -2395,7 +2395,7 @@ class="header-section-number">3.4.3</span> Tabulation</h3>
 <p>On reprend ici aussi le même principe que pour la tabulation de la
 sous-séquence maximale, c’est-à-dire qu’on va remplir de droite à
 gauche.</p>
-<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-191">ocaml</a>   <a class="item" data-tab="python-191">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-191"></p>
+<p><div><div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-193">ocaml</a>   <a class="item" data-tab="python-193">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-193"></p>
 <div class="sourceCode" id="cb65"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> croissante t =</span>
 <span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n = <span class="dt">Array</span>.length t <span class="kw">in</span></span>
@@ -2407,7 +2407,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb65-1"><a hre
 <span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span></span>
 <span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a>    f</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-191"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-193"></p>
 <div class="sourceCode" id="cb66"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> croissante(t):</span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(t)</span>

@@ -429,7 +429,7 @@ entier naturel <span class="math inline">\(n\)</span> strictement
 positif, inférieur à <span class="math inline">\(2^{30}\)</span>,
 détermine le plus petit entier <span class="math inline">\(k\)</span>
 tel que <span class="math inline">\(n \le 2^k\)</span> :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-75">ocaml</a>   <a class="item" data-tab="c-75">c</a>   <a class="item" data-tab="python-75">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-75"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-77">ocaml</a>   <a class="item" data-tab="c-77">c</a>   <a class="item" data-tab="python-77">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-77"></p>
 <div class="sourceCode" id="cb2"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> plus_grande_puissance2 n =</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> k = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
@@ -439,7 +439,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb2-1"><a href
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        p := !p * <span class="dv">2</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    !k</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-75"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-77"></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> plus_grande_puissance2<span class="op">(</span><span class="dt">int</span> n<span class="op">)</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> k <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
@@ -453,7 +453,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb2-1"><a href
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> k<span class="op">;</span></span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-75"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-77"></p>
 <div class="sourceCode" id="cb4"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plus_grande_puissance2(n):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    k <span class="op">=</span> <span class="dv">0</span></span>
@@ -572,7 +572,7 @@ class="math inline">\(j\)</span>.</li>
 </ul>
 <p>Le programme suivant présente une implémentation de cet algorithme en
 C.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-86">ocaml</a>   <a class="item" data-tab="c-86">c</a>   <a class="item" data-tab="python-86">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-86"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-88">ocaml</a>   <a class="item" data-tab="c-88">c</a>   <a class="item" data-tab="python-88">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-88"></p>
 <div class="sourceCode" id="cb7"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">exception</span> Trouve <span class="kw">of</span> <span class="dt">int</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -593,7 +593,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb7-1"><a href
 <span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span>;</span>
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        <span class="dt">None</span></span>
 <span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">with</span> Trouve i -&gt; <span class="dt">Some</span> i</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-86"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-88"></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> rech_dicho<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>t<span class="op">,</span> <span class="dt">size_t</span> n<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* renvoie un indice de x </span></span>
@@ -622,7 +622,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb7-1"><a href
 <span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
 <span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-86"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-88"></p>
 <div class="sourceCode" id="cb9"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rech_dicho(t, x):</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    i <span class="op">=</span> <span class="dv">0</span></span>
@@ -673,7 +673,7 @@ strictement.</li>
 <p><div class="ui message orange"><div class="header">Remarque</div></p>
 <p>On remarque que le programme récursif suivant réalise également cet
 algorithme.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-89">ocaml</a>   <a class="item" data-tab="c-89">c</a>   <a class="item" data-tab="python-89">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-89"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-91">ocaml</a>   <a class="item" data-tab="c-91">c</a>   <a class="item" data-tab="python-91">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-91"></p>
 <div class="sourceCode" id="cb10"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">(* rech_dicho : int array -&gt; int -&gt; int -&gt; int </span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">    -&gt; int option *)</span></span>
@@ -687,7 +687,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb10-1"><a hre
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>         <span class="kw">then</span> rech_dicho t i (p<span class="dv">-1</span>) x</span>
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>         <span class="kw">else</span> rech_dicho t (p+<span class="dv">1</span>) j x</span>
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> <span class="dt">None</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-89"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-91"></p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> rech_dicho<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>t<span class="op">,</span> <span class="dt">size_t</span> n<span class="op">,</span> <span class="dt">int</span> i<span class="op">,</span> <span class="dt">int</span> j<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>i <span class="op">&lt;=</span> j<span class="op">)</span></span>
@@ -704,7 +704,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb10-1"><a hre
 <span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
 <span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-89"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-91"></p>
 <div class="sourceCode" id="cb12"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rech_dicho(t, i, j, x):</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">&lt;=</span> j:</span>
@@ -737,7 +737,7 @@ au moins un échange, on recommence, sinon on s’arrête, car c’est le
 signe que le tableau est trié qu’on le prouvera à la fin de ce
 paragraphe.</p>
 <p>On obtient alors le code suivant :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-93">ocaml</a>   <a class="item" data-tab="c-93">c</a>   <a class="item" data-tab="python-93">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-93"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-95">ocaml</a>   <a class="item" data-tab="c-95">c</a>   <a class="item" data-tab="python-95">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-95"></p>
 <div class="sourceCode" id="cb13"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> swap t i j =</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> temp = t.(i) <span class="kw">in</span></span>
@@ -756,7 +756,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb13-1"><a hre
 <span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>            <span class="kw">end</span></span>
 <span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">done</span></span>
 <span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-93"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-95"></p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> swap<span class="op">(</span><span class="dt">int</span> t<span class="op">[],</span> <span class="dt">int</span> i<span class="op">,</span> <span class="dt">int</span> j<span class="op">)</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> temp <span class="op">=</span> t<span class="op">[</span>i<span class="op">];</span></span>
@@ -780,7 +780,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb13-1"><a hre
 <span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
 <span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-93"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-95"></p>
 <div class="sourceCode" id="cb15"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> swap(t, i, j):</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">=</span> t[i]</span>
@@ -975,7 +975,7 @@ valeur entre deux indices donnés</li>
 tableau du premier au dernier indice et en plaçant à la position
 courante le minimum restant.</li>
 </ul>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-108">ocaml</a>   <a class="item" data-tab="c-108">c</a>   <a class="item" data-tab="python-108">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-108"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-110">ocaml</a>   <a class="item" data-tab="c-110">c</a>   <a class="item" data-tab="python-110">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-110"></p>
 <div class="sourceCode" id="cb17"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> swap t i j =</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> temp = t.(i) <span class="kw">in</span></span>
@@ -995,7 +995,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb17-1"><a hre
 <span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n - <span class="dv">1</span> <span class="kw">do</span></span>
 <span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>        swap t i (indice_minimum t i (n<span class="dv">-1</span>))</span>
 <span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-108"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-110"></p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> echange<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>tableau<span class="op">,</span> <span class="dt">int</span> i<span class="op">,</span> <span class="dt">int</span> j<span class="op">)</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> temp <span class="op">=</span> tableau<span class="op">[</span>i<span class="op">];</span></span>
@@ -1026,7 +1026,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb17-1"><a hre
 <span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>          indice_minimum<span class="op">(</span>tableau<span class="op">,</span> i<span class="op">,</span> taille<span class="op">-</span><span class="dv">1</span><span class="op">));</span></span>
 <span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-108"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-110"></p>
 <div class="sourceCode" id="cb19"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> swap(t, i, j):</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">=</span> t[i]</span>
@@ -1160,7 +1160,7 @@ class="math inline">\(n\)</span> sont équivalents. Par contre, si on
 cherche avec précision le pire cas, il est atteint avec un tableau trié
 par ordre croissant, car c’est le cas qui effectue une affectation à
 chaque itération.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-112">ocaml</a>   <a class="item" data-tab="c-112">c</a>   <a class="item" data-tab="python-112">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-112"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-114">ocaml</a>   <a class="item" data-tab="c-114">c</a>   <a class="item" data-tab="python-114">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-114"></p>
 <div class="sourceCode" id="cb20"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> maximum t =</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> m = <span class="dt">ref</span> t.(<span class="dv">0</span>) <span class="kw">in</span></span>
@@ -1169,7 +1169,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb20-1"><a hre
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">then</span> m := t.(i)</span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    !m</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-112"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-114"></p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> maximum<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>tableau<span class="op">,</span> <span class="dt">int</span> taille<span class="op">)</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> M <span class="op">=</span> INT_MIN<span class="op">;</span></span>
@@ -1182,7 +1182,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb20-1"><a hre
 <span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> M<span class="op">;</span></span>
 <span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-112"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-114"></p>
 <div class="sourceCode" id="cb22"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> maximum(t):</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> t[<span class="dv">0</span>]</span>
@@ -1199,7 +1199,7 @@ parler à la fois avec précision mais également sans rentrer dans des
 détails d’implémentation non pertinents.</p>
 <p>En effet, comparons les deux fonctions suivantes permettant de
 chercher un élément dans un tableau.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-114">ocaml</a>   <a class="item" data-tab="c-114">c</a>   <a class="item" data-tab="python-114">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-114"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-116">ocaml</a>   <a class="item" data-tab="c-116">c</a>   <a class="item" data-tab="python-116">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-116"></p>
 <div class="sourceCode" id="cb23"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> recherche t elem =</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> ind = <span class="dt">ref</span> <span class="dt">None</span> <span class="kw">in</span></span>
@@ -1211,7 +1211,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb23-1"><a hre
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">incr</span> i</span>
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    !ind</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-114"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-116"></p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> recherche<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>tab<span class="op">,</span> <span class="dt">int</span> nb<span class="op">,</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>              <span class="dt">int</span> elem<span class="op">)</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
@@ -1223,7 +1223,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb23-1"><a hre
 <span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
 <span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-114"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-116"></p>
 <div class="sourceCode" id="cb25"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> recherche(t, elem):</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(t)):</span>
@@ -1231,7 +1231,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a h
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> i</span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">None</span></span></code></pre></div>
 <p></div> </div></p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-115">ocaml</a>   <a class="item" data-tab="c-115">c</a>   <a class="item" data-tab="python-115">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-115"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-117">ocaml</a>   <a class="item" data-tab="c-117">c</a>   <a class="item" data-tab="python-117">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-117"></p>
 <div class="sourceCode" id="cb26"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> recherche t elem =</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> ind = <span class="dt">ref</span> <span class="dt">None</span> <span class="kw">in</span></span>
@@ -1240,7 +1240,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb26-1"><a hre
 <span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">then</span> ind := <span class="dt">Some</span> i</span>
 <span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    !ind</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-115"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-117"></p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> recherche<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>tab<span class="op">,</span> <span class="dt">int</span> nb<span class="op">,</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>              <span class="dt">int</span> elem<span class="op">)</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
@@ -1254,7 +1254,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb26-1"><a hre
 <span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ind<span class="op">;</span></span>
 <span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-115"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-117"></p>
 <div class="sourceCode" id="cb28"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> recherche(t, elem):</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    ind <span class="op">=</span> <span class="va">None</span></span>
@@ -1533,10 +1533,10 @@ programme ci-dessous, le pire cas correspond à ne pas avoir
 <code>x</code> dans <code>tableau</code> ce qui oblige à effectuer
 toutes les itérations. On a bien une complexité temporelle en pire cas
 de <span class="math inline">\(O(n)\)</span>.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-157">ocaml</a>   <a class="item" data-tab="c-157">c</a>   <a class="item" data-tab="python-157">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-157"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-159">ocaml</a>   <a class="item" data-tab="c-159">c</a>   <a class="item" data-tab="python-159">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-159"></p>
 <div class="sourceCode" id="cb29"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-157"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-159"></p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> recherche<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>tableau<span class="op">,</span> <span class="dt">int</span> taille<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* renvoie le plus petit indice i tel que tableau[i] = x</span></span>
@@ -1549,7 +1549,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"></code></pre></div>
 <span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
 <span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-157"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-159"></p>
 <div class="sourceCode" id="cb31"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> recherche(t, x):</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(t)):</span>
@@ -1772,7 +1772,7 @@ paramètres</h3>
 des traitements successifs dont la complexité ne s’exprime pas en
 fonction du même paramètre. Imaginons par exemple un programme ayant la
 structure suivante :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-171">ocaml</a>   <a class="item" data-tab="c-171">c</a>   <a class="item" data-tab="python-171">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-171"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-173">ocaml</a>   <a class="item" data-tab="c-173">c</a>   <a class="item" data-tab="python-173">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-173"></p>
 <div class="sourceCode" id="cb32"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> i = <span class="dv">0</span> <span class="kw">to</span> n<span class="dv">-1</span> <span class="kw">do</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">(* corps de boucle en O(1) *)</span></span>
@@ -1781,7 +1781,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb32-1"><a hre
 <span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> j = <span class="dv">0</span> <span class="kw">to</span> p<span class="dv">-1</span> <span class="kw">do</span></span>
 <span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">(* corps de boucle en O(1) *)</span></span>
 <span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="kw">done</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-171"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-173"></p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i<span class="op">&lt;</span>n<span class="op">;</span> i<span class="op">++)</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* corps de boucle en O(1) */</span></span>
@@ -1791,7 +1791,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb32-1"><a hre
 <span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* corps de boucle en O(1) */</span></span>
 <span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-171"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-173"></p>
 <div class="sourceCode" id="cb34"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># corps de boucle en O(1)</span></span>
@@ -1907,7 +1907,7 @@ le <span class="math inline">\(n\)</span>-ième terme de la suite de
 Fibonacci, ce qui n’a pas d’intérêt informatique mais est
 caractéristique de récurrence que l’on résoudra par la programmation
 dynamique.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-182">ocaml</a>   <a class="item" data-tab="c-182">c</a>   <a class="item" data-tab="python-182">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-182"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-184">ocaml</a>   <a class="item" data-tab="c-184">c</a>   <a class="item" data-tab="python-184">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-184"></p>
 <div class="sourceCode" id="cb35"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">(* Fibonacci exponentiel *)</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> fibo n =</span>
@@ -1926,9 +1926,9 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb35-1"><a hre
 <span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>        prec.(i) &lt;- prec.(i<span class="dv">-1</span>) + prec.(i<span class="dv">-2</span>)</span>
 <span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>    prec.(n)</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-182"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-184"></p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode c"><code class="sourceCode c"></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-182"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-184"></p>
 <div class="sourceCode" id="cb37"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fibonacci exponentiel</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fibo(n):</span>
@@ -1954,7 +1954,7 @@ class="header-section-number">5</span> Exercices</h1>
 Exercice
 </div>
 <p>On considère le programme suivant :</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-184">ocaml</a>   <a class="item" data-tab="c-184">c</a>   <a class="item" data-tab="python-184">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-184"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-186">ocaml</a>   <a class="item" data-tab="c-186">c</a>   <a class="item" data-tab="python-186">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-186"></p>
 <div class="sourceCode" id="cb38"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> multiplication x y c =</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> m = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
@@ -1966,7 +1966,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb38-1"><a hre
 <span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>        vy := !vy / c</span>
 <span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>    !m</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-184"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-186"></p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> multiplication<span class="op">(</span><span class="dt">int</span> x<span class="op">,</span> <span class="dt">int</span> y<span class="op">,</span> <span class="dt">int</span> c<span class="op">)</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> m <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
@@ -1978,7 +1978,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb38-1"><a hre
 <span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> m<span class="op">;</span></span>
 <span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-184"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-186"></p>
 <div class="sourceCode" id="cb40"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> multiplication(x, y, c):</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> <span class="dv">0</span></span>
@@ -2035,20 +2035,20 @@ class="math inline">\(I(i+1,m+x(y\%c))\)</span> est vérifié.</li>
 précédentes mais il faudrait présenter l’invariant
 différemment.</p></li>
 </ol>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-186">ocaml</a>   <a class="item" data-tab="c-186">c</a>   <a class="item" data-tab="python-186">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-186"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-188">ocaml</a>   <a class="item" data-tab="c-188">c</a>   <a class="item" data-tab="python-188">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-188"></p>
 <div class="sourceCode" id="cb41"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> multiplication x y c =</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> y = <span class="dv">0</span></span>
 <span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">then</span> <span class="dv">0</span></span>
 <span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> x * (y <span class="kw">mod</span> c) + multiplication (x*c) (y/c) c</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-186"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-188"></p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> multiplication<span class="op">(</span><span class="dt">int</span> x<span class="op">,</span> <span class="dt">int</span> y<span class="op">,</span> <span class="dt">int</span> c<span class="op">)</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>y <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> x <span class="op">*</span> <span class="op">(</span>y <span class="op">%</span> c<span class="op">)</span> <span class="op">+</span> multiplication<span class="op">(</span>x <span class="op">*</span> c<span class="op">,</span> y <span class="op">/</span> c<span class="op">,</span> c<span class="op">);</span></span>
 <span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-186"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-188"></p>
 <div class="sourceCode" id="cb43"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> multiplication(x, y, c):</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> y <span class="op">==</span> <span class="dv">0</span>:</span>
@@ -2066,7 +2066,7 @@ class="math inline">\(i \in \range{0}{n}, P[i] = c_i\)</span>.</p>
 <p>On veut calculer <span class="math inline">\(P(a)\)</span> pour une
 valeur <span class="math inline">\(a\)</span>. Pour simplifier, on va
 considérer ici que les valeurs sont toutes entières.</p>
-<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-188">ocaml</a>   <a class="item" data-tab="c-188">c</a>   <a class="item" data-tab="python-188">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-188"></p>
+<p><div>   <div class="ui top attached tabular menu code">   <a class="active item" data-tab="ocaml-190">ocaml</a>   <a class="item" data-tab="c-190">c</a>   <a class="item" data-tab="python-190">python</a> </div> <div class="ui bottom attached active tab segment code" data-tab="ocaml-190"></p>
 <div class="sourceCode" id="cb44"><pre
 class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> horner p a =</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> v = <span class="dt">ref</span> <span class="dv">0</span> <span class="kw">in</span></span>
@@ -2074,7 +2074,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb44-1"><a hre
 <span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>        v := a * !v + p.(i)</span>
 <span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">done</span>;</span>
 <span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    !v</span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="c-188"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="c-190"></p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> horner<span class="op">(</span><span class="dt">const</span> <span class="dt">int</span> <span class="op">*</span>P<span class="op">,</span> <span class="dt">int</span> n<span class="op">,</span> <span class="dt">int</span> a<span class="op">)</span></span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> v <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
@@ -2084,7 +2084,7 @@ class="sourceCode ocaml"><code class="sourceCode ocaml"><span id="cb44-1"><a hre
 <span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> v<span class="op">;</span></span>
 <span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p></div> <div class="ui bottom attached tab segment code" data-tab="python-188"></p>
+<p></div> <div class="ui bottom attached tab segment code" data-tab="python-190"></p>
 <div class="sourceCode" id="cb46"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="bu">int</span> horner(P, a):</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    v <span class="op">=</span> <span class="dv">0</span></span>
