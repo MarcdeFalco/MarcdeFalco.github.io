@@ -2853,16 +2853,18 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 <p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
 Réponse </div> <div class="content"> <div class="ui segment code"></p>
 <div class="sourceCode" id="cb95"><pre
-class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb95-1"><a href="#cb95-1"></a>graph <span class="op">*</span>graph_create<span class="op">(</span><span class="dt">int</span> nvertices<span class="op">)</span> <span class="op">{</span></span>
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb95-1"><a href="#cb95-1"></a>graph <span class="op">*</span>graph_create<span class="op">(</span><span class="dt">int</span> nvertices<span class="op">,</span> <span class="dt">int</span> s<span class="op">,</span> <span class="dt">int</span> t<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb95-2"><a href="#cb95-2"></a>    graph <span class="op">*</span>g <span class="op">=</span> malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span>graph<span class="op">));</span></span>
 <span id="cb95-3"><a href="#cb95-3"></a></span>
 <span id="cb95-4"><a href="#cb95-4"></a>    g<span class="op">-&gt;</span>nvertices <span class="op">=</span> nvertices<span class="op">;</span></span>
-<span id="cb95-5"><a href="#cb95-5"></a>    g<span class="op">-&gt;</span>edge_lists <span class="op">=</span> malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span>edge_list <span class="op">*)</span> <span class="op">*</span> nvertices<span class="op">);</span></span>
-<span id="cb95-6"><a href="#cb95-6"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> nvertices<span class="op">;</span> i<span class="op">++)</span></span>
-<span id="cb95-7"><a href="#cb95-7"></a>        g<span class="op">-&gt;</span>edge_lists<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> NULL<span class="op">;</span></span>
-<span id="cb95-8"><a href="#cb95-8"></a></span>
-<span id="cb95-9"><a href="#cb95-9"></a>    <span class="cf">return</span> g<span class="op">;</span></span>
-<span id="cb95-10"><a href="#cb95-10"></a><span class="op">}</span></span></code></pre></div>
+<span id="cb95-5"><a href="#cb95-5"></a>    g<span class="op">-&gt;</span>s <span class="op">=</span> s<span class="op">;</span></span>
+<span id="cb95-6"><a href="#cb95-6"></a>    g<span class="op">-&gt;</span>t <span class="op">=</span> t<span class="op">;</span></span>
+<span id="cb95-7"><a href="#cb95-7"></a>    g<span class="op">-&gt;</span>edge_lists <span class="op">=</span> malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span>edge_list <span class="op">*)</span> <span class="op">*</span> nvertices<span class="op">);</span></span>
+<span id="cb95-8"><a href="#cb95-8"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> nvertices<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb95-9"><a href="#cb95-9"></a>        g<span class="op">-&gt;</span>edge_lists<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> NULL<span class="op">;</span></span>
+<span id="cb95-10"><a href="#cb95-10"></a></span>
+<span id="cb95-11"><a href="#cb95-11"></a>    <span class="cf">return</span> g<span class="op">;</span></span>
+<span id="cb95-12"><a href="#cb95-12"></a><span class="op">}</span></span></code></pre></div>
 <p></div> </div> </div></p>
 <div class="ui message blue">
 <div class="header">
@@ -2938,32 +2940,32 @@ visitée.</p>
 <p><div class="ui styled accordion"> <div class="title">     <i class="dropdown icon"></i>
 Réponse </div> <div class="content"> <div class="ui segment code"></p>
 <div class="sourceCode" id="cb101"><pre
-class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb101-1"><a href="#cb101-1"></a>edge_list <span class="op">**</span>dfs_init<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> src<span class="op">)</span></span>
+class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb101-1"><a href="#cb101-1"></a>edge_list <span class="op">**</span>dfs_init<span class="op">(</span>graph <span class="op">*</span>g<span class="op">)</span></span>
 <span id="cb101-2"><a href="#cb101-2"></a><span class="op">{</span></span>
 <span id="cb101-3"><a href="#cb101-3"></a>    edge_list <span class="op">**</span>pred <span class="op">=</span> malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span>edge_list <span class="op">*)</span> <span class="op">*</span> g<span class="op">-&gt;</span>nvertices<span class="op">);</span></span>
 <span id="cb101-4"><a href="#cb101-4"></a>    memset<span class="op">(</span>pred<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>edge_list <span class="op">*)</span> <span class="op">*</span> g<span class="op">-&gt;</span>nvertices<span class="op">);</span></span>
 <span id="cb101-5"><a href="#cb101-5"></a>    <span class="cf">return</span> pred<span class="op">;</span></span>
 <span id="cb101-6"><a href="#cb101-6"></a><span class="op">}</span></span>
 <span id="cb101-7"><a href="#cb101-7"></a></span>
-<span id="cb101-8"><a href="#cb101-8"></a><span class="dt">void</span> dfs<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> edge_list <span class="op">**</span>pred<span class="op">,</span> <span class="dt">int</span> src<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
+<span id="cb101-8"><a href="#cb101-8"></a><span class="dt">void</span> dfs<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> edge_list <span class="op">**</span>pred<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span></span>
 <span id="cb101-9"><a href="#cb101-9"></a><span class="op">{</span></span>
 <span id="cb101-10"><a href="#cb101-10"></a>    edge_list <span class="op">*</span>l <span class="op">=</span> g<span class="op">-&gt;</span>edge_lists<span class="op">[</span>x<span class="op">];</span></span>
 <span id="cb101-11"><a href="#cb101-11"></a>    <span class="cf">while</span><span class="op">(</span>l <span class="op">!=</span> NULL<span class="op">)</span></span>
 <span id="cb101-12"><a href="#cb101-12"></a>    <span class="op">{</span></span>
 <span id="cb101-13"><a href="#cb101-13"></a>        <span class="dt">int</span> y <span class="op">=</span> l<span class="op">-&gt;</span>dst<span class="op">;</span></span>
-<span id="cb101-14"><a href="#cb101-14"></a>        <span class="cf">if</span> <span class="op">(</span>pred<span class="op">[</span>y<span class="op">]</span> <span class="op">==</span> NULL <span class="op">&amp;&amp;</span> y <span class="op">!=</span> src<span class="op">)</span></span>
+<span id="cb101-14"><a href="#cb101-14"></a>        <span class="cf">if</span> <span class="op">(</span>pred<span class="op">[</span>y<span class="op">]</span> <span class="op">==</span> NULL <span class="op">&amp;&amp;</span> y <span class="op">!=</span> g<span class="op">-&gt;</span>s<span class="op">)</span></span>
 <span id="cb101-15"><a href="#cb101-15"></a>        <span class="op">{</span></span>
 <span id="cb101-16"><a href="#cb101-16"></a>            pred<span class="op">[</span>y<span class="op">]</span> <span class="op">=</span> l<span class="op">;</span></span>
-<span id="cb101-17"><a href="#cb101-17"></a>            dfs<span class="op">(</span>g<span class="op">,</span> pred<span class="op">,</span> src<span class="op">,</span> y<span class="op">);</span></span>
+<span id="cb101-17"><a href="#cb101-17"></a>            dfs<span class="op">(</span>g<span class="op">,</span> pred<span class="op">,</span> y<span class="op">);</span></span>
 <span id="cb101-18"><a href="#cb101-18"></a>        <span class="op">}</span></span>
 <span id="cb101-19"><a href="#cb101-19"></a>        l <span class="op">=</span> l<span class="op">-&gt;</span>next<span class="op">;</span></span>
 <span id="cb101-20"><a href="#cb101-20"></a>    <span class="op">}</span></span>
 <span id="cb101-21"><a href="#cb101-21"></a><span class="op">}</span></span>
 <span id="cb101-22"><a href="#cb101-22"></a></span>
-<span id="cb101-23"><a href="#cb101-23"></a>edge_list <span class="op">**</span>dfs_launch<span class="op">(</span>graph <span class="op">*</span>g<span class="op">,</span> <span class="dt">int</span> src<span class="op">)</span></span>
+<span id="cb101-23"><a href="#cb101-23"></a>edge_list <span class="op">**</span>dfs_launch<span class="op">(</span>graph <span class="op">*</span>g<span class="op">)</span></span>
 <span id="cb101-24"><a href="#cb101-24"></a><span class="op">{</span></span>
-<span id="cb101-25"><a href="#cb101-25"></a>    edge_list <span class="op">**</span>pred <span class="op">=</span> dfs_init<span class="op">(</span>g<span class="op">,</span> src<span class="op">);</span></span>
-<span id="cb101-26"><a href="#cb101-26"></a>    dfs<span class="op">(</span>g<span class="op">,</span> pred<span class="op">,</span> src<span class="op">,</span> src<span class="op">);</span></span>
+<span id="cb101-25"><a href="#cb101-25"></a>    edge_list <span class="op">**</span>pred <span class="op">=</span> dfs_init<span class="op">(</span>g<span class="op">);</span></span>
+<span id="cb101-26"><a href="#cb101-26"></a>    dfs<span class="op">(</span>g<span class="op">,</span> pred<span class="op">,</span> g<span class="op">-&gt;</span>s<span class="op">);</span></span>
 <span id="cb101-27"><a href="#cb101-27"></a>    <span class="cf">return</span> pred<span class="op">;</span></span>
 <span id="cb101-28"><a href="#cb101-28"></a><span class="op">}</span></span></code></pre></div>
 <p></div> </div> </div></p>
@@ -2988,7 +2990,7 @@ Réponse </div> <div class="content"> <div class="ui segment code"></p>
 <div class="sourceCode" id="cb103"><pre
 class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span id="cb103-1"><a href="#cb103-1"></a>graph <span class="op">*</span>residual_graph<span class="op">(</span>graph <span class="op">*</span>g<span class="op">)</span></span>
 <span id="cb103-2"><a href="#cb103-2"></a><span class="op">{</span></span>
-<span id="cb103-3"><a href="#cb103-3"></a>    graph <span class="op">*</span>gr <span class="op">=</span> graph_create<span class="op">(</span>g<span class="op">-&gt;</span>nvertices<span class="op">);</span></span>
+<span id="cb103-3"><a href="#cb103-3"></a>    graph <span class="op">*</span>gr <span class="op">=</span> graph_create<span class="op">(</span>g<span class="op">-&gt;</span>nvertices<span class="op">,</span> g<span class="op">-&gt;</span>s<span class="op">,</span> g<span class="op">-&gt;</span>t<span class="op">);</span></span>
 <span id="cb103-4"><a href="#cb103-4"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> g<span class="op">-&gt;</span>nvertices<span class="op">;</span> i<span class="op">++)</span></span>
 <span id="cb103-5"><a href="#cb103-5"></a>    <span class="op">{</span></span>
 <span id="cb103-6"><a href="#cb103-6"></a>        edge_list <span class="op">*</span>l <span class="op">=</span> g<span class="op">-&gt;</span>edge_lists<span class="op">[</span>i<span class="op">];</span></span>
@@ -3066,7 +3068,7 @@ class="sourceCode numberSource c numberLines"><code class="sourceCode c"><span i
 <span id="cb107-5"><a href="#cb107-5"></a>    <span class="op">{</span></span>
 <span id="cb107-6"><a href="#cb107-6"></a>        has_augmented <span class="op">=</span> false<span class="op">;</span></span>
 <span id="cb107-7"><a href="#cb107-7"></a>        graph <span class="op">*</span>gr <span class="op">=</span> residual_graph<span class="op">(</span>g<span class="op">);</span></span>
-<span id="cb107-8"><a href="#cb107-8"></a>        edge_list <span class="op">**</span>pred <span class="op">=</span> dfs_launch<span class="op">(</span>gr<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb107-8"><a href="#cb107-8"></a>        edge_list <span class="op">**</span>pred <span class="op">=</span> dfs_launch<span class="op">(</span>gr<span class="op">);</span></span>
 <span id="cb107-9"><a href="#cb107-9"></a>        <span class="cf">if</span> <span class="op">(</span>pred<span class="op">[</span>g<span class="op">-&gt;</span>nvertices<span class="op">-</span><span class="dv">1</span><span class="op">]</span> <span class="op">!=</span> NULL<span class="op">)</span></span>
 <span id="cb107-10"><a href="#cb107-10"></a>        <span class="op">{</span></span>
 <span id="cb107-11"><a href="#cb107-11"></a>            has_augmented <span class="op">=</span> true<span class="op">;</span></span>
